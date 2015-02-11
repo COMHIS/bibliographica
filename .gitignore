@@ -6,4 +6,6 @@ inst/extras/..Rcheck
 inst/extras/..Rcheck
 *~
 */~
+.RData
+.Rhistory
 
