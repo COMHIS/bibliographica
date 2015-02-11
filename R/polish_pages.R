@@ -492,7 +492,9 @@ harmonize_pages <- function (s) {
   s <- gsub("folded genealogical table", "table", s)
   s <- gsub("folded table", "table", s)
   s <- gsub("fold\\. table", "table", s)
+  s <- gsub("fold\\.tables", "table", s)
   s <- gsub("table", "plate", s)
+  s <- gsub("plate", "sheet", s)
 
   # Double
   s <- gsub("\\([0-9] double\\)", " ", s)
@@ -585,7 +587,7 @@ harmonize_pages <- function (s) {
 harmonize_pages_by_comma <- function (s) {
 
   # Harmonize '1 sheet'
-  if (length(grep("1 sheet", s)) > 0) {
+  if (length(grep("1 sheet", s)) > 0 || s == "sheet") {
     s <- "1 sheet" 
   }
 
@@ -639,14 +641,24 @@ is.roman <- function (x) {
   x <- gsub("\\.", NA, x)
 
   check.roman <- function (x) {
-    tmp <- suppressWarnings(as.numeric(x))
-    tmp2 <- suppressWarnings(as.numeric(as.roman(x)))
-    not.numeric <- length(na.omit(tmp)) > 0
-    roman.numeric <- is.numeric(tmp2)
-    !(not.numeric && roman.numeric) && !is.na(tmp2) 
+
+    xs <- unlist(strsplit(x, "-"))
+    isr <- c()
+    for (i in 1:length(xs)) {  
+      x <- xs[[i]]
+      tmp <- suppressWarnings(as.numeric(x))
+      tmp2 <- suppressWarnings(as.numeric(as.roman(x)))
+      not.numeric <- length(na.omit(tmp)) > 0
+      roman.numeric <- is.numeric(tmp2)
+
+      isr[[i]] <- !(not.numeric && roman.numeric) && !is.na(tmp2) 
+    }
+    # iii-7 TRUE; iii-iv TRUE; 4-7 FALSE
+    any(isr)
   }
 
   sapply(x, check.roman)
+
 }
 
 
@@ -816,9 +828,10 @@ estimate_pages <- function (x) {
   # Romans in the beginning
   romans.start <- 0
   romans.start.inds <- which.min(sapply(x.nonsq, is.roman)) - 1
+
   if (romans.start.inds > 0) {
     romans.start.inds <- 1:romans.start.inds
-    romans.start <- max(sapply(x.nonsq[romans.start.inds], function (x) {as.numeric(as.roman(x))}))
+    romans.start <- max(sapply(unlist(strsplit(x.nonsq[romans.start.inds], "-")), function (x) {as.numeric(as.roman(x))}))
     # Pick remaining arabics
     x.arabic <- all2arabics(x.nonsq[-romans.start.inds])
   } else {
@@ -827,6 +840,7 @@ estimate_pages <- function (x) {
   }
   if (is.na(romans.start) || length(romans.start) == 0) {romans.start <- 0}
 
+  # print(c(roman = romans.start, arab = x.arabic, sheet = x.sheets, sq = x.sq))
 
   # Convert square brackets into arabics
   if (length(x.sq)>0) {
@@ -861,14 +875,24 @@ estimate_pages <- function (x) {
       # Last square brackets after the other numbers
       last.sq <- 0
       n <- min(length(inds), length(x))
-      lastinds <- na.omit(rev(inds)[which(rev(inds)[1:n] == rev(seq(length(x)))[1:n])])
+      # lastinds <- na.omit(rev(inds)[which(rev(inds)[1:n] == rev(seq(length(x)))[1:n])]) # last square bracket occurrences
+      lastinds <- unique(na.omit(inds)) # all square bracket occurences
 
       if (length(lastinds) > 0) { 
         last.sq <- x[lastinds]
       	last.sq <- str_trim(gsub("\\]", " ", gsub("\\[", " ", last.sq)))
       	last.sq[last.sq == ""] <- NA
       	last.sq <- as.numeric(na.omit(last.sq))
-	x.pagecount <- romans.start + max(arabics) - min(arabics) + 1 + last.sq + x.sheets
+
+	if (length(arabics) == 1) {
+	  x.arab <- arabics
+	} else {
+	  x.arab <- max(arabics) - min(arabics) + 1
+	}
+
+	tmp <- c(roman = romans.start, arabics = x.arab, sqb = last.sq, sheet = x.sheets)
+
+	x.pagecount <- sum(na.omit(tmp))
 
       } else {
         x.pagecount <- romans.start + max(arabics) + x.sheets
