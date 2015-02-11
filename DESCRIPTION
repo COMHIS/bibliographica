@@ -1,11 +1,11 @@
 Package: bibliographica
-Type: Package
-Title: Package Title
+Type: R package
+Title: bibliograhica
 Version: 0.1.10
 Date: 2015-02-11
 Author: Leo Lahti, Mikko Tolonen, Niko Ilomäki
 Maintainer: Leo Lahti <leo.lahti@iki.fi>
-Description: Description of package
+Description: Tools for bibliograhic data analysis
 License: BSD_2_clause + file LICENSE
 VignetteBuilder: knitr
 BugReports: https://github.com/ropengov/bibliographica/issues
