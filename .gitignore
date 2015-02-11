@@ -1,0 +1,9 @@
+inst/extras/.RData
+inst/extras/document.Rout
+inst/extras/*.tar.gz
+*Rcheck*
+inst/extras/..Rcheck
+inst/extras/..Rcheck
+*~
+*/~
+

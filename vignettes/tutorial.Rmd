@@ -1,0 +1,80 @@
+---
+title: "BIBLIOGRAPHICA vignette"
+author: "Leo Lahti, Niko Ilomaki, Mikko Tolonen"
+date: "`r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: html_document
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{bibliographica Vignette}
+  %\usepackage[utf8]{inputenc}
+-->
+
+R tools for bibliographic data analysis
+===========
+
+Your [contributions](http://ropengov.github.com/contact.html) and [bug
+reports and other feedback](https://github.com/ropengov/bibliographica) are
+welcome!
+
+## Installation
+
+We assume you have installed [R](http://www.r-project.org/). If you
+use [RStudio](http://www.rstudio.com/ide/download/desktop), change the
+default encoding to UTF-8. 
+
+Install the stable release version in R:
+
+```{r install, eval=FALSE}
+library(devtools)
+install_github("ropengov/template")
+```
+
+Load tools
+
+```{r test, message=FALSE, warning=FALSE, eval=TRUE}
+library(template)
+```
+
+Set UTF-8 encoding
+
+```{r locale, eval=FALSE}
+Sys.setlocale(locale="UTF-8") 
+```
+
+
+### Harmonizing manual fields data
+
+The preprocessing functions approximate the [Bibliographic Processing Cataloging Rules](https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html).
+
+Polish dimension information:
+
+```{r dimensions, message=FALSE, eval=TRUE}
+#polish_dimensions("1/2⁰ (37 x 11 cm)")
+```
+
+Polish page information:
+
+```{r pages, message=FALSE, warning=FALSE, eval=TRUE}
+polish_pages("[6],viii,386p. ;")$estimated.pages
+```
+
+## Licensing and Citations
+
+This work can be freely used, modified and distributed under the 
+[Two-clause BSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
+
+```{r citation, message=FALSE, eval=TRUE}
+citation("bibliographica")
+```
+
+## Session info
+
+This vignette was created with
+
+```{r sessioninfo, message=FALSE, warning=FALSE}
+sessionInfo()
+```

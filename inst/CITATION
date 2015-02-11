@@ -1,0 +1,20 @@
+citHeader("Kindly cite this R package as follows:")
+
+citEntry(entry="misc",
+         title = "bibliographica: tools for bibliographic analysis",
+         author = personList(
+	   person(given ="Leo", family="Lahti", email = "leo.lahti@iki.fi"),
+	   person(given ="Niko", family="Ilomaki"),
+	   person(given ="Mikko", family="Tolonen"),
+         ),
+	 doi = "",
+	 journal = "",
+	 year = "2015",
+         textVersion =
+         paste("(C) Leo Lahti, Niko Ilomaki, Mikko Tolonen (rOpenGov 2015). ",
+               "bibliographica R package",
+	       "URL: http://github.com/ropengov/bibliographica",
+               sep=" ")
+         )
+
+citFooter("\nMany thanks for all contributors! See: http://ropengov.github.io")
