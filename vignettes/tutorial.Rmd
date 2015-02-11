@@ -1,5 +1,5 @@
 ---
-title: "BIBLIOGRAPHICA vignette"
+title: "bibliographica vignette"
 author: "Leo Lahti, Niko Ilomaki, Mikko Tolonen"
 date: "`r Sys.Date()`"
 bibliography: 
@@ -30,13 +30,13 @@ Install the stable release version in R:
 
 ```{r install, eval=FALSE}
 library(devtools)
-install_github("ropengov/template")
+install_github("ropengov/bibliographica")
 ```
 
 Load tools
 
 ```{r test, message=FALSE, warning=FALSE, eval=TRUE}
-library(template)
+library(bibliographica)
 ```
 
 Set UTF-8 encoding
