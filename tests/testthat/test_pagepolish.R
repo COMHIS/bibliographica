@@ -1,5 +1,15 @@
 context("Page count")
 
+test_that("volume count is correct", {
+  expect_equal(unname(polish_volumenumber("v.5")), 5)
+})
+
+
+test_that("volume count is correct", {
+  expect_equal(unname(polish_volumecount("5v.")), 5)
+})
+
+
 test_that("page count is correct", {
   expect_equal(polish_pages("3")$estimated.pages[[1]], 3)
   expect_equal(polish_pages("[3]")$estimated.pages[[1]], 3)
@@ -50,7 +60,7 @@ test_that("page count is correct", {
   expect_equal(polish_pages("2v.(CLI,[1],800p.)")$estimated.pages[[1]], 952)
   expect_equal(polish_pages("72p.,ill.")$estimated.pages[[1]], 72)
   expect_equal(polish_pages("32,[16],33-56p.")$estimated.pages[[1]], 72)
-  expect_equal(polish_pages(sum(unlist(polish_pages("[4],56,65-176;45,[1]p.")$estimated.pages)), 226)
+  expect_equal(polish_pages(sum(unlist(polish_pages("[4],56,65-176;45,[1]p.")$estimated.pages))), 226)
   expect_equal(polish_pages("[3],vi-vii,[3],98p.")$estimated.pages[[1]], 111)
   expect_equal(polish_pages("vi,9-74p.")$estimated.pages[[1]], 72)
   expect_equal(polish_pages("[4],53,[13]p.,fold.tables")$estimated.pages[[1]], 72)

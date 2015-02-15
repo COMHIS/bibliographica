@@ -1,71 +1,3 @@
-#' @title polish_volumenumber
-#' @description Get volume number from page field if available
-#'
-#' @param s Page number field. Vector or factor of strings.
-#' @return Volume number
-#' @details Refers to single-volume document where the volume has been specified
-#'
-#' @export
-#' 
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("bibliographica")
-#' 
-#' @examples polish_volumenumber("v.4")
-#' @keywords utilities
-polish_volumenumber <- function (s) {
-
-  # A summary of page counting rules that this function aims to (approximately) implement
-  # https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html
-  s <- as.character(s)
-
-  # Harmonize volume info
-  s <- harmonize_volume(s)
-  
-  #' A single document, but check which volume ?
-  # (document starting with 'v.*')
-  voln <- sapply(s, function (x) {pick_volume(x)})
-
-  voln
-
-}
-
-
-#' @title polish_volumecount
-#' @description Get volume number from page field if available
-#'
-#' @param s Page number field. Vector or factor of strings.
-#' @return Number of volumes
-#' @details Refers to multi-volume document where the number of volumes has been specified
-#'
-#' @export
-#' 
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("bibliographica")
-#' 
-#' @examples polish_volumecount("4v.")
-#' @keywords utilities
-polish_volumecount <- function (s) {
-
-  # A summary of page counting rules that this function aims to (approximately) implement
-  # https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html
-  s <- as.character(s)
-
-  # Harmonize volume info
-  s <- harmonize_volume(s)
-
-  # Pick multi-volume information 
-  # (document starting with '* v.' or 'v.1-3' etc.)
-  vols <- sapply(s, function (x) {pick_multivolume(x)})
-
-  # Assume single volume when number not given
-  vols[is.na(vols)] <- 1 
-
-  vols
-
-}
-
-
-
 #' @title polish_pages
 #' @description clean up page numbers
 #'
@@ -85,28 +17,30 @@ polish_volumecount <- function (s) {
 #' @keywords utilities
 polish_pages <- function (s, verbose = FALSE) {
 
- # A summary of page counting rules that this function aims to (approximately) implement
-  # https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html
-
   # Summary of abbreviations
   # http://ac.bslw.com/community/wiki/index.php5/RDA_4.5
 
   s <- as.character(s)
 
-  # Estimate pages
+  # Estimate pages for each document separately via a for loop
+  # Vectorization would be faster but we prefer simplicity and modularity here
   raw <- sp <- list()
   for (i in 1:length(s)) {
     if (verbose) {message(i)}
 
+    # Catch warnings rather than crashing the loop
     a <- try(pp <- polish_page(s[[i]]))
-
+    
+    # Save both raw and polished version 
+    # We need these later to systematically identify failed cases
+    # And to estimate the success fraction
     if (is.character(a) && a == "try-error") {
       sp[[i]] <- NA
       raw[[i]] <- s[[i]]
     } else {
-      ss <- unname(unlist(pp$pages))
-      ss[is.infinite(ss)] <- NA
-      sp[[i]] <- ss
+      tmp <- unname(unlist(pp$pages))
+      tmp[is.infinite(tmp)] <- NA
+      sp[[i]] <- tmp
       raw[[i]] <- unname(unlist(pp$raw))
     }
   }
@@ -118,92 +52,8 @@ polish_pages <- function (s, verbose = FALSE) {
 }
 
 
-
-
-harmonize_volume <- function (s) {
-  s[s == "^v\\. ;"] <- NA
-  s <- gsub("^Vol\\.", "v.", s)
-  s <- gsub("^vols\\.", "v.", s)
-  s <- gsub("^Vols\\.", "v.", s)
-  s <- gsub("^Pp\\.", "p.", s)
-  s <- gsub("^v\\. ", "v.", s)
-  s <- gsub("^v\\.\\(", "(", s)
-  s <- gsub("^v\\.,", "", s)
-  s <- gsub("v\\.:bill\\. ;", NA, s)
-  s
-}
-
-
-#' @title pick_volume
-#' @description Pick volume
-#'
-#' @param s Page number field. Vector or factor of strings.
-#' @return Volume
-#'
-#' @export
-#' 
-#' @details A single document, but check which volume 
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("bibliographica")
-#' 
-#' @examples pick_volume("v.4")
-#' @keywords utilities
-pick_volume <- function (s) {
-
-  # Remove some rare misleading special cases manually
-  s <- gsub("v.1-3, 5 ;", "", s)
-  s <- gsub("v.1,4-7 ;", "", s)
-
-  vol <- NA	    
-  if (length(grep("^v\\.", s)) > 0) {
-    s <- gsub("^v\\.", "", s)
-    i <- 1
-    n <- as.numeric(substr(s, 1, 1))
-    while (i <= nchar(s) && !is.na(n)) {
-      n <- as.numeric(substr(s, 1, i))
-      # Pick cases v.1 but not v.1-3
-      if (!is.na(n) && !substr(s, i+1, i+1) == "-") {
-        vol <- n
-      } else if (substr(s, i+1, i+1) == "-") {
-        vol <- NA
-      } else {
-        i <- Inf
-      }
-
-      i <- i+1
-    }
-  }
-
-  vol
-}
-
-# Number of volumes
-pick_multivolume <- function (x) {
-
-  s <- as.character(x)
-
-  # v.1-3 -> 3
-  vol <- check_volumes(s)$n
-
-  # v.1 -> 1
-  if (is.null(vol)) {
-    vol <- NA	   
-    inds <- grep("v\\.", s)
-    if (length(inds) > 0) {
-      # FIXME: SPLITMEHERE used as a quick fix as v\\. was unrecognized char and
-      # causes error
-      s2 <- gsub("v\\.", "SPLITMEHERE", s)
-      #vol <- as.numeric(str_trim(unlist(strsplit(s, "v\\."))[[1]]))
-      vol <- as.numeric(str_trim(unlist(strsplit(s2, "SPLITMEHERE"))[[1]]))
-    }
-  }
-
-  vol
-
-}
-
 #' @title polish_page
-#' @description clean up page numbers
+#' @description Clean up page numbers for a single document.
 #'
 #' @param x Page number field. Vector or factor of strings.
 #' @return Cleaned up version of page number field.
@@ -214,20 +64,19 @@ pick_multivolume <- function (x) {
 #' @examples # polish_page("4p.")
 #' @keywords internal
 polish_page <- function (x) {
-	    
+
+  # Convert to string 	    	    
   s <- as.character(x)
 
-  # Pick number of volumes
-  vols <- polish_volumecount(s)
-
   # Remove volume info
+  # "5v. 3-20, [5]" -> "3-20, [5]"
   s <- remove_volume_info(s)
 
-  # Split by semicolon (each element would be one volume)
+  # Volumes are separated by semicolons
+  # Split by semicolon to list each volume separately
   spl <- str_trim(unlist(strsplit(s, ";")))
-  if (length(spl) == 0) { spl <- NA } 
 
-  # Asses pages for each volume
+  # Assess pages per volume
   pages <- sapply(spl, function (x) { estimate_pages(x) })
 
   list(raw = spl, pages = pages)
@@ -235,90 +84,357 @@ polish_page <- function (x) {
 }
 
 
-remove_volume_info <- function (s) {
 
-  # Remove some rare special cases manually
-  s <- gsub("v.1-3, 5 ;", "", s)
-  s <- gsub("v.1,4-7 ;", "", s)
-  s <- gsub("v.6-7,9-12", "", s)
-  s <- gsub("Vols.6-7,9-12,plates :", "plates", s)
-  s <- gsub("^v\\.:", "", s)
-  s <- gsub("^v\\.\\,", "", s)
-  s <- gsub("^v\\,", "", s)
+estimate_pages <- function (x) {
 
-  # Pick and remove multi-volume information (document starting with '* v.')
-  vols <- pick_multivolume(s)  
-  # Then remove the volume information that was picked
-  s <- gsub(paste("^", vols, " v.", sep = ""), paste(vols, "v.", sep = ""), str_trim(s))
-  s <- str_trim(gsub(paste("^", vols, "v.", sep = ""), "", s)) 
-  s <- str_trim(gsub("^,", "", s))
+  # Estimate pages for a single volume within a document
+  # This is the main function regarding page counting rules	       
 
-  # Cases 'v.1-3' etc
-  inds <- intersect(grep("^v.", s), grep("-", s))
-  for (i in inds) {
-    s[[i]] <- gsub(check_volumes(s[[i]])$text, "", s[[i]])
+  # Harmonize synonymes and spelling errors
+  x <- harmonize_pages(x)
+
+  # --------------------------------------------
+
+  # Handle the straightforward standard cases first
+  if (all(is.na(x))) {
+    # "NA"
+    return(NA)
+  } else if (!is.na(suppressWarnings(as.numeric(x)))) {
+    # "3"
+    return(as.numeric(x))
+  } else if (is.roman(x)) {
+    # "III"
+    return(as.numeric(as.roman(x)))
+  } else if (!is.na(suppressWarnings(as.numeric(remove.squarebrackets(x))))) {
+    # "[3]"
+    return(as.numeric(remove.squarebrackets(x)))
+  } else if (x == "1 sheet") {
+    # "1 sheet"
+    return(2)
+  } else if (length(grep("^[0-9] sheets$", x)) == 1) {
+    # "2 sheets"
+    return(as.numeric(sheets2pages(x)))
   }
 
-  # Pick which volume this might be (if given)
-  # Cases 'v.1' etc.
-  voln <- pick_volume(s)
-  # Then remove the volume information that was picked
-  s <- str_trim(gsub(paste("v.", voln, ":", sep = ""), "", s))
-  s <- str_trim(gsub(paste("v.", voln, sep = ""), "", s))
+  # Then proceeding to the more complex cases...
 
-  # "v. (183,[2]) -> (183,[2])"
-  s <- gsub("^v. ", "v.", s)
-  s <- gsub("^v.\\(", "(", s)
+  # --------------------------------------------
 
-  s
+  # Sometimes the semicolon separated pages include also volume info:
+  # "3 v. (v.1: [72], 658, [32] p.; v.2: [144], 530, [14];
+  #  237, [1] p.; v.3: [116], 465, [21]; 370, [2] p.) ;"
+  # In the current function we are handling 
+  # a single volume ie. "v.3: [116], 465, [21]; 370, [2] p.)"
+  # So remove such volume info here
+  x <- remove_volume_info(x)
+
+  # --------------------------------------------
+
+  # Harmonize the items within commas
+  # Note that the empty items are removed in the end
+  # so the length may be shorter
+  x <- harmonize_per_comma(x)
+
+  # -----------------------------------------------------
+
+  # Identify (potentially overlapping) attribute positions for
+  # "arabic", "roman", "squarebracket", "dash", "sheet", "plate"
+  # attributes x positions table 0/1
+  # NOTE this has to come after harmonize_per_comma function ! 
+  pagecount.attributes <- attribute_table(x)
+
+  # -----------------------------------------------------
+
+  # If dashes are associated with square brackets, 
+  # consider and convert them to arabic  
+  # ie. [3]-5 becomes 3-5
+  dash <- pagecount.attributes["dash", ]
+  sqb <- pagecount.attributes["squarebracket", ]
+  inds <- which(dash & sqb)
+  if (length(inds) > 0) {
+    x[inds] <- remove.squarebrackets(x[inds])
+  }
+  pagecount.attributes["arabic", inds] <- TRUE
+  pagecount.attributes["squarebracket", inds] <- FALSE
+
+  # -----------------------------------------------------
+
+  # Remove square brackets to simplify later processing
+  sqb <- pagecount.attributes["squarebracket", ]
+  if (any(sqb)) {
+    x[sqb] <- remove.squarebrackets(x[sqb])
+  }
+
+  # -----------------------------------------------------
+
+  # Convert romans to arabics (entries separated by spaces possibly)
+  # also 3-iv -> 3-4 
+  x <- roman2arabic(x)
+
+  # ----------------------------------------------
+
+  # Identify romans that are not in square brackets and start the 
+  # page count sequence (ie. "iii, iv, 2-10, 13-16" -> inds = 1:2)
+  roman <- pagecount.attributes["roman", ]
+  sqb <- pagecount.attributes["squarebracket", ]
+  inds <- which(roman & !sqb)
+  if (length(inds) == 1 && inds == 1) {   
+  } else if (length(inds) > 1 && inds[[1]] == 1) {   
+    inds <- 1:(which.min(diff(inds) == 1) - 1)
+  } else {
+    inds <- NULL
+  }
+
+  pagecount.attributes <- rbind(pagecount.attributes, roman.start = rep(FALSE, ncol(pagecount.attributes)))
+  pagecount.attributes["roman.start", inds] <- TRUE
+
+  # ---------------------------------------------
+
+  # Determine page count categories 
+  # increasing / series / etc.
+
+  # Recognize increasing sequence
+  increasing <- is.increasing(x, pagecount.attributes)
+
+  # Recognize series (ie. sequences with dashes)
+  series <- length(grep("-", x))>0 
+
+  # --------------------------------------------
+
+  # Start page counting
+  pages <- c()
+
+  # Square brackets can be always counted separately
+  # Calculate total square bracket pages
+  inds <- pagecount.attributes["squarebracket",]
+  pages$squarebracket <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
+
+  # Romans at the start are counted separately
+  inds <- pagecount.attributes["roman.start",]
+  pages$roman.start <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
+  # Set roman FALSE if they are already listed in roman.start
+  pagecount.attributes["roman", pagecount.attributes["roman.start",]] <- FALSE
+
+  # Count sheets separately
+  inds <- pagecount.attributes["sheet",]
+  pages$sheet <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
+
+  # Count plates separately
+  inds <- pagecount.attributes["plate",]
+  pages$plate <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
+  
+  #-----------------------
+
+  # Identify type
+  sequence.type <- NA
+
+  # sequence is without dashes
+  if (!increasing && !series) { sequence.type <- "sequence" }
+  if (increasing && !series) { sequence.type <- "increasing.sequence" }
+
+  # series is with dashes
+  if (!increasing && series) { sequence.type <- "series" } 
+  if (increasing && series) { sequence.type <- "increasing.series" }
+
+  # -----------------------
+
+  # Count pages according to the type
+
+  if (sequence.type == "sequence") {
+    arabic <- na.omit(suppressWarnings(as.numeric(x[pagecount.attributes["arabic",]])))
+    pages$arabic <- sum(arabic)
+  } else if (sequence.type == "series") {
+    arabic <- na.omit(suppressWarnings(as.numeric(x[pagecount.attributes["arabic",]])))
+    pages$arabic <- max(arabic)
+  } else if  (sequence.type == "increasing.sequence") {
+    arabic <- na.omit(suppressWarnings(as.numeric(x[pagecount.attributes["arabic",]])))
+    pages$arabic <- max(arabic) - min(arabic) + 1
+  } else if  (sequence.type == "increasing.series") {
+    arab <- pagecount.attributes["arabic",]
+    xs <- na.omit(unlist(strsplit(x[arab], "-")))
+    arabic <- na.omit(suppressWarnings(as.numeric(xs)))
+    pages$arabic <- max(arabic)
+  }
+
+  # Handle potential double pages
+  #x.arabic <- double_pages(x.arabic)
+  #x.roman <- double_pages(x.roman)
+  # Put together pages from square brackets and otherwise
+  #res <- c(arabic = as.numeric(x.arabic), 
+  #         roman = as.numeric(x.roman), #
+  #	   squarebrackets = as.numeric(x.squarebrackets), 
+  #	   plate.pages = as.numeric(x.plates))
+
+  # Convert to vector
+  pages <- unlist(pages)
+
+  # Total page count
+  x.pagecount <- sum(na.omit(pages))
+
+  # If total page count is 0, then mark it as NA
+  if (x.pagecount == 0) {x.pagecount <- NA}
+
+  x.pagecount
 
 }
 
 
-# v.1-3 -> 3
-check_volumes <- function (x) {
 
-  nvol <- vtext <- NULL
-  n2 <- n1 <- NULL
+harmonize_per_comma <- function (x) {
 
-  # Handle some rare special cases manually
-  if (is.na(x)) {
-    nvol <- NA
-    vtext <- NA
-  } else if (x == "v.1-3, 5 ;") {
-    nvol <- 4
-    vtext <- "v.1-3,5"
-  } else if (x == "v.1,4-7 ;") {
-    nvol <- 5
-    vtext <- "v.1,4-7"
-  } else if (x == "Vols.6-7,9-12,plates :") {
-    nvol <- 6
-    vtext <- "v.6-7,9-12"
-  } else if (length(grep("^v.", x)) > 0 && length(grep("-", x)) > 0) {
-    x <- gsub("^v.", "", x)
-    x2 <- unlist(strsplit(x, "-"))
-    n1 <- as.numeric(x2[[1]])
+  # Split by comma and handle comma-separated elements as 
+  # interpretation units
+  spl <- str_trim(unlist(strsplit(x, ",")))
 
-    i <- 1
-    n <- as.numeric(substr(x2[[2]], 1, i))
-    while (is.numeric(n) && i <= nchar(x2[[2]])) {
-      n2 <- n
-      n <- as.numeric(substr(x2[[2]], 1, i))
-      i <- i+1
+  # Harmonize pages within each comma
+  x <- sapply(spl, function (x) { harmonize_pages_by_comma(x) })
+
+  # Remove empty items
+  x <- as.vector(na.omit(x))
+
+  x
+
+}
+
+attribute_table <- function (x) {
+
+  # Identify the different page count types and their positions
+  # along the page count sequence, including
+  # arabics (3), romans ("xiv"), squarebracketed ([3], [3]-5), dashed
+  #  (3-5, [3]-5), sheets ("2 sheets"), plates ("plates")
+  # NOTE: we allow these types to be overlapping and they are later
+  # used to identify the sequence type
+  # Initialize attributes vs. positions table
+  attributes <- c("arabic", "roman", "squarebracket", "dash", "sheet", "plate")
+
+  pagecount.attributes <- matrix(FALSE, nrow = length(attributes), ncol = length(x))
+  rownames(pagecount.attributes) <- attributes
+
+  # ARABIC POSITIONS
+  arabics <- pick_arabics(x)
+  pagecount.attributes["arabic", arabics$positions]<- TRUE
+
+  # ROMAN POSITIONS
+  romans <- pick_romans(x)
+  pagecount.attributes["roman", romans$positions]<- TRUE
+
+  # SQUARE BRACKET POSITIONS
+  sqb <- pick_squarebrackets(x)
+  pagecount.attributes["squarebracket", sqb$positions]<- TRUE
+
+  # DASH POSITIONS
+  pagecount.attributes["dash", grep("-", x)]<- TRUE
+
+  # SHEET POSITIONS
+  sheets <- pick_sheets(x)
+  pagecount.attributes["sheet", sheets$positions]<- TRUE
+
+  # PLATE POSITIONS  
+  # Estimate pages for plates 
+  # and indicate their positions along the page count sequence
+  # Example: "127,[1]p.,plates" 
+  plates <- pick_plates(x) #plates$pages; plates$positions; plates$total
+  pagecount.attributes["plate", plates$positions] <- TRUE
+
+  pagecount.attributes
+
+}
+
+
+pick_romans <- function (x) {
+
+  positions <- rep(FALSE, length(x))
+  for (i in 1:length(x)) {
+    spl <- unlist(strsplit(x[[i]], "-"))
+    if (any(sapply(spl, is.roman))) {
+      positions[[i]] <- TRUE
     }
-
-    # Number of volumes
-    nvol <- n2 - n1 + 1
- 
-    # Volume statement
-    vtext <- paste("v.", n1, "-", n2, sep = "")
-
   }
 
-  list(n = nvol, text = vtext)
- 
+  list(positions = positions)
+
 }
 
+
+pick_arabics <- function (x) {
+
+  x <- as.character(x)	     
+
+  positions <- rep(FALSE, length(x))
+
+  for (i in 1:length(x)) {
+    spl <- unlist(strsplit(x[[i]], "-"))
+    if (any(sapply(spl, function (x) {!is.na(suppressWarnings(as.numeric(x)))}))) {
+      positions[[i]] <- TRUE
+    }
+  }
+
+  list(positions = positions)
+
+}
+
+
+pick_squarebrackets <- function (x) {
+
+  inds <- grep("\\[", x)  
+
+  # Indicate positions in the page count sequence
+  positions <- rep(FALSE, length(x))
+  positions[inds] <- TRUE
+
+  # Calculation of square bracket pages
+  # depends on their position and dashes so
+  # only indicate position for now
+  list(positions = positions)
+
+}
+
+pick_sheets <- function (x) {
+
+  # Pick separately pages estimated from sheets
+  inds <- grep("sheet", x)
+
+  # Indicate positions in the page count sequence
+  positions <- rep(FALSE, length(x))
+  positions[inds] <- TRUE
+
+  x.sheets <- 0
+  if (length(inds) > 0) { 
+    x.sheets <- x[inds]
+    x <- x[setdiff(1:length(x), inds)]
+  }
+  # Convert sheets to pages
+  x <- suppressWarnings(as.numeric(sheets2pages(x.sheets)))
+
+  list(pages = x, positions = positions, total = sum(na.omit(x)))
+
+
+}
+
+
+pick_plates <- function (x) {
+
+  # Pick separately the pages estimated from plates
+  inds <- grep("pages calculated from plates", x)
+  
+  # Indicate plate positions in the page count sequence
+  positions <- rep(FALSE, length(x))
+  positions[inds] <- TRUE
+
+  x.plates <- 0
+  if (length(inds) > 0) { 
+    x.plates <- x[inds]
+    x <- x[setdiff(1:length(x), inds)]
+  }
+
+  x <- suppressWarnings(as.numeric(str_trim(gsub("pages calculated from plates", "", x.plates))))
+
+  # pages: pages calculated from plates separately for each position
+  # positions: Positions for plate pages on the page count sequence
+  # total: total pages calculated from plates
+  list(pages = x, positions = positions, total = sum(na.omit(x)))
+
+}
 
 
 harmonize_pages <- function (s) {
@@ -577,11 +693,16 @@ harmonize_pages <- function (s) {
   s <- gsub("C\\.", "C", s) 
   s <- str_trim(gsub("^,", "", s))
 
+  # Remove spaces around dashes
+  spl <- gsub(" -", "-", spl)
+  spl <- gsub("- ", "-", spl)
+
   if (s == "") { s <- NA }
 
   s
 
 }
+
 
 # A single instance of pages within commas
 harmonize_pages_by_comma <- function (s) {
@@ -622,6 +743,7 @@ harmonize_pages_by_comma <- function (s) {
   s <- gsub("a-m", " ", s)
   s <- polish_ie(s)
   s <- str_trim(s)
+  s[s == ""] <- NA
 
   s
 
@@ -660,6 +782,32 @@ is.roman <- function (x) {
   sapply(x, check.roman)
 
 }
+
+
+
+roman2arabic <- function (x) {
+
+  for (i in 1:length(x)) {
+
+    xi <- x[[i]]
+
+    if (length(grep("-", xi)) > 0) {
+      x2 <- str_trim(unlist(strsplit(xi, "-")))
+      n <- suppressWarnings(as.numeric(as.roman(x2)))
+      n[is.na(n)] <- x2[is.na(n)] # vii-160
+      xr <- paste(n, collapse = "-")
+    } else {
+      xr <- suppressWarnings(as.numeric(as.roman(xi)))
+    }
+
+    x[[i]] <- xr
+
+  }
+
+  x 
+
+}
+
 
 
 
@@ -729,7 +877,12 @@ all2arabics <- function (x) {
 }
 
 
-is.increasing <- function (x) {
+is.increasing <- function (x, pagecount.attributes) {
+
+  # Ignore square brackets when determining increasing sequence
+  x <- x[!pagecount.attributes["squarebracket",]]
+  x <- na.omit(suppressWarnings(as.numeric(unlist(strsplit(x, "-")))))
+
   # Test if the numeric series is monotonically increasing
   incr <- FALSE
   if (!all(is.na(x))) {
@@ -740,193 +893,16 @@ is.increasing <- function (x) {
 }
 
 remove.squarebrackets <- function (x) {
-  str_trim(gsub("\\[", "", gsub("\\]", "", x)))
+  rm.sqb <- function (x) {		      
+    str_trim(gsub("\\[", "", gsub("\\]", "", x)))
+  }
+
+  x <- sapply(x, function (x) {rm.sqb(x)})
+
+  x
 }
 
-estimate_pages <- function (x) {
 
-  # Harmonize synonymes and spelling errors	       
-  x <- harmonize_pages(x)
-
-  if (all(is.na(x))) {
-    # NA
-    return(NA)
-  } else if (!is.na(suppressWarnings(as.numeric(x)))) {
-    # 3
-    return(as.numeric(x))
-  } else if (is.roman(x)) {
-    # III
-    return(as.numeric(as.roman(x)))
-  } else if (!is.na(suppressWarnings(as.numeric(remove.squarebrackets(x))))) {
-    # [3]
-    return(as.numeric(remove.squarebrackets(x)))
-  } else if (x == "1 sheet") {
-    return(2)
-  }
-
-  # In some cases the semicolon separated pages have also volumes
-  # listed: "3 v. (v.1: [72], 658, [32] p.; v.2: [144], 530, [14];
-  #  237, [1] p.; v.3: [116], 465, [21]; 370, [2] p.) ;"
-  # So remove here
-  x <- remove_volume_info(x)
-
-  # Handle contents as comma-separated
-  spl <- str_trim(unlist(strsplit(x, ",")))
-  spl <- gsub(" -", "-", spl)
-  spl <- gsub("- ", "-", spl)
-
-  # Harmonize within each comma
-  x <- sapply(spl, function (x) { harmonize_pages_by_comma(x) })
-  x[x == ""] <- NA
-  x <- as.vector(na.omit(x))
-  # Now x is a vector of page strings
-
-  # Pick separately pages estimated from plates
-  inds.plates <- grep("pages calculated from plates", x)
-  x.plates <- 0
-  if (length(inds.plates) > 0) { 
-    x.plates <- x[inds.plates]
-    x <- x[setdiff(1:length(x), inds.plates)]
-  }
-  x.plates <- sum(na.omit(suppressWarnings((as.numeric(str_trim(gsub("pages calculated from plates", "", x.plates)))))))
-
-  # Pick separately pages estimated from sheets
-  inds.sheets <- grep("sheet", x)
-  x.sheets <- 0
-  if (length(inds.sheets) > 0) { 
-    x.sheets <- x[inds.sheets]
-    x <- x[setdiff(1:length(x), inds.sheets)]
-  }
-  # Convert sheets to pages
-  x.sheets <- sheets2pages(x.sheets)
-  x.sheets <- sum(na.omit(suppressWarnings(as.numeric(x.sheets))))
-
-  # Identify square bracket positions
-  inds <- grep("\\[", x)  
-  nonsq.inds <- 1:length(x)
-  x.sq <- 0
-  if (length(inds) > 0) {  
-    nonsq.inds <- setdiff(nonsq.inds, inds)
-    x.sq <- x[inds]
-    x.sq <- gsub("sheets", "", x.sq)
-    x.sq <- gsub("sheet", "", x.sq)
-    x.sq <- suppressWarnings(as.numeric(str_trim(gsub("\\]", " ", gsub("\\[", " ", x.sq)))))
-
-    # If dashes associated with square brackets, consider them arabic
-    # [3]-14 -> 3-14 -> 14
-    if (length(grep("-",x.sq))>0) {
-      sinds <- grep("-",x.sq)
-      x3 <- x.sq[sinds]
-      x.sq <- x.sq[setdiff(1:length(x.sq), sinds)]
-      if (length(x.sq)==0) { x.sq <- 0 }
-      x <- c(x, x3)
-    }  
-    x.sq <- x.sq[!as.character(x.sq) == "0"]
-  }
-  x.nonsq <- x[nonsq.inds]
-
-  # Romans in the beginning
-  romans.start <- 0
-  romans.start.inds <- which.min(sapply(x.nonsq, is.roman)) - 1
-
-  if (romans.start.inds > 0) {
-    romans.start.inds <- 1:romans.start.inds
-    romans.start <- max(sapply(unlist(strsplit(x.nonsq[romans.start.inds], "-")), function (x) {as.numeric(as.roman(x))}))
-    # Pick remaining arabics
-    x.arabic <- all2arabics(x.nonsq[-romans.start.inds])
-  } else {
-    # Pick remaining arabics
-    x.arabic <- all2arabics(x.nonsq)
-  }
-  if (is.na(romans.start) || length(romans.start) == 0) {romans.start <- 0}
-
-  # print(c(roman = romans.start, arab = x.arabic, sheet = x.sheets, sq = x.sq))
-
-  # Convert square brackets into arabics
-  if (length(x.sq)>0) {
-    x.squarebrackets <- sum(na.omit(suppressWarnings(as.numeric(sapply(x.sq, function (x) {as.roman(x)})))))
-  } else {
-    x.squarebrackets <- 0
-  }
-
-  # Check if the non-squarebracket series is increasing
-  arabics <- x.arabic
-
-  increasing <- is.increasing(x.arabic)
-  is.series <- length(grep("-", x.nonsq))>0 
-  x.pagecount <- romans.start + x.sheets 
-
-  if (!is.series) {
-    # Not a series
-    if (increasing) {
-      x.pagecount <- sum(na.omit(c(romans.start, x.arabic, sum(x.sq), x.sheets)))
-    } else {
-      x.pagecount <- max(na.omit(c(romans.start, x.arabic, x.sheets)))
-    }
-
-  } else if (increasing) {
-
-    # series; increasing
-    x.pagecount <- romans.start + max(arabics) - min(arabics) + 1 + x.sheets
-
-    if (length(inds) > 0) {
-
-      # Square brackets present
-      # Last square brackets after the other numbers
-      last.sq <- 0
-      n <- min(length(inds), length(x))
-      # lastinds <- na.omit(rev(inds)[which(rev(inds)[1:n] == rev(seq(length(x)))[1:n])]) # last square bracket occurrences
-      lastinds <- unique(na.omit(inds)) # all square bracket occurences
-
-      if (length(lastinds) > 0) { 
-        last.sq <- x[lastinds]
-      	last.sq <- str_trim(gsub("\\]", " ", gsub("\\[", " ", last.sq)))
-      	last.sq[last.sq == ""] <- NA
-      	last.sq <- as.numeric(na.omit(last.sq))
-
-	if (length(arabics) == 1) {
-	  x.arab <- arabics
-	} else {
-	  x.arab <- max(arabics) - min(arabics) + 1
-	}
-
-	tmp <- c(roman = romans.start, arabics = x.arab, sqb = last.sq, sheet = x.sheets)
-
-	x.pagecount <- sum(na.omit(tmp))
-
-      } else {
-        x.pagecount <- romans.start + max(arabics) + x.sheets
-      }
-    }
-
-  } else if (!increasing) {
-    # series; not increasing
-    x.pagecount <- sum(na.omit(c(romans.start, max(x.arabic), sum(x.sq), x.sheets)))
-  } 
-
-
-  # Convert romans to arabics (entries separated by spaces possibly)
-  #li <- lapply(x, function (x) { pages2arabics(x) })
-  #x.arabic <- unname(unlist(sapply(li, function (x) {x$arabic})))
-  #x.roman <-  unname(unlist(sapply(li, function (x) {x$roman})))
-  #if (length(x.arabic) == 0 || is.null(x.arabic) || is.na(x.arabic)) { x.arabic <- 0 }
-  # Handle potential double pages
-  #x.arabic <- double_pages(x.arabic)
-  #x.roman <- double_pages(x.roman)
-  # Put together pages from square brackets and otherwise
-  #res <- c(arabic = as.numeric(x.arabic), 
-  #         roman = as.numeric(x.roman), #
-  #	   squarebrackets = as.numeric(x.squarebrackets), 
-  #	   plate.pages = as.numeric(x.plates))
-  # Add total page count
-  #res[["total"]] <- sum(na.omit(suppressWarnings(as.numeric(res))))
-
-  # If total page count is 0, then mark it as NA
-  if (x.pagecount == 0) {x.pagecount <- NA}
-
-  x.pagecount
-
-}
 
 
 sheets2pages <- function (x) {
