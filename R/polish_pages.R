@@ -90,6 +90,14 @@ estimate_pages <- function (x) {
   # Estimate pages for a single volume within a document
   # This is the main function regarding page counting rules	       
 
+  # Sometimes the semicolon separated pages include also volume info:
+  # "3 v. (v.1: [72], 658, [32] p.; v.2: [144], 530, [14];
+  #  237, [1] p.; v.3: [116], 465, [21]; 370, [2] p.) ;"
+  # In the current function we are handling 
+  # a single volume ie. "v.3: [116], 465, [21]; 370, [2] p.)"
+  # So remove such volume info here
+  x <- remove_volume_info(x)
+
   # Harmonize synonymes and spelling errors
   x <- harmonize_pages(x)
 
@@ -114,19 +122,9 @@ estimate_pages <- function (x) {
   } else if (length(grep("^[0-9] sheets$", x)) == 1) {
     # "2 sheets"
     return(as.numeric(sheets2pages(x)))
-  }
+  } 
 
   # Then proceeding to the more complex cases...
-
-  # --------------------------------------------
-
-  # Sometimes the semicolon separated pages include also volume info:
-  # "3 v. (v.1: [72], 658, [32] p.; v.2: [144], 530, [14];
-  #  237, [1] p.; v.3: [116], 465, [21]; 370, [2] p.) ;"
-  # In the current function we are handling 
-  # a single volume ie. "v.3: [116], 465, [21]; 370, [2] p.)"
-  # So remove such volume info here
-  x <- remove_volume_info(x)
 
   # --------------------------------------------
 
@@ -169,7 +167,18 @@ estimate_pages <- function (x) {
 
   # Convert romans to arabics (entries separated by spaces possibly)
   # also 3-iv -> 3-4 
-  x <- roman2arabic(x)
+  inds <- pagecount.attributes["roman", ]
+  if (any(inds)) {
+    x[inds] <- roman2arabic(x[inds])
+  }
+
+  # -----------------------------------------------------
+
+  # Convert plates to arabics
+  inds <- pagecount.attributes["plate", ]
+  if (any(inds)) {
+    x[inds] <- as.numeric(str_trim(gsub("pages calculated from plates", "", x[inds])))
+  }
 
   # ----------------------------------------------
 
@@ -199,6 +208,9 @@ estimate_pages <- function (x) {
   # Recognize series (ie. sequences with dashes)
   series <- length(grep("-", x))>0 
 
+  # Recognize single number
+  single.number <- is.numeric(as.numeric(x))
+
   # --------------------------------------------
 
   # Start page counting
@@ -222,17 +234,18 @@ estimate_pages <- function (x) {
   # Count plates separately
   inds <- pagecount.attributes["plate",]
   pages$plate <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
-  
+
   #-----------------------
 
   # Identify type
   sequence.type <- NA
 
-  # sequence is without dashes
+  # sequence has numbers without dashes
   if (!increasing && !series) { sequence.type <- "sequence" }
   if (increasing && !series) { sequence.type <- "increasing.sequence" }
+  if (single.number) { sequence.type <- "sequence"}
 
-  # series is with dashes
+  # series has dashes
   if (!increasing && series) { sequence.type <- "series" } 
   if (increasing && series) { sequence.type <- "increasing.series" }
 
@@ -247,13 +260,15 @@ estimate_pages <- function (x) {
     arabic <- na.omit(suppressWarnings(as.numeric(x[pagecount.attributes["arabic",]])))
     pages$arabic <- max(arabic)
   } else if  (sequence.type == "increasing.sequence") {
-    arabic <- na.omit(suppressWarnings(as.numeric(x[pagecount.attributes["arabic",]])))
+    arab.inds <- pagecount.attributes["arabic",]
+    arabic <- na.omit(suppressWarnings(as.numeric(x[arab.inds])))
     pages$arabic <- max(arabic) - min(arabic) + 1
   } else if  (sequence.type == "increasing.series") {
     arab <- pagecount.attributes["arabic",]
     xs <- na.omit(unlist(strsplit(x[arab], "-")))
     arabic <- na.omit(suppressWarnings(as.numeric(xs)))
-    pages$arabic <- max(arabic)
+    pages$arabic <- max(arabic) - min(arabic) + 1
+    #pages$arabic <- max(arabic)
   }
 
   # Handle potential double pages
@@ -440,6 +455,7 @@ pick_plates <- function (x) {
 harmonize_pages <- function (s) {
 
   s <- gsub("Caption title; with a docket title that reads 'Memorial of the agent for the province of Massachussetts-Bay against a duty of 3d. per gallon on foreign molasses.'. - Dated in MS '9th February, 1764' and signed J. Mauduit.", NA, s)
+  s <- gsub("in various pagings", "", s)
   s <- gsub("5 v. ; 42-43 cm \\(2⁰\\)", "5 v.;", s)
   s <- gsub("\\#\\,", ",", s)
   s <- gsub("\\(v.1: \\[72\\], 658, \\[32\\] p.; v.2: \\[144\\], 530, \\[14\\]; 237, \\[1\\] p.; v.3: \\[116\\], 465, \\[21\\]; 370, \\[2\\] p.\\) ;", "(v.1: [72], 658, [32] p.; v.2: [144], 530, [14], 237, [1] p.; v.3: [116], 465, [21], 370, [2] p.) ;", s)
@@ -449,12 +465,11 @@ harmonize_pages <- function (s) {
   s <- gsub("p\\.plates", "p., plates", s) # "39,[1]p.plates :" -> "39,[1]p.,plates :"
   s <- gsub("\\)plates :", "),plates", s)
   s <- gsub("p\\.table", "p., table", s)
-  s <- gsub("p\\. ", "p., ", s)
   s <- gsub("3\\.", "3,", s)
   s <- gsub("p\\., of plates", "plates", s)
   s <- gsub("c1 \\.", "", s)
 
-  # Add missing commas
+  # Add manually some missing commas
   s <- gsub("\\[8\\] 140 p\\.", "[8], 140", s)
   s <- gsub("\\[8\\] 182", "[8], 182", s)
   s <- gsub("\\[16\\] 240", "[16], 240", s)
@@ -532,7 +547,6 @@ harmonize_pages <- function (s) {
   s <- gsub("P\\.", "p", s)
   s <- gsub("P ", "p", s)
   s <- gsub("P$", "p", s)
-  s <- gsub("^p", "", s)
 
   s <- gsub("\\(versos blank\\)", " ", s)
   s <- gsub("\\(woodcut\\)", " ", s)
@@ -659,12 +673,12 @@ harmonize_pages <- function (s) {
   s <- gsub("map", " 1p", s)
 
   # Remove page notation
-  s <- gsub("p$", "", s)
-  s <- gsub("p\\,", "\\,", s)
-  s <- gsub("^p[0-9][0-9][0-9]", "", s)
-  s <- gsub("^p[0-9][0-9]", "", s)
-  s <- gsub("^p[0-9]", "", s)
-  s <- gsub("^p ", "", s)
+  #s <- gsub("p$", "", s)
+  #s <- gsub("p\\,", "\\,", s)
+  #s <- gsub("^p[0-9][0-9][0-9]", "", s)
+  #s <- gsub("^p[0-9][0-9]", "", s)
+  #s <- gsub("^p[0-9]", "", s)
+  #s <- gsub("^p ", "", s)
 
   # Remove parentheses
   s <- str_trim(gsub("\\)", " ", gsub("\\(", " ", s)))
@@ -735,8 +749,14 @@ harmonize_pages_by_comma <- function (s) {
     s <- gsub("pages", " ", s)
     s <- gsub("page", " ", s)
     s <- gsub("p\\.\\)", " ", s)
-    s <- gsub("p\\.", " ", s)
-    s <- gsub("p", " ", s)
+    s <- gsub("p$", " ", s)
+    #s <- gsub("p\\.", " ", s)
+    #s <- gsub("p", " ", s)
+  }
+  # p66 -> 1
+  if (length(grep("^p", s)) > 0) {
+    tmp <- as.numeric(str_trim(gsub("^p", "", s)))
+    if (!is.na(tmp)) { s <- 1 }
   }
 
   # Handle some odd cases
