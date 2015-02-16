@@ -25,6 +25,7 @@ polish_pages <- function (s, verbose = FALSE) {
   # Estimate pages for each document separately via a for loop
   # Vectorization would be faster but we prefer simplicity and modularity here
   raw <- sp <- list()
+
   for (i in 1:length(s)) {
     if (verbose) {message(i)}
 
@@ -229,7 +230,8 @@ estimate_pages <- function (x) {
 
   # Count sheets separately
   inds <- pagecount.attributes["sheet",]
-  pages$sheet <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
+  xx <- sheets2pages(x[inds])
+  pages$sheet <- sum(na.omit(suppressWarnings(as.numeric(xx))))
 
   # Count plates separately
   inds <- pagecount.attributes["plate",]
@@ -241,23 +243,29 @@ estimate_pages <- function (x) {
   sequence.type <- NA
 
   # sequence has numbers without dashes
-  if (!increasing && !series) { sequence.type <- "sequence" }
-  if (increasing && !series) { sequence.type <- "increasing.sequence" }
+  if (!series && !increasing) { sequence.type <- "sequence" }
+  if (!series && increasing) { sequence.type <- "increasing.sequence" }
   if (single.number) { sequence.type <- "sequence"}
 
   # series has dashes
-  if (!increasing && series) { sequence.type <- "series" } 
-  if (increasing && series) { sequence.type <- "increasing.series" }
+  if (series && !increasing) { sequence.type <- "series" } 
+  if (series && increasing) { sequence.type <- "increasing.series" }
+
+  # series does not have arabics
+  if (!any(pagecount.attributes["arabic",])) {
+    sequence.type <- "no.arabics"
+  }
 
   # -----------------------
 
   # Count pages according to the type
-
   if (sequence.type == "sequence") {
-    arabic <- na.omit(suppressWarnings(as.numeric(x[pagecount.attributes["arabic",]])))
-    pages$arabic <- sum(arabic)
+    inds <- pagecount.attributes["arabic",]
+    arabic <- na.omit(suppressWarnings(as.numeric(x[inds])))
+    pages$arabic <- max(arabic)
   } else if (sequence.type == "series") {
-    arabic <- na.omit(suppressWarnings(as.numeric(x[pagecount.attributes["arabic",]])))
+    tmp <- unlist(strsplit(x[pagecount.attributes["arabic",]], "-"))
+    arabic <- na.omit(suppressWarnings(as.numeric(tmp)))
     pages$arabic <- max(arabic)
   } else if  (sequence.type == "increasing.sequence") {
     arab.inds <- pagecount.attributes["arabic",]
@@ -269,16 +277,9 @@ estimate_pages <- function (x) {
     arabic <- na.omit(suppressWarnings(as.numeric(xs)))
     pages$arabic <- max(arabic) - min(arabic) + 1
     #pages$arabic <- max(arabic)
+  } else if  (sequence.type == "no.arabics") {
+    pages$arabic <- 0
   }
-
-  # Handle potential double pages
-  #x.arabic <- double_pages(x.arabic)
-  #x.roman <- double_pages(x.roman)
-  # Put together pages from square brackets and otherwise
-  #res <- c(arabic = as.numeric(x.arabic), 
-  #         roman = as.numeric(x.roman), #
-  #	   squarebrackets = as.numeric(x.squarebrackets), 
-  #	   plate.pages = as.numeric(x.plates))
 
   # Convert to vector
   pages <- unlist(pages)
@@ -754,9 +755,11 @@ harmonize_pages_by_comma <- function (s) {
     #s <- gsub("p", " ", s)
   }
   # p66 -> 1
-  if (length(grep("^p", s)) > 0) {
+  if (length(grep("^p", s)) > 0 && length(grep("-", s)) == 0) {
     tmp <- as.numeric(str_trim(gsub("^p", "", s)))
     if (!is.na(tmp)) { s <- 1 }
+  } else if (length(grep("^p", s)) > 0 && length(grep("-", s)) > 0) {
+    s <- str_trim(gsub("^p", "", s))
   }
 
   # Handle some odd cases
@@ -901,6 +904,11 @@ is.increasing <- function (x, pagecount.attributes) {
 
   # Ignore square brackets when determining increasing sequence
   x <- x[!pagecount.attributes["squarebracket",]]
+
+  # Ignore starting romans when determining increasing sequence
+  x <- x[!pagecount.attributes["roman.start",]]
+
+  # Remove dashes
   x <- na.omit(suppressWarnings(as.numeric(unlist(strsplit(x, "-")))))
 
   # Test if the numeric series is monotonically increasing
