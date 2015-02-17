@@ -8,4 +8,5 @@ inst/extras/..Rcheck
 */~
 .RData
 .Rhistory
-
+bibliographica.Rproj
+.Rproj.user/*
