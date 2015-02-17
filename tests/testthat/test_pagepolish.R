@@ -39,7 +39,7 @@ test_that("page count is correct", {
   expect_equal(polish_pages("[16] p.")$estimated.pages[[1]], 16)
   expect_equal(polish_pages("[2] leaves.")$estimated.pages[[1]], 4)
   expect_equal(polish_pages("[2]p.")$estimated.pages[[1]], 2)
-  expect_equal(polish_pages("[3],vi-vii,[2],10-70,[2]p")$estimated.pages[[1]], 70)
+  expect_equal(polish_pages("[3],vi-vii,[2],10-70,[2]p")$estimated.pages[[1]], 70) # ???
   expect_equal(polish_pages("15 p.")$estimated.pages[[1]], 16) # ???
   expect_equal(polish_pages("[2],VII,[1],90p.")$estimated.pages[[1]], 100)
   expect_equal(polish_pages("xviii,456,[2]p.")$estimated.pages[[1]], 476)
