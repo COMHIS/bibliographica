@@ -1,4 +1,3 @@
 library(testthat)
-library(template)
-
-test_check("template")
+library(bibliographica)
+test_check("bibliographica")
