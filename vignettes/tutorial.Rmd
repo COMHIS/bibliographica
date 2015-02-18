@@ -53,7 +53,7 @@ The preprocessing functions approximate the [Bibliographic Processing Cataloging
 Polish dimension information:
 
 ```{r dimensions, message=FALSE, eval=TRUE}
-#polish_dimensions("1/2⁰ (37 x 11 cm)")
+#polish_dimensions("1/2to (37 x 11 cm)")
 ```
 
 Polish page information:
