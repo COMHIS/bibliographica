@@ -1,8 +1,8 @@
 Package: bibliographica
 Type: R package
 Title: bibliograhica
-Version: 0.1.10
-Date: 2015-02-11
+Version: 0.1.11
+Date: 2015-02-19
 Author: Leo Lahti, Mikko Tolonen, Niko Ilomäki
 Maintainer: Leo Lahti <leo.lahti@iki.fi>
 Description: Tools for bibliograhic data analysis

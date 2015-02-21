@@ -13,6 +13,7 @@ output: html_document
   %\usepackage[utf8]{inputenc}
 -->
 
+
 R tools for bibliographic data analysis
 ===========
 
@@ -33,15 +34,13 @@ library(devtools)
 install_github("ropengov/bibliographica")
 ```
 
-Load tools
+Load tools and set UTF-8 encoding
 
 ```{r test, message=FALSE, warning=FALSE, eval=TRUE}
 library(bibliographica)
 ```
 
-Set UTF-8 encoding
-
-```{r locale, eval=FALSE}
+```{r utf, message=FALSE, warning=FALSE, eval=FALSE}
 Sys.setlocale(locale="UTF-8") 
 ```
 
@@ -67,7 +66,7 @@ polish_pages("[6],viii,386p. ;")$estimated.pages
 This work can be freely used, modified and distributed under the 
 [Two-clause BSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
 
-```{r citation, message=FALSE, eval=TRUE}
+```{r citation, message=FALSE, eval=FALSE}
 citation("bibliographica")
 ```
 
