@@ -20,7 +20,7 @@ A vector polished
 Remove stopwords from input vector
 }
 \examples{
-\dontrun{x2 <- remove_stopwords(x, remove.letters = TRUE)}
+x2 <- remove_stopwords(c("a", "well", "james"), remove.letters = TRUE)
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

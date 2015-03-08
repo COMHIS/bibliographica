@@ -151,8 +151,11 @@ remove_terms <- function (x, terms, where = "all") {
   # " middle. ", 
   # " last$" 
   for (term in terms) {
-    print(term)    
+
+    x <- gsub(paste("^", term, "$", sep = ""), " ", x)
+
     if (where %in% c("all", "begin")) {
+      x <- gsub(paste("^", term, "$", sep = ""), " ", x)
       x <- gsub(paste("^", term, " ", sep = ""), " ", x)
       x <- gsub(paste("^", term, "\\. ", sep = ""), " ", x)
       x <- gsub(paste("^", term, "\\, ", sep = ""), " ", x)

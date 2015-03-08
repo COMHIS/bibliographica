@@ -11,14 +11,14 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples \dontrun{x2 <- remove_stopwords(x, remove.letters = TRUE)}
+#' @examples x2 <- remove_stopwords(c("a", "well", "james"), remove.letters = TRUE)
 #' @keywords utilities
 remove_stopwords <- function (x, terms = NULL, remove.letters = TRUE) {
 
   if (is.null(terms)) {
     f <- system.file("extdata/stopwords.csv", package = "bibliographica")
     message(paste("No stopwords provided. Reading stopwords from file ", f))
-    stopwords <- as.character(read.csv(f)[,1])
+    terms <- as.character(read.csv(f)[,1])
   }
 
   # List all unique terms
