@@ -11,7 +11,7 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples x2 <- remove_stopwords(c("a", "well", "james"), remove.letters = TRUE)
+#' @examples x2 <- remove_stopwords(c("a", "well", "james"), "well", remove.letters = TRUE)
 #' @keywords utilities
 remove_stopwords <- function (x, terms = NULL, remove.letters = TRUE) {
 
