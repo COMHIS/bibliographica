@@ -215,7 +215,7 @@ estimate_pages <- function (x) {
   series <- length(grep("-", x))>0 
 
   # Recognize single number
-  single.number <- is.numeric(as.numeric(x))
+  single.number <- is.numeric(as.numeric(x[[1]])) && length(x) == 1
 
   # --------------------------------------------
 
@@ -280,7 +280,7 @@ estimate_pages <- function (x) {
     arab.inds <- pagecount.attributes["arabic",]
     arabic <- na.omit(suppressWarnings(as.numeric(x[arab.inds])))
     pages$arabic <- max(arabic) - min(arabic) + 1
-  } else if  (sequence.type == "increasing.series") {
+  } else if (sequence.type == "increasing.series") {
     arab <- pagecount.attributes["arabic",]
     xs <- na.omit(unlist(strsplit(x[arab], "-")))
     arabic <- na.omit(suppressWarnings(as.numeric(xs)))
