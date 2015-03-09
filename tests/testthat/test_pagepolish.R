@@ -143,7 +143,7 @@ test_that("page count is correct", {
   expect_equal(polish_pages("[3],vi-xxiv,424p.")$estimated.pages[[1]], 448)
   expect_equal(polish_pages("[2],v-xvii,[1],248p.,plate")$estimated.pages[[1]], 266)
   expect_equal(polish_pages("36p.,fold.plate")$estimated.pages[[1]], 38)
-  expect_equal(polish_pages("[3],vi-vii,[3],110p.)$estimated.pages[[1]], 118)
+  expect_equal(polish_pages("[3],vi-vii,[3],110p.")$estimated.pages[[1]], 118)
   expect_equal(polish_pages("[4],231,240-428p.,plate")$estimated.pages[[1]], 434)
   expect_equal(polish_pages("4], 18, 130, 149-388, 397-398, 391-394, 403-404, 397-548, 579-580, 551-554, 585-596, 745-979, [1], 980-[981], 981-[982], 982-[983], 983-987, [1], 988-[989], 989-[990], 990-992, 992-1130 p., plates")$estimated.pages[[1]], 1140)
   expect_equal(polish_pages("[2],ii,v-vii,[1],427,[1]p.")$estimated.pages[[1]], 434)
