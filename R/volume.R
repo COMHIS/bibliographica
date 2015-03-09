@@ -156,7 +156,7 @@ remove_volume_info <- function (s) {
   s <- gsub("^v\\.:", "", s)
   s <- gsub("^v\\.\\,", "", s)
   s <- gsub("^v\\,", "", s)
-  s <- gsub("^v\\.", "", s)
+  #s <- gsub("^v\\.", "", s)
 
   # Pick and remove multi-volume information (document starting with '* v.')
   vols <- pick_multivolume(s)  
