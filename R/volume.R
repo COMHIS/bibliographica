@@ -155,7 +155,7 @@ remove_volume_info <- function (s) {
   s <- gsub("Vols.6-7,9-12,plates :", "plates", s)
   s <- gsub("^v\\.:", "", s)
   s <- gsub("^v\\.\\,", "", s)
-  s <- gsub("^v\\,", "", s)
+  #s <- gsub("^v\\,", "", s) # This is roman number; volume info comes with "v." or "2v"
   #s <- gsub("^v\\.", "", s)
 
   # Pick and remove multi-volume information (document starting with '* v.')
