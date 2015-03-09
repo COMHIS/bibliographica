@@ -243,6 +243,7 @@ estimate_pages <- function (x) {
   pages$sheet <- sum(na.omit(suppressWarnings(as.numeric(xx))))
 
   # Count plates separately
+  # FIXME: at the moment these all go to sheets already
   inds <- pagecount.attributes["plate",]
   pages$plate <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
 
@@ -269,6 +270,7 @@ estimate_pages <- function (x) {
   if (!any(pagecount.attributes["arabic",])) {
     sequence.type <- "no.arabics"
   }
+
 
 #print(sequence.type)
 
@@ -300,7 +302,7 @@ estimate_pages <- function (x) {
 
   # Convert to vector
   pages <- unlist(pages)
-
+print(pages)
   # Total page count
   x.pagecount <- sum(na.omit(pages))
 
@@ -1004,6 +1006,8 @@ remove.squarebrackets <- function (x) {
 sheets2pages <- function (x) {
 
   sheets2pages.single <- function (x) {
+    if (x == "sheet") {x <- "1 sheet"}
+    if (x == "sheets") {x <- "2 sheets"}
     str_trim(unlist(strsplit(x, "sheet"))[[1]]) 
   }
 
@@ -1015,7 +1019,7 @@ sheets2pages <- function (x) {
     x[inds] <- 2*pages
   }
 
-  x
+  as.numeric(x)
 
 }
 
