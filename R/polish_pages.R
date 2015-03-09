@@ -262,7 +262,9 @@ estimate_pages <- function (x) {
   # If there are several arabic elements and at least one dash among them, then use maximum
   dashes <- any(pagecount.attributes["dash", pagecount.attributes["arabic",]])
   multiple.arabics <- sum(pagecount.attributes["arabic",]) > 1
-  if (dashes && multiple.arabics) { sequence.type <- "series" }
+  #if (dashes && multiple.arabics) { sequence.type <- "series" }
+  #if (!dashes && multiple.arabics) { sequence.type <- "series" }
+  if (multiple.arabics) { sequence.type <- "series" }
 
   # series does not have arabics
   if (!any(pagecount.attributes["arabic",])) {
