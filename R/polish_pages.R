@@ -302,7 +302,7 @@ estimate_pages <- function (x) {
 
   # Convert to vector
   pages <- unlist(pages)
-print(pages)
+
   # Total page count
   x.pagecount <- sum(na.omit(pages))
 
