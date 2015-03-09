@@ -259,17 +259,18 @@ estimate_pages <- function (x) {
   # series has dashes
   if (series && !increasing) { sequence.type <- "series" } 
   if (series && increasing) { sequence.type <- "increasing.series" }
+  #if ( series ) { sequence.type <- "series" } 
+
   # If there are several arabic elements and at least one dash among them, then use maximum
-  dashes <- any(pagecount.attributes["dash", pagecount.attributes["arabic",]])
   multiple.arabics <- sum(pagecount.attributes["arabic",]) > 1
-  #if (dashes && multiple.arabics) { sequence.type <- "series" }
-  #if (!dashes && multiple.arabics) { sequence.type <- "series" }
-  if (multiple.arabics) { sequence.type <- "series" }
+  if (series && multiple.arabics) { sequence.type <- "series" }
 
   # series does not have arabics
   if (!any(pagecount.attributes["arabic",])) {
     sequence.type <- "no.arabics"
   }
+
+#print(sequence.type)
 
   # -----------------------
 
@@ -285,7 +286,8 @@ estimate_pages <- function (x) {
   } else if  (sequence.type == "increasing.sequence") {
     arab.inds <- pagecount.attributes["arabic",]
     arabic <- na.omit(suppressWarnings(as.numeric(x[arab.inds])))
-    pages$arabic <- max(arabic) - min(arabic) + 1
+    #pages$arabic <- max(arabic) - min(arabic) + 1
+    pages$arabic <- max(arabic) 
   } else if (sequence.type == "increasing.series") {
     arab <- pagecount.attributes["arabic",]
     xs <- na.omit(unlist(strsplit(x[arab], "-")))
