@@ -235,7 +235,8 @@ estimate_pages <- function (x) {
 
   # Add romans
   inds <- pagecount.attributes["roman",]
-  pages$roman <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
+  pages$roman <- sum(suppressMessages(na.omit(as.numeric(x[inds]))))
+  #pages$roman <- count_roman(x[inds])
 
   # Count sheets separately
   inds <- pagecount.attributes["sheet",]
@@ -301,7 +302,7 @@ print(sequence.type)
 
   # Convert to vector
   pages <- unlist(pages)
-
+print(pages)
   # Total page count
   x.pagecount <- sum(na.omit(pages))
 
