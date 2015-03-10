@@ -159,7 +159,7 @@ test_that("page count is correct", {
   expect_equal(polish_pages("[2], 6, 9-12 p.")$estimated.pages[[1]], 14)
   expect_equal(polish_pages("[20], 225, [7], 369-680, 721-1051, [5] p.")$estimated.pages[[1]], 1083)
   expect_equal(polish_pages("25, 27-33, [4] p.")$estimated.pages[[1]], 37)
-  expect_equal(polish_pages("4, 253-480 p.")$estimated.pages[[1]], 484)
+  expect_equal(polish_pages("4, 253-480 p.")$estimated.pages[[1]], 480)
   expect_true(is.na(polish_pages("v.")$estimated.pages[[1]]))
 
 })
