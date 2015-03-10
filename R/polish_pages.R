@@ -271,8 +271,7 @@ estimate_pages <- function (x) {
     sequence.type <- "no.arabics"
   }
 
-
-#print(sequence.type)
+print(sequence.type)
 
   # -----------------------
 
