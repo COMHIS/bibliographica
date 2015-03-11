@@ -153,7 +153,7 @@ estimate_pages <- function (x) {
   # consider and convert them to arabic  
   # ie. [3]-5 becomes 3-5
   dash <- pagecount.attributes["dash", ]
-  sqb <- pagecount.attributes["squarebracket", ]
+  sqb  <- pagecount.attributes["squarebracket", ]
   inds <- which(dash & sqb)
   if (length(inds) > 0) {
     x[inds] <- remove.squarebrackets(x[inds])
@@ -164,10 +164,7 @@ estimate_pages <- function (x) {
   # -----------------------------------------------------
 
   # Remove square brackets to simplify later processing
-  sqb <- pagecount.attributes["squarebracket", ]
-  if (any(sqb)) {
-    x[sqb] <- remove.squarebrackets(x[sqb])
-  }
+  x <- remove.squarebrackets(x)
 
   # -----------------------------------------------------
 
@@ -205,104 +202,41 @@ estimate_pages <- function (x) {
 
   # ---------------------------------------------
 
-  # Determine page count categories 
-  # increasing / series / etc.
-
-  # Recognize increasing sequence
-  increasing <- is.increasing(x, pagecount.attributes)
-
-  # Recognize series (ie. sequences with dashes)
-  series <- length(grep("-", x))>0 
-
-  # Recognize single number
-  single.number <- is.numeric(as.numeric(x[[1]])) && length(x) == 1
-
-  # --------------------------------------------
-
   # Start page counting
   pages <- c()
 
   # Square brackets can be always counted separately
   # Calculate total square bracket pages
   inds <- pagecount.attributes["squarebracket",]
-  pages$squarebracket <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
+  pages$squarebracket <- sumrule(x[inds])
 
   # Romans at the start are counted separately
   inds <- pagecount.attributes["roman.start",]
-  pages$roman.start <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
-  # Set roman FALSE if they are already listed in roman.start
+  pages$roman.start <- sumrule(x[inds])
+  # Set remaining romans FALSE if they are already listed in roman.start
   pagecount.attributes["roman", pagecount.attributes["roman.start",]] <- FALSE
-
-  # Add romans
-  inds <- pagecount.attributes["roman",]
-  pages$roman <- sum(suppressMessages(na.omit(as.numeric(x[inds]))))
-  #pages$roman <- count_roman(x[inds])
 
   # Count sheets separately
   inds <- pagecount.attributes["sheet",]
   xx <- sheets2pages(x[inds])
-  pages$sheet <- sum(na.omit(suppressWarnings(as.numeric(xx))))
+  pages$sheet <- sumrule(xx) 
 
   # Count plates separately
   # FIXME: at the moment these all go to sheets already
   inds <- pagecount.attributes["plate",]
   pages$plate <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
 
-  #-----------------------
-
-  # Identify type
-  sequence.type <- NA
-
-  # sequence has numbers without dashes
-  if (!series && !increasing) { sequence.type <- "sequence" }
-  if (!series && increasing) { sequence.type <- "increasing.sequence" }
-  if (single.number) { sequence.type <- "sequence"}
-
-  # series has dashes
-  if (series && !increasing) { sequence.type <- "series" } 
-  if (series && increasing) { sequence.type <- "increasing.series" }
-  #if ( series ) { sequence.type <- "series" } 
-
-  # If there are several arabic elements and at least one dash among them, then use maximum
-  multiple.arabics <- sum(pagecount.attributes["arabic",]) > 1
-  if (series && multiple.arabics) { sequence.type <- "series" }
-
-  # series does not have arabics
-  if (!any(pagecount.attributes["arabic",])) {
-    sequence.type <- "no.arabics"
-  }
-
-print(sequence.type)
-
-  # -----------------------
-
   # Count pages according to the type
-  if (sequence.type == "sequence") {
-    inds <- pagecount.attributes["arabic",]
-    arabic <- na.omit(suppressWarnings(as.numeric(x[inds])))
-    pages$arabic <- max(arabic)
-  } else if (sequence.type == "series") {
-    tmp <- unlist(strsplit(x[pagecount.attributes["arabic",]], "-"))
-    arabic <- na.omit(suppressWarnings(as.numeric(tmp)))
-    pages$arabic <- max(arabic)
-  } else if  (sequence.type == "increasing.sequence") {
-    arab.inds <- pagecount.attributes["arabic",]
-    arabic <- na.omit(suppressWarnings(as.numeric(x[arab.inds])))
-    #pages$arabic <- max(arabic) - min(arabic) + 1
-    pages$arabic <- max(arabic) 
-  } else if (sequence.type == "increasing.series") {
-    arab <- pagecount.attributes["arabic",]
-    xs <- na.omit(unlist(strsplit(x[arab], "-")))
-    arabic <- na.omit(suppressWarnings(as.numeric(xs)))
-    pages$arabic <- max(arabic) - min(arabic) + 1
-    #pages$arabic <- max(arabic)
-  } else if  (sequence.type == "no.arabics") {
-    pages$arabic <- 0
+  for (type in c("arabic", "roman")) {
+    xx <- x[pagecount.attributes[type,]]
+    pages[[type]] <- count_pages(xx)
   }
 
   # Convert to vector
   pages <- unlist(pages)
+
 print(pages)
+
   # Total page count
   x.pagecount <- sum(na.omit(pages))
 
@@ -311,6 +245,102 @@ print(pages)
 
   x.pagecount
 
+}
+
+
+sumrule <- function (z) {
+  sum(na.omit(suppressWarnings(as.numeric(z))))
+}
+
+seqtype <- function (z) {
+
+  # series does not have any
+  if (length(z)==0) {
+    sequence.type <- "empty"
+  } else {
+
+    # Determine page count categories 
+    # increasing / series / etc.
+    sequence.type <- NA
+
+    # Recognize increasing sequence
+    increasing <- is.increasing(z)
+
+    # Recognize series (ie. sequences with dashes)
+    series <- length(grep("-", z))>0 
+
+    # Recognize single number
+
+    single.number <- length(z) == 1 && is.numeric(suppressWarnings(as.numeric(z[[1]])) )
+
+    # sequence has numbers without dashes
+    if (!series && !increasing) { sequence.type <- "sequence" }
+    if (!series && increasing)  { sequence.type <- "increasing.sequence" }
+    if (single.number) { sequence.type <- "sequence"}
+
+    # series has dashes
+    if (series && !increasing) { sequence.type <- "series" } 
+    if (series && increasing) { sequence.type <- "increasing.series" }
+
+    # If there are several arabic elements and at least one dash among them, then use maximum
+    multiple <- length(z) > 1
+    if (series && multiple) { sequence.type <- "series" }
+
+  }
+
+  sequence.type
+}
+
+is.increasing <- function (x) {
+
+  # Ignore square brackets when determining increasing sequence
+  #x <- x[!pagecount.attributes["squarebracket",]]
+
+  # Ignore starting romans when determining increasing sequence
+  #x <- x[!pagecount.attributes["roman.start",]]
+
+  # Remove dashes
+  x <- na.omit(suppressWarnings(as.numeric(unlist(strsplit(x, "-")))))
+
+  # Test if the numeric series is monotonically increasing
+  incr <- FALSE
+  if (!all(is.na(x))) {
+    incr <- all(diff(x) >= 0)
+  }
+
+  incr
+}
+
+
+count_pages <- function (z) {
+
+  stype <- seqtype(z)
+
+  pp <- 0
+
+  if (stype == "sequence") {
+    pp <- maxrule(z)
+  } else if (stype == "series") {
+    pp <- maxrule(z)
+  } else if (stype == "increasing.sequence") {
+    pp <- maxrule(z)
+  } else if (stype == "increasing.series") {
+    pp <- intervalrule(z)
+  }
+
+  pp
+
+}
+
+maxrule <- function (x) {
+  x <- unlist(strsplit(x, "-"))
+  max(na.omit(suppressWarnings(as.numeric(x))))
+}
+
+intervalrule <- function (x) {
+  x <- unlist(strsplit(x, "-"))
+  xx <- na.omit(suppressWarnings(as.numeric(x)))
+  max(xx) - min(xx) + 1
 }
 
 
@@ -411,7 +441,9 @@ position_arabics <- function (x) {
 
 position_squarebrackets <- function (x) {
 
-  inds <- grep("\\[", x)  
+  indsa <- sort(which(position_arabics(x)$positions)) # arabics
+  indsb <- sort(unique(c(grep("\\[", x), grep("\\]", x)))) # square brackets
+  inds <- sort(setdiff(indsb, indsa)) # square brackets that are not of form 91-[93]
 
   # Indicate positions in the page count sequence
   positions <- rep(FALSE, length(x))
@@ -509,8 +541,6 @@ remove_dimension <- function (s) {
 }
 
 
-
-
 harmonize_pages <- function (s) {
 
   # Remove some special cases manually
@@ -529,7 +559,6 @@ harmonize_pages <- function (s) {
   s <- gsub("233-248 leaves", "233-248,", s)
   s <- gsub("205-216 leaves", "205-216,", s)
   s <- gsub("107-133 leaves", "107-133,", s)
-
 
   # Rare cases
   s <- gsub("3\\.", "3,", s)
@@ -574,8 +603,14 @@ harmonize_pages <- function (s) {
 
   # Remove parentheses
   s <- str_trim(gsub("\\)", " ", gsub("\\(", " ", s)))
-  s <- gsub("\\[", ",[", s)
-  s <- gsub("\\(", ",(", s)
+  s <- gsub(" \\[", ",[", s)
+  s <- gsub(" \\(", ",(", s)
+
+  s <- gsub("\\,\\,", ",", s)
+
+  if (length(grep("^p[0-9]", s))) {
+    s <- substr(s, 2,nchar(s))
+  }
 
   s <- str_trim(gsub("^,", "", s))
   if (is.na(s) || s == "") { s <- NA }
@@ -648,7 +683,10 @@ harmonize_sheets <- function (s) {
   s <- gsub("\\(fol\\.\\)", " ", s)
   s <- gsub("\\(\\[[0-9]\\] folded\\)", " ", s)
   s <- gsub("\\([0-9] folded\\)", " ", s)
+  s <- gsub("fold\\.plates", "plates", s)
   s <- gsub("fold\\. plates", "plates", s)
+  s <- gsub("fold\\.plate", "plate", s)
+  s <- gsub("fold\\. plate", "plate", s)
   s <- gsub("folding plates", "plates", s)
   s <- gsub("folding", "plates", s)
   s <- gsub("folded plate", "plate", s)
@@ -970,25 +1008,7 @@ all2arabics <- function (x) {
 }
 
 
-is.increasing <- function (x, pagecount.attributes) {
 
-  # Ignore square brackets when determining increasing sequence
-  x <- x[!pagecount.attributes["squarebracket",]]
-
-  # Ignore starting romans when determining increasing sequence
-  x <- x[!pagecount.attributes["roman.start",]]
-
-  # Remove dashes
-  x <- na.omit(suppressWarnings(as.numeric(unlist(strsplit(x, "-")))))
-
-  # Test if the numeric series is monotonically increasing
-  incr <- FALSE
-  if (!all(is.na(x))) {
-    incr <- all(diff(x) >= 0)
-  }
-
-  incr
-}
 
 remove.squarebrackets <- function (x) {
   rm.sqb <- function (x) {		      
