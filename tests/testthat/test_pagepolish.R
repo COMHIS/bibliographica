@@ -101,7 +101,7 @@ test_that("page count is correct", {
   expect_equal(polish_pages("1 sheet ([1]) p.")$estimated.pages[[1]], 2)
   expect_equal(polish_pages("1 sheet ([2] p.)")$estimated.pages[[1]], 2)
   expect_equal(polish_pages("1 sheet ([2] p.)")$estimated.pages[[1]], 2)
-  expect_equal(polish_pages("152,151-573,[1]p.,plates")$estimated.pages[[1]], 576)
+  expect_equal(polish_pages("152,151-573,[1]p.,plates")$estimated.pages[[1]], 578)
   expect_equal(polish_pages("v.3 (558,[2]p.),plates")$estimated.pages[[1]], 564)
   expect_equal(polish_pages("v.8 (551,[1]p.),plates")$estimated.pages[[1]], 556)
   expect_equal(polish_pages("v.2(viii,502p.)")$estimated.pages[[1]], 510)
