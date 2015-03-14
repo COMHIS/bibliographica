@@ -137,6 +137,12 @@ estimate_pages <- function (x) {
   # so the length may be shorter
   x <- harmonize_per_comma(x)
 
+  page.count.multiplier <- 1
+  if (length(grep("^Ff", x[[1]]))==1) {
+    # Document is folios - double the page count!
+    page.count.multiplier <- 2
+  }
+
   # -----------------------------------------------------
 
   # Identify (potentially overlapping) attribute positions for
@@ -210,6 +216,12 @@ estimate_pages <- function (x) {
 
   # Convert to vector
   pages <- unlist(pages)
+
+  # Take into account multiplier
+  # (for instance when page string starts with Ff the document is folios
+  # and page count will be multiplied by two - in most cases multiplier is 1)
+  pages <- page.count.multiplier * pages
+
 print(pages)
 
   # Total page count
@@ -551,7 +563,7 @@ harmonize_pages <- function (s) {
   s <- gsub("\\:bill", " ", s)
   s <- gsub("\\bill", " ", s)
   s <- gsub("\\?\\]", "\\]", s) # [8?]
-  s <- gsub("^l", "", s) # 
+  #s <- gsub("^l", "", s) # 
   s <- gsub("\\+", "", s)    
   s <- gsub("bis", "", s)
   s <- gsub("\\*", "", s)
@@ -561,7 +573,7 @@ harmonize_pages <- function (s) {
   s <- gsub("+\\}", "]", s)
   s <- gsub("[0-9] pts in 1 v\\.", " ", s)
   s <- gsub("ca\\.", " ", s)
- 
+
   # Remove spaces around dashes
   s <- gsub(" -", "-", s)
   s <- gsub("- ", "-", s)
