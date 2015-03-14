@@ -31,7 +31,6 @@ polish_pages <- function (s, verbose = FALSE) {
 
     # Catch warnings rather than crashing the loop
     a <- try(pp <- polish_page(s[[i]]))
-
     # Save both raw and polished version 
     # We need these later to systematically identify failed cases
     # And to estimate the success fraction
@@ -116,7 +115,7 @@ estimate_pages <- function (x) {
   } else if (!is.na(suppressWarnings(as.numeric(x)))) {
     # "3"
     return(as.numeric(x))
-  } else if (is.roman(x)) {
+  } else if (is.roman(x) && length(unlist(strsplit(x, ","))) == 1) {
     # "III"
     return(as.numeric(as.roman(x)))
   } else if (!is.na(suppressWarnings(as.numeric(remove.squarebrackets(x))))) {
@@ -129,7 +128,6 @@ estimate_pages <- function (x) {
     # "2 sheets"
     return(as.numeric(sheets2pages(x)))
   } 
-
   # Then proceeding to the more complex cases...
 
   # --------------------------------------------
@@ -185,48 +183,26 @@ estimate_pages <- function (x) {
 
   # ----------------------------------------------
 
-  # Identify romans that are not in square brackets and start the 
-  # page count sequence (ie. "iii, iv, 2-10, 13-16" -> inds = 1:2)
-  roman <- pagecount.attributes["roman", ]
-  sqb <- pagecount.attributes["squarebracket", ]
-  inds <- which(roman & !sqb)
-  if (length(inds) == 1 && inds == 1) {   
-  } else if (length(inds) > 1 && inds[[1]] == 1) {   
-    inds <- 1:(which.min(diff(inds) == 1) - 1)
-  } else {
-    inds <- NULL
-  }
-
-  pagecount.attributes <- rbind(pagecount.attributes, roman.start = rep(FALSE, ncol(pagecount.attributes)))
-  pagecount.attributes["roman.start", inds] <- TRUE
-
-  # ---------------------------------------------
-
   # Start page counting
   pages <- c()
 
-  # Square brackets can be always counted separately
-  # Calculate total square bracket pages
+  # Sum square brackets
   inds <- pagecount.attributes["squarebracket",]
+
   pages$squarebracket <- sumrule(x[inds])
 
-  # Romans at the start are counted separately
-  inds <- pagecount.attributes["roman.start",]
-  pages$roman.start <- sumrule(x[inds])
-  # Set remaining romans FALSE if they are already listed in roman.start
-  pagecount.attributes["roman", pagecount.attributes["roman.start",]] <- FALSE
-
-  # Count sheets separately
+  # Sum sheets 
   inds <- pagecount.attributes["sheet",]
   xx <- sheets2pages(x[inds])
   pages$sheet <- sumrule(xx) 
 
-  # Count plates separately
+  # Sum plates 
   # FIXME: at the moment these all go to sheets already
   inds <- pagecount.attributes["plate",]
   pages$plate <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
 
   # Count pages according to the type
+
   for (type in c("arabic", "roman")) {
     xx <- x[pagecount.attributes[type,]]
     pages[[type]] <- count_pages(xx)
@@ -234,7 +210,6 @@ estimate_pages <- function (x) {
 
   # Convert to vector
   pages <- unlist(pages)
-
 print(pages)
 
   # Total page count
@@ -314,20 +289,16 @@ is.increasing <- function (x) {
 
 count_pages <- function (z) {
 
-  stype <- seqtype(z)
-
   pp <- 0
+  if (length(z) > 0) {
+    stype <- seqtype(z)
 
-  if (stype == "sequence") {
-    pp <- maxrule(z)
-  } else if (stype == "series") {
-    pp <- maxrule(z)
-  } else if (stype == "increasing.sequence") {
-    pp <- maxrule(z)
-  } else if (stype == "increasing.series") {
-    pp <- intervalrule(z)
+    if (stype == "increasing.series") {
+      pp <- intervalrule(z)
+    } else {
+      pp <- maxrule(z)
+    }
   }
-
   pp
 
 }
@@ -533,6 +504,7 @@ remove_dimension <- function (s) {
   s <- gsub("[0-9][0-9] cm\\.", " ", s)
   s <- gsub("[0-9]to", " ", s)
   s <- gsub("[0-9]vo", " ", s)
+  s <- gsub("[0-9][0-9]cm\\.", " ", s)
 
   if (is.na(s) || s == "") {s <- NA}
 
@@ -573,6 +545,7 @@ harmonize_pages <- function (s) {
   s <- gsub("\\[2\\] single and \\[8\\] double leaves of plates", "[2],[8]", s)
   s <- gsub("\\[fewer than 50 pages\\]", NA, s)
   s <- gsub("\\[No pagination provided\\]", " ", s)
+  s <- gsub("in various pagings", " ", s)
   s <- gsub(" and ", " ", s)
   s <- gsub("53a-62k", "53-62", s)
   s <- gsub("\\:bill", " ", s)
@@ -585,7 +558,10 @@ harmonize_pages <- function (s) {
   s <- gsub("\\] p. \\[", "] p., [", s)
   s <- gsub("\\[\\?\\]", " ", s)
   s <- gsub("\\?", " ", s)
-
+  s <- gsub("+\\}", "]", s)
+  s <- gsub("[0-9] pts in 1 v\\.", " ", s)
+  s <- gsub("ca\\.", " ", s)
+ 
   # Remove spaces around dashes
   s <- gsub(" -", "-", s)
   s <- gsub("- ", "-", s)
@@ -605,8 +581,13 @@ harmonize_pages <- function (s) {
   s <- str_trim(gsub("\\)", " ", gsub("\\(", " ", s)))
   s <- gsub(" \\[", ",[", s)
   s <- gsub(" \\(", ",(", s)
-
   s <- gsub("\\,\\,", ",", s)
+
+  # Add commas
+  #"[2] 4 p." -> "[2], 4 p."
+  for (n in 0:9) {
+    s <- gsub(paste("] ", n, sep = ""), paste("], ", n, sep = ""), s)
+  }
 
   if (length(grep("^p[0-9]", s))) {
     s <- substr(s, 2,nchar(s))
@@ -624,6 +605,8 @@ harmonize_pages <- function (s) {
 harmonize_page_info <- function (s) {
 
   # Harmonize page info
+  s <- gsub("^Pp\\.", " ", s)
+  s <- gsub("^p\\. ", " ", s)
   s <- gsub("Pp\\.", "p", s)
   s <- gsub("pp\\.", "p", s)
   s <- gsub("p\\.", "p", s)
@@ -631,13 +614,17 @@ harmonize_page_info <- function (s) {
   s <- gsub("p$", "p", s)
   s <- gsub("P\\.", "p", s)
   s <- gsub("P ", "p", s)
-  s <- gsub("P$", "p", s)
+  s <- gsub("P$", "", s)
+  s <- gsub("p$", "", s)
 
   s
 
 }
 
 harmonize_sheets <- function (s) {
+
+  # Capitalization		 
+  s <- gsub("Sheet", "sheet", s)
 
   # Plates
   s <- gsub("p\\.plates", "p., plates", s) # "39,[1]p.plates :" -> "39,[1]p.,plates :"
@@ -651,6 +638,7 @@ harmonize_sheets <- function (s) {
   s <- gsub("\\,l\\.", ",leaves ", s) # 
   s <- gsub(" l\\.", "leaves ", s) # 
 
+  s <- gsub("\\(the last [0-9] p. blank\\)", "", s)
   s <- gsub("\\(versos blank\\)", " ", s)
   s <- gsub("\\(woodcut\\)", " ", s)
   s <- gsub("platess", "plates", s)
@@ -701,13 +689,18 @@ harmonize_sheets <- function (s) {
   s <- gsub("leafs", "leaves", s)
 
   s <- gsub("folded sheet", "sheet", s)
-  s <- gsub("1 sheet \\(\\[1\\] p\\)", "1 sheet", s)
-  s <- gsub("1 sheet \\(\\[2\\] p\\)", "1 sheet", s)
-  s <- gsub("1 sheet \\(\\[1\\] page\\)", "1 sheet", s)
-  s <- gsub("1 sheet \\(\\[2\\] pages\\)", "1 sheet", s)
-  s <- gsub("1 sheet \\(1 page\\)", "1 sheet", s)
-  s <- gsub("1 sheet \\(2 pages\\)", "1 sheet", s)
-  s <- gsub("1 sheet \\[\\(1\\) p\\.\\]", "1 sheet", s)
+  s <- gsub("1 sheet \\(\\[[1-2]\\] p\\)", "1 sheet", s)
+  s <- gsub("1 sheet \\(\\[[1-2]\\] p\\.\\)", "1 sheet", s)
+  s <- gsub("1 sheet \\(\\[[1-2]\\] p\\)", "1 sheet", s)
+  s <- gsub("1 sheet \\(\\[[1-2]\\] p\\.\\)", "1 sheet", s)
+  s <- gsub("1 sheet \\(\\[[1-2]\\] page\\)", "1 sheet", s)
+  s <- gsub("1 sheet \\(\\[[1-2]\\] pages\\)", "1 sheet", s)
+  s <- gsub("1 sheet \\([1-2] page\\)", "1 sheet", s)
+  s <- gsub("1 sheet \\(\\[[1-2]\\]\\) p.", "1 sheet", s)
+  s <- gsub("1 sheet \\([1-2] pages\\)", "1 sheet", s)
+  s <- gsub("1 sheet \\[\\([1-2]\\) p\\.\\]", "1 sheet", s)
+  s <- gsub("1 sheet \\(\\[[1-2]\\]\\) p\\.", "1 sheet", s)
+  s <- gsub("1 sheet \\(\\[1\\]\\) p", "1 sheet", s)
   s <- gsub("1sheet", "1 sheet", s)
 
   # Harmonize '* sheets'
@@ -725,7 +718,7 @@ harmonize_sheets <- function (s) {
   s <- gsub("folded genealogical table", "table", s)
   s <- gsub("folded table", "table", s)
   s <- gsub("fold\\. table", "table", s)
-  s <- gsub("fold\\.tables", "table", s)
+  s <- gsub("fold\\.tables", "tables", s)
   s <- gsub("table", "plate", s)
   s <- gsub("plate", "sheet", s)
 
@@ -766,18 +759,46 @@ harmonize_sheets <- function (s) {
 
 }
 
+pick_starting_numeric <- function (x) {
+
+  num <- TRUE	
+  n <- 0
+  i <- 0
+
+  while (!is.na(n) && i < nchar(x)) {
+    i <- i+1
+    ss <- substr(x, 1, i)
+    n <- suppressWarnings(as.numeric(ss))
+    if (!is.na(n)) {
+      num <-n 
+    }
+  }
+
+  num
+
+}
+
 harmonize_ie <- function (s) {
 
   # Harmonize i.e.
   s <- gsub("i\\. e", "i.e", s)
-  s <- gsub("\\[i\\.e", " i.e", s)
-  s <- gsub("\\[ie\\.", " i.e", s)
+  #s <- gsub("\\[i\\.e", " i.e", s)
+  #s <- gsub("\\[ie\\.", " i.e", s)
   s <- gsub("\\,i\\.e", "i.e", s)
   s <- gsub("\\, i\\.e", "i.e", s)
   s <- gsub("i\\.e", "i.e.", s)
   s <- gsub("i\\.e\\.\\.", "i.e.", s)
   s <- gsub("i\\.e\\.\\,", "i.e.", s)
   s <- gsub("i\\.e\\.", "i.e ", s)
+
+  # "12 [i.e. 8 p.]" -> 12 i.e 8
+  if (length(grep("\\[i.e ", s)) > 0) {
+    s2 <- str_trim(unlist(strsplit(s, "\\[i.e "))[[2]])
+    s2 <- pick_starting_numeric(s2)
+    s <- gsub(paste("\\[i\\.e  ", s2, "\\]", sep = ""), paste("i\\.e", s2, " ", sep = ""), s)
+    s <- gsub(paste("\\[i\\.e  ", s2, " p\\]", sep = ""), paste("i\\.e", s2, " ", sep = ""), s)
+    s <- gsub(paste("\\[i\\.e  ", s2, " p\\.\\]", sep = ""), paste("i\\.e", s2, " ", sep = ""), s)
+  }
 
   s
 
