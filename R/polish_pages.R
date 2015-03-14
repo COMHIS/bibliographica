@@ -615,7 +615,9 @@ harmonize_page_info <- function (s) {
   s <- gsub("P\\.", "p", s)
   s <- gsub("P ", "p", s)
   s <- gsub("P$", "", s)
-  s <- gsub("p$", "", s)
+  s <- gsub("p$", "", s)  
+  s <- gsub("P\\.$", "", s)
+  s <- gsub("p\\.$", "", s)
 
   s
 
