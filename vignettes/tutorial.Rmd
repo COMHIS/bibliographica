@@ -58,7 +58,7 @@ Polish dimension information:
 Polish page information:
 
 ```{r pages, message=FALSE, warning=FALSE, eval=TRUE}
-#polish_pages("[6],viii,386p. ;")$estimated.pages
+polish_pages("[6],viii,386p. ;")$estimated.pages
 ```
 
 ## Licensing and Citations
