@@ -1,11 +1,11 @@
 Package: bibliographica
-Type: R package
-Title: bibliograhica
-Version: 0.1.21
-Date: 2015-03-08
+Type: Package
+Title: Bibliographic Data Analysis
+Version: 0.1.22
+Date: 2015-03-15
 Author: Leo Lahti, Mikko Tolonen, Niko Ilomaki
 Maintainer: Leo Lahti <leo.lahti@iki.fi>
-Description: Tools for bibliograhic data analysis
+Description: Tools for bibliograhic data analysis.
 License: BSD_2_clause + file LICENSE
 VignetteBuilder: knitr
 BugReports: https://github.com/ropengov/bibliographica/issues
@@ -14,6 +14,7 @@ Depends:
     R (>= 3.0.2)
 Imports:
     dplyr,
+    ggplot2,
     stringr
 Suggests:
     knitr,

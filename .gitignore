@@ -10,3 +10,4 @@ inst/extras/..Rcheck
 .Rhistory
 bibliographica.Rproj
 .Rproj.user/*
+tests/.RData

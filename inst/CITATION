@@ -5,7 +5,7 @@ citEntry(entry="misc",
          author = personList(
 	   person(given ="Leo", family="Lahti", email = "leo.lahti@iki.fi"),
 	   person(given ="Niko", family="Ilomaki"),
-	   person(given ="Mikko", family="Tolonen"),
+	   person(given ="Mikko", family="Tolonen")
          ),
 	 doi = "",
 	 journal = "",

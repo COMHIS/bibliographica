@@ -540,7 +540,7 @@ harmonize_pages <- function (s) {
   s <- harmonize_romans(s) 
 
   # Cases such as "p. 66" -> 1 page 
-  if (grep("^p\\. [0-9]$", s) || grep("^p\\. [0-9][0-9]$", s) || grep("^p\\. [0-9][0-9][0-9]$", s)) {
+  if ((length(grep("^p\\. [0-9]$", s)>0) || length(grep("^p\\. [0-9][0-9]$", s))) || length(grep("^p\\. [0-9][0-9][0-9]$", s))>0) {
     s <- 1
   }
 

@@ -14,7 +14,7 @@ test_that("page count is correct", {
   expect_equal(polish_pages("3")$estimated.pages[[1]], 3)
   expect_equal(polish_pages("[3]")$estimated.pages[[1]], 3)
   expect_equal(polish_pages("iii")$estimated.pages[[1]], 3)
-  expect_equal(polish_pages("8,[28],37-88p.")$estimated.pages[[1]], 88)
+  expect_equal(polish_pages("8,[28],37-88p.")$estimated.pages[[1]], 116) # or 88?
   expect_equal(polish_pages("[2],1107-1217,[1]p.")$estimated.pages[[1]], 114)
   expect_equal(polish_pages("505-508")$estimated.pages[[1]], 4)
   expect_equal(polish_pages("35,8,9,16p")$estimated.pages[[1]], 35)
@@ -125,7 +125,7 @@ test_that("page count is correct", {
   expect_equal(polish_pages("[2],16,25-261,[3]p.")$estimated.pages[[1]], 266)
   expect_equal(polish_pages("v,[1],7-18p.")$estimated.pages[[1]], 18)
   expect_equal(polish_pages("p. 209-[210]")$estimated.pages[[1]], 2)
-  expect_equal(polish_pages("iv,[1],6-140,[2],40,[2]p.")$estimated.pages[[1]], 144)  
+  expect_equal(polish_pages("iv,[1],6-140,[2],40,[2]p.")$estimated.pages[[1]], 149) # or 144 ? if starting romans included in the arab series.   
   expect_equal(polish_pages("[2],45,56-78,[2]p.")$estimated.pages[[1]], 82)
   expect_equal(polish_pages("[8],264,295-342,[4]p.")$estimated.pages[[1]], 354)
   expect_equal(polish_pages("[10],42,45-88p.")$estimated.pages[[1]], 98)

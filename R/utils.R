@@ -6,6 +6,7 @@
 #' @param ntop Number of top entries to show
 #' @return ggplot object
 #'
+#' @import ggplot2
 #' @export
 #' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
