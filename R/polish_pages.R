@@ -222,8 +222,6 @@ estimate_pages <- function (x) {
   # and page count will be multiplied by two - in most cases multiplier is 1)
   pages <- page.count.multiplier * pages
 
-print(pages)
-
   # Total page count
   x.pagecount <- sum(na.omit(pages))
 
