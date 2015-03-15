@@ -539,6 +539,11 @@ harmonize_pages <- function (s) {
   # Romans
   s <- harmonize_romans(s) 
 
+  # Cases such as "p. 66" -> 1 page 
+  if (grep("^p\\. [0-9]$", s) || grep("^p\\. [0-9][0-9]$", s) || grep("^p\\. [0-9][0-9][0-9]$", s)) {
+    s <- 1
+  }
+
   # TODO formulate rule for this
   s <- gsub("233-248 leaves", "233-248,", s)
   s <- gsub("205-216 leaves", "205-216,", s)
@@ -602,7 +607,7 @@ harmonize_pages <- function (s) {
   }
 
   if (length(grep("^p[0-9]", s))) {
-    s <- substr(s, 2,nchar(s))
+    s <- substr(s, 2, nchar(s))
   }
 
   s <- str_trim(gsub("^,", "", s))
