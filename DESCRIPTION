@@ -8,6 +8,7 @@ Maintainer: Leo Lahti <leo.lahti@iki.fi>
 Description: Tools for bibliograhic data analysis.
 License: BSD_2_clause + file LICENSE
 VignetteBuilder: knitr
+Encoding: UTF-8
 BugReports: https://github.com/ropengov/bibliographica/issues
 URL: http://github.com/ropengov/bibliographica
 Depends:

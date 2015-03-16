@@ -121,7 +121,21 @@ pick_volume <- function (s) {
   vol
 }
 
-# Number of volumes
+
+
+#' @title pick_multivolume
+#' @description Pick volume information for multi-volumen documents
+#'
+#' @param s Page number field. Vector or factor of strings.
+#' @return Volume information
+#'
+#' @export
+#' 
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' 
+#' @examples remove_volume_info("v.1-3, 293")
+#' @keywords utilities
 pick_multivolume <- function (x) {
 
   s <- as.character(x)
@@ -146,6 +160,21 @@ pick_multivolume <- function (x) {
 
 }
 
+
+
+#' @title remove_volume_info
+#' @description Remove volume info from the string start
+#'
+#' @param s Page number field. Vector or factor of strings.
+#' @return Page numbers without volume information
+#'
+#' @export
+#' 
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' 
+#' @examples remove_volume_info("v.4, 293")
+#' @keywords utilities
 remove_volume_info <- function (s) {
 
   # Remove some rare special cases manually
@@ -188,7 +217,20 @@ remove_volume_info <- function (s) {
 }
 
 
-# v.1-3 -> 3
+
+#' @title check_volumes
+#' @description Pick volume information from page number field
+#'
+#' @param s Page number field. Vector or factor of strings.
+#' @return Volume information
+#'
+#' @export
+#' 
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' 
+#' @examples check_volumes("v.4, 293")
+#' @keywords utilities
 check_volumes <- function (x) {
 
   nvol <- vtext <- NULL
