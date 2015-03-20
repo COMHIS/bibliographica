@@ -3,7 +3,10 @@ Type: Package
 Title: Bibliographic Data Analysis
 Version: 0.1.22
 Date: 2015-03-15
-Author: Leo Lahti, Mikko Tolonen, Niko Ilomaki
+Authors@R: c(
+    person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
+    person("Ilomaki", "Niko" , role = "aut"),
+    person("Tolonen", "Mikko", role = "aut"))
 Maintainer: Leo Lahti <leo.lahti@iki.fi>
 Description: Tools for bibliograhic data analysis.
 License: BSD_2_clause + file LICENSE
