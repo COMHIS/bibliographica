@@ -560,11 +560,13 @@ harmonize_pages <- function (s) {
   s <- gsub("\\[2\\] single and \\[8\\] double leaves of plates", "[2],[8]", s)
   s <- gsub("\\[fewer than 50 pages\\]", NA, s)
   s <- gsub("\\[No pagination provided\\]", " ", s)
+  s <- gsub("\\[No pagination provided\\] ;", " ", s)
   s <- gsub("in various pagings", " ", s)
   s <- gsub(" and ", " ", s)
   s <- gsub("53a-62k", "53-62", s)
   s <- gsub("\\:bill", " ", s)
   s <- gsub("\\bill", " ", s)
+  s <- gsub("bill\\. ;", " ", s)
   s <- gsub("\\?\\]", "\\]", s) # [8?]
   #s <- gsub("^l", "", s) # 
   s <- gsub("\\+", "", s)    
@@ -597,6 +599,8 @@ harmonize_pages <- function (s) {
   s <- gsub(" \\[", ",[", s)
   s <- gsub(" \\(", ",(", s)
   s <- gsub("\\,\\,", ",", s)
+  s <- gsub("^\\(", "", s)
+  s <- gsub("\\)$", "", s)
 
   # Add commas
   #"[2] 4 p." -> "[2], 4 p."
@@ -646,8 +650,16 @@ harmonize_sheets <- function (s) {
   # Plates
   s <- gsub("p\\.plates", "p., plates", s) # "39,[1]p.plates :" -> "39,[1]p.,plates :"
   s <- gsub("\\)plates :", "),plates", s)
+
+  s <- gsub("plates :", "plates ", s)
+  s <- gsub("plate :", "plate ", s)
+
+  s <- gsub("plates (some fold\\.) :", "plates ", s)
   s <- gsub("p\\.table", "p., table", s)
   s <- gsub("p\\., of plates", "plates", s)
+
+  s <- gsub("tables :", "tables ", s)
+  s <- gsub("table :", "table ", s)
 
   # l.
   s <- gsub(" 1 l\\.", "leaf ", s) # 

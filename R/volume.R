@@ -126,7 +126,7 @@ pick_volume <- function (s) {
 #' @title pick_multivolume
 #' @description Pick volume information for multi-volumen documents
 #'
-#' @param s Page number field. Vector or factor of strings.
+#' @param x Page number field. Vector or factor of strings.
 #' @return Volume information
 #'
 #' @export
@@ -134,7 +134,7 @@ pick_volume <- function (s) {
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples remove_volume_info("v.1-3, 293")
+#' @examples pick_multivolume("v.1-3, 293")
 #' @keywords utilities
 pick_multivolume <- function (x) {
 
@@ -185,6 +185,19 @@ remove_volume_info <- function (s) {
   s <- gsub("^v\\.:", "", s)
   s <- gsub("^v\\.\\,", "", s)
   s <- gsub("^v\\.$", "", s)
+  s <- gsub("^v\\.;$  ", "", s)
+
+  s <- gsub("^[0-9][0-9]v\\.;$  ", "", s)
+  s <- gsub("^[0-9][0-9]v\\. ;$  ", "", s)
+  s <- gsub("^[0-9][0-9] v\\. ;$  ", "", s)
+
+  s <- gsub("^[0-9]v\\.;$  ", "", s)
+  s <- gsub("^[0-9]v\\. ;$  ", "", s)
+  s <- gsub("^[0-9] v\\. ;$  ", "", s)
+
+  s <- gsub("^;$", "", s)
+  s <- gsub("^:$", "", s)
+
   #s <- gsub("^v\\,", "", s) # This is roman number; volume info comes with "v." or "2v"
   #s <- gsub("^v\\.", "", s)
 
@@ -221,7 +234,7 @@ remove_volume_info <- function (s) {
 #' @title check_volumes
 #' @description Pick volume information from page number field
 #'
-#' @param s Page number field. Vector or factor of strings.
+#' @param x Page number field. Vector or factor of strings.
 #' @return Volume information
 #'
 #' @export
