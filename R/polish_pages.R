@@ -31,11 +31,11 @@ polish_pages <- function (s, verbose = FALSE) {
 
     # Catch warnings rather than crashing the loop
     a <- try(pp <- polish_page(s[[i]]))
+
     # Save both raw and polished version 
     # We need these later to systematically identify failed cases
     # And to estimate the success fraction
     if ((is.character(a) && a == "try-error") || is.na(pp$pages)) {
-    #if ((is.character(a) && a == "try-error")) {
       sp[[i]] <- NA
       raw[[i]] <- s[[i]]
     } else {

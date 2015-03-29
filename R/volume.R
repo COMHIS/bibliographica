@@ -165,7 +165,7 @@ pick_multivolume <- function (x) {
 #' @title remove_volume_info
 #' @description Remove volume info from the string start
 #'
-#' @param s Page number field. Vector or factor of strings.
+#' @param x Page number field. Vector or factor of strings.
 #' @return Page numbers without volume information
 #'
 #' @export
@@ -175,7 +175,9 @@ pick_multivolume <- function (x) {
 #' 
 #' @examples remove_volume_info("v.4, 293")
 #' @keywords utilities
-remove_volume_info <- function (s) {
+remove_volume_info <- function (x) {
+
+  s <- as.character(x)
 
   # Remove some rare special cases manually
   s <- gsub("v\\.1-3\\, 5 ;", "", s)
@@ -235,9 +237,8 @@ remove_volume_info <- function (s) {
   s <- gsub("^[0-9]v$", " ", s)
 
   s <- gsub("\\( \\)", " ", s)
-
   s <- str_trim(s)
-  s <- remove_endings(s, c(":", ";", "."))
+  s <- remove_endings(s, c(":", ";"))
 
   s[s == ""] <- NA
 

@@ -38,6 +38,7 @@ test_that("page count is correct", {
   expect_equal(polish_pages("23,[1]p.")$estimated.pages[[1]], 24)
   expect_equal(polish_pages("[16] p.")$estimated.pages[[1]], 16)
   expect_equal(polish_pages("[2] leaves.")$estimated.pages[[1]], 4)
+  expect_equal(polish_pages("48 leaves")$estimated.pages[[1]], 96)
   expect_equal(polish_pages("[2]p.")$estimated.pages[[1]], 2)
   expect_equal(polish_pages("[3],vi-vii,[2],10-70,[2]p")$estimated.pages[[1]], 70) # ???
   expect_equal(polish_pages("15 p.")$estimated.pages[[1]], 15)
@@ -68,7 +69,6 @@ test_that("page count is correct", {
   expect_equal(polish_pages("pp. [45]-48")$estimated.pages[[1]], 4)
   expect_equal(polish_pages("p. [2], 129-142")$estimated.pages[[1]], 16)
   expect_equal(polish_pages("[12], 155-923, [47] p.")$estimated.pages[[1]], 828)
-  expect_equal(polish_pages("48 leaves")$estimated.pages[[1]], 96)
   expect_equal(polish_pages("Ff. [8], 1-209, 209-213, 213-219")$estimated.pages[[1]], 454) # ???
   expect_equal(polish_pages("122-126 p.")$estimated.pages[[1]], 5)
   expect_equal(polish_pages("p. 66")$estimated.pages[[1]], 1)
@@ -121,9 +121,7 @@ test_that("page count is correct", {
   expect_equal(polish_pages("4, 8, 17-48 p.")$estimated.pages[[1]], 48)
   expect_equal(polish_pages("[20], 225, [7], 369-680, 721-1051, [5] p.")$estimated.pages[[1]], 1083)
   expect_equal(polish_pages("2 pts in 1 v. (viii, 332, 5, [1] p.)")$estimated.pages[[1]], 341)
-  expect_equal(polish_pages("v,[3],124,[4],129,[3]p.")$estimated.pages[[1]], 144)
   expect_equal(polish_pages("[2],16,25-261,[3]p.")$estimated.pages[[1]], 266)
-  expect_equal(polish_pages("v,[1],7-18p.")$estimated.pages[[1]], 18)
   expect_equal(polish_pages("p. 209-[210]")$estimated.pages[[1]], 2)
   expect_equal(polish_pages("iv,[1],6-140,[2],40,[2]p.")$estimated.pages[[1]], 149) # or 144 ? if starting romans included in the arab series.   
   expect_equal(polish_pages("[2],45,56-78,[2]p.")$estimated.pages[[1]], 82)
@@ -158,7 +156,9 @@ test_that("page count is correct", {
   expect_equal(polish_pages("[20], 225, [7], 369-680, 721-1051, [5] p.")$estimated.pages[[1]], 1083)
   expect_equal(polish_pages("25, 27-33, [4] p.")$estimated.pages[[1]], 37)
   expect_equal(polish_pages("4, 253-480 p.")$estimated.pages[[1]], 480)
-  expect_true(is.na(polish_pages("v.")$estimated.pages[[1]]))
+  #expect_true(is.na(polish_pages("v.")$estimated.pages[[1]]))
+  expect_equal(polish_pages("v,[3],124,[4],129,[3]p.")$estimated.pages[[1]], 144)
+  expect_equal(polish_pages("v,[1],7-18p.")$estimated.pages[[1]], 18)
 
 })
 
