@@ -178,35 +178,21 @@ pick_multivolume <- function (x) {
 remove_volume_info <- function (s) {
 
   # Remove some rare special cases manually
-  s <- gsub("v.1-3, 5 ;", "", s)
-  s <- gsub("v.1,4-7 ;", "", s)
-  s <- gsub("v.6-7,9-12", "", s)
-  s <- gsub("Vols.6-7,9-12,plates :", "plates", s)
-  s <- gsub("^v\\.:", "", s)
-  s <- gsub("^v\\.\\,", "", s)
-  s <- gsub("^v\\.$", "", s)
-  s <- gsub("^v\\.;$  ", "", s)
-
-  s <- gsub("^[0-9][0-9]v\\.;$  ", "", s)
-  s <- gsub("^[0-9][0-9]v\\. ;$  ", "", s)
-  s <- gsub("^[0-9][0-9] v\\. ;$  ", "", s)
-
-  s <- gsub("^[0-9]v\\.;$  ", "", s)
-  s <- gsub("^[0-9]v\\. ;$  ", "", s)
-  s <- gsub("^[0-9] v\\. ;$  ", "", s)
-
-  s <- gsub("^;$", "", s)
-  s <- gsub("^:$", "", s)
-
-  #s <- gsub("^v\\,", "", s) # This is roman number; volume info comes with "v." or "2v"
-  #s <- gsub("^v\\.", "", s)
+  s <- gsub("v\\.1-3\\, 5 ;", "", s)
+  s <- gsub("v\\.1\\,4-7 ;", "", s)
+  s <- gsub("v\\.6-7\\,9-12", "", s)
+  s <- gsub("Vols\\.6-7\\,9-12\\,plates :", "plates", s)
 
   # Pick and remove multi-volume information (document starting with '* v.')
-  vols <- pick_multivolume(s)  
-  # Then remove the volume information that was picked
-  s <- gsub(paste("^", vols, " v.", sep = ""), paste(vols, "v.", sep = ""), str_trim(s))
-  s <- str_trim(gsub(paste("^", vols, "v.", sep = ""), "", s)) 
-  s <- str_trim(gsub("^,", "", s))
+  for (i in 1:length(s)) {
+    si <- s[[i]]
+    vols <- pick_multivolume(si)  
+    # Then remove the volume information that was picked
+    si <- gsub(paste("^", vols, " v.", sep = ""), paste(vols, "v.", sep = ""), str_trim(si))
+    si <- str_trim(gsub(paste("^", vols, "v.", sep = ""), "", si)) 
+    si <- str_trim(gsub("^,", "", si))
+    s[[i]] <- si
+  }
 
   # Cases 'v.1-3' etc
   inds <- intersect(grep("^v.", s), grep("-", s))
@@ -224,6 +210,36 @@ remove_volume_info <- function (s) {
   # "v. (183,[2]) -> (183,[2])"
   s <- gsub("^v. ", "v.", s)
   s <- gsub("^v.\\(", "(", s)
+
+  s <- gsub("^v\\.", " ", s)
+  s <- gsub("^v\\.\\,", " ", s)
+  s <- gsub("^v\\.$", "", s)
+
+  s <- gsub("vols\\.", "v.", s)
+  s <- gsub("vol\\.", "v.", s)
+
+  s <- gsub("^[0-9][0-9][0-9]v\\.", " ", s)
+  s <- gsub("^[0-9][0-9][0-9] v\\.", " ", s)
+  s <- gsub("^[0-9][0-9][0-9] v\\ ", " ", s)
+
+  s <- gsub("^[0-9][0-9]v\\.", " ", s)
+  s <- gsub("^[0-9][0-9] v\\.", " ", s)
+  s <- gsub("^[0-9][0-9] v\\ ", " ", s)
+
+  s <- gsub("^[0-9]v\\.", " ", s)
+  s <- gsub("^[0-9] v\\.", " ", s)
+  s <- gsub("^[0-9] v\\ ", " ", s)
+
+  s <- gsub("^[0-9][0-9][0-9]v$", " ", s)
+  s <- gsub("^[0-9][0-9]v$", " ", s)
+  s <- gsub("^[0-9]v$", " ", s)
+
+  s <- gsub("\\( \\)", " ", s)
+
+  s <- str_trim(s)
+  s <- remove_endings(s, c(":", ";", "."))
+
+  s[s == ""] <- NA
 
   s
 
