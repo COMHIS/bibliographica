@@ -89,7 +89,6 @@ polish_page <- function (x) {
 }
 
 
-
 estimate_pages <- function (x) {
 
   # Estimate pages for a single volume within a document
@@ -636,6 +635,7 @@ harmonize_page_info <- function (s) {
   s <- gsub("p$", "", s)  
   s <- gsub("P\\.$", "", s)
   s <- gsub("p\\.$", "", s)
+  s <- gsub("p\\[", "p", s)
 
   s
 
@@ -649,12 +649,11 @@ harmonize_sheets <- function (s) {
   # Plates
   s <- gsub("p\\.plates", "p., plates", s) # "39,[1]p.plates :" -> "39,[1]p.,plates :"
   s <- gsub("\\)plates :", "),plates", s)
-
   s <- gsub("plates :", "plates ", s)
-  s <- gsub("pts\\.", "plates ", s)
+  s <- gsub("pts\\.", " plates ", s)
   s <- gsub("plate :", "plate ", s)
-  s <- gsub("plates\\(one  \\.\\)", "plates ", s)
-  s <- gsub("plates (some fold\\.) :", "plates ", s)
+  s <- gsub("plates \\(some fold\\.\\) :", "plates ", s)
+  s <- gsub("plates\\(one fold\\.\\) \\:", "plates ", s)
   s <- gsub("p\\.table", "p., table", s)
   s <- gsub("p\\., of plates", "plates", s)
 
@@ -705,6 +704,7 @@ harmonize_sheets <- function (s) {
   s <- gsub("fold\\.plate", "plate", s)
   s <- gsub("fold\\. plate", "plate", s)
   s <- gsub("folding plates", "plates", s)
+  s <- gsub("foldplates", "plates", s)
   s <- gsub("folding", "plates", s)
   s <- gsub("folded plate", "plate", s)
   s <- gsub("leaves \\([0-9] folded\\)", "leaves ", s)

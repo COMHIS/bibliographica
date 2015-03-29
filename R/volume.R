@@ -213,6 +213,10 @@ remove_volume_info <- function (x) {
   s <- gsub("^v. ", "v.", s)
   s <- gsub("^v.\\(", "(", s)
 
+  s <- gsub("^v\\.[0-9][0-9][0-9]", " ", s)
+  s <- gsub("^v\\.[0-9][0-9]", " ", s)
+  s <- gsub("^v\\.[0-9]", " ", s)
+
   s <- gsub("^v\\.", " ", s)
   s <- gsub("^v\\.\\,", " ", s)
   s <- gsub("^v\\.$", "", s)
@@ -230,7 +234,8 @@ remove_volume_info <- function (x) {
 
   s <- gsub("^[0-9]v\\.", " ", s)
   s <- gsub("^[0-9] v\\.", " ", s)
-  s <- gsub("^[0-9] v\\ ", " ", s)
+  s <- gsub("^[0-9] v", " ", s)
+  s <- gsub("^[0-9]v", " ", s)
 
   s <- gsub("^[0-9][0-9][0-9]v$", " ", s)
   s <- gsub("^[0-9][0-9]v$", " ", s)
