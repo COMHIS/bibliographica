@@ -114,8 +114,8 @@ estimate_pages <- function (x) {
   } else if (!is.na(suppressWarnings(as.numeric(x)))) {
     # "3"
     return(as.numeric(x))
-  } else if (is.roman(x) && length(unlist(strsplit(x, ","))) == 1) {
-    # "III"
+  } else if ((is.roman(x) && length(unlist(strsplit(x, ","))) == 1 && length(grep("-", x)) == 0)) {
+    # "III" but not "ccclxxiii-ccclxxiv"
     return(as.numeric(as.roman(x)))
   } else if (!is.na(suppressWarnings(as.numeric(remove.squarebrackets(x))))) {
     # "[3]"
@@ -546,6 +546,9 @@ harmonize_pages <- function (s) {
   s <- gsub("205-216 leaves", "205-216,", s)
   s <- gsub("107-133 leaves", "107-133,", s)
 
+  # p. without space
+  s <- gsub("xlix-liip. ;", "xlix-lii", s)
+
   # Rare cases
   s <- gsub("3\\.", "3,", s)
   s <- gsub("c1 \\.", "", s)
@@ -563,11 +566,13 @@ harmonize_pages <- function (s) {
   s <- gsub(" and ", " ", s)
   s <- gsub("53a-62k", "53-62", s)
   s <- gsub("\\:bill", " ", s)
+  s <- gsub("\\:ill", " ", s)
   s <- gsub("\\bill", " ", s)
   s <- gsub("bill\\.", " ", s)
   s <- gsub("\\?\\]", "\\]", s) # [8?]
   #s <- gsub("^l", "", s) # 
   s <- gsub("\\+", "", s)    
+
   s <- gsub("bis", "", s)
   s <- gsub("\\*", "", s)
   s <- gsub("\\] p. \\[", "] p., [", s)
@@ -647,13 +652,14 @@ harmonize_sheets <- function (s) {
   s <- gsub("Sheet", "sheet", s)
 
   # Plates
+  s <- gsub("plates\\(one fold\\.\\)", "plates ", s)
   s <- gsub("p\\.plates", "p., plates", s) # "39,[1]p.plates :" -> "39,[1]p.,plates :"
   s <- gsub("\\)plates :", "),plates", s)
   s <- gsub("plates :", "plates ", s)
   s <- gsub("pts\\.", " plates ", s)
+  s <- gsub("pts", " plates ", s)
   s <- gsub("plate :", "plate ", s)
   s <- gsub("plates \\(some fold\\.\\) :", "plates ", s)
-  s <- gsub("plates\\(one fold\\.\\) \\:", "plates ", s)
   s <- gsub("p\\.table", "p., table", s)
   s <- gsub("p\\., of plates", "plates", s)
 
@@ -704,7 +710,7 @@ harmonize_sheets <- function (s) {
   s <- gsub("fold\\.plate", "plate", s)
   s <- gsub("fold\\. plate", "plate", s)
   s <- gsub("folding plates", "plates", s)
-  s <- gsub("foldplates", "plates", s)
+  s <- gsub("foldplate", "plate", s)
   s <- gsub("folding", "plates", s)
   s <- gsub("folded plate", "plate", s)
   s <- gsub("leaves \\([0-9] folded\\)", "leaves ", s)
@@ -733,14 +739,25 @@ harmonize_sheets <- function (s) {
   s <- gsub("1sheet", "1 sheet", s)
 
   # Harmonize '* sheets'
-  spl <- strsplit(s, ",")
+
+  spl <- unlist(strsplit(s, ","))
+
   sheet.inds <- grep("sheet", spl)
   for (i in sheet.inds) {
-    if (length(grep("^[0-9] sheets", s)) > 0) {
-      spl[[i]] <- paste(as.numeric(str_trim(unlist(strsplit(spl[[i]], "sheet"))[[1]])), "sheets", sep = " ")
+
+    if (length(grep("^[0-9] sheet", s)) > 0) {
+      n <- as.numeric(str_trim(unlist(strsplit(spl[[i]], "sheet"))[[1]]))
+      spl[[i]] <- paste(n, "sheets", sep = " ")
     }
+
+    if (length(grep("\\[^[0-9]|[a-z]\\] sheets", s)) > 0) {
+      n <- as.numeric(as.roman(str_trim(gsub("\\[", "", gsub("\\]", "", unlist(strsplit(spl[[i]], "sheet"))[[1]])))))
+      spl[[i]] <- paste(n, "sheets", sep = " ")
+    }
+
     s <- paste(spl, collapse = ",")
     s <- gsub("1 sheets", "1 sheet", s)
+
   }
 
   # Table
