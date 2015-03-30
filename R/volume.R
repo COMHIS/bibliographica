@@ -20,7 +20,7 @@ polish_volumenumber <- function (s) {
 
   # Harmonize volume info
   s <- harmonize_volume(s)
-  
+
   #' A single document, but check which volume ?
   # (document starting with 'v.*')
   voln <- sapply(s, function (x) {pick_volume(x)})
@@ -64,16 +64,56 @@ polish_volumecount <- function (s) {
 
 }
 
-harmonize_volume <- function (s) {
+
+harmonize_volume <- function (x) {
+
+  s <- condense_spaces(x)
+  s <- gsub("v\\.:bill\\. ;", NA, s)
   s[s == "^v\\. ;"] <- NA
-  s <- gsub("^Vol\\.", "v.", s)
-  s <- gsub("^vols\\.", "v.", s)
-  s <- gsub("^Vols\\.", "v.", s)
-  s <- gsub("^Pp\\.", "p.", s)
+
+  # Harmonize synonymous terms
+  s <- gsub("atlas", " vol", s)
+  s <- gsub("Vol", " vol", s)
+  s <- gsub("vol", " vol", s)
+  s <- gsub("vols", " vol", s)
+  s <- condense_spaces(s)
+
+  # " vol" -> " v." etc
+  vol.synonymes <- c("vol")
+  for (vnam in vol.synonymes) {
+    s <- gsub(paste(" ", vnam, "\\. $", sep = ""), " v. ", s)
+    s <- gsub(paste(" ", vnam, "\\.$", sep = ""), " v. ", s)
+    s <- gsub(paste(" ", vnam, " $", sep = ""), " v. ", s)
+    s <- gsub(paste(" ", vnam, "$", sep = ""), " v. ", s)
+    s <- gsub(paste("^", vnam, "\\.", sep = ""), "v. ", s)
+    s <- gsub(paste(vnam, "\\.$", sep = ""), " v. ", s)
+    s <- gsub(paste(vnam, " $", sep = ""), " v. ", s)
+
+    # This may get mixed with romans, hence omitted
+    #s <- gsub(paste(vnam, "$", sep = ""), " v. ", s)
+    #s <- gsub(paste(vnam, "\\.", sep = ""), "v.", s)
+    #s <- gsub(paste(vnam, " ", sep = ""), "v.", s)
+    #s <- gsub(paste(vnam, "", sep = ""), "v.", s)
+
+  }
+  s <- condense_spaces(s)
+
   s <- gsub("^v\\. ", "v.", s)
   s <- gsub("^v\\.\\(", "(", s)
   s <- gsub("^v\\.,", "", s)
-  s <- gsub("v\\.:bill\\. ;", NA, s)
+  s <- gsub("v $", " v.", s)
+  s <- gsub("v\\.$", " v.", s)
+  s <- gsub("v$", " v.", s)
+  s <- gsub("v\\.", " v. ", s)
+
+  if (length(grep("^[0-9][0-9][0-9] v.", s)) > 0 || length(grep("^[0-9][0-9] v.", s)) > 0 || length(grep("^[0-9] v.", s)) > 0) {
+    si <- unlist(strsplit(s, " "))
+    s <- paste(si[[1]], "v.", si[-c(1,2)], collapse = " ")
+  }
+  s <- condense_spaces(s)
+
+  s <- gsub("v\\. ", "v\\.", s)
+  
   s
 }
 
@@ -160,6 +200,28 @@ pick_multivolume <- function (x) {
 
 }
 
+remove_parts <- function (x) {
+
+  s <- as.character(x)
+
+  # Remove parts
+  # "27 parts" -> " "
+
+  parts <- c("parts", "part", "pts")
+  for (n in parts) {
+    s <- gsub(paste("[0-9][0-9][0-9] ", n, " in", sep = ""), " ", s)
+    s <- gsub(paste("[0-9][0-9] ", n, " in", sep = ""), " ", s)
+    s <- gsub(paste("[0-9] ", n, " in", sep = ""), " ", s)
+
+    s <- gsub(paste("[0-9][0-9][0-9] ", n, sep = ""), " ", s)
+    s <- gsub(paste("[0-9][0-9] ", n, sep = ""), " ", s)
+    s <- gsub(paste("[0-9] ", n, sep = ""), " ", s)
+  }
+
+  s <- condense_spaces(s)  
+
+  s
+}
 
 
 #' @title remove_volume_info
@@ -178,6 +240,12 @@ pick_multivolume <- function (x) {
 remove_volume_info <- function (x) {
 
   s <- as.character(x)
+
+  # Harmonize volume info first
+  s <- harmonize_volume(s)
+
+  # Remove parts
+  s <- remove_parts(s)
 
   # Remove some rare special cases manually
   s <- gsub("v\\.1-3\\, 5 ;", "", s)
@@ -210,7 +278,7 @@ remove_volume_info <- function (x) {
   s <- str_trim(gsub(paste("v.", voln, sep = ""), "", s))
 
   # "v. (183,[2]) -> (183,[2])"
-  s <- gsub("^v. ", "v.", s)
+  s <- gsub("^v\\. ", "v.", s)
   s <- gsub("^v.\\(", "(", s)
 
   s <- gsub("^v\\.[0-9][0-9][0-9]", " ", s)
@@ -224,22 +292,46 @@ remove_volume_info <- function (x) {
   s <- gsub("vols\\.", "v.", s)
   s <- gsub("vol\\.", "v.", s)
 
-  s <- gsub("^[0-9][0-9][0-9]v\\.", " ", s)
-  s <- gsub("^[0-9][0-9][0-9] v\\.", " ", s)
-  s <- gsub("^[0-9][0-9][0-9] v\\ ", " ", s)
+  vol.synonymes <- c("atlas", "vols", "vol", "v", "parts", "part", "pts")
 
-  s <- gsub("^[0-9][0-9]v\\.", " ", s)
-  s <- gsub("^[0-9][0-9] v\\.", " ", s)
-  s <- gsub("^[0-9][0-9] v\\ ", " ", s)
+  for (vnam in vol.synonymes) {
 
-  s <- gsub("^[0-9]v\\.", " ", s)
-  s <- gsub("^[0-9] v\\.", " ", s)
-  s <- gsub("^[0-9] v", " ", s)
-  s <- gsub("^[0-9]v", " ", s)
+    s <- gsub(paste("^[0-9][0-9][0-9]", vnam, "\\.", sep = ""), " ", s)
+    s <- gsub(paste("^[0-9][0-9][0-9] ", vnam, "\\.", sep = ""), " ", s)
+    s <- gsub(paste("^[0-9][0-9][0-9]", vnam, " ", sep = ""), " ", s)
+    s <- gsub(paste("^[0-9][0-9][0-9]", vnam, "$", sep = ""), " ", s)
 
-  s <- gsub("^[0-9][0-9][0-9]v$", " ", s)
-  s <- gsub("^[0-9][0-9]v$", " ", s)
-  s <- gsub("^[0-9]v$", " ", s)
+    s <- gsub(paste("^[0-9][0-9]", vnam, "\\.", sep = ""), " ", s)
+    s <- gsub(paste("^[0-9][0-9] ", vnam, "\\.", sep = ""), " ", s)
+    s <- gsub(paste("^[0-9][0-9] ", vnam, " ", sep = ""), " ", s)
+    s <- gsub(paste("^[0-9][0-9] ", vnam, "$", sep = ""), " ", s)
+
+    s <- gsub(paste("^[0-9]", vnam, "\\.", sep = ""), " ", s)
+    s <- gsub(paste("^[0-9] ", vnam, "\\.", sep = ""), " ", s)
+    s <- gsub(paste("^[0-9] ", vnam, " ", sep = ""), " ", s)
+    s <- gsub(paste("^[0-9]", vnam, " ", sep = ""), " ", s)
+    s <- gsub(paste("^[0-9]", vnam, "$", sep = ""), " ", s)
+
+    s <- gsub(paste("^[0-9][0-9][0-9]", vnam, "$", sep = ""), " ", s)
+    s <- gsub(paste("^[0-9][0-9]", vnam, "$", sep = ""), " ", s)
+    s <- gsub(paste("^[0-9]", vnam, "$", sep = ""), " ", s)
+
+  }
+
+  s <- gsub(" [0-9][0-9]parts", " ", s)
+  s <- gsub(" [0-9]parts", " ", s)
+  s <- gsub(" [0-9][0-9]pts", " ", s)
+  s <- gsub(" [0-9]pts", " ", s)
+  s <- gsub(" [0-9][0-9] parts", " ", s)
+  s <- gsub(" [0-9] parts", " ", s)
+  s <- gsub(" [0-9][0-9] parts", " ", s)
+  s <- gsub(" [0-9] parts", " ", s)
+  s <- gsub("^[0-9][0-9] parts", " ", s)
+  s <- gsub("^[0-9] parts", " ", s)
+  s <- gsub("^[0-9][0-9] pts", " ", s)
+  s <- gsub("^[0-9] pts", " ", s)
+  s <- gsub(" [0-9][0-9] pts", " ", s)
+  s <- gsub(" [0-9] pts", " ", s)
 
   s <- gsub("\\( \\)", " ", s)
   s <- str_trim(s)

@@ -117,9 +117,9 @@ estimate_pages <- function (x) {
   } else if ((is.roman(x) && length(unlist(strsplit(x, ","))) == 1 && length(grep("-", x)) == 0)) {
     # "III" but not "ccclxxiii-ccclxxiv"
     return(as.numeric(as.roman(x)))
-  } else if (!is.na(suppressWarnings(as.numeric(remove.squarebrackets(x))))) {
-    # "[3]"
-    return(as.numeric(remove.squarebrackets(x)))
+  } else if (!is.na(suppressWarnings(as.numeric(gsub(" p", "", remove.squarebrackets(x)))))) {
+    # "[3]" or [3 p]
+    return(as.numeric(remove.squarebrackets(gsub(" p", "", x))))
   } else if (x == "1 sheet") {
     # "1 sheet"
     return(2)
@@ -522,6 +522,7 @@ remove_dimension <- function (s) {
 }
 
 
+
 harmonize_pages <- function (s) {
 
   # Remove some special cases manually
@@ -549,6 +550,9 @@ harmonize_pages <- function (s) {
   # p. without space
   s <- gsub("xlix-liip. ;", "xlix-lii", s)
 
+  # Ff.
+  s <- gsub("Ff\\. ", "Ff.,", s)
+
   # Rare cases
   s <- gsub("3\\.", "3,", s)
   s <- gsub("c1 \\.", "", s)
@@ -570,8 +574,11 @@ harmonize_pages <- function (s) {
   s <- gsub("\\bill", " ", s)
   s <- gsub("bill\\.", " ", s)
   s <- gsub("\\?\\]", "\\]", s) # [8?]
-  #s <- gsub("^l", "", s) # 
-  s <- gsub("\\+", "", s)    
+  s <- gsub("\\+", " ", s)    
+
+  s <- gsub("[0-9][0-9] no\\. ;", " ", s)
+  s <- gsub("[0-9] no\\. ;", " ", s)
+  s <- gsub("[0-9][0-9][0-9] columns", " ", s)
 
   s <- gsub("bis", "", s)
   s <- gsub("\\*", "", s)
@@ -579,12 +586,15 @@ harmonize_pages <- function (s) {
   s <- gsub("\\[\\?\\]", " ", s)
   s <- gsub("\\?", " ", s)
   s <- gsub("+\\}", "]", s)
-  s <- gsub("[0-9] pts in 1 v\\.", " ", s)
+  #s <- gsub("[0-9] pts in 1 v\\.", " ", s)
   s <- gsub("ca\\.", " ", s)
 
-  # Remove spaces around dashes
-  s <- gsub(" -", "-", s)
-  s <- gsub("- ", "-", s)
+  # Add spaces around parentheses
+  s <- gsub("\\]", "] ", s)
+  s <- gsub("\\[", " [", s)
+  s <- gsub("\\)", ") ", s)
+  s <- gsub("\\(", " (", s)
+  s <- condense_spaces(s)
 
   # Remove endings
   for (i in 1:5) {
@@ -597,9 +607,13 @@ harmonize_pages <- function (s) {
   # Pp. -> p etc.
   s <- harmonize_page_info(s)
 
-  # Remove parentheses
+  # Remove spaces around dashes
+  s <- gsub(" -", "-", s)
+  s <- gsub("- ", "-", s)
+
+  # Remove spaces around parentheses
   s <- str_trim(gsub("\\)", " ", gsub("\\(", " ", s)))
-  s <- gsub(" \\[", ",[", s)
+  #s <- gsub(" \\[", ",[", s) # 438[i.e 428] must come without comma
   s <- gsub(" \\(", ",(", s)
   s <- gsub("\\,\\,", ",", s)
   s <- gsub("^\\(", "", s)
@@ -610,6 +624,12 @@ harmonize_pages <- function (s) {
   for (n in 0:9) {
     s <- gsub(paste("] ", n, sep = ""), paste("], ", n, sep = ""), s)
   }
+
+  s <- gsub("p \\[", "p, [", s)
+  s <- gsub("p \\(", "p, (", s)
+  s <- gsub("p\\. \\[", "p, [", s)
+  s <- gsub("p\\. \\(", "p, (", s)
+  s <- gsub("p\\.\\]", "p]", s)
 
   if (length(grep("^p[0-9]", s))) {
     s <- substr(s, 2, nchar(s))
@@ -640,7 +660,7 @@ harmonize_page_info <- function (s) {
   s <- gsub("p$", "", s)  
   s <- gsub("P\\.$", "", s)
   s <- gsub("p\\.$", "", s)
-  s <- gsub("p\\[", "p", s)
+  s <- gsub("p\\[", "p, [", s)
 
   s
 
@@ -651,13 +671,13 @@ harmonize_sheets <- function (s) {
   # Capitalization		 
   s <- gsub("Sheet", "sheet", s)
 
+
+
   # Plates
   s <- gsub("plates\\(one fold\\.\\)", "plates ", s)
   s <- gsub("p\\.plates", "p., plates", s) # "39,[1]p.plates :" -> "39,[1]p.,plates :"
   s <- gsub("\\)plates :", "),plates", s)
   s <- gsub("plates :", "plates ", s)
-  s <- gsub("pts\\.", " plates ", s)
-  s <- gsub("pts", " plates ", s)
   s <- gsub("plate :", "plate ", s)
   s <- gsub("plates \\(some fold\\.\\) :", "plates ", s)
   s <- gsub("p\\.table", "p., table", s)
@@ -672,6 +692,7 @@ harmonize_sheets <- function (s) {
   s <- gsub("\\,l\\.", ",leaves ", s) # 
   s <- gsub(" l\\.", "leaves ", s) # 
 
+  s <- gsub("  ", " ", gsub("folded", " folded", s))
   s <- gsub("\\(the last [0-9] p. blank\\)", "", s)
   s <- gsub("\\(versos blank\\)", " ", s)
   s <- gsub("\\(woodcut\\)", " ", s)
@@ -713,6 +734,7 @@ harmonize_sheets <- function (s) {
   s <- gsub("foldplate", "plate", s)
   s <- gsub("folding", "plates", s)
   s <- gsub("folded plate", "plate", s)
+
   s <- gsub("leaves \\([0-9] folded\\)", "leaves ", s)
   s <- gsub("pate", "plate", s)
   s <- gsub("pleave", "leave", s)
@@ -884,7 +906,14 @@ harmonize_pages_specialcases <- function (s) {
   s <- gsub("2 v. \\(v.1: \\[8\\], 124 \\[i.e. 126\\], \\[1\\] leaves; 289, \\[1\\], \\[8\\], 22, \\[2\\], 518, \\[26\\] p., \\[2\\], 28 leaves, 115, \\[9\\] p.; v.2: \\[4\\], 291-659, 700-981, 990-1593, \\[1\\], 1593-1876, \\[104\\] p., folded plate\\) :", "2 v. (v.1: [8], 124 [i.e. 126], [1] leaves, 289, [1], [8], 22, [2], 518, [26] p., [2], 28 leaves, 115, [9] p.; v.2: [4], 291-659, 700-981, 990-1593, [1], 1593-1876, [104] p., folded plate) :", s)
   s <- gsub("2 v. \\(v.1: \\[8\\], 124 \\[i.e. 126\\], \\[1\\] leaves; 289, \\[1\\]; \\[8\\], 22, \\[2\\]; 518, \\[26\\] p.; \\[2\\], 28 leaves; 115, \\[9\\] p.; v.2: \\[4\\], 291-659, 700-981, 990-1593, \\[1\\], 1593-1876; \\[104\\] p., folded plate\\) :", "2 v. (v.1: [8], 124 [i.e. 126], [1] leaves, 289, [1], [8], 22, [2], 518, [26] p., [2], 28 leaves, 115, [9] p.; v.2: [4], 291-659, 700-981, 990-1593, [1], 1593-1876, [104] p., folded plate) :", s)
   s <- gsub("3 v. \\(vol. 1: \\[10\\], 250; \\[4\\], 202, \\[2\\] p.; vol. 2: 61, \\[13\\], 183, \\[1\\]; 421, 424-430, 436-438, 431-433, 439-445, 450-464, \\[56\\] p.; vol. 3: \\[8\\], 1080, 1080-1327, \\[2\\], 1332-1371, 1371-1421, 1490-1491, 1536-1555, 1574-1592, \\[62\\] p.\\) ;", "3 v. (vol. 1: [10], 250, [4], 202, [2] p.; vol. 2: 61, [13], 183, [1], 421, 424-430, 436-438, 431-433, 439-445, 450-464, [56] p.; vol. 3: [8], 1080, 1080-1327, [2], 1332-1371, 1371-1421, 1490-1491, 1536-1555, 1574-1592, [62] p.) ;", s)
+  s <- gsub("v\\. ; 42 cm \\(2⁾", " ", s)
 
+  # Caption title; with a docket title that reads 'Memorial of the
+  # agent for the province of Massachussetts-Bay against a duty of
+  # 3d. per gallon on foreign molasses.'. - Dated in MS '9th February,
+  # 1764' and signed J. Mauduit.
+  s[grep("Caption title", s)] <- NA
+  
   # Add manually some missing commas
   s <- gsub("\\[8\\] 140 p\\.", "[8], 140", s)
   s <- gsub("\\[8\\] 182", "[8], 182", s)
