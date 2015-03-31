@@ -68,6 +68,9 @@ polish_volumecount <- function (s) {
 harmonize_volume <- function (x) {
 
   s <- condense_spaces(x)
+
+  if (s %in% c("v", "v;", "v ;", "v :")) {return("v")}
+
   s <- gsub("v\\.:bill\\. ;", NA, s)
   s[s == "^v\\. ;"] <- NA
 
@@ -101,16 +104,29 @@ harmonize_volume <- function (x) {
   s <- gsub("^v\\. ", "v.", s)
   s <- gsub("^v\\.\\(", "(", s)
   s <- gsub("^v\\.,", "", s)
-  s <- gsub("v $", " v.", s)
-  s <- gsub("v\\.$", " v.", s)
-  s <- gsub("v$", " v.", s)
-  s <- gsub("v\\.", " v. ", s)
-
-  if (length(grep("^[0-9][0-9][0-9] v.", s)) > 0 || length(grep("^[0-9][0-9] v.", s)) > 0 || length(grep("^[0-9] v.", s)) > 0) {
-    si <- unlist(strsplit(s, " "))
-    s <- paste(si[[1]], "v.", si[-c(1,2)], collapse = " ")
-  }
+  s <- gsub(" v $", " v.", s)
+  s <- gsub(" v\\.$", " v.", s)
+  s <- gsub(" v$", " v.", s)
+  s <- gsub(" v\\.", " v. ", s)
   s <- condense_spaces(s)
+
+  hvol <- function (s) {
+    if (length(grep("^[0-9][0-9][0-9] v\\.", s)) > 0 || length(grep("^[0-9][0-9] v\\.", s)) > 0 || length(grep("^[0-9] v\\.", s)) > 0) {
+      si <- unlist(strsplit(s, "v\\."))
+      s <- paste(si[[1]], "v.", si[-1], collapse = " ")
+    }
+
+    # 2 v ; -> 2v.
+    if (length(grep("^[0-9] v ", s))>0) {
+      si <- unlist(strsplit(s, " "))
+      s <- paste(si[[1]], " v.", s[-1], collapse = "")
+    }
+    s
+  }
+  s <- sapply(s, function (x) {hvol(x)})
+  s <- condense_spaces(s)
+  s <- gsub("^[0-9]v", paste0(substr(s, 1, 1), "v."), s)
+  s <- gsub("^[0-9] v ", paste0(substr(s, 1, 1), "v."), s)
 
   s <- gsub("v\\. ", "v\\.", s)
   
@@ -216,8 +232,21 @@ remove_parts <- function (x) {
     s <- gsub(paste("[0-9][0-9][0-9] ", n, sep = ""), " ", s)
     s <- gsub(paste("[0-9][0-9] ", n, sep = ""), " ", s)
     s <- gsub(paste("[0-9] ", n, sep = ""), " ", s)
+
+    s <- gsub(paste("in [0-9][0-9][0-9] ", n, sep = ""), " ", s)
+    s <- gsub(paste("in [0-9][0-9] ", n, sep = ""), " ", s)
+    s <- gsub(paste("in [0-9] ", n, sep = ""), " ", s)
+
+    s <- gsub(paste("in [0-9][0-9][0-9]", n, sep = ""), " ", s)
+    s <- gsub(paste("in [0-9][0-9]", n, sep = ""), " ", s)
+    s <- gsub(paste("in [0-9]", n, sep = ""), " ", s)
+
   }
 
+  s <- gsub(" in [0-9][0-9][0-9] ", " ", s)
+  s <- gsub(" in [0-9][0-9] ", " ", s)
+  s <- gsub(" in [0-9] ", " ", s)
+  
   s <- condense_spaces(s)  
 
   s
@@ -254,6 +283,8 @@ remove_volume_info <- function (x) {
   s <- gsub("Vols\\.6-7\\,9-12\\,plates :", "plates", s)
 
   # Pick and remove multi-volume information (document starting with '* v.')
+  # TODO: vectorize this
+
   for (i in 1:length(s)) {
     si <- s[[i]]
     vols <- pick_multivolume(si)  
@@ -273,6 +304,7 @@ remove_volume_info <- function (x) {
   # Pick which volume this might be (if given)
   # Cases 'v.1' etc.
   voln <- pick_volume(s)
+
   # Then remove the volume information that was picked
   s <- str_trim(gsub(paste("v.", voln, ":", sep = ""), "", s))
   s <- str_trim(gsub(paste("v.", voln, sep = ""), "", s))
@@ -292,7 +324,12 @@ remove_volume_info <- function (x) {
   s <- gsub("vols\\.", "v.", s)
   s <- gsub("vol\\.", "v.", s)
 
-  vol.synonymes <- c("atlas", "vols", "vol", "v", "parts", "part", "pts")
+
+  # 2 v ; -> 2v.
+  s <- gsub("^[0-9] v ", " ", s)
+  s <- gsub("^[0-9]v ", " ", s)
+
+  vol.synonymes <- c("atlas", "vols", "vol", "v\\.", "parts", "part", "pts")
 
   for (vnam in vol.synonymes) {
 
@@ -317,21 +354,6 @@ remove_volume_info <- function (x) {
     s <- gsub(paste("^[0-9]", vnam, "$", sep = ""), " ", s)
 
   }
-
-  s <- gsub(" [0-9][0-9]parts", " ", s)
-  s <- gsub(" [0-9]parts", " ", s)
-  s <- gsub(" [0-9][0-9]pts", " ", s)
-  s <- gsub(" [0-9]pts", " ", s)
-  s <- gsub(" [0-9][0-9] parts", " ", s)
-  s <- gsub(" [0-9] parts", " ", s)
-  s <- gsub(" [0-9][0-9] parts", " ", s)
-  s <- gsub(" [0-9] parts", " ", s)
-  s <- gsub("^[0-9][0-9] parts", " ", s)
-  s <- gsub("^[0-9] parts", " ", s)
-  s <- gsub("^[0-9][0-9] pts", " ", s)
-  s <- gsub("^[0-9] pts", " ", s)
-  s <- gsub(" [0-9][0-9] pts", " ", s)
-  s <- gsub(" [0-9] pts", " ", s)
 
   s <- gsub("\\( \\)", " ", s)
   s <- str_trim(s)

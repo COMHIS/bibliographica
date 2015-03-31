@@ -9,6 +9,9 @@ test_that("remove volume functions correctly", {
 })
 
 test_that("volume count is correct", {
+  expect_equal(unname(polish_volumecount("v")), 1)
+  expect_equal(unname(polish_volumecount("2 v")), 2)
+  expect_equal(unname(polish_volumecount("2v")), 2)
   expect_equal(unname(polish_volumecount("5v.")), 5)
   expect_equal(unname(polish_volumecount("73 vols")), 73)
   expect_equal(unname(polish_volumecount("73 vol ")), 73)
@@ -19,9 +22,12 @@ test_that("volume count is correct", {
   expect_equal(unname(polish_volumecount("73 pts.,2 pages")), 1)
   expect_equal(unname(polish_volumecount("1atlas")), 1)
   expect_equal(unname(polish_volumecount("v, 5")), 1) # 5 + 5 pages, 1 volume
+  expect_equal(unname(polish_volumecount("v")), 1)
+  expect_equal(unname(polish_volumecount("v ;")), 1)
 })
 
 test_that("page count is correct", {
+
   expect_equal(polish_pages("3")$estimated.pages[[1]], 3)
   expect_equal(polish_pages("[3]")$estimated.pages[[1]], 3)
   expect_equal(polish_pages("iii")$estimated.pages[[1]], 3)
@@ -167,7 +173,9 @@ test_that("page count is correct", {
   expect_equal(polish_pages("[20], 225, [7], 369-680, 721-1051, [5] p.")$estimated.pages[[1]], 1083)
   expect_equal(polish_pages("25, 27-33, [4] p.")$estimated.pages[[1]], 37)
   expect_equal(polish_pages("4, 253-480 p.")$estimated.pages[[1]], 480)
-  #expect_true(is.na(polish_pages("v.")$estimated.pages[[1]]))
+  expect_true(is.na(polish_pages("v.")$estimated.pages[[1]]))
+  expect_true(is.na(polish_pages("1 v")$estimated.pages[[1]]))
+  expect_true(is.na(polish_pages("2v")$estimated.pages[[1]]))
   expect_equal(polish_pages("v,[3],124,[4],129,[3]p.")$estimated.pages[[1]], 144)
   expect_equal(polish_pages("v,[1],7-18p.")$estimated.pages[[1]], 18)
   expect_equal(polish_pages("36 p [1]")$estimated.pages[[1]], 37)

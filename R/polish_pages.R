@@ -92,20 +92,11 @@ polish_page <- function (x) {
 estimate_pages <- function (x) {
 
   # Estimate pages for a single volume within a document
+  # After removing volume info
   # This is the main function regarding page counting rules	       
-
-  # Sometimes the semicolon separated pages include also volume info:
-  # "3 v. (v.1: [72], 658, [32] p.; v.2: [144], 530, [14];
-  #  237, [1] p.; v.3: [116], 465, [21]; 370, [2] p.) ;"
-  # In the current function we are handling 
-  # a single volume ie. "v.3: [116], 465, [21]; 370, [2] p.)"
-  # So remove such volume info here
-  x <- remove_volume_info(x)
 
   # Harmonize synonymes and spelling errors
   x <- harmonize_pages(x)
-
-  # --------------------------------------------
 
   # Handle the straightforward standard cases first
   if (all(is.na(x))) {
@@ -568,6 +559,7 @@ harmonize_pages <- function (s) {
   s <- gsub("\\[No pagination provided\\]", " ", s)
   s <- gsub("in various pagings", " ", s)
   s <- gsub(" and ", " ", s)
+  s <- gsub("leaf", " leaf", s)
   s <- gsub("53a-62k", "53-62", s)
   s <- gsub("\\:bill", " ", s)
   s <- gsub("\\:ill", " ", s)
@@ -618,12 +610,18 @@ harmonize_pages <- function (s) {
   s <- gsub("\\,\\,", ",", s)
   s <- gsub("^\\(", "", s)
   s <- gsub("\\)$", "", s)
+  s <- condense_spaces(s)
 
   # Add commas
   #"[2] 4 p." -> "[2], 4 p."
+  inds <- setdiff(1:length(s), grep("\\[i", s))
+  s[inds] <- gsub(" \\[", "\\,[", s[inds])
   for (n in 0:9) {
     s <- gsub(paste("] ", n, sep = ""), paste("], ", n, sep = ""), s)
   }
+  s <- gsub("leaves \\[", "leaves, [", s)
+  s <- gsub("leaf \\[", "leaf, [", s)
+  s <- gsub("\\] \\[", "], [", s)
 
   s <- gsub("p \\[", "p, [", s)
   s <- gsub("p \\(", "p, (", s)
@@ -671,8 +669,6 @@ harmonize_sheets <- function (s) {
   # Capitalization		 
   s <- gsub("Sheet", "sheet", s)
 
-
-
   # Plates
   s <- gsub("plates\\(one fold\\.\\)", "plates ", s)
   s <- gsub("p\\.plates", "p., plates", s) # "39,[1]p.plates :" -> "39,[1]p.,plates :"
@@ -680,6 +676,7 @@ harmonize_sheets <- function (s) {
   s <- gsub("plates :", "plates ", s)
   s <- gsub("plate :", "plate ", s)
   s <- gsub("plates \\(some fold\\.\\) :", "plates ", s)
+  s <- gsub("plates \\(one fold\\.\\)", "plates ", s)
   s <- gsub("p\\.table", "p., table", s)
   s <- gsub("p\\., of plates", "plates", s)
 
@@ -969,7 +966,8 @@ harmonize_pages_by_comma <- function (s) {
   # Handle some odd cases
   s <- gsub("a-m", " ", s)
   s <- polish_ie(s)
-  s <- str_trim(s)
+  s <- trimming(s,n = 5)
+  s <- condense_spaces(s)
   s[s == ""] <- NA
 
   s
