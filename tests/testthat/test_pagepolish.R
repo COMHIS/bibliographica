@@ -28,6 +28,16 @@ test_that("volume count is correct", {
 
 test_that("page count is correct", {
 
+  # Pitais olla 2 p. [koska 2 p. ilmaistu suluissa]
+  expect_equal(polish_pages("1leaf ([2]p.)")$estimated.pages[[1]], 2)
+
+  # 10+788+4=802
+  expect_equal(polish_pages("[10],v-792,4p.,plates")$estimated.pages[[1]], 806) 
+
+  # 3+560+5+4=572
+  expect_equal(polish_pages("[3],xx-579,[5]p.,plates")$estimated.pages[[1]], 572)
+
+  expect_equal(polish_pages("1/2 sheet")$estimated.pages[[1]], 2)
   expect_equal(polish_pages("3")$estimated.pages[[1]], 3)
   expect_equal(polish_pages("[3]")$estimated.pages[[1]], 3)
   expect_equal(polish_pages("iii")$estimated.pages[[1]], 3)

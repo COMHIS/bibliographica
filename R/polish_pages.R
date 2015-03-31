@@ -153,6 +153,9 @@ estimate_pages <- function (x) {
     x[inds] <- remove.squarebrackets(x[inds])
   }
   pagecount.attributes["arabic", inds] <- TRUE
+  # Now page count can't be roman and arabic at the same time.
+  # Otherwise pages will calculated double
+  pagecount.attributes["roman", pagecount.attributes["arabic", ]] <- FALSE
   pagecount.attributes["squarebracket", inds] <- FALSE
 
   # -----------------------------------------------------
@@ -164,12 +167,10 @@ estimate_pages <- function (x) {
 
   # Convert romans to arabics (entries separated by spaces possibly)
   # also 3-iv -> 3-4 
-  inds <- pagecount.attributes["roman", ]
+  inds <- pagecount.attributes["roman", ] | pagecount.attributes["arabic", ]
   if (any(inds)) {
     x[inds] <- roman2arabic(x[inds])
   }
-
-  # -----------------------------------------------------
 
   # Convert plates to arabics
   inds <- pagecount.attributes["plate", ]
@@ -550,7 +551,6 @@ harmonize_pages <- function (s) {
   s <- gsub("32t p\\.", "32 p.", s)
   s <- gsub("\\[1⁺\\]", "[1]", s)
   s <- gsub("1\\/ \\.$", ",1", s)
-  s <- gsub("1/", " ", s)
   s <- gsub("c1⁰\\.$", "", s)
   s <- gsub("\\[x\\]", " ", s)
   s <- gsub("\\+\\]", "]", s)
@@ -598,6 +598,9 @@ harmonize_pages <- function (s) {
 
   # Pp. -> p etc.
   s <- harmonize_page_info(s)
+  
+  # 1/4to etc -> 4
+  #s <- gsub("1/", " ", s)
 
   # Remove spaces around dashes
   s <- gsub(" -", "-", s)
@@ -741,6 +744,8 @@ harmonize_sheets <- function (s) {
   s <- gsub("leaves of plates", "leaves", s)
   s <- gsub("leaves of plate", "leaves", s)
   s <- gsub("leafs", "leaves", s)
+  s <- gsub("[0-9]leaf", paste0(substr(s, 1, 1), " leaf"), s)
+  s <- gsub("1 leaf", "1 sheet", s)
 
   s <- gsub("folded sheet", "sheet", s)
   s <- gsub("1 sheet \\(\\[[1-2]\\] p\\)", "1 sheet", s)
@@ -756,6 +761,7 @@ harmonize_sheets <- function (s) {
   s <- gsub("1 sheet \\(\\[[1-2]\\]\\) p\\.", "1 sheet", s)
   s <- gsub("1 sheet \\(\\[1\\]\\) p", "1 sheet", s)
   s <- gsub("1sheet", "1 sheet", s)
+  s <- gsub("1/[0-9] sheet", "1 sheet", s)
 
   # Harmonize '* sheets'
 
