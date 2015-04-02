@@ -8,8 +8,9 @@
 #'
 #' @export
 #' 
-#' @details A summary of page counting rules that this function aims to (approximately) implement
-#'          are provided in \url{https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html}
+#' @details A summary of page counting rules that this function aims to 
+#'          (approximately) implement are provided in 
+#' \url{https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html}
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
@@ -27,7 +28,11 @@ polish_pages <- function (s, verbose = FALSE) {
   raw <- sp <- list()
 
   for (i in 1:length(s)) {
-    if (verbose) {message(i)}
+
+    if (verbose) { 
+      if (ceiling(i/100) == floor(i/100)) {message(i)}
+      #{message(i)}
+    }
 
     # Catch warnings rather than crashing the loop
     a <- try(pp <- polish_page(s[[i]]))
@@ -515,10 +520,10 @@ remove_dimension <- function (s) {
 
 
 
-harmonize_pages <- function (s) {
+harmonize_pages <- function (x) {
 
   # Remove some special cases manually
-  s <- harmonize_pages_specialcases(s)
+  s <- harmonize_pages_specialcases(x)
 
   # Remove dimension info
   s <- remove_dimension(s)
@@ -746,25 +751,15 @@ harmonize_sheets <- function (s) {
   s <- gsub("leafs", "leaves", s)
   s <- gsub("[0-9]leaf", paste0(substr(s, 1, 1), " leaf"), s)
   s <- gsub("1 leaf", "1 sheet", s)
-
   s <- gsub("folded sheet", "sheet", s)
-  s <- gsub("1 sheet \\(\\[[1-2]\\] p\\)", "1 sheet", s)
-  s <- gsub("1 sheet \\(\\[[1-2]\\] p\\.\\)", "1 sheet", s)
-  s <- gsub("1 sheet \\(\\[[1-2]\\] p\\)", "1 sheet", s)
-  s <- gsub("1 sheet \\(\\[[1-2]\\] p\\.\\)", "1 sheet", s)
-  s <- gsub("1 sheet \\(\\[[1-2]\\] page\\)", "1 sheet", s)
-  s <- gsub("1 sheet \\(\\[[1-2]\\] pages\\)", "1 sheet", s)
-  s <- gsub("1 sheet \\([1-2] page\\)", "1 sheet", s)
-  s <- gsub("1 sheet \\(\\[[1-2]\\]\\) p.", "1 sheet", s)
-  s <- gsub("1 sheet \\([1-2] pages\\)", "1 sheet", s)
-  s <- gsub("1 sheet \\[\\([1-2]\\) p\\.\\]", "1 sheet", s)
-  s <- gsub("1 sheet \\(\\[[1-2]\\]\\) p\\.", "1 sheet", s)
-  s <- gsub("1 sheet \\(\\[1\\]\\) p", "1 sheet", s)
   s <- gsub("1sheet", "1 sheet", s)
+
+  # "1 sheet (*)" -> 1 sheet
+  s <- gsub("\\[1\\] sheet", "1 sheet", s)
   s <- gsub("1/[0-9] sheet", "1 sheet", s)
+  s <- gsub(paste0("1 sheet \\(.{0,}\\)$"), "1 sheet", s)
 
   # Harmonize '* sheets'
-
   spl <- unlist(strsplit(s, ","))
 
   sheet.inds <- grep("sheet", spl)
@@ -852,15 +847,19 @@ pick_starting_numeric <- function (x) {
 harmonize_ie <- function (s) {
 
   # Harmonize i.e.
-  s <- gsub("i\\. e", "i.e", s)
-  #s <- gsub("\\[i\\.e", " i.e", s)
-  #s <- gsub("\\[ie\\.", " i.e", s)
-  s <- gsub("\\,i\\.e", "i.e", s)
-  s <- gsub("\\, i\\.e", "i.e", s)
-  s <- gsub("i\\.e", "i.e.", s)
-  s <- gsub("i\\.e\\.\\.", "i.e.", s)
-  s <- gsub("i\\.e\\.\\,", "i.e.", s)
-  s <- gsub("i\\.e\\.", "i.e ", s)
+  s <- gsub("i\\. e", " i.e", s)
+  s <- gsub("\\[i\\.e", "  i.e", s)
+  s <- gsub("\\[ie\\.", " i.e", s)
+  s <- gsub("\\[ ie\\.", " i.e", s)
+  s <- gsub("\\[ ie ", " i.e", s)
+  s <- gsub("\\[ie ", " i.e", s)
+  s <- gsub("\\,i\\.e", " i.e", s)
+  s <- gsub("\\, i\\.e", " i.e", s)
+  s <- gsub("i\\.e", " i.e.", s)
+  s <- gsub("i\\.e\\.\\.", " i.e.", s)
+  s <- gsub("i\\.e\\.\\,", " i.e.", s)
+  s <- gsub("i\\.e\\.", " i.e ", s)
+  s <- gsub("ie\\.", " i.e ", s)
 
   # "12 [i.e. 8 p.]" -> 12 i.e 8
   if (length(grep("\\[i.e ", s)) > 0) {
@@ -871,6 +870,10 @@ harmonize_ie <- function (s) {
     s <- gsub(paste("\\[i\\.e  ", s2, " p\\.\\]", sep = ""), paste("i\\.e", s2, " ", sep = ""), s)
   }
 
+  s <- condense_spaces(s)
+  s <- gsub("p\\. i\\.e", " i.e", s)
+  s <- gsub("i\\.e","i.e ",s)
+  s <- condense_spaces(s)
   s
 
 }
@@ -958,6 +961,9 @@ harmonize_pages_by_comma <- function (s) {
     s <- gsub("page", " ", s)
     s <- gsub("p\\.\\)", " ", s)
     s <- gsub("p$", " ", s)
+    s <- gsub("p\\.]$", " ", s)
+    s <- gsub(" p \\]$", " ", s)
+    s <- gsub(" p\\]$", " ", s)
     #s <- gsub("p\\.", " ", s)
     #s <- gsub("p", " ", s)
   }
@@ -969,9 +975,13 @@ harmonize_pages_by_comma <- function (s) {
     s <- str_trim(gsub("^p", "", s))
   }
 
+  s <- polish_ie(s)
+
   # Handle some odd cases
   s <- gsub("a-m", " ", s)
-  s <- polish_ie(s)
+
+  # s <- polish_ie(s)
+
   s <- trimming(s,n = 5)
   s <- condense_spaces(s)
   s[s == ""] <- NA
@@ -982,11 +992,52 @@ harmonize_pages_by_comma <- function (s) {
 
 
 polish_ie <- function (x) {
+
+  # 183 i.e 297 -> 297	  
+  # 183-285 i.e 297 -> 183-297	  
+  # 183-285 [i.e 297] -> 183-297	  
+
+  y <- x
+
   # Handle ie
   if (length(grep("i\\.e", x)) > 0) {
-    x <- gsub("\\]", " ", str_trim(unlist(strsplit(x, "i.e")))[[2]])
+    x2 <- gsub("\\]", " ", str_trim(unlist(strsplit(x, "i.e")))[[2]])
+    yspl <- unlist(strsplit(y, "i\\.e"))
+
+    y <- as.numeric(str_trim(x2))
+
+    x0 <- NULL
+
+    if (length(grep("-", yspl[[1]]))>0) {
+      spl <- str_trim(unlist(strsplit(x, "-")))
+
+      x0 <- as.numeric(spl[[1]])
+      x1 <- as.numeric(unlist(strsplit(spl[[2]], " "))[[1]])
+
+      if (x2 > x0) {
+        y <- paste(x0, x2, sep = "-")
+      } else {
+        y <- x2
+      }
+    }
+
+    # "4 [i.e. 6]-8 p." -> "6-8"
+    if (length(grep("-", yspl[[2]]))>0) {
+
+      spl <- str_trim(unlist(strsplit(x, "-")))
+
+      x0 <- str_trim(unlist(strsplit(spl[[1]], "i.e"))[[2]])
+      x1 <- as.numeric(unlist(strsplit(spl[[2]], " "))[[1]])
+
+      if (x2 > x0) {
+        y <- paste(x0, x2, sep = "-")
+      } else {
+        y <- x2
+      }
+    }
   }
-  x
+
+  y
 }
 
 is.roman <- function (x) {
@@ -995,8 +1046,11 @@ is.roman <- function (x) {
 
   check.roman <- function (x) {
 
+    if (x == "" || is.na(x)) {return(FALSE)}
+
     xs <- unlist(strsplit(x, "-"))
     isr <- c()
+
     for (i in 1:length(xs)) {  
       x <- xs[[i]]
       tmp <- suppressWarnings(as.numeric(x))
@@ -1163,7 +1217,7 @@ plates2pages <- function (s) {
 
   # TODO these harmonization functions could go here from 
   # harmonize_pages
-  s <- polish_ie(s) 
+  # s <- polish_ie(s) 
 
   # If not plate number given, consider it as a single plate
   # Convert plates to pages: 1 plate = 2 pages

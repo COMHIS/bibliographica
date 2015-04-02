@@ -68,9 +68,7 @@ polish_volumecount <- function (s) {
 harmonize_volume <- function (x) {
 
   s <- condense_spaces(x)
-
-  if (s %in% c("v", "v;", "v ;", "v :")) {return("v")}
-
+  s[s %in% c("^v$", "^v;$", "^v ;$", "^v :$")] <- "v"
   s <- gsub("v\\.:bill\\. ;", NA, s)
   s[s == "^v\\. ;"] <- NA
 
@@ -125,9 +123,10 @@ harmonize_volume <- function (x) {
   }
   s <- sapply(s, function (x) {hvol(x)})
   s <- condense_spaces(s)
-  s <- gsub("^[0-9]v", paste0(substr(s, 1, 1), "v."), s)
-  s <- gsub("^[0-9] v ", paste0(substr(s, 1, 1), "v."), s)
 
+  # "2 v " -> "2v." and "2v " -> "2v."
+  s <- sapply(s, function (si) {gsub("^[0-9] ?v ", paste0(substr(si, 1, 1), "v."), si)})
+  s <- sapply(s, function (si) {gsub("^[0-9] ?v$", paste0(substr(si, 1, 1), "v."), si)})
   s <- gsub("v\\. ", "v\\.", s)
   
   s
@@ -212,6 +211,10 @@ pick_multivolume <- function (x) {
     }
   }
 
+  if (length(vol) == 0) {
+    vol <- NA
+  }
+
   vol
 
 }
@@ -288,18 +291,20 @@ remove_volume_info <- function (x) {
   for (i in 1:length(s)) {
     si <- s[[i]]
     vols <- pick_multivolume(si)  
-    # Then remove the volume information that was picked
-    si <- gsub(paste("^", vols, " v.", sep = ""), paste(vols, "v.", sep = ""), str_trim(si))
-    si <- str_trim(gsub(paste("^", vols, "v.", sep = ""), "", si)) 
-    si <- str_trim(gsub("^,", "", si))
-    s[[i]] <- si
+    if (length(vols) > 0) {
+      # Then remove the volume information that was picked
+      si <- gsub(paste("^", vols, " v.", sep = ""), paste(vols, "v.", sep = ""), str_trim(si))
+      si <- str_trim(gsub(paste("^", vols, "v.", sep = ""), "", si)) 
+      si <- str_trim(gsub("^,", "", si))
+      s[[i]] <- si
+    }
   }
 
   # Cases 'v.1-3' etc
+
   inds <- intersect(grep("^v.", s), grep("-", s))
-  for (i in inds) {
-    s[[i]] <- gsub(check_volumes(s[[i]])$text, "", s[[i]])
-  }
+  tmp <- sapply(s[inds], function (si) {gsub(check_volumes(si)$text, "", si)})
+  s[inds] <- tmp
 
   # Pick which volume this might be (if given)
   # Cases 'v.1' etc.
@@ -405,7 +410,7 @@ check_volumes <- function (x) {
 
     i <- 1
     n <- as.numeric(substr(x2[[2]], 1, i))
-    while (is.numeric(n) && i <= nchar(x2[[2]])) {
+    while ((!is.na(n) && is.numeric(n)) && i <= nchar(x2[[2]])) {
       n2 <- n
       n <- as.numeric(substr(x2[[2]], 1, i))
       i <- i+1

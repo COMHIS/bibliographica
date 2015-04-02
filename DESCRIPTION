@@ -1,8 +1,8 @@
 Package: bibliographica
 Type: Package
 Title: Bibliographic Data Analysis
-Version: 0.1.22
-Date: 2015-03-15
+Version: 0.1.23
+Date: 2015-04-01
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Ilomaki", "Niko" , role = "aut"),
