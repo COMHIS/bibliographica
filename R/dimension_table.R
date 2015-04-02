@@ -7,12 +7,12 @@
 #' @export
 #' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
+#' @references See citation("bibliographica")
 #' 
 #' @examples dimension_table()
 #' @keywords utilities
 dimension_table <- function (...) {
-  f <- system.file("extdata/documentdimensions.csv", package = "estc")
+  f <- system.file("extdata/documentdimensions.csv", package = "bibliographica")
   dd <- read.csv(f, header = TRUE)[-1,]
   colnames(dd) <- gsub("^X", "", colnames(dd))
   colnames(dd)[[1]] <- "height"

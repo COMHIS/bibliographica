@@ -10,14 +10,14 @@
 #' @details Sheet size is calculated according to the table given as output from call sheet_area()
 #' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
+#' @references See citation("bibliographica")
 #' 
 #' @examples sheet_area("2to")
 #' @keywords utilities
 sheet_area <- function (x = NULL, verbose = TRUE) {
 	
   # Read the mapping table
-  f <- system.file("extdata/sheetsizes.csv", package = "estc")
+  f <- system.file("extdata/sheetsizes.csv", package = "bibliographica")
   tab <- as.data.frame(read.csv(f))
   tab[,1] <- str_trim(as.character(tab[,1]))
   tab[,2] <- str_trim(as.character(tab[,2]))
