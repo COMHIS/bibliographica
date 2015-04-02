@@ -11,3 +11,4 @@ inst/extras/..Rcheck
 bibliographica.Rproj
 .Rproj.user/*
 tests/.RData
+vignettes/tutorial.html

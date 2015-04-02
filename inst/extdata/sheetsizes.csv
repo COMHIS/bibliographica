@@ -1,0 +1,17 @@
+format, gatherings, width, height, area
+sheet, 1to, 60, 90, 5760
+broadside, bs, 60, 64, 3840
+folio, 2to, 30, 48, 1440
+small-folio, 2small, 25, 38, 950
+quarto, 4to, 22, 28, 616
+small-quarto, 4small, 17, 20, 340
+octavo, 8to, 13, 19, 247
+duodecimo, 12to, 12.5, 19, 237.5
+long-duodecimo, 12long, 13, 20, 260
+sextodecimo, 16to, 12, 15, 180
+octodecimo, 18to, 10, 16, 160
+vigesimo, 20to, 12.5, 7.5, 93.75
+vigesimo-quarto, 24to, 12.5, 8.5, 106.25
+trigesimo-secundo, 32to, 7, 12, 84
+quadragesimo-octavo, 48to, 6.5, 10, 65 
+sexagesimo-quarto, 64to, 5, 7, 35 
