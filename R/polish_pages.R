@@ -30,8 +30,8 @@ polish_pages <- function (s, verbose = FALSE) {
   for (i in 1:length(s)) {
 
     if (verbose) { 
-      if (ceiling(i/100) == floor(i/100)) {message(i)}
-      #{message(i)}
+      if (ceiling(i/500) == floor(i/500)) {message(i)}
+      # {message(i)}
     }
 
     # Catch warnings rather than crashing the loop
@@ -979,9 +979,6 @@ harmonize_pages_by_comma <- function (s) {
 
   # Handle some odd cases
   s <- gsub("a-m", " ", s)
-
-  # s <- polish_ie(s)
-
   s <- trimming(s,n = 5)
   s <- condense_spaces(s)
   s[s == ""] <- NA
@@ -1001,29 +998,32 @@ polish_ie <- function (x) {
 
   # Handle ie
   if (length(grep("i\\.e", x)) > 0) {
+
     x2 <- gsub("\\]", " ", str_trim(unlist(strsplit(x, "i.e")))[[2]])
     yspl <- unlist(strsplit(y, "i\\.e"))
-
-    y <- as.numeric(str_trim(x2))
-
     x0 <- NULL
 
-    if (length(grep("-", yspl[[1]]))>0) {
+    if (length(grep("-", yspl[[1]]))>0 && length(grep("-", yspl[[2]]))>0) {
+
+      y <- str_trim(yspl[[2]])
+
+    } else if (length(grep("-", yspl[[1]]))>0) {
+
+      y <- as.numeric(as.roman(str_trim(x2)))
       spl <- str_trim(unlist(strsplit(x, "-")))
 
-      x0 <- as.numeric(spl[[1]])
-      x1 <- as.numeric(unlist(strsplit(spl[[2]], " "))[[1]])
+      x0 <- as.numeric(as.roman(spl[[1]]))
+      x1 <- as.numeric(as.roman(unlist(strsplit(spl[[2]], " "))[[1]]))
 
       if (x2 > x0) {
         y <- paste(x0, x2, sep = "-")
       } else {
         y <- x2
       }
-    }
+    } else if (length(grep("-", yspl[[2]]))>0) {
 
-    # "4 [i.e. 6]-8 p." -> "6-8"
-    if (length(grep("-", yspl[[2]]))>0) {
-
+      y <- as.numeric(as.roman(str_trim(x2)))
+      # "4 [i.e. 6]-8 p." -> "6-8"
       spl <- str_trim(unlist(strsplit(x, "-")))
 
       x0 <- str_trim(unlist(strsplit(spl[[1]], "i.e"))[[2]])
@@ -1034,6 +1034,8 @@ polish_ie <- function (x) {
       } else {
         y <- x2
       }
+    } else {
+      y <- as.numeric(as.roman(str_trim(x2)))
     }
   }
 
