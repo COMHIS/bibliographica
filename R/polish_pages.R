@@ -630,7 +630,6 @@ harmonize_pages <- function (x) {
   s <- gsub("leaves \\[", "leaves, [", s)
   s <- gsub("leaf \\[", "leaf, [", s)
   s <- gsub("\\] \\[", "], [", s)
-
   s <- gsub("p \\[", "p, [", s)
   s <- gsub("p \\(", "p, (", s)
   s <- gsub("p\\. \\[", "p, [", s)
@@ -952,6 +951,8 @@ harmonize_pages_by_comma <- function (s) {
     s <- str_trim(gsub("leaves", "", s))
   }
 
+  s <- polish_ie(s)
+
   # Convert plates to pages
   s <- plates2pages(s)
 
@@ -974,8 +975,6 @@ harmonize_pages_by_comma <- function (s) {
   } else if (length(grep("^p", s)) > 0 && length(grep("-", s)) > 0) {
     s <- str_trim(gsub("^p", "", s))
   }
-
-  s <- polish_ie(s)
 
   # Handle some odd cases
   s <- gsub("a-m", " ", s)
@@ -1035,7 +1034,9 @@ polish_ie <- function (x) {
         y <- x2
       }
     } else {
-      y <- as.numeric(as.roman(str_trim(x2)))
+      xx <- condense_spaces(x2)
+      xx <- unlist(strsplit(xx, " "))
+      y <- paste(as.numeric(as.roman(xx[[1]])), xx[-1], sep = " ")
     }
   }
 

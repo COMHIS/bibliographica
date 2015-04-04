@@ -31,7 +31,10 @@ test_that("volume count is correct", {
 
 test_that("page count is correct", {
 
-
+  expect_equal(polish_pages("324[i.e.325]plates")$estimated.pages[[1]], 650) 
+  expect_equal(polish_pages("6 p. [i.e.3 leaves] ;")$estimated.pages[[1]], 6) 
+  expect_equal(polish_pages("2 [i.e. 4] leaves")$estimated.pages[[1]], 8) 
+  expect_equal(polish_pages("xxxii [i.e. xxxiii] leaves")$estimated.pages[[1]], 66) 
   expect_equal(polish_pages("5-49 i.e 5-51]")$estimated.pages[[1]], 47) 
   expect_equal(polish_pages("2-3 [ie. 5]")$estimated.pages[[1]], 4) # 2 - 5
   expect_equal(polish_pages("2-3 [ie 5]")$estimated.pages[[1]], 4) # 2 - 5
