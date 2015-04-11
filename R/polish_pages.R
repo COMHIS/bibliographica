@@ -51,9 +51,13 @@ polish_pages <- function (s, verbose = FALSE) {
     }
   }
 
+  #print("Total page counts") # Calculate sum of parts
+  totp <- as.numeric(sapply(sp, function (x) {sum(as.numeric(na.omit(x)))}))
+  totp[totp == 0] <- NA # Set zero page counts to NA
+
   # Collapse page counts
   # sp2 <- sapply(sp, function (s) { paste(s, collapse = ";") })
-  list(estimated.pages = sp, raw.pages = raw)
+  list(estimated.pages = sp, raw.pages = raw, total.pages = totp)
 
 }
 

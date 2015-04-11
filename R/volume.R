@@ -55,10 +55,13 @@ polish_volumecount <- function (s) {
 
   # Pick multi-volume information 
   # (document starting with '* v.' or 'v.1-3' etc.)
+  voln <- unname(polish_volumenumber(s))
   vols <- sapply(s, function (x) {pick_multivolume(x)})
 
   # Assume single volume when number not given
-  vols[is.na(vols)] <- 1 
+  # NOTE: voln (volume number must be NA as well, otherwise we have 
+  # one part of a multi-volume document
+  vols[is.na(vols) & is.na(voln)] <- 1 
 
   vols
 
