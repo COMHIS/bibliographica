@@ -33,7 +33,7 @@ dimension_table <- function (...) {
   dd[1, "1to"] <- ss[ss$gatherings == "1to", "width"]
 
   # Reorder columns
-  dd <- dd[, c("height", "NA", "1to", "2to", "4to", "8to", "12to", "16to", "32to", "64to")]
+  #dd <- dd[, c("height", "NA", "1to", "2to", "4to", "8to", "12to", "16to", "32to", "64to")]
   rownames(dd) <- NULL
 
   dd <- as.data.frame(dd, stringsAsFactors = FALSE)

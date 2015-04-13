@@ -21,7 +21,7 @@ fill_dimensions <- function (x, dimension.table) {
     # Pick the available dimension information (some may be NAs)
     h <- as.numeric(as.character(x[["height"]]))
     w <- as.numeric(as.character(x[["width"]]))
-    g <- x[["gatherings"]]
+    g <- as.character(x[["gatherings"]])
     o <- x[["original"]]
 
     if (!g %in% colnames(dimension.table) && !is.na(g)) {
