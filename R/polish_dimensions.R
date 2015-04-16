@@ -84,6 +84,7 @@ polish_dimensions <- function (s) {
 #' @references See citation("estc")
 #' 
 #' @examples # order_gatherings(factor(c("2to", "1to", "8to")))
+#' @export
 #' @keywords utilities
 order_gatherings <- function (x) {
 
