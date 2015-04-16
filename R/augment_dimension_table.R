@@ -23,12 +23,7 @@ augment_dimension_table <- function (dimension.table) {
   dimension.table$original <- as.character(dimension.table$original)
   dimension.table$width <- as.numeric(as.character(dimension.table$width))
   dimension.table$height <- as.numeric(as.character(dimension.table$height))
-
-  # Order the levels
-  glevels <- c("1to", "2small", "2to", "2long", "4small", "4to", "4long", "8to", "12to", "12long", "16to", "18to", "24to", "24long", "32to", "48to", "64to", NA)
-
-  if (!all(unique(dimension.table$gatherings) %in% glevels)) { stop(paste("Add", setdiff(as.character(unique(dimension.table$gatherings)), glevels), "in gatherings levels in augment_dimension_table function")) }
-  dimension.table$gatherings <- factor(dimension.table$gatherings, levels = glevels)
+  dimension.table$gatherings <- order_gatherings(dimension.table$gatherings)
 
   # print("Add area (width x height)")
   dimension.table <- mutate(dimension.table, area = width * height)
