@@ -1,7 +1,7 @@
 ---
 title: "bibliographica vignette"
 author: "Leo Lahti, Niko Ilomaki, Mikko Tolonen"
-date: "2015-04-20"
+date: "2015-04-21"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -40,13 +40,6 @@ Load tools and set UTF-8 encoding
 
 ```r
 library(bibliographica)
-```
-
-```
-## Error in library(bibliographica): there is no package called 'bibliographica'
-```
-
-```r
 Sys.setlocale(locale="UTF-8") 
 ```
 
@@ -67,7 +60,8 @@ polish_dimensions("1/2to (37 x 11 cm)")
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "polish_dimensions"
+##             original gatherings width height
+## 1 1/2to (37 x 11 cm)       <NA>    11     37
 ```
 
 Polish page information:
@@ -78,7 +72,8 @@ polish_pages("[6],viii,386p. ;")$estimated.pages
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "polish_pages"
+## [[1]]
+## [1] 400
 ```
 
 ## Licensing and Citations
@@ -117,8 +112,13 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] knitr_1.9
+## [1] rmarkdown_0.5.1       bibliographica_0.1.28 knitr_1.9            
 ## 
 ## loaded via a namespace (and not attached):
-## [1] formatR_1.1   tools_3.2.0   stringr_0.6.2 evaluate_0.6
+##  [1] Rcpp_0.11.5      digest_0.6.8     dplyr_0.4.1      assertthat_0.1  
+##  [5] MASS_7.3-40      grid_3.2.0       plyr_1.8.1       gtable_0.1.2    
+##  [9] DBI_0.3.1        formatR_1.1      magrittr_1.5     scales_0.2.4    
+## [13] evaluate_0.6     ggplot2_1.0.1    reshape2_1.4.1   proto_0.3-10    
+## [17] tools_3.2.0      stringr_0.6.2    munsell_0.4.2    yaml_2.1.13     
+## [21] parallel_3.2.0   colorspace_1.2-6 htmltools_0.2.6
 ```
