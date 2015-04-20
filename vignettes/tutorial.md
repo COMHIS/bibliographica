@@ -106,7 +106,7 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] knitr_1.9             bibliographica_0.1.28 rmarkdown_0.5.1      
+## [1] rmarkdown_0.5.1       bibliographica_0.1.28 knitr_1.9            
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] assertthat_0.1   colorspace_1.2-6 DBI_0.3.1        digest_0.6.8    
