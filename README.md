@@ -6,19 +6,16 @@ Bibliographica package
 [![DOI](https://zenodo.org/badge/4203/rOpenGov/bibliographica.png)](https://github.com/rOpenGov/bibliographica)
 
 
-R tools for bibliographic data analysis. Part of the [rOpenGov
-project](http://ropengov.github.io/). 
+R tools for bibliographic data analysis. Part of [rOpenGov](http://ropengov.github.io/). 
 
-For installation and usage, check the [tutorial
-page](https://github.com/rOpenGov/bibliographica/blob/master/vignettes/tutorial.md).
+For installation and usage, check the [tutorial](vignettes/tutorial.md).
 
 Authors: [Leo Lahti](https://github.com/antagomir/) and [Niko Ilomaki]()
 
 You are welcome to:
   
-  * [submit suggestions and bug-reports](https://github.com/louhos/bibliographica/issues)
-  * [send a pull request](https://github.com/louhos/bibliographica/)
-  * [Discussion forum](https://groups.google.com/forum/?hl=fi#!forum/ropengov-forum)
-  * join IRC at ropengov@Freenode (international)
-  * follow us in social media [International](http://ropengov.github.io/contribute/)
+  * [submit suggestions and bug-reports](https://github.com/ropengov/bibliographica/issues)
+  * [send a pull request](https://github.com/ropengov/bibliographica/)
+  * join IRC at ropengov@Freenode
+  * follow us in [social media](http://ropengov.github.io/contribute/)
  
