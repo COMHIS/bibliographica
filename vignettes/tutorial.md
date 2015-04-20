@@ -42,9 +42,16 @@ Load tools and set UTF-8 encoding
 library(bibliographica)
 ```
 
+```
+## Error in library(bibliographica): there is no package called 'bibliographica'
+```
 
 ```r
 Sys.setlocale(locale="UTF-8") 
+```
+
+```
+## [1] ""
 ```
 
 
@@ -56,7 +63,11 @@ Polish dimension information:
 
 
 ```r
-#polish_dimensions("1/2to (37 x 11 cm)")
+polish_dimensions("1/2to (37 x 11 cm)")
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "polish_dimensions"
 ```
 
 Polish page information:
@@ -67,8 +78,7 @@ polish_pages("[6],viii,386p. ;")$estimated.pages
 ```
 
 ```
-## [[1]]
-## [1] 400
+## Error in eval(expr, envir, enclos): could not find function "polish_pages"
 ```
 
 ## Licensing and Citations
@@ -91,8 +101,9 @@ sessionInfo()
 ```
 
 ```
-## R version 3.1.2 (2014-10-31)
-## Platform: x86_64-pc-linux-gnu (64-bit)
+## R version 3.2.0 (2015-04-16)
+## Platform: x86_64-unknown-linux-gnu (64-bit)
+## Running under: Ubuntu 14.10
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -106,13 +117,8 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] rmarkdown_0.5.1       bibliographica_0.1.28 knitr_1.9            
+## [1] knitr_1.9
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] assertthat_0.1   colorspace_1.2-6 DBI_0.3.1        digest_0.6.8    
-##  [5] dplyr_0.4.1      evaluate_0.6     formatR_1.1      ggplot2_1.0.1   
-##  [9] grid_3.1.2       gtable_0.1.2     htmltools_0.2.6  magrittr_1.5    
-## [13] MASS_7.3-40      munsell_0.4.2    parallel_3.1.2   plyr_1.8.1      
-## [17] proto_0.3-10     Rcpp_0.11.5      reshape2_1.4.1   scales_0.2.4    
-## [21] stringr_0.6.2    tools_3.1.2      yaml_2.1.13
+## [1] formatR_1.1   tools_3.2.0   stringr_0.6.2 evaluate_0.6
 ```
