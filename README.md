@@ -10,7 +10,7 @@ Minimal R package bibliographica. Part of the [rOpenGov
 project](http://ropengov.github.io/). 
 
 For installation and usage, check the [tutorial
-page](https://github.com/rOpenGov/bibliographica/blob/master/vignettes/bibliographica_tutorial.md).
+page](https://github.com/rOpenGov/bibliographica/blob/master/vignettes/tutorial.md).
 
 Authors: [Leo Lahti](https://github.com/antagomir/)
 
