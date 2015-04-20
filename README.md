@@ -6,13 +6,13 @@ Bibliographica package
 [![DOI](https://zenodo.org/badge/4203/rOpenGov/bibliographica.png)](https://github.com/rOpenGov/bibliographica)
 
 
-Minimal R package bibliographica. Part of the [rOpenGov
+R tools for bibliographic data analysis. Part of the [rOpenGov
 project](http://ropengov.github.io/). 
 
 For installation and usage, check the [tutorial
-page](https://github.com/rOpenGov/bibliographica/blob/master/vignettes/bibliographica_tutorial.md).
+page](https://github.com/rOpenGov/bibliographica/blob/master/vignettes/tutorial.md).
 
-Authors: [Leo Lahti](https://github.com/antagomir/)
+Authors: [Leo Lahti](https://github.com/antagomir/) and [Niko Ilomaki]()
 
 
 You are welcome to:
