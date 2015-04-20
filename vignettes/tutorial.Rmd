@@ -38,9 +38,6 @@ Load tools and set UTF-8 encoding
 
 ```{r test, message=FALSE, warning=FALSE, eval=TRUE}
 library(bibliographica)
-```
-
-```{r utf, message=FALSE, warning=FALSE, eval=FALSE}
 Sys.setlocale(locale="UTF-8") 
 ```
 
@@ -52,7 +49,7 @@ The preprocessing functions approximate the [Bibliographic Processing Cataloging
 Polish dimension information:
 
 ```{r dimensions, message=FALSE, eval=TRUE}
-#polish_dimensions("1/2to (37 x 11 cm)")
+polish_dimensions("1/2to (37 x 11 cm)")
 ```
 
 Polish page information:
