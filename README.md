@@ -14,7 +14,6 @@ page](https://github.com/rOpenGov/bibliographica/blob/master/vignettes/tutorial.
 
 Authors: [Leo Lahti](https://github.com/antagomir/)
 
-
 You are welcome to:
   
   * [submit suggestions and bug-reports](https://github.com/louhos/bibliographica/issues)

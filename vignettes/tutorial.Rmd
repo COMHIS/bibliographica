@@ -9,7 +9,7 @@ output: html_document
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{bibliographica Vignette}
+  %\VignetteIndexEntry{bibliographica vignette}
   %\usepackage[utf8]{inputenc}
 -->
 

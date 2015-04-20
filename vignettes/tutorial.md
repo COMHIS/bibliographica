@@ -9,7 +9,7 @@ output: html_document
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{bibliographica Vignette}
+  %\VignetteIndexEntry{bibliographica vignette}
   %\usepackage[utf8]{inputenc}
 -->
 
@@ -42,10 +42,6 @@ Load tools and set UTF-8 encoding
 library(bibliographica)
 ```
 
-```
-## Error in library(bibliographica): there is no package called 'bibliographica'
-```
-
 
 ```r
 Sys.setlocale(locale="UTF-8") 
@@ -71,7 +67,8 @@ polish_pages("[6],viii,386p. ;")$estimated.pages
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "polish_pages"
+## [[1]]
+## [1] 400
 ```
 
 ## Licensing and Citations
@@ -109,8 +106,13 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] knitr_1.9
+## [1] knitr_1.9             bibliographica_0.1.28 rmarkdown_0.5.1      
 ## 
 ## loaded via a namespace (and not attached):
-## [1] evaluate_0.6  formatR_1.1   stringr_0.6.2 tools_3.1.2
+##  [1] assertthat_0.1   colorspace_1.2-6 DBI_0.3.1        digest_0.6.8    
+##  [5] dplyr_0.4.1      evaluate_0.6     formatR_1.1      ggplot2_1.0.1   
+##  [9] grid_3.1.2       gtable_0.1.2     htmltools_0.2.6  magrittr_1.5    
+## [13] MASS_7.3-40      munsell_0.4.2    parallel_3.1.2   plyr_1.8.1      
+## [17] proto_0.3-10     Rcpp_0.11.5      reshape2_1.4.1   scales_0.2.4    
+## [21] stringr_0.6.2    tools_3.1.2      yaml_2.1.13
 ```
