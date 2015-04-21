@@ -17,7 +17,7 @@ output: html_document
 R tools for bibliographic data analysis
 ===========
 
-Your [contributions](http://ropengov.github.com/contact.html) and [bug
+Your [contributions](http://ropengov.github.com/contribute.html), [bug
 reports and other feedback](https://github.com/ropengov/bibliographica) are
 welcome!
 
@@ -27,7 +27,7 @@ We assume you have installed [R](http://www.r-project.org/). If you
 use [RStudio](http://www.rstudio.com/ide/download/desktop), change the
 default encoding to UTF-8. 
 
-Install the stable release version in R:
+Installing the stable release version in R:
 
 ```{r install, eval=FALSE}
 library(devtools)
@@ -36,34 +36,41 @@ install_github("ropengov/bibliographica")
 
 Load tools and set UTF-8 encoding
 
-```{r test, message=FALSE, warning=FALSE, eval=TRUE}
+```{r test, message=FALSE, warning=FALSE, eval=TRUE, message=FALSE}
 library(bibliographica)
 Sys.setlocale(locale="UTF-8") 
 ```
 
 
-### Harmonizing manual fields data
+### Harmonizing textual annotation fields in library catalogues
 
-The preprocessing functions approximate the [Bibliographic Processing Cataloging Rules](https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html).
+The preprocessing functions aim to extract information from textual library catalogue annotation fields by approximating the [Bibliographic Processing Cataloging Rules](https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html). 
+
 
 Polish dimension information:
 
 ```{r dimensions, message=FALSE, eval=TRUE}
-polish_dimensions("1/2to (37 x 11 cm)")
+res <- polish_dimensions("1/2to (37 x 11 cm)")
+library(knitr)
+knitr::kable(res)
 ```
+
 
 Polish page information:
 
 ```{r pages, message=FALSE, warning=FALSE, eval=TRUE}
-polish_pages("[6],viii,386p. ;")$estimated.pages
+res <- polish_pages("[6],viii,386p. ;")$estimated.pages
+knitr::kable(res)
 ```
+
+
 
 ## Licensing and Citations
 
 This work can be freely used, modified and distributed under the 
 [Two-clause BSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
 
-```{r citation, message=FALSE, eval=FALSE}
+```{r citation, message=FALSE}
 citation("bibliographica")
 ```
 
