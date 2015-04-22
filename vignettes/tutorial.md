@@ -232,6 +232,10 @@ citation("bibliographica")
 ## Many thanks for all contributors! See: http://ropengov.github.io
 ```
 
+## Related work
+
+The generic tools of this package can be used in combination with packages that provide more specific tools for targeted data collections such as the [ESTC](https://github.com/rOpenGov/estc/) or [Fennica](https://github.com/rOpenGov/fennica/). 
+
 
 ## Session info
 
