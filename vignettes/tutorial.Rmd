@@ -41,7 +41,7 @@ Load the tools and set UTF-8 encoding
 ```{r test, message=FALSE, warning=FALSE, eval=TRUE, message=FALSE}
 library(bibliographica)
 library(knitr)
-Sys.setlocale(locale="UTF-8") 
+#Sys.setlocale(locale="UTF-8") 
 ```
 
 ## Harmonizing textual annotation fields in library catalogues
@@ -98,7 +98,7 @@ kable(head(dtab)) # just print the first rows
 
 ### Sheet size table
 
-Estimate sheet area in cm2:
+Check approximated sheet area for [folio](http://en.wikipedia.org/wiki/Folio). The area units are in cm2. Also other sheet types are available.
 
 ```{r sheetarea2}
 sheet_area("folio")
