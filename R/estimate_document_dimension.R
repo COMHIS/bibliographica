@@ -7,12 +7,10 @@
 #' @param dimension.table Document dimension table (from dimension_table())
 #' @return Augmented dimension information
 #'
-#' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("estc")
 #' 
-#' @examples estimate_document_dimensions(gatherings = 2, height = 44)
+#' @examples # estimate_document_dimensions(gatherings = 2, height = 44)
 #' @keywords utilities
 estimate_document_dimensions <- function (gatherings = NA, height = NA, width = NA, dimension.table = NULL) {
 

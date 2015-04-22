@@ -12,12 +12,14 @@
 #' @examples sheetsizes <- sheet_sizes()
 #' @keywords utilities
 sheet_sizes <- function (...) {  
+
   # Read the mapping table
-  # FIXME: move this out of the function
   f <- system.file("extdata/sheetsizes.csv", package = "bibliographica")
   tab <- as.data.frame(read.csv(f))
-  tab[,1] <- str_trim(as.character(tab[,1]))
-  tab[,2] <- str_trim(as.character(tab[,2])) 
+  tab$format <- str_trim(as.character(tab$format))
+  tab$gatherings <- str_trim(as.character(tab$gatherings)) 
+
+  tab$gatherings <- order_gatherings(tab$gatherings)
 
   tab  
 }

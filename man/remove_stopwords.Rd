@@ -28,5 +28,5 @@ Leo Lahti \email{leo.lahti@iki.fi}
 \references{
 See citation("bibliographica")
 }
-\keyword{utilities}
+\keyword{utilitie}
 

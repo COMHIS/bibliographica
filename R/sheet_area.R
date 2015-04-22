@@ -2,34 +2,44 @@
 #' @description Sheet area in cm2
 #'
 #' @param x Sheet size 
+#' @param sheet.dimension.table Table to estimate sheet area. 
+#' 	  If not given, the table given by sheet_sizes() is used by default.
 #' @param verbose Verbose
 #'
 #' @return Sheet area (cm2)
 #'
 #' @export
-#' @details Sheet size is calculated according to the table given as output from call sheet_area()
+#' @details Sheet size is calculated according to the table given as output 
+#'          from call sheet_area()
 #' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
 #' @examples sheet_area("2to")
 #' @keywords utilities
-sheet_area <- function (x = NULL, verbose = TRUE) {
+sheet_area <- function (x = NULL, sheet.dimension.table = NULL, verbose = TRUE) {
 	
-  # Read the mapping table
-  f <- system.file("extdata/sheetsizes.csv", package = "bibliographica")
-  tab <- as.data.frame(read.csv(f))
-  tab[,1] <- str_trim(as.character(tab[,1]))
-  tab[,2] <- str_trim(as.character(tab[,2]))
-  for (i in names(tab[3:ncol(tab)])) {
+  if (is.null(sheet.dimension.table)) {
+    message("sheet.dimension.table not given, using sheet_sizes() mapping table by default")
+    f <- system.file("extdata/sheetsizes.csv", package = "bibliographica")
+    tab <- as.data.frame(read.csv(f))
+  } else {
+    tab <- sheet.dimension.table
+  }
+
+  tab$format <- str_trim(as.character(tab$format))
+  tab$gatherings <- str_trim(as.character(tab$gatherings))
+  for (i in c("width", "height", "area")) {
     tab[,i] <- as.numeric(str_trim(as.character(tab[,i])))
   }
 
   if (!is.null(x)) {
     x <- as.character(x)
-    ind <- which((tab$sheet %in% x) | (as.character(tab$gatherings) %in% x))
+    ind <- which((tab$format %in% x) | (tab$gatherings %in% x))
+
     if (length(ind) > 0) {
       area <- tab[ind, "area"]
+
       if (verbose) {
         message(paste("The input", x, "corresponds to", tab[ind, "sheet"], "paper with", tab[ind, "width"], "cm width and", tab[ind, "height"], "cm height and an area of", tab[ind, "area"], "cm2"))
       }

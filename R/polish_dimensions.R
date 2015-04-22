@@ -1,61 +1,23 @@
-
-#' @title fill_dimensions
-#' @description Estimate missing entries in dimension vector where possible
-#'
-#' @param x dimension string 
-#' @param dimension.table Given mappings between document dimensions
-#' @return Augmented dimension vector
-#'
-#' @export
-#' 
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
-#' 
-#' @examples # dimension.table <- dimension_table(); 
-#'           #  fill_dimensions(c(original = NA, gatherings = NA, 
-#'	     #			  width = 30, height = 48), 
-#'	     #			  dimension.table)
-#' @keywords utilities
-fill_dimensions <- function (x, dimension.table) {
-
-    # Pick the available dimension information (some may be NAs)
-    h <- as.numeric(as.character(x[["height"]]))
-    w <- as.numeric(as.character(x[["width"]]))
-    g <- as.character(x[["gatherings"]])
-    o <- x[["original"]]
-
-    if (!g %in% colnames(dimension.table) && !is.na(g)) {
-      warning(paste("gatherings ", g, " not available in dimension.table"))
-    }
-    
-    # Estimate document widths and heights from conversion table when not available
-    e <- estimate_document_dimensions(gatherings = g, height = h, width = w, dimension.table)
-    w <- e$width
-    h <- e$height
-    g <- e$gatherings
-
-    c(original = o, gatherings = g, width = w, height = h)
-
-}
-
 #' @title polish_dimensions
 #' @description Polish dimension field for many documents at once
 #'
-#' @param s A vector of dimension notes
-#' @return Table
+#' @param x A vector of dimension notes
+#' @param fill Logical. Estimate and fill in the missing information: TRUE/FALSE
+#' @param dimtab Dimension mapping table
+#' @return Dimension table
 #'
 #' @export
 #' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
+#' @references See citation("bibliographica")
 #' 
-#' @examples # polish_dimensions(c("2", "4"))
+#' @examples polish_dimensions(c("2to", "14cm"), fill = TRUE)
 #' @keywords utilities
-polish_dimensions <- function (s) {
+polish_dimensions <- function (x, fill = FALSE, dimtab = NULL) {
 
   sheetsizes <- sheet_sizes()
 
-  s <- as.character(s)
+  s <- as.character(x)
   tab <- t(sapply(as.character(s), function (x) {polish_dimension(x, sheetsizes)}))
   rownames(tab) <- NULL
   tab <- as.data.frame(tab)
@@ -65,37 +27,15 @@ polish_dimensions <- function (s) {
   tab$gatherings <- order_gatherings(tab$gatherings)
   tab$width <- as.numeric(as.character(tab$width))
   tab$height <- as.numeric(as.character(tab$height))
-    
+
+  if (fill) {
+    tab <- augment_dimension_table(tab, dimtab = dimtab)
+  }
+
+  tab$gatherings <- order_gatherings(tab$gatherings)
+
   tab
-}
 
-
-
-
-#' order_gatherings
-#'
-#' @description Sort gatherings levels 
-#'
-#' @param x A vector or factor of gathering data
-#'
-#' @return A factor with ordered gatherings levels
-#'
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
-#' 
-#' @examples # order_gatherings(factor(c("2to", "1to", "8to")))
-#' @export
-#' @keywords utilities
-order_gatherings <- function (x) {
-
-  glevels <- c("1to", "bs", "2long", "2to", "2small", "4long", "4to", "4small", "8to", "12long", "12to", "16to", "18to", "24long", "24to", "32to", "48to", "64to", NA)		 
-
-  if (!all(unique(x) %in% glevels)) {stop(paste("Add", paste(unlist(setdiff(unique(x), glevels)), collapse = "/"), "in gatherings levels in order_gatherings function"))}
-
-  # Order the levels
-  xo <- factor(x, levels = glevels)
-
-  xo
 }
 
 
@@ -116,7 +56,7 @@ order_gatherings <- function (x) {
 polish_dimension <- function (s, sheetsizes) {
 
   if (length(s) > 1) {
-    stop("This internal function works for a single-element character vector")
+    stop("This internal function works only for a single-element character vector")
   }
 
   s <- sorig <- as.character(s) # NOTE: ⁰ is ASCII char 167 if needed
@@ -160,7 +100,8 @@ polish_dimension <- function (s, sheetsizes) {
 
   # Units not given. Assume the number refers to the gatherings (not cm)
   x <- unique(str_trim(unlist(strsplit(s, " "))))
-  if (length(grep("cm", x)) == 0 && length(grep("⁰", x)) == 0) {
+  #if (length(grep("cm", x)) == 0 && length(grep("⁰", x)) == 0) {
+  if (length(grep("cm", x)) == 0 && length(grep("[0-9]to", x)) == 0) {
     if (length(x) == 1) {
       vol <- gsub("\\(", "", gsub("\\)", "", x))
     }
@@ -168,10 +109,12 @@ polish_dimension <- function (s, sheetsizes) {
 
   # Pick gatherings measures separately
   x <- str_trim(unlist(strsplit(s, " ")))
-  hits <- grep("⁰", x)
+  #hits <- grep("⁰", x)
+  hits <- grep("[0-9]to", x)
   if (length(hits) > 0) {
     x <- gsub("\\(", "", gsub("\\)", "", x[hits]))
-    x <- gsub("⁰$", "", x)
+    #x <- gsub("⁰$", "", x)
+    x <- gsub("to$", "", x)
     vols <- as.numeric(unique(x))
     if (length(vols) == 1) {
       vol <- vols[[1]]
@@ -236,88 +179,4 @@ polish_dimension <- function (s, sheetsizes) {
 
 }
 
-
-
-
-#' @title harmonize_dimension
-#' @description Harmonize dimension information 
-#'
-#' @param x A character vector that may contain dimension information
-#' @return The character vector with dimension information harmonized
-#'
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
-#' 
-#' @examples # harmonize_dimension("4to")
-#' @keywords internal
-harmonize_dimension <- function (x, sheetsizes) {
-
-  s <- as.character(x)
-
-  # Mark NAs
-  s <- gsub("\\?⁰", " ", s)
-
-  # Harmonize
-  s <- gsub("cm", " cm", s)
-  s <- gsub(".̊", "⁰", s)
-  s <- gsub("4to", "4⁰", s)
-  s <- gsub("8vo", "8⁰", s)
-  s <- gsub("fol.", "2⁰", s)
-  s <- gsub("fol", "2⁰", s)
-  s <- gsub(" ⁰", "⁰", s)
-  s <- gsub("₀", "⁰", s)
-  s <- gsub("⁹", "⁰", s)
-  s <- gsub(".̥", "⁰", s)
-  s <- gsub("'", "⁰", s)
-  s <- gsub("x", " x ", s)
-  s <- gsub("  ", " ", s)
-  s <- gsub("quarto [fewer than 50 pages]", "4⁰", s)
-  s <- gsub("broadsheet", "broadside", s)
-
-  for (ind in 1:nrow(sheetsizes)) { 
-    nam <- sheetsizes[ind, "format"]
-    gat <- sheetsizes[ind, "gatherings"]
-    s <- gsub(nam, gsub(gat, "to", "⁰"), s)
-  }
-
-  # With standard gatherings 1/2 = 2
-  s <- gsub("1/", "", s)
-
-  s
-
-}
-
-
-
-#' @title remove_dimension_info
-#' @description Remove dimension information from a single document
-#'
-#' @param x A character vector that may contain dimension information
-#' @return The character vector with dimension information removed
-#'
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
-#' 
-#' @examples # s <- remove_dimension("4to", sheet_sizes())
-#' @export
-#' @keywords internal
-remove_dimension_info <- function (x, sheetsizes) {
-
-  s <- harmonize_dimension(x, sheetsizes)
-
-  s <- gsub("[0-9]⁰", " ", s)
-  s <- gsub("[0-9] x [0-9][0-9]\\.[0-9] cm\\.", "", s)
-  s <- gsub("[0-9][0-9]-[0-9][0-9] cm", " ", s)
-
-  s <- gsub("[0-9][0-9][0-9] cm", " ", s)
-  s <- gsub("[0-9][0-9] cm", " ", s)
-  s <- gsub("[0-9] cm", " ", s)
-
-  s <- remove_endings(s, c(":", ";", "\\."))
-
-  s[s == ""] <- NA
-
-  s
-
-}
 

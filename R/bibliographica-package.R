@@ -15,7 +15,7 @@
 #' @docType package
 #' @title bibliographica
 #'
-#' @author Leo Lahti et al., \email{leo.lahti@@iki.fi}
+#' @author Leo Lahti et al. \email{leo.lahti@@iki.fi}
 #' @references
 #' See citation("bibliographica")
 #' \url{https://github.com/ropengov/bibliographica}

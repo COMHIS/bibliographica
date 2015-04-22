@@ -23,7 +23,7 @@ Augmented dimension information
 Estimate missing dimension information
 }
 \examples{
-estimate_document_dimensions(gatherings = 2, height = 44)
+# estimate_document_dimensions(gatherings = 2, height = 44)
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

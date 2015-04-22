@@ -2,21 +2,25 @@
 #' @description Estimate missing entries in dimension table where possible
 #'
 #' @param dimension.table dimension.table
+#' @param dimtab Mapping between document dimensions.
 #' @return Augmented dimension.table
 #'
-#' @export
-#' 
+#' @seealso polish_dimensions
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("estc")
 #' 
 #' @examples # augment_dimension_table(dimension.table)
 #' @keywords utilities
-augment_dimension_table <- function (dimension.table) {
+augment_dimension_table <- function (dimension.table, dimtab = NULL) {
 
   dimtab.orig <- dimension.table			
 
   width <- height <- gatherings <- NULL			
-  dimtab <- dimension_table()
+
+  if (is.null(dimtab)) {
+    message("dimtab dimension mapping table not provided, using the default table dimension_table()")
+    dimtab <- dimension_table()
+  }
 
   dimension.table <- as.data.frame(t(apply(dimension.table, 1, function (x) {fill_dimensions(x, dimtab)})))
 

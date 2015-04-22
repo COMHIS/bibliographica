@@ -16,7 +16,7 @@ Cleaned up version of page number field.
 Clean up page numbers for a single document.
 }
 \examples{
-# polish_page("4p.")
+\dontrun{polish_page("4p.")}
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

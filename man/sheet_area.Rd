@@ -4,10 +4,13 @@
 \alias{sheet_area}
 \title{sheet_area}
 \usage{
-sheet_area(x = NULL, verbose = TRUE)
+sheet_area(x = NULL, sheet.dimension.table = NULL, verbose = TRUE)
 }
 \arguments{
 \item{x}{Sheet size}
+
+\item{sheet.dimension.table}{Table to estimate sheet area.
+If not given, the table given by sheet_sizes() is used by default.}
 
 \item{verbose}{Verbose}
 }
@@ -18,7 +21,8 @@ Sheet area (cm2)
 Sheet area in cm2
 }
 \details{
-Sheet size is calculated according to the table given as output from call sheet_area()
+Sheet size is calculated according to the table given as output
+         from call sheet_area()
 }
 \examples{
 sheet_area("2to")

@@ -4,25 +4,29 @@
 \alias{polish_dimensions}
 \title{polish_dimensions}
 \usage{
-polish_dimensions(s)
+polish_dimensions(x, fill = FALSE, dimtab = NULL)
 }
 \arguments{
-\item{s}{A vector of dimension notes}
+\item{x}{A vector of dimension notes}
+
+\item{fill}{Logical. Estimate and fill in the missing information: TRUE/FALSE}
+
+\item{dimtab}{Dimension mapping table}
 }
 \value{
-Table
+Dimension table
 }
 \description{
 Polish dimension field for many documents at once
 }
 \examples{
-# polish_dimensions(c("2", "4"))
+polish_dimensions(c("2to", "14cm"), fill = TRUE)
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("estc")
+See citation("bibliographica")
 }
 \keyword{utilities}
 

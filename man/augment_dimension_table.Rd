@@ -4,10 +4,12 @@
 \alias{augment_dimension_table}
 \title{augment_dimension_table}
 \usage{
-augment_dimension_table(dimension.table)
+augment_dimension_table(dimension.table, dimtab = NULL)
 }
 \arguments{
 \item{dimension.table}{dimension.table}
+
+\item{dimtab}{Mapping between document dimensions.}
 }
 \value{
 Augmented dimension.table
@@ -23,6 +25,9 @@ Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
 See citation("estc")
+}
+\seealso{
+polish_dimensions
 }
 \keyword{utilities}
 

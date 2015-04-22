@@ -41,29 +41,73 @@ library(bibliographica)
 Sys.setlocale(locale="UTF-8") 
 ```
 
-
-### Harmonizing textual annotation fields in library catalogues
+## Harmonizing textual annotation fields in library catalogues
 
 The preprocessing functions aim to extract information from textual library catalogue annotation fields by approximating the [Bibliographic Processing Cataloging Rules](https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html). 
 
 
-Polish dimension information:
+### Dimension information
 
 ```{r dimensions, message=FALSE, eval=TRUE}
+# Pick the dimension fields:
 res <- polish_dimensions("1/2to (37 x 11 cm)")
 library(knitr)
 knitr::kable(res)
-```
 
-
-Polish page information:
-
-```{r pages, message=FALSE, warning=FALSE, eval=TRUE}
-res <- polish_pages("[6],viii,386p. ;")$estimated.pages
+# Also estimate and fill in the missing fields where possible:
+res <- polish_dimensions("1/2to (37 x 11 cm)", fill = TRUE)
 knitr::kable(res)
 ```
 
 
+### Page information
+
+```{r pages, message=FALSE, warning=FALSE, eval=TRUE}
+polish_pages("[6],viii,386p. ;")$estimated.pages
+```
+
+### Volume information
+
+Pick information on volume numbers and counts:
+
+```{r voln, message=FALSE, warning=FALSE, eval=TRUE}
+polish_volumenumber("v.4")
+```
+
+```{r volc, message=FALSE, warning=FALSE, eval=TRUE}
+polish_volumecount("4v.")
+```
+
+
+### Stopwords
+
+Removing stopwords (for a full list of stopword functions, see [here](https://github.com/rOpenGov/bibliographica/blob/master/R/stopwords.R)):
+
+```{r stopw, message=FALSE, warning=FALSE, eval=TRUE}
+remove_stopwords(c("a", "well", "james", "30 year war"), terms = "well", remove.letters = TRUE)
+```
+
+### Dimension table
+
+Document dimensions (gatherings, width, height) can be estimated when this information is only partially available. The estimation is made based on ready-made mapping tables. The table can be changed by the user but by default the functions use this mapping:
+
+```{r dimtab, message=FALSE, warning=FALSE, eval=TRUE}
+kable(dimension_table())
+```
+
+### Sheet size table
+
+Estimate sheet area in cm2:
+
+```{r sheetarea2}
+sheet_area("folio")
+```
+
+Sheet sizes are calculated according to the sheet dimension table. The table can be changed by the user (see the function arguments) but by default the functions use this mapping:
+
+```{r sheetarea, message=FALSE, warning=FALSE, eval=TRUE}
+kable(sheet_area())
+```
 
 ## Licensing and Citations
 

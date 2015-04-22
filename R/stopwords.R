@@ -12,7 +12,7 @@
 #' @references See citation("bibliographica")
 #' 
 #' @examples x2 <- remove_stopwords(c("a", "well", "james"), "well", remove.letters = TRUE)
-#' @keywords utilities
+#' @keywords utilitie
 remove_stopwords <- function (x, terms = NULL, remove.letters = TRUE) {
 
   if (is.null(terms)) {

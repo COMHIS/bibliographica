@@ -22,7 +22,7 @@ LazyLoad: \tab yes\cr
 library(bibliographica)
 }
 \author{
-Leo Lahti et al., \email{leo.lahti@iki.fi}
+Leo Lahti et al. \email{leo.lahti@iki.fi}
 }
 \references{
 See citation("bibliographica")
