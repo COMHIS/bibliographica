@@ -36,12 +36,11 @@ library(devtools)
 install_github("ropengov/bibliographica")
 ```
 
-Load the tools and set UTF-8 encoding
+Load the tools:
 
 ```{r test, message=FALSE, warning=FALSE, eval=TRUE, message=FALSE}
 library(bibliographica)
 library(knitr)
-#Sys.setlocale(locale="UTF-8") 
 ```
 
 ## Harmonizing textual annotation fields in library catalogues
@@ -51,10 +50,34 @@ Below, you will find simple examples on the package functionality. In real studi
 
 ### Page information
 
-Estimate the total page count:
+Estimate the total page count for two documents:
 
-```{r pages, message=FALSE, warning=FALSE, eval=TRUE}
+```{r pages, message=FALSE, eval=TRUE}
 unlist(polish_pages(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
+```
+
+
+### Dimension information
+
+Extract and print document dimension information in a harmonized format:
+
+```{r dimensions, message=FALSE, warning=FALSE, eval=TRUE}
+res <- polish_dimensions("1/2to (37 cm)")
+knitr::kable(res)
+```
+
+The missing fields can be estimated with the 'fill' argument:
+
+```{r dimensions2, message=FALSE, warning=FALSE, eval=TRUE}
+res <- polish_dimensions("1/2to (37 cm)", fill = TRUE)
+knitr::kable(res)
+```
+
+Estimation of the missing information (gatherings, width, and/or height) is based on a ready-made [dimension mapping table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/documentdimensions.csv). This table can be changed by the user if necessary (see function arguments). The default table can be retrieved in R with:
+
+```{r dimtab, message=FALSE, warning=FALSE, eval=TRUE}
+dtab <- dimension_table()
+kable(head(dtab)) # just show the first rows
 ```
 
 ### Volume information
@@ -63,37 +86,14 @@ Pick information on the volume numbers:
 
 ```{r voln, message=FALSE, warning=FALSE, eval=TRUE}
 # Volume number 3 from multi-volume document
-unlist(polish_volumenumber("v.3, 50 p"))
+unname(polish_volumenumber("v.3, 50 p"))
 ```
 
 Pick information on the total volume count:
 
 ```{r volc, message=FALSE, warning=FALSE, eval=TRUE}
 # Document with 4 volumes and missing page information
-unlist(polish_volumecount("4v.")) 
-```
-
-### Dimension information
-
-Extract and print dimension information:
-
-```{r dimensions, message=FALSE, eval=TRUE}
-res <- polish_dimensions("1/2to (37 cm)")
-knitr::kable(res)
-```
-
-Also the missing fields can be estimated:
-
-```{r dimensions2, message=FALSE, eval=TRUE}
-res <- polish_dimensions("1/2to (37 cm)", fill = TRUE)
-knitr::kable(res)
-```
-
-Estimation of the missing information (gatherings, width, and/or height) is based on a ready-made [approximation table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/documentdimensions.csv). The table can be changed by the user (see function arguments). The default table can be retrieved in R with:
-
-```{r dimtab, message=FALSE, warning=FALSE, eval=TRUE}
-dtab <- dimension_table()
-kable(head(dtab)) # just print the first rows
+unname(polish_volumecount("4v.")) 
 ```
 
 ### Sheet size table
@@ -104,7 +104,7 @@ Check approximated sheet area for [folio](http://en.wikipedia.org/wiki/Folio). T
 sheet_area("folio")
 ```
 
-Sheet sizes are here calculated according to the [sheet size table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/sheetsizes.csv). The table can be changed by the user (see the function arguments) but by default the functions use this mapping:
+The sheet sizes are calculated in the above example according to the [sheet size table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/sheetsizes.csv). The table can be changed by the user (see the function arguments) but by default the functions use this mapping:
 
 ```{r sheetarea, message=FALSE, warning=FALSE, eval=TRUE}
 kable(sheet_area()) 
@@ -119,7 +119,7 @@ Removing [stopwords](http://en.wikipedia.org/wiki/Stop_words) is often necessary
 remove_stopwords(c("a", "well", "james", "30 year war"), terms = "well", remove.letters = TRUE)
 ```
 
-For a full list of stopword and related functions, see the [function documentation](https://github.com/rOpenGov/bibliographica/blob/master/man/)- We also provide some [ready-made stopword lists](https://github.com/rOpenGov/bibliographica/tree/master/inst/extdata).
+For a full list of stopword and related functions, see the [function documentation](https://github.com/rOpenGov/bibliographica/blob/master/man/). We also provide some [ready-made stopword lists](https://github.com/rOpenGov/bibliographica/tree/master/inst/extdata) that can be easily downloaded in R with the 'read.csv' function. 
 
 
 ## Licensing and Citations

@@ -37,13 +37,12 @@ library(devtools)
 install_github("ropengov/bibliographica")
 ```
 
-Load the tools and set UTF-8 encoding
+Load the tools:
 
 
 ```r
 library(bibliographica)
 library(knitr)
-#Sys.setlocale(locale="UTF-8") 
 ```
 
 ## Harmonizing textual annotation fields in library catalogues
@@ -53,7 +52,7 @@ Below, you will find simple examples on the package functionality. In real studi
 
 ### Page information
 
-Estimate the total page count:
+Estimate the total page count for two documents:
 
 
 ```r
@@ -64,48 +63,14 @@ unlist(polish_pages(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
 ## [1]  50 400
 ```
 
-### Volume information
-
-Pick information on the volume numbers:
-
-
-```r
-# Volume number 3 from multi-volume document
-unlist(polish_volumenumber("v.3, 50 p"))
-```
-
-```
-## v.3, 50 p 
-##         3
-```
-
-Pick information on the total volume count:
-
-
-```r
-# Document with 4 volumes and missing page information
-unlist(polish_volumecount("4v.")) 
-```
-
-```
-## 4v. 
-##   4
-```
 
 ### Dimension information
 
-Extract and print dimension information:
+Extract and print document dimension information in a harmonized format:
 
 
 ```r
 res <- polish_dimensions("1/2to (37 cm)")
-```
-
-```
-## Warning in polish_dimensions("1/2to (37 cm)"): NAs introduced by coercion
-```
-
-```r
 knitr::kable(res)
 ```
 
@@ -115,19 +80,11 @@ knitr::kable(res)
 |:-------------|:----------|-----:|------:|
 |1/2to (37 cm) |2to        |    NA|     37|
 
-Also the missing fields can be estimated:
+The missing fields can be estimated with the 'fill' argument:
 
 
 ```r
 res <- polish_dimensions("1/2to (37 cm)", fill = TRUE)
-```
-
-```
-## Warning in polish_dimensions("1/2to (37 cm)", fill = TRUE): NAs introduced
-## by coercion
-```
-
-```r
 knitr::kable(res)
 ```
 
@@ -137,12 +94,12 @@ knitr::kable(res)
 |:-------------|:----------|-----:|------:|----:|
 |1/2to (37 cm) |2to        |    25|     37|  925|
 
-Estimation of the missing information (gatherings, width, and/or height) is based on a ready-made [approximation table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/documentdimensions.csv). The table can be changed by the user (see function arguments). The default table can be retrieved in R with:
+Estimation of the missing information (gatherings, width, and/or height) is based on a ready-made [dimension mapping table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/documentdimensions.csv). This table can be changed by the user if necessary (see function arguments). The default table can be retrieved in R with:
 
 
 ```r
 dtab <- dimension_table()
-kable(head(dtab)) # just print the first rows
+kable(head(dtab)) # just show the first rows
 ```
 
 
@@ -155,6 +112,32 @@ kable(head(dtab)) # just print the first rows
 |53     |33 |33    |x   |x      |x     |x   |x      |x   |x      |x    |x    |x    |x    |x    |x    |x    |x   |
 |52     |33 |33    |x   |x      |x     |x   |x      |x   |x      |x    |x    |x    |x    |x    |x    |x    |x   |
 |51     |32 |32    |32  |x      |x     |x   |x      |x   |x      |x    |x    |x    |x    |x    |x    |x    |x   |
+
+### Volume information
+
+Pick information on the volume numbers:
+
+
+```r
+# Volume number 3 from multi-volume document
+unname(polish_volumenumber("v.3, 50 p"))
+```
+
+```
+## [1] 3
+```
+
+Pick information on the total volume count:
+
+
+```r
+# Document with 4 volumes and missing page information
+unname(polish_volumecount("4v.")) 
+```
+
+```
+## [1] 4
+```
 
 ### Sheet size table
 
@@ -174,7 +157,7 @@ sheet_area("folio")
 ## [1] 1350
 ```
 
-Sheet sizes are here calculated according to the [sheet size table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/sheetsizes.csv). The table can be changed by the user (see the function arguments) but by default the functions use this mapping:
+The sheet sizes are calculated in the above example according to the [sheet size table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/sheetsizes.csv). The table can be changed by the user (see the function arguments) but by default the functions use this mapping:
 
 
 ```r
@@ -217,7 +200,7 @@ remove_stopwords(c("a", "well", "james", "30 year war"), terms = "well", remove.
 ## [1] NA            NA            "james"       "30 year war"
 ```
 
-For a full list of stopword and related functions, see the [function documentation](https://github.com/rOpenGov/bibliographica/blob/master/man/)- We also provide some [ready-made stopword lists](https://github.com/rOpenGov/bibliographica/tree/master/inst/extdata).
+For a full list of stopword and related functions, see the [function documentation](https://github.com/rOpenGov/bibliographica/blob/master/man/). We also provide some [ready-made stopword lists](https://github.com/rOpenGov/bibliographica/tree/master/inst/extdata) that can be easily downloaded in R with the 'read.csv' function. 
 
 
 ## Licensing and Citations
