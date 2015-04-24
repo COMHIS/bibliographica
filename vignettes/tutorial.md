@@ -1,7 +1,7 @@
 ---
 title: "bibliographica vignette"
 author: "Leo Lahti, Niko Ilomaki, Mikko Tolonen"
-date: "2015-04-22"
+date: "2015-04-24"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -267,7 +267,7 @@ sessionInfo()
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_0.11.5      digest_0.6.8     dplyr_0.4.1      assertthat_0.1  
-##  [5] MASS_7.3-40      grid_3.2.0       plyr_1.8.1       gtable_0.1.2    
+##  [5] MASS_7.3-40      grid_3.2.0       plyr_1.8.2       gtable_0.1.2    
 ##  [9] DBI_0.3.1        formatR_1.2      magrittr_1.5     scales_0.2.4    
 ## [13] evaluate_0.7     ggplot2_1.0.1    lazyeval_0.1.10  reshape2_1.4.1  
 ## [17] proto_0.3-10     tools_3.2.0      stringr_0.6.2    munsell_0.4.2   

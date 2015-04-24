@@ -5,6 +5,8 @@
 #' @param height Available height information
 #' @param width Available width information
 #' @param dimension.table Document dimension table (from dimension_table())
+#' @param sheet.dimension.table Table to estimate sheet area. 
+#' 	  If not given, the table given by sheet_sizes() is used by default.
 #' @return Augmented dimension information
 #'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
@@ -12,7 +14,7 @@
 #' 
 #' @examples # estimate_document_dimensions(gatherings = 2, height = 44)
 #' @keywords utilities
-estimate_document_dimensions <- function (gatherings = NA, height = NA, width = NA, dimension.table = NULL) {
+estimate_document_dimensions <- function (gatherings = NA, height = NA, width = NA, dimension.table = NULL, sheet.dimension.table = NULL) {
 
   # Ensure the inputs are of right format		     
   gatherings <- as.character(gatherings)
@@ -26,6 +28,10 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
   if (is.null(dimension.table)) {
     dimension.table <- dimension_table()
   }
+  if (is.null(sheet.dimension.table)) {
+    sheet_info <- sheet_area()
+  }
+
 
   # Height and gatherings given
   if (is.na(width) && !is.na(height) && !is.na(gatherings)) {
@@ -42,7 +48,6 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
 
        if (is.na(height) || is.na(width)) {
          warning("Height and width could not be estimated from the dimension table. Using the default gatherings size instead.")
-    	 sheet_info <- sheet_area()
     	 ind <- which(as.character(sheet_info$gatherings) == gatherings)
     	 width <- sheet_info[ind, "width"]
     	 height <- sheet_info[ind, "height"]
@@ -73,14 +78,13 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
     # if multiple hits, pick the closest
     width <- mean(width, na.rm = TRUE)
     # Estimate gatherings
-    gatherings <- estimate_document_dimensions(gatherings = NA, height = height, width = width, dimension.table = dimension.table)$gatherings    
+    gatherings <- estimate_document_dimensions(gatherings = NA, height = height, width = width, dimension.table = dimension.table, sheet.dimension.table = sheet.dimension.table)$gatherings    
 
   } else if (is.na(width) && is.na(height) && !is.na(gatherings)) {
 
     # Only gatherings given
-    sheet_info <- sheet_area()
     ind <- which(as.character(sheet_info$gatherings) == gatherings)
-    if (length(ind) == 0) { warning(paste("gatherings", g, "not available in bibliographica::sheet_area() conversion table")) }
+    if (length(ind) == 0) { warning(paste("gatherings", g, "not available in bibliographica::sheet_area conversion table")) }
     width <- sheet_info[ind, "width"]
     height <- sheet_info[ind, "height"]
 
@@ -107,7 +111,6 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
     }
   } else if (!is.na(width) && is.na(height) && is.na(gatherings)) {
     # Only width given
-    sheet_info <- sheet_area()    
     height <- as.numeric(as.character(dimension.table[dimension.table[, "NA"] == width, "height"]))
     # If multiple heights match, then use average
     height <- mean(height, na.rm = TRUE)
@@ -118,7 +121,6 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
   if (length(width) == 0) {width <- NA}
   if (length(height) == 0) {height <- NA}
   if (length(gatherings) == 0) {gatherings <- NA}
-  #if (is.na(gatherings) || gatherings == "NAto" || gatherings == "NAlong") {gatherings <- NA}
 
   list(gatherings = gatherings, height = height, width = width)
 }

@@ -7,7 +7,7 @@
 #'
 #' @seealso polish_dimensions
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
+#' @references See citation("bibliographica")
 #' 
 #' @examples # augment_dimension_table(dimension.table)
 #' @keywords utilities
