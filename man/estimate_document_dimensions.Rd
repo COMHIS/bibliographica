@@ -5,7 +5,7 @@
 \title{estimate_document_dimensions}
 \usage{
 estimate_document_dimensions(gatherings = NA, height = NA, width = NA,
-  dimension.table = NULL)
+  dimension.table = NULL, sheet.dimension.table = NULL)
 }
 \arguments{
 \item{gatherings}{Available gatherings information}
@@ -15,6 +15,9 @@ estimate_document_dimensions(gatherings = NA, height = NA, width = NA,
 \item{width}{Available width information}
 
 \item{dimension.table}{Document dimension table (from dimension_table())}
+
+\item{sheet.dimension.table}{Table to estimate sheet area.
+If not given, the table given by sheet_sizes() is used by default.}
 }
 \value{
 Augmented dimension information
