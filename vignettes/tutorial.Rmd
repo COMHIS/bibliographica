@@ -76,7 +76,7 @@ knitr::kable(res)
 
 Estimate the total page count:
 
-```{r pages, message=FALSE, warning=FALSE, eval=TRUE}
+```{r pages2, message=FALSE, warning=FALSE, eval=TRUE}
 unlist(polish_pages(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
 ```
 
@@ -107,21 +107,21 @@ unlist(polish_volumecount("4v."))
 
 Extract and print dimension information:
 
-```{r dimensions, message=FALSE, eval=TRUE}
+```{r dimensions3, message=FALSE, eval=TRUE}
 res <- polish_dimensions("1/2to (37 cm)")
 knitr::kable(res)
 ```
 
 Also the missing fields can be estimated:
 
-```{r dimensions2, message=FALSE, eval=TRUE}
+```{r dimensions4, message=FALSE, eval=TRUE}
 res <- polish_dimensions("1/2to (37 cm)", fill = TRUE)
 knitr::kable(res)
 ```
 
 Estimation of the missing information (gatherings, width, and/or height) is based on a ready-made [approximation table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/documentdimensions.csv). The table can be changed by the user (see function arguments). The default table can be retrieved in R with:
 
-```{r dimtab, message=FALSE, warning=FALSE, eval=TRUE}
+```{r dimtab2, message=FALSE, warning=FALSE, eval=TRUE}
 dtab <- dimension_table()
 kable(head(dtab)) # just print the first rows
 ```
@@ -143,33 +143,17 @@ kable(sheet_area())
 
 ### Stopwords
 
-Removing [stopwords](http://en.wikipedia.org/wiki/Stop_words) is often necessary in text analysis. The stopwords form multiple categories, such as individual letters, conjugates, special characters, or particular expressions. The definition of a stopword may also depend on a context. The following example removes the term "well" and individual letters from the input vector:
-
-```{r stopw, message=FALSE, warning=FALSE, eval=TRUE}
-remove_stopwords(c("a", "well", "james", "30 year war"), terms = "well", remove.letters = TRUE)
-```
-
-
-Sheet sizes are here calculated according to the [sheet size table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/sheetsizes.csv). The table can be changed by the user (see the function arguments) but by default the functions use this mapping:
-
-```{r sheetarea, message=FALSE, warning=FALSE, eval=TRUE}
-kable(sheet_area()) 
-```
-
-
-### Stopwords
-
 Removing [stopwords](http://en.wikipedia.org/wiki/Stop_words) is often necessary in text analysis. The stopwords form multiple categories, such as individual letters, conjugates, special characters, or particular expressions. The definition of a stopword may also depend on a context. 
 
-Here a few examples, for a full list of available functions, see the [function documentation](https://github.com/rOpenGov/bibliographica/blob/master/man/)- We also provide some [ready-made stopword lists](https://github.com/rOpenGov/bibliographica/tree/master/inst/extdata).
-
-This example removes the term "well" and individual letters from the input vector:
+The following example removes the term "well" and individual letters from the input vector:
 
 ```{r stopw, message=FALSE, warning=FALSE, eval=TRUE}
 remove_stopwords(c("a", "well", "james", "30 year war"), terms = "well", remove.letters = TRUE)
 ```
-=======
+
 For a full list of stopword and related functions, see the [function documentation](https://github.com/rOpenGov/bibliographica/blob/master/man/). We also provide some [ready-made stopword lists](https://github.com/rOpenGov/bibliographica/tree/master/inst/extdata) that can be easily downloaded in R with the 'read.csv' function. 
+
+
 
 
 ## Licensing and Citations

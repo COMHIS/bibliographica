@@ -1,7 +1,7 @@
 ---
 title: "bibliographica vignette"
 author: "Leo Lahti, Niko Ilomaki, Mikko Tolonen"
-date: "2015-04-24"
+date: "2015-04-30"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -43,12 +43,16 @@ Load the tools:
 ```r
 library(bibliographica)
 library(knitr)
+Sys.setlocale(locale="UTF-8") 
+```
+
+```
+## [1] ""
 ```
 
 ## Harmonizing textual annotation fields in library catalogues
 
 Below, you will find simple examples on the package functionality. In real studies the tools can be used to preprocess collections with millions of documents.
-
 
 ### Page information
 
@@ -94,6 +98,18 @@ knitr::kable(res)
 |:-------------|:----------|-----:|------:|----:|
 |1/2to (37 cm) |2to        |    25|     37|  925|
 
+
+Estimate the total page count:
+
+
+```r
+unlist(polish_pages(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
+```
+
+```
+## [1]  50 400
+```
+
 Estimation of the missing information (gatherings, width, and/or height) is based on a ready-made [dimension mapping table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/documentdimensions.csv). This table can be changed by the user if necessary (see function arguments). The default table can be retrieved in R with:
 
 
@@ -132,12 +148,77 @@ Pick information on the total volume count:
 
 ```r
 # Document with 4 volumes and missing page information
-unname(polish_volumecount("4v.")) 
+unlist(polish_volumecount("4v.")) 
 ```
 
 ```
-## [1] 4
+## 4v. 
+##   4
 ```
+
+### Dimension information
+
+Extract and print dimension information:
+
+
+```r
+res <- polish_dimensions("1/2to (37 cm)")
+```
+
+```
+## Warning in polish_dimensions("1/2to (37 cm)"): NAs introduced by coercion
+```
+
+```r
+knitr::kable(res)
+```
+
+
+
+|original      |gatherings | width| height|
+|:-------------|:----------|-----:|------:|
+|1/2to (37 cm) |2to        |    NA|     37|
+
+Also the missing fields can be estimated:
+
+
+```r
+res <- polish_dimensions("1/2to (37 cm)", fill = TRUE)
+```
+
+```
+## Warning in polish_dimensions("1/2to (37 cm)", fill = TRUE): NAs introduced
+## by coercion
+```
+
+```r
+knitr::kable(res)
+```
+
+
+
+|original      |gatherings | width| height| area|
+|:-------------|:----------|-----:|------:|----:|
+|1/2to (37 cm) |2to        |    25|     37|  925|
+
+Estimation of the missing information (gatherings, width, and/or height) is based on a ready-made [approximation table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/documentdimensions.csv). The table can be changed by the user (see function arguments). The default table can be retrieved in R with:
+
+
+```r
+dtab <- dimension_table()
+kable(head(dtab)) # just print the first rows
+```
+
+
+
+|height |NA |2long |2to |2small |4long |4to |4small |8to |12long |12to |16to |18to |24to |32to |48to |64to |1to |
+|:------|:--|:-----|:---|:------|:-----|:---|:------|:---|:------|:----|:----|:----|:----|:----|:----|:----|:---|
+|90     |60 |x     |x   |x      |x     |x   |x      |x   |x      |x    |x    |x    |x    |x    |x    |x    |60  |
+|55     |34 |34    |x   |x      |x     |x   |x      |x   |x      |x    |x    |x    |x    |x    |x    |x    |x   |
+|54     |34 |34    |x   |x      |x     |x   |x      |x   |x      |x    |x    |x    |x    |x    |x    |x    |x   |
+|53     |33 |33    |x   |x      |x     |x   |x      |x   |x      |x    |x    |x    |x    |x    |x    |x    |x   |
+|52     |33 |33    |x   |x      |x     |x   |x      |x   |x      |x    |x    |x    |x    |x    |x    |x    |x   |
+|51     |32 |32    |32  |x      |x     |x   |x      |x   |x      |x    |x    |x    |x    |x    |x    |x    |x   |
 
 ### Sheet size table
 
@@ -189,7 +270,9 @@ kable(sheet_area())
 
 ### Stopwords
 
-Removing [stopwords](http://en.wikipedia.org/wiki/Stop_words) is often necessary in text analysis. The stopwords form multiple categories, such as individual letters, conjugates, special characters, or particular expressions. The definition of a stopword may also depend on a context. The following example removes the term "well" and individual letters from the input vector:
+Removing [stopwords](http://en.wikipedia.org/wiki/Stop_words) is often necessary in text analysis. The stopwords form multiple categories, such as individual letters, conjugates, special characters, or particular expressions. The definition of a stopword may also depend on a context. 
+
+The following example removes the term "well" and individual letters from the input vector:
 
 
 ```r
@@ -201,6 +284,8 @@ remove_stopwords(c("a", "well", "james", "30 year war"), terms = "well", remove.
 ```
 
 For a full list of stopword and related functions, see the [function documentation](https://github.com/rOpenGov/bibliographica/blob/master/man/). We also provide some [ready-made stopword lists](https://github.com/rOpenGov/bibliographica/tree/master/inst/extdata) that can be easily downloaded in R with the 'read.csv' function. 
+
+
 
 
 ## Licensing and Citations
@@ -263,13 +348,15 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] rmarkdown_0.5.1       bibliographica_0.1.30 knitr_1.9            
+## [1] rmarkdown_0.5.3.5     bibliographica_0.1.29 knitr_1.10           
+## [4] scimapClient_0.2.1   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.11.5      digest_0.6.8     dplyr_0.4.1      assertthat_0.1  
-##  [5] MASS_7.3-40      grid_3.2.0       plyr_1.8.2       gtable_0.1.2    
-##  [9] DBI_0.3.1        formatR_1.2      magrittr_1.5     scales_0.2.4    
-## [13] evaluate_0.7     ggplot2_1.0.1    lazyeval_0.1.10  reshape2_1.4.1  
-## [17] proto_0.3-10     tools_3.2.0      stringr_0.6.2    munsell_0.4.2   
-## [21] yaml_2.1.13      parallel_3.2.0   colorspace_1.2-6 htmltools_0.2.6
+##  [1] Rcpp_0.11.5      magrittr_1.5     MASS_7.3-40      munsell_0.4.2   
+##  [5] colorspace_1.2-6 stringr_1.0.0    highr_0.5        plyr_1.8.2      
+##  [9] dplyr_0.4.1      tools_3.2.0      parallel_3.2.0   grid_3.2.0      
+## [13] gtable_0.1.2     DBI_0.3.1        htmltools_0.2.6  yaml_2.1.13     
+## [17] lazyeval_0.1.10  assertthat_0.1   digest_0.6.8     RJSONIO_1.3-0   
+## [21] reshape2_1.4.1   ggplot2_1.0.1    formatR_1.2      evaluate_0.7    
+## [25] stringi_0.4-1    scales_0.2.4     proto_0.3-10
 ```
