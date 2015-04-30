@@ -1,5 +1,5 @@
 #' @import dplyr
-#' @import stringr
+#' @importFrom stringr str_trim
 
 .onAttach <- function(lib, pkg)
 {

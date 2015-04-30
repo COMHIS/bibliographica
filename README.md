@@ -6,16 +6,16 @@ Bibliographica package
 <!--[![DOI](https://zenodo.org/badge/4203/rOpenGov/bibliographica.png)](https://github.com/rOpenGov/bibliographica)-->
 
 
-R tools for bibliographic data analysis. Part of [rOpenGov](http://ropengov.github.io/). 
+R tools for bibliographic data analysis. Functions to extract and clean up information from plain text library catalogue annotation fields following common standards such as the [Bibliographic Processing Cataloging Rules](https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html). 
 
-For installation and usage, check the [tutorial](vignettes/tutorial.md).
+For installation and usage, check the [tutorial page](vignettes/tutorial.md).
 
-Authors: [Leo Lahti](https://github.com/antagomir/), [Niko Ilomaki]() and [Mikko Tolonen]()
+Authors: [Leo Lahti](https://github.com/antagomir/), [Niko Ilomaki]() and [Mikko Tolonen](). Part of [rOpenGov](http://ropengov.github.io/). 
 
 You are welcome to:
   
-  * [submit suggestions and bug-reports](https://github.com/ropengov/bibliographica/issues)
-  * [send a pull request](https://github.com/ropengov/bibliographica/)
+  * [submit suggestions and bug reports](https://github.com/ropengov/bibliographica/issues)
+  * [send a pull request](https://github.com/ropengov/bibliographica/) (we will acknowledge contributions)
   * join IRC at ropengov@Freenode
   * [contact or follow us](http://ropengov.github.io/contribute/)
  
