@@ -32,10 +32,10 @@ polish_place <- function (x, synonymes = NULL) {
   xorig.unique <- unique(x)  
   x <- xorig.unique
 
-  message("Pick first name") # Basil;Paris -> Basil
+  message("Pick first name only") # Basil;Paris -> Basil
   x <- sapply(strsplit(x, ";"), function (s) {if (length(s) > 0 ) {s[[1]]} else {s}})
 
-  message("Harmonize terms")
+  message("Remove brackets from letters")
   x <- remove_brackets_from_letters(x)
 
   message("Remove time info")
@@ -45,8 +45,8 @@ polish_place <- function (x, synonymes = NULL) {
   x <- remove_numerics(x)
 
   message("Remove special characters")
-  x <- remove_special_chars(x)
-
+  x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\."), niter = 5)
+  
   message("Remove print statements")
   x <- remove_print_statements(x)
 

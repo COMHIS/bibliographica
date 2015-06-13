@@ -17,37 +17,47 @@ remove_print_statements <- function (x) {
   f <- system.file("extdata/printterms.csv", package = "bibliographica")
   terms <- as.character(read.csv(f)[,1])
 
-  # Include also full lowercase versions 
-  terms <- c(terms, tolower(terms))
-
-  # Remove endings
-  while (length(grep(" at$",terms))>0) {
-    terms <- gsub(" at$", "", terms)
-  }
-  while (length(grep(" in$",terms))>0) {
-    terms <- gsub(" in$", "", terms)
-  }
-
-  # Include versions with endings
+  # Add versions with endings
   terms <- c(terms, 
   	     paste(terms, " at", sep = ""),
-  	     paste(terms, " in", sep = ""))
-
-
-  # Include versions with capital first letter
-  terms <- c(terms, gsub("^p", "P", terms))
-  terms <- c(terms, gsub("^r", "R", terms))
-  terms <- c(terms, gsub("^i", "I", terms))
-  terms <- c(terms, gsub("^s", "S", terms))
-
-  # List all unique terms
-  terms <- sort(unique(terms))
-
-  # Go from longest to shortest term to avoid nested effects
-  terms <- terms[rev(order(sapply(terms, nchar)))]
+  	     paste(terms, " in", sep = ""),
+	     paste(terms, " i", sep = ""),
+	     paste(terms, " j", sep = ""),
+	     paste(terms, " på", sep = ""),
+	     paste(terms, " uti", sep = ""),
+	     paste(terms, " uthi", sep = ""),
+	     paste(terms, " zu", sep = ""),
+	     paste(terms, " a", sep = ""),
+	     paste("a ", terms, sep = ""),
+	     paste("A ", terms, sep = ""),
+	     paste("I ", terms, sep = "")
+	     )
 
   # Remove printing terms
-  x <- remove_terms(x, terms)
+  x <- remove_terms(x, terms, include.lowercase = TRUE)
+
+  # sine loco
+  x[x=="Sl"] <- NA
+  x[x=="S l"] <- NA
+  x[x=="Sl "] <- NA
+  x[x=="sl"] <- NA
+  x[x=="s l"] <- NA
+  x[x=="Sn"] <- NA
+  x[x=="sn"] <- NA
+  x[x=="Sa"] <- NA
+  x[x=="sa"] <- NA
+  x[x=="SI"] <- NA
+  x[x==""] <- NA
+
+  # odd cases
+  x[x=="122 s"] <- NA
+  x[x=="204 s"] <- NA
+  x[x=="2 p"] <- NA
+
+  # semicolons (note: this removes a few dozen city names)
+  x <- gsub("2. p.;","",x)
+  x <- gsub("S.l.;","",x)
+  x <- gsub("^(.*?);.*$","\\1",x) # nb. non-greedy match
 
   x
 }

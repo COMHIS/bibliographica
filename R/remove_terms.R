@@ -32,7 +32,11 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
   # "Beginning ", 
   # " middle ", 
   # " middle. ", 
-  # " last$" 
+  # " last$"
+
+  # Go from longest to shortest term to avoid nested effects
+  terms <- terms[rev(order(sapply(terms, nchar)))]
+
   for (term in terms) {
 
     x <- gsub(paste("^", term, "$", sep = ""), " ", x)
