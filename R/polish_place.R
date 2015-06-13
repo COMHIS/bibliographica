@@ -20,6 +20,7 @@ polish_place <- function (x, synonymes = NULL) {
     f <- system.file("extdata/PublicationPlaceSynonymes.csv",
 		package = "bibliographica")
     synonymes <- read.csv(f, sep = ";")
+    colnames(synonymes) <- c("name", "synonyme")
     message(paste("Reading publication place synonyme table", f))
   }
 
@@ -71,7 +72,7 @@ polish_place <- function (x, synonymes = NULL) {
   message("Remove persons")
   x <- remove_persons(x)
 
-  # Some more custom polishing
+  message("Custom polish")
   x <- gsub("And", "and", x)
   x <- gsub("Americae", "America", x)  
   x <- gsub("Parliament ", "", x)    
@@ -84,9 +85,11 @@ polish_place <- function (x, synonymes = NULL) {
   x <- gsub("D. C.", "D.C.", x)
   x <- gsub("S. C.", "S.C.", x)
 
-  x <- harmonize_names(x, synonymes)$name
+  message("Harmonize the synonymous names")
+  x <- as.character(harmonize_names(x, synonymes)$name)
 
   message("Return to full list")
+  # The function was sped up by operating with unique terms
   x <- x[match(xorig, xorig.unique)]
 
 }

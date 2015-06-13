@@ -4,12 +4,12 @@
 \alias{remove_persons}
 \title{remove_persons}
 \usage{
-remove_persons(x, persons = NULL)
+remove_persons(x, who = NULL)
 }
 \arguments{
 \item{x}{A vector}
 
-\item{persons}{names to be removed}
+\item{who}{names to be removed}
 }
 \value{
 Polished vector

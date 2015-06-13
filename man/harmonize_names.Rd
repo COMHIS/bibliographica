@@ -9,7 +9,8 @@ harmonize_names(x, synonymes)
 \arguments{
 \item{x}{A character vector}
 
-\item{synonymes}{synonyme table}
+\item{synonymes}{synonyme table.
+       The selected names are in column 1, the synonymes in column 2.}
 }
 \value{
 Harmonized vector where synonymes are renamed by the selected names
