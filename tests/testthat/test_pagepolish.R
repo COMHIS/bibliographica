@@ -31,19 +31,6 @@ test_that("volume count is correct", {
 
 test_that("page count is correct", {
 
-  expect_equal(polish_pages("324[i.e.325]plates")$estimated.pages[[1]], 650) 
-  expect_equal(polish_pages("6 p. [i.e.3 leaves] ;")$estimated.pages[[1]], 6) 
-  expect_equal(polish_pages("2 [i.e. 4] leaves")$estimated.pages[[1]], 8) 
-  expect_equal(polish_pages("xxxii [i.e. xxxiii] leaves")$estimated.pages[[1]], 66) 
-  expect_equal(polish_pages("5-49 i.e 5-51]")$estimated.pages[[1]], 47) 
-  expect_equal(polish_pages("2-3 [ie. 5]")$estimated.pages[[1]], 4) # 2 - 5
-  expect_equal(polish_pages("2-3 [ie 5]")$estimated.pages[[1]], 4) # 2 - 5
-  expect_equal(polish_pages("2-3 [ ie 5]")$estimated.pages[[1]], 4) # 2 - 5
-  expect_equal(polish_pages("2 i.e 5")$estimated.pages[[1]], 5)
-  expect_equal(polish_pages("2-3 i.e 5")$estimated.pages[[1]], 4) # 2 - 5
-  expect_equal(polish_pages("2-3 [i.e 5]")$estimated.pages[[1]], 4) # 2 - 5
-  expect_equal(polish_pages("2-3 [i.e. 5]")$estimated.pages[[1]], 4) # 2 - 5
-  expect_equal(polish_pages("v.8([6],338,[204]),plates")$estimated.pages[[1]], 552)
   expect_equal(polish_pages("v.7-9,plates")$estimated.pages[[1]], 4)
   expect_equal(polish_pages("v. 1-6,plates")$estimated.pages[[1]], 4)
 
@@ -88,7 +75,6 @@ test_that("page count is correct", {
   expect_equal(polish_pages("[2] leaves.")$estimated.pages[[1]], 4)
   expect_equal(polish_pages("48 leaves")$estimated.pages[[1]], 96)
 
-  expect_equal(polish_pages("xi,[1],309[i.e., 310],[2]p.")$estimated.pages[[1]], 324)
   expect_equal(polish_pages("[4], 31, 28-138, [2] p.")$estimated.pages[[1]], 144)
   expect_equal(polish_pages("vi,7-72p.")$estimated.pages[[1]], 72)
   expect_equal(polish_pages("[2], 58 p.")$estimated.pages[[1]], 60)
@@ -108,7 +94,6 @@ test_that("page count is correct", {
   expect_equal(polish_pages("xviii,456,[2]p.")$estimated.pages[[1]], 476)
   expect_equal(polish_pages("2v.([14],242,[6],265-452,[12]p.")$estimated.pages[[1]], 484)
   expect_equal(polish_pages("262p.,plate")$estimated.pages[[1]], 264)
-  expect_equal(polish_pages("[16],438[i.e.428],[52]p.")$estimated.pages[[1]], 496)
   expect_equal(polish_pages("127,[1]p.,plates")$estimated.pages[[1]], 132)
   expect_equal(polish_pages("vi,[1],iv-vii,[27],680,[24]p.")$estimated.pages[[1]], 739)
   expect_equal(polish_pages("[3],6-31,[1]p.")$estimated.pages[[1]], 30)
@@ -134,8 +119,6 @@ test_that("page count is correct", {
   expect_equal(polish_pages("Ff. [8], 1-209, 209-213, 213-219")$estimated.pages[[1]], 454) # ???
   expect_equal(polish_pages("122-126 p.")$estimated.pages[[1]], 5)
   expect_equal(polish_pages("p. 66")$estimated.pages[[1]], 1)
-  expect_equal(polish_pages("[5], 4 [i.e. 6]-8 p.")$estimated.pages[[1]], 8)
-  expect_equal(polish_pages("[2], 169-182 [i.e. 14] p.")$estimated.pages[[1]], 16)
   expect_equal(polish_pages("pp. 49-56")$estimated.pages[[1]], 8)	       
   expect_equal(polish_pages("[2], 3-58 p.")$estimated.pages[[1]], 58)
   expect_equal(polish_pages("[2], 283-287, [1] p.")$estimated.pages[[1]], 8)
@@ -148,7 +131,7 @@ test_that("page count is correct", {
   expect_equal(polish_pages("v.1(48p.)")$estimated.pages[[1]], 48)
   expect_equal(polish_pages("Pp.[1],122-169,[1],171*-175*,[2],174-187,[2],190*-195,[1],4,a-m")$estimated.pages[[1]], 202)
   expect_equal(polish_pages("iii-xxiv, 118, [2] p.")$estimated.pages[[1]], 142)
-  #expect_equal(polish_pages("[fewer than 50 pages]")$estimated.pages[[1]], 48)
+
   is_identical_to(polish_pages("[fewer than 50 pages]")$estimated.pages[[1]], NA)
   expect_equal(polish_pages("ca. 3108 p. in various pagings")$estimated.pages[[1]], 3108)
   expect_equal(polish_pages("ca. 298 p.")$estimated.pages[[1]], 298)
@@ -156,10 +139,8 @@ test_that("page count is correct", {
   expect_equal(polish_pages("[6] pp.")$estimated.pages[[1]], 6)
   expect_equal(polish_pages("[4] p. (the last 3 p. blank)")$estimated.pages[[1]], 4)
   expect_equal(polish_pages("2 Sheets (versos blank)")$estimated.pages[[1]], 4)
-  expect_equal(polish_pages("2 p. [i.e. 4 p.]")$estimated.pages[[1]], 4)
   expect_equal(polish_pages("[24+} p.")$estimated.pages[[1]], 24)
   expect_equal(polish_pages("[2] 4 p.")$estimated.pages[[1]], 6)
-  expect_equal(polish_pages("12 [i.e. 8 p.]")$estimated.pages[[1]], 8)
   expect_equal(polish_pages("1 sheet ([1] p.)")$estimated.pages[[1]], 2)
   expect_equal(polish_pages("1 sheet ([1]) p.")$estimated.pages[[1]], 2)
   expect_equal(polish_pages("1 sheet ([2] p.)")$estimated.pages[[1]], 2)
@@ -218,13 +199,38 @@ test_that("page count is correct", {
   expect_equal(polish_pages("[20], 225, [7], 369-680, 721-1051, [5] p.")$estimated.pages[[1]], 1083)
   expect_equal(polish_pages("25, 27-33, [4] p.")$estimated.pages[[1]], 37)
   expect_equal(polish_pages("4, 253-480 p.")$estimated.pages[[1]], 480)
-  expect_true(is.na(polish_pages("v.")$estimated.pages[[1]]))
-  expect_true(is.na(polish_pages("1 v")$estimated.pages[[1]]))
-  expect_true(is.na(polish_pages("2v")$estimated.pages[[1]]))
   expect_equal(polish_pages("v,[3],124,[4],129,[3]p.")$estimated.pages[[1]], 144)
   expect_equal(polish_pages("v,[1],7-18p.")$estimated.pages[[1]], 18)
   expect_equal(polish_pages("36 p [1]")$estimated.pages[[1]], 37)
   expect_equal(polish_pages("1 v. [2 p.]")$estimated.pages[[1]], 2)
+
+  expect_equal(polish_pages("xxxii [i.e. xxxiii] leaves")$estimated.pages[[1]], 66) 
+  expect_equal(polish_pages("5-49 i.e 5-51]")$estimated.pages[[1]], 47) 
+  expect_equal(polish_pages("324[i.e.325]plates")$estimated.pages[[1]], 650) 
+  expect_equal(polish_pages("12 [i.e. 8 p.]")$estimated.pages[[1]], 8)
+  expect_equal(polish_pages("2 i.e 5")$estimated.pages[[1]], 5)
+  expect_equal(polish_pages("2 p. [i.e. 4 p.]")$estimated.pages[[1]], 4)
+  expect_equal(polish_pages("6 p. [i.e.3 leaves] ;")$estimated.pages[[1]], 6) 
+  expect_equal(polish_pages("2 [i.e. 4] leaves")$estimated.pages[[1]], 8) 
+  expect_equal(polish_pages("2-3 i.e 5")$estimated.pages[[1]], 4) # 2 - 5
+  expect_equal(polish_pages("2-3 [ie. 5]")$estimated.pages[[1]], 4) # 2 - 5
+  expect_equal(polish_pages("2-3 [ie 5]")$estimated.pages[[1]], 4) # 2 - 5
+  expect_equal(polish_pages("2-3 [ ie 5]")$estimated.pages[[1]], 4) # 2 - 5
+  expect_equal(polish_pages("2-3 [i.e 5]")$estimated.pages[[1]], 4) # 2 - 5
+  expect_equal(polish_pages("2-3 [i.e. 5]")$estimated.pages[[1]], 4) # 2 - 5
+
+  #expect_equal(polish_pages("[fewer than 50 pages]")$estimated.pages[[1]], 48)
+  
+  expect_equal(polish_pages("v.8([6],338,[204]),plates")$estimated.pages[[1]], 552)
+  expect_equal(polish_pages("[16],438[i.e.428],[52]p.")$estimated.pages[[1]], 496)
+  expect_equal(polish_pages("[5], 4 [i.e. 6]-8 p.")$estimated.pages[[1]], 8)
+  expect_equal(polish_pages("[2], 169-182 [i.e. 14] p.")$estimated.pages[[1]], 16)
+   expect_equal(polish_pages("xi,[1],309[i.e., 310],[2]p.")$estimated.pages[[1]], 324)
+  
+  expect_true(is.na(polish_pages("v.")$estimated.pages[[1]]))
+  expect_true(is.na(polish_pages("1 v")$estimated.pages[[1]]))
+  expect_true(is.na(polish_pages("2v")$estimated.pages[[1]]))
+  
 })
 
 

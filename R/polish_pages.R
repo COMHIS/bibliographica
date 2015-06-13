@@ -14,7 +14,7 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples # polish_pages("4p.")
+#' @examples polish_pages("4p.")
 #' @keywords utilities
 polish_pages <- function (s, verbose = FALSE) {
 
@@ -70,6 +70,7 @@ polish_pages <- function (s, verbose = FALSE) {
 #'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
+#' @importFrom stringr str_trim
 #' 
 #' @examples \dontrun{polish_page("4p.")}
 #' @keywords internal
@@ -116,7 +117,7 @@ estimate_pages <- function (x) {
     return(as.numeric(x))
   } else if ((is.roman(x) && length(unlist(strsplit(x, ","))) == 1 && length(grep("-", x)) == 0)) {
     # "III" but not "ccclxxiii-ccclxxiv"
-    return(as.numeric(as.roman(x)))
+    return(suppressWarnings(as.numeric(as.roman(x))))
   } else if (!is.na(suppressWarnings(as.numeric(gsub(" p", "", remove.squarebrackets(x)))))) {
     # "[3]" or [3 p]
     return(as.numeric(remove.squarebrackets(gsub(" p", "", x))))
@@ -546,61 +547,7 @@ pick_starting_numeric <- function (x) {
 
 
 
-polish_ie <- function (x) {
 
-  # 183 i.e 297 -> 297	  
-  # 183-285 i.e 297 -> 183-297	  
-  # 183-285 [i.e 297] -> 183-297	  
-
-  y <- x
-
-  # Handle ie
-  if (length(grep("i\\.e", x)) > 0) {
-
-    x2 <- gsub("\\]", " ", str_trim(unlist(strsplit(x, "i.e")))[[2]])
-    yspl <- unlist(strsplit(y, "i\\.e"))
-    x0 <- NULL
-
-    if (length(grep("-", yspl[[1]]))>0 && length(grep("-", yspl[[2]]))>0) {
-
-      y <- str_trim(yspl[[2]])
-
-    } else if (length(grep("-", yspl[[1]]))>0) {
-
-      y <- as.numeric(as.roman(str_trim(x2)))
-      spl <- str_trim(unlist(strsplit(x, "-")))
-
-      x0 <- as.numeric(as.roman(spl[[1]]))
-      x1 <- as.numeric(as.roman(unlist(strsplit(spl[[2]], " "))[[1]]))
-
-      if (x2 > x0) {
-        y <- paste(x0, x2, sep = "-")
-      } else {
-        y <- x2
-      }
-    } else if (length(grep("-", yspl[[2]]))>0) {
-
-      y <- as.numeric(as.roman(str_trim(x2)))
-      # "4 [i.e. 6]-8 p." -> "6-8"
-      spl <- str_trim(unlist(strsplit(x, "-")))
-
-      x0 <- str_trim(unlist(strsplit(spl[[1]], "i.e"))[[2]])
-      x1 <- as.numeric(unlist(strsplit(spl[[2]], " "))[[1]])
-
-      if (x2 > x0) {
-        y <- paste(x0, x2, sep = "-")
-      } else {
-        y <- x2
-      }
-    } else {
-      xx <- condense_spaces(x2)
-      xx <- unlist(strsplit(xx, " "))
-      y <- paste(as.numeric(as.roman(xx[[1]])), xx[-1], sep = " ")
-    }
-  }
-
-  y
-}
 
 is.roman <- function (x) {
 
@@ -672,7 +619,7 @@ pages2arabics <- function (s) {
 
     if (length(grep("-", x)) > 0) {
       x2 <- str_trim(unlist(strsplit(x, "-")))
-      n <- as.numeric(as.roman(x2))
+      n <- suppressWarnings(as.numeric(as.roman(x2)))
       n[is.na(n)] <- x2[is.na(n)] # vii-160
       if (any(is.roman(x2))) {
         romans[[i]] <- TRUE
@@ -682,7 +629,7 @@ pages2arabics <- function (s) {
       if (is.roman(x)) {
         romans[[i]] <- TRUE
       }
-      x <- as.numeric(as.roman(x))
+      x <- suppressWarnings(as.numeric(as.roman(x)))
     }
   
     ns[[i]] <- x
@@ -717,7 +664,7 @@ all2arabics <- function (x) {
   xseries <- str_trim(gsub("\\]", " ", gsub("\\[", " ", xseries)))  
 
   # Convert to arabics
-  xseries <- sapply(xseries, function (x) as.numeric(as.roman(x)))
+  xseries <- sapply(xseries, function (x) suppressWarnings(as.numeric(as.roman(x))))
 
   xseries
   
@@ -751,7 +698,7 @@ sheets2pages <- function (x) {
   if (length(inds) > 0) {
     # 1 sheet = 2 pages
     pages <- sapply(x[inds], function (x) {sheets2pages.single(x)})
-    pages <- as.numeric(as.roman(pages))
+    pages <- suppressWarnings(as.numeric(as.roman(pages)))
     x[inds] <- 2*pages
   }
 
@@ -790,7 +737,7 @@ plates2pages <- function (s) {
       xi <- gsub("\\]", "", gsub("\\[", "", xi))
       # When no plate number is given, use plates = 2 plates
       xi[xi == ""] <- 2
-      s <- as.numeric(as.roman(xi))
+      s <- suppressWarnings(as.numeric(as.roman(xi)))
     } else if (length(grep("plate", s) > 0) && length(grep("lea", s)) == 0) {
       # "plate" instances without "leaf" or "leaves"
       xi <- str_trim(gsub("plate", "", s))

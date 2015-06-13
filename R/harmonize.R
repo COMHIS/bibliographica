@@ -1,4 +1,6 @@
 
+
+
 harmonize_pages <- function (x) {
 
   # Remove some special cases manually
@@ -7,7 +9,7 @@ harmonize_pages <- function (x) {
   # Remove dimension info
   s <- remove_dimension(s)
 
-  # Harmonize i.e.
+  # ie harmonization (handle comma; otherwise ie handled later)
   s <- harmonize_ie(s)
 
   # Romans
@@ -106,6 +108,7 @@ harmonize_pages <- function (x) {
   for (n in 0:9) {
     s <- gsub(paste("] ", n, sep = ""), paste("], ", n, sep = ""), s)
   }
+
   s <- gsub("leaves \\[", "leaves, [", s)
   s <- gsub("leaf \\[", "leaf, [", s)
   s <- gsub("\\] \\[", "], [", s)
@@ -304,39 +307,6 @@ harmonize_sheets <- function (s) {
 }
 
 
-harmonize_ie <- function (s) {
-
-  # Harmonize i.e.
-  s <- gsub("i\\. e", " i.e", s)
-  s <- gsub("\\[i\\.e", "  i.e", s)
-  s <- gsub("\\[ie\\.", " i.e", s)
-  s <- gsub("\\[ ie\\.", " i.e", s)
-  s <- gsub("\\[ ie ", " i.e", s)
-  s <- gsub("\\[ie ", " i.e", s)
-  s <- gsub("\\,i\\.e", " i.e", s)
-  s <- gsub("\\, i\\.e", " i.e", s)
-  s <- gsub("i\\.e", " i.e.", s)
-  s <- gsub("i\\.e\\.\\.", " i.e.", s)
-  s <- gsub("i\\.e\\.\\,", " i.e.", s)
-  s <- gsub("i\\.e\\.", " i.e ", s)
-  s <- gsub("ie\\.", " i.e ", s)
-
-  # "12 [i.e. 8 p.]" -> 12 i.e 8
-  if (length(grep("\\[i.e ", s)) > 0) {
-    s2 <- str_trim(unlist(strsplit(s, "\\[i.e "))[[2]])
-    s2 <- pick_starting_numeric(s2)
-    s <- gsub(paste("\\[i\\.e  ", s2, "\\]", sep = ""), paste("i\\.e", s2, " ", sep = ""), s)
-    s <- gsub(paste("\\[i\\.e  ", s2, " p\\]", sep = ""), paste("i\\.e", s2, " ", sep = ""), s)
-    s <- gsub(paste("\\[i\\.e  ", s2, " p\\.\\]", sep = ""), paste("i\\.e", s2, " ", sep = ""), s)
-  }
-
-  s <- condense_spaces(s)
-  s <- gsub("p\\. i\\.e", " i.e", s)
-  s <- gsub("i\\.e","i.e ",s)
-  s <- condense_spaces(s)
-  s
-
-}
 
 
 harmonize_romans <- function (s) {
@@ -392,6 +362,9 @@ harmonize_pages_specialcases <- function (s) {
 # A single instance of pages within commas
 harmonize_pages_by_comma <- function (s) {
 
+  # Harmonize i.e.  
+  s <- handle_ie(s)
+
   # Harmonize '1 sheet'
   if (length(grep("1 sheet", s)) > 0 || s == "sheet") {
     s <- "1 sheet" 
@@ -411,8 +384,6 @@ harmonize_pages_by_comma <- function (s) {
   if (length(grep("-", s))>0 && length(grep("leaves", s))>0) {
     s <- str_trim(gsub("leaves", "", s))
   }
-
-  s <- polish_ie(s)
 
   # Convert plates to pages
   s <- plates2pages(s)

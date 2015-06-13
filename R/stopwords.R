@@ -36,68 +36,6 @@ remove_stopwords <- function (x, terms = NULL, remove.letters = TRUE) {
 }
 
 
-#' @title remove_letters
-#' @description Remove specific single letters
-#'
-#' @param x A vector
-#' @return Polished vector
-#'
-#' @export
-#' 
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("bibliographica")
-#' 
-#' @examples \dontrun{remove_letters(x)}
-#' @keywords utilities
-remove_letters <- function (x) {
-  x <- remove_terms(x, setdiff(c(letters, LETTERS), c("S", "s", "N", "n", "E", "e", "W", "w")), "begin")
-  x <- remove_terms(x, c(letters, LETTERS), "end")
-  x
-}
-
-
-#' @title remove_special_chars
-#' @description Remove special characters
-#'
-#' @param x Character vector
-#' @param chars Characters to be removed
-#' @param niter Number of iterations 
-#' @return Polished vector
-#'
-#' @export
-#' 
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("bibliographica")
-#' 
-#' @examples \dontrun{remove_special_chars()}
-#' @keywords utilities
-remove_special_chars <- function (x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&"), niter = 5) {
-
-  for (n in 1:niter) {
-    for (char in chars) {
-      x <- str_trim(x)
-      x <- gsub(paste(char, "$", sep = ""), " ", x)
-      x <- gsub(paste("^", char, sep = ""), " ", x)
-      x <- gsub(char, " ", x)
-    }
-
-    for (char in c("\\[", "]")) {
-      x <- str_trim(x)
-      x <- gsub(paste(char, "$", sep = ""), "", x)
-      x <- gsub(paste("^", char, sep = ""), "", x)
-      x <- gsub(char, "", x)
-    }
-  }
-
-  x <- condense_spaces(x)
-   
-  x[x == ""] <- NA
-
-  x
-
-}
-
-
 #' @title condense_spaces
 #' @description Trim spaces
 #'

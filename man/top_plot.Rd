@@ -4,10 +4,10 @@
 \alias{top_plot}
 \title{top_plot}
 \usage{
-top_plot(df, field, ntop = 20)
+top_plot(df, field = NULL, ntop = NULL)
 }
 \arguments{
-\item{df}{Data frame}
+\item{df}{Data frame, vector or factor}
 
 \item{field}{Field to show}
 
