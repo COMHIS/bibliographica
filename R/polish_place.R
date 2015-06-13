@@ -68,7 +68,7 @@ polish_place <- function (x, synonymes = NULL) {
   message("Replace special cases")
   x[tolower(x) %in% c("", "NA", NA)] <- NA
 
-  # Remove persons
+  message("Remove persons")
   x <- remove_persons(x)
 
   # Some more custom polishing
