@@ -4,10 +4,12 @@
 \alias{polish_place}
 \title{polish_place}
 \usage{
-polish_place(x)
+polish_place(x, synonymes = NULL)
 }
 \arguments{
 \item{x}{A vector of place names}
+
+\item{synonymes}{Synonyme table for place names}
 }
 \value{
 Polished vector
@@ -16,7 +18,7 @@ Polished vector
 Polish place
 }
 \examples{
-\dontrun{x2 <- polish_place(x, file)}
+# x2 <- polish_place(c("London", "Paris"))
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

@@ -2,6 +2,7 @@
 #' @description Polish place
 #'
 #' @param x A vector of place names
+#' @param synonymes Synonyme table for place names
 #'
 #' @return Polished vector
 #'
@@ -10,9 +11,17 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples \dontrun{x2 <- polish_place(x, file)}
+#' @examples # x2 <- polish_place(c("London", "Paris"))
 #' @keywords utilities
-polish_place <- function (x) {
+polish_place <- function (x, synonymes = NULL) {
+
+  if (is.null(synonymes)) {
+    # Harmonize places with synonyme table
+    f <- system.file("extdata/PublicationPlaceSynonymes.csv",
+		package = "bibliographica")
+    synonymes <- read.csv(f, sep = ";")
+    message(paste("Reading publication place synonyme table", f))
+  }
 
   message("Convert to character")	
   x <- as.character(x)	    
@@ -58,6 +67,24 @@ polish_place <- function (x) {
 
   message("Replace special cases")
   x[tolower(x) %in% c("", "NA", NA)] <- NA
+
+  # Remove persons
+  x <- remove_persons(x)
+
+  # Some more custom polishing
+  x <- gsub("And", "and", x)
+  x <- gsub("Americae", "America", x)  
+  x <- gsub("Parliament ", "", x)    
+  x <- gsub("N.rth", "North", x)    
+  x <- gsub("Mass.", "Mass", x)
+  x <- gsub("N. H.", "N.H.", x)
+  x <- gsub("N. J.", "N.J.", x)
+  x <- gsub("n. h.", "N.H.", x)
+  x <- gsub("n. j.", "N.J.", x)
+  x <- gsub("D. C.", "D.C.", x)
+  x <- gsub("S. C.", "S.C.", x)
+
+  x <- harmonize_names(x, synonymes)$name
 
   message("Return to full list")
   x <- x[match(xorig, xorig.unique)]
