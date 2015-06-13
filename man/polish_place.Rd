@@ -4,12 +4,15 @@
 \alias{polish_place}
 \title{polish_place}
 \usage{
-polish_place(x, synonymes = NULL)
+polish_place(x, synonymes = NULL, remove.unknown = FALSE)
 }
 \arguments{
 \item{x}{A vector of place names}
 
 \item{synonymes}{Synonyme table for place names}
+
+\item{remove.unknown}{Logical. Remove places that are not validated
+                       (ie. listed in the synonyme table)?}
 }
 \value{
 Polished vector

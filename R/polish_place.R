@@ -3,6 +3,8 @@
 #'
 #' @param x A vector of place names
 #' @param synonymes Synonyme table for place names
+#' @param remove.unknown Logical. Remove places that are not validated
+#'   	  		 	  (ie. listed in the synonyme table)?
 #'
 #' @return Polished vector
 #'
@@ -13,7 +15,7 @@
 #' 
 #' @examples # x2 <- polish_place(c("London", "Paris"))
 #' @keywords utilities
-polish_place <- function (x, synonymes = NULL) {
+polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE) {
 
   if (is.null(synonymes)) {
     # Harmonize places with synonyme table
@@ -86,7 +88,8 @@ polish_place <- function (x, synonymes = NULL) {
   x <- gsub("S. C.", "S.C.", x)
 
   message("Harmonize the synonymous names")
-  x <- as.character(harmonize_names(x, synonymes)$name)
+  x <- as.character(harmonize_names(x, synonymes,
+       		remove.unknown = remove.unknown)$name)
 
   message("Return to full list")
   # The function was sped up by operating with unique terms

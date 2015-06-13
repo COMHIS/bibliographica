@@ -4,13 +4,15 @@
 \alias{harmonize_names}
 \title{harmonize_names}
 \usage{
-harmonize_names(x, synonymes)
+harmonize_names(x, synonymes, remove.unknown = FALSE)
 }
 \arguments{
 \item{x}{A character vector}
 
 \item{synonymes}{synonyme table.
-       The selected names are in column 1, the synonymes in column 2.}
+The selected names are in column 1, the synonymes in column 2.}
+
+\item{remove.unknown}{Logical. Remove terms that do not have synonymes.}
 }
 \value{
 Harmonized vector where synonymes are renamed by the selected names

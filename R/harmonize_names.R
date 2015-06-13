@@ -4,6 +4,7 @@
 #' @param x A character vector 
 #' @param synonymes synonyme table.
 #'        The selected names are in column 1, the synonymes in column 2.
+#' @param remove.unknown Logical. Remove terms that do not have synonymes.
 #'
 #' @return Harmonized vector where synonymes are renamed by the selected names
 #'
@@ -14,7 +15,14 @@
 #' 
 #' @examples \dontrun{x2 <- harmonize_names(x, file)}
 #' @keywords utilities
-harmonize_names <- function (x, synonymes) {
+harmonize_names <- function (x, synonymes, remove.unknown = FALSE) {
+
+  # Check which terms are not on the synonyme list and add them there		
+  if (!remove.unknown) {
+    r <- setdiff(x, synonymes$synonyme)
+    synonymes <- rbind(synonymes,
+    	      as.data.frame(list(name = r, synonyme = r)))    
+  }
 
   # Polish the synonyme table 		
   synonymes <- check_synonymes(synonymes)
