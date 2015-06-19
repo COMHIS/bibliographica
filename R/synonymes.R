@@ -2,7 +2,7 @@
 #'
 #' @description Check synonyme table. 
 #'
-#' @param synonymes synonymes data.frame
+#' @param synonymes synonymes data.frame with the self-explanatory fields 'name' and 'synonyme'.
 #' @return Polished synonyme table
 #'
 #' @export
@@ -15,26 +15,42 @@
 #' 
 #' @examples \dontrun{s <- check_synonymes(synonymes)}
 #' @keywords utilities
-check_synonymes <- function (synonymes) {
+check_synonymes <- function (synonymes, include.lowercase = TRUE, include.trimmed = TRUE) {
 
   synonyme <- NULL		
 
-  # Trim
-  # spl[ambiguous]
+  # Use trimmed versions of the final names
   synonymes$name <- str_trim(synonymes$name)
-  synonymes$synonyme <- str_trim(synonymes$synonyme)
 
-  # Ensure each name is synonyme for itself, also in lowercase
+  # Ensure each proper name is synonyme also for itself
   synonymes <- rbind(synonymes, cbind(name = synonymes$name, synonyme = synonymes$name))
-  synonymes <- rbind(synonymes, cbind(name = synonymes$name, synonyme = tolower(synonymes$name)))
-
-  # Remove duplicated info
-  synonymes <- synonymes[!duplicated(synonymes),]
-  spl <- split(as.character(synonymes$name), as.character(synonymes$synonyme))
+  synonymes <- unique(synonymes)
   
-  # Remove ambiguous names (map to many higher-level names)
+  # Include lowercase versions of the synonymes
+  if (include.lowercase) {
+    message("Including lowercase versions of the synonymes")
+    synonymes <- rbind(synonymes, cbind(name = synonymes$name, synonyme = tolower(synonymes$synonyme)))
+    synonymes <- unique(synonymes)    
+  }
+  
+  # Include trimmed versions of the synonymes
+  if (include.lowercase) {
+    message("Including trimmed versions of the synonymes")  
+    synonymes <- rbind(synonymes, cbind(name = synonymes$name, synonyme = str_trim(synonymes$synonyme)))
+    synonymes <- unique(synonymes)
+  }
+  
+  # Remove duplicated info
+  synonymes <- unique(synonymes)
+  
+  # Remove ambiguous names that map to many higher-level names
+  spl <- split(as.character(synonymes$name), as.character(synonymes$synonyme))  
   ambiguous <- names(which(sapply(spl, length) > 1))
-  synonymes.ambiguous <- subset(synonymes, synonyme %in% ambiguous)
+  if (length(ambiguous) > 0) {
+    warning(paste("Removing ambiguous terms from synonyme list (no unique mapping): ", paste(ambiguous, collapse = ",")))
+  }
+  
+  # synonymes.ambiguous <- subset(synonymes, synonyme %in% ambiguous)
   synonymes <- subset(synonymes, !synonyme %in% ambiguous)
   
   # Order alphabetically
