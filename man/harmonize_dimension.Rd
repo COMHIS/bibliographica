@@ -22,7 +22,7 @@ harmonize_dimension("fol.", sheet_sizes())
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("estc")
+See citation("bibliographica")
 }
 \keyword{internal}
 

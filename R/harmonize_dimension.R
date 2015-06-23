@@ -5,7 +5,7 @@
 #' @return The character vector with dimension information harmonized
 #'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
+#' @references See citation("bibliographica")
 #' @export
 #' 
 #' @examples harmonize_dimension("fol.", sheet_sizes())
@@ -14,39 +14,31 @@ harmonize_dimension <- function (x, sheetsizes) {
 
   s <- as.character(x)
 
-  # Mark NAs
-  s <- gsub("\\?⁰", " ", s)
-
+  # Read the mapping table
+  f <- system.file("extdata/harmonization.csv", package = "bibliographica")
+  harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
+  
   # Harmonize
-  s <- gsub(".̊", "⁰", s)
-  s <- gsub(" ⁰", "⁰", s)
-  s <- gsub("₀", "⁰", s)
-  s <- gsub("⁹", "⁰", s)
-  s <- gsub(".̥", "⁰", s)
-  s <- gsub("'", "⁰", s)
-  s <- gsub("⁰", "to", s)
-
-  s <- gsub("cm", " cm", s)
-  #s <- gsub("4to", "4⁰", s)
-  s <- gsub("8vo", "8to", s)
-  s <- gsub("fol.", "2to", s)
-  s <- gsub("fol$", "2to", s)
-  s <- gsub("fol ", "2to", s)
-  s <- gsub("x", " x ", s)
-  s <- gsub("  ", " ", s)
-  s <- gsub("quarto [fewer than 50 pages]", "4to", s)
-  s <- gsub("broadsheet", "broadside", s)
-
-  for (ind in 1:nrow(sheetsizes)) { 
-    nam <- sheetsizes[ind, "format"]
-    gat <- sheetsizes[ind, "gatherings"]
-    #s <- gsub(nam, gsub(gat, "to", "⁰"), s)
-    s <- gsub(nam, gsub(gat, "⁰", "to"), s)
+  for (i in 1:nrow(harm)) {
+    s <- gsub(harm$synonyme[[i]], harm$name[[i]], s)
   }
+
+  # Add some spaces and remove ambiguous terms
+  s <- gsub("\\?to", " ", s)
+  s <- gsub("cm", " cm", s)
+  s <- gsub("x", " x ", s)
+
+  # Remove extra spaces
+  s <- condense_spaces(s)
 
   # With standard gatherings 1/2 = 2
   s <- gsub("1/", "", s)
 
+  gt <- gatherings_table()
+  for (i in 1:nrow(gt)) {
+    s <- gsub(gt$Alternate[[i]], gt$Standard[[i]], s)
+  }
+  
   s
 
 }

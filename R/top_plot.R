@@ -4,7 +4,7 @@
 #' @param df Data frame, vector or factor
 #' @param field Field to show
 #' @param ntop Number of top entries to show
-#' @param color color field
+#' @param highlight Entries from the 'field' to be highlighted
 #' @return ggplot object
 #'
 #' @import ggplot2
@@ -16,6 +16,9 @@
 #' @examples \dontrun{p <- top_plot(df, field, 50)}
 #' @keywords utilities
 top_plot <- function (df, field = NULL, ntop = NULL, highlight = NULL) {
+
+  # Circumvent warnings in build
+  color <- NULL
 
   x <- df
   if (is.data.frame(df)) {

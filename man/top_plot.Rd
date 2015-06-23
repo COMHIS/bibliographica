@@ -4,7 +4,7 @@
 \alias{top_plot}
 \title{top_plot}
 \usage{
-top_plot(df, field = NULL, ntop = NULL)
+top_plot(df, field = NULL, ntop = NULL, highlight = NULL)
 }
 \arguments{
 \item{df}{Data frame, vector or factor}
@@ -12,6 +12,8 @@ top_plot(df, field = NULL, ntop = NULL)
 \item{field}{Field to show}
 
 \item{ntop}{Number of top entries to show}
+
+\item{highlight}{Entries from the 'field' to be highlighted}
 }
 \value{
 ggplot object

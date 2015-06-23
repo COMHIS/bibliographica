@@ -14,7 +14,7 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples polish_pages("4p.")
+#' @examples # polish_pages("4p.")
 #' @keywords utilities
 polish_pages <- function (s, verbose = FALSE) {
 

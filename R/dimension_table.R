@@ -12,6 +12,7 @@
 #' @examples dimension_table()
 #' @keywords utilities
 dimension_table <- function (...) {
+
   f <- system.file("extdata/documentdimensions.csv", package = "bibliographica")
   dd <- read.csv(f, header = TRUE)[-1,]
   colnames(dd) <- gsub("^X", "", colnames(dd))
@@ -33,7 +34,6 @@ dimension_table <- function (...) {
   dd[1, "1to"] <- ss[ss$gatherings == "1to", "width"]
 
   # Reorder columns
-  #dd <- dd[, c("height", "NA", "1to", "2to", "4to", "8to", "12to", "16to", "32to", "64to")]
   rownames(dd) <- NULL
 
   dd <- as.data.frame(dd, stringsAsFactors = FALSE)

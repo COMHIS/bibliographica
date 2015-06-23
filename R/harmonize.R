@@ -1,6 +1,4 @@
 
-
-
 harmonize_pages <- function (x) {
 
   # Remove some special cases manually
@@ -15,63 +13,14 @@ harmonize_pages <- function (x) {
   # Romans
   s <- harmonize_romans(s) 
 
-  # Cases such as "p. 66" -> 1 page 
-  if ((length(grep("^p\\. [0-9]$", s)>0) || length(grep("^p\\. [0-9][0-9]$", s))) || length(grep("^p\\. [0-9][0-9][0-9]$", s))>0) {
-    s <- 1
-  }
+  # Read the mapping table
+  f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
+  harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))  
+  # Harmonize
+  for (i in 1:nrow(harm)) {
+    s <- gsub(harm$synonyme[[i]], harm$name[[i]], s)
+  }  
 
-  # TODO formulate rule for this
-  s <- gsub("233-248 leaves", "233-248,", s)
-  s <- gsub("205-216 leaves", "205-216,", s)
-  s <- gsub("107-133 leaves", "107-133,", s)
-
-  # p. without space
-  s <- gsub("xlix-liip. ;", "xlix-lii", s)
-
-  # Ff.
-  s <- gsub("Ff\\. ", "Ff.,", s)
-
-  # Rare cases
-  s <- gsub("3\\.", "3,", s)
-  s <- gsub("c1 \\.", "", s)
-  s <- gsub("32t p\\.", "32 p.", s)
-  s <- gsub("\\[1⁺\\]", "[1]", s)
-  s <- gsub("1\\/ \\.$", ",1", s)
-  s <- gsub("c1⁰\\.$", "", s)
-  s <- gsub("\\[x\\]", " ", s)
-  s <- gsub("\\+\\]", "]", s)
-  s <- gsub("\\[2\\] single and \\[8\\] double leaves of plates", "[2],[8]", s)
-  s <- gsub("\\[fewer than 50 pages\\]", " ", s)
-  s <- gsub("\\[No pagination provided\\]", " ", s)
-  s <- gsub("in various pagings", " ", s)
-  s <- gsub(" and ", " ", s)
-  s <- gsub("leaf", " leaf", s)
-  s <- gsub("53a-62k", "53-62", s)
-  s <- gsub("\\:bill", " ", s)
-  s <- gsub("\\:ill", " ", s)
-  s <- gsub("\\bill", " ", s)
-  s <- gsub("bill\\.", " ", s)
-  s <- gsub("\\?\\]", "\\]", s) # [8?]
-  s <- gsub("\\+", " ", s)    
-
-  s <- gsub("[0-9][0-9] no\\. ;", " ", s)
-  s <- gsub("[0-9] no\\. ;", " ", s)
-  s <- gsub("[0-9][0-9][0-9] columns", " ", s)
-
-  s <- gsub("bis", "", s)
-  s <- gsub("\\*", "", s)
-  s <- gsub("\\] p. \\[", "] p., [", s)
-  s <- gsub("\\[\\?\\]", " ", s)
-  s <- gsub("\\?", " ", s)
-  s <- gsub("+\\}", "]", s)
-  #s <- gsub("[0-9] pts in 1 v\\.", " ", s)
-  s <- gsub("ca\\.", " ", s)
-
-  # Add spaces around parentheses
-  s <- gsub("\\]", "] ", s)
-  s <- gsub("\\[", " [", s)
-  s <- gsub("\\)", ") ", s)
-  s <- gsub("\\(", " (", s)
   s <- condense_spaces(s)
 
   # Remove endings
@@ -85,16 +34,10 @@ harmonize_pages <- function (x) {
   # Pp. -> p etc.
   s <- harmonize_page_info(s)
   
-  # 1/4to etc -> 4
-  #s <- gsub("1/", " ", s)
-
-  # Remove spaces around dashes
+  # Remove spaces around dashes and parentheses
   s <- gsub(" -", "-", s)
   s <- gsub("- ", "-", s)
-
-  # Remove spaces around parentheses
   s <- str_trim(gsub("\\)", " ", gsub("\\(", " ", s)))
-  #s <- gsub(" \\[", ",[", s) # 438[i.e 428] must come without comma
   s <- gsub(" \\(", ",(", s)
   s <- gsub("\\,\\,", ",", s)
   s <- gsub("^\\(", "", s)
@@ -102,21 +45,12 @@ harmonize_pages <- function (x) {
   s <- condense_spaces(s)
 
   # Add commas
-  #"[2] 4 p." -> "[2], 4 p."
+  # "[2] 4 p." -> "[2], 4 p."
   inds <- setdiff(1:length(s), grep("\\[i", s))
   s[inds] <- gsub(" \\[", "\\,[", s[inds])
   for (n in 0:9) {
     s <- gsub(paste("] ", n, sep = ""), paste("], ", n, sep = ""), s)
   }
-
-  s <- gsub("leaves \\[", "leaves, [", s)
-  s <- gsub("leaf \\[", "leaf, [", s)
-  s <- gsub("\\] \\[", "], [", s)
-  s <- gsub("p \\[", "p, [", s)
-  s <- gsub("p \\(", "p, (", s)
-  s <- gsub("p\\. \\[", "p, [", s)
-  s <- gsub("p\\. \\(", "p, (", s)
-  s <- gsub("p\\.\\]", "p]", s)
 
   if (length(grep("^p[0-9]", s))) {
     s <- substr(s, 2, nchar(s))
@@ -133,21 +67,14 @@ harmonize_pages <- function (x) {
 
 harmonize_page_info <- function (s) {
 
-  # Harmonize page info
-  s <- gsub("^Pp\\.", " ", s)
-  s <- gsub("^p\\. ", " ", s)
-  s <- gsub("Pp\\.", "p", s)
-  s <- gsub("pp\\.", "p", s)
-  s <- gsub("p\\.", "p", s)
-  s <- gsub("p ", "p", s)
-  s <- gsub("p$", "p", s)
-  s <- gsub("P\\.", "p", s)
-  s <- gsub("P ", "p", s)
-  s <- gsub("P$", "", s)
-  s <- gsub("p$", "", s)  
-  s <- gsub("P\\.$", "", s)
-  s <- gsub("p\\.$", "", s)
-  s <- gsub("p\\[", "p, [", s)
+  f <- system.file("extdata/harmonize_page_info.csv", package = "bibliographica")
+  harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))  
+
+  # Harmonize
+  for (i in 1:nrow(harm)) {
+    s <- gsub(harm$synonyme[[i]], harm$name[[i]], s)
+  }  
+
 
   s
 
@@ -155,90 +82,16 @@ harmonize_page_info <- function (s) {
 
 harmonize_sheets <- function (s) {
 
-  # Capitalization		 
-  s <- gsub("Sheet", "sheet", s)
-
-  # Plates
-  s <- gsub("plates\\(one fold\\.\\)", "plates ", s)
-  s <- gsub("p\\.plates", "p., plates", s) # "39,[1]p.plates :" -> "39,[1]p.,plates :"
-  s <- gsub("\\)plates :", "),plates", s)
-  s <- gsub("plates :", "plates ", s)
-  s <- gsub("plate :", "plate ", s)
-  s <- gsub("plates \\(some fold\\.\\) :", "plates ", s)
-  s <- gsub("plates \\(one fold\\.\\)", "plates ", s)
-  s <- gsub("p\\.table", "p., table", s)
-  s <- gsub("p\\., of plates", "plates", s)
-
-  s <- gsub("tables :", "tables ", s)
-  s <- gsub("table :", "table ", s)
-
-  # l.
-  s <- gsub(" 1 l\\.", "leaf ", s) # 
-  s <- gsub("\\[1\\] l\\.", "leaf ", s) # 
-  s <- gsub("\\,l\\.", ",leaves ", s) # 
-  s <- gsub(" l\\.", "leaves ", s) # 
-
-  s <- gsub("  ", " ", gsub("folded", " folded", s))
-  s <- gsub("\\(the last [0-9] p. blank\\)", "", s)
-  s <- gsub("\\(versos blank\\)", " ", s)
-  s <- gsub("\\(woodcut\\)", " ", s)
-  s <- gsub("platess", "plates", s)
-  s <- gsub("leaf of plates folded", "leaf", s)
-  s <- gsub("leaves of plates folded", "leaf", s)
-  s <- gsub("leaves of plates \\(maps\\)", "leaf", s)
-  s <- gsub("leaves folded", "leaf", s)
-  s <- gsub("fold\\. leaf of plates", "leaf", s)
-  s <- gsub("folded leaf plates", "leaf", s)
-  s <- gsub("folding leaf of plate", "leaf", s)
-  s <- gsub("leaf plates", "leaf", s)
-  s <- gsub("folded leaf", "leaf", s)
-  s <- gsub("folded leaves", "leaves", s)
-  s <- gsub("folded plates", "plates", s)
-  s <- gsub("\\([0-9][0-9] folded\\)", " ", s)
-  s <- gsub("\\([0-9] folded\\)", " ", s)
-  s <- gsub("\\(some fold., col.\\)", " ", s)
-  s <- gsub("\\(some fold\\., some col\\.\\)", " ", s)
-  s <- gsub("\\(some col.\\)", " ", s)
-  s <- gsub("\\(front\\.\\)", " ", s)
-  s <- gsub("\\(some fold.\\)", " ", s)
-  s <- gsub("\\([0-9] fold.\\)", " ", s)
-  s <- gsub("\\([0-9] fold\\)", " ", s)
-  s <- gsub("\\(some folded\\)", " ", s)
-  s <- gsub("\\(most folded\\)", " ", s)
-  s <- gsub("\\(one folded\\)", " ", s)
-  s <- gsub("\\(folded\\)", " ", s)
-  s <- gsub("\\(folding\\)", " ", s)
-  s <- gsub("\\(some fold\\)", " ", s)
-  s <- gsub("\\(fol\\.\\)", " ", s)
-  s <- gsub("\\(\\[[0-9]\\] folded\\)", " ", s)
-  s <- gsub("\\([0-9] folded\\)", " ", s)
-  s <- gsub("fold\\.plates", "plates", s)
-  s <- gsub("fold\\. plates", "plates", s)
-  s <- gsub("fold\\.plate", "plate", s)
-  s <- gsub("fold\\. plate", "plate", s)
-  s <- gsub("folding plates", "plates", s)
-  s <- gsub("foldplate", "plate", s)
-  s <- gsub("folding", "plates", s)
-  s <- gsub("folded plate", "plate", s)
-
-  s <- gsub("leaves \\([0-9] folded\\)", "leaves ", s)
-  s <- gsub("pate", "plate", s)
-  s <- gsub("pleave", "leave", s)
-  s <- gsub("plates plates", "plates", s)
-  s <- gsub("leaf of plates", "leaf", s)
-  s <- gsub("leaf of plate", "leaf", s)
-  s <- gsub("leaves of plates", "leaves", s)
-  s <- gsub("leaves of plate", "leaves", s)
-  s <- gsub("leafs", "leaves", s)
   s <- gsub("[0-9]leaf", paste0(substr(s, 1, 1), " leaf"), s)
-  s <- gsub("1 leaf", "1 sheet", s)
-  s <- gsub("folded sheet", "sheet", s)
-  s <- gsub("1sheet", "1 sheet", s)
 
-  # "1 sheet (*)" -> 1 sheet
-  s <- gsub("\\[1\\] sheet", "1 sheet", s)
-  s <- gsub("1/[0-9] sheet", "1 sheet", s)
-  s <- gsub(paste0("1 sheet \\(.{0,}\\)$"), "1 sheet", s)
+  # Read the mapping table
+  f <- system.file("extdata/harmonize_sheets.csv", package = "bibliographica")
+  harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
+
+  # Harmonize
+  for (i in 1:nrow(harm)) {
+    s <- gsub(harm$synonyme[[i]], harm$name[[i]], s)
+  }  
 
   # Harmonize '* sheets'
   spl <- unlist(strsplit(s, ","))
@@ -261,47 +114,6 @@ harmonize_sheets <- function (s) {
 
   }
 
-  # Table
-  s <- gsub("folded genealogical table", "table", s)
-  s <- gsub("folded table", "table", s)
-  s <- gsub("fold\\. table", "table", s)
-  s <- gsub("fold\\.tables", "tables", s)
-  s <- gsub("table", "plate", s)
-  s <- gsub("plate", "sheet", s)
-
-  # Double
-  s <- gsub("\\([0-9] double\\)", " ", s)
-  s <- gsub("doubled", " ", s)
-  s <- gsub("double", " ", s)
-  s <- gsub("single", " ", s)
-
-  # Harmonize broadside
-  s <- gsub("broadside of ill.", "broadside", s)
-  s <- gsub("broadside ([1] p.)", "broadside", s)
-  s <- gsub("broadsheet", "broadside", s)
-  s <- gsub("broadside", "sheet", s)
-
-  # Quarto etc?
-  # Set these to NA
-  # and afterwards assign some estimated page count given for 
-  # books of that size
-  s <- gsub("^quarto$", "1 sheet", s) # 
-  s <- gsub("^broadside$", "1 sheet", s) # 
-  s <- gsub("^folios$", "1 sheet", s) # 
-  s <- gsub("^folio$", "1 sheet", s) # 
-  s <- gsub("^\\(fol.\\)$", "1 sheet", s) # 
-
-  # maps count as normal pages
-  s <- gsub("\\(map", "map", s)
-  s <- gsub("map\\)", "map", s)
-  s <- gsub("maps\\)", "map", s)
-  s <- gsub("map8⁰", "map", s)
-  s <- gsub("folded map", "map", s)
-  s <- gsub("map", " 1p", s)
-
-  # blank
-  s <- gsub("\\[1 blank\\]", "[1]", s)
-
   s 
 
 }
@@ -311,20 +123,14 @@ harmonize_sheets <- function (s) {
 
 harmonize_romans <- function (s) {
 
-  # Romans
-  s <- gsub("leaf lxxxvij", "lxxxvij", s)
-  s <- gsub("leaf C.xxxv", "C.xxxv", s)
-  s <- gsub("CVXI", "CXVI", s) # Typo ?
-  s <- gsub("c\\.lii", "clii", s) 
-  s <- gsub("C\\.", "C", s) 
-  s <- gsub("Cl\\.", "Cl", s) 
-  s <- gsub("\\.\\]", "]", s) 
-  s <- gsub("xxvii\\.", "xxvii", s) 
+  # Read the mapping table
+  f <- system.file("extdata/harmonize_romans.csv", package = "bibliographica")
+  harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
 
-  # NOTE: in some systems lvii -> lvij etc. Handle this:
-  s <- gsub("ij", "ii", s) 
-  s <- gsub("xj", "xi", s) 
-  s <- gsub("C\\.", "C", s) 
+  # Harmonize
+  for (i in 1:nrow(harm)) {
+    s <- gsub(harm$synonyme[[i]], harm$name[[i]], s)
+  }  
 
   s
 
@@ -397,8 +203,6 @@ harmonize_pages_by_comma <- function (s) {
     s <- gsub("p\\.]$", " ", s)
     s <- gsub(" p \\]$", " ", s)
     s <- gsub(" p\\]$", " ", s)
-    #s <- gsub("p\\.", " ", s)
-    #s <- gsub("p", " ", s)
   }
   # p66 -> 1
   if (length(grep("^p", s)) > 0 && length(grep("-", s)) == 0) {

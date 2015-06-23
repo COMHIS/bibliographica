@@ -11,7 +11,7 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples polish_dimensions(c("2to", "14cm"), fill = TRUE)
+#' @examples polish_dimensions(c("2fo", "14cm"), fill = TRUE)
 #' @keywords utilities
 polish_dimensions <- function (x, fill = FALSE, dimtab = NULL) {
 
@@ -100,8 +100,7 @@ polish_dimension <- function (s, sheetsizes) {
 
   # Units not given. Assume the number refers to the gatherings (not cm)
   x <- unique(str_trim(unlist(strsplit(s, " "))))
-  #if (length(grep("cm", x)) == 0 && length(grep("⁰", x)) == 0) {
-  if (length(grep("cm", x)) == 0 && length(grep("[0-9]to", x)) == 0) {
+  if (length(grep("cm", x)) == 0 && length(grep("[0-9]?o", x)) == 0) {
     if (length(x) == 1) {
       vol <- gsub("\\(", "", gsub("\\)", "", x))
     }
@@ -109,11 +108,11 @@ polish_dimension <- function (s, sheetsizes) {
 
   # Pick gatherings measures separately
   x <- str_trim(unlist(strsplit(s, " ")))
-  #hits <- grep("⁰", x)
-  hits <- grep("[0-9]to", x)
+
+  hits <- grep("[0-9]?o", x)
+
   if (length(hits) > 0) {
     x <- gsub("\\(", "", gsub("\\)", "", x[hits]))
-    #x <- gsub("⁰$", "", x)
     x <- gsub("to$", "", x)
     vols <- as.numeric(unique(x))
     if (length(vols) == 1) {
@@ -132,8 +131,9 @@ polish_dimension <- function (s, sheetsizes) {
   } else if (small) {
     gatherings <- paste(vol, "small", sep = "")
   } else if (length(grep("oadside", vol)) == 0 & vol %in% gsub("to", "", sheetsizes[,"gatherings"])) {
-    # Convert gatherings to Xto format
-    gatherings <- paste(vol, "to", sep = "")
+    # Convert gatherings to standard format
+    gt <- gatherings_table()
+    gatherings <- gt[match(paste(vol, "to", sep = ""), gt$Alternate), "Standard"]
   } else {
     gatherings <- NA
   }
@@ -173,6 +173,10 @@ polish_dimension <- function (s, sheetsizes) {
     width <- dims[[1]]
     height <- dims[[2]]
   }
+
+  # convert names to standard form
+  gat <- gatherings_table()
+  gatherings <- gat[match(gatherings, gat$Alternate), "Standard"]
 
   # Return
   list(original = sorig, gatherings = gatherings, width = width, height = height)

@@ -53,7 +53,7 @@ Below, you will find simple examples on the package functionality. In real studi
 Estimate the total page count for two documents:
 
 ```{r pages, message=FALSE, eval=TRUE}
-unlist(polish_pages(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
+# unlist(polish_pages(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
 ```
 
 
@@ -62,14 +62,14 @@ unlist(polish_pages(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
 Extract and print document dimension information in a harmonized format:
 
 ```{r dimensions, message=FALSE, warning=FALSE, eval=TRUE}
-res <- polish_dimensions("1/2to (37 cm)")
+res <- polish_dimensions("1/2fo (37 cm)")
 knitr::kable(res)
 ```
 
 The missing fields can be estimated with the 'fill' argument:
 
 ```{r dimensions2, message=FALSE, warning=FALSE, eval=TRUE}
-res <- polish_dimensions("1/2to (37 cm)", fill = TRUE)
+res <- polish_dimensions("1/2fo (37 cm)", fill = TRUE)
 knitr::kable(res)
 ```
 
@@ -86,6 +86,16 @@ Estimation of the missing information (gatherings, width, and/or height) is base
 dtab <- dimension_table()
 kable(head(dtab)) # just show the first rows
 ```
+
+
+Conversions between different versions of the gatherings names:
+
+```{r bibliographica-gatherings, message=FALSE, warning=FALSE, eval=TRUE}
+res <- gatherings_table()
+knitr::kable(res)
+```
+
+
 
 ### Volume information
 
@@ -108,14 +118,14 @@ unlist(polish_volumecount("4v."))
 Extract and print dimension information:
 
 ```{r dimensions3, message=FALSE, eval=TRUE}
-res <- polish_dimensions("1/2to (37 cm)")
+res <- polish_dimensions("1/2fo (37 cm)")
 knitr::kable(res)
 ```
 
 Also the missing fields can be estimated:
 
 ```{r dimensions4, message=FALSE, eval=TRUE}
-res <- polish_dimensions("1/2to (37 cm)", fill = TRUE)
+res <- polish_dimensions("1/2fo (37 cm)", fill = TRUE)
 knitr::kable(res)
 ```
 

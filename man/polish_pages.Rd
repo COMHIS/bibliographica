@@ -21,7 +21,7 @@ clean up page numbers
 Document parts are separated by semicolons
 }
 \examples{
-polish_pages("4p.")
+# polish_pages("4p.")
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

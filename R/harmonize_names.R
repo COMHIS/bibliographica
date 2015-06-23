@@ -2,7 +2,7 @@
 #' @description Harmonize names
 #'
 #' @param x A character vector 
-#' @param synonymes synonyme table.
+#' @param synonymes synonyme table with the fields 'synonyme' and 'name'
 #'        The selected names are in column 1, the synonymes in column 2.
 #' @param remove.unknown Logical. Remove terms that do not have synonymes.
 #' @param check.synonymes Check the synonyme table
@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("bibliographica")
+#' @references See citation("sorvi")
 #' 
 #' @examples \dontrun{x2 <- harmonize_names(x, file)}
 #' @keywords utilities

@@ -3,6 +3,8 @@
 #' @description Check synonyme table. 
 #'
 #' @param synonymes synonymes data.frame with the self-explanatory fields 'name' and 'synonyme'.
+#' @param include.lowercase Include lowercase versions of the synonymes
+#' @param include.trimmed Include trimmed versions of the synonymes (leading and trailing spaces removed)
 #' @return Polished synonyme table
 #'
 #' @export

@@ -16,13 +16,13 @@ A factor with ordered gatherings levels
 Sort gatherings levels
 }
 \examples{
-# order_gatherings(factor(c("2to", "1to", "8to")))
+order_gatherings(factor(c("2fo", "1to", "8vo")))
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("estc")
+See citation("bibliographica")
 }
 \keyword{utilities}
 

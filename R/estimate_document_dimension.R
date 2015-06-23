@@ -32,7 +32,6 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
     sheet_info <- sheet_area()
   }
 
-
   # Height and gatherings given
   if (is.na(width) && !is.na(height) && !is.na(gatherings)) {
     if (gatherings %in% colnames(dimension.table)) {
