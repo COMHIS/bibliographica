@@ -98,44 +98,40 @@ polish_dimension <- function (s, sheetsizes) {
 
   vol <- width <- height <- NA
 
-  # Units not given. Assume the number refers to the gatherings (not cm)
+  # No units given. Assume the number refers to the gatherings (not cm)
   x <- unique(str_trim(unlist(strsplit(s, " "))))
   if (length(grep("cm", x)) == 0 && length(grep("[0-9]?o", x)) == 0) {
     if (length(x) == 1) {
-      vol <- gsub("\\(", "", gsub("\\)", "", x))
+      x <- paste(as.numeric(gsub("\\(", "", gsub("\\)", "", x))), "to", sep = "")
     }
+  } else {
+    # Pick gatherings measures separately
+    x <- str_trim(unlist(strsplit(s, " ")))
   }
-
-  # Pick gatherings measures separately
-  x <- str_trim(unlist(strsplit(s, " ")))
 
   hits <- unique(c(grep("[0-9]?o", x), grep("bs", x)))
+  gatherings <- NA
   if (length(hits) > 0) {
     x <- gsub("\\(", "", gsub("\\)", "", x[hits]))
-    vols <- unique(x)
-    if (length(vols) == 1) {
-      vol <- vols[[1]]
-    } else {
+    x <- unique(x)
+    if (!length(x) == 1) {
       # Ambiguous gatherings info
-      vol <- NA
+      gatherings <- x
+    } else {
+      gatherings <- x
+      if (long) {
+        a <- unlist(strsplit(gatherings, ""))
+	ind <- min(which(is.na(as.numeric(a))))-1
+	if (is.na(ind)) {ind <- length(a)}
+	gatherings <- paste(paste(a[1:ind], collapse = ""), "long", sep = "")
+      } else if (small) {
+        a <- unlist(strsplit(gatherings, ""))
+	ind <- min(which(is.na(as.numeric(a))))-1
+	if (is.na(ind)) {ind <- length(a)}
+	gatherings <- paste(paste(a[1:ind], collapse = ""), "long", sep = "")
+      }
     }
   }
-
-  # Handle NA, long and small
-  if (is.na(vol)) {
-    gatherings <- vol
-  } else if (long) {
-    gatherings <- paste(vol, "long", sep = "")
-  } else if (small) {
-    gatherings <- paste(vol, "small", sep = "")
-  } else if (length(grep("oadside", vol)) == 0 & vol %in% sheetsizes[,"gatherings"]) {
-    # Convert gatherings to standard format
-    gt <- gatherings_table()
-    gatherings <- gt[match(vol, gt$Alternate), "Standard"]
-  } else {
-    gatherings <- NA
-  }
-  gatherings <- gsub("NA", NA, gatherings)
 
   # Ambiguous CM information
   x <- unique(str_trim(unlist(strsplit(s, " "))))
@@ -171,10 +167,6 @@ polish_dimension <- function (s, sheetsizes) {
     width <- dims[[1]]
     height <- dims[[2]]
   }
-
-  # convert names to standard form
-  gat <- gatherings_table()
-  gatherings <- gat[match(gatherings, gat$Alternate), "Standard"]
 
   # Return
   list(original = sorig, gatherings = gatherings, width = width, height = height)

@@ -15,30 +15,20 @@ harmonize_dimension <- function (x, sheetsizes) {
   s <- as.character(x)
 
   # Read the mapping table
-  f <- system.file("extdata/harmonization.csv", package = "bibliographica")
-  harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
-  
-  # Harmonize
-  for (i in 1:nrow(harm)) {
-    s <- gsub(harm$synonyme[[i]], harm$name[[i]], s)
-  }
+  f <- system.file("extdata/harmonize_dimensions.csv", package = "bibliographica")
+  sn <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
 
-  # Add some spaces and remove ambiguous terms
-  s <- gsub("\\?to", " ", s)
+  # With standard gatherings 1/2 = 2
+  s <- gsub("1/", "", s)
+  s <- harmonize_names(s, sn, check.synonymes = F)$name
+
+  # Add spaces
   s <- gsub("cm", " cm", s)
   s <- gsub("x", " x ", s)
 
   # Remove extra spaces
   s <- condense_spaces(s)
 
-  # With standard gatherings 1/2 = 2
-  s <- gsub("1/", "", s)
-
-  gt <- gatherings_table()
-  for (i in 1:nrow(gt)) {
-    s <- gsub(gt$Alternate[[i]], gt$Standard[[i]], s)
-  }
-  
   s
 
 }

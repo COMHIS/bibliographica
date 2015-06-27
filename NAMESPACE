@@ -2,6 +2,7 @@
 
 export(check_volumes)
 export(condense_spaces)
+export(dimension_synonymes)
 export(dimension_table)
 export(gatherings_table)
 export(harmonize_at)

@@ -7,3 +7,4 @@ test_that("dimension fill works correctly", {
   expect_equal(as.character(polish_dimensions("2fo")$gatherings), "2fo")
 
 })
+

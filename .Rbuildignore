@@ -11,6 +11,7 @@ inst/win-install*
 
 # test
 tests/.RData
+inst/extdata/.RData
 
 # Vignette sources
 # vignettes/sorvi_tutorial.Rmd
