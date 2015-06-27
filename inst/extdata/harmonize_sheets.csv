@@ -1,0 +1,99 @@
+synonyme	name
+Sheet	sheet
+plates\(one fold\.\)	plates 
+p\.plates	p., plates # "39,[1]p.plates :" -> "39,[1]p.,plates :"
+\)plates :	),plates
+plates :	plates 
+plate :	plate 
+plates \(some fold\.\) :	plates 
+plates \(one fold\.\)	plates 
+p\.table	p., table
+p\., of plates	plates
+tables :	tables 
+table :	table 
+ 1 l\.	leaf
+\[1\] l\.	leaf
+\,l\.	,leaves
+ l\.	leaves
+\(the last [0-9] p. blank\)	
+\(versos blank\)	 
+\(woodcut\)	 
+platess	plates
+leaf of plates folded	leaf
+leaves of plates folded	leaf
+leaves of plates \(maps\)	leaf
+leaves folded	leaf
+fold\. leaf of plates	leaf
+folded leaf plates	leaf
+folding leaf of plate	leaf
+leaf plates	leaf
+folded leaf	leaf
+folded leaves	leaves
+folded plates	plates
+\([0-9][0-9] folded\)	 
+\([0-9] folded\)	 
+\(some fold., col.\)	 
+\(some fold\., some col\.\)	 
+\(some col.\)	 
+\(front\.\)	 
+\(some fold.\)	 
+\([0-9] fold.\)	 
+\([0-9] fold\)	 
+\(some folded\)	 
+\(most folded\)	 
+\(one folded\)	 
+\(folded\)	 
+\(folding\)	 
+\(some fold\)	 
+\(fol\.\)	 
+\(\[[0-9]\] folded\)	 
+\([0-9] folded\)	 
+fold\.plates	plates
+fold\. plates	plates
+fold\.plate	plate
+fold\. plate	plate
+folding plates	plates
+foldplate	plate
+folding	plates
+folded plate	plate
+leaves \([0-9] folded\)	leaves 
+pate	plate
+pleave	leave
+plates plates	plates
+leaf of plates	leaf
+leaf of plate	leaf
+leaves of plates	leaves
+leaves of plate	leaves
+leafs	leaves
+1 leaf	1 sheet
+folded sheet	sheet
+1sheet	1 sheet
+\[1\] sheet	1 sheet
+1/[0-9] sheet	1 sheet
+1 sheet \(.{0,}\)$	1 sheet
+folded genealogical table	table
+folded table	table
+fold\. table	table
+fold\.tables	tables
+table	plate
+plate	sheet
+\([0-9] double\)	 
+doubled	 
+double	 
+single	 
+broadside of ill.	broadside
+broadside ([1] p.)	broadside
+broadsheet	broadside
+broadside	sheet
+^quarto$	1 sheet
+^broadside$	1 sheet
+^folios$	1 sheet
+^folio$	1 sheet
+^\(fol.\)$	1 sheet
+\(map	map
+map\)	map
+maps\)	map
+map8⁰	map
+folded map	map
+map	 1p
+\[1 blank\]	[1]
