@@ -17,6 +17,7 @@ order_gatherings <- function (x) {
   glevels <- c("1to", "bs", "2long", "2fo", "2small", "4long", "4to", "4small", "8vo", "12long", "12mo", "16mo", "18mo", "24long", "24mo", "32mo", "48mo", "64mo", "NA")
 
   x <- as.character(x)
+  x[is.na(x)] <- "NA"
 
   if (!all(unique(x) %in% glevels)) { stop(paste("Add", paste(unlist(setdiff(unique(x), glevels)), collapse = "/"), "in gatherings levels in order_gatherings function")) }
 

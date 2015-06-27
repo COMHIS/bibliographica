@@ -27,6 +27,7 @@ augment_dimension_table <- function (dimension.table, dimtab = NULL) {
   dimension.table$original <- as.character(dimension.table$original)
   dimension.table$width <- as.numeric(as.character(dimension.table$width))
   dimension.table$height <- as.numeric(as.character(dimension.table$height))
+
   dimension.table$gatherings <- order_gatherings(dimension.table$gatherings)
 
   # print("Add area (width x height)")

@@ -11,7 +11,7 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples polish_dimensions(c("2fo", "14cm"), fill = TRUE)
+#' @examples # polish_dimensions(c("2fo", "14cm"), fill = TRUE)
 #' @keywords utilities
 polish_dimensions <- function (x, fill = FALSE, dimtab = NULL) {
 
