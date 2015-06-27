@@ -209,7 +209,6 @@ estimate_pages <- function (x) {
   pages$plate <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
 
   # Count pages according to the type
-
   for (type in c("arabic", "roman")) {
     xx <- x[pagecount.attributes[type,]]
     pages[[type]] <- count_pages(xx)
@@ -298,21 +297,6 @@ is.increasing <- function (x) {
 }
 
 
-count_pages <- function (z) {
-
-  pp <- 0
-  if (length(z) > 0) {
-    stype <- seqtype(z)
-
-    if (stype == "increasing.series") {
-      pp <- intervalrule(z)
-    } else {
-      pp <- maxrule(z)
-    }
-  }
-  pp
-
-}
 
 maxrule <- function (x) {
   x <- unlist(strsplit(x, "-"))

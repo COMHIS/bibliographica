@@ -19,6 +19,7 @@ Depends:
 Imports:
     dplyr,
     ggplot2,
+    sorvi,
     stringr
 Suggests:
     knitr,

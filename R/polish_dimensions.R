@@ -109,12 +109,10 @@ polish_dimension <- function (s, sheetsizes) {
   # Pick gatherings measures separately
   x <- str_trim(unlist(strsplit(s, " ")))
 
-  hits <- grep("[0-9]?o", x)
-
+  hits <- unique(c(grep("[0-9]?o", x), grep("bs", x)))
   if (length(hits) > 0) {
     x <- gsub("\\(", "", gsub("\\)", "", x[hits]))
-    x <- gsub("to$", "", x)
-    vols <- as.numeric(unique(x))
+    vols <- unique(x)
     if (length(vols) == 1) {
       vol <- vols[[1]]
     } else {
@@ -130,10 +128,10 @@ polish_dimension <- function (s, sheetsizes) {
     gatherings <- paste(vol, "long", sep = "")
   } else if (small) {
     gatherings <- paste(vol, "small", sep = "")
-  } else if (length(grep("oadside", vol)) == 0 & vol %in% gsub("to", "", sheetsizes[,"gatherings"])) {
+  } else if (length(grep("oadside", vol)) == 0 & vol %in% sheetsizes[,"gatherings"]) {
     # Convert gatherings to standard format
     gt <- gatherings_table()
-    gatherings <- gt[match(paste(vol, "to", sep = ""), gt$Alternate), "Standard"]
+    gatherings <- gt[match(vol, gt$Alternate), "Standard"]
   } else {
     gatherings <- NA
   }

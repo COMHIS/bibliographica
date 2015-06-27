@@ -8,6 +8,7 @@
 #'
 #' @return Polished vector
 #'
+#' @importFrom sorvi harmonize_names
 #' @export
 #'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}

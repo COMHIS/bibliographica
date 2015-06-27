@@ -20,7 +20,7 @@ Dimension table
 Polish dimension field for many documents at once
 }
 \examples{
-polish_dimensions(c("2to", "14cm"), fill = TRUE)
+polish_dimensions(c("2fo", "14cm"), fill = TRUE)
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
