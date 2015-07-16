@@ -17,7 +17,7 @@ remove_print_statements <- function (x) {
   f <- system.file("extdata/printterms.csv", package = "bibliographica")
   terms <- as.character(read.csv(f)[,1])
 
-  # Add versions with endings
+  # Add also versions with various endings
   terms <- c(terms, 
   	     paste(terms, " at", sep = ""),
   	     paste(terms, " in", sep = ""),
