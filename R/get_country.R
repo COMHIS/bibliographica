@@ -22,7 +22,7 @@ get_country <- function (x, map = NULL) {
   x <- xorig.unique
 
   if (is.null(map)) {
-    map <- region2country()
+    map <- place2country()
   }
   
   # Map each region in x to a country
