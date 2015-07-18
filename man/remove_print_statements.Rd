@@ -16,7 +16,7 @@ Polished vector
 Remove print statements
 }
 \examples{
-x2 <- remove_print_statements("Printed in London")
+# x2 <- remove_print_statements("Printed in London")
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

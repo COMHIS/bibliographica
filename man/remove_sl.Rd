@@ -8,6 +8,8 @@ remove_sl(x, terms = NULL)
 }
 \arguments{
 \item{x}{A character vector}
+
+\item{terms}{Terms to be removed (a character vector). Optional.}
 }
 \value{
 Polished vector
