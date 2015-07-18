@@ -7,9 +7,8 @@ emprint|print
 enprint|print
 imprint|print
 jmprint|print
-re-print|print
-reprint|print
-e-print|print
+re-print|reprint
+e-print|reprint
 prinetd|printed
 printers|printed
 printer|printed
@@ -22,11 +21,7 @@ printit|printed
 printid|printed
 - published|printed
 published|printed
-printed|print
-direct.|print
-in|print
-en|print
-et|print
+direct.|printed
 excusae|exc
 excussit|exc
 excusum|exc
@@ -39,18 +34,23 @@ excusa|exc
 excusi|exc
 excud.|exc
 exc.|exc
-exc|print
-typis|print
-v editum|print
-viduae|print
-viduam|print
-print in|print
-print at|print
-print : and sold by|print
-print and sold by|print
-print in the yera|print
-print only for|print
-print: and sold by|print
-printed to the vniversity|print
-and sold by|print
+exc|printed
+typis|printed
+v editum|printed
+viduae|printed
+viduam|printed
+print |printed 
+printed at|printed in
+printed : and sold by|printed by
+printed and sold by|printed by
+printed in the yera|printed in
+printed only for|printed for
+printed: and sold by|printed by
+printed to the vniversity|printed to
+and sold by|printed by
+^in |printed in
+^en |printed in
+^et |printed in
+
+
 

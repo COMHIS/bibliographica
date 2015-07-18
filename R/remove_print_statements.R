@@ -14,18 +14,24 @@
 remove_print_statements <- function (x) {
 
   # Harmonize print statements			
-  x <- harmonize_print_statements(x)
-  x <- gsub("print", "", x)
-  
+  x <- harmonize_print_statements(x)$name
+
+  for (w in c("at", "in", "by", "for")) {
+    x <- gsub(paste0("printed ", w), "", x)
+    x <- gsub(paste0("print ", w), "", x)    
+  }
+
   # remove sine loco
   x <- remove_sl(x)
 
-  # some odd cases manually
+  # handle some odd cases manually
+  # FIXME: this is estc-specific, move there
   x[x=="122 s"] <- NA
   x[x=="204 s"] <- NA
   x[x=="2 p"] <- NA
   x <- gsub("2. p.;","",x)
   x <- gsub("^(.*?);.*$","\\1",x) # nb. non-greedy match
+
   x[x==""] <- NA
 
   x
