@@ -9,7 +9,7 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples # x2 <- remove_print_statements("Printed in London")
+#' @examples x2 <- remove_print_statements("Printed in London")
 #' @keywords utilities
 remove_print_statements <- function (x) {
 
