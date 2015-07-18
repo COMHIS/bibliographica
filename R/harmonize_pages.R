@@ -1,11 +1,8 @@
 
 harmonize_pages <- function (x) {
 
-  # Remove some special cases manually
-  s <- harmonize_pages_specialcases(x)
-
   # Remove dimension info
-  s <- remove_dimension(s)
+  s <- remove_dimension(x)
 
   # ie harmonization (handle comma; otherwise ie handled later)
   s <- harmonize_ie(s)

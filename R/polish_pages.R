@@ -1,7 +1,7 @@
 #' @title polish_pages
 #' @description clean up page numbers
 #'
-#' @param s Page number field. Vector or factor of strings.
+#' @param x Page number field. Vector or factor of strings.
 #' @param verbose Print progress info
 #' @return Raw and estimated pages per document part
 #' @details Document parts are separated by semicolons
@@ -16,12 +16,12 @@
 #' 
 #' @examples # polish_pages("4p.")
 #' @keywords utilities
-polish_pages <- function (s, verbose = FALSE) {
+polish_pages <- function (x, verbose = FALSE) {
 
   # Summary of abbreviations
   # http://ac.bslw.com/community/wiki/index.php5/RDA_4.5
 
-  s <- as.character(s)
+  s <- as.character(x)
 
   # Estimate pages for each document separately via a for loop
   # Vectorization would be faster but we prefer simplicity and modularity here

@@ -1,5 +1,4 @@
-#' @title remove_dimension_info
-#' @description Remove dimension information from a single document
+#' Remove dimension information from a single document
 #'
 #' @param x A character vector that may contain dimension information
 #' @return The character vector with dimension information removed
@@ -14,17 +13,14 @@ remove_dimension_info <- function (x, sheetsizes) {
 
   s <- harmonize_dimension(x, sheetsizes)
 
-  s <- gsub("[0-9]⁰", " ", s)
-  s <- gsub("[0-9] x [0-9][0-9]\\.[0-9] cm\\.", "", s)
-  s <- gsub("[0-9][0-9]-[0-9][0-9] cm", " ", s)
+  f <- system.file("extdata/remove_dimension_info.csv", package = "bibliographica")
+  terms <- as.character(read.csv(f)[,1])
 
-  s <- gsub("[0-9][0-9][0-9] cm", " ", s)
-  s <- gsub("[0-9][0-9] cm", " ", s)
-  s <- gsub("[0-9] cm", " ", s)
-
+  for (term in terms) {
+    s <- gsub(term, " ", s)
+  }
   s <- remove_endings(s, c(":", ";", "\\."))
   s <- str_trim(s)
-
   s[s == ""] <- NA
 
   s

@@ -4,10 +4,10 @@
 \alias{polish_pages}
 \title{polish_pages}
 \usage{
-polish_pages(s, verbose = FALSE)
+polish_pages(x, verbose = FALSE)
 }
 \arguments{
-\item{s}{Page number field. Vector or factor of strings.}
+\item{x}{Page number field. Vector or factor of strings.}
 
 \item{verbose}{Print progress info}
 }

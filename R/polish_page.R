@@ -17,7 +17,7 @@ polish_page <- function (x) {
 
   # Remove volume info
   # "5v. 3-20, [5]" -> "3-20, [5]"
-  s <- remove_volume_info(s)
+  s <- suppressWarnings(remove_volume_info(s))
 
   # Volumes are separated by semicolons
   # Split by semicolon to list each volume separately
@@ -33,5 +33,4 @@ polish_page <- function (x) {
   list(raw = spl, pages = pages)
  
 }
-
 
