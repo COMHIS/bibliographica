@@ -1,5 +1,14 @@
 place;synonyme
 ;
+North;N.rth
+Mass;Mass.
+N.H.;N. H.
+", x) 
+N.J.;N. J.
+N.H.;n. h.
+N.J.;n. j.
+D.C.;D. C.
+S.C.;S. C.
 Abbeville;Abbeville
 Abbeville;abbeville
 Aberdeen;Aberdeen
@@ -31,6 +40,7 @@ Altona;Altona
 Altona;altona
 America;America
 America;america
+America;Americae
 Amherst N.H;Amherst N.H
 Amherst N.H;Amherst, Newhampshire
 Amherst N.H;Amherst Newhampshire
@@ -1697,6 +1707,7 @@ Wesel;Wesel
 Wesel;wesel
 Westminster Vt;Westminster Vt
 Westminster Vt;westminster vt
+Westminster Vt;westmynstre
 West Springfield Ma;West Springfield Ma
 West Springfield Ma;West Springfield Mass
 West Springfield Ma;west springfield ma

@@ -14,13 +14,10 @@ harmonize_dimension <- function (x, sheetsizes) {
 
   s <- as.character(x)
 
-  # Read the mapping table
+  # Harmonize the terms
   f <- system.file("extdata/harmonize_dimensions.csv", package = "bibliographica")
   sn <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
-
-  # With standard gatherings 1/2 = 2
-  s <- gsub("1/", "", s)
-  s <- harmonize_names(s, sn, check.synonymes = F)$name
+  s <- harmonize_names(s, sn, mode = "recursive")$name
 
   # Add spaces
   s <- gsub("cm", " cm", s)

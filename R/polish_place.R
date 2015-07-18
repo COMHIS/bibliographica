@@ -47,15 +47,15 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE) {
   message("Remove numerics")
   x <- remove_numerics(x)
 
-  message("Remove special characters")
-  x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\."), niter = 5)
-  
   message("Remove print statements")
   x <- remove_print_statements(x)
 
   message("Remove prefixes")
   x <- remove_stopwords(x)
 
+  message("Remove special characters")
+  x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\.", ":$"), niter = 5)
+  
   message("Handle ie and at: always select the latter place in these cases")
   # Handle IE before AT
   x <- harmonize_ie(x)
@@ -63,38 +63,33 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE) {
 
   # London i.e. The Hague ->  The Hague
   # In the Yorke at London -> London
-  for (ss in c(" i.e. ", " at ", " At ")) {
+  for (ss in c(" i.e ", " at ", " At ")) {
     x <- sapply(strsplit(x, ss), function (s) {if (length(s) > 0 ) {s[[length(s)]]} else {s}})
   }  
   x <- unlist(x)
   x <- remove_trailing_periods(x)
-
-  message("Replace special cases")
-  x[tolower(x) %in% c("", "NA", NA)] <- NA
 
   message("Remove persons")
   x <- remove_persons(x)
 
   message("Custom polish")
   x <- gsub("And", "and", x)
-  x <- gsub("Americae", "America", x)  
   x <- gsub("Parliament ", "", x)    
-  x <- gsub("N.rth", "North", x)    
-  x <- gsub("Mass.", "Mass", x)
-  x <- gsub("N. H.", "N.H.", x)
-  x <- gsub("N. J.", "N.J.", x)
-  x <- gsub("n. h.", "N.H.", x)
-  x <- gsub("n. j.", "N.J.", x)
-  x <- gsub("D. C.", "D.C.", x)
-  x <- gsub("S. C.", "S.C.", x)
 
   message("Harmonize the synonymous names")
   x <- as.character(harmonize_names(x, synonymes,
        		remove.unknown = remove.unknown)$name)
 
+  message("Replace special cases")
+  x[tolower(x) %in% c("", "NA", NA)] <- NA
+
   message("Return to full list")
   # The function was sped up by operating with unique terms
   x <- x[match(xorig, xorig.unique)]
+
+  invalid <- as.vector(na.omit(xorig.unique[which(is.na(x))]))
+
+  list(valid = x, invalid = invalid)
 
 }
 

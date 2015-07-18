@@ -18,7 +18,9 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL) {
   sheetsizes <- sheet_sizes()
 
   s <- as.character(x)
-  tab <- t(sapply(as.character(s), function (x) {polish_dimension(x, sheetsizes)}))
+  tab <- t(sapply(s, function (x) {
+    polish_dimension(x, sheetsizes)
+    }))
   rownames(tab) <- NULL
   tab <- as.data.frame(tab)
 
@@ -55,13 +57,7 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL) {
 #' @keywords internal
 polish_dimension <- function (s, sheetsizes) {
 
-  if (length(s) > 1) {
-    stop("This internal function works only for a single-element character vector")
-  }
-
-  s <- sorig <- as.character(s) # NOTE: ⁰ is ASCII char 167 if needed
-       	     			#  	  and c2b0 in UTF8 
-				# Unicode "\U00B0"; "\U00BA"; "\U02DA"
+  s <- sorig <- as.character(s) 
   for (i in 1:3) {
     s <- remove_endings(s, c(" ", "\\.", "\\,", "\\;", "\\:"))
   }
