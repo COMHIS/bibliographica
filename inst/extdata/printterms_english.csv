@@ -7,6 +7,7 @@ emprint|print
 enprint|print
 imprint|print
 jmprint|print
+re print|reprint
 re-print|reprint
 e-print|reprint
 prinetd|printed
@@ -51,6 +52,7 @@ and sold by|printed by
 ^in |printed in
 ^en |printed in
 ^et |printed in
+^A |printed in
 
 
 

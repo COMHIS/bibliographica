@@ -47,15 +47,15 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE) {
   message("Remove numerics")
   x <- remove_numerics(x)
 
+  message("Remove special characters")
+  x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\.", ":$"), niter = 5)
+  
   message("Remove print statements")
   x <- remove_print_statements(x)
 
   message("Remove prefixes")
   x <- remove_stopwords(x)
 
-  message("Remove special characters")
-  x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\.", ":$"), niter = 5)
-  
   message("Handle ie and at: always select the latter place in these cases")
   # Handle IE before AT
   x <- harmonize_ie(x)
