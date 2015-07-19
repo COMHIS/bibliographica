@@ -4,7 +4,7 @@
 \alias{remove_dimension_info}
 \title{Remove dimension information from a single document}
 \usage{
-remove_dimension_info(x, sheetsizes)
+remove_dimension_info(x)
 }
 \arguments{
 \item{x}{A character vector that may contain dimension information}
@@ -16,7 +16,7 @@ The character vector with dimension information removed
 Remove dimension information from a single document
 }
 \examples{
-remove_dimension_info("4to 40cm", sheet_sizes())
+remove_dimension_info("4to 40cm")
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

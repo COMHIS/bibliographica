@@ -4,7 +4,7 @@
 \alias{polish_dimension}
 \title{polish_dimension}
 \usage{
-polish_dimension(s, sheetsizes)
+polish_dimension(s)
 }
 \arguments{
 \item{s}{A dimension note (a single string of one document)}

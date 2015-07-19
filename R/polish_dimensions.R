@@ -15,11 +15,9 @@
 #' @keywords utilities
 polish_dimensions <- function (x, fill = FALSE, dimtab = NULL) {
 
-  sheetsizes <- sheet_sizes()
-
   s <- as.character(x)
   tab <- t(sapply(s, function (x) {
-    polish_dimension(x, sheetsizes)
+    polish_dimension(x)
     }))
   rownames(tab) <- NULL
   tab <- as.data.frame(tab)
@@ -55,15 +53,15 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL) {
 #' 
 #' @examples # polish_dimension("4")
 #' @keywords internal
-polish_dimension <- function (s, sheetsizes) {
+polish_dimension <- function (s) {
 
   s <- sorig <- as.character(s) 
-  for (i in 1:3) {
-    s <- remove_endings(s, c(" ", "\\.", "\\,", "\\;", "\\:"))
+  for (i in 1:5) {
+    s <- remove_endings(s, c(" ", "\\.", "\\,", "\\;", "\\:", "\\?"))
   }
 
   # Harmonize terms
-  s <- harmonize_dimension(s, sheetsizes)
+  s <- harmonize_dimension(s)
 
   # ------------------------------------------------------------
 
@@ -91,13 +89,14 @@ polish_dimension <- function (s, sheetsizes) {
   # -------------------------------------------
 
   # Pick all dimension info
-
   vol <- width <- height <- NA
 
   # No units given. Assume the number refers to the gatherings (not cm)
   x <- unique(str_trim(unlist(strsplit(s, " "))))
+  x[x == "NA"] <- NA
+  x[x == "NAto"] <- NA  
   if (length(grep("cm", x)) == 0 && length(grep("[0-9]?o", x)) == 0) {
-    if (length(x) == 1) {
+    if (length(x) == 1 && !is.na(x)) {
       x <- paste(as.numeric(gsub("\\(", "", gsub("\\)", "", x))), "to", sep = "")
     }
   } else {

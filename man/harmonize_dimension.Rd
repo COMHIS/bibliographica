@@ -2,9 +2,9 @@
 % Please edit documentation in R/harmonize_dimension.R
 \name{harmonize_dimension}
 \alias{harmonize_dimension}
-\title{harmonize_dimension}
+\title{Harmonize dimension information}
 \usage{
-harmonize_dimension(x, sheetsizes)
+harmonize_dimension(x)
 }
 \arguments{
 \item{x}{A character vector that may contain dimension information}
@@ -16,7 +16,7 @@ The character vector with dimension information harmonized
 Harmonize dimension information
 }
 \examples{
-harmonize_dimension("fol.", sheet_sizes())
+harmonize_dimension("fol.")
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

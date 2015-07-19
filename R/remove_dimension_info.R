@@ -6,12 +6,12 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples remove_dimension_info("4to 40cm", sheet_sizes())
+#' @examples remove_dimension_info("4to 40cm")
 #' @export
 #' @keywords internal
-remove_dimension_info <- function (x, sheetsizes) {
+remove_dimension_info <- function (x) {
 
-  s <- harmonize_dimension(x, sheetsizes)
+  s <- harmonize_dimension(x)
 
   f <- system.file("extdata/remove_dimension_info.csv", package = "bibliographica")
   terms <- as.character(read.csv(f)[,1])

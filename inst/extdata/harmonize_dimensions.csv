@@ -14,8 +14,9 @@ quadragesimo-octavo	48mo
 sexagesimo-quarto	64mo
 duodecimo-long	12long
 quarto \[fewer than 50 pages\]	4to
-broadsheet     bs
-broadside      bs
+broadsheet	bs
+broadside	bs
+broad1to	bs
 sheet	1to
 folio-large	2long
 folio-small	2small
@@ -27,8 +28,10 @@ octavo	8vo
 duodecimo	12mo
 sextodecimo	16mo
 octodecimo	18mo
+84to	84to
 64to	64mo
 48to	48mo
+40to	40to
 32to	32mo
 24to	24mo
 18to	18mo
@@ -47,21 +50,32 @@ fol$	2fo
 fol 	2fo
 1to	1to
 64°	64mo
+^64.$	64mo
 48°	48mo
+^48.$	48mo
 32°	32mo
+^32.$	32mo
 24°	24mo
+^24.$	24mo
 18°	18mo
+^18.$	18mo
 16°	16mo
+^16.$	16mo
 12°	12mo
+^12.$	12mo
 8°	8vo
+^8.$	8vo
 4°	4to
+^4.$	4to
 2°	2fo
+^2.$	4fo
 1°	1to
-
-
-
-
-
+^1.$	1to
+^to$	NA
+NAto	NA
+4to-4to	4to
+2fo-2fo	2fo
+2fo.;2fo	2fo
 
 
 
