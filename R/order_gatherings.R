@@ -14,12 +14,13 @@
 #' @keywords utilities
 order_gatherings <- function (x) {
 
-  glevels <- c("1to", "bs", "2long", "2fo", "2small", "4long", "4to", "4small", "8vo", "12long", "12mo", "16mo", "18mo", "24long", "24mo", "32mo", "48mo", "64mo", "NA")
+  glevels <- c("1to", "bs", "2long", "2fo", "2small", "4long", "4to", "4small", "8vo", "12long", "12mo", "16mo", "18mo", "24long", "24mo", "32mo", "40to", "48mo", "64mo", "84to", "NA")
 
   x <- as.character(x)
   x[is.na(x)] <- "NA"
 
-  if (!all(unique(x) %in% glevels)) { stop(paste("Add", paste(unlist(setdiff(unique(x), glevels)), collapse = "/"), "in gatherings levels in order_gatherings function")) }
+  fails <- unlist(setdiff(unique(x), glevels))
+  if (length(fails)>0) { stop(paste("Add", paste(fails, collapse = "/"), "in gatherings levels in order_gatherings function")) }
 
   # Order the levels
   xo <- factor(x, levels = glevels)

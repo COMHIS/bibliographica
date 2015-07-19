@@ -13,6 +13,14 @@ harmonize_dimension <- function (x) {
 
   s <- tolower(as.character(x))
 
+  # 8.
+  inds <- grep("^[0-9]+\\.$", s)
+  s[inds] <- gsub("\\.$", "to", s[inds])
+
+  for (i in 1:5) {
+    s <- remove_endings(s, c(" ", "\\.", "\\,", "\\;", "\\:", "\\?"))
+  }
+
   # Harmonize the terms
   f <- system.file("extdata/harmonize_dimensions.csv", package = "bibliographica")
   sn <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
@@ -53,6 +61,29 @@ harmonize_dimension <- function (x) {
   # "4to;2fo" "2fo;1to" "4to-2fo"
   inds <- grep("^[0-9].o(;|-)[0-9].o$", s)
   s[inds] <- NA
+
+  #4to.;4to
+  inds <- grep("^[0-9]+.o\\.;[0-9]+.o$", s)
+  s[inds] <- gsub("\\.;", "-", s[inds])
+
+  #4to;, 4to
+  inds <- grep("^[0-9]+.o;, [0-9]+.o$", s)
+  s[inds] <- gsub(";, ", "-", s[inds])
+
+  #4to, 8vo
+  inds <- grep("^[0-9]+.o, [0-9]+.o$", s)
+  s[inds] <- gsub(", ", "-", s[inds])
+  
+  # 4to-4to
+  inds <- grep("^[0-9]+.o-[0-9]+.o$", s)
+  if (length(inds) > 0) {
+    li <- sapply(s[inds], function (x) {unique(unlist(strsplit(x, "-")))})
+    inds2 <- which(sapply(li, length) == 1)
+    s[inds[inds2]] <- unlist(li[inds2])
+  }
+
+  inds <- grep("^[0-9]+.o, [0-9]+.o$", s)
+  s[inds] <- gsub("\\.;", "-", s[inds])
   
   s
 

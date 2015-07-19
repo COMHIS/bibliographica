@@ -20,7 +20,7 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL) {
     polish_dimension(x)
     }))
   rownames(tab) <- NULL
-  tab <- as.data.frame(tab)
+  tab <- data.frame(tab)
 
   # Convert to desired format
   tab$original <- as.character(tab$original)
@@ -43,7 +43,7 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL) {
 #' @title polish_dimension
 #' @description Polish dimension field of a single document
 #'
-#' @param s A dimension note (a single string of one document)
+#' @param x A dimension note (a single string of one document)
 #' @param sheetsizes Sheet size conversion table
 #' @return Polished dimension information with the original string 
 #' 	   and gatherings and cm information collected from it
@@ -53,17 +53,11 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL) {
 #' 
 #' @examples # polish_dimension("4")
 #' @keywords internal
-polish_dimension <- function (s) {
-
-  s <- sorig <- as.character(s) 
-  for (i in 1:5) {
-    s <- remove_endings(s, c(" ", "\\.", "\\,", "\\;", "\\:", "\\?"))
-  }
+polish_dimension <- function (x) {
 
   # Harmonize terms
-  s <- harmonize_dimension(s)
-
-  # ------------------------------------------------------------
+  sorig <- as.character(x)
+  s <- harmonize_dimension(x)
 
   # "small"
   small <- FALSE
@@ -85,8 +79,6 @@ polish_dimension <- function (s) {
     long <- TRUE
     s <- gsub("long", "", s)
   }
-
-  # -------------------------------------------
 
   # Pick all dimension info
   vol <- width <- height <- NA
@@ -127,6 +119,8 @@ polish_dimension <- function (s) {
       }
     }
   }
+  gatherings <- gsub("NAto", "NA", gatherings)
+
 
   # Ambiguous CM information
   x <- unique(str_trim(unlist(strsplit(s, " "))))
@@ -164,7 +158,8 @@ polish_dimension <- function (s) {
   }
 
   # Return
-  list(original = sorig, gatherings = gatherings, width = width, height = height)
+  list(original = sorig, gatherings = gatherings,
+       width = width, height = height)
 
 }
 
