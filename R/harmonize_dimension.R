@@ -13,6 +13,18 @@ harmonize_dimension <- function (x) {
 
   s <- tolower(as.character(x))
 
+  # "1/2."
+  inds <- grep("^1/[0-9]\\.$", s)
+  s[inds] <- gsub("\\.", "to", gsub("1/", "", s[inds]))
+
+  # "1/2"
+  inds <- grep("^1/[0-9]$", s)
+  s[inds] <- gsub("1/", "", s[inds])
+
+  # "8"
+  inds <- grep("[0-9]$", s)
+  s[inds] <- paste0(s[inds], "to")
+
   # 8.
   inds <- grep("^[0-9]+\\.$", s)
   s[inds] <- gsub("\\.$", "to", s[inds])
@@ -21,14 +33,26 @@ harmonize_dimension <- function (x) {
     s <- remove_endings(s, c(" ", "\\.", "\\,", "\\;", "\\:", "\\?"))
   }
 
+  # "16mo in 8's."
+  inds <- grep("[0-9]. in [0-9]'s", s)
+  s[inds] <- gsub(" in [0-9]'s", "", s[inds])
+
   # Harmonize the terms
   f <- system.file("extdata/harmonize_dimensions.csv", package = "bibliographica")
   sn <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
   s <- harmonize_names(s, sn, mode = "recursive")$name
 
+  # "4⁰; sm 2⁰; 2⁰" -> NA
+  inds <- grep("[0-9]+.o; sm [0-9]+.o; [0-9]+.o", s)
+  s[inds] <- gsub("[0-9]+.o; sm [0-9]+.o; [0-9]+.o", "", s[inds])
+  
+  # This could not be handled in harmonization csv for some reason
+  s <- gsub("(fol)", "2fo", s)
+
   # Add spaces
   s <- gsub("cm", " cm", s)
   s <- gsub("x", " x ", s)
+  s <- gsub("obl", "obl ", s)  
 
   # Remove extra spaces
   s <- condense_spaces(s)
@@ -58,33 +82,45 @@ harmonize_dimension <- function (x) {
   inds <- grep("[0-9].o\\.f$", s)
   s[inds] <- gsub(".f", "", s[inds])
 
-  # "4to;2fo" "2fo;1to" "4to-2fo"
-  inds <- grep("^[0-9].o(;|-)[0-9].o$", s)
-  s[inds] <- NA
+  # "4to;2fo" -> "4to-2fo"
+  inds <- grep("^[0-9].o;[0-9].o$", s)
+  s[inds] <- gsub(";", "-", s[inds])
 
   #4to.;4to
   inds <- grep("^[0-9]+.o\\.;[0-9]+.o$", s)
   s[inds] <- gsub("\\.;", "-", s[inds])
 
   #4to;, 4to
-  inds <- grep("^[0-9]+.o;, [0-9]+.o$", s)
+  inds <- grep("[0-9]+.o;, [0-9]+.o", s)
   s[inds] <- gsub(";, ", "-", s[inds])
 
-  #4to, 8vo
-  inds <- grep("^[0-9]+.o, [0-9]+.o$", s)
-  s[inds] <- gsub(", ", "-", s[inds])
-  
-  # 4to-4to
-  inds <- grep("^[0-9]+.o-[0-9]+.o$", s)
-  if (length(inds) > 0) {
-    li <- sapply(s[inds], function (x) {unique(unlist(strsplit(x, "-")))})
-    inds2 <- which(sapply(li, length) == 1)
-    s[inds[inds2]] <- unlist(li[inds2])
-  }
+  #4to; 4to or 4to, 4to
+  inds <- grep("[0-9]+.o(;|,) [0-9]+.o", s)
+  s[inds] <- gsub("(;|,) ", "-", s[inds])
 
-  inds <- grep("^[0-9]+.o, [0-9]+.o$", s)
-  s[inds] <- gsub("\\.;", "-", s[inds])
-  
+  #4to;4to
+  inds <- grep("[0-9]+.o;[0-9]+.o", s)
+  s[inds] <- gsub(";", "-", s[inds])
+
+  #2⁰; 1/2⁰; 2⁰
+  inds <- grep("[0-9]+.o; [0-9]+.o; [0-9]+.o", s)
+  s[inds] <- gsub(";", "-", s[inds])
+
+  # 4to, 2fo and 1to
+  inds <- grep("^[0-9]+.o, [0-9]+.o and [0-9]+.o$", s)
+  s[inds] <- NA
+
+  #4to and 8vo -> 4to-8vo
+  inds <- grep("[0-9]+.o and [0-9]+.o", s)
+  s[inds] <- gsub(" and ", "-", s[inds])  
+
+  #4to, 8vo
+  inds <- grep("^[0-9]+.o, [0-9]+.o", s)
+  s[inds] <- gsub(", ", "-", s[inds])
+
+  # 46cm(2fo) -> 46cm (2fo)
+  s <- gsub("cm\\.*\\(", "cm (", s)
+
   s
 
 }

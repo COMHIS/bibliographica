@@ -18,30 +18,19 @@ harmonize_print_statements <- function (x) {
   ### Get printing terms from tables in various languages
 
   # Finnish
-  f <- system.file("extdata/printterms_finnish.csv", package = "bibliographica")
-  terms.fi <- read.csv(f, sep = "|")
-  x <- as.character(harmonize_names(x, terms.fi, mode = "recursive")$name)
+  for (lang in c("finnish", "english", "french", "german", "swedish")) {
+    f <- system.file(paste0("extdata/printterms_", lang, ".csv"), package = "bibliographica")
+    terms <- read.csv(f, sep = "|")
+
+    # Add capitalized versions
+    terms2 <- terms
+    terms2$synonyme <- capitalize(terms$synonyme)
+    terms <- rbind(terms, terms2)
+
+    # Harmonize the terms
+    x <- as.character(harmonize_names(x, terms, mode = "recursive")$name)
+  }
   
-  # English
-  f <- system.file("extdata/printterms_english.csv", package = "bibliographica")
-  terms.en <- read.csv(f, sep = "|")
-  x <- as.character(harmonize_names(x, terms.en, mode = "recursive")$name)
-
-  # French
-  f <- system.file("extdata/printterms_french.csv", package = "bibliographica")
-  terms.fr <- read.csv(f, sep = "|")
-  x <- as.character(harmonize_names(x, terms.fr, mode = "recursive")$name)
-
-  # German
-  f <- system.file("extdata/printterms_german.csv", package = "bibliographica")
-  terms.ge <- read.csv(f, sep = "|")
-  x <- as.character(harmonize_names(x, terms.ge, mode = "recursive")$name)
-
-  # Swedish
-  f <- system.file("extdata/printterms_swedish.csv", package = "bibliographica")
-  terms.se <- read.csv(f, sep = "|")
-  x <- as.character(harmonize_names(x, terms.se, mode = "recursive")$name)
-
   x <- condense_spaces(x)
 
   list(name = x, original = xorig)

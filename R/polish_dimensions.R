@@ -15,7 +15,10 @@
 #' @keywords utilities
 polish_dimensions <- function (x, fill = FALSE, dimtab = NULL) {
 
+ # fill = FALSE; dimtab = NULL
+
   s <- as.character(x)
+
   tab <- t(sapply(s, function (x) {
     polish_dimension(x)
     }))
@@ -57,6 +60,7 @@ polish_dimension <- function (x) {
 
   # Harmonize terms
   sorig <- as.character(x)
+
   s <- harmonize_dimension(x)
 
   # "small"
@@ -119,7 +123,33 @@ polish_dimension <- function (x) {
       }
     }
   }
-  gatherings <- gsub("NAto", "NA", gatherings)
+  gatherings <- na.omit(gsub("NAto", "NA", gatherings))
+  gatherings <- harmonize_dimension(gatherings)
+  if (length(gatherings) == 0) {gatherings <- NA}
+
+  if (length(unique(gatherings)) > 1) {gatherings <- NA}
+
+  # if (length(gatherings) == 1) {gatherings <- as.list(gatherings)}
+
+  # 4to-4to / 4to-2fo
+
+  inds <- c(grep("^[0-9]+.o-[0-9]+.o$", gatherings), 
+            grep("^[0-9]+.o-[0-9]+.o-[0-9]+.o$", gatherings))
+
+  if (length(inds) > 0) {
+    li <- lapply(gatherings[inds], function (x) {unique(unlist(strsplit(x, "-")))})
+    inds2 <- which(sapply(li, length) == 1)
+    inds3 <- na.omit(inds[inds2])
+    if (length(inds3) > 0) {
+      gatherings[inds3] <- unlist(li[inds3])
+      gatherings[setdiff(inds, inds3)] <- NA
+    } else {
+      gatherings[inds] <- NA
+    }
+  }
+  gatherings <- unlist(gatherings)
+  inds <- grep("^[0-9]+.o, [0-9]+.o$", gatherings)
+  gatherings[inds] <- gsub("\\.;", "-", gatherings[inds])
 
 
   # Ambiguous CM information

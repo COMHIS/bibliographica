@@ -42,6 +42,7 @@ viduae|printed
 viduam|printed
 print |printed 
 printed at|printed in
+printed in|printed in
 printed : and sold by|printed by
 printed and sold by|printed by
 printed in the yera|printed in
@@ -50,9 +51,14 @@ printed: and sold by|printed by
 printed to the vniversity|printed to
 and sold by|printed by
 ^in |printed in
+^In |printed in
 ^en |printed in
+^En |printed in
 ^et |printed in
+^Et |printed in
+^a |printed in
 ^A |printed in
+
 
 
 

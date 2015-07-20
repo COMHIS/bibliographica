@@ -4,10 +4,10 @@
 \alias{polish_dimension}
 \title{polish_dimension}
 \usage{
-polish_dimension(s)
+polish_dimension(x)
 }
 \arguments{
-\item{s}{A dimension note (a single string of one document)}
+\item{x}{A dimension note (a single string of one document)}
 
 \item{sheetsizes}{Sheet size conversion table}
 }

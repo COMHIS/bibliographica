@@ -1,14 +1,17 @@
 synonyme	name
+horizontal chain lines	
+⁰. '	°
 \.̊	°
+\.̥	°
  ⁰	°
 ₀	°
 ⁰	°
 ⁹	°
-\.̥	°
 '	°
-⁰. '	°
 \?to
-1/	
+1/
+\([0-9]+ half-sheets\)
+later, 	 
 vigesimo-quarto	24mo
 trigesimo-segundo	32mo
 quadragesimo-octavo	48mo
@@ -47,7 +50,6 @@ octodecimo	18mo
 2long	2long
 2to	2fo
 fol\.	2fo
-fol$	2fo
 fol 	2fo
 1to	1to
 64°	64mo
@@ -77,9 +79,12 @@ NAto	NA
 vos	vo
 tos	to
 mos	mo
-
-
-
+to\?	to
+vo\?	vo
+mo\?	mo
+2fo-obl. 2fo	2fo
+\(\?\)
+^na$	NA
 
 
 

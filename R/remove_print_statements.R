@@ -20,10 +20,12 @@ remove_print_statements <- function (x) {
     x <- gsub(paste0("printed ", w), "", x)
     x <- gsub(paste0("print ", w), "", x)    
   }
-
+  x <- condense_spaces(x)
+  
   # remove sine loco
   x <- remove_sl(x)
 
+  
   # handle some odd cases manually
   # FIXME: this is estc-specific, move there
   x[x=="122 s"] <- NA
