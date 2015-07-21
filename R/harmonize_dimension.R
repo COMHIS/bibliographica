@@ -50,9 +50,11 @@ harmonize_dimension <- function (x) {
   s <- gsub("(fol)", "2fo", s)
 
   # Add spaces
-  s <- gsub("cm", " cm", s)
+  s <- gsub("cm\\.", " cm ", s)  
+  s <- gsub("cm", " cm ", s)
   s <- gsub("x", " x ", s)
-  s <- gsub("obl", "obl ", s)  
+  s <- gsub("obl\\.", "obl ", s)
+  s <- gsub("obl", "obl ", s)    
 
   # Remove extra spaces
   s <- condense_spaces(s)
