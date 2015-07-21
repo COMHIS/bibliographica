@@ -20,7 +20,8 @@
 sheet_area <- function (x = NULL, sheet.dimension.table = NULL, verbose = TRUE) {
 	
   if (is.null(sheet.dimension.table)) {
-    message("sheet.dimension.table not given, using sheet_sizes() mapping table by default")
+
+    if (verbose) {message("sheet.dimension.table not given, using sheet_sizes() mapping table by default")}
     f <- system.file("extdata/sheetsizes.csv", package = "bibliographica")
     tab <- as.data.frame(read.csv(f))
   } else {

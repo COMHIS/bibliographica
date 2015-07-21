@@ -29,7 +29,7 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
     dimension.table <- dimension_table()
   }
   if (is.null(sheet.dimension.table)) {
-    sheet_info <- sheet_area()
+    sheet_info <- sheet_area(verbose = FALSE)
   }
 
   # Height and gatherings given
@@ -40,7 +40,7 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
       width <- as.numeric(as.character(s))
 
       if (length(width) == 0 || is.na(width)) {
-        message("height does not correspond to the gatherings. Try if width matches instead")
+        message("Height does not correspond to the gatherings and width is not provided: trying to match width instead")
         width <- height
         height <- median(na.omit(as.numeric(as.character(dimension.table[which(as.character(dimension.table[, gatherings]) == width), "height"]))))
        }
