@@ -74,8 +74,10 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
     hh <- abs(as.numeric(as.character(dimension.table$height)) - height)
     ind <- which(hh == min(hh))
     width <- as.numeric(as.character(dimension.table[ind, "NA"]))
+    
     # if multiple hits, pick the closest
     width <- mean(width, na.rm = TRUE)
+    
     # Estimate gatherings
     gatherings <- estimate_document_dimensions(gatherings = NA, height = height, width = width, dimension.table = dimension.table, sheet.dimension.table = sheet.dimension.table)$gatherings    
 
@@ -83,7 +85,7 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
 
     # Only gatherings given
     ind <- which(as.character(sheet_info$gatherings) == gatherings)
-    if (length(ind) == 0) { warning(paste("gatherings", g, "not available in bibliographica::sheet_area conversion table")) }
+    if (length(ind) == 0) { warning(paste("gatherings", gatherings, "not available in bibliographica::sheet_area conversion table")) }
     width <- sheet_info[ind, "width"]
     height <- sheet_info[ind, "height"]
 

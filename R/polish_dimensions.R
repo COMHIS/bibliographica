@@ -4,6 +4,7 @@
 #' @param x A vector of dimension notes
 #' @param fill Logical. Estimate and fill in the missing information: TRUE/FALSE
 #' @param dimtab Dimension mapping table
+#' @param verbose verbose
 #' @return Dimension table
 #'
 #' @export
@@ -13,7 +14,7 @@
 #' 
 #' @examples # polish_dimensions(c("2fo", "14cm"), fill = TRUE)
 #' @keywords utilities
-polish_dimensions <- function (x, fill = FALSE, dimtab = NULL) {
+polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE) {
 
  # fill = FALSE; dimtab = NULL
 
@@ -32,7 +33,7 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL) {
   tab$height <- suppressWarnings(as.numeric(as.character(tab$height)))
 
   if (fill) {
-    tab <- augment_dimension_table(tab, dimtab = dimtab)
+    tab <- augment_dimension_table(tab, dimtab = dimtab, verbose = verbose)
   }
 
   tab$gatherings <- order_gatherings(tab$gatherings)

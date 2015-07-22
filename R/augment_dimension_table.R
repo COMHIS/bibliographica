@@ -3,6 +3,7 @@
 #'
 #' @param dimension.table dimension.table
 #' @param dimtab Mapping between document dimensions.
+#' @param verbose verbose
 #' @return Augmented dimension.table
 #'
 #' @seealso polish_dimensions
@@ -11,14 +12,16 @@
 #' 
 #' @examples # augment_dimension_table(dimension.table)
 #' @keywords utilities
-augment_dimension_table <- function (dimension.table, dimtab = NULL) {
+augment_dimension_table <- function (dimension.table, dimtab = NULL, verbose = FALSE) {
 
   dimtab.orig <- dimension.table			
 
   width <- height <- gatherings <- NULL			
 
   if (is.null(dimtab)) {
-    message("dimtab dimension mapping table not provided, using the default table dimension_table()")
+    if (verbose) {
+      message("dimtab dimension mapping table not provided, using the default table dimension_table()")
+    }
     dimtab <- dimension_table()
   }
 

@@ -4,12 +4,14 @@
 \alias{augment_dimension_table}
 \title{augment_dimension_table}
 \usage{
-augment_dimension_table(dimension.table, dimtab = NULL)
+augment_dimension_table(dimension.table, dimtab = NULL, verbose = FALSE)
 }
 \arguments{
 \item{dimension.table}{dimension.table}
 
 \item{dimtab}{Mapping between document dimensions.}
+
+\item{verbose}{verbose}
 }
 \value{
 Augmented dimension.table
