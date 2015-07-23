@@ -8,6 +8,14 @@ N.H.;n. h.
 N.J.;n. j.
 D.C.;D. C.
 S.C.;S. C.
+N E$;N.E
+N Y$;N.Y
+N H$;N.H
+N J$;N.J
+N H$;n.h
+N J$;n.j
+D C$;D.C
+S C$;S.C
 Abbeville;Abbeville
 Abbeville;abbeville
 Aberdeen;Aberdeen
@@ -191,6 +199,15 @@ Boston Ma;Masschusetts
 Boston Ma;Masschusetts Boston
 Boston Ma;Masschusetts-State Boston
 Boston Ma;State Masschusetts-Bay. Boston
+Boston Ma;Boston N E
+Boston Ma;Massachusetts State Boston
+Boston Ma;State Massachusetts Bay Boston
+Boston Ma;Boston N England
+Boston Ma;Boston New England
+Boston Ma;Bostoniae Americae
+Boston Ma;Bostonæ Nov Anglorum
+Boston Ma;Boston N E Mass
+Boston Ma;Bay State Boston
 Bottisham;Bottisham
 Bottisham;bottisham
 Bouillon;Bouillon
@@ -801,6 +818,9 @@ Hull;Kingston-Upon-Hull
 Hull;Kingston-upon-Hull
 Hull;Kingston-upon-Hull, England
 Hull;kingston-upon-hull
+Hull;Kingston upon Hull England
+Hull;Kingston Upon Hull
+Hull;Kingston upon Hull
 Inverlochie;Inverlochie
 Inverlochie;inverlochie
 Ipswich;Ipswich
@@ -843,6 +863,7 @@ Kingston Jamaica;Kingston, Jamaica
 Kingston Jamaica;Jamaica
 Kingston Jamaica;kingston jamaica
 Kingston N.Y;Kingston N.Y
+Kingston N.Y;Kingston N Y
 Kingston N.Y;Kingston, N.Y
 Kingston N.Y;Kingston Ulster County New York
 Kingston N.Y;kingston n.y

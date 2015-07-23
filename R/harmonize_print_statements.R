@@ -20,12 +20,11 @@ harmonize_print_statements <- function (x) {
   for (lang in c("finnish", "english", "french", "german", "swedish")) {
 
     f <- system.file(paste0("extdata/printterms_", lang, ".csv"), package = "bibliographica")
-    
     terms <- read.csv(f, sep = "|")
 
     # Add capitalized versions
     terms2 <- terms
-    terms2$synonyme <- capitalize(terms$synonyme)
+    terms2[, "synonyme"] <- capitalize(terms$synonyme)
     terms <- rbind(terms, terms2)
 
     # Harmonize the terms

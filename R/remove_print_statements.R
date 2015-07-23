@@ -13,7 +13,7 @@
 #' @keywords utilities
 remove_print_statements <- function (x) {
 
-  # Harmonize print statements			
+  # Harmonize print statements
   x <- harmonize_print_statements(x)$name
 
   for (w in c("at", "in", "by", "for")) {
@@ -21,11 +21,10 @@ remove_print_statements <- function (x) {
     x <- gsub(paste0("print ", w), "", x)    
   }
   x <- condense_spaces(x)
-  
+
   # remove sine loco
   x <- remove_sl(x)
 
-  
   # handle some odd cases manually
   # FIXME: this is estc-specific, move there
   x[x=="122 s"] <- NA
