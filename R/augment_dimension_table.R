@@ -10,6 +10,7 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
+#' @importFrom dplyr mutate
 #' @examples # augment_dimension_table(dimension.table)
 #' @keywords utilities
 augment_dimension_table <- function (dimension.table, dimtab = NULL, verbose = FALSE) {

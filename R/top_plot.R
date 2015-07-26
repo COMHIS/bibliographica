@@ -10,6 +10,7 @@
 #' @import ggplot2
 #' @export
 #' 
+#' @importFrom dplyr count
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
