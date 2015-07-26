@@ -7,13 +7,13 @@
 write_xtable(x, filename)
 }
 \arguments{
-\item{x}{a vector}
+\item{x}{a vector or matrix}
 
 \item{filename}{output file}
 }
 \value{
 Table indicating the count for each unique entry in the input
-        vector. As a side effect the function writes this in the file.
+        vector or matrix. The function writes the statistics in the file.
 }
 \description{
 Write xtable in a file

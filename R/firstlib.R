@@ -1,4 +1,3 @@
-#' @import dplyr
 #' @importFrom stringr str_trim
 
 .onAttach <- function(lib, pkg)
