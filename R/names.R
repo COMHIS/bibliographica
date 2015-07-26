@@ -107,9 +107,9 @@ lastnames <- function (...) {
   # first.custom <- as.character(read.csv(system.file("extdata/names/firstnames/custom.csv", package = "bibliographica"), sep = "\t")[,1])
 
   # Also accept pseudonymes
-  pseudo <- as.character(read.csv(system.file("extdata/names/pseudonymes/last.csv", package = "bibliographica"), sep = "\t")[,1])
+  pseudo <- as.character(read.csv(system.file("extdata/names/pseudonymes/last.csv", package = "bibliographica"), header = TRUE)[,1])
 
-  last <- union(last.census, last.custom, pseudo)
+  last <- unique(c(last.census, last.custom, pseudo))
 
   last
 }
