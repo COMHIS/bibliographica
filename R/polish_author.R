@@ -15,7 +15,16 @@
 #' @keywords utilities
 polish_author <- function (s, stopwords = NULL) {
 
+  # NOTE to other developers:
+  # If this function appears too complex just drop a line, we can see if it should be splitted in
+  # multiple parts.. work in progress..
+
   s <- as.character(s)
+
+  # Only handle unique entries, in the end map back to original indices
+  sorig <- s
+  suniq <- unique(s)
+  s <- suniq
 
   # Remove brackets and ending commas / periods
   s <- remove_numerics(s)
@@ -46,13 +55,13 @@ polish_author <- function (s, stopwords = NULL) {
     stopwords <- unique(c(stopwords.general, stopwords.names, stopwords.titles))
   }
 
-  # Harmonize names
+  message("Harmonize names")
   nametab <- as.data.frame(nametab)
   nametab$last  <- gsub("^-", "", trim_names(nametab$last,  stopwords, remove.letters = TRUE))
   nametab$first <- gsub("^-", "", trim_names(nametab$first, stopwords, remove.letters = FALSE))
 
   # Some additional formatting
-  # "Wellesley, Richard Wellesley" -> "Wellesley, Richard"
+  # eg. "Wellesley, Richard Wellesley" -> "Wellesley, Richard"
   firsts <- c()
   for (i in 1:nrow(nametab)) {
     x <- nametab[i,]
@@ -67,7 +76,39 @@ polish_author <- function (s, stopwords = NULL) {
   }
   nametab$first <- firsts
 
-  nametab
+  # OK, now we have polished first and last names
+
+
+  ### VALIDATING THE NAMES
+
+  message("Validate names with known name lists")
+  valid <- list()
+  invalid <- list()
+  for (db in c("first", "last")) {
+
+    namelist <- nametab[[db]]
+    v <- validate_names(namelist, db)
+    valid[[db]] <- v$validated
+    invalid[[db]] <- v$invalid
+
+  }
+
+  message("Remove names that do not have both valid first and last names")
+  nametab[(!valid[["first"]] | !valid[["last"]]), ] <- NA
+  nametab$last[is.na(nametab$first)] <- NA
+  nametab$first[is.na(nametab$last)] <- NA
+
+  message("Collapse accepted names to the form: Last, First")
+  full.name <- apply(nametab, 1, function (x) { paste(x, collapse = ", ") })
+  full.name <- gsub("NA, NA", NA, full.name) # Handle NAs
+  nametab$full <- full.name
+
+  # Then map back to the original indices
+  nametab <- nametab[match(sorig, suniq), ]
+
+  list(names = nametab, invalid = invalid)
 
 }
+
+
 
