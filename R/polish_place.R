@@ -81,8 +81,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- gsub("And", "and", x)
   x <- gsub("Parliament ", "", x)    
 
-print(x)
-
   if (verbose) { message("Harmonize the synonymous names") }
   x <- as.character(harmonize_names(x, synonymes,
        		remove.unknown = remove.unknown)$name)
@@ -96,7 +94,9 @@ print(x)
 
   invalid <- as.vector(na.omit(xorig.unique[which(is.na(x))]))
 
-  list(valid = x, invalid = invalid)
+  #list(valid = x, invalid = invalid)
 
+  x
+  
 }
 

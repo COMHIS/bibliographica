@@ -66,6 +66,7 @@ firstnames <- function (...) {
   #last.custom$dictionary <- "Custom_Lastnames"  
 
   # Also accept pseudonymes
+  # TODO later perhaps separate real and pseudonyme name lists
   pseudo <- as.character(read.csv(system.file("extdata/names/pseudonymes/first.csv", package = "bibliographica"), sep = "\t")[,1])
   pseudo <- data.frame(list(name = tolower(pseudo)))
   pseudo$gender <- NA
