@@ -31,12 +31,17 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE) 
   tab$gatherings <- order_gatherings(tab$gatherings)
   tab$width <- suppressWarnings(as.numeric(as.character(tab$width)))
   tab$height <- suppressWarnings(as.numeric(as.character(tab$height)))
-
-  if (fill) {
-    tab <- augment_dimension_table(tab, dimtab = dimtab, verbose = verbose)
-  }
-
   tab$gatherings <- order_gatherings(tab$gatherings)
+  tab.original <- tab
+  
+  tab.final <- tab.original
+  colnames(tab.final) <- paste0(colnames(tab.original), ".original")
+  
+  if (fill) {
+    tab.estimated <- augment_dimension_table(tab.original,
+				dimtab = dimtab, verbose = verbose)
+    tab.final <- cbind(tab.final, tab.estimated)
+  }
 
   tab
 

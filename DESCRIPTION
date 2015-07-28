@@ -19,6 +19,7 @@ Depends:
 Imports:
     dplyr,
     ggplot2,
+    gender,    
     sorvi,
     stringr,
     tm
