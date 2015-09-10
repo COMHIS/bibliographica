@@ -1,7 +1,7 @@
 synonyme	name
 Sheet	sheet
 plates\(one fold\.\)	plates 
-p\.plates	p., plates # "39,[1]p.plates :" -> "39,[1]p.,plates :"
+p\.plates	p., plates
 \)plates :	),plates
 plates :	plates 
 plate :	plate 
@@ -36,7 +36,7 @@ folded plates	plates
 \(some fold\., some col\.\)	
 \(some col.\)	
 \(front\.\)	
-\(some fold.\)	 
+\(some fold.\)	
 \([0-9] fold.\)	
 \([0-9] fold\)	1
 \(some folded\)	
