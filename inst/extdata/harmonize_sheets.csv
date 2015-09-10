@@ -16,8 +16,8 @@ table :	table
 \,l\.	,leaves
  l\.	leaves
 \(the last [0-9] p. blank\)	
-\(versos blank\)	 
-\(woodcut\)	 
+\(versos blank\)	
+\(woodcut\)	
 platess	plates
 leaf of plates folded	leaf
 leaves of plates folded	leaf
@@ -30,24 +30,24 @@ leaf plates	leaf
 folded leaf	leaf
 folded leaves	leaves
 folded plates	plates
-\([0-9][0-9] folded\)	 
-\([0-9] folded\)	 
-\(some fold., col.\)	 
-\(some fold\., some col\.\)	 
-\(some col.\)	 
-\(front\.\)	 
+\([0-9][0-9] folded\)	af
+\([0-9] folded\)	
+\(some fold., col.\)	
+\(some fold\., some col\.\)	
+\(some col.\)	
+\(front\.\)	
 \(some fold.\)	 
-\([0-9] fold.\)	 
-\([0-9] fold\)	 
-\(some folded\)	 
-\(most folded\)	 
-\(one folded\)	 
-\(folded\)	 
-\(folding\)	 
-\(some fold\)	 
-\(fol\.\)	 
-\(\[[0-9]\] folded\)	 
-\([0-9] folded\)	 
+\([0-9] fold.\)	
+\([0-9] fold\)	1
+\(some folded\)	
+\(most folded\)	
+\(one folded\)	‬
+\(folded\)	)
+\(folding\)	
+\(some fold\)	
+\(fol\.\)	ER
+\(\[[0-9]\] folded\)	䅂@
+\([0-9] folded\)	
 fold\.plates	plates
 fold\. plates	plates
 fold\.plate	plate
@@ -76,11 +76,10 @@ folded table	table
 fold\. table	table
 fold\.tables	tables
 table	plate
-plate	sheet
-\([0-9] double\)	 
-doubled	 
-double	 
-single	 
+\([0-9] double\)	
+doubled	
+double	e
+single	I
 broadside of ill.	broadside
 broadside ([1] p.)	broadside
 broadsheet	broadside

@@ -1,6 +1,6 @@
 synonyme	name
-^Pp\.	 
-^p\. 	 
+^Pp\.	
+^p\. 	
 Pp\.	p
 pp\.	p
 p\.	p
@@ -9,7 +9,9 @@ p$	p
 P\.	p
 P 	p
 P$	
-p$	  
+p$	
 P\.$	
 p\.$	
 p\[	p, [
+Pp\.$	
+pp\.$	
