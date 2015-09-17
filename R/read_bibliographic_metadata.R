@@ -37,8 +37,6 @@ read_bibliographic_metadata <- function (file) {
   if (any(is.na(names(df)))) {
     warnings(paste("Fields", paste(names.orig[which(is.na(names(df)))], collapse = ";"), "not recognized"))
   }
-  
-  df <- tbl_df(df)
 
   df
 
