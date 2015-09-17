@@ -28,7 +28,7 @@ read_bibliographic_metadata <- function (file) {
   tab <- apply(tab, 2, function (x) {y <- x; y[x %in% c(" ", "")] <- NA; y})
   
   # Form data frame
-  df <- tbl_df(as.data.frame(tab, stringsAsFactors = FALSE))
+  df <- as.data.frame(tab, stringsAsFactors = FALSE)
 
   # Pick field clear names
   names.orig <- names(df)
@@ -38,6 +38,8 @@ read_bibliographic_metadata <- function (file) {
     warnings(paste("Fields", paste(names.orig[which(is.na(names(df)))], collapse = ";"), "not recognized"))
   }
   
+  df <- tbl_df(df)
+
   df
 
 }
