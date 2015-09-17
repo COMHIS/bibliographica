@@ -4,19 +4,19 @@
 \alias{mark_dissertations}
 \title{mark_dissertations}
 \usage{
-mark_dissertations(df)
+mark_dissertations(x)
 }
 \arguments{
-\item{df}{Main dataframe}
+\item{x}{dissertation field (a vector)}
 }
 \value{
-Main dataframe
+data.frame with fields for regular disserations and for synodal dissertations
 }
 \description{
 Establish two binary variables: dissertation and synodal dissertation
 }
 \examples{
-\dontrun{df <- mark_dissertations(df)}
+\dontrun{df <- mark_dissertations(c("Diss.","Diss. synod"))}
 }
 \author{
 Niko Ilomaki \email{niko.ilomaki@helsinki.fi}

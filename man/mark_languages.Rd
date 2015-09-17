@@ -4,19 +4,19 @@
 \alias{mark_languages}
 \title{mark_languages}
 \usage{
-mark_languages(df)
+mark_languages(x)
 }
 \arguments{
-\item{df}{Main dataframe}
+\item{x}{language field (a vector)}
 }
 \value{
-Main dataframe
+data.frame with separate fields for different languages
 }
 \description{
 Construct binary matrix of languages for each entry
 }
 \examples{
-\dontrun{df <- mark_languages(df)}
+\dontrun{df <- mark_languages(c("fin;lat","eng"))}
 }
 \author{
 Niko Ilomaki \email{niko.ilomaki@helsinki.fi}

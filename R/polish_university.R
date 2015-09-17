@@ -1,52 +1,49 @@
 #' @title polish_university
 #' @description Polish university names
 #'
-#' @param df Main dataframe
-#' @return Main dataframe
+#' @param x university field (a vector)
+#' @return polished university field (a vector)
 #'
 #' @export
 #' 
 #' @author Niko Ilomaki \email{niko.ilomaki@@helsinki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples \dontrun{df <- polish_university(df)}
+#' @examples \dontrun{v <- polish_university(c("HY","Suomen yliopisto"))}
 #' @keywords utilities
-polish_university <- function(df) {
-  v <- df$note_granter
+polish_university <- function(x) {
   # Turun yliopisto ja Åbo Akademi perustettiin vasta aineiston loputtua  (1920 ja 1918, vastaavasti)
   
-  v[v=="Suomen yliopisto"] <- "Helsinki" # tarkistettu julkaisupaikoista
-  v[v=="HY"] <- "Helsinki"
-  v[v=="Dorpat"] <- "Tartto"
-  v[v=="Turun akatemia"] <- "Turku"
-  v[v=="Turun akatemia,;Turun akatemia"] <- "Turku"
-  v[v=="1700"] <- NA
-  v <- gsub("^.*Aleksan.*$","Helsinki",v)
-  v <- gsub("^.*Alexan.*$","Helsinki",v)
-  v <- gsub("^.*Helsink.*$","Helsinki",v)
-  v <- gsub("^.*Helsing.*$","Helsinki",v)
-  v <- gsub("^.*Tekn.*$","TKK",v)
-  v <- gsub("^.*Bern.*$","Bern",v)
-  v <- gsub("^.*Jena.*$","Jena",v)
-  v <- gsub("^.*Lund.*$","Lund",v)
-  v <- gsub("^.*Upps.*$","Uppsala",v)
-  v <- gsub("^.*Ups.*$","Uppsala",v)
-  v <- gsub("^.*Leipzig.*$","Leipzig",v)
-  v <- gsub("^.*Turk.*$","Turku",v) 
-  v <- gsub("^.*Basel.*$","Basel",v) 
-  v <- gsub("^.*Berlin.*$","Berliini",v) 
-  v <- gsub("^.*Strängnäs.*$","Strängnäs",v) 
-  v <- gsub("^.*Göteborg.*$","Göteborg",v)
-  v <- gsub("^.*Ludwigs.*$","Freiburg",v) # tarkista
-  v <- gsub("^.*Hannover.*$","Hannover",v) # "Technischen Hochschule Hannover", nykyään Hannoverin yliopisto
-  v <- gsub("^.*bingen.*$","Tübingen",v)
-  v <- gsub("^.*Königsberg.*$","Königsberg",v)
-  v <- gsub("^.*rich.*$","Zürich",v)
-  v <- gsub("^.*Montpellier.*$","Montpellier",v)
-  v <- gsub("^.*Paris.*$","Pariisi",v)
-  v <- gsub("^.*Wittenberg.*$","Wittenberg",v)
+  x[x=="Suomen yliopisto"] <- "Helsinki" # tarkistettu julkaisupaikoista
+  x[x=="HY"] <- "Helsinki"
+  x[x=="Dorpat"] <- "Tartto"
+  x[x=="Turun akatemia"] <- "Turku"
+  x[x=="Turun akatemia,;Turun akatemia"] <- "Turku"
+  x[x=="1700"] <- NA
+  x <- gsub("^.*Aleksan.*$","Helsinki",x)
+  x <- gsub("^.*Alexan.*$","Helsinki",x)
+  x <- gsub("^.*Helsink.*$","Helsinki",x)
+  x <- gsub("^.*Helsing.*$","Helsinki",x)
+  x <- gsub("^.*Tekn.*$","TKK",x)
+  x <- gsub("^.*Bern.*$","Bern",x)
+  x <- gsub("^.*Jena.*$","Jena",x)
+  x <- gsub("^.*Lund.*$","Lund",x)
+  x <- gsub("^.*Upps.*$","Uppsala",x)
+  x <- gsub("^.*Ups.*$","Uppsala",x)
+  x <- gsub("^.*Leipzig.*$","Leipzig",x)
+  x <- gsub("^.*Turk.*$","Turku",x)
+  x <- gsub("^.*Basel.*$","Basel",x)
+  x <- gsub("^.*Berlin.*$","Berliini",x)
+  x <- gsub("^.*Strängnäs.*$","Strängnäs",x)
+  x <- gsub("^.*Göteborg.*$","Göteborg",x)
+  x <- gsub("^.*Ludwigs.*$","Freiburg",x) # tarkista
+  x <- gsub("^.*Hannover.*$","Hannover",x) # "Technischen Hochschule Hannover", nykyään Hannoverin yliopisto
+  x <- gsub("^.*bingen.*$","Tübingen",x)
+  x <- gsub("^.*Königsberg.*$","Königsberg",x)
+  x <- gsub("^.*rich.*$","Zürich",x)
+  x <- gsub("^.*Montpellier.*$","Montpellier",x)
+  x <- gsub("^.*Paris.*$","Pariisi",x)
+  x <- gsub("^.*Wittenberg.*$","Wittenberg",x)
 
-  df$note_granter <- v
-
-  df
+  x
 }

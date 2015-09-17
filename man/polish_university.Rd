@@ -4,19 +4,19 @@
 \alias{polish_university}
 \title{polish_university}
 \usage{
-polish_university(df)
+polish_university(x)
 }
 \arguments{
-\item{df}{Main dataframe}
+\item{x}{university field (a vector)}
 }
 \value{
-Main dataframe
+polished university field (a vector)
 }
 \description{
 Polish university names
 }
 \examples{
-\dontrun{df <- polish_university(df)}
+\dontrun{v <- polish_university(c("HY","Suomen yliopisto"))}
 }
 \author{
 Niko Ilomaki \email{niko.ilomaki@helsinki.fi}

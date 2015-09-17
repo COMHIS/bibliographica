@@ -1,8 +1,8 @@
 #' @title polish_name_of_author
 #' @description Pick and polish name of author
 #'
-#' @param df Main dataframe
-#' @return Main dataframe
+#' @param x author name field (a vector)
+#' @return data.frame with fields for family and first name if available
 #'
 #' @importFrom tau fixEncoding
 #' @export
@@ -10,21 +10,19 @@
 #' @author Niko Ilomaki \email{niko.ilomaki@@helsinki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples \dontrun{df <- polish_name_of_author(df)}
+#' @examples \dontrun{df <- polish_name_of_author(c("Washington, George","Louis XIV"))}
 #' @keywords utilities
-polish_name_of_author <- function(df) {
-	name <- fixEncoding(df$author_name,latin1=TRUE)
+polish_name_of_author <- function(x) {
+	name <- fixEncoding(x,latin1=TRUE)
 
-	family_name <- gsub("^(?!(.*\\, .*$)).+$",NA,name,perl=TRUE)
-	family_name <- gsub("^(.*)\\, .*$","\\1",family_name)
-	df$family_name <- family_name
+	family <- gsub("^(?!(.*\\, .*$)).+$",NA,name,perl=TRUE)
+	family <- gsub("^(.*)\\, .*$","\\1",family)
 
-	first_name <- gsub("^(?!(.*\\, .*$)).+$",NA,name,perl=TRUE)
-	first_name <- gsub("^.*\\, (.*)$","\\1",first_name)
-	df$first_name <- first_name
+	first <- gsub("^(?!(.*\\, .*$)).+$",NA,name,perl=TRUE)
+	first <- gsub("^.*\\, (.*)$","\\1",first)
 
-	other_name <- gsub("^(.*)\\, .*$",NA,name)
-	df$other_name <- other_name
+	other <- gsub("^(.*)\\, .*$",NA,name)
 
-	df
+	data.frame(list(family_name = family, first_name = first, other_name = other))
+	
 }

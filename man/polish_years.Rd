@@ -16,7 +16,7 @@ data.frame with the fields 'start' and 'end'
 Pick and polish the year interval (start and end
 }
 \examples{
-\dontrun{df <- polish_years("1746", "1745-1750")}
+\dontrun{df <- polish_years(c("1746", "1745-1750"))}
 }
 \author{
 Niko Ilomaki \email{niko.ilomaki@helsinki.fi}

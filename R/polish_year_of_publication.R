@@ -1,8 +1,8 @@
 #' @title polish_year_of_publication
 #' @description Pick and polish year(s) of publication
 #'
-#' @param df Dataframe with modified fields
-#' @return Dataframe with modified fields
+#' @param x publication time field (a vector)
+#' @return data.frame for separate fields for books (year) and magazines (start, end)
 #'
 #' @importFrom tau fixEncoding
 #' @export
@@ -10,10 +10,10 @@
 #' @author Niko Ilomaki \email{niko.ilomaki@@helsinki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples \dontrun{df <- polish_year_of_publication(df)}
+#' @examples \dontrun{df <- polish_year_of_publication(c("1776","1803-1806"))}
 #' @keywords utilities
-polish_year_of_publication <- function(df) {
-  year <- fixEncoding(df$publication_time,latin1=TRUE)
+polish_year_of_publication <- function(x) {
+  year <- fixEncoding(x,latin1=TRUE)
 
   year <- gsub("\\-\\-\\-","\\-",year)
   year <- gsub("\\-\\-","\\-",year)
@@ -43,7 +43,7 @@ polish_year_of_publication <- function(df) {
   year <- gsub("^n.([0-9]{4})$","\\1",year)  
   year <- gsub("^1892/1893\\-1900$",NA,year)
   year <- gsub("^(?![0-9]{4}$).+$",NA,year,perl=TRUE)
-  df$published_in <- as.numeric(year)
+  year <- as.numeric(year)
 
   year_first <- gsub("^[0-9]{4}$",NA,year_first)
   year_first <- gsub("^.* [0-9]{4}$",NA,year_first)
@@ -56,7 +56,7 @@ polish_year_of_publication <- function(df) {
   year_first <- gsub("^[0-9]{4}\\,\\;.*$",NA,year_first)
   year_first <- gsub("^n.[0-9]{4}$",NA,year_first)
   year_first <- gsub("^1892/1893\\-1900$","1893",year_first)
-  df$published_from <- as.numeric(year_first)
+  year_first <- as.numeric(year_first)
 
   year_last <- gsub("^[0-9]{4}$",NA,year_last)
   year_last <- gsub("^.* [0-9]{4}$",NA,year_last)
@@ -69,7 +69,8 @@ polish_year_of_publication <- function(df) {
   year_last <- gsub("^[0-9]{4}\\,\\;.*$",NA,year_last)
   year_last <- gsub("^n.[0-9]{4}$",NA,year_last)
   year_last <- gsub("^1892/1893\\-1900$","1900",year_last)
-  df$published_till <- as.numeric(year_last)
+  year_last <- as.numeric(year_last)
 
-  df
+  data.frame(list(published_in = year, published_from = year_first, published_till = year_last))
+
 }

@@ -4,19 +4,19 @@
 \alias{polish_publisher}
 \title{polish_publisher}
 \usage{
-polish_publisher(df)
+polish_publisher(x)
 }
 \arguments{
-\item{df}{Main dataframe}
+\item{x}{publisher field (a vector)}
 }
 \value{
-Main dataframe
+polished publisher field (a vector)
 }
 \description{
 Polish publishing house names
 }
 \examples{
-\dontrun{df <- polish_publisher(df)}
+\dontrun{v <- polish_publisher(c("Oxford University Press","tryckt hos Cambridge University Press"))}
 }
 \author{
 Niko Ilomaki \email{niko.ilomaki@helsinki.fi}

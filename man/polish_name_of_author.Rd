@@ -4,19 +4,19 @@
 \alias{polish_name_of_author}
 \title{polish_name_of_author}
 \usage{
-polish_name_of_author(df)
+polish_name_of_author(x)
 }
 \arguments{
-\item{df}{Main dataframe}
+\item{x}{author name field (a vector)}
 }
 \value{
-Main dataframe
+data.frame with fields for family and first name if available
 }
 \description{
 Pick and polish name of author
 }
 \examples{
-\dontrun{df <- polish_name_of_author(df)}
+\dontrun{df <- polish_name_of_author(c("Washington, George","Louis XIV"))}
 }
 \author{
 Niko Ilomaki \email{niko.ilomaki@helsinki.fi}
