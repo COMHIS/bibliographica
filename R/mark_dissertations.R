@@ -14,6 +14,7 @@
 mark_dissertations <- function(df) {
 	v <- df$note_dissertation
 	v[v=="Diss"] <- TRUE
+	v[v=="Diss."] <- TRUE
 	v[v=="Diss. :;Diss"] <- TRUE
 	v[v=="Diss. synod"] <- FALSE
 	v[is.na(v)] <- FALSE
@@ -22,6 +23,7 @@ mark_dissertations <- function(df) {
 
 	v <- df$note_dissertation
 	v[v=="Diss"] <- FALSE
+	v[v=="Diss."] <- FALSE
 	v[v=="Diss. :;Diss"] <- FALSE
 	v[v=="Diss. synod"] <- TRUE
 	v[is.na(v)] <- FALSE
