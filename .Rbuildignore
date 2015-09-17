@@ -27,3 +27,5 @@ vignettes/main.R
 .*~
 
 
+^.*\.Rproj$
+^\.Rproj\.user$

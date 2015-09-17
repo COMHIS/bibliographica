@@ -1,19 +1,18 @@
 #' @title mark_languages
 #' @description Construct binary matrix of languages for each entry
 #'
-#' @param df.orig Dataframe with original fields
 #' @param df Main dataframe
 #' @return Main dataframe
 #'
 #' @export
 #' 
 #' @author Niko Ilomaki \email{niko.ilomaki@@helsinki.fi}
-#' @references See citation("fennica")
+#' @references See citation("bibliographica")
 #' 
-#' @examples \dontrun{df <- mark_languages(df.orig, df)}
+#' @examples \dontrun{df <- mark_languages(df)}
 #' @keywords utilities
-mark_languages <- function(df.orig, df) {
-	subroutine <- function(abbrv){grepl(abbrv, df.orig$language, ignore.case = T)}
+mark_languages <- function(df) {
+	subroutine <- function(abbrv){grepl(abbrv, df$language, ignore.case = T)}
 	df$finnish <- subroutine("fin")
 	df$swedish <- subroutine("swe")
 	df$latin <- subroutine("lat")

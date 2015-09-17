@@ -18,8 +18,7 @@ read_bibliographic_metadata <- function (file) {
   # Read data
   tab <- read.csv(file, sep = "|", strip.white = TRUE, stringsAsFactors = FALSE, encoding = "UTF-8")
 
-  # Clean up a bit
-  # TODO: add clarification what sort of cases this is meant to handle?
+  # Removes additional whitespace and some special characters from beginning and end of strings
   tab <- apply(tab,1:2,function(x){
     x <- gsub("^[[:space:],:;]+","",gsub("[[:space:],:;]+$","",x)) 
     x
