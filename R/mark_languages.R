@@ -1,39 +1,40 @@
 #' @title mark_languages
 #' @description Construct binary matrix of languages for each entry
 #'
-#' @param df Main dataframe
-#' @return Main dataframe
+#' @param x language field (a vector)
+#' @return data.frame with separate fields for different languages
 #'
 #' @export
 #' 
 #' @author Niko Ilomaki \email{niko.ilomaki@@helsinki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples \dontrun{df <- mark_languages(df)}
+#' @examples \dontrun{df <- mark_languages(c("fin;lat","eng"))}
 #' @keywords utilities
-mark_languages <- function(df) {
-	subroutine <- function(abbrv){grepl(abbrv, df$language, ignore.case = T)}
-	df$finnish <- subroutine("fin")
-	df$swedish <- subroutine("swe")
-	df$latin <- subroutine("lat")
-	df$german <- subroutine("ger")
-	df$english <- subroutine("eng")
-	df$french <- subroutine("fre")
-	df$russian <- subroutine("rus")
-	df$greek <- subroutine("grc")
-	df$danish <- subroutine("dan")
-	df$italian <- subroutine("ita")
-	df$hebrew <- subroutine("heb")
-	df$dutch <- subroutine("dut")
-	df$spanish <- subroutine("spa")
-	df$sami <- subroutine("smi")
-	df$modern_greek <- subroutine("gre")
-	df$icelandic <- subroutine("ice")
-	df$arabic <- subroutine("ara")
-	df$portuguese <- subroutine("por")
-	df$finnougrian <- subroutine("fiu")
-	df$multiple <- subroutine("mul")
-	df$undetermined <- subroutine("und")	
+mark_languages <- function(x) {
+	subroutine <- function(abbrv){grepl(abbrv, x, ignore.case = T)}
+	fin <- subroutine("fin")
+	swe <- subroutine("swe")
+	lat <- subroutine("lat")
+	ger <- subroutine("ger")
+	eng <- subroutine("eng")
+	fre <- subroutine("fre")
+	rus <- subroutine("rus")
+	grc <- subroutine("grc")
+	dan <- subroutine("dan")
+	ita <- subroutine("ita")
+	heb <- subroutine("heb")
+	dut <- subroutine("dut")
+	spa <- subroutine("spa")
+	smi <- subroutine("smi")
+	gre <- subroutine("gre")
+	ice <- subroutine("ice")
+	ara <- subroutine("ara")
+	por <- subroutine("por")
+	fiu <- subroutine("fiu")
+	mul <- subroutine("mul")
+	und <- subroutine("und")	
 
-	df
+	data.frame(list(finnish = fin, swedish = swe, latin = lat, german = ger, english = eng, french = fre, russian = rus, greek = grc, danish = dan, italian = ita, hebrew = heb,
+		dutch = dut, spanish = spa, sami = smi, modern_greek = gre, icelandic = ice, arabic = ara, portuguese = por, finnougrian = fiu, multiple = mul, undetermined = und))
 }

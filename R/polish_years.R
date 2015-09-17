@@ -11,7 +11,7 @@
 #' @author Niko Ilomaki \email{niko.ilomaki@@helsinki.fi}
 #' @references See citation("bibliographica")
 #' 
-#' @examples \dontrun{df <- polish_years("1746", "1745-1750")}
+#' @examples \dontrun{df <- polish_years(c("1746", "1745-1750"))}
 #' @keywords utilities
 polish_years <- function(x) {
 
