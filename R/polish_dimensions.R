@@ -138,7 +138,6 @@ polish_dimension <- function (x) {
   # if (length(gatherings) == 1) {gatherings <- as.list(gatherings)}
 
   # 4to-4to / 4to-2fo
-
   inds <- c(grep("^[0-9]+.o-[0-9]+.o$", gatherings), 
             grep("^[0-9]+.o-[0-9]+.o-[0-9]+.o$", gatherings))
 

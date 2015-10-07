@@ -37,12 +37,17 @@ harmonize_dimension <- function (x) {
   inds <- grep("[0-9]. in [0-9]'s", s)
   s[inds] <- gsub(" in [0-9]'s", "", s[inds])
 
+  # 2fo(3?)
+  inds <- grep("[0-9]fo\\([0-9]\\?\\)", s)
+  s[inds] <- gsub("\\([0-9]\\?\\)", "", s[inds])
+
   # Harmonize the terms
   f <- system.file("extdata/harmonize_dimensions.csv", package = "bibliographica")
-  sn <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
+  sn <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "latin1"))
+
   s <- harmonize_names(s, sn, mode = "recursive")$name
 
-  # "4⁰; sm 2⁰; 2⁰" -> NA
+  # "4; sm 2; 2" -> NA
   inds <- grep("[0-9]+.o; sm [0-9]+.o; [0-9]+.o", s)
   s[inds] <- gsub("[0-9]+.o; sm [0-9]+.o; [0-9]+.o", "", s[inds])
   

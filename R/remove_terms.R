@@ -41,20 +41,24 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
 
     x <- gsub(paste("^", term, "$", sep = ""), " ", x)
 
-    if (where %in% c("all", "begin")) {
+    if (where %in% c("all")) {
+      x <- gsub(term, " ", x)
+    }
+    
+    if (where %in% c("begin")) {
       x <- gsub(paste("^", term, "$", sep = ""), " ", x)
       x <- gsub(paste("^", term, " ", sep = ""), " ", x)
       x <- gsub(paste("^", term, "\\. ", sep = ""), " ", x)
       x <- gsub(paste("^", term, "\\, ", sep = ""), " ", x)
     }
 
-    if (where %in% c("all", "middle")) {
+    if (where %in% c("middle")) {
       x <- gsub(paste(" ", term, " ", sep = ""), " ", x)
       x <- gsub(paste(" ", term, "\\.", sep = ""), " ", x)
       x <- gsub(paste(" ", term, "\\,", sep = ""), " ", x)
     }
 
-    if (where %in% c("all", "end")) {
+    if (where %in% c("end")) {
       x <- gsub(paste(" ", term, "$", sep = ""), " ", x)
       x <- gsub(paste(" ", term, "\\.$", sep = ""), " ", x)
       x <- gsub(paste(" ", term, "\\,$", sep = ""), " ", x)

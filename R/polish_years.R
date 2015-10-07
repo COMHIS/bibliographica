@@ -17,7 +17,8 @@ polish_years <- function(x) {
 
   xorig <- x
   x <- remove_endings(x, "\\.")
-  
+  x <- remove_terms(x, c("active in", "active", "approximately"))
+
   start <- x
   start <- gsub("^([0-9]{3,4})\\D[0-9]{3,4}$","\\1",start)
   start <- gsub("^fl. ([0-9]{3,4})\\D[0-9]{3,4}$",NA,start)
@@ -58,7 +59,14 @@ polish_years <- function(x) {
   start <- gsub("^s. n. 1560, k. ennen 1617$","1560",start)
   start <- gsub("^s. viim. 1638, k. 1681$",NA,start)
   start <- gsub("^toiminta\\-aika 1770\\-luku$",NA,start)
-  start <- gsub("^active ", "", start)  
+  if (length(grep("-", start))>0) {
+    start <- unlist(strsplit(start, "-"))[[1]]  
+  }
+  start <- gsub("\\?$", "", start)
+  if (length(grep(" or ", start))>0) {
+    start <- str_trim(unlist(strsplit(start, " or "))[[2]]  )
+  }  
+  start <- christian2numeric(start) 
   start_year <- as.numeric(start)
 
   # pitaisi poistaa paallekkäisyydet
@@ -100,9 +108,33 @@ polish_years <- function(x) {
   end <- gsub("^s. n. 1560, k. ennen 1617$",NA,end)
   end <- gsub("^s. viim. 1638, k. 1681$","1681",end)
   end <- gsub("^toiminta\\-aika 1770\\-luku$",NA,end)
-  start <- gsub("^active ", "", start)    
+  if (length(grep("-", end))>0) {
+    end <- unlist(strsplit(end, "-"))[[2]]
+  }
+  end <- gsub("\\?$", "", end)    
+  end <- christian2numeric(end)   
   end_year <- as.numeric(end)
 
   data.frame(list(original = xorig, start = start_year, end = end_year))
+
+}
+
+
+christian2numeric <- function (x) {
+
+  x <- str_trim(as.character(x))
+  x <- gsub("A.D.", "A.D", x)
+  x <- gsub("B.C.", "B.C", x)
+
+  if (length(grep("A.D", x)) > 0) {
+    x <- as.numeric(str_trim(gsub("A.D", "", x)))
+
+  }
+
+  if (length(grep("B.C", x)) > 0) {
+    x <- -as.numeric(str_trim(gsub("B.C", "", x)))
+  }
+
+  x
 
 }
