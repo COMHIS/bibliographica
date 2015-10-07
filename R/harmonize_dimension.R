@@ -1,6 +1,7 @@
 #' Harmonize dimension information 
 #'
 #' @param x A character vector that may contain dimension information
+#' @param synonyms Synonyme table
 #' @return The character vector with dimension information harmonized
 #'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
@@ -9,7 +10,12 @@
 #' 
 #' @examples harmonize_dimension("fol.")
 #' @keywords internal
-harmonize_dimension <- function (x) {
+harmonize_dimension <- function (x, synonyms = NULL) {
+
+  if (is.null(synonyms)) {
+    f <- system.file("extdata/harmonize_dimensions.csv", package = "bibliographica")
+    synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
+  } 
 
   s <- tolower(as.character(x))
 
@@ -42,9 +48,7 @@ harmonize_dimension <- function (x) {
   s[inds] <- gsub("\\([0-9]\\?\\)", "", s[inds])
 
   # Harmonize the terms
-  f <- system.file("extdata/harmonize_dimensions.csv", package = "bibliographica")
-  sn <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
-  s <- harmonize_names(s, sn, mode = "recursive")$name
+  s <- harmonize_names(s, synonyms, mode = "recursive")$name
 
   # "4; sm 2; 2" -> NA
   inds <- grep("[0-9]+.o; sm [0-9]+.o; [0-9]+.o", s)

@@ -4,10 +4,12 @@
 \alias{harmonize_dimension}
 \title{Harmonize dimension information}
 \usage{
-harmonize_dimension(x)
+harmonize_dimension(x, synonyms = NULL)
 }
 \arguments{
 \item{x}{A character vector that may contain dimension information}
+
+\item{synonyms}{Synonyme table}
 }
 \value{
 The character vector with dimension information harmonized

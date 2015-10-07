@@ -5,6 +5,7 @@
 #' @param fill Logical. Estimate and fill in the missing information: TRUE/FALSE
 #' @param dimtab Dimension mapping table
 #' @param verbose verbose
+#' @param synonyms Synonyme table
 #' @return Dimension table
 #'
 #' @export
@@ -14,14 +15,19 @@
 #' 
 #' @examples # polish_dimensions(c("2fo", "14cm"), fill = TRUE)
 #' @keywords utilities
-polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE) {
+polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, synonyms = NULL) {
 
  # fill = FALSE; dimtab = NULL
 
   s <- as.character(x)
 
+  if (is.null(synonyms)) {
+    f <- system.file("extdata/harmonize_dimensions.csv", package = "bibliographica")
+    synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
+  } 
+
   tab <- t(sapply(s, function (x) {
-    polish_dimension(x)
+    polish_dimension(x, synonyms)
     }))
   rownames(tab) <- NULL
   tab <- data.frame(tab)
@@ -53,7 +59,7 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE) 
 #' @description Polish dimension field of a single document
 #'
 #' @param x A dimension note (a single string of one document)
-#' @param sheetsizes Sheet size conversion table
+#' @param synonyms Synonyme table
 #' @return Polished dimension information with the original string 
 #' 	   and gatherings and cm information collected from it
 #'
@@ -62,12 +68,12 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE) 
 #' 
 #' @examples # polish_dimension("4")
 #' @keywords internal
-polish_dimension <- function (x) {
+polish_dimension <- function (x, synonyms) {
 
   # Harmonize terms
   sorig <- as.character(x)
 
-  s <- harmonize_dimension(x)
+  s <- harmonize_dimension(x, synonyms)
 
   # "small"
   small <- FALSE

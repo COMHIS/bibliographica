@@ -4,7 +4,8 @@
 \alias{polish_dimensions}
 \title{polish_dimensions}
 \usage{
-polish_dimensions(x, fill = FALSE, dimtab = NULL, verbose = FALSE)
+polish_dimensions(x, fill = FALSE, dimtab = NULL, verbose = FALSE,
+  synonyms = NULL)
 }
 \arguments{
 \item{x}{A vector of dimension notes}
@@ -14,6 +15,8 @@ polish_dimensions(x, fill = FALSE, dimtab = NULL, verbose = FALSE)
 \item{dimtab}{Dimension mapping table}
 
 \item{verbose}{verbose}
+
+\item{synonyms}{Synonyme table}
 }
 \value{
 Dimension table

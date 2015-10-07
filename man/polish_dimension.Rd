@@ -4,12 +4,12 @@
 \alias{polish_dimension}
 \title{polish_dimension}
 \usage{
-polish_dimension(x)
+polish_dimension(x, synonyms)
 }
 \arguments{
 \item{x}{A dimension note (a single string of one document)}
 
-\item{sheetsizes}{Sheet size conversion table}
+\item{synonyms}{Synonyme table}
 }
 \value{
 Polished dimension information with the original string
