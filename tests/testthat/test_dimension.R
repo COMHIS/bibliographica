@@ -9,6 +9,9 @@ test_that("dimension fill works correctly", {
 
 test_that("dimension polish works correctly", {
 
+  expect_equal(as.character(polish_dimensions("2⁰(3?)")$gatherings), "2fo")
+  expect_equal(as.character(polish_dimensions("2fo(3?).")$gatherings), "2fo")    
+  
   expect_equal(as.character(polish_dimensions("46 cm(2⁰)")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("29-40 cm. (4⁰; 2⁰)")$gatherings), "NA")
   expect_equal(as.character(polish_dimensions("4⁰. '")$gatherings), "4to")
@@ -28,7 +31,6 @@ test_that("dimension polish works correctly", {
 
   expect_equal(as.character(polish_dimensions("NA", fill = FALSE, dimtab = NULL)$gatherings), "NA")
   expect_equal(as.character(polish_dimensions("2fo.;2fo.")$gatherings), "2fo")
-  expect_equal(as.character(polish_dimensions("2fo(3?).")$gatherings), "2fo")    
   expect_equal(as.character(polish_dimensions("2fo")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("4to;2fo")$gatherings), "NA")
   expect_equal(as.character(polish_dimensions("2fo;1to")$gatherings), "NA")

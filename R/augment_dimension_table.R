@@ -15,9 +15,8 @@
 #' @keywords utilities
 augment_dimension_table <- function (dimension.table, dimtab = NULL, verbose = FALSE) {
 
-  dimtab.orig <- dimension.table			
-
-  width <- height <- gatherings <- NULL			
+  dimtab.orig <- dimension.table
+  width <- height <- gatherings <- NULL
 
   if (is.null(dimtab)) {
     if (verbose) {
@@ -26,7 +25,16 @@ augment_dimension_table <- function (dimension.table, dimtab = NULL, verbose = F
     dimtab <- dimension_table()
   }
 
-  dimension.table <- as.data.frame(t(apply(dimension.table, 1, function (x) {fill_dimensions(x, dimtab)})))
+  # Return to this after the debug
+  tmp <- apply(dimension.table, 1, function (x) {fill_dimensions(x, dimtab)})
+  #tmp <- NULL
+  #for (i in 1:nrow(dimension.table)) {
+  #  x <- dimension.table[i,]
+  #  print(x)
+  #  tmp <- rbind(tmp, fill_dimensions(x, dimtab))
+  #}
+  
+  dimension.table <- as.data.frame(t(tmp))
 
   dimension.table$original <- as.character(dimension.table$original)
   dimension.table$width <- as.numeric(as.character(dimension.table$width))

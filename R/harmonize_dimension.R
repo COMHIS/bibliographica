@@ -43,10 +43,6 @@ harmonize_dimension <- function (x, synonyms = NULL) {
   inds <- grep("[0-9]. in [0-9]'s", s)
   s[inds] <- gsub(" in [0-9]'s", "", s[inds])
 
-  # 2fo(3?)
-  inds <- grep("[0-9]fo\\([0-9]\\?\\)", s)
-  s[inds] <- gsub("\\([0-9]\\?\\)", "", s[inds])
-
   # Harmonize the terms
   s <- harmonize_names(s, synonyms, mode = "recursive")$name
 

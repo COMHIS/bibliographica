@@ -26,11 +26,16 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
     synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
   } 
 
-  tab <- t(sapply(s, function (x) {
+  # Speed up by only handling unique cases
+  suniq <- unique(s)
+  match.inds <- match(s, suniq)
+
+  tab <- t(sapply(suniq, function (x) {
     polish_dimension(x, synonyms)
     }))
   rownames(tab) <- NULL
   tab <- data.frame(tab)
+  tab <- tab[match.inds,]
 
   # Convert to desired format
   tab$original <- as.character(tab$original)
@@ -44,8 +49,7 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
   colnames(tab.final) <- paste0(colnames(tab.original), ".original")
   
   if (fill) {
-    tab.estimated <- augment_dimension_table(tab.original,
-				dimtab = dimtab, verbose = verbose)
+    tab.estimated <- augment_dimension_table(tab.original, dimtab = dimtab, verbose = verbose)
     tab.final <- cbind(tab.final, tab.estimated)
   }
 
