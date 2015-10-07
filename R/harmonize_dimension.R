@@ -43,8 +43,7 @@ harmonize_dimension <- function (x) {
 
   # Harmonize the terms
   f <- system.file("extdata/harmonize_dimensions.csv", package = "bibliographica")
-  sn <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "latin1"))
-
+  sn <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
   s <- harmonize_names(s, sn, mode = "recursive")$name
 
   # "4; sm 2; 2" -> NA
@@ -109,7 +108,7 @@ harmonize_dimension <- function (x) {
   inds <- grep("[0-9]+.o;[0-9]+.o", s)
   s[inds] <- gsub(";", "-", s[inds])
 
-  #2⁰; 1/2⁰; 2⁰
+  #2; 1/2; 2
   inds <- grep("[0-9]+.o; [0-9]+.o; [0-9]+.o", s)
   s[inds] <- gsub(";", "-", s[inds])
 
