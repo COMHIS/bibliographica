@@ -31,8 +31,6 @@ polish_years <- function(x) {
   start <- gsub("^d. ([0-9]{4})$",NA,start)
   start <- gsub("^k. n. ([0-9]{4})$",NA,start)
   start <- gsub("^k. ennen ([0-9]{4})$",NA,start)
-  # Skandit pitaa kasitella synonyymisanalistojen tms kautta jotta
-  # paastaan eroon niihin liittyvistä virheista paketin kaannossa
   start <- gsub("^k. viimeistään ([0-9]{4})$",NA,start)
   start <- gsub("^k. ([0-9]{4}) jälkeen$",NA,start)
   start <- gsub("^s. n. ([0-9]{4}), k. [0-9]{4}$","\\1",start)
@@ -59,13 +57,21 @@ polish_years <- function(x) {
   start <- gsub("^s. n. 1560, k. ennen 1617$","1560",start)
   start <- gsub("^s. viim. 1638, k. 1681$",NA,start)
   start <- gsub("^toiminta\\-aika 1770\\-luku$",NA,start)
-  if (length(grep("-", start))>0) {
-    start <- unlist(strsplit(start, "-"))[[1]]  
+
+  spl <- strsplit(start, "-")
+  start <- sapply(spl, function (x) {if (length(x) >= 1) {x[[1]]}})
+
+  inds <- grep("^-", start)
+  if (length(inds)>0) {
+    start[inds] <- NA
   }
+
   start <- gsub("\\?$", "", start)
-  if (length(grep(" or ", start))>0) {
-    start <- str_trim(unlist(strsplit(start, " or "))[[2]]  )
-  }  
+  inds <- grep(" or ", start)
+  if (length(inds)>0) {
+    start[inds] <- sapply(start[inds], function (x) str_trim(unlist(strsplit(x, " or "))[[2]]  ))
+  }
+
   start <- christian2numeric(start) 
   start_year <- as.numeric(start)
 
@@ -115,6 +121,7 @@ polish_years <- function(x) {
   end <- christian2numeric(end)   
   end_year <- as.numeric(end)
 
+
   data.frame(list(original = xorig, start = start_year, end = end_year))
 
 }
@@ -126,13 +133,14 @@ christian2numeric <- function (x) {
   x <- gsub("A.D.", "A.D", x)
   x <- gsub("B.C.", "B.C", x)
 
-  if (length(grep("A.D", x)) > 0) {
-    x <- as.numeric(str_trim(gsub("A.D", "", x)))
-
+  inds <- grep("A.D", x)
+  if (length(inds) > 0) {
+    x[inds] <- as.numeric(str_trim(gsub("A.D", "", x[inds])))
   }
 
-  if (length(grep("B.C", x)) > 0) {
-    x <- -as.numeric(str_trim(gsub("B.C", "", x)))
+  inds <- grep("B.C", x)
+  if (length(inds) > 0) {
+    x[inds] <- -as.numeric(str_trim(gsub("B.C", "", x[inds])))
   }
 
   x
