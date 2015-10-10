@@ -67,6 +67,7 @@ polish_years <- function(x) {
   }
 
   start <- gsub("\\?$", "", start)
+  start <- gsub("\\?\\.$", "", start)  
   inds <- grep(" or ", start)
   if (length(inds)>0) {
     start[inds] <- sapply(start[inds], function (x) str_trim(unlist(strsplit(x, " or "))[[2]]  ))
@@ -77,6 +78,7 @@ polish_years <- function(x) {
 
   # pitaisi poistaa paallekkäisyydet
   end <- x
+
   end <- gsub("^[0-9]{3,4}\\D([0-9]{3,4})$","\\1",end)
   end <- gsub("^fl. [0-9]{3,4}\\D([0-9]{3,4})$",NA,end)
   end <- gsub("^n. [0-9]{4}\\D([0-9]{4})$","\\1",end)
@@ -114,9 +116,12 @@ polish_years <- function(x) {
   end <- gsub("^s. n. 1560, k. ennen 1617$",NA,end)
   end <- gsub("^s. viim. 1638, k. 1681$","1681",end)
   end <- gsub("^toiminta\\-aika 1770\\-luku$",NA,end)
-  if (length(grep("-", end))>0) {
-    end <- unlist(strsplit(end, "-"))[[2]]
+
+  inds <- grep("-", end)
+  if (length(inds)>0) {
+    end[inds] <- sapply(end[inds], function (x) {spl <- unlist(strsplit(x, "-")); if (length(spl) > 1) {spl[[2]]}})
   }
+  
   end <- gsub("\\?$", "", end)    
   end <- christian2numeric(end)   
   end_year <- as.numeric(end)
