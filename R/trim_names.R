@@ -18,8 +18,8 @@ trim_names <- function (s, stopwords, remove.letters = FALSE) {
   s <- as.character(s)	   
   s <- tolower(str_trim(gsub("\\.", " ", s)))
 
-  # Remove stopwords
-  s <- remove_stopwords(s, terms = stopwords, remove.letters = remove.letters) 
+  # Remove stopwords (also in tau package, check that)
+  s <- bibliographica::remove_stopwords(s, terms = stopwords, remove.letters = remove.letters) 
   s <- condense_spaces(s)
 
   s
