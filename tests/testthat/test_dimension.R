@@ -12,8 +12,7 @@ test_that("dimension polish works correctly", {
   # escaped unicode character
   # \u00b0 = astemerkki ⁰
 
-  #expect_equal(as.character(polish_dimensions("2\u00b0(3?)")$gatherings), "2fo")
-  #expect_equal(as.character(polish_dimensions("2\u00b0(3?)")$gatherings), "2fo")
+  expect_equal(as.character(polish_dimensions("2\u00b0(3?)")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("2fo(3?).")$gatherings), "2fo")    
   
   expect_equal(as.character(polish_dimensions("46 cm(2\u00b0)")$gatherings), "2fo")
