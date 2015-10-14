@@ -53,7 +53,7 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
     tab.final <- cbind(tab.final, tab.estimated)
   }
 
-  tab
+  tab.final
 
 }
 

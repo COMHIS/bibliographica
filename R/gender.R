@@ -25,6 +25,8 @@ get_gender <- function (x) {
 
   # gender package
   g <- gender(first.names.unique)
+
+  # Convert to a named vector
   gen <- sapply(g, function (x) {x$gender})
   names(gen) <- sapply(g, function (x) {x$name})
   g1 <- gen
@@ -36,13 +38,13 @@ get_gender <- function (x) {
   # name lists 
   f <- firstnames()
   gen <- f$gender
-  gen <- suppressWarnings(harmonize_names(gen, synonymes = sn)$name)
+  gen <- as.character(suppressWarnings(harmonize_names(gen, synonymes = sn)$name))
   names(gen) <- tolower(f$name)
   g2 <- gen
 
   # Custom gender mappings for ambiguous cases
   custom <- read.csv(system.file("extdata/names/firstnames/gender.csv", 
-  	    			package = "estc"), sep = "\t")
+  	    			package = "bibliographica"), sep = "\t")
   # Also add NA gender for individual letters
   custom <- rbind(custom, cbind(Name = letters, Gender = NA))
   g3 <- custom$Gender
