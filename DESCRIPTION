@@ -19,6 +19,7 @@ Depends:
 Imports:
     dplyr,
     ggplot2,
+    genderdata,
     gender,    
     sorvi,
     stringr,
@@ -28,4 +29,5 @@ Suggests:
     knitr,
     rmarkdown,
     testthat
+Additional_repositories: http://packages.ropensci.org
 LazyLoad: yes

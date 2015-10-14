@@ -44,7 +44,7 @@ firstnames <- function (...) {
   first.french$gender <- gsub("^f$", "F", first.french$gender)
 
   # French2 
-  #http://www.excel-downloads.com/forum/86934-liste-des-prenoms.htmlhttp://​http://www.excel-downloads.com/forum/86934-liste-des-prenoms.html
+  #http://www.excel-downloads.com/forum/86934-liste-des-prenoms.htmlhttp://http://www.excel-downloads.com/forum/86934-liste-des-prenoms.html
   first.french2 <- read.csv(system.file("extdata/names/firstnames/French/Prenoms.csv", package = "bibliographica"), header = FALSE)
   first.french2	<- data.frame(list(name = tolower(first.french2[,1])))
   first.french2$gender <- NA
