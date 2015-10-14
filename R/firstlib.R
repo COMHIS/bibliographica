@@ -1,4 +1,5 @@
 #' @importFrom stringr str_trim
+#' @import genderdata
 
 .onAttach <- function(lib, pkg)
 {
