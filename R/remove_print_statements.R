@@ -18,7 +18,9 @@ remove_print_statements <- function (x) {
 
   for (w in c("at", "in", "by", "for", "i", "j", "")) {
     x <- gsub(paste0("printed ", w), "", x)
-    x <- gsub(paste0("print ", w), "", x)    
+    x <- gsub(paste0("print ", w), "", x)
+    x <- gsub(" printed$", "", x)
+    x <- gsub(" s n$", "", x)    
   }
   x <- condense_spaces(x)
 
