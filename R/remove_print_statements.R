@@ -16,7 +16,7 @@ remove_print_statements <- function (x) {
   # Harmonize print statements
   x <- harmonize_print_statements(x)$name
 
-  for (w in c("at", "in", "by", "for")) {
+  for (w in c("at", "in", "by", "for", "i", "j", "")) {
     x <- gsub(paste0("printed ", w), "", x)
     x <- gsub(paste0("print ", w), "", x)    
   }

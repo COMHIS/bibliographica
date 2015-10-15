@@ -6,6 +6,9 @@ test_that("Print statements are harmonized correctly", {
 
 test_that("Print statements are removed correctly", {
   expect_equal(remove_print_statements("printed and sold by R. Marchbank"), "R. Marchbank")
-  expect_equal(remove_print_statements("Printed in London"), "London")  
+  expect_equal(remove_print_statements("Printed in London"), "London")
+
+  expect_equal(remove_print_statements("Tryckt i Vpsala"), "Vpsala")
+
 })
 
