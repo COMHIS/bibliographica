@@ -17,7 +17,7 @@ polish_years <- function(x) {
 
   xorig <- x
   x <- remove_endings(x, "\\.")
-  x <- remove_terms(x, c("active in", "active", "approximately"))
+  x <- remove_terms(x, c("active in", "active", "approximately"), "full")
 
   start <- x
   start <- gsub("^([0-9]{3,4})\\D[0-9]{3,4}$","\\1",start)
@@ -121,7 +121,7 @@ polish_years <- function(x) {
   if (length(inds)>0) {
     end[inds] <- sapply(end[inds], function (x) {spl <- unlist(strsplit(x, "-")); if (length(spl) > 1) {spl[[2]]}})
   }
-  
+
   end <- gsub("\\?$", "", end)    
   end <- christian2numeric(end)   
   end_year <- as.numeric(end)

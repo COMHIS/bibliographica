@@ -14,7 +14,7 @@ prinetd|printed
 printers|printed
 printer|printed
 printet|printed
-print |printed
+print |printed 
 printyd|printed
 prented|printed
 prentit|printed
@@ -22,7 +22,7 @@ printit|printed
 printid|printed
 - published|printed
 published|printed
-direct.|printed
+direct\.|printed
 excusae|exc
 excussit|exc
 excusum|exc
@@ -34,21 +34,20 @@ excudit|exc
 excusa|exc
 excusi|exc
 excud.|exc
-exc.|exc
-exc|printed
+exc\.|exc
+exc|printed 
 typis|printed
 v editum|printed
 viduae|printed
 viduam|printed
-print |printed 
-printed at|printed in
-printed in|printed in
-printed : and sold by|printed by
 printed and sold by|printed by
+printed : and sold by|printed by
 printed in the yera|printed in
 printed only for|printed for
 printed: and sold by|printed by
 printed to the vniversity|printed to
+printed at|printed in
+printed in|printed in
 and sold by|printed by
 ^in |printed in
 ^In |printed in
@@ -58,7 +57,4 @@ and sold by|printed by
 ^Et |printed in
 ^a |printed in
 ^A |printed in
-
-
-
-
+printed|printed 

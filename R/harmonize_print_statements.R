@@ -28,7 +28,8 @@ harmonize_print_statements <- function (x) {
     terms <- rbind(terms, terms2)
 
     # Harmonize the terms
-    x <- as.character(harmonize_names(x, terms, mode = "recursive")$name)
+    x <- as.character(harmonize_names(x, terms, mode = "recursive", check.synonymes = FALSE)$name)
+    
   }
   
   x <- condense_spaces(x)

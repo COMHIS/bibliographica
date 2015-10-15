@@ -27,9 +27,9 @@ remove_print_statements <- function (x) {
 
   # handle some odd cases manually
   # FIXME: this is estc-specific, move there
-  x[x=="122 s"] <- NA
-  x[x=="204 s"] <- NA
-  x[x=="2 p"] <- NA
+  x[x == "122 s"] <- NA
+  x[x == "204 s"] <- NA
+  x[x == "2 p"] <- NA
   x <- gsub("2. p.;","",x)
   x <- gsub("^(.*?);.*$","\\1",x) # nb. non-greedy match
 
