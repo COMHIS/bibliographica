@@ -2,7 +2,7 @@ estimate_pages <- function (x) {
 
   # Estimate pages for a single volume within a document
   # After removing volume info
-  # This is the main function regarding page counting rules	       
+  # This is the main function regarding page counting rules	      
 
   # Harmonize synonymes and spelling errors
   x <- harmonize_pages(x)
@@ -17,14 +17,14 @@ estimate_pages <- function (x) {
   } else if ((is.roman(x) && length(unlist(strsplit(x, ","))) == 1 && length(grep("-", x)) == 0)) {
     # "III" but not "ccclxxiii-ccclxxiv"
     return(suppressWarnings(as.numeric(as.roman(x))))
-  } else if (!is.na(suppressWarnings(as.numeric(gsub(" p", "", remove.squarebrackets(x)))))) {
+  } else if (!is.na(suppressWarnings(as.numeric(gsub(" [p|s]", "", remove.squarebrackets(x)))))) {
     # "[3]" or [3 p]
-    return(as.numeric(remove.squarebrackets(gsub(" p", "", x))))
-  } else if (x == "1 sheet") {
+    return(as.numeric(remove.squarebrackets(gsub(" [p|s]", "", x))))
+  } else if (x %in% c("1 sheet", "1 kartta")) {
     # "1 sheet"
     return(2)
-  } else if (length(grep("^[0-9] sheets$", x)) == 1) {
-    # "2 sheets"
+  } else if (length(grep("^[0-9] sheets$", x)) == 1 | length(grep("^[0-9] karttaa$", x)) == 1) {
+    # "2 sheets" / 2 karttaa
     return(as.numeric(sheets2pages(x)))
   } 
   # Then proceeding to the more complex cases...
