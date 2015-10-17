@@ -62,9 +62,22 @@ polish_year <- function(x) {
   x <- gsub("^-*", "", gsub("-*$", "", x))
   x <- gsub("^<*", "", gsub(">$", "", x))
   x <- harmonize_ie(x)
-
+print(x)
   x <- try(handle_ie(x))
 
+  if (length(grep("\\[[0-9]*\\]", x))>0) {
+    x <- gsub("\\[", "", gsub("\\]", "", x))
+  }
+
+  if (length(grep("\\[[0-9]*\\?\\]", x))>0) {
+    x <- gsub("\\[", "", gsub("\\?\\]", "", x))
+  }
+
+  ##[1721-1726]
+  if (length(grep("\\[[0-9]*-[0-9]*\\]", x))>0) {
+    x <- gsub("\\[", "", gsub("\\]", "", x))  
+  }
+  
   if (class(a) == "try-error") { x <- NA }
 
   start <- x
