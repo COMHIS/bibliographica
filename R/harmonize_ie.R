@@ -60,7 +60,6 @@ handle_ie <- function (x) {
 
   y <- x
 
-
   # Handle ie
   if (length(grep("i\\.e", x)) > 0) {
 

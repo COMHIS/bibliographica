@@ -60,8 +60,12 @@ polish_year <- function(x) {
   x <- gsub("]]", "]", x)  
   x <- remove_terms(x, c("active in", "active", "approximately"), "full")
   x <- gsub("^-*", "", gsub("-*$", "", x))
-  x <- gsub("^<*", "", gsub(">$", "", x))  
-  x <- handle_ie(harmonize_ie(x))
+  x <- gsub("^<*", "", gsub(">$", "", x))
+  x <- harmonize_ie(x)
+
+  x <- try(handle_ie(x))
+
+  if (class(a) == "try-error") { x <- NA }
 
   start <- x
   end <- x
