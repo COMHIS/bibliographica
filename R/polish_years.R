@@ -34,6 +34,20 @@ polish_years <- function(x) {
 }
 
 
+
+#' @title polish_year
+#'
+#' @description Pick and polish the year interval (start and end
+#  years) from a time field '
+#' @param x year string 
+#' @return vector with the fields 'from' and 'till'
+#'
+#' 
+#' @author Leo Lahti and Niko Ilomaki \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' 
+#' @examples \dontrun{df <- polish_year(c("1746"))}
+#' @keywords utilities
 polish_year <- function(x) {
 
   if (is.na(x)) {
@@ -46,6 +60,8 @@ polish_year <- function(x) {
   x <- gsub("]]", "]", x)  
   x <- remove_terms(x, c("active in", "active", "approximately"), "full")
   x <- gsub("^-*", "", gsub("-*$", "", x))
+  x <- gsub("^<*", "", gsub(">$", "", x))  
+  x <- handle_ie(harmonize_ie(x))
 
   start <- x
   end <- x
@@ -68,6 +84,12 @@ polish_year <- function(x) {
   # 1768]
   if (length(grep("^[0-9]*\\]", x)) > 0) {
     start <- gsub("\\]","",x)
+    end <- NA
+  }
+
+  # 1768.]
+  if (length(grep("^[0-9]*\\.\\]", x)) > 0) {
+    start <- gsub("\\.\\]","",x)
     end <- NA
   }
 
@@ -184,6 +206,9 @@ polish_year <- function(x) {
 
   if (length(start_year) == 0) {start_year <- NA}
   if (length(end_year) == 0) {end_year <- NA}  
+
+  if (length(start_year) > 1) {start_year <- NA}
+  if (length(end_year) > 1) {end_year <- NA}
 
   c(from = start_year, till = end_year)
 
