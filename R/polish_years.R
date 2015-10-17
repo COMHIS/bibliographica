@@ -130,7 +130,6 @@ polish_year <- function(x) {
   }
 
   # [1727-
-  print(x)
   if (length(grep("^\\[[0-9]*", x)) > 0) {
     start <- gsub("\\[", "", x)
     end <- NA
