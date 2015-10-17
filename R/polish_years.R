@@ -66,7 +66,7 @@ polish_year <- function(x) {
   x <- harmonize_ie(x)
   x <- gsub(" - ", "-", x)
 
-  if (length(grep("-", x))==0) {
+  if (length(grep("-", x))==0 & nchar(gsub("[^0-9]", "", x)) == 4) {
     x <- gsub("[^0-9]", "", x)
   }
 
