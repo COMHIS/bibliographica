@@ -5,7 +5,11 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("1741-1810.")$from, 1741)    
   expect_equal(polish_years("1741-1810.")$till, 1810)
 
+  expect_equal(polish_years("1798. (price one dollar)")$from, 1798)
   expect_equal(polish_years("MDCCLXVIII. [1768]")$from, 1768)
+  expect_equal(polish_years("[1768.]")$from, 1768)
+  expect_equal(polish_years("[-1768]")$till, 1768)    
+  expect_equal(polish_years("MDCCLXVIII. 1768")$from, 1768)
   expect_equal(polish_years("active 1781.")$till, 1781)
   expect_true(is.na(polish_years("-1776.")$from))
   expect_equal(polish_years("-1776.")$till, 1776)
