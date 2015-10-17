@@ -50,6 +50,8 @@ polish_years <- function(x) {
 #' @keywords utilities
 polish_year <- function(x) {
 
+  # TODO: rewrite the function to clarify the logics. See the unit tests.
+
   if (is.na(x)) {
     return(c(from = NA, till = NA))
   }
@@ -58,100 +60,94 @@ polish_year <- function(x) {
   x <- remove_endings(x, "\\.")
   #x <- gsub("^\\[", "", x)
   x <- gsub("]]", "]", x)  
-  x <- remove_terms(x, c("active in", "active", "approximately"), "full")
+  x <- remove_terms(x, c("ca\\.", "c\\.", "anno dom", "a.d", "anno domini", "active in", "active", "approximately"), "full")
   x <- gsub("^-*", "", gsub("-*$", "", x))
   x <- gsub("^<*", "", gsub(">$", "", x))
   x <- harmonize_ie(x)
+  x <- gsub(" - ", "-", x)
+
+  if (length(grep("-", x))==0) {
+    x <- gsub("[^0-9]", "", x)
+  }
 
   x <- try(handle_ie(x))
   if (class(x) == "try-error") { x <- NA }
 
   if (length(grep("\\[[0-9]*\\]", x))>0) {
     x <- gsub("\\[", "", gsub("\\]", "", x))
-  }
-
-  if (length(grep("\\[[0-9]*\\?\\]", x))>0) {
+  } else if (length(grep("\\[[0-9]*\\?\\]", x))>0) {
     x <- gsub("\\[", "", gsub("\\?\\]", "", x))
-  }
-
-  ##[1721-1726]
-  if (length(grep("\\[[0-9]*-[0-9]*\\]", x))>0) {
+  } else if (length(grep("\\[[0-9]*-[0-9]*\\]", x))>0) {
+    ##[1721-1726]  
     x <- gsub("\\[", "", gsub("\\]", "", x))  
   }
   
   start <- x
   end <- x
 
-  # [between 1790 and 1800?]
-  if (length(grep("\\[between [0-9]* and [0-9]*\\?\\]", x))>0 || length(grep("\\[between [0-9]* and [0-9]*\\]", x))>0 || length(grep("between [0-9]* and [0-9]*", x))>0) {
-    spl <- unlist(strsplit(x, " "))
-    start <- spl[[2]]
-    end <- gsub("\\?$", "", gsub("\\]$", "", spl[[4]]))
-  }
-
-  # MDCCLXVIII. [1768]
   if (length(grep("\\[[0-9]*\\]", x)) > 0) {
+    # MDCCLXVIII. [1768]  
     spl <- unlist(strsplit(x, " "))
     if (length(spl) > 1) {spl <- spl[[2]]} else {spl <- spl[[1]]}
     start <- gsub("\\[", "", gsub("\\]", "", spl))
+    end <- NA    
+  } else if (length(grep("^[0-9]*\\.", x)) > 0) {
+    # "1798. (price one dollar)"  
+    start <- unlist(strsplit(x, "\\."))[[1]]
     end <- NA
-  }
-
-  # MDCCLXVIII. 1768
-  if (length(grep("[0-9]*", x)) > 0) {
+  } else if (length(grep("\\[between [0-9]* and [0-9]*\\?\\]", x))>0 || length(grep("\\[between [0-9]* and [0-9]*\\]", x))>0 || length(grep("between [0-9]* and [0-9]*", x))>0) {
+    # [between 1790 and 1800?]  
+    spl <- unlist(strsplit(x, " "))
+    start <- spl[[2]]
+    end <- gsub("\\?$", "", gsub("\\]$", "", spl[[4]]))
+  } else if (length(grep("^\\[[0-9]* or [0-9]*\\]", x)) > 0) {
+    # [1 or 2]  
+    start <- unlist(strsplit(gsub("\\[", "", x), "or"))[[1]]
+    end <- NA    
+  } else if (length(grep("^\\[[0-9]*\\.\\]", x)) > 0) {
+    # [1768.]  
+    start <- gsub("\\[","",gsub("\\.\\]","",x))
+    end <- NA    
+  } else if (length(grep("^\\[ -[0-9]*\\]", x)) > 0) {  
+    # [ -1727]
+    start <- gsub("\\[ -", "", gsub("\\]", "", x))
+    end <- NA
+  } else if (length(grep("^\\[ [0-9]*\\]", x)) > 0) {
+    # [ 1727]
+    start <- gsub("\\[ ", "", gsub("\\]", "", x))
+    end <- NA    
+  } else if (length(grep("^[0-9]*\\]", x)) > 0) {
+    # 1768]  
+    start <- gsub("\\]","",x)
+    end <- NA
+  } else if (length(grep("^[0-9]*\\?\\]", x)) > 0) {
+    # 1768?]  
+    start <- gsub("\\?\\]","",x)
+    end <- NA
+  } else if (length(grep("^[0-9]*\\.\\]", x)) > 0) {
+    # 1768.]  
+    start <- gsub("\\.\\]","",x)
+    end <- NA    
+  } else if (length(grep("*\\[[0-9]*\\]", x)) > 0) {
+    # MDCCLXVIII[1768]  
+    spl <- gsub("\\]", "", unlist(strsplit(x, "\\["))[[2]])
+    start <- spl
+    end <- NA    
+  } else if (length(grep("[0-9]*", x)) > 0) {
+    # MDCCLXVIII. 1768  
     spl <- unlist(strsplit(x, " "))
     if (length(spl) > 1) {spl <- spl[[2]]} else {spl <- spl[[1]]}
     start <- spl
     end <- NA
-  }
-
-  # 1768]
-  if (length(grep("^[0-9]*\\]", x)) > 0) {
-    start <- gsub("\\]","",x)
-    end <- NA
-  }
-
-  # [1768]
-  if (length(grep("^\\[[0-9]*\\]", x)) > 0) {
+  } else if (length(grep("^\\[[0-9]*\\]", x)) > 0) {
+    # [1768]  
     start <- gsub("\\[","",gsub("\\]","",x))
     end <- NA
-  }
-
-  # [1768.]
-  if (length(grep("^\\[[0-9]*\\.\\]", x)) > 0) {
-    start <- gsub("\\[","",gsub("\\.\\]","",x))
-    end <- NA
-  }
-
-  # [ -1727]
-  if (length(grep("^\\[ -[0-9]*\\]", x)) > 0) {
-    start <- gsub("\\[ -","",gsub("\\]","",x))
-    end <- NA
-  }
-
-  # [1727-
-  if (length(grep("^\\[[0-9]*", x)) > 0) {
+  } else if (length(grep("^\\[[0-9]*", x)) > 0) {
+    # [1727-  
     start <- gsub("\\[", "", x)
     end <- NA
   }
-
-  # 1768.]
-  if (length(grep("^[0-9]*\\.\\]", x)) > 0) {
-    start <- gsub("\\.\\]","",x)
-    end <- NA
-  }
-
-  # 1768?]
-  if (length(grep("^[0-9]*\\?\\]", x)) > 0) {
-    start <- gsub("\\?\\]","",x)
-    end <- NA
-  }
-
-  # "1798. (price one dollar)"
-  if (length(grep("^[0-9]*\\.", x)) > 0) {
-    start <- unlist(strsplit(x, "\\."))[[1]]
-    end <- NA
-  }  
 
   start <- gsub("^([0-9]{3,4})\\D[0-9]{3,4}$","\\1",start)
   start <- gsub("^fl. ([0-9]{3,4})\\D[0-9]{3,4}$",NA,start)
@@ -206,7 +202,8 @@ polish_year <- function(x) {
     start[inds] <- sapply(start[inds], function (x) str_trim(unlist(strsplit(x, " or "))[[2]]  ))
   }
 
-  start <- start[!start %in% c("", " ")] 
+  start <- start[!start %in% c("", " ")]
+
   start <- christian2numeric(start) 
   start_year <- as.numeric(start)
 
@@ -272,9 +269,11 @@ polish_year <- function(x) {
 christian2numeric <- function (x) {
 
   x <- str_trim(as.character(x))
-  x <- gsub("anno Dom.", "A.D", x)  
-  x <- gsub("A.D.", "A.D", x)
-  x <- gsub("B.C.", "B.C", x)
+  x <- gsub("anno dom.", "A.D", x)
+  x <- gsub("an. dom.", "A.D", x)  
+  x <- gsub("anno domini", "A.D", x)    
+  x <- gsub("a.d.", "A.D", x)
+  x <- gsub("b.c.", "B.C", x)
 
   inds <- grep("A.D", x)
   if (length(inds) > 0) {

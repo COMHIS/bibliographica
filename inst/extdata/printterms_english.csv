@@ -7,9 +7,6 @@ emprint|print
 enprint|print
 imprint|print
 jmprint|print
-re print|reprint
-re-print|reprint
-e-print|reprint
 prinetd|printed
 printers|printed
 printer|printed
@@ -20,6 +17,9 @@ prented|printed
 prentit|printed
 printit|printed
 printid|printed
+re print|reprint
+re-print|reprint
+e-print|reprint
 - published|printed
 published|printed
 direct\.|printed
@@ -40,18 +40,22 @@ typis|printed
 v editum|printed
 viduae|printed
 viduam|printed
+printed in the year of god|printed in
+in the year of god|printed in
 printed in the yeare|printed
 printed and sold by|printed by
 printed : and sold by|printed by
 printed in the yera|printed in
 printed in the year|printed in
 printed in the yeare|printed in
+printed in the yeere|printed in
 printed only for|printed for
 printed: and sold by|printed by
 printed to the vniversity|printed to
 printed at|printed in
 printed in|printed in
 and sold by|printed by
+in the year|printed in
 ^in |printed in
 ^In |printed in
 ^en |printed in
@@ -60,7 +64,8 @@ and sold by|printed by
 ^Et |printed in
 ^a |printed in
 ^A |printed in
-ca.| 
+ca\\.|
+c\\.| 
 printed ,|printed
 printed,|printed
 printed|printed 
@@ -69,3 +74,6 @@ printed|printed
 \(price a quarter dollar\)|
 Reprinted at Dublin|
 With licence|
+not before|
+not after|
+
