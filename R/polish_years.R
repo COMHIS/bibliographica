@@ -1,3 +1,6 @@
+
+
+
 #' @title polish_years
 #'
 #' @description Pick and polish the year interval (start and end
@@ -8,18 +11,72 @@
 #'
 #' @export
 #' 
-#' @author Niko Ilomaki \email{niko.ilomaki@@helsinki.fi}
+#' @author Leo Lahti and Niko Ilomaki \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
 #' @examples \dontrun{df <- polish_years(c("1746", "1745-1750"))}
 #' @keywords utilities
 polish_years <- function(x) {
 
+  xorig <- x <- as.character(x)
+  x <- remove_print_statements(x)
+
+    tab <- t(sapply(x, function (x) {polish_year(x)}))
+    start_year <- unname(tab[, "from"])
+    end_year <- unname(tab[, "till"])  
+
+    # For now, give end years for all entries for compatibility reasons
+    # TODO: later allow NAs 
+    inds <- which(is.na(end_year))
+    end_year[inds] <- start_year[inds]
+    
+  data.frame(list(original = xorig, from = start_year, till = end_year))
+}
+
+
+polish_year <- function(x) {
+
+  if (is.na(x)) {
+    return(c(from = NA, till = NA))
+  }
+
   xorig <- x
   x <- remove_endings(x, "\\.")
+  #x <- gsub("^\\[", "", x)
+  x <- gsub("]]", "]", x)  
   x <- remove_terms(x, c("active in", "active", "approximately"), "full")
+  x <- gsub("^-*", "", gsub("-*$", "", x))
 
   start <- x
+  end <- x
+
+  # [between 1790 and 1800?]
+  if (length(grep("\\[between [0-9]* and [0-9]*\\?\\]", x))>0 || length(grep("\\[between [0-9]* and [0-9]*\\]", x))>0 || length(grep("between [0-9]* and [0-9]*", x))>0) {
+    spl <- unlist(strsplit(x, " "))
+    start <- spl[[2]]
+    end <- gsub("\\?$", "", gsub("\\]$", "", spl[[4]]))
+  }
+
+  # MDCCLXVIII. [1768]
+  if (length(grep("\\[[0-9]*\\]", x)) > 0) {
+    spl <- unlist(strsplit(x, " "))
+    if (length(spl) > 1) {spl <- spl[[2]]} else {spl <- spl[[1]]}
+    start <- gsub("\\[", "", gsub("\\]", "", spl))
+    end <- NA
+  }
+
+  # 1768]
+  if (length(grep("^[0-9]*\\]", x)) > 0) {
+    start <- gsub("\\]","",x)
+    end <- NA
+  }
+
+  # 1768?]
+  if (length(grep("^[0-9]*\\?\\]", x)) > 0) {
+    start <- gsub("\\?\\]","",x)
+    end <- NA
+  }
+
   start <- gsub("^([0-9]{3,4})\\D[0-9]{3,4}$","\\1",start)
   start <- gsub("^fl. ([0-9]{3,4})\\D[0-9]{3,4}$",NA,start)
   start <- gsub("^n. ([0-9]{4})\\D[0-9]{4}$","\\1",start)
@@ -73,12 +130,11 @@ polish_years <- function(x) {
     start[inds] <- sapply(start[inds], function (x) str_trim(unlist(strsplit(x, " or "))[[2]]  ))
   }
 
+  start <- start[!start %in% c("", " ")] 
   start <- christian2numeric(start) 
   start_year <- as.numeric(start)
 
-  # pitaisi poistaa paallekkäisyydet
-  end <- x
-
+  # remove duplicate handlings
   end <- gsub("^[0-9]{3,4}\\D([0-9]{3,4})$","\\1",end)
   end <- gsub("^fl. [0-9]{3,4}\\D([0-9]{3,4})$",NA,end)
   end <- gsub("^n. [0-9]{4}\\D([0-9]{4})$","\\1",end)
@@ -126,8 +182,10 @@ polish_years <- function(x) {
   end <- christian2numeric(end)   
   end_year <- as.numeric(end)
 
+  if (length(start_year) == 0) {start_year <- NA}
+  if (length(end_year) == 0) {end_year <- NA}  
 
-  data.frame(list(original = xorig, start = start_year, end = end_year))
+  c(from = start_year, till = end_year)
 
 }
 

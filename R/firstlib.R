@@ -1,3 +1,4 @@
+#' @importFrom sorvi condense_spaces
 #' @importFrom stringr str_trim
 #' @import genderdata
 

@@ -39,6 +39,7 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
 
   # Convert to desired format
   tab$original <- as.character(tab$original)
+
   tab$gatherings <- order_gatherings(tab$gatherings)
   tab$width <- suppressWarnings(as.numeric(as.character(tab$width)))
   tab$height <- suppressWarnings(as.numeric(as.character(tab$height)))
