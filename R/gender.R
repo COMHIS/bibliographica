@@ -27,8 +27,8 @@ get_gender <- function (x) {
   g <- gender(first.names.unique)
 
   # Convert to a named vector
-  gen <- sapply(g, function (x) {x$gender})
-  names(gen) <- sapply(g, function (x) {x$name})
+  gen <- g$gender
+  names(gen) <- g$name
   g1 <- gen
 
   # Gender name synonymes
