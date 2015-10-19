@@ -1,0 +1,25 @@
+synonyme	name	comment
+^.*Aleksan.*$	Helsinki	
+^.*Alexan.*$	Helsinki	
+^.*Helsink.*$	Helsinki	
+^.*Helsing.*$	Helsinki	
+^.*Tekn.*$	TKK	
+^.*Bern.*$	Bern	
+^.*Jena.*$	Jena	
+^.*Lund.*$	Lund	
+^.*Upps.*$	Uppsala	
+^.*Ups.*$	Uppsala	
+^.*Leipzig.*$	Leipzig	
+^.*Turk.*$	Turku	
+^.*Basel.*$	Basel	
+^.*Berlin.*$	Berliini	
+^.*Strängnäs.*$	Strängnäs	
+^.*Göteborg.*$	Göteborg	
+^.*Ludwigs.*$	Freiburg	tarkista
+^.*Hannover.*$	Hannover	"Technischen Hochschule Hannover", nykyään Hannoverin yliopisto
+^.*bingen.*$	Tübingen	
+^.*Königsberg.*$	Königsberg	
+^.*rich.*$	Zürich	
+^.*Montpellier.*$	Montpellier	
+^.*Paris.*$	Pariisi	
+^.*Wittenberg.*$	Wittenberg	

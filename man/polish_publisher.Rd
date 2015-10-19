@@ -4,10 +4,12 @@
 \alias{polish_publisher}
 \title{polish_publisher}
 \usage{
-polish_publisher(x)
+polish_publisher(x, synonyms = NULL)
 }
 \arguments{
 \item{x}{publisher field (a vector)}
+
+\item{synonyms}{Synonyme table}
 }
 \value{
 polished publisher field (a vector)
