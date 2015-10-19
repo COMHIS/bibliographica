@@ -36,11 +36,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   xorig.unique <- unique(x)  
   x <- xorig.unique
 
-  # Handle special cases before generic tidy-up
-  # "Boston; New-England :" -> Boston New England
-  x <- gsub("; New-England", " New England", x)
-  x <- gsub("America \\[i.e\\., Boston\\] :", "Boston Ma", x)
-
   if (verbose) {message("Pick first name only")} # Basil;Paris -> Basil
   x <- sapply(strsplit(x, ";"), function (s) {if (length(s) > 0 ) {s[[1]]} else {s}})
 

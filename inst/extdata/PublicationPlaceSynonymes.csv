@@ -68,6 +68,7 @@ Amsterdam;Netherlands
 Amsterdam;Amsteldam
 Amsterdam;Londres Amsterdam
 Amsterdam;amsterdam
+Amsterdam;Amsterodami
 Andover Ma;Andover Ma
 Andover Ma;Andover Mass
 Andover Ma;andover Mass
@@ -194,6 +195,7 @@ Boston Ma;New-England
 Boston Ma;new england
 Boston Ma;America. Boston
 Boston Ma;Boston Masschusetts
+Boston Ma;America \[i\.e\., Boston\]
 Boston Ma;Masschuset Boston
 Boston Ma;Masschusetts
 Boston Ma;Masschusetts Boston
@@ -204,6 +206,7 @@ Boston Ma;Massachusetts State Boston
 Boston Ma;State Massachusetts Bay Boston
 Boston Ma;Boston N England
 Boston Ma;Boston New England
+Boston Ma;Boston\; New-England 
 Boston Ma;Bostoniae Americae
 Boston Ma;Bostonæ Nov Anglorum
 Boston Ma;Boston N E Mass
@@ -1674,6 +1677,12 @@ unknown;S.l. s.n
 unknown;S.n
 unknown;S.l
 unknown;n.l
+Uppsala;Vpsala
+Uppsala;Vppsala
+Uppsala;uppsala
+Uppsala;upsala
+Uppsala;Upsala
+Uppsala;Uppsal
 Utrecht;Utrecht
 Utrecht;utrecht
 Venice;Venice

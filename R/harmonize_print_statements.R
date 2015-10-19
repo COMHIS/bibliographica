@@ -17,21 +17,17 @@ harmonize_print_statements <- function (x) {
 
   ### Get printing terms from tables in various languages
 
-  for (lang in c("finnish", "english", "french", "german", "swedish")) {
+  for (lang in c("finnish", "french", "german", "swedish", "english")) {
 
     f <- system.file(paste0("extdata/printterms_", lang, ".csv"), package = "bibliographica")
     terms <- read.csv(f, sep = "|")
-
-    # Add capitalized versions
-    terms2 <- terms
-    terms2[, "synonyme"] <- capitalize(terms$synonyme)
-    terms <- rbind(terms, terms2)
+    x <- tolower(x)
 
     # Harmonize the terms
-    x <- as.character(harmonize_names(x, terms, mode = "recursive")$name)
+    x <- as.character(harmonize_names(x, terms, mode = "recursive", check.synonymes = FALSE)$name)
+    x <- condense_spaces(x)    
+
   }
-  
-  x <- condense_spaces(x)
 
   list(name = x, original = xorig)
 

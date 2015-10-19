@@ -23,7 +23,7 @@ Pick and polish the year interval (start and end
 \dontrun{df <- polish_years(c("1746", "1745-1750"))}
 }
 \author{
-Niko Ilomaki \email{niko.ilomaki@helsinki.fi}
+Leo Lahti and Niko Ilomaki \email{leo.lahti@iki.fi}
 }
 \references{
 See citation("bibliographica")

@@ -6,6 +6,7 @@
 #'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
+#' @importFrom sorvi condense_spaces
 #' @export
 #' 
 #' @examples harmonize_dimension("fol.")
