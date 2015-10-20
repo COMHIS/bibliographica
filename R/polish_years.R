@@ -69,7 +69,8 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL) {
   
   xorig <- x
   x <- remove_endings(x, "\\.")
-  x <- gsub("]]", "]", x)  
+  x <- gsub("]]", "]", x)
+  x <- gsub("b\\.c\\.", "before christian era", x)
   x <- remove_terms(x, c("ca\\.", "c\\.", "anno dom", "a.d", "anno domini", "active in", "active", "approximately"), "full")
   x <- gsub("^-*", "", gsub("-*$", "", x))
   x <- gsub("^<*", "", gsub(">$", "", x))
@@ -82,6 +83,11 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL) {
 
   x <- try(handle_ie(x))
   if (class(x) == "try-error") { x <- NA }
+
+  inds <- grep(" or ", x)
+  if (length(inds)>0) {
+    x[inds] <- sapply(x[inds], function (x) str_trim(unlist(strsplit(x, " or "))[[2]]  ))
+  }
 
   start <- harmonize_names(x, start_synonyms)$name
   start <- as.character(start)
@@ -174,13 +180,10 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL) {
   }
 
   start <- gsub("\\?$", "", start)
-  start <- gsub("\\?\\.$", "", start)  
-  inds <- grep(" or ", start)
-  if (length(inds)>0) {
-    start[inds] <- sapply(start[inds], function (x) str_trim(unlist(strsplit(x, " or "))[[2]]  ))
-  }
+  start <- gsub("\\?\\.$", "", start)
 
   start <- start[!start %in% c("", " ")]
+
   start <- christian2numeric(start) 
   start_year <- as.numeric(start)
 
@@ -216,6 +219,7 @@ christian2numeric <- function (x) {
   x <- gsub("anno domini", "A.D", x)    
   x <- gsub("a.d.", "A.D", x)
   x <- gsub("b.c.", "B.C", x)
+  x <- gsub("before christian era", "B.C", x)  
 
   inds <- grep("A.D", x)
   if (length(inds) > 0) {
