@@ -20,7 +20,8 @@ order_gatherings <- function (x) {
   x[is.na(x)] <- "NA"
 
   fails <- unlist(setdiff(unique(x), glevels))
-  if (length(fails)>0) { stop(paste("Add", paste(fails, collapse = "/"), "in gatherings levels in order_gatherings function")) }
+  x[x %in% fails] <- "NA"
+  #if (length(fails)>0) { stop(paste("Add", paste(fails, collapse = "/"), "in gatherings levels in order_gatherings function")) }
 
   # Order the levels
   xo <- factor(x, levels = glevels)
