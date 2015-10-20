@@ -4,10 +4,12 @@
 \alias{polish_university}
 \title{polish_university}
 \usage{
-polish_university(x)
+polish_university(x, synonyms = NULL)
 }
 \arguments{
 \item{x}{university field (a vector)}
+
+\item{synonyms}{Synonyme table}
 }
 \value{
 polished university field (a vector)
