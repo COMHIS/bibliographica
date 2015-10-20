@@ -13,32 +13,41 @@
 #' @keywords internal
 harmonize_dimension <- function (x, synonyms = NULL) {
 
+  s <- tolower(as.character(x))
+
+  # Remove brackets
+  s <- gsub("\\(", " ", gsub("\\)", " ", s)) 
+  s <- gsub("\\[", " ", gsub("\\]", " ", s)) 
+  s <- condense_spaces(s)
+
+  for (i in 1:5) {
+    s <- remove_endings(s, c(" ", "\\.", "\\,", "\\;", "\\:", "\\?"))
+  }
+
   if (is.null(synonyms)) {
     f <- system.file("extdata/harmonize_dimensions.csv", package = "bibliographica")
     synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
   } 
 
-  s <- tolower(as.character(x))
+  # 1915
+  inds <- grep("^[0-9]{4}$", s)
+  s[inds] <- NA
 
-  # "1/2."
-  inds <- grep("^1/[0-9]\\.$", s)
-  s[inds] <- gsub("\\.", "to", gsub("1/", "", s[inds]))
+  # 2.o
+  inds <- grep("^[0-9]*\\.o$", s)
+  s[inds] <- paste(substr(s[inds], 1, 1), "to", sep = "")
+
+  # 12top
+  inds <- grep("^[0-9]*top$", s)
+  s[inds] <- gsub("p", "", s[inds])
 
   # "1/2"
   inds <- grep("^1/[0-9]$", s)
   s[inds] <- gsub("1/", "", s[inds])
 
-  # "8"
-  inds <- grep("[0-9]$", s)
+  # "8" & "20"
+  inds <- grep("^[0-9][0-9]?$", s)
   s[inds] <- paste0(s[inds], "to")
-
-  # 8.
-  inds <- grep("^[0-9]+\\.$", s)
-  s[inds] <- gsub("\\.$", "to", s[inds])
-
-  for (i in 1:5) {
-    s <- remove_endings(s, c(" ", "\\.", "\\,", "\\;", "\\:", "\\?"))
-  }
 
   # "16mo in 8's."
   inds <- grep("[0-9]. in [0-9]'s", s)

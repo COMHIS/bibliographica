@@ -30,6 +30,10 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
   suniq <- unique(s)
   match.inds <- match(s, suniq)
 
+  if (verbose) {
+    message(paste("Estimating dimensions:", length(suniq), "unique cases"))    
+  }
+
   tab <- t(sapply(suniq, function (x) {
     polish_dimension(x, synonyms)
     }))
@@ -50,6 +54,9 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
   colnames(tab.final) <- paste0(colnames(tab.original), ".original")
   
   if (fill) {
+    if (verbose) {
+      message("Estimating missing entries")
+    }
     tab.estimated <- augment_dimension_table(tab.original, dimtab = dimtab, verbose = verbose)
     tab.final <- cbind(tab.final, tab.estimated)
   }
@@ -96,9 +103,10 @@ polish_dimension <- function (x, synonyms) {
 
   # Handle long
   long <- FALSE
-  if (length(grep("long", s)) > 0) {
+  if (length(grep("long", s)) > 0 || length(grep("\\+", s)) > 0) {
     long <- TRUE
     s <- gsub("long", "", s)
+    s <- gsub("\\+", "", s)    
   }
 
   # Pick all dimension info
@@ -110,17 +118,20 @@ polish_dimension <- function (x, synonyms) {
   x[x == "NAto"] <- NA  
   if (length(grep("cm", x)) == 0 && length(grep("[0-9]?o", x)) == 0) {
     if (length(x) == 1 && !is.na(x)) {
-      x <- paste(as.numeric(gsub("\\(", "", gsub("\\)", "", x))), "to", sep = "")
+      #x <- suppressWarnings(paste(as.numeric(gsub("\\(", "", gsub("\\)", "", x))), "to", sep = ""))
+      x <- paste(as.numeric(x), "to", sep = "")
     }
   } else {
     # Pick gatherings measures separately
     x <- str_trim(unlist(strsplit(s, " ")))
   }
 
-  hits <- unique(c(grep("[0-9]?o", x), grep("bs", x)))
+  hits <- unique(c(grep("[0-9]+[a-z]o", x), grep("bs", x)))
+
   gatherings <- NA
   if (length(hits) > 0) {
-    x <- gsub("\\(", "", gsub("\\)", "", x[hits]))
+    x <- gsub(";;", "", gsub("\\(", "", gsub("\\)", "", x[hits])))
+
     x <- unique(x)
     if (!length(x) == 1) {
       # Ambiguous gatherings info
@@ -140,6 +151,7 @@ polish_dimension <- function (x, synonyms) {
       }
     }
   }
+
   gatherings <- na.omit(gsub("NAto", "NA", gatherings))
   gatherings <- harmonize_dimension(gatherings)
   if (length(gatherings) == 0) {gatherings <- NA}
@@ -166,7 +178,6 @@ polish_dimension <- function (x, synonyms) {
   gatherings <- unlist(gatherings)
   inds <- grep("^[0-9]+.o, [0-9]+.o$", gatherings)
   gatherings[inds] <- gsub("\\.;", "-", gatherings[inds])
-
 
   # Ambiguous CM information
   x <- unique(str_trim(unlist(strsplit(s, " "))))

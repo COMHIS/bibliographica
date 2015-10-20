@@ -4,7 +4,7 @@ harmonize_pages <- function (x) {
   # In Finnish texts s. is used instead of p.		
   f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
   synonyms <- read.csv(f, sep = "\t")
-  x <- harmonize_names(x, synonyms, mode = "recursive")
+  x <- harmonize_names(x, synonyms, mode = "recursive")$name
 
   # Remove dimension info
   s <- remove_dimension(x)

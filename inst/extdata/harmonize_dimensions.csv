@@ -1,4 +1,6 @@
 synonyme	name
+[0-9]+ half-sheets
+^\?to$
 \([0-9]\?\)	
 2⁰\([0-9]\?\)	2fo
 2fo\([0-9]\?\)	2fo
@@ -10,11 +12,14 @@ horizontal chain lines
 °	°
 ⁰	°
 \?	°
+^\°to$
 '	°
-\?to
 1/
-\([0-9]+ half-sheets\)
-later, 	 
+^o$	
+later,
+oblong	obl. long
+grand papier	long
+grand	long
 vigesimo-quarto	24mo
 trigesimo-segundo	32mo
 quadragesimo-octavo	48mo

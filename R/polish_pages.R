@@ -20,8 +20,27 @@ polish_pages <- function (x, verbose = FALSE) {
 
   # Summary of abbreviations
   # http://ac.bslw.com/community/wiki/index.php5/RDA_4.5
-
   s <- as.character(x)
+  suniq <- unique(s)
+
+  if (verbose) {
+    message(paste("Estimating page counts:", length(suniq), "unique cases"))
+  }
+
+  # Polish unique pages
+  ret <- polish_pages_help(suniq, verbose)
+
+  # Project unique cases back to the original list
+  ret2 <- ret[match(s, suniq),]
+
+  # Return
+  ret2
+}
+
+
+
+
+polish_pages_help <- function (s, verbose) {
 
   # Estimate pages for each document separately via a for loop
   # Vectorization would be faster but we prefer simplicity and modularity here
@@ -54,10 +73,11 @@ polish_pages <- function (x, verbose = FALSE) {
   #print("Total page counts") # Calculate sum of parts
   totp <- as.numeric(sapply(sp, function (x) {sum(as.numeric(na.omit(x)))}))
   totp[totp == 0] <- NA # Set zero page counts to NA
+  totp <- as.numeric(as.character(totp))
+  sp <- as.numeric(as.character(sapply(sp, function (x) {paste(x, sep = " / ")})))
+  raw <- as.character(sapply(raw, function (x) {paste(x, sep = " / ")}))
 
-  # Collapse page counts
-  # sp2 <- sapply(sp, function (s) { paste(s, collapse = ";") })
-  list(estimated.pages = sp, raw.pages = raw, total.pages = totp)
+  data.frame(list(estimated.pages = sp, raw.pages = raw, total.pages = totp))
 
 }
 

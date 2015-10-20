@@ -11,14 +11,10 @@
 #' @keywords internal
 remove_dimension <- function (x) {
 
-  # FIXME: check relationship with remove_dimension_info		 
-
   # Remove commonly used volume formats
   f <- system.file("extdata/remove_dimension.csv", package = "bibliographica")
   terms <- as.character(read.csv(f)[,1])
-  for (term in terms) {
-    x <- gsub(term, " ", x)
-  }
+  x <- remove_terms(x, terms)
   if (is.na(x) || x == "") {x <- NA}
 
   x
