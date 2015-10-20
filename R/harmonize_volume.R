@@ -23,12 +23,6 @@ harmonize_volume <- function (x) {
     s <- gsub(paste(vnam, "\\.$", sep = ""), " v. ", s)
     s <- gsub(paste(vnam, " $", sep = ""), " v. ", s)
 
-    # This may get mixed with romans, hence omitted
-    #s <- gsub(paste(vnam, "$", sep = ""), " v. ", s)
-    #s <- gsub(paste(vnam, "\\.", sep = ""), "v.", s)
-    #s <- gsub(paste(vnam, " ", sep = ""), "v.", s)
-    #s <- gsub(paste(vnam, "", sep = ""), "v.", s)
-
   }
   s <- condense_spaces(s)
 

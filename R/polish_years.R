@@ -1,6 +1,3 @@
-
-
-
 #' @title polish_years
 #'
 #' @description Pick and polish the year interval (start and end
@@ -23,7 +20,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL) {
   xorig <- x <- as.character(x)
   x <- remove_print_statements(x)
 
-    tab <- t(sapply(x, function (x) {polish_year(x)}))
+    tab <- t(sapply(x, function (x) {polish_year(x, start_synonyms = start_synonyms, end_synonyms = end_synonyms)}))
     start_year <- unname(tab[, "from"])
     end_year <- unname(tab[, "till"])  
 
@@ -41,7 +38,9 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL) {
 #'
 #' @description Pick and polish the year interval (start and end
 #  years) from a time field '
-#' @param x year string 
+#' @param x year string
+#' @param start_synonyms Synonyme table for start year
+#' @param end_synonyms Synonyme table for end year
 #' @return vector with the fields 'from' and 'till'
 #'
 #' 
@@ -50,7 +49,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL) {
 #' 
 #' @examples \dontrun{df <- polish_year(c("1746"))}
 #' @keywords utilities
-polish_year <- function(x) {
+polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL) {
 
   # TODO: rewrite the function to clarify the logics. See the unit tests.
 
@@ -58,9 +57,18 @@ polish_year <- function(x) {
     return(c(from = NA, till = NA))
   }
 
+  if (is.null(start_synonyms)) {
+    f <- system.file("extdata/fi_start_years.csv", package = "bibliographica")
+    start_synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
+  }
+
+  if (is.null(end_synonyms)) {
+    f <- system.file("extdata/fi_end_years.csv", package = "bibliographica")
+    end_synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
+  }
+  
   xorig <- x
   x <- remove_endings(x, "\\.")
-  #x <- gsub("^\\[", "", x)
   x <- gsub("]]", "]", x)  
   x <- remove_terms(x, c("ca\\.", "c\\.", "anno dom", "a.d", "anno domini", "active in", "active", "approximately"), "full")
   x <- gsub("^-*", "", gsub("-*$", "", x))
@@ -75,57 +83,11 @@ polish_year <- function(x) {
   x <- try(handle_ie(x))
   if (class(x) == "try-error") { x <- NA }
 
-<<<<<<< HEAD
-  if (is.null(start_synonyms)) {
-    f <- system.file("extdata/fi_start_years.csv", package = "bibliographica")
-    start_synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
-  }
-  
-  #start <- harmonize_names(x, start_synonyms, mode = "recursive")$name
   start <- harmonize_names(x, start_synonyms)$name
   start <- as.character(start)
-  
-  #start <- x
-  #start <- gsub("^([0-9]{3,4})\\D[0-9]{3,4}$","\\1",start)
-  #start <- gsub("^fl. ([0-9]{3,4})\\D[0-9]{3,4}$",NA,start)
-  #start <- gsub("^n. ([0-9]{4})\\D[0-9]{4}$","\\1",start)
-  #start <- gsub("^([0-9]{4})\\Dn. [0-9]{4}$","\\1",start)
-  #start <- gsub("^n. ([0-9]{4})\\Dn. [0-9]{4}$","\\1",start)
-  #start <- gsub("^s. ([0-9]{4})$","\\1",start)
-  #start <- gsub("^s. n. ([0-9]{4})$","\\1",start)
-  #start <- gsub("^k. ([0-9]{4})$",NA,start)
-  #start <- gsub("^d. ([0-9]{4})$",NA,start)
-  #start <- gsub("^k. n. ([0-9]{4})$",NA,start)
-  #start <- gsub("^k. ennen ([0-9]{4})$",NA,start)
-  #start <- gsub("^k. viimeistään ([0-9]{4})$",NA,start)
-  #start <- gsub("^k. ([0-9]{4}) jälkeen$",NA,start)
-  #start <- gsub("^s. n. ([0-9]{4}), k. [0-9]{4}$","\\1",start)
-  #start <- gsub("^s. ([0-9]{4}), k. n. [0-9]{4}$","\\1",start)
-  #start <- gsub("^[0-9]{4}\\Dluku$",NA,start)
-  #start <- gsub("^eli vielä ([0-9]{4})$",NA,start)
-  #start <- gsub("^[0-9]$",NA,start)
-  #start <- gsub("^([0-9]{2,3})\\D[0-9]{2,3} e.Kr$","\\-\\1",start)
-  #start <- gsub("^n. ([0-9]{2,3})\\D[0-9]{2,3} e.Kr$","\\-\\1",start)
-  #start <- gsub("^([0-9]{2,3})\\D[0-9]{2,3} e. Kr$","\\-\\1",start)
-  #start <- gsub("^n. ([0-9]{2,3})\\D[0-9]{2,3} e. Kr$","\\-\\1",start)
-  #start <- gsub("^s. ehkä 1620-luvulla, k. 1694$",NA,start)
-  #start <- gsub("^s. 1630-luvulla, k. 1684$",NA,start)
-  #start <- gsub("^s. 1590-luvulla, k. 1651$",NA,start)
-  #start <- gsub("^k. 1616/1617$",NA,start)
-  #start <- gsub("^n. 20 e.Kr.-40 j.Kr$","-20",start)
-  #start <- gsub("^1600/1700\\-luku$",NA,start)
-  #start <- gsub("^eli 300\\-luvun puolivälissä$",NA,start)
-  #start <- gsub("^300-l. j. Kr$",NA,start)
-  #start <- gsub("^k. 1730-luvulla$",NA,start)
-  #start <- gsub("^k. vähän ennen vuotta 1600$",NA,start)
-  #start <- gsub("^n. 363-425 j.Kr$",NA,start)
-  #start <- gsub("^s. 1678, k. 1695 jälkeen$","1678",start)
-  #start <- gsub("^s. n. 1560, k. ennen 1617$","1560",start)
-  #start <- gsub("^s. viim. 1638, k. 1681$",NA,start)
-  #start <- gsub("^toiminta\\-aika 1770\\-luku$",NA,start)
 
   spl <- strsplit(as.character(start), "-")
-=======
+
   if (length(grep("\\[[0-9]*\\]", x))>0) {
     x <- gsub("\\[", "", gsub("\\]", "", x))
   } else if (length(grep("\\[[0-9]*\\?\\]", x))>0) {
@@ -134,7 +96,7 @@ polish_year <- function(x) {
     ##[1721-1726]  
     x <- gsub("\\[", "", gsub("\\]", "", x))  
   }
-  
+
   start <- x
   end <- x
 
@@ -202,46 +164,8 @@ polish_year <- function(x) {
     end <- NA
   }
 
-  start <- gsub("^([0-9]{3,4})\\D[0-9]{3,4}$","\\1",start)
-  start <- gsub("^fl. ([0-9]{3,4})\\D[0-9]{3,4}$",NA,start)
-  start <- gsub("^n. ([0-9]{4})\\D[0-9]{4}$","\\1",start)
-  start <- gsub("^([0-9]{4})\\Dn. [0-9]{4}$","\\1",start)
-  start <- gsub("^n. ([0-9]{4})\\Dn. [0-9]{4}$","\\1",start)
-  start <- gsub("^s. ([0-9]{4})$","\\1",start)
-  start <- gsub("^s. n. ([0-9]{4})$","\\1",start)
-  start <- gsub("^k. ([0-9]{4})$",NA,start)
-  start <- gsub("^d. ([0-9]{4})$",NA,start)
-  start <- gsub("^k. n. ([0-9]{4})$",NA,start)
-  start <- gsub("^k. ennen ([0-9]{4})$",NA,start)
-  start <- gsub("^k. viimeistään ([0-9]{4})$",NA,start)
-  start <- gsub("^k. ([0-9]{4}) jälkeen$",NA,start)
-  start <- gsub("^s. n. ([0-9]{4}), k. [0-9]{4}$","\\1",start)
-  start <- gsub("^s. ([0-9]{4}), k. n. [0-9]{4}$","\\1",start)
-  start <- gsub("^[0-9]{4}\\Dluku$",NA,start)
-  start <- gsub("^eli vielä ([0-9]{4})$",NA,start)
-  start <- gsub("^[0-9]$",NA,start)
-  start <- gsub("^([0-9]{2,3})\\D[0-9]{2,3} e.Kr$","\\-\\1",start)
-  start <- gsub("^n. ([0-9]{2,3})\\D[0-9]{2,3} e.Kr$","\\-\\1",start)
-  start <- gsub("^([0-9]{2,3})\\D[0-9]{2,3} e. Kr$","\\-\\1",start)
-  start <- gsub("^n. ([0-9]{2,3})\\D[0-9]{2,3} e. Kr$","\\-\\1",start)
-  start <- gsub("^s. ehkä 1620-luvulla, k. 1694$",NA,start)
-  start <- gsub("^s. 1630-luvulla, k. 1684$",NA,start)
-  start <- gsub("^s. 1590-luvulla, k. 1651$",NA,start)
-  start <- gsub("^k. 1616/1617$",NA,start)
-  start <- gsub("^n. 20 e.Kr.-40 j.Kr$","-20",start)
-  start <- gsub("^1600/1700\\-luku$",NA,start)
-  start <- gsub("^eli 300\\-luvun puolivälissä$",NA,start)
-  start <- gsub("^300-l. j. Kr$",NA,start)
-  start <- gsub("^k. 1730-luvulla$",NA,start)
-  start <- gsub("^k. vähän ennen vuotta 1600$",NA,start)
-  start <- gsub("^n. 363-425 j.Kr$",NA,start)
-  start <- gsub("^s. 1678, k. 1695 jälkeen$","1678",start)
-  start <- gsub("^s. n. 1560, k. ennen 1617$","1560",start)
-  start <- gsub("^s. viim. 1638, k. 1681$",NA,start)
-  start <- gsub("^toiminta\\-aika 1770\\-luku$",NA,start)
-
   spl <- strsplit(start, "-")
->>>>>>> origin/master
+
   start <- sapply(spl, function (x) {if (length(x) >= 1) {x[[1]]}})
 
   inds <- grep("^-", start)
@@ -257,99 +181,12 @@ polish_year <- function(x) {
   }
 
   start <- start[!start %in% c("", " ")]
-
   start <- christian2numeric(start) 
   start_year <- as.numeric(start)
 
-<<<<<<< HEAD
-# pitaisi poistaa paallekkäisyydet
-  end <- x
-
-  
-  if (is.null(end_synonyms)) {
-    f <- system.file("extdata/fi_end_years.csv", package = "bibliographica")
-    end_synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
-  }
-  
+  end <- x  
   end <- harmonize_names(x, end_synonyms)$name
   end <- as.character(end)
-  #end <- gsub("^[0-9]{3,4}\\D([0-9]{3,4})$","\\1",end)
-  #end <- gsub("^fl. [0-9]{3,4}\\D([0-9]{3,4})$",NA,end)
-  #end <- gsub("^n. [0-9]{4}\\D([0-9]{4})$","\\1",end)
-  #end <- gsub("^[0-9]{4}\\Dn. ([0-9]{4})$","\\1",end)
-  #end <- gsub("^n. [0-9]{4}\\Dn. ([0-9]{4})$","\\1",end)
-  #end <- gsub("^s. ([0-9]{4})$",NA,end)
-  #end <- gsub("^s. n. ([0-9]{4})$",NA,end)
-  #end <- gsub("^k. ([0-9]{4})$","\\1",end)
-  #end <- gsub("^d. ([0-9]{4})$","\\1",end)
-  #end <- gsub("^k. n. ([0-9]{4})$","\\1",end)
-  #end <- gsub("^k. ennen ([0-9]{4})$",NA,end)
-  #end <- gsub("^k. viimeistään ([0-9]{4})$",NA,end)
-  #end <- gsub("^k. ([0-9]{4}) jälkeen$",NA,end)
-  #end <- gsub("^s. n. [0-9]{4}, k. ([0-9]{4})$","\\1",end)
-  #end <- gsub("^s. [0-9]{4}, k. n. ([0-9]{4})$","\\1",end)
-  #end <- gsub("^[0-9]{4}\\Dluku$",NA,end)
-  #end <- gsub("^eli vielä ([0-9]{4})$",NA,end)
-  #end <- gsub("^[0-9]$",NA,end)
-  #end <- gsub("^[0-9]{2,3}\\D([0-9]{2,3}) e.Kr$","\\-\\1",end)
-  #end <- gsub("^n. [0-9]{2,3}\\D([0-9]{2,3}) e.Kr$","\\-\\1",end)
-  #end <- gsub("^[0-9]{2,3}\\D([0-9]{2,3}) e. Kr$","\\-\\1",end)
-  #end <- gsub("^n. [0-9]{2,3}\\D([0-9]{2,3}) e. Kr$","\\-\\1",end)
-  #end <- gsub("^s. ehkä 1620-luvulla, k. 1694$","1694",end)
-  #end <- gsub("^s. 1630-luvulla, k. 1684$","1684",end)
-  #end <- gsub("^s. 1590-luvulla, k. 1651$","1651",end)
-  #end <- gsub("^k. 1616/1617$","1616",end)
-  #end <- gsub("^n. 20 e.Kr.-40 j.Kr$","40",end)
-  #end <- gsub("^1600/1700\\-luku$",NA,end)
-  #end <- gsub("^eli 300\\-luvun puolivälissä$",NA,end)
-  #end <- gsub("^300-l. j. Kr$",NA,end)
-  #end <- gsub("^k. 1730-luvulla$",NA,end)
-  #end <- gsub("^k. vähän ennen vuotta 1600$",NA,end)
-  #end <- gsub("^n. 363-425 j.Kr$",NA,end)
-  #end <- gsub("^s. 1678, k. 1695 jälkeen$",NA,end)
-  #end <- gsub("^s. n. 1560, k. ennen 1617$",NA,end)
-  #end <- gsub("^s. viim. 1638, k. 1681$","1681",end)
-  #end <- gsub("^toiminta\\-aika 1770\\-luku$",NA,end)
-=======
-  # remove duplicate handlings
-  end <- gsub("^[0-9]{3,4}\\D([0-9]{3,4})$","\\1",end)
-  end <- gsub("^fl. [0-9]{3,4}\\D([0-9]{3,4})$",NA,end)
-  end <- gsub("^n. [0-9]{4}\\D([0-9]{4})$","\\1",end)
-  end <- gsub("^[0-9]{4}\\Dn. ([0-9]{4})$","\\1",end)
-  end <- gsub("^n. [0-9]{4}\\Dn. ([0-9]{4})$","\\1",end)
-  end <- gsub("^s. ([0-9]{4})$",NA,end)
-  end <- gsub("^s. n. ([0-9]{4})$",NA,end)
-  end <- gsub("^k. ([0-9]{4})$","\\1",end)
-  end <- gsub("^d. ([0-9]{4})$","\\1",end)
-  end <- gsub("^k. n. ([0-9]{4})$","\\1",end)
-  end <- gsub("^k. ennen ([0-9]{4})$",NA,end)
-  end <- gsub("^k. viimeistään ([0-9]{4})$",NA,end)
-  end <- gsub("^k. ([0-9]{4}) jälkeen$",NA,end)
-  end <- gsub("^s. n. [0-9]{4}, k. ([0-9]{4})$","\\1",end)
-  end <- gsub("^s. [0-9]{4}, k. n. ([0-9]{4})$","\\1",end)
-  end <- gsub("^[0-9]{4}\\Dluku$",NA,end)
-  end <- gsub("^eli vielä ([0-9]{4})$",NA,end)
-  end <- gsub("^[0-9]$",NA,end)
-  end <- gsub("^[0-9]{2,3}\\D([0-9]{2,3}) e.Kr$","\\-\\1",end)
-  end <- gsub("^n. [0-9]{2,3}\\D([0-9]{2,3}) e.Kr$","\\-\\1",end)
-  end <- gsub("^[0-9]{2,3}\\D([0-9]{2,3}) e. Kr$","\\-\\1",end)
-  end <- gsub("^n. [0-9]{2,3}\\D([0-9]{2,3}) e. Kr$","\\-\\1",end)
-  end <- gsub("^s. ehkä 1620-luvulla, k. 1694$","1694",end)
-  end <- gsub("^s. 1630-luvulla, k. 1684$","1684",end)
-  end <- gsub("^s. 1590-luvulla, k. 1651$","1651",end)
-  end <- gsub("^k. 1616/1617$","1616",end)
-  end <- gsub("^n. 20 e.Kr.-40 j.Kr$","40",end)
-  end <- gsub("^1600/1700\\-luku$",NA,end)
-  end <- gsub("^eli 300\\-luvun puolivälissä$",NA,end)
-  end <- gsub("^300-l. j. Kr$",NA,end)
-  end <- gsub("^k. 1730-luvulla$",NA,end)
-  end <- gsub("^k. vähän ennen vuotta 1600$",NA,end)
-  end <- gsub("^n. 363-425 j.Kr$",NA,end)
-  end <- gsub("^s. 1678, k. 1695 jälkeen$",NA,end)
-  end <- gsub("^s. n. 1560, k. ennen 1617$",NA,end)
-  end <- gsub("^s. viim. 1638, k. 1681$","1681",end)
-  end <- gsub("^toiminta\\-aika 1770\\-luku$",NA,end)
->>>>>>> origin/master
 
   inds <- grep("-", end)
   if (length(inds)>0) {

@@ -74,6 +74,7 @@ polish_pages_help <- function (s, verbose) {
   totp <- as.numeric(sapply(sp, function (x) {sum(as.numeric(na.omit(x)))}))
   totp[totp == 0] <- NA # Set zero page counts to NA
   totp <- as.numeric(as.character(totp))
+  
   sp <- as.numeric(as.character(sapply(sp, function (x) {paste(x, sep = " / ")})))
   raw <- as.character(sapply(raw, function (x) {paste(x, sep = " / ")}))
 

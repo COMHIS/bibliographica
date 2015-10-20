@@ -71,7 +71,6 @@ remove_volume_info <- function (x) {
   s <- gsub("vols\\.", "v.", s)
   s <- gsub("vol\\.", "v.", s)
 
-
   # 2 v ; -> 2v.
   s <- gsub("^[0-9] v ", " ", s)
   s <- gsub("^[0-9]v ", " ", s)
@@ -101,6 +100,10 @@ remove_volume_info <- function (x) {
     s <- gsub(paste("^[0-9]", vnam, "$", sep = ""), " ", s)
 
   }
+
+  # "8p. 21cm. (8vo)"
+  s <- gsub("\\([0-9]{1,2}.o\\)" , "", s)
+  s <- gsub("[0-9]*cm" , "", s)  
 
   s <- gsub("\\( \\)", " ", s)
   s <- str_trim(s)

@@ -115,6 +115,10 @@ trimming <- function (x, n = 1){
 #' @keywords utilities
 remove_trailing_periods <- function (x){ 
 
+  if (is.na(x)) {
+    return(x)
+  }
+
   xold <- x; xold[[1]] <- "XXXXXX"
   while (!mean(na.omit(xold == x)) == 1) {
     xold <- x
