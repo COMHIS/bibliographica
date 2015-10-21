@@ -15,8 +15,7 @@
 polish_publisher <- function(x, synonyms=NULL) {
   
   if (is.null(synonyms)) {
-    f <- system.file("extdata/fi_end_years.csv", package = "bibliographica")
-    #f <- "C:\\Users\\Hege\\Documents\\GitHub\\bibliographica\\inst\\extdata\\publisher.csv"
+    f <- system.file("extdata/publisher.csv", package = "bibliographica")
     synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
   }
   
