@@ -170,7 +170,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL) {
     end <- NA
   }
 
-  spl <- strsplit(start, "-")
+  spl <- strsplit(as.character(start), "-")
 
   start <- sapply(spl, function (x) {if (length(x) >= 1) {x[[1]]}})
 
