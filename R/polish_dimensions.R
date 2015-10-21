@@ -43,7 +43,6 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
 
   # Convert to desired format
   tab$original <- as.character(tab$original)
-
   tab$gatherings <- order_gatherings(tab$gatherings)
   tab$width <- suppressWarnings(as.numeric(as.character(tab$width)))
   tab$height <- suppressWarnings(as.numeric(as.character(tab$height)))
@@ -57,6 +56,7 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
     if (verbose) {
       message("Estimating missing entries")
     }
+
     tab.estimated <- augment_dimension_table(tab.original, dimtab = dimtab, verbose = verbose)
     tab.final <- cbind(tab.final, tab.estimated)
   }
@@ -194,6 +194,7 @@ polish_dimension <- function (x, synonyms) {
       height <- as.numeric(str_trim(gsub("\\)", "", x[i+1])))
       width <- as.numeric(str_trim(gsub("\\(", "", x[i-1])))
   } 
+
 
   # Pick CM format (single value) separately when it is unambiguous
   if (length(grep("cm", x)) > 0 && length(grep("x", x)) == 0) {

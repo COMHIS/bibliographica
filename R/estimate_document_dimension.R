@@ -1,5 +1,4 @@
-#' @title estimate_document_dimensions
-#' @description Estimate missing dimension information 
+#' Estimate missing dimension information 
 #'
 #' @param gatherings Available gatherings information
 #' @param height Available height information
@@ -10,15 +9,28 @@
 #' @return Augmented dimension information
 #'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
+#' @references See citation("bibliographica")
 #' 
 #' @examples # estimate_document_dimensions(gatherings = 2, height = 44)
 #' @keywords utilities
 estimate_document_dimensions <- function (gatherings = NA, height = NA, width = NA, dimension.table = NULL, sheet.dimension.table = NULL) {
 
+  if (is.null(gatherings)) { gatherings <- NA }
+  if (is.null(height)) { height <- NA }
+  if (is.null(width))  { width <- NA }
+
+  if (is.na(width)) {width <- NA}
+  if (is.na(height)) {height <- NA}
+  if (is.na(gatherings)) {gatherings <- NA}
+
   # Ensure the inputs are of right format		     
   gatherings <- as.character(gatherings)
+  width <- as.numeric(as.character(width))
+  height <- as.numeric(as.character(height)  )
+
   if (length(grep("NA", gatherings)) > 0) { gatherings <- NA }
+  if (length(grep("NA", width)) > 0)  { width <- NA }
+  if (length(grep("NA", height)) > 0) { height <- NA }
 
   if (all(is.na(c(gatherings, height, width)))) {
     return(list(gatherings = gatherings, height = height, width = width))
@@ -70,11 +82,10 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
 
     # Only height given
     # pick the closest matches from the table
-
     hh <- abs(as.numeric(as.character(dimension.table$height)) - height)
     ind <- which(hh == min(hh))
     width <- as.numeric(as.character(dimension.table[ind, "NA"]))
-    
+
     # if multiple hits, pick the closest
     width <- mean(width, na.rm = TRUE)
     
@@ -94,8 +105,10 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
     # width and height given; estimate gatherings
     # The closest matched for height
     hs <- as.numeric(as.character(dimension.table$height))
+
     hdif <- abs(hs - height)
     inds <- which(hdif == min(hdif))
+
     # corresponding widths
     ws <- dimension.table[inds, ]
     ginds <- c()
@@ -104,6 +117,7 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
       ginds <- c(ginds, setdiff(which(d == min(na.omit(d))), 1:2))
     }
     gs <- unique(colnames(dimension.table)[unique(ginds)])
+
     # If gatherings is uniquely determined
     if (length(gs) == 1) {
       gatherings <- gs
@@ -112,9 +126,11 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
     }
   } else if (!is.na(width) && is.na(height) && is.na(gatherings)) {
     # Only width given
-    height <- as.numeric(as.character(dimension.table[dimension.table[, "NA"] == width, "height"]))
+    height <- as.numeric(dimension.table[which.min(abs(as.numeric(dimension.table[, "NA"]) - as.numeric(width))), "NA"])
+    
     # If multiple heights match, then use average
     height <- mean(height, na.rm = TRUE)
+
     # Estimate gatherings
     gatherings <- estimate_document_dimensions(gatherings = NA, height = height, width = width, dimension.table = dimension.table)$gatherings
   }
@@ -123,7 +139,13 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
   if (length(height) == 0) {height <- NA}
   if (length(gatherings) == 0) {gatherings <- NA}
 
-  list(gatherings = gatherings, height = height, width = width)
+  if (is.na(width)) {width <- NA}
+  if (is.na(height)) {height <- NA}
+  if (is.na(gatherings)) {gatherings <- NA}
+
+  list(gatherings = gatherings,
+       height = as.numeric(height),
+       width = as.numeric(width))
 }
 
 

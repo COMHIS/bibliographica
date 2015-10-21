@@ -2,7 +2,7 @@
 % Please edit documentation in R/estimate_document_dimension.R
 \name{estimate_document_dimensions}
 \alias{estimate_document_dimensions}
-\title{estimate_document_dimensions}
+\title{Estimate missing dimension information}
 \usage{
 estimate_document_dimensions(gatherings = NA, height = NA, width = NA,
   dimension.table = NULL, sheet.dimension.table = NULL)
@@ -32,7 +32,7 @@ Estimate missing dimension information
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("estc")
+See citation("bibliographica")
 }
 \keyword{utilities}
 

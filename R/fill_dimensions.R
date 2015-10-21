@@ -25,10 +25,9 @@ fill_dimensions <- function (x, dimension.table) {
     if (!g %in% colnames(dimension.table) && !is.na(g)) {
       warning(paste("gatherings ", g, " not available in dimension.table"))
     }
-    
-    # Estimate document widths and heights from conversion table when not available
 
     e <- estimate_document_dimensions(gatherings = g, height = h, width = w, dimension.table)
+
     w <- e$width
     h <- e$height
     g <- e$gatherings
