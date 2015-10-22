@@ -15,8 +15,9 @@ horizontal chain lines
 ^\°to$
 '	°
 1/
-^o$	
+^o$
 later,
+poikittais-	obl. 
 oblong	obl. long
 grand papier	long
 grand	long
@@ -59,41 +60,41 @@ octodecimo	18mo
 2to	2fo
 fol\.	2fo
 fol 	2fo
-1to	1to
-1:o	1to
 64°	64mo
 64:o	64mo
-^64.$	64mo
+^64\.$	64mo
 48°	48mo
 48:o	48mo
-^48.$	48mo
+^48\.$	48mo
 32°	32mo
 32:o	32mo
-^32.$	32mo
+^32\.$	32mo
 24°	24mo
 24:o	24mo
-^24.$	24mo
+^24\.$	24mo
 18°	18mo
 18:o	18mo
-^18.$	18mo
+^18\.$	18mo
 16°	16mo
 16:o	16mo
-^16.$	16mo
+^16\.$	16mo
 12°	12mo
 12:o	12mo
-^12.$	12mo
+^12\.$	12mo
 8°	8vo
 8:o	8vo
-^8.$	8vo
+^8\.$	8vo
 4°	4to
 4:o	4to
-^4.$	4to
+^4\.$	4to
 2°	2fo
 2:o	2fo
-^2.$	2fo
+^2\.$	2fo
 1°	1to
-^1.$	1to
+^1\.$	1to
 ^to$	NA
+1to	1to
+1:o	1to
 NAto	NA
 vos	vo
 tos	to
@@ -101,7 +102,7 @@ mos	mo
 to\?	to
 vo\?	vo
 mo\?	mo
-2fo-obl. 2fo	2fo
+2fo-obl\. 2fo	2fo
 \(\?\)
 ^na$	NA
 o°$	o

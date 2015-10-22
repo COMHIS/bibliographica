@@ -12,8 +12,6 @@
 #' @keywords internal
 polish_page <- function (x) {
 
-print(x)
-
   # Convert to string 	    	    
   s <- as.character(x)
 

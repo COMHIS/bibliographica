@@ -25,20 +25,14 @@ augment_dimension_table <- function (dimension.table, dimtab = NULL, verbose = F
     dimtab <- dimension_table()
   }
 
-  # Return to this after the debug
   tmp <- apply(dimension.table, 1, function (x) {fill_dimensions(x, dimtab)})
-  #tmp <- NULL
-  #for (i in 1:nrow(dimension.table)) {
-  #  x <- dimension.table[i,]
-  #  print(x)
-  #  tmp <- rbind(tmp, fill_dimensions(x, dimtab))
-  #}
   
   dimension.table <- as.data.frame(t(tmp))
   dimension.table$original <- as.character(dimension.table$original)
   dimension.table$width <- as.numeric(as.character(dimension.table$width))
   dimension.table$height <- as.numeric(as.character(dimension.table$height))
   dimension.table$gatherings <- order_gatherings(dimension.table$gatherings)
+  dimension.table$obl <- as.numeric(dimension.table$obl.original)
 
   # print("Add area (width x height)")
   dimension.table <- mutate(dimension.table, area = width * height)

@@ -18,6 +18,9 @@
 polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, synonyms = NULL) {
 
  # fill = FALSE; dimtab = NULL
+ # fs <- list.files("~/proj/2014-Aatelouhinta/bibliographica/R", full.names = T, pattern = ".R$")
+ # for (f in fs) {source(f)}
+ # x <- d; fill = FALSE; dimtab = NULL; verbose = FALSE; synonyms = NULL
 
   s <- as.character(x)
 
@@ -96,8 +99,8 @@ polish_dimension <- function (x, synonyms) {
 
   # Obl: height < width
   obl <- FALSE
-  if (length(grep("obl.", s))) {
-    s <- gsub("obl.", "", s)
+  if (length(grep("obl", s))) {
+    s <- gsub("obl", "", s)
     obl <- TRUE
   }
 
@@ -106,11 +109,12 @@ polish_dimension <- function (x, synonyms) {
   if (length(grep("long", s)) > 0 || length(grep("\\+", s)) > 0) {
     long <- TRUE
     s <- gsub("long", "", s)
-    s <- gsub("\\+", "", s)    
+    s <- gsub("\\+", "", s)
   }
 
   # Pick all dimension info
   vol <- width <- height <- NA
+  s <- condense_spaces(s)
 
   # No units given. Assume the number refers to the gatherings (not cm)
   x <- unique(str_trim(unlist(strsplit(s, " "))))
@@ -217,7 +221,7 @@ polish_dimension <- function (x, synonyms) {
 
   # Return
   list(original = sorig, gatherings = gatherings,
-       width = width, height = height)
+       width = width, height = height, obl = obl)
 
 }
 

@@ -14,7 +14,7 @@
 #' @keywords utilities
 order_gatherings <- function (x) {
 
-  glevels <- c("1to", "bs", "2long", "2fo", "2small", "4long", "4to", "4small", "8long", "8vo", "8small", "12long", "12mo", "16molong", "16mo", "18mo", "20to", "24long", "24mo", "32mo", "40to", "48mo", "64mo", "84to", "NA")
+  glevels <- c("1to", "bs", "2long", "2fo", "2small", "4long", "4to", "4small", "8long", "8vo", "8small", "12long", "12mo", "16long", "16mo", "18mo", "20to", "21to", "24long", "24mo", "32mo", "40to", "48mo", "64mo", "84to", "NA")
 
   x <- as.character(x)
   x[is.na(x)] <- "NA"

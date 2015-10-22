@@ -20,6 +20,10 @@ harmonize_dimension <- function (x, synonyms = NULL) {
   s <- gsub("\\[", " ", gsub("\\]", " ", s)) 
   s <- condense_spaces(s)
 
+  # Remove spaces
+  s <- gsub(" \\:o", ":o", s)
+  s <- gsub(" \\:0", ":0", s)  
+
   for (i in 1:5) {
     s <- remove_endings(s, c(" ", "\\.", "\\,", "\\;", "\\:", "\\?"))
   }
@@ -35,7 +39,15 @@ harmonize_dimension <- function (x, synonyms = NULL) {
 
   # 2.o
   inds <- grep("^[0-9]*\\.o$", s)
-  s[inds] <- paste(substr(s[inds], 1, 1), "to", sep = "")
+  s[inds] <- gsub("\\.o", "to", s[inds])
+
+  # 4o
+  inds <- grep("^[0-9]*o$", s)
+  s[inds] <- gsub("o$", "to", s[inds])
+
+  # 2:0
+  inds <- grep("\\:0", s)
+  s[inds] <- gsub("\\:0", "to", s[inds])
 
   # 12top
   inds <- grep("^[0-9]*top$", s)
