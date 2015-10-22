@@ -20,22 +20,7 @@ polish_publisher <- function(x, synonyms=NULL) {
   }
   
   x <- harmonize_names(x, synonyms)
-  
-  #x <- gsub("typis ","",x)
-  #x <- gsub("impress. ","",x)
-  #x <- gsub("viduam ","",x)
-  #x <- gsub("viduae ","",x)
-  #x <- gsub("impr.","",x)
-  #x <- gsub("excud. ","",x)
-  #x <- gsub("exc.","",x)
-  #x <- gsub("tryckt af ","",x)
-  #x <- gsub("tryckt hos ","",x)
-  #x <- gsub("direct. ","",x)
-  #x <- gsub("mebat ","",x)
-  #x <- gsub("prändätty ","",x)
-  #x <- gsub("tryckt i ","",x)
-  #x <- gsub("^s.n$",NA,x)
-  #x <- gsub("^s. n$",NA,x)
 
   x
+
 }
