@@ -106,7 +106,17 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL) {
   start <- x
   end <- x
 
-  if (length(grep("\\[[0-9]*\\]", x)) > 0) {
+  # A couple of quick exits for the impatient
+  if (length(grep("^[0-9]{4}$", x)) > 0) {
+    start <- gsub("^([0-9]+)$", "\\1", x)
+    end <- NA
+    return (c(from=as.numeric(start), till=end))
+  } else if (length(grep("^[0-9]{4}[-][0-9]{4}$", x)) > 0) {
+    start <- gsub("^([0-9]{4}).*", "\\1", x)
+    end <- gsub(".*([0-9]{4})$", "\\1", x)
+    return (c(from=as.numeric(start), till=as.numeric(end)))
+    
+  } else if (length(grep("\\[[0-9]*\\]", x)) > 0) {
     # MDCCLXVIII. [1768]  
     spl <- unlist(strsplit(x, " "))
     if (length(spl) > 1) {spl <- spl[[2]]} else {spl <- spl[[1]]}
