@@ -14,6 +14,7 @@
 remove_volume_info <- function (x) {
 
   s <- as.character(x)
+  s <- remove_trailing_periods(s)  
 
   # Harmonize volume info first
   s <- harmonize_volume(s)

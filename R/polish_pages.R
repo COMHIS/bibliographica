@@ -54,6 +54,7 @@ polish_pages_help <- function (s, verbose) {
     }
 
     # Catch warnings rather than crashing the loop
+
     a <- try(pp <- polish_page(s[[i]]))
 
     # Save both raw and polished version 
