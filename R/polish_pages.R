@@ -49,7 +49,7 @@ polish_pages_help <- function (s, verbose) {
   for (i in 1:length(s)) {
 
     if (verbose) { 
-      if (ceiling(i/500) == floor(i/500)) {message(i)}
+      if (ceiling(i/500) == floor(i/500)) {message(paste(round(100*i/length(s))), "%")}
       # {message(i)}
     }
 

@@ -3,6 +3,7 @@
 #' @param gatherings Available gatherings information
 #' @param height Available height information
 #' @param width Available width information
+#' @param obl Indicates height smaller than width 
 #' @param dimension.table Document dimension table (from dimension_table())
 #' @param sheet.dimension.table Table to estimate sheet area. 
 #' 	  If not given, the table given by sheet_sizes() is used by default.
@@ -13,7 +14,7 @@
 #' 
 #' @examples # estimate_document_dimensions(gatherings = 2, height = 44)
 #' @keywords utilities
-estimate_document_dimensions <- function (gatherings = NA, height = NA, width = NA, dimension.table = NULL, sheet.dimension.table = NULL) {
+estimate_document_dimensions <- function (gatherings = NA, height = NA, width = NA, obl = NULL, dimension.table = NULL, sheet.dimension.table = NULL) {
 
   if (is.null(gatherings)) { gatherings <- NA }
   if (is.null(height)) { height <- NA }
@@ -143,9 +144,32 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
   if (is.na(height)) {height <- NA}
   if (is.na(gatherings)) {gatherings <- NA}
 
+  height <- as.numeric(height)
+  width <- as.numeric(width)
+
+  # In obl width > height
+  if (!is.null(obl)) {
+    hw <- cbind(height = height, width = width)
+    inds <- 1
+    
+    if (length(obl) > 1) {
+      inds <- which(obl)
+    }
+
+    for (i in inds) {
+      xx <- hw[i, ]
+      if (sum(is.na(xx)) == 0) {
+        hw[i, ] <- sort(xx)
+      }
+    }
+    height <- hw[, "height"]
+    width <- hw[, "width"]     
+  }
+
   list(gatherings = gatherings,
-       height = as.numeric(height),
-       width = as.numeric(width))
+       height = height,
+       width = width,
+       obl = obl)
 }
 
 

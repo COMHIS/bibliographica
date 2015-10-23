@@ -5,7 +5,7 @@
 \title{Estimate missing dimension information}
 \usage{
 estimate_document_dimensions(gatherings = NA, height = NA, width = NA,
-  dimension.table = NULL, sheet.dimension.table = NULL)
+  obl = NULL, dimension.table = NULL, sheet.dimension.table = NULL)
 }
 \arguments{
 \item{gatherings}{Available gatherings information}
@@ -13,6 +13,8 @@ estimate_document_dimensions(gatherings = NA, height = NA, width = NA,
 \item{height}{Available height information}
 
 \item{width}{Available width information}
+
+\item{obl}{Indicates height smaller than width}
 
 \item{dimension.table}{Document dimension table (from dimension_table())}
 

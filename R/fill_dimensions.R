@@ -21,18 +21,19 @@ fill_dimensions <- function (x, dimension.table) {
     w <- as.numeric(as.character(x[["width"]]))
     g <- as.character(x[["gatherings"]])
     o <- x[["original"]]
+    obl <- x[["obl"]] 
 
     if (!g %in% colnames(dimension.table) && !is.na(g)) {
       warning(paste("gatherings ", g, " not available in dimension.table"))
     }
 
-    e <- estimate_document_dimensions(gatherings = g, height = h, width = w, dimension.table)
+    e <- estimate_document_dimensions(gatherings = g, height = h, width = w, obl = obl, dimension.table)
 
     w <- e$width
     h <- e$height
     g <- e$gatherings
 
-    c(original = o, gatherings = g, width = w, height = h)
+    c(original = o, gatherings = g, width = w, height = h, obl = obl)
 
 }
 

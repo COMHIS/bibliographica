@@ -50,8 +50,8 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
   tab$width <- suppressWarnings(as.numeric(as.character(tab$width)))
   tab$height <- suppressWarnings(as.numeric(as.character(tab$height)))
   tab$gatherings <- order_gatherings(tab$gatherings)
-  tab.original <- tab
-  
+  tab.original <- tab 
+
   tab.final <- tab.original
   colnames(tab.final) <- paste0(colnames(tab.original), ".original")
   
