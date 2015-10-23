@@ -166,10 +166,10 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
     width <- hw[, "width"]     
   }
 
-  list(gatherings = gatherings,
-       height = height,
-       width = width,
-       obl = obl)
+  list(gatherings = unname(gatherings),
+       height = unname(height),
+       width = unname(width),
+       obl = unname(obl))
 }
 
 

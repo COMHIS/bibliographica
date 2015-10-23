@@ -61,8 +61,12 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
     }
 
     tab.estimated <- augment_dimension_table(tab.original, dimtab = dimtab, verbose = verbose)
+
     tab.final <- cbind(tab.final, tab.estimated)
   }
+
+  tab.final$obl.original <- NULL
+  tab.final$original.original <- NULL  
 
   tab.final
 
