@@ -21,6 +21,9 @@ fill_dimensions <- function (x, dimension.table) {
     w <- as.numeric(as.character(x[["width"]]))
     g <- as.character(x[["gatherings"]])
     o <- x[["original"]]
+
+    if (!"obl" %in% names(x)) {x[["obl"]] <- NA}
+
     obl <- x[["obl"]] 
 
     if (!g %in% colnames(dimension.table) && !is.na(g)) {

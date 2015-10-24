@@ -162,6 +162,7 @@ polish_dimension <- function (x, synonyms) {
 
   gatherings <- na.omit(gsub("NAto", "NA", gatherings))
   gatherings <- harmonize_dimension(gatherings)
+
   if (length(gatherings) == 0) {gatherings <- NA}
 
   if (length(unique(gatherings)) > 1) {gatherings <- NA}
