@@ -13,16 +13,24 @@
 #' @examples \dontrun{df <- polish_name_of_author(c("Washington, George","Louis XIV"))}
 #' @keywords utilities
 polish_name_of_author <- function(x) {
-	name <- fixEncoding(x,latin1=TRUE)
+
+  name <- fixEncoding(x,latin1=TRUE)
 
 	family <- gsub("^(?!(.*\\, .*$)).+$",NA,name,perl=TRUE)
 	family <- gsub("^(.*)\\, .*$","\\1",family)
+	
+  first <- gsub("^(?!(.*\\, .*$)).+$",NA,name,perl=TRUE)
+  first <- gsub("^.*\\, (.*)$","\\1",first)
+  
+  other <- gsub("^(.*)\\, .*$",NA,name)
+  
 
-	first <- gsub("^(?!(.*\\, .*$)).+$",NA,name,perl=TRUE)
-	first <- gsub("^.*\\, (.*)$","\\1",first)
-
-	other <- gsub("^(.*)\\, .*$",NA,name)
-
+  # Multiple names: treat as other names
+  inds <- grep(";", name)
+  family[inds] <- NA
+  first[inds] <- NA
+  other[inds] <- name[inds]
+  
 	data.frame(list(family_name = family, first_name = first, other_name = other))
 	
 }
