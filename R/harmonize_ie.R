@@ -67,14 +67,15 @@ handle_ie <- function (x) {
   y <- x
 
   # Handle ie
-  if (length(grep("i\\.e", x)) > 0) {
+  if (length(grep("i\\.e.", x)) > 0) {
 
     x2 <- gsub("\\]", " ", str_trim(unlist(strsplit(x, "i.e")))[[2]])
 
+    # NB! If y ends with "i.e", upper bound doesn't exist
     yspl <- unlist(strsplit(y, "i\\.e"))
     x0 <- NULL
 
-    if (length(grep("-", yspl[[1]]))>0 && length(grep("-", yspl[[2]]))>0) {
+    if (length(yspl) == 2 && length(grep("-", yspl[[1]]))>0 && length(grep("-", yspl[[2]]))>0) {
 
       y <- str_trim(yspl[[2]])
 
@@ -92,24 +93,37 @@ handle_ie <- function (x) {
         y <- x2
       }
 
-    } else if (length(grep("-", yspl[[2]]))>0) {
+    } else if (length(yspl) == 2 && length(grep("-", yspl[[2]]))>0) {
 
-      y <- suppressWarnings(as.numeric(as.roman(str_trim(x2))))
+      # Why this line? 
+      # y is assigned a new value after couple of lines before it's used
+      #y <- suppressWarnings(as.numeric(as.roman(str_trim(x2))))
+      
       # "4 [i.e. 6]-8 p." -> "6-8"
       spl <- str_trim(unlist(strsplit(x, "-")))
 
-      x0 <- str_trim(unlist(strsplit(spl[[1]], "i.e"))[[2]])
-      x1 <- as.numeric(unlist(strsplit(spl[[2]], " "))[[1]])
+      # Check first, if there'll be two parts or not
+      if (str_sub(spl[[1]], -3, -1) != "i.e") {
+        
+        x0 <- str_trim(unlist(strsplit(spl[[1]], "i.e"))[[2]])
+      
+        # Unnecessary line, might cause out of bounds error
+        #x1 <- as.numeric(unlist(strsplit(spl[[2]], " "))[[1]])
 
-      if (x2 > x0) {
-        y <- paste(x0, x2, sep = "-")
+        if (x2 > x0) {
+          y <- paste(x0, x2, sep = "-")
+        } else {
+          y <- x2
+        }
       } else {
         y <- x2
       }
+      
     } else {
       xx <- gsub("^\\.", "", x2)
       xx <- condense_spaces(xx)
       xx <- unlist(strsplit(xx, " "))
+      # Why paste xx[-1], which is empty string?
       y <- paste(suppressWarnings(as.numeric(as.roman(xx[[1]]))), xx[-1], sep = " ")
     }
   }
