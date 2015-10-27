@@ -32,7 +32,9 @@ remove_volume_info <- function (x) {
   # TODO: vectorize this
 
   for (i in 1:length(s)) {
+
     si <- s[[i]]
+    
     vols <- pick_multivolume(si)  
     if (length(vols) > 0) {
       # Then remove the volume information that was picked
@@ -44,9 +46,10 @@ remove_volume_info <- function (x) {
   }
 
   # Cases 'v.1-3' etc
-
   inds <- intersect(grep("^v.", s), grep("-", s))
-  tmp <- sapply(s[inds], function (si) {gsub(check_volumes(si)$text, "", si)})
+  tmp <- sapply(s[inds], function (si) {
+    gsub(check_volumes(si)$text, "", si)
+  })
   s[inds] <- tmp
 
   # Pick which volume this might be (if given)
