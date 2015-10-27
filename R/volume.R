@@ -227,18 +227,22 @@ check_volumes <- function (x) {
   } else if (x == "Vols.6-7,9-12,plates :") {
     nvol <- 6
     vtext <- "v.6-7,9-12"
-  } else if (length(grep("^v.", x)) > 0 && length(grep("-", x)) > 0) {
-    x <- gsub("^v.", "", x)
-    x2 <- unlist(strsplit(x, "-"))
-    n1 <- as.numeric(x2[[1]])
+  #} else if (length(grep("^v.", x)) > 0 && length(grep("-", x)) > 0) {
+  } else if (length(grep("^v.[ ]*[0-9]+[ ]*-[ ]*[0-9]+.*$", x)) > 0) {  
+    n1 <- as.numeric(gsub("^v.[ ]*([0-9]+)[ ]*-[ ]*[0-9]+.*$", "\\1", x))
+    n2 <- as.numeric(gsub("^v.[ ]*[0-9]+[ ]*-[ ]*([0-9]+).*$", "\\1", x))
+    
+    #x <- gsub("^v.", "", x)
+    #x2 <- unlist(strsplit(x, "-"))
+    #n1 <- as.numeric(x2[[1]])
 
-    i <- 1
-    n <- as.numeric(substr(x2[[2]], 1, i))
-    while ((!is.na(n) && is.numeric(n)) && i <= nchar(x2[[2]])) {
-      n2 <- n
-      n <- as.numeric(substr(x2[[2]], 1, i))
-      i <- i+1
-    }
+    #i <- 1
+    #n <- as.numeric(substr(x2[[2]], 1, i))
+    #while ((!is.na(n) && is.numeric(n)) && i <= nchar(x2[[2]])) {
+    #  n2 <- n
+    #  n <- as.numeric(substr(x2[[2]], 1, i))
+    #  i <- i+1
+    #}
 
     # Number of volumes
     nvol <- n2 - n1 + 1
