@@ -9,6 +9,7 @@ test_that("page count is correct", {
   expect_equal(polish_pages("1 sheet (2, [2] p.)")$estimated.pages[[1]], 2) # = 1 sheet
   expect_equal(polish_pages("2 v. ([26], 400, [24], 192, [2], 167, [1], 203, [13], 144, [4], 152 p.)")$estimated.pages[[1]], 470) # 26+400+24+2+1+13+4=470
   expect_equal(polish_pages("2v.([4],402p.)")$estimated.pages[[1]], 406)
+  expect_equal(polish_pages("4v.,plates")$estimated.pages[[1]], 4)  
   # Pitais olla 2 p. [koska 2 p. ilmaistu suluissa]
   expect_equal(polish_pages("1leaf ([2]p.)")$estimated.pages[[1]], 2)
   # 10+788+4=802
@@ -134,7 +135,8 @@ test_that("page count is correct", {
   expect_equal(polish_pages("[16],438[i.e.428],[52]p.")$estimated.pages[[1]], 496)
   expect_equal(polish_pages("[5], 4 [i.e. 6]-8 p.")$estimated.pages[[1]], 8)
   expect_equal(polish_pages("[2], 169-182 [i.e. 14] p.")$estimated.pages[[1]], 16)
-  expect_true(is.na(polish_pages("v.")$estimated.pages[[1]]))
+  #expect_true(is.na(polish_pages("v.")$estimated.pages[[1]]))
+  expect_equal(polish_pages("v.")$estimated.pages[[1]], 5) 
   expect_true(is.na(polish_pages("1 v")$estimated.pages[[1]]))
   expect_true(is.na(polish_pages("2v")$estimated.pages[[1]]))
   expect_equal(polish_pages("v.8([6],338,[204]),plates")$estimated.pages[[1]], 552)  

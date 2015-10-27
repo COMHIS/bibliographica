@@ -6,7 +6,7 @@
 #' @return Augmented dimension vector
 #'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
+#' @references See citation("bibliographica")
 #' 
 #' @seealso augment_dimension_table
 #' @examples # dimension.table <- dimension_table(); 
@@ -23,7 +23,6 @@ fill_dimensions <- function (x, dimension.table) {
     o <- x[["original"]]
 
     if (!"obl" %in% names(x)) {x[["obl"]] <- NA}
-
     obl <- x[["obl"]] 
 
     if (!g %in% colnames(dimension.table) && !is.na(g)) {

@@ -27,7 +27,7 @@ Estimate missing entries in dimension vector where possible
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("estc")
+See citation("bibliographica")
 }
 \seealso{
 augment_dimension_table

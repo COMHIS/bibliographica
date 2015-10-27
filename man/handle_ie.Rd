@@ -4,10 +4,12 @@
 \alias{handle_ie}
 \title{handle_ie}
 \usage{
-handle_ie(x)
+handle_ie(x, harmonize = TRUE)
 }
 \arguments{
 \item{x}{A vector}
+
+\item{harmonize}{Logical. Harmonize ie statements efore interpretation?}
 }
 \value{
 A vector polished
