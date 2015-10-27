@@ -149,7 +149,7 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
 
   # In obl width > height
 
-  if (!is.na(obl)) {
+  if (length(obl) > 0 && !is.na(obl)) {
     hw <- cbind(height = height, width = width)
     inds <- 1
     

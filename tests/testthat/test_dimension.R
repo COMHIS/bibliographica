@@ -140,3 +140,16 @@ test_that("fennica dimensions", {
   expect_equal(as.character(polish_dimensions("Koko vaihtelee.", fill = TRUE)$gatherings), "NA")
 
 })
+
+
+
+test_that("dimension tables", {
+
+  dt <- dimension_table()
+  ss <- sheet_sizes()  
+  gt <- gatherings_table()
+
+  expect_true(all(ss$gatherings %in% gt$Standard))
+  expect_true(all(setdiff(colnames(dt), c("height", "NA")) %in% gt$Standard))
+  
+})

@@ -54,6 +54,7 @@ harmonize_ie <- function (x) {
 #' @return A vector polished
 #'
 #' @export
+#' @importFrom stringr str_sub
 #' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
