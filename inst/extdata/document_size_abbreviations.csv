@@ -1,18 +1,26 @@
-Alternate	Standard	Symbol	Name
-1to	1to	1°	sheet
-bs bs bs broadside
-2long	2long	2°	folio
-2to	2fo	2°	folio
-2small	2small	2°	folio
-4long	4long	4°	quarto
-4to	4to	4°	quarto
-4small	4small	4°	quarto
-8to	8vo	8°	octavo
-12long	12long	12°	duodecimo
-12to	12mo	12°	duodecimo
-16to	16mo	16°	sextodecimo
-18to	18mo	18°	octodecimo
-24to	24mo	24°	vigesimo-quarto
-32to	32mo	32°	trigesimo-segundo
-48to	48mo	48°	quadragesimo-octavo
-64to	64mo	64°	sexagesimo-quarto
+Alternate;Standard;Symbol;Name
+1to;1to;1°;sheet
+bs bs bs broadside;;;
+2long;2long;2°;folio
+2to;2fo;2°;folio
+2small;2small;2°;folio
+4long;4long;4°;quarto
+4to;4to;4°;quarto
+4small;4small;4°;quarto
+8long;8long;8°;octavo
+8to;8vo;8°;octavo
+8small;8small;8°;octavo
+12long;12long;12°;duodecimo
+12to;12mo;12°;duodecimo
+16to;16mo;16°;sextodecimo
+16long;16long;16°;sextodecimo
+18to;18mo;18°;octodecimo
+24to;24mo;24°;vigesimo-quarto
+24long;24long;24°;vigesimo-quarto
+32to;32mo;32°;trigesimo-segundo
+40to;40mo;40°;quadraquinto
+48to;48mo;48°;quadragesimo-octavo
+64to;64mo;64°;sexagesimo-quarto
+80to;80mo;80°;octogentesimo
+84to;84mo;84°;octoginta-quarto
+
