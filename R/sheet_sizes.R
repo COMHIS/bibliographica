@@ -15,7 +15,7 @@ sheet_sizes <- function (...) {
 
   # Read the mapping table
   f <- system.file("extdata/sheetsizes.csv", package = "bibliographica")
-  tab <- as.data.frame(read.csv(f))
+  tab <- as.data.frame(read.csv(f, sep = ";"))
   tab$format <- str_trim(as.character(tab$format))
   tab$gatherings <- str_trim(as.character(tab$gatherings)) 
 
