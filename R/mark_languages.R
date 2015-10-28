@@ -12,6 +12,12 @@
 #' @examples \dontrun{df <- mark_languages(c("fin;lat","eng"))}
 #' @keywords utilities
 mark_languages <- function(x) {
+
+  x <- paste0(x,";",x)
+  x <- gsub("NA","",x)
+  x <- gsub("^;","",x)
+  x <- gsub(";$","",x)
+
 	subroutine <- function(abbrv){grepl(abbrv, x, ignore.case = T)}
 	fin <- subroutine("fin")
 	swe <- subroutine("swe")
