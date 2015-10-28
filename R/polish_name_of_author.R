@@ -14,6 +14,16 @@
 #' @keywords utilities
 polish_name_of_author <- function(x) {
 
+  # Remove brackets and ending commas / periods
+  s <- remove_numerics(x)
+  s <- gsub("\\[", "", s)
+  s <- gsub("\\]", "", s)
+  s <- gsub("\\(", "", s)
+  s <- gsub("\\)", "", s)
+  s <- str_trim(s)
+  s <- gsub("\\.$", "", s)
+  s <- gsub("\\,$", "", s)
+
   name <- fixEncoding(x,latin1=TRUE)
 
 	family <- gsub("^(?!(.*\\, .*$)).+$",NA,name,perl=TRUE)
