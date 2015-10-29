@@ -50,12 +50,13 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (verbose) {message("Remove special characters")}
   x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\.", ":$"), niter = 5)
-  
+
   if ( verbose ) { message("Remove print statements") }
   x <- remove_print_statements(x)
 
   if (verbose) {message("Remove prefixes")}
   x <- remove_stopwords(x, remove.letters = FALSE)
+
   if (verbose) {message("Handle ie and at: always select the latter place in these cases")}
   # Handle IE before AT
   x <- harmonize_ie(x)

@@ -1,12 +1,17 @@
 synonyme	name
 kartta	sheet
+arkkia	sheets
+arkki	sheet
 karttaa	sheets
 kuval\.	plates
 kuvalehdet	plates
 kuvalehtiä	plates
 lehti	plate
 lehdet	plates
+lehteä	plates
+taitettuna	folded
 poikittaip\.	obl.
 pienempi	small
 \.urempi	long
-
+verso tyhjä	verso blanko
+s\.$		pages
