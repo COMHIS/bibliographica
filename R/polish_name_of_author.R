@@ -30,13 +30,14 @@ polish_name_of_author <- function(x) {
   
   other <- gsub("^(.*)\\, .*$",NA,name)
   
-
   # Multiple names: treat as other names
   inds <- grep(";", name)
   family[inds] <- NA
   first[inds] <- NA
   other[inds] <- name[inds]
-  
-	data.frame(list(family_name = family, first_name = first, other_name = other))
+
+  name <- apply(cbind(family, first, other), 1, function (x) {paste(x[[1]],",",x[[2]]," ",x[[3]], sep = "")})
+
+  data.frame(list(author_name = name, family_name = family, first_name = first, other_name = other))
 	
 }
