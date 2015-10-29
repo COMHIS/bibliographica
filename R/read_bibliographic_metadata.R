@@ -1,18 +1,13 @@
 #' @title read_bibliographic_metadata
 #' @description Read preparsed metadata
-#'
 #' @param file Source Parsed data file
 #' @return data.frame with raw data fields
-#'
 #' @importFrom dplyr tbl_df
 #' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples \dontrun{df.raw <- read_bibliographic_metadata(file)}
 #' @keywords utilities
-
 read_bibliographic_metadata <- function (file) {
   
   # Read data

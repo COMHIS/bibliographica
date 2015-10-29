@@ -1,18 +1,14 @@
 #' @title polish_dimensions
 #' @description Polish dimension field for many documents at once
-#'
 #' @param x A vector of dimension notes
 #' @param fill Logical. Estimate and fill in the missing information: TRUE/FALSE
 #' @param dimtab Dimension mapping table
 #' @param verbose verbose
 #' @param synonyms Synonyme table
 #' @return Dimension table
-#'
 #' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples # polish_dimensions(c("2fo", "14cm"), fill = TRUE)
 #' @keywords utilities
 polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, synonyms = NULL) {

@@ -1,14 +1,10 @@
 #' @title check_volumes
 #' @description Pick volume information from page number field
-#'
 #' @param x Page number field. Vector or factor of strings.
 #' @return Volume information
-#'
 #' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples check_volumes("v.4, 293")
 #' @keywords utilities
 check_volumes <- function (x) {

@@ -1,14 +1,11 @@
 #' Harmonize dimension information 
-#'
 #' @param x A character vector that may contain dimension information
 #' @param synonyms Synonyme table
 #' @return The character vector with dimension information harmonized
-#'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @importFrom sorvi condense_spaces
 #' @export
-#' 
 #' @examples harmonize_dimension("fol.")
 #' @keywords internal
 harmonize_dimension <- function (x, synonyms = NULL) {

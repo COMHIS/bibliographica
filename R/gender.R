@@ -1,13 +1,10 @@
-#' Pick gender based on first names
-#'
+#' @title get_gender
+#' @description Pick gender based on first names
 #' @param x Vector of first names
 #' @return Author gender information
-#'
 #' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples get_gender("julius")
 #' @keywords utilities
 #' @import gender

@@ -2,9 +2,20 @@ context("Dimension table")
 
 test_that("dimension fill works correctly", {
   dimension.table <- dimension_table()
-  expect_equal(fill_dimensions(c(original="12mo", gatherings="12mo", width=13, height=NA), dimension.table)[["height"]], "18")
+  expect_equal(fill_dimensions(c(original="12mo", gatherings="12mo", width=13, height=NA), dimension.table)[["height"]], "20")
 })
 
+
+test_that("dimension tables are valid", {
+
+  dt <- dimension_table()
+  ss <- sheet_sizes()  
+  gt <- gatherings_table()
+
+  expect_true(all(ss$gatherings %in% gt$Standard))
+  expect_true(all(setdiff(colnames(dt), c("height", "NA")) %in% gt$Standard))
+  
+})
 
 
 test_that("dimension polish works correctly", {
@@ -143,13 +154,3 @@ test_that("fennica dimensions", {
 
 
 
-test_that("dimension tables", {
-
-  dt <- dimension_table()
-  ss <- sheet_sizes()  
-  gt <- gatherings_table()
-
-  expect_true(all(ss$gatherings %in% gt$Standard))
-  expect_true(all(setdiff(colnames(dt), c("height", "NA")) %in% gt$Standard))
-  
-})

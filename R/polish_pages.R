@@ -1,19 +1,14 @@
 #' @title polish_pages
 #' @description clean up page numbers
-#'
 #' @param x Page number field. Vector or factor of strings.
 #' @param verbose Print progress info
 #' @return Raw and estimated pages per document part
 #' @details Document parts are separated by semicolons
-#'
 #' @export
-#' 
-#' @details A summary of page counting rules that this function aims to 
-#'          (approximately) implement are provided in 
+#' @details A summary of page counting rules that this function aims to (approximately) implement are provided in 
 #' \url{https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html}
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples # polish_pages("4p.")
 #' @keywords utilities
 polish_pages <- function (x, verbose = FALSE) {

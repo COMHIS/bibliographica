@@ -1,15 +1,11 @@
-
-#' Capitalize the first letter
-#'
+#' @title capitalize
+#' @description Capitalize the first letter
 #' @param x a character vector to capitalize
 #' @return Capitalized character vector
-#'
 #' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
-#' @examples capitalize("print")
+#' @examples # capitalize("print")
 #' @keywords utilities
 capitalize <- function (x) {
   for (a in letters) {

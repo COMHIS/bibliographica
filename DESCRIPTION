@@ -20,7 +20,7 @@ Imports:
     dplyr,
     ggplot2,
     genderdata,
-    gender,    
+    gender,
     sorvi,
     stringr,
     tau,
@@ -31,3 +31,4 @@ Suggests:
     testthat
 Additional_repositories: http://packages.ropensci.org
 LazyLoad: yes
+RoxygenNote: 5.0.0

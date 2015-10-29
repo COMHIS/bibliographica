@@ -1,18 +1,12 @@
 #' @title polish_years
-#'
-#' @description Pick and polish the year interval (start and end
-#  years) from a time field which is of the form 1800 or 1823-1845 etc.
-#'
+#' @description Pick and polish the year interval (start and end years) from a time field which is of the form 1800 or 1823-1845 etc.
 #' @param x year field (a vector) 
 #' @param start_synonyms Synonyme table for start year
 #' @param end_synonyms Synonyme table for end year
 #' @return data.frame with the fields 'start' and 'end'
-#'
 #' @export
-#' 
 #' @author Leo Lahti and Niko Ilomaki \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples \dontrun{df <- polish_years(c("1746", "1745-1750"))}
 #' @keywords utilities
 polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL) {

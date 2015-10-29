@@ -1,14 +1,10 @@
 #' @title remove_volume_info
 #' @description Remove volume info from the string start
-#'
 #' @param x Page number field. Vector or factor of strings.
 #' @return Page numbers without volume information
-#'
 #' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples remove_volume_info("v.4, 293")
 #' @keywords utilities
 remove_volume_info <- function (x) {

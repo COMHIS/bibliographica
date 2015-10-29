@@ -1,20 +1,14 @@
 #' @title polish_place
 #' @description Polish place
-#'
 #' @param x A vector of place names
 #' @param synonymes Synonyme table for place names
-#' @param remove.unknown Logical. Remove places that are not validated
-#'   	  		 	  (ie. listed in the synonyme table)?
+#' @param remove.unknown Logical. Remove places that are not validated (ie. listed in the synonyme table)?
 #' @param verbose verbose
-#'
 #' @return Polished vector
-#'
 #' @importFrom sorvi harmonize_names
 #' @export
-#'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples # x2 <- polish_place(c("London", "Paris"))
 #' @keywords utilities
 polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose = FALSE) {

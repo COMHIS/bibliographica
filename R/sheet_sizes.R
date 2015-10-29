@@ -1,14 +1,10 @@
 #' @title sheet_sizes
 #' @description Read sheet size table
-#'
 #' @param ... Arguments to be passed
 #' @return Sheet size table
-#'
 #' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples sheetsizes <- sheet_sizes()
 #' @keywords utilities
 sheet_sizes <- function (...) {  

@@ -1,14 +1,10 @@
 #' @title mark_dissertations
 #' @description Establish two binary variables: dissertation and synodal dissertation
-#'
 #' @param x dissertation field (a vector)
 #' @return data.frame with fields for regular disserations and for synodal dissertations
-#'
 #' @export
-#' 
 #' @author Niko Ilomaki \email{niko.ilomaki@@helsinki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples \dontrun{df <- mark_dissertations(c("Diss.","Diss. synod"))}
 #' @keywords utilities
 mark_dissertations <- function(x) {

@@ -8,6 +8,7 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
+#' @export
 #' @seealso augment_dimension_table
 #' @examples # dimension.table <- dimension_table(); 
 #'           #  fill_dimensions(c(original = NA, gatherings = NA, 

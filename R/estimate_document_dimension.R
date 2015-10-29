@@ -26,8 +26,8 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
 
   # Ensure the inputs are of right format		     
   gatherings <- as.character(gatherings)
-  width <- as.numeric(as.character(width))
-  height <- as.numeric(as.character(height)  )
+  width <- as.numeric(as.character(round(width)))
+  height <- as.numeric(as.character(round(height)))
 
   if (length(grep("NA", gatherings)) > 0) { gatherings <- NA }
   if (length(grep("NA", width)) > 0)  { width <- NA }
