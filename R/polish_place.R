@@ -18,7 +18,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
     f <- system.file("extdata/PublicationPlaceSynonymes.csv",
 		package = "bibliographica")
     synonymes <- read.csv(f, sep = ";")
-    colnames(synonymes) <- c("name", "synonyme")
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
   }
 
@@ -47,6 +46,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if ( verbose ) { message("Remove print statements") }
   x <- remove_print_statements(x)
+  x <- remove_sl(x)  
 
   if (verbose) {message("Remove prefixes")}
   x <- remove_stopwords(x, remove.letters = FALSE)
@@ -73,8 +73,9 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (verbose) { message("Harmonize the synonymous names") }
   x <- as.character(harmonize_names(x, synonymes,
-       		remove.unknown = remove.unknown)$name)
-
+       		remove.unknown = remove.unknown,
+		include.lowercase = TRUE,
+		mode = "exact.match")$name)
   if (verbose) {message("Replace special cases")}
   x[tolower(x) %in% c("", "NA", NA)] <- NA
 
