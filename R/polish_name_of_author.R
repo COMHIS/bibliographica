@@ -27,9 +27,11 @@ polish_name_of_author <- function(x) {
 	
   first <- gsub("^(?!(.*\\, .*$)).+$",NA,name,perl=TRUE)
   first <- gsub("^.*\\, (.*)$","\\1",first)
-  
+  first <- gsub("\\.$", "", first)  
+
   other <- gsub("^(.*)\\, .*$",NA,name)
-  
+  other <- gsub("\\.$", "", other)  
+
   # Multiple names: treat as other names
   inds <- grep(";", name)
   family[inds] <- NA

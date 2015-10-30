@@ -20,6 +20,8 @@ polish_publisher <- function(x, synonyms=NULL) {
   terms <- read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8", header = TRUE)$Term
   x <- remove_terms(x, terms, where = "begin")
 
+  x <- remove_print_statements(x)
+
   x <- remove.squarebrackets(x)
   x <- remove_sl(x)  
 
