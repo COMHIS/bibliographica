@@ -157,6 +157,7 @@ Boston Ma;Bostoniae Americae
 Boston Ma;Boston in N\.EaBoston Ma
 Boston Ma;Boston in New-England
 Boston Ma;Boston in New-England
+Boston Ma;boston in new england
 Boston Ma;Boston in New England and London
 Boston Ma;Boston in New-England and London
 Boston Ma;boston ma
@@ -613,6 +614,7 @@ Fishkill N\.Y;fishkill n\.y
 Fishkill N\.Y;Fish-kill N\.Y
 Fishkill N\.Y;Fishkill N\.Y
 Fishkill N\.Y;Fish-Kill N\.Y
+Fishkill N\.Y;fish kill n y
 Florence;florence
 Florence;Florence
 Frankfurt;Francefort, Et London
@@ -950,6 +952,7 @@ London;A\. London
 London;Burtons Coffee-House London
 London;Burtons London
 London;Court Old Baily
+London;london and re edinburgh
 Londonderry;Derry
 Londonderry;Derry Londonderry Ireland
 Londonderry;L Derry
@@ -1163,6 +1166,7 @@ Newburyport Ma;Newbury-Port
 Newburyport Ma;newburyport ma
 Newburyport Ma;Newburyport Ma
 Newburyport Ma;Newbury-port Mass
+Newburyport Ma;newbury port mass
 Newburyport Ma;Newburyport Mass
 Newburyport Ma;Newburyport, Mass
 Newburyport Ma;Newbury-Port Mass
@@ -1220,7 +1224,8 @@ Newport R\.I;Newport, Rhode-Island
 Newport R\.I;newport r i
 Newport R\.I;newport r\.i
 Newport R\.I;Newport R\.I
-Newport R\.I;Newport, R\.I
+Newport R\.I;newport rhode island
+Newport, Rhode-Island;
 Newry;newry
 Newry;Newry
 Newry;Newry Ireland
@@ -1388,8 +1393,10 @@ Poughkeepsie N\.Y;Poughkeepsie, Dutchess County N\.Y
 Poughkeepsie N\.Y;poughkeepsie n\.y
 Poughkeepsie N\.Y;Poughkeepsie N\.Y
 Poughkeepsie N\.Y;Poughkeepsie, N\.Y
+Poughkeepsie N\.Y;poughkeepsie n y
 Preston;preston
 Preston;Preston
+London;london in powles churchyarde
 Preston;Preston England
 Preston;Preston, England
 Providence R\.I;America at Providence R\. Island
@@ -1839,6 +1846,7 @@ York Pa;York Pa
 York Pa;York-town Pa
 York Pa;York-Town Pa
 York Pa;York-town Penn
+York Pa;york town pa
 York;york
 York;York
 York;Yorke
