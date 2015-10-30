@@ -13,10 +13,7 @@
 #' @keywords utilities
 polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, synonyms = NULL) {
 
- # fill = FALSE; dimtab = NULL
- # fs <- list.files("~/proj/2014-Aatelouhinta/bibliographica/R", full.names = T, pattern = ".R$")
- # for (f in fs) {source(f)}
- # x <- d; fill = FALSE; dimtab = NULL; verbose = FALSE; synonyms = NULL
+ # fs <- list.files("~/proj/2014-Aatelouhinta/bibliographica/R", full.names = T, pattern = ".R$"); for (f in fs) {source(f)}; x <- d; fill = FALSE; dimtab = NULL; verbose = FALSE; synonyms = NULL
 
   s <- as.character(x)
 
@@ -46,6 +43,7 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
   tab$width <- suppressWarnings(as.numeric(as.character(tab$width)))
   tab$height <- suppressWarnings(as.numeric(as.character(tab$height)))
   tab$gatherings <- order_gatherings(tab$gatherings)
+  tab$obl <- unlist(tab$obl)
   tab.original <- tab 
 
   tab.final <- tab.original

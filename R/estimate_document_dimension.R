@@ -86,6 +86,15 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
     hh <- abs(as.numeric(as.character(dimension.table$height)) - height)
     ind <- which(hh == min(hh))
     width <- as.numeric(as.character(dimension.table[ind, "NA"]))
+    if (is.na(width)) {
+      warning(paste("No width found for height ", height, " and gatherings ", gatherings, sep = ""))
+      return(
+        list(gatherings = unname(gatherings),
+       	     height = unname(height),
+       	     width = unname(width),
+       	     obl = unname(obl))
+         )
+    }
 
     # if multiple hits, pick the closest
     width <- mean(width, na.rm = TRUE)
