@@ -14,9 +14,7 @@ polish_publisher <- function(x, synonyms=NULL) {
   f <- system.file("extdata/stopwords_for_names.csv", package = "bibliographica")
   terms <- read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8", header = TRUE)$Term
   x <- remove_terms(x, terms, where = "begin")
-
   x <- remove_print_statements(x)
-
   x <- remove.squarebrackets(x)
   x <- remove_sl(x)  
 
