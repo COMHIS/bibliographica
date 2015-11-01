@@ -31,6 +31,9 @@ Altona;altona
 Altona;Altona
 Fitchburg;Fitchburg
 Fitchburg;fitchburg
+Fitchburg;fichtburg mass
+Fitchburg;fichtburg
+Fitchburg;fitchburg massachusetts
 America;america
 America;America
 America;Americae
@@ -86,12 +89,15 @@ Baltimore Md;Baltimore
 Baltimore Md;baltimore md
 Baltimore Md;Baltimore Md
 Baltimore Md;Baltimore-Town
+Baltimore Md;baltimore town
 Banbury;banbury
 Banbury;Banbury
 Basel;basel
 Basel;Basel
 Basel;Basil
 Basel;Basle
+Basseterre Saint Kitts;basseterre in st christopher's st kitts nevis
+Basseterre Saint Kitts;basseterre in st christopher
 Basseterre Saint Kitts;Basseterre in St\. Christopher
 Basseterre Saint Kitts;basseterre saint kitts
 Basseterre Saint Kitts;Basseterre Saint Kitts
@@ -102,6 +108,7 @@ Basseterre Saint Kitts;Basseterre St\. Christopher St\.Kitts-Nevis
 Basseterre Saint Kitts;Basseterre, St\. Christopher St\.Kitts-Nevis
 Basseterre Saint Kitts;St\. Christopher
 Basseterre Saint Kitts;St\.Kitts-Nevis
+Basseterre Saint Kitts;st kitts nevis
 Bath;bath
 Bath;Bath
 Bath;Bath England
@@ -262,14 +269,16 @@ Burton;Burton-Upon-Trent
 Bury;bury
 Bury;Bury
 Bury;Bury England
-Bury St\. Edmunds;bury st\. edmunds
-Bury St\. Edmunds;Bury St\. Edmunds
-Bury St\. Edmunds;Bury St\. Edmund's
-Bury St\. Edmunds;Bury St\. Edmunds England
-Bury St\. Edmunds;Bury St\. Edmunds, England
-Bury St\. Edmunds;St\. Edmunds-Bury Bury St\. Edmunds England
-Bury St\. Edmunds;St\. Edmunds-Bury Bury St\. Edmunds, England
-Bury St\. Edmunds;bury st edmund's
+Bury St. Edmunds;bury st\. edmunds
+Bury St. Edmunds;Bury St\. Edmunds
+Bury St. Edmunds;Bury St\. Edmund's
+Bury St. Edmunds;Bury St\. Edmunds England
+Bury St. Edmunds;Bury St\. Edmunds, England
+Bury St. Edmunds;bury st edmunds england
+Bury St. Edmunds;St\. Edmunds-Bury Bury St\. Edmunds England
+Bury St. Edmunds;St\. Edmunds-Bury Bury St\. Edmunds, England
+Bury St. Edmunds;bury st edmund's
+Bury St. Edmunds;bury st edmunds
 Caen;caen
 Caen;Caen
 Caernarfon;caernarfon
@@ -341,6 +350,7 @@ Charleston S\.C;Charleston South-Carolina
 Charleston S\.C;Charleston, South-Carolina
 Charleston S\.C;Charlestown Charleston S C
 Charleston S\.C;charlestown s c
+Charleston S\.C;charles town s c
 Charleston S\.C;Charles-town S C
 Charleston S\.C;south carolina charles town
 Charleston S\.C;Charlestown S C
@@ -746,16 +756,17 @@ Hagerstown Md;hagers town md
 Halifax;halifax
 Halifax;Halifax
 Halifax;Halifax England
-Halifax N\.C;halifax n c
-Halifax N\.C;Halifax N C
-Halifax N\.S;halifax n c
-Halifax N\.S;halifax n s
-Halifax N\.S;Halifax Nova Scotia
-Halifax N\.S;halifax n s
-Halifax N\.S;Halifax N S
-Halifax N\.S;Halifax, N S
-Halifax N\.S;Nova-Scotia
-Halifax N\.S;nova scotia
+Halifax N.C;halifax n c
+Halifax N.C;Halifax N C
+Halifax N.C;halifax n c
+Halifax N.C;halifax n c
+Halifax N.S;halifax n s
+Halifax N.S;Halifax Nova Scotia
+Halifax N.S;halifax n s
+Halifax N.S;Halifax N S
+Halifax N.S;Halifax, N S
+Halifax N.S;Nova-Scotia
+Halifax N.S;nova scotia
 Halle;halle
 Halle;Halle
 Hallowell Ma;hallowell ma
@@ -974,6 +985,7 @@ Liverpool;Liverpool England
 Livorno;livorno
 Livorno;Livorno
 London;A\. London
+London;london bs n
 London;Burtons Coffee-House London
 London;Burtons London
 London;Court Old Baily
@@ -1141,6 +1153,7 @@ Medford Ma;Medford Massachusetts
 Medford Ma;Medford Masschusetts
 Middelburg;Midddelburghsic
 Middelburg;middelburg
+Middelburg;midddelburgh
 Middelburg;Middelburg
 Middelburg;Middleborrow
 Middelburg;Midelburge
@@ -1295,29 +1308,29 @@ New Windsor N\.Y;New-Windsor N Y
 New Windsor N\.Y;New-Windsor Orange County N Y
 New Windsor N\.Y;new windsor orange county n y
 New Windsor N\.Y;new windsor n y
-New York N\.Y;Brooklyn
-New York N\.Y;Brooklyn N Y
-New York N\.Y;Neo-Eboraci
-New York N\.Y;new york
-New York N\.Y;New York
-New York N\.Y;New-York
-New York N\.Y;New York America
-New York N\.Y;New York New York
-New York N\.Y;new york n y
-New York N\.Y;new york n y
-New York N\.Y;New York N Y
-New York N\.Y;New York, N\.Y
-New York N\.Y;New-York N Y
-New York N\.Y;brooklyn new york
-New York N\.Y;brooklynissa n y
-New York N\.Y;ne york
-New York N\.Y;new york ny
+New York N.Y;Brooklyn
+New York N.Y;Brooklyn N Y
+New York N.Y;Neo-Eboraci
+New York N.Y;new york
+New York N.Y;New York
+New York N.Y;New-York
+New York N.Y;New York America
+New York N.Y;New York New York
+New York N.Y;new york n y
+New York N.Y;new york n y
+New York N.Y;New York N Y
+New York N.Y;New York, N\.Y
+New York N.Y;New-York N Y
+New York N.Y;brooklyn new york
+New York N.Y;brooklynissa n y
+New York N.Y;ne york
+New York N.Y;new york ny
+Niagara;niagara
+Niagara;Niagara
 N H$;n\.h
 N\.H\.;n\. h\.
 N H$;N\.H
 N\.H\.;N\. H\.
-Niagara;niagara
-Niagara;Niagara
 N J$;n\.j
 N\.J\.;n\. j\.
 N J$;N\.J
@@ -1356,6 +1369,7 @@ Oxford;oxford
 Oxford;Oxford
 Oxford;Oxforde
 Oxford;Oxford England
+Oxford;oxf ord england
 Oxford;oxoford
 Oxford;Oxoford
 Oxford;Oxon
@@ -1758,6 +1772,7 @@ Trefeca;Trefecca Breconshire Wales
 Trefeca;Trefecca Breconshire, Wales
 Trenton N\.J;trenton n\.j
 Trenton N\.J;Trenton N\.J
+Trenton N\.J;trenton n j
 Trenton N\.J;Trenton, N\.J
 Trenton;trenton
 Trenton;Trenton
@@ -1776,6 +1791,7 @@ unknown;S\.l\. s\.n
 unknown;s\.n
 unknown;S\.n
 unknown;unknown
+Uppsala;upsaliae ime
 Uppsala;Uppsal
 Uppsala;uppsala
 Uppsala;upsala
@@ -1908,6 +1924,8 @@ Worcester Ma;Massachusetts-Bay, Worcester
 Worcester Ma;Masschusetts-Bay Worcester
 Worcester Ma;worcester ma
 Worcester Ma;Worcester Ma
+Worcester Ma;worcester ma
+Worcester Ma;Worcester MA
 Worcester Ma;Worcester Mass
 Worcester Ma;Worcester, Mass
 Worcester Ma;Worcester Massachusetts
