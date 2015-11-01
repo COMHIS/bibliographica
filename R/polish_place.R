@@ -21,7 +21,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
   }
 
-  if (verbose) {message("Convert to character")}
+  if (verbose) { message("Convert to character") }
   x <- as.character(x)	    
 
   # Speed up by handling unique cases only

@@ -15,6 +15,9 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
 
  # fs <- list.files("~/proj/2014-Aatelouhinta/bibliographica/R", full.names = T, pattern = ".R$"); for (f in fs) {source(f)}; x <- d; fill = FALSE; dimtab = NULL; verbose = FALSE; synonyms = NULL
 
+ # fs <- list.files("~/proj/2014-Aatelouhinta/bibliographica/R", full.names = T, pattern = ".R$"); for (f in fs) {source(f)}; x <- df.orig$physical_dimension; fill = TRUE; dimtab = NULL; verbose = FALSE; synonyms = NULL
+
+
   s <- as.character(x)
 
   if (is.null(synonyms)) {
