@@ -15,7 +15,7 @@ harmonize_print_statements <- function (x) {
   ### Get printing terms from tables in various languages
 
   for (lang in c("finnish", "french", "german", "swedish", "english")) {
-      
+
     f <- system.file(paste0("extdata/printterms_", lang, ".csv"), package = "bibliographica")
     terms <- read.csv(f, sep = "|")
     x <- tolower(x)
