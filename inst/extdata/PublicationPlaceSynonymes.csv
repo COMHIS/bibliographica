@@ -1,4 +1,3 @@
-name;synonyme
 Abbeville;abbeville
 Abbeville;Abbeville
 Aberdeen;aberdeen
@@ -14,7 +13,6 @@ Abingdon;Abingdon
 Albany N\.Y;Albany
 Albany N\.Y;albany n y
 Albany N\.Y;Albany N Y
-Albany N\.Y;albany n y
 Aldermanbury;aldermanbury
 Aldermanbury;Aldermanbury
 Aldershot;aldershot
@@ -29,27 +27,23 @@ Altmore;altmore
 Altmore;Altmore
 Altona;altona
 Altona;Altona
-Fitchburg;Fitchburg
-Fitchburg;fitchburg
-Fitchburg;fichtburg mass
-Fitchburg;fichtburg
-Fitchburg;fitchburg massachusetts
 America;america
 America;America
 America;Americae
+Amherst N\.H;amherst new hampshire
 Amherst N\.H;Amherst Newhampshire
 Amherst N\.H;Amherst, Newhampshire
 Amherst N\.H;Amherst New-Hampshire
-Amherst N\.H;amherst new hampshire
 Amherst N\.H;amherst n h
 Amherst N\.H;Amherst N H
-Amherst N\.H;amherst n h
 Ampthill;ampthill
 Ampthill;Ampthill
 Amsterdam;Amsteldam
 Amsterdam;Amstelredam
 Amsterdam;amsterdam
 Amsterdam;Amsterdam
+Amsterdam;amsterdam et a leipzig
+Amsterdam;amsterdam in the
 Amsterdam;Amsterdam London
 Amsterdam;Amsterdam Netherlands
 Amsterdam;Amsterodami
@@ -68,6 +62,7 @@ Annapolis Md;Annapolis
 Annapolis Md;Annapolis Maryland
 Annapolis Md;annapolis md
 Annapolis Md;Annapolis Md
+Annapolis Md;annapolis north america
 Annapolis Md;Annapolis North-America
 Annapolis Md;Maryland
 Antwerp;andwarpe
@@ -76,6 +71,8 @@ Antwerp;antwerp
 Antwerp;Antwerp
 Antwerp;Antwerpiae
 Antwerp;Duchye Braband andewarpe
+Antwerp;duchye of braband in the towne of andewarpe
+Antwerp;famous cite of andwarpe
 Augusta Ga;augusta ga
 Augusta Ga;Augusta Ga
 Augusta Ga;Augusta, Ga
@@ -88,30 +85,32 @@ Ayr;Ayr
 Baltimore Md;Baltimore
 Baltimore Md;baltimore md
 Baltimore Md;Baltimore Md
-Baltimore Md;Baltimore-Town
 Baltimore Md;baltimore town
+Baltimore Md;Baltimore-Town
 Banbury;banbury
 Banbury;Banbury
 Basel;basel
 Basel;Basel
 Basel;Basil
 Basel;Basle
-Basseterre Saint Kitts;basseterre in st christopher's st kitts nevis
 Basseterre Saint Kitts;basseterre in st christopher
 Basseterre Saint Kitts;Basseterre in St\. Christopher
+Basseterre Saint Kitts;basseterre in st christopher's st kitts nevis
 Basseterre Saint Kitts;basseterre saint kitts
 Basseterre Saint Kitts;Basseterre Saint Kitts
 Basseterre Saint Kitts;Basseterre St\. Christopher
 Basseterre Saint Kitts;Basseterre St\. Christopher's St\.Kitts-Nevis
 Basseterre Saint Kitts;Basseterre,St\. Christopher's St\.Kitts-Nevis
+Basseterre Saint Kitts;basseterre st christopher st kitts nevis
 Basseterre Saint Kitts;Basseterre St\. Christopher St\.Kitts-Nevis
 Basseterre Saint Kitts;Basseterre, St\. Christopher St\.Kitts-Nevis
 Basseterre Saint Kitts;St\. Christopher
-Basseterre Saint Kitts;St\.Kitts-Nevis
 Basseterre Saint Kitts;st kitts nevis
+Basseterre Saint Kitts;St\.Kitts-Nevis
 Bath;bath
 Bath;Bath
 Bath;Bath England
+Bath N\.Y;bath county of steuben state of new york
 Bath N\.Y;Bath County of Steuben State of New-York
 Bath N\.Y;Bath County Steuben State New-York
 Bath N\.Y;bath n y
@@ -155,7 +154,6 @@ Boston;boston
 Boston;Boston
 Boston;Boston Lincs
 Boston Ma;America Boston
-Boston Ma;Boston MA
 Boston Ma;America, Boston
 Boston Ma;America\. Boston
 Boston Ma;America \[i\\.e\\., Boston\]
@@ -167,14 +165,16 @@ Boston Ma;Boston America
 Boston Ma;Boston Commonwealth of Massachusetts
 Boston Ma;Bostoniae America
 Boston Ma;Bostoniae Americae
+Boston MA;boston in america
+Boston Ma;Boston in n e
 Boston Ma;Boston in N\.EaBoston Ma
-Boston Ma;Boston in New-England
-Boston Ma;Boston in New-England
 Boston Ma;boston in new england
+Boston Ma;Boston in New-England
 Boston Ma;Boston in New England and London
 Boston Ma;Boston in New-England and London
 Boston Ma;boston ma
 Boston Ma;Boston Ma
+Boston Ma;Boston MA
 Boston Ma;Boston Mass
 Boston Ma;Boston Massachusetts
 Boston Ma;Boston Masschusetts
@@ -203,12 +203,12 @@ Boston Ma;Masschusetts
 Boston Ma;Masschusetts Boston
 Boston Ma;Masschusetts-State Boston
 Boston Ma;new england
-Boston Ma;Boston in n e
 Boston Ma;New England
 Boston Ma;New-England
 Boston Ma;State Massachusetts Bay Boston
 Boston Ma;State Masschusetts-Bay\. Boston
 Boston Ma;State of Massachusetts-Bay\. Boston
+Boston MA;state of massachusetts bay boston
 Bottisham;bottisham
 Bottisham;Bottisham
 Bouillon;bouillon
@@ -226,8 +226,8 @@ Bridgeton N\.J;Bridgeton N\.J
 Bridgetown Barbados;Barbadoes
 Bridgetown Barbados;Barbados
 Bridgetown Barbados;Bridgetown
-Bridgetown Barbados;bridgetown barbados
 Bridgetown Barbados;bridge town barbados
+Bridgetown Barbados;bridgetown barbados
 Bridgetown Barbados;Bridgetown Barbados
 Bridgetown Barbados;Bridge-Town Barbados
 Bridgnorth;bridgnorth
@@ -251,10 +251,9 @@ Buckden;Buckden
 Bungay;bungay
 Bungay;Bungay
 Burlington N\.J;Burlington
-Burlington N\.J;Burlington New-Jersey
-Burlington N\.J;burlington new jersey
 Burlington N\.J;burlington in new jersey
-Burlington N\.J;burlington n j
+Burlington N\.J;burlington new jersey
+Burlington N\.J;Burlington New-Jersey
 Burlington N\.J;burlington n j
 Burlington N\.J;Burlington N\.J
 Burlington N\.J;Burlington N\.w-Jersey
@@ -266,22 +265,25 @@ Burnley;burnley
 Burnley;Burnley
 Burton;burton
 Burton;Burton
+Burton;burton upon trent
 Burton;Burton-Upon-Trent
 Bury;bury
 Bury;Bury
 Bury;Bury England
+Bury St. Edmunds;bury st edmunds
+Bury St. Edmunds;bury st edmund's
 Bury St. Edmunds;bury st\. edmunds
 Bury St. Edmunds;Bury St\. Edmunds
 Bury St. Edmunds;Bury St\. Edmund's
+Bury St. Edmunds;bury st edmunds england
 Bury St. Edmunds;Bury St\. Edmunds England
 Bury St. Edmunds;Bury St\. Edmunds, England
-Bury St. Edmunds;bury st edmunds england
+Bury St. Edmunds;st edmunds bury bury st edmunds england
 Bury St. Edmunds;St\. Edmunds-Bury Bury St\. Edmunds England
 Bury St. Edmunds;St\. Edmunds-Bury Bury St\. Edmunds, England
-Bury St. Edmunds;bury st edmund's
-Bury St. Edmunds;bury st edmunds
 Caen;caen
 Caen;Caen
+Caernarfon;caer grawnt
 Caernarfon;caernarfon
 Caernarfon;Caernarfon
 Caernarfon;Caernarfon Carnarvon Wales
@@ -342,7 +344,6 @@ Chambersburg Pa;chambersburg pa
 Chambersburg Pa;Chambersburg Pa
 Charleston S\.C;Charleston
 Charleston S\.C;charleston s c
-Charleston S\.C;charleston s c
 Charleston S\.C;Charleston SC
 Charleston S\.C;Charleston S\.C
 Charleston S\.C;Charleston\. S C
@@ -350,14 +351,15 @@ Charleston S\.C;Charleston South Carolina
 Charleston S\.C;Charleston South-Carolina
 Charleston S\.C;Charleston, South-Carolina
 Charleston S\.C;Charlestown Charleston S C
-Charleston S\.C;charlestown s c
 Charleston S\.C;charles town s c
+Charleston S\.C;charlestown s c
 Charleston S\.C;Charles-town S C
-Charleston S\.C;south carolina charles town
 Charleston S\.C;Charlestown S C
 Charleston S\.C;Charles-Town S\.C
+Charleston S\.C;charles town south carolina
 Charleston S\.C;Charles-Town South-Carolina
 Charleston S\.C;South Carolina
+Charleston S\.C;south carolina charles town
 Charleston S\.C;South-Carolina Charles-Town
 Charleston S\.C;South-Carolina, Charles-Town
 Charlestown Ma;charlestown ma
@@ -365,15 +367,14 @@ Charlestown Ma;Charlestown Ma
 Charlestown Ma;Charlestown Mass
 Charlottesville Va;charlottesville va
 Charlottesville Va;Charlottesville Va
+Charlottetown Pe;charlotte town
 Charlottetown Pe;Charlotte-Town
 Charlottetown Pe;charlottetown pe
 Charlottetown Pe;Charlottetown Pe
-Charlottetown Pe;charlotte town
 Chatham;chatham
 Chatham;Chatham
 Chatham N\.J;chatham n j
 Chatham N\.J;Chatham N\.J
-Chatham N\.J;chatham n j
 Chelmsford;chelmsford
 Chelmsford;Chelmsford
 Chelmsford;Chelmsford England
@@ -428,7 +429,6 @@ Concord N\.H;Concord New Hampshire
 Concord N\.H;concord n h
 Concord N\.H;Concord N H
 Concord N\.H;Concord, N H
-Concord N\.H;concord n h
 Copenhagen;copenhagen
 Copenhagen;Copenhagen
 Cork;Corck
@@ -440,6 +440,7 @@ Cork;Cork Ireland
 Cork;Cork, Ireland
 Coventry;coventry
 Coventry;Coventry
+Coventry;coventry bs n
 Coventry;Coventry bs\.n
 Coventry;Coventry,bs\.n
 Coventry;Coventry England
@@ -452,7 +453,10 @@ Danvers Ma;danvers ma
 Danvers Ma;Danvers Ma
 Danvers Ma;Danvers Mass
 Danvers Ma;Danvers Mass Boston
+Danvers Ma;danvers mass near boston
+Danvers Ma;danvers mass near salem
 Danvers Ma;Danvers Mass Salem
+Danvers Ma;danvers near boston
 Darlington;darlington
 Darlington;Darlington
 Darlington;Darlington England
@@ -483,6 +487,7 @@ Doncaster;Doncaster
 Doncaster;Doncaster England
 Dorchester;dorchester
 Dorchester;Dorchester
+Dorchester;dorchester england
 Dorchester;Dorchester\. England
 Dort;dort
 Dort;Dort
@@ -497,26 +502,31 @@ Dover;Dover
 Dover N\.H;dover n h
 Dover N\.H;Dover N\.H
 Dover N\.H;Dover, N H
-Dover N\.H;dover n h
 Downpatrick;downpatrick
 Downpatrick;Downpatrick
 Dresden;dresden
 Dresden;Dresden
+Dresden;dresden vt
 Drogheda;drogheda
 Drogheda;Drogheda
 Drogheda;Drogheda Ireland
+Dublin;cathedrall church of the blessed trinitie dublin
 Dublin;Church Trinitie Dublin
 Dublin;Doublin
 Dublin;dublin
+Dublin;dubl in
 Dublin;Dublin
+Dublin;dublin and now london
 Dublin;Dublini
 Dublin;DublinI
 Dublin;Dublinii
 Dublin;Dublinij
 Dublin;Dublin Ireland
 Dublin;Dublin, Ireland
+Dublin;dublin ireland t homas walsh in skinner row
 Dublin;Dublin London
 Dublin;Dublin,  London
+Dublin;dublin london and
 Dublin;Dublino
 Dublin;Dublin Paris
 Dublin;Dvblin
@@ -553,11 +563,13 @@ Edinburgh;Eclinburgh
 Edinburgh;Edenborough
 Edinburgh;Edenburg
 Edinburgh;Edenburgh
+Edinburgh;edenburg in schotland
+Edinburgh;edenburg in schottland
 Edinburgh;Edenburg Schotland
 Edinburgh;Edenburg Schottland
 Edinburgh;Ediburgh
-Edinburgh;Edimbourg
 Edinburgh;edimbourg
+Edinburgh;Edimbourg
 Edinburgh;Edimbourg Paris
 Edinburgh;Edimbourg Toulouse
 Edinburgh;Edimburgh
@@ -573,21 +585,27 @@ Edinburgh;Edinburgh at Dublin at Edinburgh
 Edinburgh;Edinburgh at Edinburgh
 Edinburgh;Edinburgh at London at Edinburgh
 Edinburgh;Edinburgh  Dublin
+Edinburgh;edinburgh dublin and edinburgh
+Edinburgh;edinburgh edinburgh
 Edinburgh;Edinburgh  Edinburgh
 Edinburgh;Edinburghi
 Edinburgh;Edinburgh London
 Edinburgh;Edinburgh  London
+Edinburgh;edinburgh london and edinburgh
 Edinburgh;Edinburgh London Edinburgh
 Edinburgh;Edinburgh London,Edinburgh
 Edinburgh;Edinburgh Scotland
 Edinburgh;Edinburgh, Scotland
 Edinburgh;Edinburgh, the heir of andrew anderson, printer to His most Sacred Majesty
+Edinburgh;edinburgh the heir of to his most sacred majesty
+Edinburgh;edinburgh ye day of
 Edinburgh;Edinburgi
 Edinburgh;Edinbvrgh
 Edinburgh;Edinbvrgi
 Edinburgh;Edingburgh
 Edinburgh;Edynburgh
 Edinburgh;Eerst Edinburgh
+Edinburgh;holy rood house edinburgh
 Edinburgh;Holy-Rood-House Edinburgh
 Edinburgh;inLondon at Edinburgh
 Edinburgh;Leith
@@ -595,6 +613,8 @@ Edinburgh;Leith Scotland
 Edinburgh;London at Edinburgh
 Edinburgh;London at Leith
 Edinburgh;Na de copye Gedruckt tot Edinburgh
+Edinburgh;na de copye tot edinburgh
+Edinburgh;order edinburgh
 Edinburgh;Savoy Edinburgh
 Edinburgh;Scotland
 Egham;egham
@@ -607,6 +627,7 @@ Elizabethtown Md;Elizabethtown Maryland
 Elizabethtown Md;Elizabethtown, Maryland
 Elizabethtown Md;elizabethtown md
 Elizabethtown Md;Elizabethtown Md
+Elizabethtown Md;elizabeth town n j
 Emden;emden
 Emden;Emden
 Ennis;ennis
@@ -631,21 +652,25 @@ Exeter;Exon Exeter England
 Exeter;Iscæ Dunmoniorum
 Exeter N\.H;Exeter New-Hampshire
 Exeter N\.H;exeter n h
-Exeter N\.H;exeter n h
 Exeter N\.H;Exeter N H
 Falkirk;falkirk
 Falkirk;Falkirk
 Fincastle Va;fincastle va
 Fincastle Va;Fincastle Va
 Fincastle Va;Fincastle, Va
+Fishkill N\.Y;fish kill n y
 Fishkill N\.Y;fishkill n y
 Fishkill N\.Y;Fish-kill N Y
 Fishkill N\.Y;Fishkill N Y
 Fishkill N\.Y;Fish-Kill N Y
-Fishkill N\.Y;fish kill n y
-Fishkill N\.Y;fishkill n y
+Fitchburg;fichtburg
+Fitchburg;fichtburg mass
+Fitchburg;fitchburg
+Fitchburg;Fitchburg
+Fitchburg;fitchburg massachusetts
 Florence;florence
 Florence;Florence
+Frankfurt;francefort et à londres
 Frankfurt;Francefort, Et London
 Frankfurt;Francefort Londres
 Frankfurt;Francfort
@@ -656,6 +681,7 @@ Frederick Md;frederick md
 Frederick Md;Frederick Md
 Frederick Md;Frederick, Md
 Frederick Md;Frederick-Town state Maryland
+Frederick Md;frederick town state of maryland
 Frederick Md;Frederick-Town state of Maryland
 Fredericton;fredericton
 Fredericton;Fredericton
@@ -673,6 +699,7 @@ Galway;Galway
 Galway;Galway Ireland
 Gateshead;gateshead
 Gateshead;Gateshead
+Gateshead;gateside gateshead co durham england
 Gateshead;Gateside Gateshead, Co\. Durham, England
 Gaunt;gaunt
 Gaunt;Gaunt
@@ -697,6 +724,7 @@ Gilmanton N\.H;Gilmanton N\.H\.J
 Gilmanton N\.H;Gilmanton, N\.H\.J
 Glasgow;glasgow
 Glasgow;Glasgow
+Glasgow;glasgow london and glasgow
 Glasgow;Glasgow London at Glasgow
 Glasgow;Glasgow London printed
 Glasgow;Glasgow Scotland
@@ -751,24 +779,21 @@ Haarlem;haarlem
 Haarlem;Haarlem
 Haarlem;harlem
 Haarlem;Harlem
+Hagerstown Md;hagers town md
 Hagerstown Md;hagerstown md
 Hagerstown Md;Hagerstown Md
 Hagerstown Md;Hagers-Town Md
-Hagerstown Md;hagers town md
 Halifax;halifax
 Halifax;Halifax
 Halifax;Halifax England
 Halifax N.C;halifax n c
 Halifax N.C;Halifax N C
-Halifax N.C;halifax n c
-Halifax N.C;halifax n c
-Halifax N.S;halifax n s
 Halifax N.S;Halifax Nova Scotia
 Halifax N.S;halifax n s
 Halifax N.S;Halifax N S
 Halifax N.S;Halifax, N S
-Halifax N.S;Nova-Scotia
 Halifax N.S;nova scotia
+Halifax N.S;Nova-Scotia
 Halle;halle
 Halle;Halle
 Hallowell Ma;hallowell ma
@@ -792,7 +817,6 @@ Hanover;Hanoviae
 Hanover N\.H;hanover n h
 Hanover N\.H;Hanover N H
 Hanover N\.H;Hanover, N H
-Hanover N\.H;hanover n h
 Harlow;harlow
 Harlow;Harlow
 Harrisburgh Pa;Harrisburg
@@ -807,8 +831,8 @@ Hartford Ct;Hartford Ct
 Haverhill Ma;haverhill ma
 Haverhill Ma;Haverhill Ma
 Haverhill Ma;Haverhill Mass
+Haverhill N\.H;haverhill new hampshire
 Haverhill N\.H;Haverhill New-Hampshire
-Haverhill N\.H;haverhill n h
 Haverhill N\.H;haverhill n h
 Haverhill N\.H;Haverhill N H
 Heidelberg;heidelberg
@@ -836,7 +860,6 @@ Houghton Park;Houghton Park
 Howden;howden
 Howden;Howden
 Hudson N\.Y;hudson n y
-Hudson N\.Y;hudson n y
 Hudson N\.Y;Hudson N Y
 Hudson N\.Y;Hudson, N Y
 Hull;hull
@@ -859,14 +882,13 @@ Ipswich;Ipswich England
 Jacksonburgh S\.C;jacksonburgh s c
 Jacksonburgh S\.C;Jacksonburgh S C
 Jacksonburgh S\.C;Jacksonburgh, S C
-Jacksonburgh S\.C;jacksonburgh s c
+Keene N\.H;keene new hampshire
 Keene N\.H;Keene New-Hampshire
 Keene N\.H;keene n h
 Keene N\.H;Keene N H
 Keene N\.H;Keene state New-Hampshire
-Keene N\.H;Keene state of New-Hampshire
 Keene N\.H;keene state of new hampshire
-Keene N\.H;keene new hampshire
+Keene N\.H;Keene state of New-Hampshire
 Keene N\.H;Keene, state of New-Hampshire
 Kelso;kelso
 Kelso;Kelso
@@ -896,7 +918,6 @@ Kingston;kington
 Kingston;Kington
 Kingston N\.Y;kingston n y
 Kingston N\.Y;Kingston N Y
-Kingston N\.Y;Kingston N Y
 Kingston N\.Y;Kingston, N\.Y
 Kingston N\.Y;Kingston Ulster County New York
 Kingston;Surry
@@ -924,7 +945,6 @@ Lancaster Pa;Lancäster Pa
 Lancaster Pa;Lancaster Penn
 Lansingburgh N\.Y;lansingburgh n y
 Lansingburgh N\.Y;Lansingburgh N Y
-Lansingburgh N\.Y;lansingburgh n y
 La Rochelle;la rochelle
 La Rochelle;La Rochelle
 Lausanne;lausanne
@@ -987,45 +1007,25 @@ Liverpool;Liverpool England
 Livorno;livorno
 Livorno;Livorno
 London;A\. London
-London;london bs n
+London;a__ londres
+London;burtons coffee house london
 London;Burtons Coffee-House London
 London;Burtons London
 London;Court Old Baily
-London;london and re edinburgh
-London;londres par sur les copies ez à tours à la rochelle
-London;london white hall st barnabas's festival
-London;london to the honorable house of commons
-London;london to prevent mis information
-London;london t moore in white fryers
-London;london january
-London;london inted
-London;london in powles church yarde by rycharde iugge and to the quenes maiestie cum priuilegio regiæ maiestatis
-London;london in povvles churchyarde
-London;london in fleetstreete
-London;london in engelland
-London;london i
-London;london for to the parliament of england
-London;london by to the university
-London;londo n
-London;londini ussum
-London;londen in engelland
-London;lond on
-London;lond ini
-London;lo ndon
 Londonderry;Derry
-Londonderry;london derry
 Londonderry;Derry Londonderry Ireland
 Londonderry;L Derry
 Londonderry;L,Derry
 Londonderry;L Derry Londonderry Ireland
 Londonderry;L,Derry Londonderry, Ireland
 Londonderry;londonderry
+Londonderry;london derry
 Londonderry;Londonderry
 Londonderry;London-Derry
 Londonderry;Londonderry Ireland
 Londonderry;Londonderry, Ireland
+London;dick's coffee house in skinner row whereprinting work is done
 London;Dondon
-London;lon don
 London;East Molesey Surrey
 London;England
 London;Excudebat Londini
@@ -1033,11 +1033,14 @@ London;Excussum sic Londini
 London;Excusum Londini
 London;Excusum Lonini
 London;Excvsvm Londini
+London;exemplaer van londen
 London;Gedruckt naer de copy van Londen
 London;High-Dutch London
+London;inlondini
 London;In the Savoy
 London;In the Savoy London
-London;london in the savoy
+London;j and t dormer in black and white court in the old baily where advertisements and letters are taken in
+London;juxta emplar londini
 London;Llundain
 London;Lodnon
 London;Lodnonsic
@@ -1047,32 +1050,57 @@ London;Lomdon
 London;Lond
 London;Londen
 London;Londen Engelland
+London;londen in engelland
 London;Londgn
 London;Londidi
+London;lond ini
 London;Londini
 London;Londinii
 London;Londini London
 London;Londini London England
+London;londini ussum
 London;Londn
 London;Londom
 London;london
+London;lo ndon
+London;lon don
+London;lond on
+London;londo n
 London;London
 London;London '
 London;London Amsterdam
+London;london and aberdene
 London;London and Birmingham England
+London;london and dublin
+London;london and edinburgh
 London;London and Francfort
+London;london and leith
+London;london and now edinburgh
 London;London and Oxford
+London;london and re edinburgh
 London;London and Westminster
 London;London and Westminster England
 London;London Brussels
+London;london bs n
 London;London bs\.n
+London;london by to the university
 London;London Engelland
 London;London England
 London;London Fleetstreete
+London;london for to the parliament of england
 London;London Göttingen
 London;London Hamburg
+London;london i
 London;Londoni
 London;Londonijs
+London;london in engelland
+London;london in fleetstreete
+London;london in povvles churchyarde
+London;london in powles churchyarde
+London;london in powles church yarde by rycharde iugge and to the quenes maiestie cum priuilegio regiæ maiestatis
+London;london inted
+London;london in the savoy
+London;london january
 London;LondonJanuary
 London;London London
 London;London or Edinburgh
@@ -1085,15 +1113,23 @@ London;London Powles Churchyarde
 London;London Savoy
 London;London s\.n
 London;London Temstrete
+London;london t moore in white fryers
+London;london to prevent mis information
+London;london to the honorable house of commons
 London;London und Berlin
 London;London Westminster
 London;London Westminster England
+London;london white hall st barnabas's festival
 London;Londra
 London;Londra London England
 London;Londre
 London;Londres
+London;londres et se trouve a paris
+London;londres et se trouve à paris
 London;Londres London England
 London;Londres Paris
+London;londres par sur les copies ez à tours à la rochelle
+London;londres par sur les copies imprimeez à tours à la rochelle
 London;Londres s n
 London;Lonini
 London;Lonkon
@@ -1103,15 +1139,23 @@ London;Louanii
 London;Loudon
 London;Loydon
 London;Lundon
+London;me in thabbey of westmenstre by london fynysshed and accomplysshed the viij day of the yere of the incatnacyon of our lord god m cccc lxxxij and in the xxii yere of the regne of the fourth
 London;me thabbey Westmenstre london
 London;Nondon
+London;roan by the kinges with priuiledge and london
 London;Savoy
 London;Savoy London
+London;s c
 London;Southwark
 London;Spitalfields
+London;stamford newcomb and pe
+London;st christopher
 London;Tet Londen
 London;the Savoy
 London;the Savoy London
+London;the signe of the dobbel hood
+London;the sign of the old kings head in axe yard in king street westminster
+London;translated out of the high dutch and london
 London;Westmestre
 London;Westminister
 London;Westminster
@@ -1148,14 +1192,15 @@ Mechelen;mechelen
 Mechelen;Mechelen
 Mechelen;mechlin
 Mechelen;Mechlin
+Mechelen;mechlin with licence
 Medford Ma;medford ma
 Medford Ma;Medford Ma
 Medford Ma;Medford Mass
 Medford Ma;Medford Massachusetts
 Medford Ma;Medford Masschusetts
+Middelburg;midddelburgh
 Middelburg;Midddelburghsic
 Middelburg;middelburg
-Middelburg;midddelburgh
 Middelburg;Middelburg
 Middelburg;Middleborrow
 Middelburg;Midelburge
@@ -1164,10 +1209,10 @@ Minorca;Minorca
 Monmouth;monmouth
 Monmouth;Monmouth
 Monmouth N\.J;monmouth n j
-Monmouth N\.J;monmouth n j
 Monmouth N\.J;Monmouth N J
 Montego Bay;montego bay
 Montego Bay;Montego Bay
+Montego Bay;montego bay jamaica
 Montego Bay;Montego-Bay Jamaica
 Montego Bay;Montego-Bay, Jamaica
 Montreal;montreal
@@ -1179,7 +1224,7 @@ Montrose;montrose
 Montrose;Montrose
 Mount Holly N\.J;mount holly n j
 Mount Holly N\.J;Mount Holly N J
-Mount Holly N\.J;mount holly n j
+name;synonyme
 Nassau;Bahamas
 Nassau;nassau
 Nassau;Nassau
@@ -1195,8 +1240,8 @@ Newark;Newark
 Newark;Newark England
 Newark N\.J;newarj n j
 Newark N\.J;Newarj N J
+Newark N\.J;newark new jersey
 Newark N\.J;Newark New-Jersey
-Newark N\.J;newark n j
 Newark N\.J;newark n j
 Newark N\.J;Newark N J
 Newark N\.J;Newark N\.w-Jersey
@@ -1211,32 +1256,30 @@ New Bedford Ms;New Bedford Mass
 New Bedford Ms;new bedford ms
 New Bedford Ms;New Bedford Ms
 New Bern N\.C;new bern n c
-New Bern N\.C;new bern n c
 New Bern N\.C;Newbern N C
 New Bern N\.C;Newbern, N C
 New Bern N\.C;New Bern N C
-New Bern N\.C;new bern n c
 New Bern N\.C;Newbern North Carolina
-New Brunswick N\.J;New-Brunswick
 New Brunswick N\.J;new brunswick
+New Brunswick N\.J;New-Brunswick
+New Brunswick N\.J;new brunswick n j
 New Brunswick N\.J;new brunswick n\.j
 New Brunswick N\.J;New Brunswick N J
 New Brunswick N\.J;New-Brunswick N J
-New Brunswick N\.J;new brunswick n j
 Newburgh N\.Y;newburgh n y
 Newburgh N\.Y;Newburgh N Y
 Newburgh N\.Y;Newburgh, N Y
-Newburgh N\.Y;newburgh n y
 Newburgh N\.Y;Newburgh Orange County N Y
 Newburgh N\.Y;Newburgh Ulster County N Y
 Newbury Ma;newbury ma
 Newbury Ma;Newbury Ma
 Newbury Ma;Newbury Mass
+Newburyport Ma;newbury port
 Newburyport Ma;Newbury-Port
 Newburyport Ma;newburyport ma
 Newburyport Ma;Newburyport Ma
-Newburyport Ma;Newbury-port Mass
 Newburyport Ma;newbury port mass
+Newburyport Ma;Newbury-port Mass
 Newburyport Ma;Newburyport Mass
 Newburyport Ma;Newburyport, Mass
 Newburyport Ma;Newbury-Port Mass
@@ -1244,6 +1287,7 @@ Newburyport Ma;Newbury-Port, Mass
 Newburyport Ma;Newburyport Massachusetts
 Newburyport Ma;Newburyport, Massachusetts
 Newburyport Ma;Newburyport Masschusetts
+Newburyport Ma;newbury port new england
 Newburyport Ma;Newbury-Port, New England
 Newburyport Ma;Newbury-Port N\.w-England
 Newbury Vt;Newbury Vermont
@@ -1289,50 +1333,48 @@ Newport Isle of Wight;Newport Isle of Wight England
 Newport Isle Wight;newport isle wight
 Newport Isle Wight;Newport Isle Wight
 Newport Isle Wight;Newport Isle Wight England
+Newport, Rhode-Island;
+Newport R\.I;newport rhode island
 Newport R\.I;Newport Rhode-Island
 Newport R\.I;Newport, Rhode-Island
 Newport R\.I;newport r i
-Newport R\.I;newport r i
 Newport R\.I;Newport R I
-Newport R\.I;newport rhode island
-Newport, Rhode-Island;
 Newry;newry
 Newry;Newry
 Newry;Newry Ireland
 Newton N\.J;newton n j
 Newton N\.J;Newton N J
 Newton N\.J;Newton State New-Jersey
-Newton N\.J;Newton State of New-Jersey
 Newton N\.J;newton state of new jersey
+Newton N\.J;Newton State of New-Jersey
 New Windsor N\.Y;new windsor n y
 New Windsor N\.Y;New Windsor N Y
 New Windsor N\.Y;New-Windsor N Y
-New Windsor N\.Y;New-Windsor Orange County N Y
 New Windsor N\.Y;new windsor orange county n y
-New Windsor N\.Y;new windsor n y
+New Windsor N\.Y;New-Windsor Orange County N Y
 New York N.Y;Brooklyn
+New York N.Y;brooklynissa n y
+New York N.Y;brooklyn new york
 New York N.Y;Brooklyn N Y
+New York N.Y;neo eboraci
 New York N.Y;Neo-Eboraci
 New York N.Y;new york
 New York N.Y;New York
 New York N.Y;New-York
 New York N.Y;New York America
 New York N.Y;New York New York
-New York N.Y;new york n y
+New York N.Y;new york ny
 New York N.Y;new york n y
 New York N.Y;New York N Y
 New York N.Y;New York, N\.Y
 New York N.Y;New-York N Y
-New York N.Y;brooklyn new york
-New York N.Y;brooklynissa n y
 New York N.Y;ne york
-New York N.Y;new york ny
-Niagara;niagara
-Niagara;Niagara
 N H$;n\.h
 N\.H\.;n\. h\.
 N H$;N\.H
 N\.H\.;N\. H\.
+Niagara;niagara
+Niagara;Niagara
 N J$;n\.j
 N\.J\.;n\. j\.
 N J$;N\.J
@@ -1363,15 +1405,17 @@ Nottingham;Nottingham
 Nottingham;Nottingham England
 Nottingham;Nottingham, England
 N Y$;N\.Y
-Ossining N\.Y;ossining n\.y
 Ossining N\.Y;ossining n y
+Ossining N\.Y;ossining n\.y
 Ossining N\.Y;Ossining N\.Y
 Oxford;Bellositi Dobunorum Oxford
 Oxford;oxford
 Oxford;Oxford
+Oxford;oxford and london
+Oxford;oxford and shrewsbury
 Oxford;Oxforde
-Oxford;Oxford England
 Oxford;oxf ord england
+Oxford;Oxford England
 Oxford;oxoford
 Oxford;Oxoford
 Oxford;Oxon
@@ -1379,6 +1423,7 @@ Oxford;Oxoni
 Oxford;Oxoniae
 Oxford;Oxoniæ
 Oxford;Oxoniæ excudebant
+Oxford;oxoniæ udebant
 Oxford;Oxonii
 Oxford;Oxon Oxford
 Paisley;paisley
@@ -1389,6 +1434,7 @@ Paris Ky;paris ky
 Paris Ky;Paris Ky
 Paris;paris
 Paris;Paris
+Paris;paris b chez rue s jacques a l'enseigne sainct claude de l'homme sauvage
 Paris;Parisiis
 Paris;ParisLondon
 Paris;Paris London
@@ -1416,7 +1462,6 @@ Philadelphia Pa;Pennsylvania
 Philadelphia Pa;Philadelpaia
 Philadelphia Pa;Philadelphia
 Philadelphia Pa;Philadelphia America
-Philadelphia Pa;united states philadelphia
 Philadelphia Pa;Philadelphia and New York
 Philadelphia Pa;Philadelphiae
 Philadelphia Pa;Philadelphia New York
@@ -1424,27 +1469,31 @@ Philadelphia Pa;philadelphia pa
 Philadelphia Pa;Philadelphia Pa
 Philadelphia Pa;Philadelphia, Pa
 Philadelphia Pa;Philadelphie
+Philadelphia Pa;philadelphie et se trouve à paris
 Philadelphia Pa;Philadelphie et se trouve Paris
 Philadelphia Pa;Philadelphie Philadelphia Pa
 Philadelphia Pa;Philadelphie Philadelphia, Pa
 Philadelphia Pa;Te Philadelphia
+Philadelphia Pa;united states philadelphia
 Philadelphia Pa;United States\. Philadelphia
 Plymouth;plymouth
 Plymouth;Plymouth
+Pointe-A-Pitre;la point à pitre
 Pointe-A-Pitre;la Point-à-Pitre
 Pointe-A-Pitre;la Pointe-A-Pitre
 Pointe-A-Pitre;point-a-pitre
 Pointe-A-Pitre;Point-A-Pitre
 Pointe-A-Pitre;Point-à-Pitre
+Pointe-A-Pitre;point à pitre guadeloupe
 Pointe-A-Pitre;Point-à-Pitre Guadeloupe
 Pointe-A-Pitre;pointe-a-pitre
 Pointe-A-Pitre;Pointe-A-Pitre
+Pointe-A-Pitre;pointe a pitre guadeloupe
 Pointe-A-Pitre;Pointe-A-Pitre Guadeloupe
 Pointe-A-Pitre;Pointe-A-Pitre, Guadeloupe
-Pointe-A-Pitre;point à pitre guadeloupe
-Pointe-A-Pitre;pointe a pitre guadeloupe
 Poole;poole
 Poole;Poole
+Port-au-Prince;port au prince
 Port-au-Prince;port-au-prince
 Port-au-Prince;Port-au-Prince
 Portland Me;Portland District of Maine
@@ -1458,10 +1507,10 @@ Portsmouth N\.H;Portsmouth New Hampshire
 Portsmouth N\.H;Portsmouth New-Hampshire
 Portsmouth N\.H;Portsmouth, New-Hampshire
 Portsmouth N\.H;Portsmouth,New-Hampshire
+Portsmouth N\.H;portsmouth n h
 Portsmouth N\.H;portsmouth n\.h
 Portsmouth N\.H;Portsmouth N H
 Portsmouth N\.H;Portsmouth N  H
-Portsmouth N\.H;portsmouth n h
 Portsmouth N\.H;Portsmouth N\.w-Hampshire
 Portsmouth;portsmouth
 Portsmouth;Portsmouth
@@ -1471,17 +1520,16 @@ Poughkeepsie N\.Y;Poughkeepsie, Dutchess County N Y
 Poughkeepsie N\.Y;poughkeepsie n y
 Poughkeepsie N\.Y;Poughkeepsie N Y
 Poughkeepsie N\.Y;Poughkeepsie, N Y
-Poughkeepsie N\.Y;poughkeepsie n y
 Preston;preston
 Preston;Preston
-London;london in powles churchyarde
 Preston;Preston England
 Preston;Preston, England
 Providence R\.I;America at Providence R\. Island
+Providence R\.I;america providence r island
 Providence R\.I;America Providence R\. Island
 Providence R\.I;Providence
-Providence R\.I;Providence,New England
 Providence R\.I;providence in new england
+Providence R\.I;Providence,New England
 Providence R\.I;Providence N\.w-England
 Providence R\.I;Providence Rhode Island
 Providence R\.I;Providence Rhode-Island
@@ -1502,6 +1550,7 @@ Reading Pa;reading pa
 Reading Pa;Reading Pa
 Reading;reading
 Reading;Reading
+Reading;reading berks england
 Reading;Reading Berks\. England
 Reading;Reading, Berks\. England
 Reading;Reading England
@@ -1528,7 +1577,6 @@ Rochester;rochester
 Rochester;Rochester
 Rodborough;rodborough
 Rodborough;Rodborough
-Rome N\.Y;rome n y
 Rome N\.Y;rome n y
 Rome N\.Y;Rome N Y
 Rome;rome
@@ -1565,8 +1613,8 @@ Salem Ma;salem mass n e
 Salem Ma;Salem Mass N\.E
 Salem Ma;Salem Mass\. N E
 Salem Ma;Salem Mass\., N E
-Salem Ma;Salem N\.E
 Salem Ma;salem n e
+Salem Ma;Salem N\.E
 Salem Ma;Salem, N E
 Salem Ma;Salem State of New York
 Salem N\.Y;salem n y
@@ -1587,22 +1635,24 @@ Salisbury;Salisbury
 Salisbury;Salisbury England
 Salisbury;Salisbury, England
 Salisbury;Sarum
+Savannah Ga;georgia savannah
 Savannah Ga;Georgia\. Savannah
 Savannah Ga;Savannah
 Savannah Ga;savannah ga
 Savannah Ga;Savannah Ga
 Savannah Ga;Savannah, Ga
+Savanna-la-Mar Jamaica;savanna la mar jamaica
 Savanna-la-Mar Jamaica;savanna-la-mar jamaica
 Savanna-la-Mar Jamaica;Savanna-la-Mar Jamaica
 Schenectady N\.Y;schenectady n y
-Schenectady N\.Y;schenectady n y
-Schenectady N\.Y;schenectady state of new york
 Schenectady N\.Y;Schenectady N Y
 Schenectady N\.Y;Schenectady State New-York
+Schenectady N\.Y;schenectady state of new york
 Schenectady N\.Y;Schenectady State of New-York
 Scipio N\.Y;scipio n y
 Scipio N\.Y;Scipio N Y
 Scipio N\.Y;Scipio Onondaga County S\.N\.Y
+Scipio N\.Y;scipio onondaga county y
 S C$;S\.C
 S\.C\.;S\. C\.
 Sheffield;sheffield
@@ -1610,13 +1660,13 @@ Sheffield;Sheffield
 Sheffield;Sheffield England
 Shelburne Nova Scotia;shelburne nova scotia
 Shelburne Nova Scotia;Shelburne Nova Scotia
+Shepherdstown Va;shepherd's town va
 Shepherdstown Va;shepherd's-town va
 Shepherdstown Va;shepherdstown va
 Shepherdstown Va;Shepherdstown Va
 Shepherdstown Va;Shepherd's-Town Va
-Shepherdstown Va;Shepherd's-Town W\. Va
-Shepherdstown Va;shepherd's town va
 Shepherdstown Va;shepherd's town w va
+Shepherdstown Va;Shepherd's-Town W\. Va
 Sherborne;sherborne
 Sherborne;Sherborne
 Sherborne;Sherborne Dorset England
@@ -1662,8 +1712,8 @@ Stamford;stamford
 Stamford;Stamford
 Stamford;Stamford by Newcomb and Peat
 Stamford;Stamford England
-Stamford;Stamford Newcomb Pe
 Stamford;stamford newcomb and pe 
+Stamford;Stamford Newcomb Pe
 Stamford;Stamford Newcomb Peat
 St\. Andrews;sanctandrois
 St\. Andrews;Sanctandrois
@@ -1674,6 +1724,7 @@ Stanford;stanford
 Stanford;Stanford
 Stanford;Stanford England
 St\. Augustine Fl;Saint Augustine
+St\. Augustine Fl;st augustine east florida
 St\. Augustine Fl;St\. Augustine East-Florida
 St\. Augustine Fl;St\. Augustine, East-Florida
 St\. Augustine Fl;st\. augustine fl
@@ -1683,12 +1734,15 @@ Staunton Va;Staunton Va
 St\. Eustatius;Saint Eustatius Netherlands Antilles
 St\. Eustatius;st\. eustatius
 St\. Eustatius;St\. Eustatius
+St George's grenada;st george's grenada
 St\. George's Grenada;st\. george's grenada
 St\. George's Grenada;St\. George's Grenada
+St George's grenada;st george's saint george bermuda
 St\. George's Grenada;St\. George's Saint George Bermuda
+St George's grenada;st george's town grenada
 St\. George's Grenada;St\. George's Town Grenada
-St\. Germans;st\. germans
 St\. Germans;st germans
+St\. Germans;st\. germans
 St\. Germans;St\. Germans
 St\. Helier;Jersey Saint Helier Channel Islands
 St\. Helier;Saint Helier
@@ -1701,22 +1755,23 @@ Stirling;Striviling
 St\. Ives;st\. ives
 St\. Ives;St\. Ives
 St\. Ives;St\. Ives Huntingdonshire England
+St\. Ives;st ives in huntingdonshire england
 St\. Ives;St\. Ives in Huntingdonshire England
 St\. John New Brunswick;Saint John New Brunswick
 St\. John New Brunswick;st\. john new brunswick
 St\. John New Brunswick;St\. John New Brunswick
+St\. John's Antiqua;st john
 St\. John's Antiqua;St\. John
+St\. John's Antiqua;st johns antigua
 St\. John's Antiqua;St\. John's Antigua
 St\. John's Antiqua;St\. Johns Antigua
 St\. John's Antiqua;st\. john's antiqua
 St\. John's Antiqua;St\. John's Antiqua
-St\. John's Antiqua;St\. John's in Antigua
 St\. John's Antiqua;st john's in antigua
-St\. John's Antiqua;st johns antigua
-St\. John's Antiqua;st john
+St\. John's Antiqua;St\. John's in Antigua
+St\. Mary's Md;st mary's md
 St\. Mary's Md;st\. mary's md
 St\. Mary's Md;St\. Mary's Md
-St\. Mary's Md;st mary's md
 Stockbridge Ma;stockbridge ma
 Stockbridge Ma;Stockbridge Ma
 Stockbridge Ma;Stockbridge Mass
@@ -1724,10 +1779,11 @@ Stockbridge Ma;Stockbridge, Mass
 Stockton;stockton
 Stockton;Stockton
 St\. Omer;Omers
-St\. Omer;st omer
 St\. Omer;Saint Omer
 St\. Omer;Saint-Omer
+St\. Omer;s omers
 St\. Omer;S\. Omers
+St\. Omer;st omer
 St\. Omer;st\. omer
 St\. Omer;St\. Omer
 St\. Pierre Martinique;La Trinité Martinique
@@ -1758,6 +1814,7 @@ The Hague;Hagh
 The Hague;Hagh The Hague
 The Hague;Hague
 The Hague;Hagve
+The Hague;in's graven hage
 The Hague;In's Graven-Hage
 The Hague;In the Hague
 The Hague;la Haye
@@ -1772,9 +1829,9 @@ Trefeca;trefeca
 Trefeca;Trefeca
 Trefeca;Trefecca Breconshire Wales
 Trefeca;Trefecca Breconshire, Wales
+Trenton N\.J;trenton n j
 Trenton N\.J;trenton n\.j
 Trenton N\.J;Trenton N\.J
-Trenton N\.J;trenton n j
 Trenton N\.J;Trenton, N\.J
 Trenton;trenton
 Trenton;Trenton
@@ -1786,6 +1843,7 @@ Twickenham;twickenham
 Twickenham;Twickenham
 United States;united states
 United States;United States
+unknown;n l
 unknown;n\.l
 unknown;s\.l
 unknown;S\.l
@@ -1793,11 +1851,11 @@ unknown;S\.l\. s\.n
 unknown;s\.n
 unknown;S\.n
 unknown;unknown
-Uppsala;upsaliae ime
 Uppsala;Uppsal
 Uppsala;uppsala
 Uppsala;upsala
 Uppsala;Upsala
+Uppsala;upsaliae ime
 Uppsala;Vppsala
 Uppsala;Vpsala
 Utrecht;utrecht
@@ -1827,9 +1885,8 @@ Walsall;walsall
 Walsall;Walsall
 Waltham;waltham
 Waltham;Waltham
-Warren R\.I;Warren Rhode-Island
 Warren R\.I;warren rhode island
-Warren R\.I;warren r i
+Warren R\.I;Warren Rhode-Island
 Warren R\.I;warren r i
 Warren R\.I;Warren R I
 Warrington;warrington
@@ -1842,14 +1899,13 @@ Washington D\.C;City of Washington D C
 Washington D\.C;City Washington D C
 Washington D\.C;washington d c
 Washington D\.C;Washington D C
-Washington D\.C;washington d c
 Washington Pa;washington pa
 Washington Pa;Washington Pa
 Waterford;VVaterford
 Waterford;waterford
 Waterford;Waterford
-Waterford;Waterford Ireland
 Waterford;waterford in ireland
+Waterford;Waterford Ireland
 Watertown Ma;watertown ma
 Watertown Ma;Watertown Ma
 Watertown Ma;Watertown Mass
@@ -1914,26 +1970,23 @@ Wolverhampton;wolverhampton
 Wolverhampton;Wolverhampton
 Wolverhampton;Wolverhampton England
 Woodbridge N\.J;Woodbridge
+Woodbridge N\.J;woodbridge in new jersey
 Woodbridge N\.J;Woodbridge New Jersey
 Woodbridge N\.J;woodbridge n j
 Woodbridge N\.J;Woodbridge N J
 Woodbridge N\.J;Woodbridge, N J
 Woodbridge N\.J;Woodbridge N\.w Jersey
 Woodbridge N\.J;Woodbridge N\.w-Jersey
-Woodbridge N\.J;woodbridge n j
-Woodbridge N\.J;woodbridge in new jersey
+Worcester Ma;massachusetts bay worcester
 Worcester Ma;Massachusetts-Bay, Worcester
 Worcester Ma;Masschusetts-Bay Worcester
 Worcester Ma;worcester ma
 Worcester Ma;Worcester Ma
-Worcester Ma;worcester ma
 Worcester Ma;Worcester MA
-Worcester Ma;worcester ma
 Worcester Ma;Worcester Mass
 Worcester Ma;Worcester, Mass
 Worcester Ma;Worcester Massachusetts
 Worcester Ma;Worcester Masschusetts
-Worcester Ma;massachusetts bay worcester
 Worcester;worcester
 Worcester;Worcester
 Worcester;Worcester England
@@ -1947,104 +2000,15 @@ Yeovil;Yeovil
 Yeovil;Yeovil England
 York Pa;york pa
 York Pa;York Pa
+York Pa;york town pa
 York Pa;York-town Pa
 York Pa;York-Town Pa
-York Pa;York-town Penn
 York Pa;york town penn
-York Pa;york town pa
+York Pa;York-town Penn
+York;sold in york
 York;york
 York;York
-York;Yorke
-York;York England
-London;london and edinburgh
-Edinburgh;edinburgh london and edinburgh
-Basseterre Saint Kitts;basseterre st christopher st kitts nevis
-St\. Ives;st ives in huntingdonshire england
-St George's grenada;st george's grenada
-St\. Omer;s omers
-Port-au-Prince;port au prince
-Oxford;oxford and shrewsbury
-Edinburgh;order edinburgh
-Montego Bay;montego bay jamaica
-York;yorke and now london
 York;york by
-London;translated out of the high dutch and london
-London;the signe of the dobbel hood
-London;the sign of the old kings head in axe yard in king street westminster
-Boston MA;state of massachusetts bay boston
-London;stamford newcomb and pe
-St George's grenada;st george's town grenada
-St George's grenada;st george's saint george bermuda
-Bury St. Edmunds;st edmunds bury bury st edmunds england
-London;st christopher
-St\. Augustine Fl;st augustine east florida
-York;sold in york
-Scipio N\.Y;scipio onondaga county y
-Savanna-la-Mar Jamaica;savanna la mar jamaica
-London;s c
-London;roan by the kinges with priuiledge and london
-Reading;reading berks england
-Philadelphia Pa;philadelphie et se trouve à paris
-Paris;paris b chez rue s jacques a l'enseigne sainct claude de l'homme sauvage
-Oxford;oxoniæ udebant
-Oxford;oxford and london
-Newburyport Ma;newbury port new england
-Newburyport Ma;newbury port
-Newark N\.J;newark new jersey
-New York N.Y;neo eboraci
-Edinburgh;na de copye tot edinburgh
-unknown;n l
-Mechelen;mechlin with licence
-London;me in thabbey of westmenstre by london fynysshed and accomplysshed the viij day of the yere of the incatnacyon of our lord god m cccc lxxxij and in the xxii yere of the regne of the fourth
-London;londres par sur les copies imprimeez à tours à la rochelle
-London;londres et se trouve à paris
-London;londres et se trouve a paris
-London;london and now edinburgh
-London;london and leith
-London;london and dublin
-London;london and aberdene
-Pointe-A-Pitre;la point à pitre
-London;juxta emplar londini
-London;j and t dormer in black and white court in the old baily where advertisements and letters are taken in
-London;inlondini
-The Hague;in's graven hage
-Edinburgh;holy rood house edinburgh
-Haverhill N\.H;haverhill new hampshire
-Glasgow;glasgow london and glasgow
-Savannah Ga;georgia savannah
-Gateshead;gateside gateshead co durham england
-Frederick Md;frederick town state of maryland
-Frankfurt;francefort et à londres
-Antwerp;famous cite of andwarpe
-London;exemplaer van londen
-Elizabethtown Md;elizabeth town n j
-Edinburgh;edinburgh ye day of
-Edinburgh;edinburgh the heir of to his most sacred majesty
-Edinburgh;edinburgh edinburgh
-Edinburgh;edinburgh dublin and edinburgh
-Edinburgh;edenburg in schottland
-Edinburgh;edenburg in schotland
-Antwerp;duchye of braband in the towne of andewarpe
-Dublin;dublin london and
-Dublin;dublin ireland t homas walsh in skinner row
-Dublin;dublin and now london
-Dublin;dubl in
-Dresden;dresden vt
-Dorchester;dorchester england
-London;dick's coffee house in skinner row whereprinting work is done
-Danvers Ma;danvers near boston
-Danvers Ma;danvers mass near salem
-Danvers Ma;danvers mass near boston
-Coventry;coventry bs n
-Charleston S\.C;charles town south carolina
-Dublin;cathedrall church of the blessed trinitie dublin
-Caernarfon;caer grawnt
-London;burtons coffee house london
-Burton;burton upon trent
-Boston MA;boston in america
-Bath N\.Y;bath county of steuben state of new york
-Annapolis Md;annapolis north america
-Amsterdam;amsterdam in the
-Amsterdam;amsterdam et a leipzig
-Providence R\.I;america providence r island
-London;a__ londres
+York;Yorke
+York;yorke and now london
+York;York England
