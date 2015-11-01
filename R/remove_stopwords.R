@@ -16,7 +16,7 @@ remove_stopwords <- function (x, terms = NULL, remove.letters = TRUE) {
     message(paste("No stopwords provided. Reading stopwords from file ", f))
     terms <- as.character(read.csv(f)[,1])
   }
-  
+    
   # List all unique terms
   terms <- sort(unique(terms))
   x <- remove_terms(x, terms, c("begin", "middle", "end"))

@@ -19,7 +19,7 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
   if (include.lowercase) {
     terms <- c(terms, tolower(terms))
   }
-  
+
   # List all unique terms
   terms <- sort(unique(terms))
   
