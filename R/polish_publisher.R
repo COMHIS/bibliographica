@@ -22,6 +22,7 @@ polish_publisher <- function(x, synonyms=NULL) {
     f <- system.file("extdata/publisher.csv", package = "bibliographica")
     synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8", header = TRUE))
   }
+
   x <- harmonize_names(x, synonyms)
 
   x
