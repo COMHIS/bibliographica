@@ -1,5 +1,7 @@
 synonyme|name
-vthi |i 
+vthi |i
+och [i|j] |i
+Och [i|j] |i
 uthi |i 
 uti |i 
 Lith i |trykt i 
@@ -23,7 +25,6 @@ trykt på|trykt
 trykt uti|trykt
 trykt uthi|trykt
 Tryckt vthi |trykt 
-vthi |trykt
 vthi$|trykt
 trykt j |trykt 
 tryckt i |trykt 
@@ -46,7 +47,8 @@ nu på nytt vplagdt och |print
 revisa et recusa |print
 samma åhr |
 på nytt$|
-sic$|
+ sic$|
+ \!$|
 Förf\.|
 ^Förf\.$|
 förf |
