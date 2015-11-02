@@ -22,7 +22,7 @@ remove_print_statements <- function (x) {
     x <- gsub(" s n$", "", x)    
   }
   x <- condense_spaces(x)
-print(x)
+
   # remove sine loco
   x <- remove_sl(x)
 
