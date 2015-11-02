@@ -15,7 +15,6 @@ harmonize_print_statements <- function (x) {
   ### Get printing terms from tables in various languages
 
   for (lang in c("finnish", "french", "german", "swedish", "english")) {
-print(lang)
     f <- system.file(paste0("extdata/printterms_", lang, ".csv"), package = "bibliographica")
     terms <- read.csv(f, sep = "|")
     x <- tolower(x)
@@ -23,7 +22,6 @@ print(lang)
     # Harmonize the terms
     x <- as.character(harmonize_names(x, terms, mode = "recursive", check.synonymes = FALSE)$name)
     x <- condense_spaces(x)    
-
   }
 
   list(name = x, original = xorig)
