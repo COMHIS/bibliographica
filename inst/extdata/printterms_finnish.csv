@@ -1,8 +1,10 @@
 synonyme|name
+Revisa \[et\] recusa |
 wastudesta p|p
 annettu|painettu
 caupungis|painettu
 typis |painettu 
+Präntätyd|painettu
 prändätty|painettu
 präntettu|painettu
 prändättyt|painettu
@@ -31,6 +33,7 @@ Paynettu|painettu
 painettu|printed
 ja * kerran|
 Ja * kerran|
+^* kerran|
 ^af |
 ^ja |
 ^Ja |
@@ -41,3 +44,7 @@ tekijä |
 ^pani hin |
 ^Pani hin |
 ^Pani ihin |
+^pani ihin |
+^[a-z]$|
+^[A-Z]$|
+^[0-9]$|

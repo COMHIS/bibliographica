@@ -69,7 +69,8 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (verbose) {message("Custom polish")}
   x <- gsub("And", "and", x)
-  x <- gsub("Parliament ", "", x)    
+  x <- gsub("Parliament ", "", x)
+  x <- gsub("^s$", "", x)    
 
   if (verbose) { message("Harmonize the synonymous names") }
   x <- as.character(harmonize_names(x, synonymes,
