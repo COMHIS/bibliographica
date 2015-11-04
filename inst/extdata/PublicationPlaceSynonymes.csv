@@ -1,6 +1,7 @@
 name;synonyme
-^b borg$;NA
+^b borg$;a
 ^s a$;NA
+Calumet;calumet
 Stockholm;stocklom
 Stockholm;stockhom
 Stockholm;stockholm
@@ -207,6 +208,7 @@ Boston Ma;Massachusetts-Bay Worcester
 Boston Ma;Massachusetts Boston
 Boston Ma;Massachusetts State Boston
 Boston Ma;Massachusetts-State Boston
+^s a$;
 Boston Ma;Masschuset Boston
 Boston Ma;Masschusetts
 Boston Ma;Masschusetts Boston

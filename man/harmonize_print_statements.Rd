@@ -4,10 +4,12 @@
 \alias{harmonize_print_statements}
 \title{harmonize_print_statements}
 \usage{
-harmonize_print_statements(x)
+harmonize_print_statements(x, lowercase = FALSE)
 }
 \arguments{
 \item{x}{a vector}
+
+\item{lowercase}{Set all in lowercase}
 }
 \value{
 Harmonized vector

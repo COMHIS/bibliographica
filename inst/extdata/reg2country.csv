@@ -1,4 +1,175 @@
 region;country
+Porth Arthur ON;USA
+Lybeck;Germany
+Augsburg;Germany
+Isokyrö;Finland
+Terijoki;Finland
+Salo;Finland
+Zurich;Germany
+Tübingen;Germany
+Pernaja;Finland
+Milano;Italy
+Jämsä;Finland
+Haapajärvi;Finland
+Chicago;USA
+Archangelsk;Russia
+Seinäjoki;Finland
+Rovaniemi;Finland
+Malmö;Sweden
+Kuortane;Finland
+Karjalohja;Finland
+Antwerpen;Belgium
+Warsow;Poland
+Lohja;Finland
+Leibzig;Germany
+Krakow;Poland
+Kainuu;Finland
+Juva;Finland
+Haunia;Finland
+Hankoniemi;Finland
+Ypäjä;Finland
+Ylistaro;Finland
+Virolahti;Finland
+Viljandi;Estonia
+Viitasaari;Finland
+Urjala;Finland
+Tyrvää;Finland
+Trieste;Italy
+Suomussalmi;Finland
+Saarijärvi;Finland
+Red Jacket MI;USA
+Pihlava;Finland
+Petäjävesi;Finland
+Offenbach am Main;Germany
+Nyköping;Sweden
+Napoli;Italy
+Naantali;Finland
+Mustiala;Finland
+Minneapolis;USA
+Maastricht;Netherlands
+Koivisto;Finland
+Kirkkonummi;Finland
+Kiiminki;Finland
+Karstula;Finland
+Karkku;Finland
+Karhula;Finland
+Janakkala;Finland
+Jaakkima;Finland
+Ilmajoki;Finland
+Ikaalinen;Finland
+Huopalahti;Finland
+Houghton MI;USA
+Heinävesi;Finland
+Harbor OH;USA
+Hämeenkyrö;Finland
+Geneve;Switzerland
+Ylivieska;Finland
+Ylimarkku;Finland
+Würzburg;Germany
+Watton MI;USA
+Virginia MN;USA
+Verona;Italy
+Vammala;Finland
+Valkjärvi;Finland
+Vainikkala;Finland
+uusikirkko;Finland
+USA;USA
+Tyrnävä;Finland
+Tuusula;Finland
+Turtle Lake WI;USA
+Trondheim;Norway
+Toholampi;Finland
+Tikkurila;Finland
+Terni;Finland
+Tammela;Finland
+Taipalsaari;Finland
+Suonenjoki;Finland
+Sudbury ON;USA
+St Louis MI;USA
+Simola;Finland
+Sauvo;Finland
+Sandstone MI;USA
+Salmi;Finland
+Sakkola;Finland
+Säkkijärvi;Finland
+Rock Springs WY;USA
+Red Lodge MT;USA
+Rautio;Finland
+Rautalampi;Finland
+Rantasalmi;Finland
+Raisio;Finland
+Räisälä;Finland
+Rääkkylä;Finland
+Prague;Czech Republic
+Pistoia;Finland
+Pirkkala;Finland
+Pinjainen;Finland
+Perno;Finland
+Perkjärvi;Finland
+Perho;Finland
+Pännäinen;Finland
+Paimio;Finland
+Oulainen;Finland
+Otava;Finland
+Orismala;Finland
+Orimattila;Finland
+Nurmijärvi;Finland
+Nummela;Finland
+Noormarkku;Finland
+Nokia;Finland
+Nizza;Italy
+Naples;Italy
+Mustio;Finland
+Mustasaari;Finland
+Messina;Finland
+Marttila;Finland
+Mäntyharju;Finland
+Mänttä;Finland
+Maaninka;Finland
+Loimijoki;Finland
+Lohtaja;Finland
+Lisbon;Portugal
+Lammi;Finland
+Laihiala;Finland
+Kyrö;Finland
+Kylmäkoski;Finland
+Kuusankoski;Finland
+Kurkijoki;Finland
+Kokemäki;Finland
+Koivulahti;Finland
+Kodisjoki;Finland
+Kivennapa;Finland
+Kirvu;Finland
+Kettuvaara;Finland
+Keltto;Finland
+Kausala;Finland
+Kaukaa;Finland
+Kauhajoki;Finland
+Kaprio;Finland
+Kangasala;Finland
+Kallislahti;Finland
+Kaleva;Finland
+Jalasjärvi;Finland
+Jacobson MI;USA
+jääski;Finland
+Inkoo;Finland
+Inkerinmaa;Finland
+Inari;Finland
+Impilahti;Finland
+Imatra;Finland
+Hirvensalmi;Finland
+Hinnerjoki;Finland
+Heinäjoki;Finland
+Haukilahti;Finland
+Harjavalta;Finland
+Hanna WY;USA
+Eveleth MI;USA
+Clear Creek UT;USA
+Billnäs;Finland
+Bielefeld;Germany
+Anttola;Finland
+Amersfoort;Netherlands
+Alatornio;Finland
 Reykjavik;Iceland
 München;Germany
 Nurnberg;Germany
@@ -16,7 +187,6 @@ Altmore;Northern Ireland
 Altona;Germany
 America;USA
 Amherst N\.H;USA
-Amherst N.H;USA
 Ampthill;England
 Amsterdam;Netherlands
 Andover Ma;USA

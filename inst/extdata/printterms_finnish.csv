@@ -1,4 +1,5 @@
 synonyme|name
+Pani präntihin | 
 Revisa \[et\] recusa |
 wastudesta p|p
 annettu|painettu
@@ -24,16 +25,12 @@ präntäis|painettu
 präntäty|painettu
 pränttäis|painettu
 prendäty|painettu
-^vthi |painettu 
 prentat|painettu
 pränt|painettu
 pränd$|painettu
 paynettu|painettu
 Paynettu|painettu
 painettu|printed
-ja * kerran|
-Ja * kerran|
-^* kerran|
 ^af |
 ^ja |
 ^Ja |
@@ -45,6 +42,10 @@ tekijä |
 ^Pani hin |
 ^Pani ihin |
 ^pani ihin |
+ pani ihin |
 ^[a-z]$|
 ^[A-Z]$|
 ^[0-9]$|
+^toisen kerran |
+^kolmanen kerran |
+^kolmannen kerran |

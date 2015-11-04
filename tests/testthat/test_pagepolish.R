@@ -3,6 +3,7 @@ context("Page count")
 test_that("page count is correct", {
 
   # expect_equal(polish_pages("v.7-9,plates")$estimated.pages[[1]], 4)
+  expect_true(is.na(harmonize_pages("2⁰")))
   expect_equal(polish_pages("v. 1-6,plates")$estimated.pages[[1]], 4)
   expect_equal(polish_pages("3v.([2],x,[16],207,[1],207-862,[6]p.),plates")$estimated.pages[[1]], 901) # 2+10+16+1+862+6+4
   expect_equal(polish_pages("[1] sheet ([1]+ p.)")$estimated.pages[[1]], 2) # 1 sheet

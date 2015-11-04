@@ -5,7 +5,7 @@
 \title{remove_terms}
 \usage{
 remove_terms(x, terms, where = "all", include.lowercase = FALSE,
-  polish = TRUE)
+  polish = TRUE, recursive = FALSE)
 }
 \arguments{
 \item{x}{A vector}
@@ -17,6 +17,8 @@ remove_terms(x, terms, where = "all", include.lowercase = FALSE,
 \item{include.lowercase}{Include also lowercase versions of the terms}
 
 \item{polish}{polish the entries after removing the terms (remove trailing spaces and periods)}
+
+\item{recursive}{Apply the changes recursively along the list ?}
 }
 \value{
 Vector with terms removed

@@ -4,10 +4,14 @@
 \alias{remove_print_statements}
 \title{remove_print_statements}
 \usage{
-remove_print_statements(x)
+remove_print_statements(x, remove.letters = FALSE, n.iter = 1)
 }
 \arguments{
 \item{x}{a vector}
+
+\item{remove.letters}{Remove individual letters TRUE/FALSE}
+
+\item{n.iter}{Number of iterative repetitions of this function}
 }
 \value{
 Polished vector

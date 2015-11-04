@@ -12,6 +12,15 @@
 polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL) {
 
   xorig <- x <- as.character(x)
+  
+  xuniq <- unique(x)
+  match.inds <- match(x, xuniq)  
+  if (verbose) {
+    message(paste("Polishing years:", length(xuniq), "unique cases"))
+  }
+
+  x <- xuniq
+
   x <- remove_print_statements(x)
 
     tab <- t(sapply(x, function (x) {polish_year(x, start_synonyms = start_synonyms, end_synonyms = end_synonyms)}))
@@ -22,7 +31,12 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL) {
     # TODO: later allow NAs 
     inds <- which(is.na(end_year))
     end_year[inds] <- start_year[inds]
-    
+
+  # Match the preprocessed ones to the original indices
+  xorig <- xorig  # this is already in the original index domain
+  start_year <- start_year[match.inds]
+  end_year <- end_year[match.inds]
+
   data.frame(list(original = xorig, from = start_year, till = end_year))
 }
 

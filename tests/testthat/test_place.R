@@ -2,6 +2,12 @@ context("Harmonize place names")
 
 test_that("Places are harmonized correctly", {
 
+  expect_equal(polish_place("Aff trycket vthgångit i Stockholm"), "Stockholm")
+  expect_equal(polish_place("aff tryktet vthgångit i Stockholm"), "Stockholm")  
+  #expect_equal(polish_place("B:borg"), NA)
+
+  expect_equal(polish_place("Ja toisen kerran Turusa prändätty"), "turusa")
+  expect_equal(polish_place("toisen kerran Turusa"), "turusa")  
   expect_equal(polish_place("Sur l'imprimeà́ londres"), "London")
   expect_equal(polish_place("Te Philadelphia"), "Philadelphia Pa")
   expect_equal(polish_place("Imprinted in Aberdene"), "Aberdeen")
