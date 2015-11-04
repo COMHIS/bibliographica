@@ -40,7 +40,7 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
   # " last$"
 
   for (term in terms) {
-    
+
     x <- gsub(paste("^", term, "$", sep = ""), " ", x)
 
     # Here no spaces around the term needed, elsewhere yes
@@ -49,7 +49,8 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
     }
 
     if (where %in% c("begin", "all")) {
-      x <- gsub(paste("^", term, "[ |\\.|\\,]", sep = ""), " ", x)
+      rms <- paste("^", term, "[ |\\.|\\,]", sep = "")
+      x <- gsub(rms, " ", x)
     }
     
     if (where %in% c("middle", "all")) {

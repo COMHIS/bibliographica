@@ -22,7 +22,7 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
     # Harmonize the terms 
     terms.multi <- terms[nchar(terms) > 1]
     x <- remove_terms(x, terms.multi, where = "all", polish = TRUE, include.lowercase = TRUE)
-
+    
     # Individual characters not removed from the end
     terms.single <- terms[nchar(terms) == 1]    
     x <- remove_terms(x, terms.single, where = "begin", polish = TRUE, include.lowercase = TRUE)
