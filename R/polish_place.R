@@ -48,7 +48,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- gsub(" i e "," ie ", x)
 
   if ( verbose ) { message("Remove print statements") }
-  x <- remove_print_statements(x, remove.letters = TRUE)
+  x <- remove_print_statements(x, remove.letters = FALSE)
 
   if (verbose) {message("Remove prefixes")}
   x <- remove_stopwords(x, remove.letters = FALSE)

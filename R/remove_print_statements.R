@@ -19,8 +19,14 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
     f <- system.file(paste0("extdata/printstop_", lang, ".csv"), package = "bibliographica")
     terms <- read.csv(f, stringsAsFactors = FALSE)[,1]
 
-    # Harmonize the terms
-    x <- remove_terms(x, terms, where = "all", polish = TRUE, include.lowercase = TRUE)
+    # Harmonize the terms 
+    terms.multi <- terms[nchar(terms) > 1]
+    x <- remove_terms(x, terms.multi, where = "all", polish = TRUE, include.lowercase = TRUE)
+
+    # Individual characters not removed from the end
+    terms.single <- terms[nchar(terms) == 1]    
+    x <- remove_terms(x, terms.single, where = "begin", polish = TRUE, include.lowercase = TRUE)
+    x <- remove_terms(x, terms.single, where = "middle", polish = TRUE, include.lowercase = TRUE)
 
     if (remove.letters) {
       x <- remove_letters(x)

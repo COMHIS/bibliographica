@@ -59,7 +59,9 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
     if (where %in% c("end", "all")) {
       x <- remove_endings(x, c("\\.", "\\,"))
       x <- condense_spaces(x)
-      x <- gsub(paste(" ", term, "$", sep = ""), " ", x)
+      rms <- paste(" ", term, "$", sep = "")
+
+      x <- gsub(rms, " ", x)
     }
 
   }

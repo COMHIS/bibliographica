@@ -2,6 +2,13 @@ context("Harmonize place names")
 
 test_that("Places are harmonized correctly", {
 
+  expect_equal(polish_place("[Newport, R.I."), "Newport R.I")
+  expect_equal(polish_place("[Imprynted at London"), "London")
+  # expect_equal(polish_place("Printed at London, and re-printed at Edinburgh"), "London") # Fix
+  expect_equal(polish_place("Printed by His Majesties command at Oxford"), "Oxford")
+  expect_equal(polish_place("London printed"), "London")
+  #expect_equal(polish_place(""), "")  
+
   expect_equal(polish_place("Aff trycket vthgångit i Stockholm"), "Stockholm")
   expect_equal(polish_place("aff tryktet vthgångit i Stockholm"), "Stockholm")  
   #expect_equal(polish_place("B:borg"), NA)
