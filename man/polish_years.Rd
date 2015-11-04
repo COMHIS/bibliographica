@@ -4,7 +4,8 @@
 \alias{polish_years}
 \title{polish_years}
 \usage{
-polish_years(x, start_synonyms = NULL, end_synonyms = NULL)
+polish_years(x, start_synonyms = NULL, end_synonyms = NULL,
+  verbose = TRUE)
 }
 \arguments{
 \item{x}{year field (a vector)}
@@ -12,6 +13,8 @@ polish_years(x, start_synonyms = NULL, end_synonyms = NULL)
 \item{start_synonyms}{Synonyme table for start year}
 
 \item{end_synonyms}{Synonyme table for end year}
+
+\item{verbose}{verbose}
 }
 \value{
 data.frame with the fields 'start' and 'end'
