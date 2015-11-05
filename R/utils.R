@@ -12,11 +12,16 @@
 #' 
 #' @examples \dontrun{x2 <- remove_endings(x, endings)}
 #' @keywords utilities
-remove_endings <- function (x, endings) {
+remove_endings <- function (x, endings, random_order=FALSE) {
 
+  if (random_order) {
+    e <- str_c(endings, "|", collapse="")
+    e <- paste("(" , e, ")*$", sep="")
+    x <- gsub(e, "", x)
+  }
   for (e in endings) {
     x <- gsub(paste(e, "$", sep = ""), "", x)
-  }
+}
 
   x
 }
