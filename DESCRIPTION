@@ -1,8 +1,8 @@
 Package: bibliographica
 Type: Package
 Title: Bibliographic Data Analysis
-Version: 0.1.37
-Date: 2015-10-20
+Version: 0.1.38
+Date: 2015-10-27
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Ilomaki", "Niko" , role = "aut"),
@@ -20,7 +20,7 @@ Imports:
     dplyr,
     ggplot2,
     genderdata,
-    gender,    
+    gender,
     sorvi,
     stringr,
     tau,
@@ -31,3 +31,4 @@ Suggests:
     testthat
 Additional_repositories: http://packages.ropensci.org
 LazyLoad: yes
+RoxygenNote: 5.0.0

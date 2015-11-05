@@ -1,14 +1,10 @@
 #' @title remove_letters
 #' @description Remove specific single letters
-#'
 #' @param x A vector
 #' @return Polished vector
-#'
 #' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples \dontrun{remove_letters(x)}
 #' @keywords utilities
 remove_letters <- function (x) {

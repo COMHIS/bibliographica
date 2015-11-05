@@ -6,14 +6,11 @@
 #' @param ntop Number of top entries to show
 #' @param highlight Entries from the 'field' to be highlighted
 #' @return ggplot object
-#'
 #' @import ggplot2
 #' @export
-#' 
 #' @importFrom dplyr count
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples \dontrun{p <- top_plot(df, field, 50)}
 #' @keywords utilities
 top_plot <- function (df, field = NULL, ntop = NULL, highlight = NULL) {

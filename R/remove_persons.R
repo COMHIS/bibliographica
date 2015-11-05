@@ -1,16 +1,11 @@
 #' @title remove_persons
 #' @description Remove persons
-#'
 #' @param x A vector
 #' @param who names to be removed
-#'
 #' @return Polished vector
-#'
 #' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples \dontrun{x2 <- remove_persons(x)}
 #' @keywords utilities
 remove_persons <- function (x, who = NULL) {

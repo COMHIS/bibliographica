@@ -1,13 +1,10 @@
 #' @title trim_names
 #' @description Trim names
-#'
 #' @param s A vector of names
 #' @param stopwords stopwords 
 #' @param remove.letters Remove individual letters
 #' @return Polished vector
-#'
-#' @export
-#' 
+#' @export 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 

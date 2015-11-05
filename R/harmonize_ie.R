@@ -1,14 +1,10 @@
 #' @title harmonize_ie
 #' @description Harmonize ie statement
-#'
 #' @param x A vector
 #' @return A vector polished
-#'
 #' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples \dontrun{x2 <- harmonize_ie("i.e.")}
 #' @keywords utilities
 harmonize_ie <- function (x) {
@@ -33,7 +29,8 @@ harmonize_ie <- function (x) {
     x <- gsub(paste("\\, ", ie, "", sep = ""), " i.e ", x) 
     x <- gsub(paste("\\[", ie, "", sep = ""), " i.e ", x)
     x <- gsub(paste("\\[ ", ie, "", sep = ""), " i.e ", x)    
-    x <- condense_spaces(x)   
+    x <- condense_spaces(x)
+    
   }
 
   x <- gsub("\\[ i.e", "\\[i.e", x)
@@ -49,22 +46,30 @@ harmonize_ie <- function (x) {
 #' @description Handle ie statement
 #'
 #' @param x A vector
+#' @param harmonize Logical. Harmonize ie statements efore interpretation?
 #' @return A vector polished
 #'
 #' @export
+#' @importFrom stringr str_sub
 #' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
 #' @examples \dontrun{x2 <- handle_ie("i.e.")}
 #' @keywords utilities
-handle_ie <- function (x) {
+handle_ie <- function (x, harmonize = TRUE) {
 
   # 183 i.e 297 -> 297	  
   # 183-285 i.e 297 -> 183-297	  
   # 183-285 [i.e 297] -> 183-297	  
 
   y <- x
+
+  if (harmonize) {
+    y <- x <- harmonize_ie(y)
+  }
+
+  if (is.na(x) || x == "i.e") {return(x)}
 
   # Handle ie
   if (length(grep("i\\.e.", x)) > 0) {

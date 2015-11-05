@@ -1,4 +1,182 @@
 region;country
+Porth Arthur ON;USA
+Lybeck;Germany
+Augsburg;Germany
+Isokyrö;Finland
+Terijoki;Finland
+Salo;Finland
+Zurich;Germany
+Tübingen;Germany
+Pernaja;Finland
+Milano;Italy
+Jämsä;Finland
+Haapajärvi;Finland
+Chicago;USA
+Archangelsk;Russia
+Seinäjoki;Finland
+Rovaniemi;Finland
+Malmö;Sweden
+Kuortane;Finland
+Karjalohja;Finland
+Antwerpen;Belgium
+Warsow;Poland
+Lohja;Finland
+Leibzig;Germany
+Krakow;Poland
+Kainuu;Finland
+Juva;Finland
+Haunia;Finland
+Hankoniemi;Finland
+Ypäjä;Finland
+Ylistaro;Finland
+Virolahti;Finland
+Viljandi;Estonia
+Viitasaari;Finland
+Urjala;Finland
+Tyrvää;Finland
+Trieste;Italy
+Suomussalmi;Finland
+Saarijärvi;Finland
+Red Jacket MI;USA
+Pihlava;Finland
+Petäjävesi;Finland
+Offenbach am Main;Germany
+Nyköping;Sweden
+Napoli;Italy
+Naantali;Finland
+Mustiala;Finland
+Minneapolis;USA
+Maastricht;Netherlands
+Koivisto;Finland
+Kirkkonummi;Finland
+Kiiminki;Finland
+Karstula;Finland
+Karkku;Finland
+Karhula;Finland
+Janakkala;Finland
+Jaakkima;Finland
+Ilmajoki;Finland
+Ikaalinen;Finland
+Huopalahti;Finland
+Houghton MI;USA
+Heinävesi;Finland
+Harbor OH;USA
+Hämeenkyrö;Finland
+Geneve;Switzerland
+Ylivieska;Finland
+Ylimarkku;Finland
+Würzburg;Germany
+Watton MI;USA
+Virginia MN;USA
+Verona;Italy
+Vammala;Finland
+Valkjärvi;Finland
+Vainikkala;Finland
+uusikirkko;Finland
+USA;USA
+Tyrnävä;Finland
+Tuusula;Finland
+Turtle Lake WI;USA
+Trondheim;Norway
+Toholampi;Finland
+Tikkurila;Finland
+Terni;Finland
+Tammela;Finland
+Taipalsaari;Finland
+Suonenjoki;Finland
+Sudbury ON;USA
+St Louis MI;USA
+Simola;Finland
+Sauvo;Finland
+Sandstone MI;USA
+Salmi;Finland
+Sakkola;Finland
+Säkkijärvi;Finland
+Rock Springs WY;USA
+Red Lodge MT;USA
+Rautio;Finland
+Rautalampi;Finland
+Rantasalmi;Finland
+Raisio;Finland
+Räisälä;Finland
+Rääkkylä;Finland
+Prague;Czech Republic
+Pistoia;Finland
+Pirkkala;Finland
+Pinjainen;Finland
+Perno;Finland
+Perkjärvi;Finland
+Perho;Finland
+Pännäinen;Finland
+Paimio;Finland
+Oulainen;Finland
+Otava;Finland
+Orismala;Finland
+Orimattila;Finland
+Nurmijärvi;Finland
+Nummela;Finland
+Noormarkku;Finland
+Nokia;Finland
+Nizza;Italy
+Naples;Italy
+Mustio;Finland
+Mustasaari;Finland
+Messina;Finland
+Marttila;Finland
+Mäntyharju;Finland
+Mänttä;Finland
+Maaninka;Finland
+Loimijoki;Finland
+Lohtaja;Finland
+Lisbon;Portugal
+Lammi;Finland
+Laihiala;Finland
+Kyrö;Finland
+Kylmäkoski;Finland
+Kuusankoski;Finland
+Kurkijoki;Finland
+Kokemäki;Finland
+Koivulahti;Finland
+Kodisjoki;Finland
+Kivennapa;Finland
+Kirvu;Finland
+Kettuvaara;Finland
+Keltto;Finland
+Kausala;Finland
+Kaukaa;Finland
+Kauhajoki;Finland
+Kaprio;Finland
+Kangasala;Finland
+Kallislahti;Finland
+Kaleva;Finland
+Jalasjärvi;Finland
+Jacobson MI;USA
+jääski;Finland
+Inkoo;Finland
+Inkerinmaa;Finland
+Inari;Finland
+Impilahti;Finland
+Imatra;Finland
+Hirvensalmi;Finland
+Hinnerjoki;Finland
+Heinäjoki;Finland
+Haukilahti;Finland
+Harjavalta;Finland
+Hanna WY;USA
+Eveleth MI;USA
+Clear Creek UT;USA
+Billnäs;Finland
+Bielefeld;Germany
+Anttola;Finland
+Amersfoort;Netherlands
+Alatornio;Finland
+Reykjavik;Iceland
+München;Germany
+Nurnberg;Germany
+Moscow;Russia
+Salisbury Ma;USA
+Newport Isle of Wight;England
+Aldermanbury;England
 Abbeville;France
 Aberdeen;Scotland
 Abingdon;England
@@ -691,6 +869,7 @@ Superior WI;USA
 Tallinna;Estonia
 Tammisaari;Finland
 Tampere;Finland
+Tartu;Estonia
 Tartto;Estonia
 Tukholma;Sweden
 Turenki;Finland
@@ -709,3 +888,85 @@ Wiesbaden;Germany
 Wittenberg;Germany
 Worcester MA;USA
 Örebro;Sweden
+Stockholm;Sweden
+Saint Petersburg;Russia
+Tallinn;Estonia
+Tornio;Finland
+Bonn;Germany
+Bergen;Norway
+Warsaw;Poland
+Parainen;Finland
+Orivesi;Finland
+Sääksmäki;Finland
+Satakunta;Finland
+Madrid;Spain
+Laitila;Finland
+Parikkala;Finland
+Piikkiö;Finland
+Tervonsalmi;Finland
+Pieksämäki;Finland
+Oulunkylä;Finland
+Närpiö;Finland
+Loimaa;Finland
+Providence R\.I;USA
+Charleston S\.C;USA
+Newport R\.I;USA
+Portsmouth N\.H;USA
+Albany N\.Y;USA
+Exeter N\.H;USA
+Fishkill N\.Y;USA
+Burlington N\.J;USA
+Poughkeepsie N\.Y;USA
+New Bern N\.C;USA
+Woodbridge N\.J;USA
+Newark N\.J;USA
+Concord N\.H;USA
+New Brunswick N\.J;USA
+Hudson N\.Y;USA
+Trenton N\.J;USA
+Walpole N\.H;USA
+Newburgh N\.Y;USA
+Lansingburgh N\.Y;USA
+Kingston N\.Y;USA
+Hanover N\.H;USA
+Amherst N\.H;USA
+Warren R\.I;USA
+St\. Augustine Fl;USA
+Keene N\.H;USA
+Jacksonburgh S\.C;USA
+Wilmington N\C.;USA
+Washington D\.C;USA
+Schenectady N\.Y;USA
+New Windsor N\.Y;USA
+Hillsborough N\.C;USA
+Haverhill N\.H;USA
+Edenton N\.C;USA
+Dover N\.H;USA
+Columbia S\.C;USA
+Chatham N\.J;USA
+St\. Mary's Md;USA
+Scipio N\.Y;USA
+Salisbury N\.C;USA
+Rome N\.Y;USA
+Raleigh N\.C;USA
+Ossining N\.Y;USA
+Newton N\.J;USA
+Mount Holly N\.J;USA
+Monmouth N\.J;USA
+Lancaster N\.J;USA
+Geneva N\.Y;USA
+Elizabeth N\.J;USA
+Bridgeton N\.J;USA
+Bath N\.Y;USA
+St\. Omer;France
+St\. John's Antiqua;Antigua
+St\. Andrews;Scotland
+St George's grenada;Grenada
+St\. Pierre Martinique;Martinique
+St\. Ives;England
+St\. John New Brunswick;Canada
+St\. Helier;England
+St\. Germans;England
+St\. Eustatius;St\. Eustatius
+St\. Albans;England
+

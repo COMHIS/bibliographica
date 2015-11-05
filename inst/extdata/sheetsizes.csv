@@ -1,18 +1,25 @@
-format, gatherings, width, height, area
-sheet, 1to, 60, 90, 5760
-broadside, bs, 60, 64, 3840
-folio-large, 2long, 30, 53, 1749
-folio, 2fo, 30, 45, 1350
-folio-small, 2small, 25, 38, 950
-quarto-long, 4long, 27, 35, 945
-quarto, 4to, 22, 28, 616
-quarto-small, 4small, 17, 20, 340
-octavo, 8vo, 13, 19, 247
-duodecimo, 12mo, 12.5, 19, 237.5
-duodecimo-long, 12long, 13, 20, 260
-sextodecimo, 16mo, 12, 15, 180
-octodecimo, 18mo, 10, 16, 160
-vigesimo-quarto, 24mo, 12.5, 8.5, 106.25
-trigesimo-secundo, 32mo, 7, 12, 84
-quadragesimo-octavo, 48mo, 6.5, 10, 65 
-sexagesimo-quarto, 64mo, 5, 7, 35 
+format;gatherings;width;height;area
+sheet;1to;60;90;5760
+broadside;bs;60;64;3840
+folio-large;2long;30;53;1749
+folio;2fo;30;45;1350
+folio-small;2small;25;38;950
+quarto-long;4long;27;35;945
+quarto;4to;22;28;616
+quarto-small;4small;17;20;340
+octavo-small;8small;11;17;187
+octavo;8vo;13;19;247
+octavo-long;8long;13;22;286
+duodecimo;12mo;12.5;19;237.5
+duodecimo-long;12long;13;20;260
+sextodecimo;16mo;12;15;180
+sextodecimo-long;16long;14;18;252
+octodecimo;18mo;10;16;160
+vigesimo-quarto;24mo;8.5;12.5;106.25
+vigesimo-quarto-long;24long;9.5;14;133
+trigesimo-secundo;32mo;7;12;84
+quadraquinto;40mo;6;11;66
+quadragesimo-octavo;48mo;6.5;10;65
+sexagesimo-quarto;64mo;5;7;35
+octogentesimo;80mo;4;6;24
+octoginta-quarto;84mo;3.5;5;17.5

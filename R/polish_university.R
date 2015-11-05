@@ -1,16 +1,11 @@
 #' @title polish_university
 #' @description Polish university names
-#'
 #' @param x university field (a vector)
 #' @param synonyms Synonyme table
-#' 
 #' @return polished university field (a vector)
-#'
 #' @export
-#' 
 #' @author Niko Ilomaki \email{niko.ilomaki@@helsinki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples \dontrun{v <- polish_university(c("HY","Suomen yliopisto"))}
 #' @keywords utilities
 polish_university <- function(x, synonyms=NULL) {

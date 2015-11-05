@@ -6,7 +6,7 @@ harmonize_pages_by_comma <- function (s) {
   s <- handle_ie(s)
 
   # Harmonize '1 sheet'
-  if (length(grep("1 sheet", s)) > 0 || s == "sheet") {
+  if (!is.na(s) && (length(grep("1 sheet", s)) > 0 || s == "sheet")) {
     s <- "1 sheet" 
   }
 

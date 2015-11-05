@@ -1,15 +1,11 @@
 #' @title polish_year_of_publication
 #' @description Pick and polish year(s) of publication
-#'
 #' @param x publication time field (a vector)
 #' @return data.frame for separate fields for books (year) and magazines (start, end)
-#'
 #' @importFrom tau fixEncoding
 #' @export
-#' 
 #' @author Niko Ilomaki \email{niko.ilomaki@@helsinki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples \dontrun{df <- polish_year_of_publication(c("1776","1803-1806"))}
 #' @keywords utilities
 polish_year_of_publication <- function(x) {

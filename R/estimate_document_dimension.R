@@ -16,9 +16,11 @@
 #' @keywords utilities
 estimate_document_dimensions <- function (gatherings = NA, height = NA, width = NA, obl = NULL, dimension.table = NULL, sheet.dimension.table = NULL) {
 
-  if (is.null(gatherings)) { gatherings <- NA }
-  if (is.null(height)) { height <- NA }
-  if (is.null(width))  { width <- NA }
+  #estimate_document_dimensions(gatherings = "NA", height = 30, width = NA, obl = FALSE, dimension.table = NULL, sheet.dimension.table = NULL)
+
+  if (is.null(gatherings) || length(gatherings) == 0) { gatherings <- NA }
+  if (is.null(height) || length(height) == 0) { height <- NA }
+  if (is.null(width) || length(width) == 0)  { width <- NA }
 
   if (is.na(width)) {width <- NA}
   if (is.na(height)) {height <- NA}
@@ -26,8 +28,8 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
 
   # Ensure the inputs are of right format		     
   gatherings <- as.character(gatherings)
-  width <- as.numeric(as.character(width))
-  height <- as.numeric(as.character(height)  )
+  width <- as.numeric(as.character(round(width)))
+  height <- as.numeric(as.character(round(height)))
 
   if (length(grep("NA", gatherings)) > 0) { gatherings <- NA }
   if (length(grep("NA", width)) > 0)  { width <- NA }
@@ -47,13 +49,15 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
 
   # Height and gatherings given
   if (is.na(width) && !is.na(height) && !is.na(gatherings)) {
+
     if (gatherings %in% colnames(dimension.table)) {
 
       s <- dimension.table[dimension.table$height == height, gatherings]
       width <- as.numeric(as.character(s))
 
       if (length(width) == 0 || is.na(width)) {
-        message("Height does not correspond to the gatherings and width is not provided: trying to match width instead")
+
+        message(paste("Height (", height,") does not correspond to the gatherings (", gatherings, ") and width is not provided: trying to match width instead", sep = ""))
         width <- height
         height <- median(na.omit(as.numeric(as.character(dimension.table[which(as.character(dimension.table[, gatherings]) == width), "height"]))))
        }
@@ -84,8 +88,19 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
     # Only height given
     # pick the closest matches from the table
     hh <- abs(as.numeric(as.character(dimension.table$height)) - height)
-    ind <- which(hh == min(hh))
+
+    ind <- which(hh == min(hh, na.rm = TRUE))
     width <- as.numeric(as.character(dimension.table[ind, "NA"]))
+
+    if (is.na(width)) {
+      warning(paste("No width found for height ", height, " and gatherings ", gatherings, sep = ""))
+      return(
+        list(gatherings = unname(gatherings),
+       	     height = unname(height),
+       	     width = unname(width),
+       	     obl = unname(obl))
+         )
+    }
 
     # if multiple hits, pick the closest
     width <- mean(width, na.rm = TRUE)
@@ -123,7 +138,7 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
     if (length(gs) == 1) {
       gatherings <- gs
     } else {
-      warning(paste("Ambiguous gatherings - not determined", width, height, paste(gs, collapse = "/")))
+      warning(paste("Ambiguous gatherings - not determined for width / height ", width, height, paste(gs, collapse = "/")))
     }
   } else if (!is.na(width) && is.na(height) && is.na(gatherings)) {
     # Only width given
@@ -135,6 +150,7 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
     # Estimate gatherings
     gatherings <- estimate_document_dimensions(gatherings = NA, height = height, width = width, dimension.table = dimension.table)$gatherings
   }
+
 
   if (length(width) == 0) {width <- NA}
   if (length(height) == 0) {height <- NA}
@@ -148,7 +164,8 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
   width <- as.numeric(width)
 
   # In obl width > height
-  if (!is.null(obl)) {
+
+  if (length(obl) > 0 && !is.na(obl)) {
     hw <- cbind(height = height, width = width)
     inds <- 1
     

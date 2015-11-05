@@ -1,17 +1,19 @@
 #' @title mark_languages
 #' @description Construct binary matrix of languages for each entry
-#'
 #' @param x language field (a vector)
 #' @return data.frame with separate fields for different languages
-#'
 #' @export
-#' 
 #' @author Niko Ilomaki \email{niko.ilomaki@@helsinki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples \dontrun{df <- mark_languages(c("fin;lat","eng"))}
 #' @keywords utilities
 mark_languages <- function(x) {
+
+  x <- paste0(x,";",x)
+  x <- gsub("NA","",x)
+  x <- gsub("^;","",x)
+  x <- gsub(";$","",x)
+
 	subroutine <- function(abbrv){grepl(abbrv, x, ignore.case = T)}
 	fin <- subroutine("fin")
 	swe <- subroutine("swe")

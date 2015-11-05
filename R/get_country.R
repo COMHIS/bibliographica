@@ -1,17 +1,11 @@
 #' @title get_country
 #' @description Map geographic places to country names
-#'
 #' @param x A vector of region names (cities or municipalities etc.)
-#' @param map data.frame with region to country mappings
-#'                (fields 'region' and 'country')
-#'
+#' @param map data.frame with region to country mappings (fields 'region' and 'country')
 #' @return data.frame
-#'
 #' @export
-#'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples x2 <- get_country("Berlin")
 #' @keywords utilities
 get_country <- function (x, map = NULL) {

@@ -1,28 +1,37 @@
 #' @title remove_print_statements
 #' @description Remove print statements
-#'
 #' @param x a vector
+#' @param remove.letters Remove individual letters TRUE/FALSE
+#' @param n.iter Number of iterative repetitions of this function
 #' @return Polished vector
-#'
 #' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples x2 <- remove_print_statements("Printed in London")
 #' @keywords utilities
-remove_print_statements <- function (x) {
+remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
 
-  # Harmonize print statements
-  x <- harmonize_print_statements(x)$name
+  x <- xorig <- as.character(x)
+  x <- tolower(x)
 
-  for (w in c("at", "in", "by", "for", "i", "j", "\\,", "")) {
-    x <- gsub(paste0("printed ", w), "", x)
-    x <- gsub(paste0("print ", w), "", x)
-    x <- gsub(" printed$", "", x)
-    x <- gsub(" s n$", "", x)    
+  ### Get printing terms from tables in various languages
+  for (lang in c("finnish", "french", "german", "swedish", "english")) {
+    f <- system.file(paste0("extdata/printstop_", lang, ".csv"), package = "bibliographica")
+    terms <- read.csv(f, stringsAsFactors = FALSE)[,1]
+
+    # Harmonize the terms 
+    terms.multi <- terms[nchar(terms) > 1]
+    x <- remove_terms(x, terms.multi, where = "all", polish = TRUE, include.lowercase = TRUE)
+    
+    # Individual characters not removed from the end
+    terms.single <- terms[nchar(terms) == 1]    
+    x <- remove_terms(x, terms.single, where = "begin", polish = TRUE, include.lowercase = TRUE)
+    x <- remove_terms(x, terms.single, where = "middle", polish = TRUE, include.lowercase = TRUE)
+
+    if (remove.letters) {
+      x <- remove_letters(x)
+    }
   }
-  x <- condense_spaces(x)
 
   # remove sine loco
   x <- remove_sl(x)
@@ -36,6 +45,14 @@ remove_print_statements <- function (x) {
   x <- gsub("^(.*?);.*$","\\1",x) # nb. non-greedy match
 
   x[x==""] <- NA
+
+  # Repeat n.iter times
+  if (n.iter > 1) {
+    for (cnt in 1:n.iter) {
+      # message(paste("remove_print_statements", cnt))
+      x <- remove_print_statements(x, remove.letters = remove.letters, n.iter = 0)
+    }
+  }
 
   x
 

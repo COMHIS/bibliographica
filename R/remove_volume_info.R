@@ -1,14 +1,10 @@
 #' @title remove_volume_info
 #' @description Remove volume info from the string start
-#'
 #' @param x Page number field. Vector or factor of strings.
 #' @return Page numbers without volume information
-#'
 #' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples remove_volume_info("v.4, 293")
 #' @keywords utilities
 remove_volume_info <- function (x) {
@@ -32,7 +28,9 @@ remove_volume_info <- function (x) {
   # TODO: vectorize this
 
   for (i in 1:length(s)) {
+
     si <- s[[i]]
+    
     vols <- pick_multivolume(si)  
     if (length(vols) > 0) {
       # Then remove the volume information that was picked
@@ -44,9 +42,10 @@ remove_volume_info <- function (x) {
   }
 
   # Cases 'v.1-3' etc
-
   inds <- intersect(grep("^v.", s), grep("-", s))
-  tmp <- sapply(s[inds], function (si) {gsub(check_volumes(si)$text, "", si)})
+  tmp <- sapply(s[inds], function (si) {
+    gsub(check_volumes(si)$text, "", si)
+  })
   s[inds] <- tmp
 
   # Pick which volume this might be (if given)

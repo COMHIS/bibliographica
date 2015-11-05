@@ -1,23 +1,27 @@
 #' @title polish_years
-#'
-#' @description Pick and polish the year interval (start and end
-#  years) from a time field which is of the form 1800 or 1823-1845 etc.
-#'
+#' @description Pick and polish the year interval (start and end years) from a time field which is of the form 1800 or 1823-1845 etc.
 #' @param x year field (a vector) 
 #' @param start_synonyms Synonyme table for start year
 #' @param end_synonyms Synonyme table for end year
+#' @param verbose verbose
 #' @return data.frame with the fields 'start' and 'end'
-#'
 #' @export
-#' 
 #' @author Leo Lahti and Niko Ilomaki \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples \dontrun{df <- polish_years(c("1746", "1745-1750"))}
 #' @keywords utilities
-polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL) {
+polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TRUE) {
 
   xorig <- x <- as.character(x)
+  
+  xuniq <- unique(x)
+  match.inds <- match(x, xuniq)  
+  if (verbose) {
+    message(paste("Polishing years:", length(xuniq), "unique cases"))
+  }
+
+  x <- xuniq
+
   x <- remove_print_statements(x)
 
     tab <- t(sapply(x, function (x) {polish_year(x, start_synonyms = start_synonyms, end_synonyms = end_synonyms)}))
@@ -28,7 +32,12 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL) {
     # TODO: later allow NAs 
     inds <- which(is.na(end_year))
     end_year[inds] <- start_year[inds]
-    
+
+  # Match the preprocessed ones to the original indices
+  xorig <- xorig  # this is already in the original index domain
+  start_year <- start_year[match.inds]
+  end_year <- end_year[match.inds]
+
   data.frame(list(original = xorig, from = start_year, till = end_year))
 }
 

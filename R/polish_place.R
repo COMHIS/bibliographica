@@ -1,20 +1,14 @@
 #' @title polish_place
 #' @description Polish place
-#'
 #' @param x A vector of place names
 #' @param synonymes Synonyme table for place names
-#' @param remove.unknown Logical. Remove places that are not validated
-#'   	  		 	  (ie. listed in the synonyme table)?
+#' @param remove.unknown Logical. Remove places that are not validated (ie. listed in the synonyme table)?
 #' @param verbose verbose
-#'
 #' @return Polished vector
-#'
 #' @importFrom sorvi harmonize_names
 #' @export
-#'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples # x2 <- polish_place(c("London", "Paris"))
 #' @keywords utilities
 polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose = FALSE) {
@@ -24,11 +18,10 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
     f <- system.file("extdata/PublicationPlaceSynonymes.csv",
 		package = "bibliographica")
     synonymes <- read.csv(f, sep = ";")
-    colnames(synonymes) <- c("name", "synonyme")
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
   }
 
-  if (verbose) {message("Convert to character")}
+  if (verbose) { message("Convert to character") }
   x <- as.character(x)	    
 
   # Speed up by handling unique cases only
@@ -50,12 +43,16 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (verbose) {message("Remove special characters")}
   x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\.", ":$"), niter = 5)
-  
+
+  # Handle ie
+  x <- gsub(" i e "," ie ", x)
+
   if ( verbose ) { message("Remove print statements") }
-  x <- remove_print_statements(x)
+  x <- remove_print_statements(x, remove.letters = FALSE)
 
   if (verbose) {message("Remove prefixes")}
   x <- remove_stopwords(x, remove.letters = FALSE)
+
   if (verbose) {message("Handle ie and at: always select the latter place in these cases")}
   # Handle IE before AT
   x <- harmonize_ie(x)
@@ -69,17 +66,20 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- unlist(x)
   x <- remove_trailing_periods(x)
 
-  if (verbose) {message("Remove persons")}
+  if (verbose) { message("Remove persons") }
   x <- remove_persons(x)
 
   if (verbose) {message("Custom polish")}
   x <- gsub("And", "and", x)
-  x <- gsub("Parliament ", "", x)    
+  x <- gsub("Parliament ", "", x)
+  x <- gsub("^s$", "", x)    
 
   if (verbose) { message("Harmonize the synonymous names") }
-  x <- as.character(harmonize_names(x, synonymes,
-       		remove.unknown = remove.unknown)$name)
 
+  x <- as.character(harmonize_names(x, synonymes,
+       		remove.unknown = remove.unknown,
+		include.lowercase = TRUE,
+		mode = "exact.match")$name)
   if (verbose) {message("Replace special cases")}
   x[tolower(x) %in% c("", "NA", NA)] <- NA
 

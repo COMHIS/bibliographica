@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #' @title remove_endings
 #' @description Remove specified endings of strings
 #'
@@ -57,4 +58,6 @@ remove_numerics <- function (x, numbers = 0:9) {
 
   x
 }
+=======
+>>>>>>> origin/master
 

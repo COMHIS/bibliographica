@@ -36,6 +36,17 @@ polish_author <- function (s, stopwords = NULL) {
   s <- gsub("\\.$", "", s)
   s <- gsub("\\,$", "", s)
 
+  #family <- gsub("^(?!(.*\\, .*$)).+$",NA,s,perl=TRUE)
+  #family <- gsub("^(.*)\\, .*$","\\1",family)	
+  #first <- gsub("^(?!(.*\\, .*$)).+$",NA,s,perl=TRUE)
+  #first <- gsub("^.*\\, (.*)$","\\1",first)
+  #other <- gsub("^(.*)\\, .*$",NA,s)
+  # Multiple names: treat as other names
+  #inds <- grep(";", s)
+  #family[inds] <- NA
+  #first[inds] <- NA
+  #other[inds] <- s[inds]
+  
   # Assume names are of format Last, First
   nametab <- t(sapply(strsplit(s, ","), function (x) {
     name <- c(last = x[[1]], first = NA);

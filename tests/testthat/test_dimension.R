@@ -2,9 +2,20 @@ context("Dimension table")
 
 test_that("dimension fill works correctly", {
   dimension.table <- dimension_table()
-  expect_equal(fill_dimensions(c(original="12mo", gatherings="12mo", width=13, height=NA), dimension.table)[["height"]], "18")
+  expect_equal(fill_dimensions(c(original="12mo", gatherings="12mo", width=13, height=NA), dimension.table)[["height"]], "20")
 })
 
+
+test_that("dimension tables are valid", {
+
+  dt <- dimension_table()
+  ss <- sheet_sizes()  
+  gt <- gatherings_table()
+
+  expect_true(all(ss$gatherings %in% gt$Standard))
+  expect_true(all(setdiff(colnames(dt), c("height", "NA")) %in% gt$Standard))
+  
+})
 
 
 test_that("dimension polish works correctly", {
@@ -69,7 +80,7 @@ test_that("dimension polish works correctly", {
   expect_equal(as.character(polish_dimensions("(4to and 8vo)")$gatherings), "NA")
   expect_equal(as.character(polish_dimensions("(fol)")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("2\u00b0; 32 x 20 cm.")$gatherings), "2fo")
-  expect_equal(as.character(polish_dimensions("Broadside. 35 x 24 cm.")$gatherings), "bs")
+  expect_equal(as.character(polish_dimensions("Broadside. 35 x 24 cm.")$gatherings), "1to")
   expect_equal(as.character(polish_dimensions("32 cm. (fol))")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("20 cm. (4to & 8vo)")$gatherings), "NA")
 
@@ -140,3 +151,6 @@ test_that("fennica dimensions", {
   expect_equal(as.character(polish_dimensions("Koko vaihtelee.", fill = TRUE)$gatherings), "NA")
 
 })
+
+
+

@@ -6,6 +6,7 @@
 #' @references See citation("bibliographica")
 #' @export
 place2country <- function (...) {
+
   f <- system.file("extdata/reg2country.csv", package = "bibliographica")
   message(paste("Reading region-country mappings from file ", f))
   map <- read.csv(f, sep = ";")

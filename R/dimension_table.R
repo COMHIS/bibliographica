@@ -1,20 +1,16 @@
 #' @title dimension_table
 #' @description Document dimension mapping table
-#'
 #' @param ... Arguments to be passed
 #' @return Document dimension table
-#'
 #' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples dimension_table()
 #' @keywords utilities
 dimension_table <- function (...) {
 
   f <- system.file("extdata/documentdimensions.csv", package = "bibliographica")
-  dd <- read.csv(f, header = TRUE)[-1,]
+  dd <- read.csv(f, header = TRUE, sep = "\t")[-1,]
   colnames(dd) <- gsub("^X", "", colnames(dd))
   colnames(dd)[[1]] <- "height"
   colnames(dd) <- gsub("NA.", "NA", colnames(dd))

@@ -1,22 +1,18 @@
 #' @title write_xtable
 #' @description Write xtable in a file
-#'
 #' @param x a vector or matrix
 #' @param filename output file 
-#' @return Table indicating the count for each unique entry in the input 
-#'         vector or matrix. The function writes the statistics in the file.
-#'
+#' @return Table indicating the count for each unique entry in the input  vector or matrix. The function writes the statistics in the file.
 #' @export
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples \dontrun{tab <- write_xtable(x, "tmp.tab")}
 #' @keywords utilities
 write_xtable <- function (x, filename) {
 
   if (is.vector(x)) {	     
 
+    x <- as.character(x)
     counts <- rev(sort(table(x)))
     tab <- data.frame(list(Name = names(counts), Count = counts))
 

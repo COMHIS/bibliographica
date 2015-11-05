@@ -1,4 +1,6 @@
 synonyme|name
+vsvm |printed in
+ussum |printed in 
 prinnt|print
 prynt|print
 prent|print
@@ -23,6 +25,7 @@ e-print|reprint
 - published|printed
 published|printed
 direct\.|printed
+excud\.|exc
 excusae|exc
 excussit|exc
 excusum|exc
@@ -33,9 +36,9 @@ excuderunt|exc
 excudit|exc
 excusa|exc
 excusi|exc
-excud.|exc
+excud\.|exc
 exc\.|exc
-exc|printed 
+exc|printed
 typis|printed
 v editum|printed
 viduae|printed
@@ -56,16 +59,15 @@ printed at|printed in
 printed in|printed in
 and sold by|printed by
 in the year|printed in
-^in |printed in
-^In |printed in
-^en |printed in
-^En |printed in
-^et |printed in
-^Et |printed in
-^a |printed in
-^A |printed in
-ca\\.|
-c\\.| 
+^in |printed in 
+^In |printed in 
+^en |printed in 
+^En |printed in 
+^et |printed in 
+^Et |printed in 
+^a |printed in 
+^A |printed in 
+ca\.|
 printed ,|printed
 printed,|printed
 printed|printed 
@@ -76,4 +78,11 @@ Reprinted at Dublin|
 With licence|
 not before|
 not after|
-
+Iohn Field|
+Edward Husband|
+Newcomb and Peat|
+to the Parliament of England|
+\[sic\]|
+printed in|printed in
+nunc demum|
+commonwealth of|

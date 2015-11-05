@@ -5,12 +5,16 @@ synonyme	name
 2⁰\([0-9]\?\)	2fo
 2fo\([0-9]\?\)	2fo
 horizontal chain lines	
-°. '	°
-\\.°	°
+°\. '	°
+₀   °
+\.°	°
 \.\?	°
  °	°
 °	°
 ⁰	°
+⁰\.	°
+⁹	°
+\.̊	°
 \?	°
 ^\°to$
 '	°
@@ -27,9 +31,12 @@ quadragesimo-octavo	48mo
 sexagesimo-quarto	64mo
 duodecimo-long	12long
 quarto \[fewer than 50 pages\]	4to
+Broadsheet	bs
 broadsheet	bs
+Broadside	bs
 broadside	bs
 broad1to	bs
+bs	1to
 sheet	1to
 folio-large	2long
 folio-small	2small
