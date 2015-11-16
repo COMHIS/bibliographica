@@ -70,6 +70,17 @@
   #top_ninety_publishers <- tab[which(as.numeric(tab[,2]) >= max),]
   #bottom_ten_publishers <- tab[which(as.numeric(tab[,2]) < max),]
   
+  # Build the stop mechanism
+  f <- "../inst/extdata/sv_publisher_caveat.csv"
+  caveats <- read.csv(f, sep = "\t", fileEncoding = "UTF-8",)
+  cav <- data.frame(name1=character(nrow(caveats)*2), name2=character(nrow(caveats)*2), stringsAsFactors=FALSE)
+  for (i in 1:nrow(caveats)) {
+    cav$name1[i] <- as.character(caveats$name1[i])
+    cav$name2[i] <- as.character(caveats$name2[i])
+    cav$name1[i+nrow(caveats)] <- as.character(caveats$name2[i])
+    cav$name2[i+nrow(caveats)] <- as.character(caveats$name1[i])
+  }
+  
   # prepare_nameforms (remove initials, transform fv -> v; fw -> v ... etc.)
   compPublisher <- harmonize_for_comparison(na.omit(tab[,1]), language="swedish")
   
@@ -77,23 +88,39 @@
   
   # Initiate & preallocate a new version of publishers
   framePublishers <- data.frame(orig=character(nrow(tab)), mod=character(nrow(tab)), comp=character(nrow(tab)), total=numeric(nrow(tab)), stringsAsFactors = FALSE)
-  
+  indices_with_initials <- grep("(([[:upper:]][.]){1,3}) [[:upper:]]", compPublisher)
   
   i <- 1
   for (publisherName in na.omit(tab[,1])) {
         publisherTotal <- unname(unlist(subset(tab, tab[,1]==publisherName)[2]))
         compare_version <- as.character(compPublisher[i])
         
+        # SCRAP HERE, if too slow
+        tmp_compare_versions <- framePublishers$comp
+        for (j in 1:nrow(cav)) {
+          if (length(grep(cav$name1[j], compare_version)) > 0) {
+            indices <- grep(cav$name2[j], tmp_compare_versions)
+            indices <- intersect(grep(cav$name1[j], tmp_compare_versions, invert=TRUE), indices)
+            tmp_compare_versions[indices] <- NA
+          }
+        }
+        # Now, the initials. In case of initials, they must be the same in tmp_compare_version and the string to match
+        if (length(grep("\\b[[:upper:]][.]([[:upper:]][.]){0,2} [[:upper:]]", compare_version)) > 0) {
+          initials <- sub(".*?\\b(([[:upper:]][.]){1,3}) .*", "\\1", compare_version)
+          indices <- grep(initials, tmp_compare_versions, invert=TRUE)
+          indices <- intersect(indices_with_initials, indices)
+          tmp_compare_versions[indices] <- NA
+        }
         #res <- framePublishers$orig[amatch(compare_version, framePublishers$comp, maxDist=1)]
         
         # method="jw" ie. Jaro-Winkler. It takes into account also the length of strings.
-        res <- framePublishers$orig[amatch(compare_version, framePublishers$comp, method="jw", p=0.05, maxDist=0.08)]
+        # The thresholds of p & maxDist are produced by Stetson-Harrison method
+        res <- framePublishers$orig[amatch(compare_version, tmp_compare_versions, method="jw", p=0.05, maxDist=0.06)]
         
         if ((is.null(res)) || (is.na(res)) || (res=="")) {
           # Add new entry
           framePublishers$orig[i] <- publisherName
-          framePublishers$mod[i] <- publisherName
-          #framePublishers$comp[i] <- compare_version
+          framePublishers$mod[i] <- compare_version
           framePublishers$total[i] <- publisherTotal
           if (publisherTotal > 2) {
             framePublishers$comp[i] <- compare_version
@@ -110,7 +137,6 @@
           # Add new entry for the modified result
           framePublishers$orig[i] <- publisherName
           framePublishers$mod[i] <- res
-          #framePublishers$comp[i] <- compare_version
           framePublishers$total[i] <- 0
           if (publisherTotal > 2) {
             framePublishers$comp[i] <- compare_version
@@ -121,10 +147,11 @@
   }
   orig <- framePublishers$orig
   mod <- framePublishers$mod
+  comp <- framePublishers$comp
+  
   framePublishers[which(orig!=mod),][1:100,]
-  # ignore 3+ results
   
-  
-  
+  length(unique(orig))
+  length(unique(mod))
   
   
