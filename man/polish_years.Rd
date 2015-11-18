@@ -5,7 +5,7 @@
 \title{polish_years}
 \usage{
 polish_years(x, start_synonyms = NULL, end_synonyms = NULL,
-  verbose = TRUE)
+  verbose = TRUE, check = FALSE)
 }
 \arguments{
 \item{x}{year field (a vector)}
@@ -15,6 +15,8 @@ polish_years(x, start_synonyms = NULL, end_synonyms = NULL,
 \item{end_synonyms}{Synonyme table for end year}
 
 \item{verbose}{verbose}
+
+\item{check}{If true, remove entries (replace by NA) where start > end}
 }
 \value{
 data.frame with the fields 'start' and 'end'

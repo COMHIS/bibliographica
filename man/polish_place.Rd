@@ -4,7 +4,8 @@
 \alias{polish_place}
 \title{polish_place}
 \usage{
-polish_place(x, synonymes = NULL, remove.unknown = FALSE, verbose = FALSE)
+polish_place(x, synonymes = NULL, remove.unknown = FALSE, verbose = FALSE,
+  harmonize = TRUE)
 }
 \arguments{
 \item{x}{A vector of place names}
@@ -14,6 +15,8 @@ polish_place(x, synonymes = NULL, remove.unknown = FALSE, verbose = FALSE)
 \item{remove.unknown}{Logical. Remove places that are not validated (ie. listed in the synonyme table)?}
 
 \item{verbose}{verbose}
+
+\item{harmonize}{Harmonize the polished names. Logical.}
 }
 \value{
 Polished vector

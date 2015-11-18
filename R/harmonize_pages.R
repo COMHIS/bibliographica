@@ -9,8 +9,13 @@ harmonize_pages <- function (x) {
   # Remove dimension info
   s <- remove_dimension(x)
 
-  # ie harmonization (handle comma; otherwise ie handled later)
-  s <- harmonize_ie(s)
+  # ie harmonization
+  # each comma place separately
+  # each dash place separately  
+  s <- gsub("e\\.\\,", "e ", s)
+  s <- unlist(strsplit(s, ","))
+  s <- sapply(s, function (si) {x <- unlist(strsplit(si, "-")); paste(sapply(x, function (x) handle_ie(x)), collapse = "-")})
+  s <- paste(s, collapse = ",")
 
   # Romans
   s <- harmonize_romans(s) 
@@ -40,10 +45,6 @@ harmonize_pages <- function (x) {
   s <- gsub(" -", "-", s)
   s <- gsub("- ", "-", s)
   s <- str_trim(gsub("\\)", " ", gsub("\\(", " ", s)))
-  s <- gsub(" \\(", ",(", s)
-  s <- gsub("\\,\\,", ",", s)
-  s <- gsub("^\\(", "", s)
-  s <- gsub("\\)$", "", s)
   s <- condense_spaces(s)
 
   # Add commas
@@ -53,6 +54,8 @@ harmonize_pages <- function (x) {
   for (n in 0:9) {
     s <- gsub(paste("] ", n, sep = ""), paste("], ", n, sep = ""), s)
   }
+  # Remove too many commas
+  s <- gsub("\\,+", ",", s)
 
   # p3 -> 3
   if (length(grep("^p[0-9]", s))) {
@@ -63,17 +66,12 @@ harmonize_pages <- function (x) {
   if (length(grep("^[[({][0-9]*[])}]$", gsub(" ", "", s)))) {
     s <- gsub("\\[", "", s)
     s <- gsub("\\]", "", s)
-    s <- gsub("\\(", "", s)
-    s <- gsub("\\)", "", s)
     s <- gsub("\\{", "", s)
     s <- gsub("\\}", "", s)
-    s <- str_trim(s)
   }
 
   s <- str_trim(gsub("^,", "", s))
-  if (is.na(s) || s == "") { s <- NA }
-
-
+  if (is.na(s) || s %in% c("", "NA")) { s <- NA }
 
   s
 

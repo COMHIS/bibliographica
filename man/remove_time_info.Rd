@@ -4,10 +4,12 @@
 \alias{remove_time_info}
 \title{remove_time_info}
 \usage{
-remove_time_info(x)
+remove_time_info(x, verbose = FALSE)
 }
 \arguments{
 \item{x}{Vector (time field)}
+
+\item{verbose}{verbose}
 }
 \value{
 Polished vector

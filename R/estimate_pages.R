@@ -20,6 +20,9 @@ estimate_pages <- function (x) {
   } else if (!is.na(suppressWarnings(as.numeric(gsub(" [p|s]", "", remove.squarebrackets(x)))))) {
     # "[3]" or [3 p]
     return(as.numeric(remove.squarebrackets(gsub(" [p|s]", "", x))))
+  } else if (length(grep("\\[[0-9]* \\] leaves", x)) > 0) {
+    # "[50 ] leaves" 
+    x <- remove.squarebrackets(x)
   } else if (x %in% c("1 sheet", "1 kartta")) {
     # "1 sheet"
     return(2)

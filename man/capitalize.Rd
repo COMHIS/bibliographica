@@ -4,10 +4,13 @@
 \alias{capitalize}
 \title{capitalize}
 \usage{
-capitalize(x)
+capitalize(x, format = "first.letter")
 }
 \arguments{
 \item{x}{a character vector to capitalize}
+
+\item{format}{Capitalization format: "first.letter" (first letter
+capitalized) or "all.words" (all words capitalized)}
 }
 \value{
 Capitalized character vector
@@ -16,7 +19,7 @@ Capitalized character vector
 Capitalize the first letter
 }
 \examples{
-# capitalize("print")
+capitalize("print")
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

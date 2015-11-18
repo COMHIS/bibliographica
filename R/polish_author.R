@@ -89,7 +89,6 @@ polish_author <- function (s, stopwords = NULL) {
 
   # OK, now we have polished first and last names
 
-
   ### VALIDATING THE NAMES
 
   message("Validate names with known name lists")
@@ -101,13 +100,16 @@ polish_author <- function (s, stopwords = NULL) {
     v <- validate_names(namelist, db)
     valid[[db]] <- v$validated
     invalid[[db]] <- v$invalid
-
   }
 
   message("Remove names that do not have both valid first and last names")
   nametab[(!valid[["first"]] | !valid[["last"]]), ] <- NA
   nametab$last[is.na(nametab$first)] <- NA
   nametab$first[is.na(nametab$last)] <- NA
+
+  message("Capitalize names")
+  nametab$last <- capitalize(nametab$last, "all.words")
+  nametab$first <- capitalize(nametab$first, "all.words")  
 
   message("Collapse accepted names to the form: Last, First")
   full.name <- apply(nametab, 1, function (x) { paste(x, collapse = ", ") })

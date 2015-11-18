@@ -31,6 +31,7 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
     if (remove.letters) {
       x <- remove_letters(x)
     }
+
   }
 
   # remove sine loco
@@ -38,9 +39,8 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
 
   # handle some odd cases manually
   # FIXME: this is estc-specific, move there
-  x[x == "122 s"] <- NA
-  x[x == "204 s"] <- NA
-  x[x == "2 p"] <- NA
+  # "122 s"; "2 p"
+  x[grep("^[0-9]* [s|p]$", x)] <- NA
   x <- gsub("2. p.;","",x)
   x <- gsub("^(.*?);.*$","\\1",x) # nb. non-greedy match
 

@@ -4,12 +4,14 @@
 \alias{write_xtable}
 \title{write_xtable}
 \usage{
-write_xtable(x, filename)
+write_xtable(x, filename, count = FALSE)
 }
 \arguments{
 \item{x}{a vector or matrix}
 
 \item{filename}{output file}
+
+\item{count}{Add total count of cases in the beginning}
 }
 \value{
 Table indicating the count for each unique entry in the input  vector or matrix. The function writes the statistics in the file.

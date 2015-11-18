@@ -40,10 +40,12 @@ top_plot <- function (df, field = NULL, ntop = NULL, highlight = NULL) {
   if (!is.null(highlight)) {
     dfs$color <- rep("darkgray", nrow(dfs))
     dfs$color[dfs$names %in% highlight] <- "red"
+    p <- ggplot(dfs, aes(x = names, y = count, fill = color))    
+  } else {
+    p <- ggplot(dfs, aes(x = names, y = count))
   }
 
   theme_set(theme_bw(15))
-  p <- ggplot(dfs, aes(x = names, y = count, fill = color))
   p <- p + geom_bar(stat = "identity")
   p <- p + coord_flip()
   p <- p + ylab(field) + xlab("")
