@@ -50,23 +50,17 @@ polish_pages_help <- function (s) {
     return(xx)
   }
 
-    # Catch warnings rather than crashing the loop
+  # Catch warnings rather than crashing the loop
+  a <- try(pp <- polish_page(s))
 
-    a <- try(pp <- polish_page(s))
+  # Save both raw and polished version 
+  # We need these later to systematically identify failed cases
+  # And to estimate the success fraction
+  if ((is.character(a) && a == "try-error") || is.na(pp)) {
+    pp <- NA
+  }
 
-    # Save both raw and polished version 
-    # We need these later to systematically identify failed cases
-    # And to estimate the success fraction
-    if ((is.character(a) && a == "try-error") || is.na(pp$pages)) {
-      sp <- NA
-    } else {
-      tmp <- unname(unlist(pp$pages))
-      tmp[is.infinite(tmp)] <- NA
-      sp <- tmp
-      #raw <- unname(unlist(pp$raw))
-    }
-
-  unname(unlist(sp))
+  pp
 
 }
 

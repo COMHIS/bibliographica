@@ -3,8 +3,9 @@
 #' @param x A vector
 #' @param numbers numeric characters to be removed (all by default)
 #' @return A vector with characters removed
-#' @details After removing the numerics, beginning, double and ending spaces are also removed from the strings.
-#' @export 
+#' @details After removing the numerics, beginning, double and ending 
+#'          spaces are also removed from the strings.
+#' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{x2 <- remove_numerics(x, numbers = 0:9)}
@@ -19,4 +20,4 @@ remove_numerics <- function (x, numbers = 0:9) {
 
   x
 }
-
+	

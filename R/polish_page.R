@@ -20,16 +20,24 @@ polish_page <- function (x) {
 
   # Volumes are separated by semicolons
   # Split by semicolon to list each volume separately
-  spl <- str_trim(unlist(strsplit(s, ";")))
+  # TODO this is now unnecessary as defined in polish_pages.R
+  #spl <- str_trim(unlist(strsplit(s, ";")))
+  #spl <- s
 
-  if (length(spl) > 0) {
+  #if (length(spl) > 0) {
     # Assess pages per volume
-    pages <- sapply(spl, function (x) { estimate_pages(x) })
-  } else {
-    pages <- NA
-  }
+    # pages <- sapply(spl, function (x) { estimate_pages(x) })
+    pages <- estimate_pages(s)
+  #} else {
+  #  pages <- NA
+  #}
 
-  list(raw = spl, pages = pages)
- 
+  # No infinite page counts
+  pages[is.infinite(pages)] <- NA
+      
+  # TODO raw not needed in output
+  #list(raw = s, pages = pages)
+  unname(pages)
+
 }
 

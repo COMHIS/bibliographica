@@ -18,7 +18,8 @@ A vector with characters removed
 Remove numeric characters from the input strings
 }
 \details{
-After removing the numerics, beginning, double and ending spaces are also removed from the strings.
+After removing the numerics, beginning, double and ending 
+         spaces are also removed from the strings.
 }
 \examples{
 \dontrun{x2 <- remove_numerics(x, numbers = 0:9)}

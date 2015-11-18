@@ -4,12 +4,14 @@
 \alias{remove_endings}
 \title{remove_endings}
 \usage{
-remove_endings(x, endings)
+remove_endings(x, endings, random_order = FALSE)
 }
 \arguments{
 \item{x}{vector}
 
 \item{endings}{endings to remove}
+
+\item{random_order}{Order the endings randomly before removal. TRUE/FALSE}
 }
 \value{
 polished vector
