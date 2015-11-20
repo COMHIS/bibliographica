@@ -1,4 +1,7 @@
 region;country
+Uusikirkko;Finland
+Sarvilahti;Finland
+Freiburg im Breisgau;Germany
 Porth Arthur ON;USA
 Lybeck;Germany
 Augsburg;Germany
@@ -7,6 +10,7 @@ Terijoki;Finland
 Salo;Finland
 Zurich;Germany
 Tübingen;Germany
+Tubingen;Germany
 Pernaja;Finland
 Milano;Italy
 Jämsä;Finland
@@ -85,7 +89,7 @@ Tammela;Finland
 Taipalsaari;Finland
 Suonenjoki;Finland
 Sudbury ON;USA
-St Louis MI;USA
+St Louis Kaunti MI;USA
 Simola;Finland
 Sauvo;Finland
 Sandstone MI;USA
@@ -173,6 +177,7 @@ Alatornio;Finland
 Reykjavik;Iceland
 München;Germany
 Nurnberg;Germany
+Nürnberg;Germany
 Moscow;Russia
 Salisbury Ma;USA
 Newport Isle of Wight;England
@@ -719,7 +724,7 @@ Pärnu;Estonia
 Quincy MA;USA
 Raahe;Finland
 Rauma;Finland
-Riika;Latvia
+Riga;Latvia
 Rock Island IL;USA
 Rooma;Italy
 Rostock;Germany
@@ -747,6 +752,7 @@ Vaasa;Finland
 Varsova;Poland
 Viipuri;Finland
 Vilna;Lithuania
+Vilnius;Lithuania
 Västerås;Sweden
 Weimar;Germany
 Wien;Austria
@@ -889,7 +895,7 @@ Wittenberg;Germany
 Worcester MA;USA
 Örebro;Sweden
 Stockholm;Sweden
-Saint Petersburg;Russia
+St Petersburg;Russia
 Tallinn;Estonia
 Tornio;Finland
 Bonn;Germany

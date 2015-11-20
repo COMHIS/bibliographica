@@ -6,7 +6,8 @@
 #' @param field Field that will be filled in 'df' based on the information in 'info' data.frame
 #' @return Character vector of unique author IDs
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("bibliographica") 
+#' @references See citation("bibliographica")
+#' @export
 #' @examples \dontrun{a <- author_unique(df)}
 #' @keywords utilities
 add_missing_entries <- function (df, info, id, field) {

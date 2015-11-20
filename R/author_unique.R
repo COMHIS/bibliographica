@@ -5,6 +5,7 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica") 
 #' @examples \dontrun{a <- author_unique(df)}
+#' @export
 #' @keywords utilities
 author_unique <- function (df) {
   author_name <- author_birth <- author_death <- NULL
