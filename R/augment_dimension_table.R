@@ -1,15 +1,12 @@
 #' @title augment_dimension_table
 #' @description Estimate missing entries in dimension table where possible
-#'
 #' @param dimension.table dimension.table
 #' @param dimtab Mapping between document dimensions.
 #' @param verbose verbose
 #' @return Augmented dimension.table
-#'
 #' @seealso polish_dimensions
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @importFrom dplyr mutate
 #' @examples # augment_dimension_table(dimension.table)
 #' @keywords utilities
