@@ -28,12 +28,13 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE) {
 
   if (is.null(synonyms)) {
     f <- system.file("extdata/publisher.csv", package = "bibliographica")
-    synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8", header = TRUE))
+    synonyms <- as.data.frame(read.csv(f, sep = ";", stringsAsFactors = FALSE, fileEncoding = "UTF-8", header = TRUE))
   }
-  x <- harmonize_names(x, synonyms)
+
+  x <- as.character(harmonize_names(x, synonyms, mode = "exact.match")$name)
 
   # Project unique cases back to the original list
-  x2 <- x[match(xorig, xuniq),]
+  x2 <- x[match(xorig, xuniq)]
 
   x2
 
