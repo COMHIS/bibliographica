@@ -34,7 +34,7 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE) {
   x <- as.character(harmonize_names(x, synonyms, mode = "exact.match")$name)
 
   # Project unique cases back to the original list
-  x2 <- x[match(xorig, xuniq)]
+  x2 <- as.character(x[match(xorig, xuniq)])
 
   x2
 
