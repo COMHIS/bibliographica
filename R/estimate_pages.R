@@ -4,9 +4,6 @@ estimate_pages <- function (x) {
   # After removing volume info
   # This is the main function regarding page counting rules	      
 
-  # Harmonize synonymes and spelling errors
-  x <- harmonize_pages(x)
-
   # Handle the straightforward standard cases first
   if (all(is.na(x))) {
     # "NA"
@@ -29,12 +26,21 @@ estimate_pages <- function (x) {
   } else if (length(grep("^[0-9] sheets$", x)) == 1 | length(grep("^[0-9] karttaa$", x)) == 1) {
     # "2 sheets" / 2 karttaa
     return(as.numeric(sheets2pages(x)))
-  } 
+  }  else if (length(grep("[0-9]+ \\+ [0-9]+", x))>0) {
+    # 9 + 15
+    return(sum(as.numeric(str_trim(unlist(strsplit(x, "\\+"))))))
+  } else if (!is.na(sum(as.numeric(roman2arabic(str_trim(unlist(strsplit(x, "\\+")))))))) {
+    # IX + 313
+    return(sum(as.numeric(roman2arabic(str_trim(unlist(strsplit(x, "\\+")))))))
+  }
 
   # --------------------------------------------
 
   # Then proceeding to the more complex cases...
   # Harmonize the items within commas
+
+  # Remove plus now
+  x <- gsub("\\+", "", x)
 
   # Split by comma and handle comma-separated elements as 
   # interpretation units

@@ -54,12 +54,15 @@ polish_pages_help <- function (s) {
   }
 
   # Remove volume info
-  s <- suppressWarnings(remove_volume_info(s))
+  x <- suppressWarnings(remove_volume_info(s))
+
+  # Harmonize synonymes and spelling errors
+  x <- harmonize_pages(x)
 
   # Estimate pages
-  s <- estimate_pages(s)
+  x <- estimate_pages(x)
 
-  s
+  x
 
 }
 

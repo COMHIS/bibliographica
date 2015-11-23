@@ -24,7 +24,7 @@ harmonize_pages <- function (x) {
   f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
   harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
 
-  s <- harmonize_names(s, harm)
+  s <- harmonize_names(s, harm, mode = "recursive")$name
 
   s <- condense_spaces(s)
 
