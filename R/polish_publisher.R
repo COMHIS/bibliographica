@@ -30,7 +30,7 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE) {
     f <- system.file("extdata/publisher.csv", package = "bibliographica")
     synonyms <- as.data.frame(read.csv(f, sep = ";", stringsAsFactors = FALSE, fileEncoding = "UTF-8", header = TRUE))
   }
-
+  
   x <- as.character(harmonize_names(x, synonyms, mode = "exact.match")$name)
 
   # Project unique cases back to the original list
