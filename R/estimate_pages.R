@@ -30,14 +30,23 @@ estimate_pages <- function (x) {
     # "2 sheets" / 2 karttaa
     return(as.numeric(sheets2pages(x)))
   } 
-  # Then proceeding to the more complex cases...
 
   # --------------------------------------------
 
+  # Then proceeding to the more complex cases...
   # Harmonize the items within commas
-  # Note that the empty items are removed in the end
-  # so the length may be shorter
-  x <- harmonize_per_comma(x)
+
+  # Split by comma and handle comma-separated elements as 
+  # interpretation units
+  spl <- str_trim(unlist(strsplit(x, ",")))
+
+  # Harmonize pages within each comma
+  x <- sapply(spl, function (x) { harmonize_pages_by_comma(x) })
+
+  # Remove empty items
+  x <- as.vector(na.omit(x))
+
+  # -------------------------------------------------
 
   page.count.multiplier <- 1
   if (length(grep("^Ff", x[[1]]))==1) {
@@ -60,10 +69,12 @@ estimate_pages <- function (x) {
   # ie. [3]-5 becomes 3-5
   dash <- pagecount.attributes["dash", ]
   sqb  <- pagecount.attributes["squarebracket", ]
+  romans  <- pagecount.attributes["roman", ]  
   inds <- which(dash & sqb)
   if (length(inds) > 0) {
     x[inds] <- remove.squarebrackets(x[inds])
   }
+  
   pagecount.attributes["arabic", inds] <- TRUE
   # Now page count can't be roman and arabic at the same time.
   # Otherwise pages will calculated double
@@ -95,9 +106,8 @@ estimate_pages <- function (x) {
   # Start page counting
   pages <- c()
 
-  # Sum square brackets
-  inds <- pagecount.attributes["squarebracket",]
-
+  # Sum square brackets: note the sum rule does not concern roman numerals
+  inds <- pagecount.attributes["squarebracket",] & !pagecount.attributes["roman",]
   pages$squarebracket <- sumrule(x[inds])
 
   # Sum sheets 

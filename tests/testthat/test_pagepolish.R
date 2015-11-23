@@ -187,7 +187,19 @@ test_that("page count is correct", {
   expect_equal(polish_pages("2v.([6],iii,[1],lxxxviii,994p.)"), 1089)
   expect_equal(polish_pages("[24+} p."), 24)
   expect_equal(polish_pages("2v.(CLI,[1],800p.)"), 952)
+
+  expect_equal(polish_pages("[4] s. (s. [4] tyhjä)"), 4)
+  expect_equal(polish_pages("XXIV s."), 24)
+  expect_equal(polish_pages("IX + 313 s."), 322)
+  expect_equal(polish_pages("9 + 15 s."), 24)
+  expect_equal(polish_pages("6 vihkoa (396 s.)"), 396)
+  expect_equal(polish_pages("4 nid. (464 s.)"), 464)
+  expect_equal(polish_pages("2 osaa (229 s.)"), 229)
+  expect_equal(polish_pages("[XXIII], 161 s."), 184)
   
+  # expect_equal(polish_pages(""), )
+  # expect_equal(polish_pages(""), )  
+
 })
 
 

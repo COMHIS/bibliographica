@@ -22,11 +22,9 @@ harmonize_pages <- function (x) {
 
   # Read the mapping table
   f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
-  harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))  
-  # Harmonize
-  for (i in 1:nrow(harm)) {
-    s <- gsub(harm$synonyme[[i]], harm$name[[i]], s)
-  }  
+  harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
+print(s)
+  s <- harmonize_names(s, harm)
 
   s <- condense_spaces(s)
 

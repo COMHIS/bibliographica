@@ -32,11 +32,12 @@ harmonize_pages_by_comma <- function (s) {
   if (length(grep("plates", s)) == 0) {
     s <- gsub("pages", " ", s)
     s <- gsub("page", " ", s)
-    s <- gsub("p\\.\\)", " ", s)
-    s <- gsub("p$", " ", s)
-    s <- gsub("p\\.]$", " ", s)
-    s <- gsub(" p \\]$", " ", s)
-    s <- gsub(" p\\]$", " ", s)
+    s <- gsub("sivua", " ", s)
+    s <- gsub("[p|s]\\.\\)", " ", s)
+    s <- gsub("[p|s]$", " ", s)
+    s <- gsub("[p|s]\\.]$", " ", s)
+    s <- gsub(" [p|s] \\]$", " ", s)
+    s <- gsub(" [p|s]\\]$", " ", s)
   }
   # p66 -> 1
   if (length(grep("^p", s)) > 0 && length(grep("-", s)) == 0) {
@@ -45,6 +46,8 @@ harmonize_pages_by_comma <- function (s) {
   } else if (length(grep("^p", s)) > 0 && length(grep("-", s)) > 0) {
     s <- str_trim(gsub("^p", "", s))
   }
+
+
 
   # Handle some odd cases
   s <- gsub("a-m", " ", s)

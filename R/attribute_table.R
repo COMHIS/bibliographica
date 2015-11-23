@@ -22,7 +22,7 @@ attribute_table <- function (x) {
 
   # SQUARE BRACKET POSITIONS
   sqb <- position_squarebrackets(x)
-  pagecount.attributes["squarebracket", sqb$positions]<- TRUE
+  pagecount.attributes["squarebracket", sqb$positions] <- TRUE
 
   # DASH POSITIONS
   pagecount.attributes["dash", grep("-", x)]<- TRUE

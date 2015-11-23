@@ -12,25 +12,8 @@
 #' @keywords internal
 polish_page <- function (x) {
 
-  # Convert to string 	    	    
-  s <- as.character(x)
-
   # "5v. 3-20, [5]" -> "3-20, [5]"
   s <- suppressWarnings(remove_volume_info(s))
-
-  # Volumes are separated by semicolons
-  # Split by semicolon to list each volume separately
-  # TODO this is now unnecessary as defined in polish_pages.R
-  #spl <- str_trim(unlist(strsplit(s, ";")))
-  #spl <- s
-
-  #if (length(spl) > 0) {
-    # Assess pages per volume
-    # pages <- sapply(spl, function (x) { estimate_pages(x) })
-    pages <- estimate_pages(s)
-  #} else {
-  #  pages <- NA
-  #}
 
   # No infinite page counts
   pages[is.infinite(pages)] <- NA

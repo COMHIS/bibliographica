@@ -42,7 +42,10 @@ polish_pages_help <- function (s) {
   # Estimate pages for each document separately via a for loop
   # Vectorization would be faster but we prefer simplicity and modularity here
 
+  # Convert to string 	    	    
   if (is.na(s) || s == "") {return(NA)}
+
+  s <- as.character(s)
   spl <- unlist(strsplit(s, ";"))
   
   if (length(spl)>1) {
@@ -50,17 +53,13 @@ polish_pages_help <- function (s) {
     return(xx)
   }
 
-  # Catch warnings rather than crashing the loop
-  a <- try(pp <- polish_page(s))
+  # Remove volume info
+  s <- suppressWarnings(remove_volume_info(s))
 
-  # Save both raw and polished version 
-  # We need these later to systematically identify failed cases
-  # And to estimate the success fraction
-  if ((is.character(a) && a == "try-error") || is.na(pp)) {
-    pp <- NA
-  }
+  # Estimate pages
+  s <- estimate_pages(s)
 
-  pp
+  s
 
 }
 
