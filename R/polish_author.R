@@ -15,10 +15,6 @@
 #' @keywords utilities
 polish_author <- function (s, stopwords = NULL) {
 
-  # NOTE to other developers:
-  # If this function appears too complex just drop a line, we can see if it should be splitted in
-  # multiple parts.. work in progress..
-
   s <- as.character(s)
 
   # Only handle unique entries, in the end map back to original indices
@@ -36,17 +32,6 @@ polish_author <- function (s, stopwords = NULL) {
   s <- gsub("\\.$", "", s)
   s <- gsub("\\,$", "", s)
 
-  #family <- gsub("^(?!(.*\\, .*$)).+$",NA,s,perl=TRUE)
-  #family <- gsub("^(.*)\\, .*$","\\1",family)	
-  #first <- gsub("^(?!(.*\\, .*$)).+$",NA,s,perl=TRUE)
-  #first <- gsub("^.*\\, (.*)$","\\1",first)
-  #other <- gsub("^(.*)\\, .*$",NA,s)
-  # Multiple names: treat as other names
-  #inds <- grep(";", s)
-  #family[inds] <- NA
-  #first[inds] <- NA
-  #other[inds] <- s[inds]
-  
   # Assume names are of format Last, First
   nametab <- t(sapply(strsplit(s, ","), function (x) {
     name <- c(last = x[[1]], first = NA);
@@ -119,7 +104,7 @@ polish_author <- function (s, stopwords = NULL) {
   # Then map back to the original indices
   nametab <- nametab[match(sorig, suniq), ]
 
-  list(names = nametab, invalid = invalid)
+  nametab
 
 }
 
