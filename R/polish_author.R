@@ -42,10 +42,13 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE) {
 
   if (is.null(stopwords)) {
     message("No stopwords provided for authors. Using ready-made stopword lists")
+
     f <- system.file("extdata/stopwords.csv", package = "bibliographica")
     stopwords.general <- as.character(read.csv(f, sep = "\t")[,1])
+
     stopwords.general <- c(stopwords.general, stopwords(kind = "en"))
     f <- system.file("extdata/stopwords_for_names.csv", package = "bibliographica")
+
     stopwords.names <- as.character(read.csv(f, sep = "\t")[,1])
     f <- system.file("extdata/stopwords_titles.csv", package = "bibliographica")
     stopwords.titles <- as.character(read.csv(f, sep = "\t")[,1])
@@ -100,11 +103,11 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE) {
     } else {
       v <- list()
       v$validated <- !is.na(namelist)
-      v$invalid <- is.na(namelist)
+      v$invalid <- suniq[is.na(namelist)]
     }
 
     valid[[db]] <- v$validated
-    invalid[[db]] <- suniq[v$invalid]
+    invalid[[db]] <- v$invalid
 
   }
 
