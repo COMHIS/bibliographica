@@ -4,12 +4,14 @@
 \alias{polish_author}
 \title{polish_author}
 \usage{
-polish_author(s, stopwords = NULL)
+polish_author(s, stopwords = NULL, validate = FALSE)
 }
 \arguments{
 \item{s}{Vector of author names}
 
 \item{stopwords}{Stopwords}
+
+\item{validate}{Validate the names based on existing first/last name lists}
 }
 \value{
 Polished vector

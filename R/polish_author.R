@@ -3,6 +3,7 @@
 #'
 #' @param s Vector of author names
 #' @param stopwords Stopwords
+#' @param validate Validate the names based on existing first/last name lists
 #' @return Polished vector
 #'
 #' @export
@@ -13,7 +14,7 @@
 #' 
 #' @examples s2 <- polish_author("Smith, William")
 #' @keywords utilities
-polish_author <- function (s, stopwords = NULL) {
+polish_author <- function (s, stopwords = NULL, validate = FALSE) {
 
   s <- as.character(s)
 
@@ -51,9 +52,14 @@ polish_author <- function (s, stopwords = NULL) {
     stopwords <- unique(c(stopwords.general, stopwords.names, stopwords.titles))
   }
 
+  # Must exclude some names from assumed stopwords
+  stopwords <- setdiff(stopwords, c("humble", "about", "most"))
+
   message("Harmonize names")
+  # TODO O. K. Humble, Verner -> First: Verner O K Last: Humble  		    
   nametab <- as.data.frame(nametab)
-  nametab$last  <- gsub("^-", "", trim_names(nametab$last,  stopwords, remove.letters = TRUE))
+  
+  nametab$last  <- gsub("^-", "", trim_names(nametab$last,  stopwords, remove.letters = FALSE))
   nametab$first <- gsub("^-", "", trim_names(nametab$first, stopwords, remove.letters = FALSE))
 
   # Some additional formatting
@@ -63,6 +69,8 @@ polish_author <- function (s, stopwords = NULL) {
     x <- nametab[i,]
     first <- unlist(strsplit(nametab[i, "first"], " "))
     last <- unlist(strsplit(nametab[i, "last"], " "))
+    if (length(first) == 0) {first <- NA}
+    if (length(last) == 0) {last <- NA}    
     if (!is.na(first) && !is.na(last)) {
       if (last == first[[length(first)]]) {
         first <- first[-length(first)]
@@ -72,19 +80,32 @@ polish_author <- function (s, stopwords = NULL) {
   }
   nametab$first <- firsts
 
+  # Remove single letter last names
+  # nametab$first[nchar(nametab$first) == 1] <- NA
+  nametab$last[nchar(nametab$last) == 1] <- NA   
+
   # OK, now we have polished first and last names
 
   ### VALIDATING THE NAMES
-
-  message("Validate names with known name lists")
   valid <- list()
   invalid <- list()
+  
+  message("Validate names with known name lists")
   for (db in c("first", "last")) {
 
     namelist <- nametab[[db]]
-    v <- validate_names(namelist, db)
+
+    if (validate) {  
+      v <- validate_names(namelist, db)
+    } else {
+      v <- list()
+      v$validated <- !is.na(namelist)
+      v$invalid <- is.na(namelist)
+    }
+
     valid[[db]] <- v$validated
-    invalid[[db]] <- v$invalid
+    invalid[[db]] <- suniq[v$invalid]
+
   }
 
   message("Remove names that do not have both valid first and last names")
@@ -103,8 +124,9 @@ polish_author <- function (s, stopwords = NULL) {
 
   # Then map back to the original indices
   nametab <- nametab[match(sorig, suniq), ]
+  nametab$original <- sorig
 
-  nametab
+  list(names = nametab, invalid = invalid)
 
 }
 
