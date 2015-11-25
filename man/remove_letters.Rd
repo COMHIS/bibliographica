@@ -4,16 +4,21 @@
 \alias{remove_letters}
 \title{remove_letters}
 \usage{
-remove_letters(x)
+remove_letters(x, ignore.start = c("S", "s", "N", "n", "E", "e", "W", "w"),
+  ignore.end = c())
 }
 \arguments{
 \item{x}{A vector}
+
+\item{ignore.start}{Vector of letter not to exclude from the start of x}
+
+\item{ignore.end}{Vector of letter not to exclude from the end of x}
 }
 \value{
 Polished vector
 }
 \description{
-Remove specific single letters
+Remove specific single letters from the start and/or end of the input string(s) x
 }
 \examples{
 \dontrun{remove_letters(x)}

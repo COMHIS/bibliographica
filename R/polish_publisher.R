@@ -22,17 +22,24 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE) {
     message(paste("Polishing publisher:", length(xuniq), "unique cases"))
   }
 
-  x <- xuniq
+  x <- tolower(xuniq)
   x <- gsub("o\\.y", "oy", x) #o.y -> oy
-  x <- remove_terms(x, terms, where = "begin")
-  x <- remove_print_statements(x)
-  x <- remove.squarebrackets(x)
-  x <- remove_sl(x)
-
   x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "\\.", "-"), niter = 2)
-  x <- remove_letters(x) # Individual letters
+  x <- gsub("w ja g", "weilin goos", x)
+  
+  x <- remove_terms(x, terms, where = "begin")
+
+  x <- remove.squarebrackets(x)
+
+  x <- remove_print_statements(x)
+
+  x <- remove_numerics(x)
+
   x <- condense_spaces(x)
 
+  # Remove strings that are single letters
+  x[x %in% letters] <- NA
+ 
   if (is.null(synonyms)) {
     f <- system.file("extdata/publisher.csv", package = "bibliographica")
     synonyms <- as.data.frame(read.csv(f, sep = ";", stringsAsFactors = FALSE, fileEncoding = "UTF-8", header = TRUE))
