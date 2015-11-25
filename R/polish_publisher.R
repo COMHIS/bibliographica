@@ -5,6 +5,7 @@
 #' @param verbose verbose
 #' @return polished publisher field (a vector)
 #' @export
+#' @importFrom sorvi condense_spaces
 #' @author Niko Ilomaki \email{niko.ilomaki@@helsinki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{v <- polish_publisher(c("Oxford University Press","tryckt hos Cambridge University Press"))}
@@ -21,10 +22,16 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE) {
     message(paste("Polishing publisher:", length(xuniq), "unique cases"))
   }
 
-  x <- remove_terms(xuniq, terms, where = "begin")
+  x <- xuniq
+  x <- gsub("o\\.y", "oy", x) #o.y -> oy
+  x <- remove_terms(x, terms, where = "begin")
   x <- remove_print_statements(x)
   x <- remove.squarebrackets(x)
-  x <- remove_sl(x)  
+  x <- remove_sl(x)
+
+  x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "\\.", "-"), niter = 2)
+  x <- remove_letters(x) # Individual letters
+  x <- condense_spaces(x)
 
   if (is.null(synonyms)) {
     f <- system.file("extdata/publisher.csv", package = "bibliographica")

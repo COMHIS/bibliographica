@@ -198,7 +198,30 @@ test_that("page count is correct", {
   expect_equal(polish_pages("[XXIII], 161 s."), 184)
   
   # expect_equal(polish_pages(""), )
-  # expect_equal(polish_pages(""), )  
+  # expect_equal(polish_pages(""), )
+
+  expect_equal(polish_pages("2 kuvalehteä"), 4)
+  expect_equal(polish_pages("2 kuvaliitettä"), 4)
+  expect_equal(polish_pages("2 kuvasivua"), 4)
+  expect_equal(polish_pages("2 malliliitettä"), 4)
+  expect_equal(polish_pages("2 kartblad"), 4)
+  expect_equal(polish_pages("2 kuvaa"), 4)
+  expect_equal(polish_pages("2 karttaa"), 4)
+  expect_equal(polish_pages("2 blad"), 4)
+  expect_equal(polish_pages("2 muotokuvalehteä"), 4)
+  expect_equal(polish_pages("2 pl."), 4)
+  expect_equal(polish_pages("2 blad."), 4)
+  expect_equal(polish_pages("2 irtokuval."), 4)
+  expect_equal(polish_pages("2 irtokuvalehteä"), 4)
+  expect_equal(polish_pages("2 kartor"), 4)
+  expect_equal(polish_pages("2 valokuvaa"), 4)
+  expect_equal(polish_pages("2 liitelehteä"), 4)
+  expect_equal(polish_pages("2 numeroimatonta lehteä"), 4)
+  expect_equal(polish_pages("2 silhuetter"), 4)
+  expect_equal(polish_pages("2 dubbelsidor"), 4)
+  expect_equal(polish_pages("2 taulua"), 4)
+
+  # expect_equal(polish_pages(""), 4)      
 
 })
 

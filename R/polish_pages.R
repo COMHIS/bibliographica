@@ -47,7 +47,7 @@ polish_pages_help <- function (s) {
 
   s <- as.character(s)
   spl <- unlist(strsplit(s, ";"))
-  
+
   if (length(spl)>1) {
     xx <- unname(sapply(spl, function (x) {polish_pages_help(x)}))
     return(xx)
@@ -57,6 +57,7 @@ polish_pages_help <- function (s) {
   x <- suppressWarnings(remove_volume_info(s))
 
   # Harmonize synonymes and spelling errors
+
   x <- harmonize_pages(x)
 
   # Estimate pages

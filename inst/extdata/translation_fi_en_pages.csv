@@ -1,17 +1,39 @@
-synonyme	name
-kartta	sheet
-arkkia	sheets
-arkki	sheet
-karttaa	sheets
-kuval\.	plates
-kuvalehdet	plates
-kuvalehtiä	plates
-lehti	plate
-lehdet	plates
-lehteä	plates
-taitettuna	folded
-poikittaip\.	obl.
-pienempi	small
-\.urempi	long
-verso tyhjä	verso blanko
-s\.$		pages
+synonyme;name
+kartta;sheet
+arkkia;sheets
+arkki;sheet
+karttaa;sheets
+kuval\.;plates
+kuval;plates
+kuvalehdet;plates
+kuvalehtiä;plates
+lehti;plate
+lehdet;plates
+lehteä;plates
+taitettuna;folded
+poikittaip\.;obl.
+pienempi;small
+\.urempi;long
+verso tyhjä;verso blanko
+s\.$;pages
+kuvalehteä;plates
+kuvaliitettä;plates
+kuvasivua;plates
+malliliitettä;plates
+kartblad;plates
+kuvaa;plates
+karttaa;plates
+blad;plates
+muotokuvalehteä;plates
+pl$;plates
+blad;plates
+irtokuval;plates
+irtokuvalehteä;plates
+kartor;plates
+valokuvaa;plates
+liitelehteä;plates
+numeroimatonta lehteä;plates
+silhuetter;plates
+dubbelsidor;plates
+taulua;plates
+
