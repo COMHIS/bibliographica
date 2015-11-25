@@ -19,6 +19,12 @@ pick_firstname <- function (x, format = "last, first") {
   } else {
     stop("Correct the unknown format in pick_firstname function.")
   }
+
+  # Remove possible life year info
+  first <- gsub(" \\([0-9|N|A]+-[0-9|N|A]+\\)", "", first)
+
   first
 
 }
+
+

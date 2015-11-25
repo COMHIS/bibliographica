@@ -4,10 +4,14 @@
 \alias{author_unique}
 \title{author_unique}
 \usage{
-author_unique(df)
+author_unique(df, format = "last, first", initialize.first = FALSE)
 }
 \arguments{
 \item{df}{data.frame with fields "author_name", "author_birth", "author_death"}
+
+\item{format}{name format ("last, first" or "first last")}
+
+\item{initialize.first}{Convert first names into initials. Useful for removing duplicates when the name list contains different versions with both full name and the initials. Use of the life year fields helps to avoid mixing identical abbreviated names.}
 }
 \value{
 Character vector of unique author IDs
