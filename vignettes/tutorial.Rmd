@@ -164,6 +164,9 @@ remove_stopwords(c("a", "well", "james", "30 year war"), terms = "well", remove.
 For a full list of stopword and related functions, see the [function documentation](https://github.com/rOpenGov/bibliographica/blob/master/man/). We also provide some [ready-made stopword lists](https://github.com/rOpenGov/bibliographica/tree/master/inst/extdata) that can be easily downloaded in R with the 'read.csv' function. 
 
 
+## Person names
+
+Several person name lists are available for validation purposes, including also gender information. These can be read with the functions firstnames, lastnames, and notnames (pseudonymes also coming). The name lists are collected by combining manually constructed lists and openly available material from various sources listed in the [respective data folders](https://github.com/rOpenGov/bibliographica/tree/master/inst/extdata/names).
 
 
 ## Licensing and Citations
