@@ -29,7 +29,6 @@ Imports:
 Suggests:
     knitr,
     rmarkdown,
-	stringr,
     testthat
 Additional_repositories: http://packages.ropensci.org
 LazyLoad: yes

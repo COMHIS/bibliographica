@@ -1,6 +1,11 @@
 #' @importFrom sorvi harmonize_names
 #' 
 harmonize_publisher <- function(x, publication_year, language="english") {
+
+  # To avoid warning in cran build/check must name this local variable
+  # before using it 
+  amatch <- NULL
+
   #f <- system.file("extdata/sv_publisher.csv", package = "bibliographica")
   f <- "../inst/extdata/sv_publisher.csv"
   synonyms <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")

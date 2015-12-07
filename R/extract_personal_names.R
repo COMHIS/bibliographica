@@ -1,5 +1,11 @@
 
 extract_personal_names  <- function(x) {
+
+  # To avoid warnings in cran build/check these variables must be named within
+  # this function before referring to them
+  str_extract <- str_count <- str_replace <- NULL
+
+
   #if (length(grep("[[:upper:]][[:lower:]]+ [[:upper:]][[:lower:]]+", x)) > 0) {
     full_name = str_extract(x, "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+")
     number_of_given_names = (str_count(full_name, "[[:upper:]]") - 1)
