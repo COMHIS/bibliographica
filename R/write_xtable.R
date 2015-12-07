@@ -9,7 +9,7 @@
 #' @references See citation("bibliographica")
 #' @examples \dontrun{tab <- write_xtable(x, "tmp.tab")}
 #' @keywords utilities
-write_xtable <- function (x, filename, count = FALSE) {
+write_xtable <- function (x, filename, count = FALSE, sep = "automatic") {
 
   message(paste("Writing", filename))
 
@@ -54,7 +54,16 @@ write_xtable <- function (x, filename, count = FALSE) {
     suppressWarnings(tab <- rbind(c("Total count: ", paste("n=", n, " (", round(100*n/length(x), 2), "% non-NA values)", sep = "")), tab))
   }
 
-  write.table(tab, file = filename, quote = FALSE, sep = "\t", row.names = FALSE)
+  # Use comma when possible, otherwise tab
+  if (sep == "automatic") {
+    sep <- "\t"
+    # Comma does not occur in the data
+    if (all(apply(df, 2, function (x) length(grep(",", x))) == 0)) {
+      sep <- ","      
+    }
+  } 
+
+  write.table(tab, file = filename, quote = FALSE, sep = sep, row.names = FALSE)
 
   tab
 
