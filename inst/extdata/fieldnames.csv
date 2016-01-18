@@ -5,8 +5,8 @@ language2	041h
 author_name	100a
 author_date	100d
 110a	110a
-title_uniform2	240n
 title_uniform	240a
+title_uniform2	240n
 title	245a
 title_remainder	245b
 245c	245c

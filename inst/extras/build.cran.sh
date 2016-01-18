@@ -7,6 +7,6 @@
 /usr/bin/R CMD BATCH document.R
 /usr/bin/R CMD build ../../ --no-build-vignettes # --no-tests #--no-examples 
 #/usr/bin/R CMD check --as-cran bibliographica_0.1.22.tar.gz
-/usr/bin/R CMD check bibliographica_0.1.44.tar.gz --no-build-vignettes # --no-tests #--no-examples 
-/usr/bin/R CMD INSTALL bibliographica_0.1.44.tar.gz
+/usr/bin/R CMD check bibliographica_0.1.45.tar.gz --no-build-vignettes # --no-tests #--no-examples 
+/usr/bin/R CMD INSTALL bibliographica_0.1.45.tar.gz
 

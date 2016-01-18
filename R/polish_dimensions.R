@@ -13,11 +13,6 @@
 #' @keywords utilities
 polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, synonyms = NULL) {
 
- # fs <- list.files("~/proj/2014-Aatelouhinta/bibliographica/R", full.names = T, pattern = ".R$"); for (f in fs) {source(f)}; x <- d; fill = FALSE; dimtab = NULL; verbose = FALSE; synonyms = NULL
-
- # fs <- list.files("~/proj/2014-Aatelouhinta/bibliographica/R", full.names = T, pattern = ".R$"); for (f in fs) {source(f)}; x <- df.orig$physical_dimension; fill = TRUE; dimtab = NULL; verbose = FALSE; synonyms = NULL
-
-
   s <- as.character(x)
 
   if (is.null(synonyms)) {
@@ -40,7 +35,9 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
   tab <- data.frame(tab)
   tab <- tab[match.inds,]
 
-  # Convert to desired format
+  if (verbose) {
+    message("Convert to desired format")    
+  }
   tab$original <- as.character(tab$original)
   tab$gatherings <- order_gatherings(tab$gatherings)
   tab$width <- suppressWarnings(as.numeric(as.character(tab$width)))

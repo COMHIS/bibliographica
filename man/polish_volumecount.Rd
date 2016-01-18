@@ -4,10 +4,12 @@
 \alias{polish_volumecount}
 \title{polish_volumecount}
 \usage{
-polish_volumecount(s)
+polish_volumecount(x, verbose = FALSE)
 }
 \arguments{
-\item{s}{Page number field. Vector or factor of strings.}
+\item{x}{Page number field. Vector or factor of strings.}
+
+\item{verbose}{verbose}
 }
 \value{
 Number of volumes

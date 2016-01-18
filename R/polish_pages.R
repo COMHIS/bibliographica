@@ -5,6 +5,7 @@
 #' @return Raw and estimated pages per document part
 #' @details Document parts are separated by semicolons
 #' @export
+#' @importFrom stringr str_trim
 #' @details A summary of page counting rules that this function aims to (approximately) implement are provided in 
 #' \url{https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html}
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
@@ -23,13 +24,13 @@ polish_pages <- function (x, verbose = FALSE) {
   }
 
   # Polish unique pages separately for each volume
-  ret <- lapply(suniq, function (s) {polish_pages_help(s)})
+  ret <- lapply(suniq, function (s) {polish_pages_help(s, verbose = verbose)})
 
-  # Sum the volumes
+  if (verbose) { message("Sum the volumes") }
   totp <- sapply(ret, function (x) {sum(x, na.rm = TRUE)})
   totp[totp == 0] <- NA # Set zero page counts to NA
-  
-  # Project unique cases back to the original list
+
+  if (verbose) { message("Project unique cases back to the original list") }
   totp[match(s, suniq)]
 
 }
@@ -37,7 +38,7 @@ polish_pages <- function (x, verbose = FALSE) {
 
 
 
-polish_pages_help <- function (s) {
+polish_pages_help <- function (s, verbose = FALSE) {
 
   # Estimate pages for each document separately via a for loop
   # Vectorization would be faster but we prefer simplicity and modularity here
@@ -53,14 +54,13 @@ polish_pages_help <- function (s) {
     return(xx)
   }
 
-  # Remove volume info
+  if (verbose) {message("Remove volume info")}
   x <- suppressWarnings(remove_volume_info(s))
 
-  # Harmonize synonymes and spelling errors
-
+  if (verbose) {message("Harmonize synonymes and spelling errors")}
   x <- harmonize_pages(x)
 
-  # Estimate pages
+  if (verbose) {message("Estimate pages")}
   x <- estimate_pages(x)
 
   x

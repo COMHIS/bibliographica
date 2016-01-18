@@ -7,6 +7,7 @@
 #' @param harmonize Harmonize the polished names. Logical.
 #' @return Polished vector
 #' @importFrom sorvi harmonize_names
+#' @importFrom stringr str_trim
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
@@ -21,8 +22,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
     synonymes <- read.csv(f, sep = ";", stringsAsFactors = FALSE)
     synonymes$synonyme <- tolower(synonymes$synonyme)
     synonymes <- synonymes[!duplicated(synonymes),]
-    if (verbose) { message(paste("Reading publication place synonyme table", f)) }
-    
+    if (verbose) { message(paste("Reading publication place synonyme table", f)) }    
   }
 
   f <- system.file("extdata/stopwords.csv", package = "bibliographica")

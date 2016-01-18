@@ -3,6 +3,7 @@
 #' @param x Page number field. Vector or factor of strings.
 #' @return Volume information
 #' @export
+#' @importFrom stringr str_trim
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples pick_multivolume("v.1-3, 293")

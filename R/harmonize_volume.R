@@ -1,11 +1,12 @@
-harmonize_volume <- function (x) {
+harmonize_volume <- function (x, verbose = FALSE) {
 
+  if (verbose) {message("Initial harmonization")}
   s <- condense_spaces(x)
   s[s %in% c("^v$", "^v;$", "^v ;$", "^v :$")] <- "v"
   s <- gsub("v\\.:bill\\. ;", NA, s)
   s[s == "^v\\. ;"] <- NA
 
-  # Harmonize synonymous terms
+  if (verbose) {message("Synonymous terms")}
   s <- gsub("atlas", " vol", s)
   s <- gsub("Vol", " vol", s)
   s <- gsub("vol", " vol", s)
@@ -15,6 +16,7 @@ harmonize_volume <- function (x) {
   s <- gsub("vihkoa", " vol", s)      
   s <- condense_spaces(s)
 
+  if (verbose) {message("Volume terms")}
   # " vol" -> " v." etc
   vol.synonymes <- c("vol")
   for (vnam in vol.synonymes) {
@@ -28,7 +30,6 @@ harmonize_volume <- function (x) {
 
   }
   s <- condense_spaces(s)
-
   s <- gsub("^v\\. ", "v.", s)
   s <- gsub("^v\\.\\(", "(", s)
   s <- gsub("^v\\.,", "", s)
@@ -38,6 +39,7 @@ harmonize_volume <- function (x) {
   s <- gsub(" v\\.", " v. ", s)
   s <- condense_spaces(s)
 
+  if (verbose) {message("Volume harmonization")}
   hvol <- function (s) {
     if (length(grep("^[0-9][0-9][0-9] v\\.", s)) > 0 || length(grep("^[0-9][0-9] v\\.", s)) > 0 || length(grep("^[0-9] v\\.", s)) > 0) {
       si <- unlist(strsplit(s, "v\\."))

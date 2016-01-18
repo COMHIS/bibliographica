@@ -1,20 +1,21 @@
 #' @title polish_author
 #' @description Polish author
-#'
 #' @param s Vector of author names
 #' @param stopwords Stopwords
 #' @param validate Validate the names based on existing first/last name lists
+#' @param verbose verbose 
 #' @return Polished vector
 #'
 #' @export
 #' @importFrom tm stopwords
+#' @importFrom stringr str_trim
 #' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' 
 #' @examples s2 <- polish_author("Smith, William")
 #' @keywords utilities
-polish_author <- function (s, stopwords = NULL, validate = FALSE) {
+polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALSE) {
 
   s <- as.character(s)
 
@@ -22,6 +23,10 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE) {
   sorig <- s
   suniq <- unique(s)
   s <- suniq
+
+  if (verbose) {
+    message(paste("Polishing author field: ", length(suniq), "unique entries"))
+  }
 
   # Remove brackets and ending commas / periods
   s <- remove_numerics(s)
@@ -33,6 +38,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE) {
   s <- gsub("\\.$", "", s)
   s <- gsub("\\,$", "", s)
 
+  if (verbose) { message("Separating names") }
   # Assume names are of format Last, First
   nametab <- t(sapply(strsplit(s, ","), function (x) {
     name <- c(last = x[[1]], first = NA);
@@ -58,13 +64,13 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE) {
   # Must exclude some names from assumed stopwords
   stopwords <- setdiff(stopwords, c("humble", "about", "most"))
 
-  message("Harmonize names")
+  if (verbose) { message("Harmonize names") }
   # TODO O. K. Humble, Verner -> First: Verner O K Last: Humble  		    
   nametab <- as.data.frame(nametab)
-  
   nametab$last  <- gsub("^-", "", trim_names(nametab$last,  stopwords, remove.letters = FALSE))
   nametab$first <- gsub("^-", "", trim_names(nametab$first, stopwords, remove.letters = FALSE))
 
+  if (verbose) { message("Formatting names") }
   # Some additional formatting
   # eg. "Wellesley, Richard Wellesley" -> "Wellesley, Richard"
   firsts <- c()
@@ -89,12 +95,15 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE) {
 
   # OK, now we have polished first and last names
 
+
   ### VALIDATING THE NAMES
   valid <- list()
   invalid <- list()
-  
-  message("Validate names with known name lists")
+
+  if (verbose) { message("Validate names with known name lists") }
   for (db in c("first", "last")) {
+
+    if (verbose) { message(db) }
 
     namelist <- nametab[[db]]
 
@@ -111,21 +120,22 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE) {
 
   }
 
-  message("Remove names that do not have both valid first and last names")
+  if (verbose) { message("Remove names that do not have both valid first and last names") }
+  
   nametab[(!valid[["first"]] | !valid[["last"]]), ] <- NA
   nametab$last[is.na(nametab$first)] <- NA
   nametab$first[is.na(nametab$last)] <- NA
 
-  message("Capitalize names")
+  if (verbose) { message("Capitalize names")}
   nametab$last <- capitalize(nametab$last, "all.words")
   nametab$first <- capitalize(nametab$first, "all.words")  
 
-  message("Collapse accepted names to the form: Last, First")
+  if (verbose) { message("Collapse accepted names to the form: Last, First") }
   full.name <- apply(nametab, 1, function (x) { paste(x, collapse = ", ") })
   full.name <- gsub("NA, NA", NA, full.name) # Handle NAs
   nametab$full <- full.name
 
-  # Then map back to the original indices
+  if (verbose) { message("Map to the original indicesa") }
   nametab <- nametab[match(sorig, suniq), ]
   nametab$original <- sorig
 

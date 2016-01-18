@@ -4,10 +4,12 @@
 \alias{polish_volumenumber}
 \title{polish_volumenumber}
 \usage{
-polish_volumenumber(s)
+polish_volumenumber(s, harmonize_volume = TRUE)
 }
 \arguments{
 \item{s}{Page number field. Vector or factor of strings.}
+
+\item{harmonize_volume}{Harmonize volume info. Logical.}
 }
 \value{
 Volume number
