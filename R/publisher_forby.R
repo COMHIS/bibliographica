@@ -44,7 +44,7 @@ polish_publisher_forby <- function (x) {
 
   res <- list(original = xorig, printedfor = xfor, printedby = xby, rest = xrest)
 
-  res
+  as.data.frame(res)
  
 }
 
@@ -57,7 +57,6 @@ polish_publisher_forby <- function (x) {
 #' @return fields
 #'
 #' @export
-#' @importFrom bibliographica condense_spaces
 #' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("estc")
