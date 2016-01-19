@@ -19,6 +19,9 @@ polish_pages <- function (x, verbose = FALSE) {
   s <- as.character(x)
   suniq <- unique(s)
 
+  s <- suniq
+  s[grep("^[ |\\.|;|:|!|?]*$", s)] <- NA # ""; "." ; " ... "
+  
   if (verbose) {
     message(paste("Estimating page counts:", length(suniq), "unique cases"))
   }
@@ -46,9 +49,9 @@ polish_pages_help <- function (s) {
   # Vectorization would be faster but we prefer simplicity and modularity here
 
   # Convert to string 	    	    
-  if (is.na(s) || s == "" || s == ".") {return(NA)}
-
+  if (is.na(s)) { return(NA) }
   s <- as.character(s)
+  
   spl <- unlist(strsplit(s, ";"))
 
   if (length(spl)>1) {

@@ -52,53 +52,27 @@ remove_volume_info <- function (x) {
   # Cases 'v.1' etc.
   voln <- pick_volume(s)
 
-  # Then remove the volume information that was picked
+  # Then remove this volume information
   s <- str_trim(gsub(paste("v.", voln, ":", sep = ""), "", s))
   s <- str_trim(gsub(paste("v.", voln, sep = ""), "", s))
 
   # "v. (183,[2]) -> (183,[2])"
   s <- gsub("^v\\. ", "v.", s)
   s <- gsub("^v.\\(", "(", s)
-
-  s <- gsub("^v\\.[0-9][0-9][0-9]", " ", s)
-  s <- gsub("^v\\.[0-9][0-9]", " ", s)
-  s <- gsub("^v\\.[0-9]", " ", s)
-
+  s <- gsub("^v\\.[0-9]{1,3}", " ", s)
   s <- gsub("^v\\.", " ", s)
   s <- gsub("^v\\.\\,", " ", s)
-  s <- gsub("^v\\.$", "", s)
-
-  s <- gsub("vols\\.", "v.", s)
-  s <- gsub("vol\\.", "v.", s)
+  s[s == "."] <- "" # Faster than gsub
+  s <- gsub("vols{0,1}\\.", "v.", s) # vols.; vol. -> v.
 
   # 2 v ; -> 2v.
-  s <- gsub("^[0-9] v ", " ", s)
-  s <- gsub("^[0-9]v ", " ", s)
+  s <- gsub("^[0-9] {0,1}v ", " ", s)
 
   vol.synonymes <- c("atlas", "vols", "vol", "v\\.", "parts", "part", "pts")
 
   for (vnam in vol.synonymes) {
-
-    s <- gsub(paste("^[0-9][0-9][0-9]", vnam, "\\.", sep = ""), " ", s)
-    s <- gsub(paste("^[0-9][0-9][0-9] ", vnam, "\\.", sep = ""), " ", s)
-    s <- gsub(paste("^[0-9][0-9][0-9]", vnam, " ", sep = ""), " ", s)
-    s <- gsub(paste("^[0-9][0-9][0-9]", vnam, "$", sep = ""), " ", s)
-
-    s <- gsub(paste("^[0-9][0-9]", vnam, "\\.", sep = ""), " ", s)
-    s <- gsub(paste("^[0-9][0-9] ", vnam, "\\.", sep = ""), " ", s)
-    s <- gsub(paste("^[0-9][0-9] ", vnam, " ", sep = ""), " ", s)
-    s <- gsub(paste("^[0-9][0-9] ", vnam, "$", sep = ""), " ", s)
-
-    s <- gsub(paste("^[0-9]", vnam, "\\.", sep = ""), " ", s)
-    s <- gsub(paste("^[0-9] ", vnam, "\\.", sep = ""), " ", s)
-    s <- gsub(paste("^[0-9] ", vnam, " ", sep = ""), " ", s)
-    s <- gsub(paste("^[0-9]", vnam, " ", sep = ""), " ", s)
-    s <- gsub(paste("^[0-9]", vnam, "$", sep = ""), " ", s)
-
-    s <- gsub(paste("^[0-9][0-9][0-9]", vnam, "$", sep = ""), " ", s)
-    s <- gsub(paste("^[0-9][0-9]", vnam, "$", sep = ""), " ", s)
-    s <- gsub(paste("^[0-9]", vnam, "$", sep = ""), " ", s)
-
+    s <- gsub(paste("^[0-9]{1,3} {0,1}", vnam, "[\\.| ]", sep = ""), " ", s)
+    s <- gsub(paste("^[0-9]{1,3} {0,1}", vnam, "$", sep = ""), " ", s)
   }
 
   # "8p. 21cm. (8vo)"

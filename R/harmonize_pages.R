@@ -6,6 +6,7 @@ harmonize_pages <- function (x) {
   synonyms <- read.csv(f, sep = ";")
 
   # Remove dimension info
+
   x <- harmonize_names(x, synonyms, mode="match")$name  
 
   s <- remove_dimension(x)
@@ -14,8 +15,11 @@ harmonize_pages <- function (x) {
   # each comma place separately
   # each dash place separately  
   s <- gsub("e\\.\\,", "e ", s)
+
   s <- unlist(strsplit(s, ","))
+
   s <- sapply(s, function (si) {x <- unlist(strsplit(si, "-")); paste(sapply(x, function (x) handle_ie(x)), collapse = "-")})
+
   s <- paste(s, collapse = ",")
 
   # Romans
@@ -26,7 +30,6 @@ harmonize_pages <- function (x) {
   harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
 
   s <- harmonize_names(s, harm, mode = "recursive")$name
-
   s <- condense_spaces(s)
 
   # Remove endings
