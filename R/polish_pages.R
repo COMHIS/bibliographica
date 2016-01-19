@@ -27,7 +27,8 @@ polish_pages <- function (x, verbose = FALSE) {
   }
 
   # Polish unique pages separately for each volume
-  ret <- lapply(suniq, function (s) {polish_pages_help(s)})
+  # Return NA if conversion fails
+  ret <- lapply(suniq, function (s) {a <- try(polish_pages_help(s)); if (class(a) == "try-error") {return(NA)} else {return(a)}})
 
   if (verbose) { message("Sum the volumes") }
   totp <- sapply(ret, function (x) {sum(x, na.rm = TRUE)})
@@ -42,8 +43,6 @@ polish_pages <- function (x, verbose = FALSE) {
 
 
 polish_pages_help <- function (s) {
-
-  print(s)
 
   # Estimate pages for each document separately via a for loop
   # Vectorization would be faster but we prefer simplicity and modularity here

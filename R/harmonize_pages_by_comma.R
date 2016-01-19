@@ -47,8 +47,6 @@ harmonize_pages_by_comma <- function (s) {
     s <- str_trim(gsub("^p", "", s))
   }
 
-
-
   # Handle some odd cases
   s <- gsub("a-m", " ", s)
   s <- trimming(s,n = 5)

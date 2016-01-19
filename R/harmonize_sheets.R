@@ -7,14 +7,16 @@ harmonize_sheets <- function (s) {
   harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
 
   # Harmonize
-  for (i in 1:nrow(harm)) {
-    s <- gsub(harm$synonyme[[i]], harm$name[[i]], s)
-  }  
+  #for (i in 1:nrow(harm)) {
+  #  s <- gsub(harm$synonyme[[i]], harm$name[[i]], s)
+  #}  
+  s <- as.character(harmonize_names(s, harm, mode = "recursive")$name)
 
   # Harmonize '* sheets'
-  spl <- unlist(strsplit(s, ","))
+  spl <- str_trim(unlist(strsplit(s, ",")))
 
   sheet.inds <- grep("sheet", spl)
+
   for (i in sheet.inds) {
 
     if (length(grep("^[0-9] sheet", s)) > 0) {

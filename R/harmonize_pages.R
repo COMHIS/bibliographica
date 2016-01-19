@@ -6,9 +6,7 @@ harmonize_pages <- function (x) {
   synonyms <- read.csv(f, sep = ";")
 
   # Remove dimension info
-
   x <- harmonize_names(x, synonyms, mode="match")$name  
-
   s <- remove_dimension(x)
 
   # ie harmonization
@@ -16,7 +14,7 @@ harmonize_pages <- function (x) {
   # each dash place separately  
   s <- gsub("e\\.\\,", "e ", s)
 
-  s <- unlist(strsplit(s, ","))
+  s <- str_trim(unlist(strsplit(s, ",")))
 
   s <- sapply(s, function (si) {x <- unlist(strsplit(si, "-")); paste(sapply(x, function (x) handle_ie(x)), collapse = "-")})
 
@@ -42,7 +40,7 @@ harmonize_pages <- function (x) {
 
   # Pp. -> p etc.
   s <- harmonize_page_info(s)
-  
+
   # Remove spaces around dashes and parentheses
   s <- gsub(" -", "-", s)
   s <- gsub("- ", "-", s)

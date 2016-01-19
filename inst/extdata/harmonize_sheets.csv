@@ -1,12 +1,13 @@
 synonyme	name
+\(many folded or leaved\)	
 Sheet	sheet
 plates\(one fold\.\)	plates 
+plates \(some fold\.\) :	plates 
+plates \(one fold\.\)	plates 
 p\.plates	p., plates
 \)plates :	),plates
 plates :	plates 
-plate :	plate 
-plates \(some fold\.\) :	plates 
-plates \(one fold\.\)	plates 
+plate :	plate
 p\.table	p., table
 p\., of plates	plates
 tables :	tables 
@@ -79,7 +80,7 @@ fold\.tables	tables
 table	plate
 \([0-9] double\)	
 doubled	
-double	e
+double	
 single	I
 broadside of ill.	broadside
 broadside ([1] p.)	broadside
