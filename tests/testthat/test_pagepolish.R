@@ -4,8 +4,8 @@ test_that("page count is correct", {
 
   # expect_equal(polish_pages("v.7-9,plates"), 4)
   expect_true(is.na(harmonize_pages("2⁰")))
-  expect_true(is.na(harmonize_pages(".")))  
-
+  expect_true(is.na(harmonize_pages(".")))   
+  expect_equal(polish_pages("plates (many folded or double leaved)"), 4)
   expect_equal(polish_pages("[50+] leaves"), 100)
   expect_equal(polish_pages("6p., leaf, 60, 40, 42, 64, 30, 24p., 2 leaves., 57p"), 72)
   expect_equal(polish_pages("v. 1-6,plates"), 4)
