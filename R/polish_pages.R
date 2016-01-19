@@ -40,11 +40,13 @@ polish_pages <- function (x, verbose = FALSE) {
 
 polish_pages_help <- function (s) {
 
+  print(s)
+
   # Estimate pages for each document separately via a for loop
   # Vectorization would be faster but we prefer simplicity and modularity here
 
   # Convert to string 	    	    
-  if (is.na(s) || s == "") {return(NA)}
+  if (is.na(s) || s == "" || s == ".") {return(NA)}
 
   s <- as.character(s)
   spl <- unlist(strsplit(s, ";"))
