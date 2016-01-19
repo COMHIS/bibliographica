@@ -19,10 +19,10 @@ remove_volume_info <- function (x) {
   s <- remove_parts(s)
 
   # Remove some rare special cases manually
-  s <- gsub("v\\.1-3\\, 5 ;", "", s)
-  s <- gsub("v\\.1\\,4-7 ;", "", s)
-  s <- gsub("v\\.6-7\\,9-12", "", s)
-  s <- gsub("Vols\\.6-7\\,9-12\\,plates :", "plates", s)
+  s <- gsub("v\\.[0-9]-[0-9]\\, [0-9] ;", "", s)
+  s <- gsub("v\\.[0-9]\\,[0-9]-[0-9] ;", "", s)
+  s <- gsub("v\\.[0-9]-[0-9]\\,[0-9]-[0-9]*", "", s)
+  s <- gsub("Vols\\.[0-9]-[0-9]\\,[0-9]-[0-9]*\\,plates :", "plates", s)
 
   # Pick and remove multi-volume information (document starting with '* v.')
   # TODO: vectorize this
@@ -48,13 +48,8 @@ remove_volume_info <- function (x) {
   })
   s[inds] <- tmp
 
-  # Pick which volume this might be (if given)
-  # Cases 'v.1' etc.
-  voln <- pick_volume(s)
-
-  # Then remove this volume information
-  s <- str_trim(gsub(paste("v.", voln, ":", sep = ""), "", s))
-  s <- str_trim(gsub(paste("v.", voln, sep = ""), "", s))
+  # Remove Cases 'v.1' etc.
+  s <- str_trim(gsub("v\\.[0-9]* {0,1}\\:{0,1}", "", s))
 
   # "v. (183,[2]) -> (183,[2])"
   s <- gsub("^v\\. ", "v.", s)
@@ -62,14 +57,12 @@ remove_volume_info <- function (x) {
   s <- gsub("^v\\.[0-9]{1,3}", " ", s)
   s <- gsub("^v\\.", " ", s)
   s <- gsub("^v\\.\\,", " ", s)
-  s[s == "."] <- "" # Faster than gsub
   s <- gsub("vols{0,1}\\.", "v.", s) # vols.; vol. -> v.
 
   # 2 v ; -> 2v.
   s <- gsub("^[0-9] {0,1}v ", " ", s)
 
   vol.synonymes <- c("atlas", "vols", "vol", "v\\.", "parts", "part", "pts")
-
   for (vnam in vol.synonymes) {
     s <- gsub(paste("^[0-9]{1,3} {0,1}", vnam, "[\\.| ]", sep = ""), " ", s)
     s <- gsub(paste("^[0-9]{1,3} {0,1}", vnam, "$", sep = ""), " ", s)
@@ -83,6 +76,7 @@ remove_volume_info <- function (x) {
   s <- str_trim(s)
   s <- remove_endings(s, c(":", ";"))
 
+  s[s == "."] <- "" # Faster than gsub
   s[s == ""] <- NA
 
   s
