@@ -1,5 +1,5 @@
-#' @title polish_pages
-#' @description clean up page numbers
+#' @title Polish pages
+#' @description Clean up page numbers.
 #' @param x Page number field. Vector or factor of strings.
 #' @param verbose Print progress info
 #' @return Raw and estimated pages per document part
@@ -16,10 +16,12 @@ polish_pages <- function (x, verbose = FALSE) {
 
   # Summary of abbreviations
   # http://ac.bslw.com/community/wiki/index.php5/RDA_4.5
-  s <- as.character(x)
-  suniq <- unique(s)
+  sorig <- as.character(x)
+  suniq <- unique(sorig)
 
-  s <- suniq
+  #------------------------------------------------------
+  
+  s <- sorig
   s[grep("^[ |\\.|;|:|!|?]*$", s)] <- NA # ""; "." ; " ... "
   
   if (verbose) {
@@ -33,6 +35,8 @@ polish_pages <- function (x, verbose = FALSE) {
   if (verbose) { message("Sum the volumes") }
   totp <- sapply(ret, function (x) {sum(x, na.rm = TRUE)})
   totp[totp == 0] <- NA # Set zero page counts to NA
+
+  # ----------------------------------------------------
 
   if (verbose) { message("Project unique cases back to the original list") }
   totp[match(s, suniq)]
