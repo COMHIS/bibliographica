@@ -1,14 +1,11 @@
-#' @title top_plot
+#' @title Plot top entries
 #' @description Plot the top entries for a given field in a data frame
-#'
 #' @param df Data frame, vector or factor
 #' @param field Field to show
 #' @param ntop Number of top entries to show
 #' @param highlight Entries from the 'field' to be highlighted
 #' @return ggplot object
-#' @import ggplot2
 #' @export
-#' @importFrom dplyr count
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{p <- top_plot(df, field, 50)}
@@ -23,6 +20,7 @@ top_plot <- function (df, field = NULL, ntop = NULL, highlight = NULL) {
     x <- df[[field]]
   }
 
+  #tab <- top(x, n = ntop)
   tab <- rev(sort(table(x)))
   dfs <- data.frame(list(names = names(tab), count = tab))
   dfs <- dfs[dfs$count > 0,]

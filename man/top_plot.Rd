@@ -2,7 +2,7 @@
 % Please edit documentation in R/top_plot.R
 \name{top_plot}
 \alias{top_plot}
-\title{top_plot}
+\title{Plot top entries}
 \usage{
 top_plot(df, field = NULL, ntop = NULL, highlight = NULL)
 }

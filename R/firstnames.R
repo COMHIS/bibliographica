@@ -52,7 +52,7 @@ firstnames <- function (...) {
   first.custom$gender <- NA
   first.custom$dictionary <- "Custom_Firstnames"  
 
-  # Also add custom last names
+  # Add custom last names
   # since in many cases the original catalogue has erroneous notation
   # mixing first and last names and we do not want to filter out valid names if they
   # happen to be in wrong field last/first

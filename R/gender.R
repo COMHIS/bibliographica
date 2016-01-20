@@ -7,7 +7,8 @@
 #' @references See citation("bibliographica")
 #' @examples get_gender("julius")
 #' @keywords utilities
-#' @import gender
+#' @importFrom gender gender
+#' @import genderdata
 get_gender <- function (x) {
 
   if (is.character(x) && length(x) == 1) {
