@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_pages.R
 \name{polish_pages}
 \alias{polish_pages}
-\title{polish_pages}
+\title{Polish pages}
 \usage{
 polish_pages(x, verbose = FALSE)
 }
@@ -15,7 +15,7 @@ polish_pages(x, verbose = FALSE)
 Raw and estimated pages per document part
 }
 \description{
-clean up page numbers
+Clean up page numbers.
 }
 \details{
 Document parts are separated by semicolons
