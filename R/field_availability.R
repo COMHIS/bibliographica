@@ -6,6 +6,7 @@
 #'   \item{plot}{ggplot2 object}
 #'   \item{table}{Table summarizing the field name (field_name), overall fraction of available (non-NA) and missing entries (NAs) as percentages [0, 100], number of non-NA entries (n), and the number of unique entries (unique_entries)}
 #' }
+#' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples # field_availability(df)
