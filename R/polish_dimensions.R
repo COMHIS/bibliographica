@@ -62,9 +62,6 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
   tab.final$obl.original <- NULL
   tab.final$original.original <- NULL  
 
-  # Remove the 'original' fields      
-  tab.final <- tab.final[, -grep("original", names(tab.final))] 
-
   tab.final
 
 }
