@@ -1,44 +1,64 @@
 #' @title read_bibliographic_metadata
 #' @description Read preparsed metadata
-#' @param file Source Parsed data file
+#' @param file Parsed raw data file/s
+#' @param verbose verbose
 #' @return data.frame with raw data fields
 #' @importFrom dplyr tbl_df
+#' @importFrom dplyr rbind_all
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df.raw <- read_bibliographic_metadata(file)}
 #' @keywords utilities
-read_bibliographic_metadata <- function (file) {
+read_bibliographic_metadata <- function (file, verbose = FALSE) {
+
+  # If there are multiple files, read in a list and combine
+  # in the end
+  if (length(file) > 1) {
+
+    dfs <- list()
+    for (f in file) {
+      if (verbose) {message(f)}
+      dfs[[f]] <- read_bibliographic_metadata(f)
+    }
+    df.all <- rbind_all(dfs)
+
+    return(df.all)
+
+  } else {
   
-  # Read data
-  tab <- read.csv(file, sep = "|", strip.white = TRUE, stringsAsFactors = FALSE, encoding = "UTF-8")
+    # Read data
+    tab <- read.csv(file, sep = "|", strip.white = TRUE,
+    	   		  stringsAsFactors = FALSE, encoding = "UTF-8")
 
-  # Removes additional whitespace and some special characters from beginning and end of strings
-  tab <- apply(tab,1:2,function(x){
-    x <- gsub("^[[:space:],:;]+","",gsub("[[:space:],:;]+$","",x)) 
-    x
-  })
+    # Removes additional whitespace and some special characters from beginning and end of strings
+    tab <- apply(tab,1:2,function(x){
+      x <- gsub("^[[:space:],:;]+","",gsub("[[:space:],:;]+$","",x)) 
+      x
+    })
 
-  # Convert empty cells to NAs
-  tab <- apply(tab, 2, function (x) {y <- x; y[x %in% c(" ", "")] <- NA; y})
+    # Convert empty cells to NAs
+    tab <- apply(tab, 2, function (x) {y <- x; y[x %in% c(" ", "")] <- NA; y})
   
-  # Form data frame
-  df <- as.data.frame(tab, stringsAsFactors = FALSE)
+    # Form data frame
+    df <- as.data.frame(tab, stringsAsFactors = FALSE)
 
-  # Pick field clear names
-  names.orig <- names(df)
-  names(df) <- harmonize_field_names(gsub("^X", "", names(df)))
+    # Pick field clear names
+    names.orig <- names(df)
+    names(df) <- harmonize_field_names(gsub("^X", "", names(df)))
 
-  if (any(is.na(names(df)))) {
-    warnings(paste("Fields", paste(names.orig[which(is.na(names(df)))], collapse = ";"), "not recognized"))
+    if (any(is.na(names(df)))) {
+      warnings(paste("Fields", paste(names.orig[which(is.na(names(df)))], collapse = ";"), "not recognized"))
   }
 
-  # Add one identifier column
-  df$original_row <- 1:nrow(df)
+    # Add one identifier column
+    df$original_row <- 1:nrow(df)
 
-  df <- tbl_df(df)
+    df <- tbl_df(df)
 
-  df
+    return(df)
+
+  }
 
 }
 

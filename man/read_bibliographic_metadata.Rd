@@ -4,10 +4,12 @@
 \alias{read_bibliographic_metadata}
 \title{read_bibliographic_metadata}
 \usage{
-read_bibliographic_metadata(file)
+read_bibliographic_metadata(file, verbose = FALSE)
 }
 \arguments{
-\item{file}{Source Parsed data file}
+\item{file}{Parsed raw data file/s}
+
+\item{verbose}{verbose}
 }
 \value{
 data.frame with raw data fields
