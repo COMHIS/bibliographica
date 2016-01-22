@@ -2,7 +2,7 @@
 % Please edit documentation in R/pick_volume.R
 \name{pick_volume}
 \alias{pick_volume}
-\title{pick_volume}
+\title{Pick volume}
 \usage{
 pick_volume(s)
 }

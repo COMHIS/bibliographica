@@ -16,7 +16,7 @@ Page numbers without volume information
 Remove volume info from the string start
 }
 \examples{
-remove_volume_info("v.4, 293")
+\dontrun{remove_volume_info("v.4, 293")}
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

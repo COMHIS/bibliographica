@@ -2,18 +2,13 @@
 #' @description Remove volume info from the string start
 #' @param x Page number field. Vector or factor of strings.
 #' @return Page numbers without volume information
-#' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @examples remove_volume_info("v.4, 293")
+#' @examples \dontrun{remove_volume_info("v.4, 293")}
 #' @keywords utilities
 remove_volume_info <- function (x) {
 
   s <- as.character(x)
-  s <- remove_trailing_periods(s)  
-
-  # Harmonize volume info first
-  s <- harmonize_volume(s)
 
   # Remove parts
   s <- remove_parts(s)

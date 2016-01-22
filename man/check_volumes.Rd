@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_volumes.R
 \name{check_volumes}
 \alias{check_volumes}
-\title{check_volumes}
+\title{Check volumes}
 \usage{
 check_volumes(x)
 }
@@ -16,7 +16,7 @@ Volume information
 Pick volume information from page number field
 }
 \examples{
-check_volumes("v.4, 293")
+\dontrun{check_volumes("v.4, 293")}
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

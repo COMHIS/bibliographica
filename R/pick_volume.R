@@ -1,4 +1,4 @@
-#' @title pick_volume
+#' @title Pick volume
 #' @description Pick volume
 #' @param s Page number field. Vector or factor of strings.
 #' @return Volume
