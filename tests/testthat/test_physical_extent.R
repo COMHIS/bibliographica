@@ -224,11 +224,11 @@ test_that("Page count is correct", {
 })
 
 
-test_that("Page harmonization is correct", {
-  # expect_equal(polish_pages("v.7-9,plates"), 4)
-  expect_true(is.na(harmonize_pages("2⁰")))
-  expect_true(is.na(harmonize_pages(".")))
-})
+#test_that("Page harmonization is correct", {
+#  # expect_equal(polish_pages("v.7-9,plates"), 4)
+#  expect_true(is.na(harmonize_pages("2⁰")))
+#  expect_true(is.na(harmonize_pages(".")))
+#})
 
 
 test_that("volume count is correct", {

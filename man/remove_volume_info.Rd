@@ -4,7 +4,7 @@
 \alias{remove_volume_info}
 \title{remove_volume_info}
 \usage{
-remove_volume_info(x)
+remove_volume_info(x, vols)
 }
 \arguments{
 \item{x}{Page number field. Vector or factor of strings.}

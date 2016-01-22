@@ -1,9 +1,5 @@
 #' @importFrom sorvi harmonize_names
-harmonize_pages <- function (x) {
-
-  # In Finnish texts s. is used instead of p.		
-  f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
-  synonyms <- read.csv(f, sep = ";")
+harmonize_pages <- function (x, synonyms, harm) {
 
   # Remove dimension info
   x <- harmonize_names(x, synonyms, mode="match")$name  
@@ -22,11 +18,6 @@ harmonize_pages <- function (x) {
 
   # Romans
   s <- harmonize_romans(s) 
-
-  # Read the mapping table
-  f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
-  harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
-
   s <- harmonize_names(s, harm, mode = "recursive")$name
   s <- condense_spaces(s)
 
@@ -71,7 +62,7 @@ harmonize_pages <- function (x) {
   }
 
   s <- str_trim(gsub("^,", "", s))
-  if (is.na(s) || s %in% c("", "NA")) { s <- NA }
+  if (s %in% c("", "NA")) { s <- NA }
 
   s
 

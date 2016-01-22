@@ -25,7 +25,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 
   #------------------------------------------------------
   
-  s <- suniq
+  s <- as.character(suniq)
   s[grep("^[ |\\.|;|:|!|?]*$", s)] <- NA # ""; "." ; " ... "
 
   # Harmonize volume info
@@ -36,21 +36,23 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   }
   s <- unname(harmonize_volume(s))
 
+  # In Finnish texts s. is used instead of p.		
+  f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
+  page.synonyms <- read.csv(f, sep = ";")
+
+  # Read the mapping table
+  f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
+  page.harmonize <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
+
   # Polish unique pages separately for each volume
   # Return NA if conversion fails
-  ret <- lapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose)); if (class(a) == "try-error") { return(NA) } else { return(a) }})
+  ret <- lapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize)); if (class(a) == "try-error") { return(NA) } else { return(a) }})
 
   # Convert to data.frame
   ret <- data.frame(do.call("rbind", ret))
 
   # Some final polishing
   ret$pagecount[ret$pagecount == 0] <- NA # Set zero page counts to NA
-
-  # Assume single volume when number not given
-  # FIXME perhaps this better goes to enrichnment functions?
-  # NOTE: voln (volume number must be NA as well, otherwise we have 
-  # one part of a multi-volume document
-  ret$volcount[is.na(ret$volcount) & is.na(ret$volnumber)] <- 1 
 
   if (verbose) { message("Project unique entries back to the original list") }
   ret[match(sorig, suniq), ]
@@ -69,26 +71,15 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 #' @references See citation("bibliographica")
 #' @examples # TBA
 #' @keywords internal
-polish_physext_help <- function (s, verbose = verbose) {
+polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize) {
 
-  if (verbose) { message(s) } 
-
+  if (verbose) {message(s)}
+  
   # Estimate pages for each document separately via a for loop
   # Vectorization would be faster but we prefer simplicity and modularity here
 
   # Convert to string 	    	    
   if (is.na(s)) { return(NA) }
-  s <- as.character(s)
-
-  # Pagecount
-  spl <- unlist(strsplit(s, ";"))
-  x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x)})))
-  if (class(x) == "try-error") {
-    x <- NA
-  } 
-
-  # if (verbose) { message("Sum the volumes") }
-  totp <- sum(x, na.rm = TRUE)
 
   #' A single document, but check which volume number ?
   # (document starting with '* v.' or 'v.1-3' etc.)  
@@ -97,9 +88,21 @@ polish_physext_help <- function (s, verbose = verbose) {
 
   # Volume count
   vols <- pick_multivolume(s)
+  # Assume single volume when number not given
+  # FIXME perhaps this better goes to enrichnment functions?
+  # NOTE: voln (volume number must be NA as well, otherwise we have 
+  # one part of a multi-volume document
+  vols[is.na(vols) & is.na(voln)] <- 1 
+
+  # Pagecount
+  spl <- unlist(strsplit(s, ";"))
+  x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, vols, page.synonyms, page.harmonize)})))
+  if (class(x) == "try-error") {
+    x <- NA
+  } 
 
   # Return
-  data.frame(pagecount = totp, volnumber = voln, volcount = vols)
+  data.frame(pagecount = sum(x, na.rm = TRUE), volnumber = voln, volcount = vols)
 
 }
 
@@ -108,20 +111,23 @@ polish_physext_help <- function (s, verbose = verbose) {
 #' @title Polish physical_extent help field 2
 #' @description Internal
 #' @param s Input char
+#' @param vols vols
+#' @param page.synonyms page.synonyms
 #' @return Internal
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples # TBA
 #' @keywords internal
-polish_physext_help2 <- function (s) {
+polish_physext_help2 <- function (s, vols, page.synonyms, page.harmonize) {
 
-  x <- suppressWarnings(remove_volume_info(s))
+  x <- suppressWarnings(remove_volume_info(s, vols))
 
-  x <- harmonize_pages(x)
+  x <- harmonize_pages(x, page.synonyms, page.harmonize)
 
   x <- estimate_pages(x)
 
   x
+  
 }
 
 

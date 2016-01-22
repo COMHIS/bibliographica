@@ -1,39 +1,30 @@
 #' @title remove_volume_info
 #' @description Remove volume info from the string start
 #' @param x Page number field. Vector or factor of strings.
+#' @param vols vols
 #' @return Page numbers without volume information
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{remove_volume_info("v.4, 293")}
 #' @keywords utilities
-remove_volume_info <- function (x) {
+remove_volume_info <- function (x, vols) {
 
-  s <- as.character(x)
+  x <- gsub("^[0-9]* v\\.$", "", x)		   
 
   # Remove parts
-  s <- remove_parts(s)
-
+  s <- remove_parts(x)
+  
   # Remove some rare special cases manually
   s <- gsub("v\\.[0-9]-[0-9]\\, [0-9] ;", "", s)
   s <- gsub("v\\.[0-9]\\,[0-9]-[0-9] ;", "", s)
   s <- gsub("v\\.[0-9]-[0-9]\\,[0-9]-[0-9]*", "", s)
   s <- gsub("Vols\\.[0-9]-[0-9]\\,[0-9]-[0-9]*\\,plates :", "plates", s)
 
-  # Pick and remove multi-volume information (document starting with '* v.')
-  # TODO: vectorize this
-
-  for (i in 1:length(s)) {
-
-    si <- s[[i]]
-    
-    vols <- pick_multivolume(si)  
-    if (length(vols) > 0) {
-      # Then remove the volume information that was picked
-      si <- gsub(paste("^", vols, " v.", sep = ""), paste(vols, "v.", sep = ""), str_trim(si))
-      si <- str_trim(gsub(paste("^", vols, "v.", sep = ""), "", si)) 
-      si <- str_trim(gsub("^,", "", si))
-      s[[i]] <- si
-    }
+  if (length(vols) > 0) {
+    # Remove the volume information that was picked
+    # s <- gsub("^[0-9]* {0,1}v.", paste(vols, "v.", sep = ""), str_trim(s))
+    s <- str_trim(gsub(paste("^", vols, "v.", sep = ""), "", s)) 
+    s <- str_trim(gsub("^,", "", s))
   }
 
   # Cases 'v.1-3' etc
@@ -52,12 +43,9 @@ remove_volume_info <- function (x) {
   s <- gsub("^v\\.[0-9]{1,3}", " ", s)
   s <- gsub("^v\\.", " ", s)
   s <- gsub("^v\\.\\,", " ", s)
-  s <- gsub("vols{0,1}\\.", "v.", s) # vols.; vol. -> v.
+  # s <- gsub("vols{0,1}\\.", "v.", s) # vols.; vol. -> v.
 
-  # 2 v ; -> 2v.
-  s <- gsub("^[0-9] {0,1}v ", " ", s)
-
-  vol.synonymes <- c("atlas", "vols", "vol", "v\\.", "parts", "part", "pts")
+  vol.synonymes <- c("vol", "part")
   for (vnam in vol.synonymes) {
     s <- gsub(paste("^[0-9]{1,3} {0,1}", vnam, "[\\.| ]", sep = ""), " ", s)
     s <- gsub(paste("^[0-9]{1,3} {0,1}", vnam, "$", sep = ""), " ", s)
@@ -66,7 +54,6 @@ remove_volume_info <- function (x) {
   # "8p. 21cm. (8vo)"
   s <- gsub("\\([0-9]{1,2}.o\\)" , "", s)
   s <- gsub("[0-9]*cm" , "", s)  
-
   s <- gsub("\\( \\)", " ", s)
   s <- str_trim(s)
   s <- remove_endings(s, c(":", ";"))
