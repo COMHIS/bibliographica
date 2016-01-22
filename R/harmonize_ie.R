@@ -13,6 +13,7 @@ harmonize_ie <- function (x) {
   x <- condense_spaces(x)
   x <- gsub("--", "-", x)
 
+  # FIXME use file and vectorization
   for (ie in c("i\\. e\\.", "i\\.e\\.", "i\\.e ", "ie\\.", "i e", "ie", "p\\. i\\.e")) {
 
     x <- gsub(paste(" ", ie, " ", sep = ""), " i.e ", x)

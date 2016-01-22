@@ -12,7 +12,10 @@ harmonize_volume <- function (x, verbose = FALSE) {
   s <- gsub("vols", " vol", s)
   s <- gsub("osaa", " vol", s)
   s <- gsub("nid\\.", " vol", s)
-  s <- gsub("vihkoa", " vol", s)      
+  s <- gsub("vihkoa", " vol", s)
+  s <- gsub("parts", " pts", s)
+  s <- gsub("part ", " pts", s)
+  s <- gsub("part$", " pts", s)  
   s <- condense_spaces(s)
 
   if (verbose) {message("Volume terms")}

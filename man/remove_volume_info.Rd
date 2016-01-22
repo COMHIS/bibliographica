@@ -8,6 +8,8 @@ remove_volume_info(x, vols)
 }
 \arguments{
 \item{x}{Page number field. Vector or factor of strings.}
+
+\item{vols}{vols}
 }
 \value{
 Page numbers without volume information

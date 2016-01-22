@@ -9,33 +9,35 @@
 #' @keywords utilities
 remove_volume_info <- function (x, vols) {
 
-  x <- gsub("^[0-9]* v\\.$", "", x)		   
+  x <- gsub("^[0-9]* {0,1}v\\.$", "", x)		   
 
   # Remove parts
-  s <- remove_parts(x)
-  
+  # "27 pts" -> " "
+  s <- gsub("in [0-9]* {0,1}pts", " ", x)  
+  s <- gsub("[0-9]* pts in", " ", s)
+  s <- gsub("[0-9]* pts", " ", s)
+  s <- gsub(" in [0-9]* ", " ", s)  
+  s <- condense_spaces(s)  
+
   # Remove some rare special cases manually
   s <- gsub("v\\.[0-9]-[0-9]\\, [0-9] ;", "", s)
   s <- gsub("v\\.[0-9]\\,[0-9]-[0-9] ;", "", s)
   s <- gsub("v\\.[0-9]-[0-9]\\,[0-9]-[0-9]*", "", s)
   s <- gsub("Vols\\.[0-9]-[0-9]\\,[0-9]-[0-9]*\\,plates :", "plates", s)
 
-  if (length(vols) > 0) {
-    # Remove the volume information that was picked
-    # s <- gsub("^[0-9]* {0,1}v.", paste(vols, "v.", sep = ""), str_trim(s))
-    s <- str_trim(gsub(paste("^", vols, "v.", sep = ""), "", s)) 
-    s <- str_trim(gsub("^,", "", s))
-  }
-
   # Cases 'v.1-3' etc
   inds <- intersect(grep("^v.", s), grep("-", s))
-  tmp <- sapply(s[inds], function (si) {
+  s[inds] <- sapply(s[inds], function (si) {
     gsub(check_volumes(si)$text, "", si)
   })
-  s[inds] <- tmp
+
+  # Remove the volume information that was picked
+  s <- gsub("^[0-9]{1,4}v\\.", "", s)
+  s <- gsub("^v\\.[0-9]{1,4}", "", s)
+  s <- gsub("^,", "", s)
 
   # Remove Cases 'v.1' etc.
-  s <- str_trim(gsub("v\\.[0-9]* {0,1}\\:{0,1}", "", s))
+  s <- gsub("v\\.[0-9]* {0,1}\\:{0,1}", "", s)
 
   # "v. (183,[2]) -> (183,[2])"
   s <- gsub("^v\\. ", "v.", s)
@@ -43,7 +45,6 @@ remove_volume_info <- function (x, vols) {
   s <- gsub("^v\\.[0-9]{1,3}", " ", s)
   s <- gsub("^v\\.", " ", s)
   s <- gsub("^v\\.\\,", " ", s)
-  # s <- gsub("vols{0,1}\\.", "v.", s) # vols.; vol. -> v.
 
   vol.synonymes <- c("vol", "part")
   for (vnam in vol.synonymes) {

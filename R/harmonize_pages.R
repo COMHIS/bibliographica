@@ -1,5 +1,5 @@
 #' @importFrom sorvi harmonize_names
-harmonize_pages <- function (x, synonyms, harm) {
+harmonize_pages <- function (x, synonyms, harm, sheetharm) {
 
   # Remove dimension info
   x <- harmonize_names(x, synonyms, mode="match")$name  
@@ -10,10 +10,8 @@ harmonize_pages <- function (x, synonyms, harm) {
   # each dash place separately  
   s <- gsub("e\\.\\,", "e ", s)
 
-  s <- str_trim(unlist(strsplit(s, ",")))
-
+  s <- unlist(strsplit(s, ","))
   s <- sapply(s, function (si) {x <- unlist(strsplit(si, "-")); paste(sapply(x, function (x) handle_ie(x)), collapse = "-")})
-
   s <- paste(s, collapse = ",")
 
   # Romans
@@ -27,15 +25,20 @@ harmonize_pages <- function (x, synonyms, harm) {
   }
 
   # Harmonize sheet, plate and table info
-  s <- harmonize_sheets(s)
+  s <- harmonize_sheets(s, sheetharm)
 
   # Pp. -> p etc.
-  s <- harmonize_page_info(s)
+  f <- system.file("extdata/harmonize_page_info.csv", package = "bibliographica")
+  harm.pi <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))  
+  # Harmonize
+  for (i in 1:nrow(harm.pi)) {
+    s <- gsub(harm.pi$synonyme[[i]], harm.pi$name[[i]], s)
+  }  
 
   # Remove spaces around dashes and parentheses
   s <- gsub(" -", "-", s)
   s <- gsub("- ", "-", s)
-  s <- str_trim(gsub("\\)", " ", gsub("\\(", " ", s)))
+  s <- gsub("\\)", " ", gsub("\\(", " ", s))
   s <- condense_spaces(s)
 
   # Add commas
@@ -55,10 +58,10 @@ harmonize_pages <- function (x, synonyms, harm) {
 
   # [24 } -> 24
   if (length(grep("^[[({][0-9]*[])}]$", gsub(" ", "", s)))) {
-    s <- gsub("\\[", "", s)
-    s <- gsub("\\]", "", s)
-    s <- gsub("\\{", "", s)
-    s <- gsub("\\}", "", s)
+    s <- gsub("[\\[|\\]|\\{|\\}]", "", s)
+    #s <- gsub("\\]", "", s)
+    #s <- gsub("\\{", "", s)
+    #s <- gsub("\\}", "", s)
   }
 
   s <- str_trim(gsub("^,", "", s))

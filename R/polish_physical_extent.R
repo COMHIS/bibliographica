@@ -44,9 +44,13 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
   page.harmonize <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
 
+  # Read the mapping table
+  f <- system.file("extdata/harmonize_sheets.csv", package = "bibliographica")
+  sheet.harmonize <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
+
   # Polish unique pages separately for each volume
   # Return NA if conversion fails
-  ret <- lapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize)); if (class(a) == "try-error") { return(NA) } else { return(a) }})
+  ret <- lapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize)); if (class(a) == "try-error") { return(NA) } else { return(a) }})
 
   # Convert to data.frame
   ret <- data.frame(do.call("rbind", ret))
@@ -71,7 +75,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 #' @references See citation("bibliographica")
 #' @examples # TBA
 #' @keywords internal
-polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize) {
+polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, sheet.harmonize) {
 
   if (verbose) {message(s)}
   
@@ -96,7 +100,7 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize) {
 
   # Pagecount
   spl <- unlist(strsplit(s, ";"))
-  x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, vols, page.synonyms, page.harmonize)})))
+  x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, vols, page.synonyms, page.harmonize, sheet.harmonize)})))
   if (class(x) == "try-error") {
     x <- NA
   } 
@@ -118,11 +122,11 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize) {
 #' @references See citation("bibliographica")
 #' @examples # TBA
 #' @keywords internal
-polish_physext_help2 <- function (s, vols, page.synonyms, page.harmonize) {
+polish_physext_help2 <- function (s, vols, page.synonyms, page.harmonize, sheet.harmonize) {
 
   x <- suppressWarnings(remove_volume_info(s, vols))
 
-  x <- harmonize_pages(x, page.synonyms, page.harmonize)
+  x <- harmonize_pages(x, page.synonyms, page.harmonize, sheet.harmonize)
 
   x <- estimate_pages(x)
 

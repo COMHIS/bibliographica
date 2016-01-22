@@ -1,19 +1,14 @@
-harmonize_sheets <- function (s) {
-
-  s <- gsub("[0-9]leaf", paste0(substr(s, 1, 1), " leaf"), s)
-
-  # Read the mapping table
-  f <- system.file("extdata/harmonize_sheets.csv", package = "bibliographica")
-  harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
+harmonize_sheets <- function (s, harm) {
+  
+  if (length(grep("[0-9]leaf", s))>0) {
+    s <- gsub("leaf", " leaf", s)
+  }
 
   # Harmonize
-  #for (i in 1:nrow(harm)) {
-  #  s <- gsub(harm$synonyme[[i]], harm$name[[i]], s)
-  #}  
   s <- as.character(harmonize_names(s, harm, mode = "recursive")$name)
 
   # Harmonize '* sheets'
-  spl <- str_trim(unlist(strsplit(s, ",")))
+  spl <- unlist(strsplit(s, ","))
 
   sheet.inds <- grep("sheet", spl)
 
