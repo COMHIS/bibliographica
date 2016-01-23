@@ -43,23 +43,15 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   # Some trivial trimming to speed up
   # Remove numerics
-  x <- gsub("[0-9]", " ", x)
-    
+  x <- gsub("[0-9]", " ", x) 
   x <- gsub("s\\:t ", "st ", x)
-  x <- gsub("n\\.w", "new", x)    
-
-  x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\.", ":$"), niter = 2)
-
-  x <- gsub("^a ", "", x)
-  x <- gsub("^at ", "", x)
-  x <- gsub("^in ", "", x)    
+  x <- gsub("n\\.w", "new", x)
+  
+  x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\.", ":$"), niter = 1)
   x <- gsub("^and ", "", x)
   x <- gsub("^from ", "", x)            
-  x <- gsub("^printed at ", "", x)
-  x <- gsub("^printed in ", "", x)
-  x <- gsub("^imprinted at ", "", x)
-  x <- gsub(" i e ", " ie ", x)
-  x <- gsub("'", "", x)
+  # x <- gsub(" i e ", " ie ", x)
+  x <- gsub("['|-]", "", x)
   x <- gsub("-", "", x)    
   x <- gsub("Parliament ", "", x)
   x <- gsub("^s$", "", x)    
@@ -69,8 +61,12 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (verbose) {message(paste("Polishing ", length(xuniq), " unique place names", sep = ""))}
   x <- remove_persons(x)
 
+  x <- remove_print_statements(x, remove.letters = FALSE)
+  x <- remove_stopwords(x, terms = stopwords, remove.letters = FALSE)
+  x <- harmonize_ie(x)
+
   s <- synonymes$synonyme  
-  x <- unname(sapply(x, function (x) {polish_place_help(x, s, stopwords = stopwords, verbose = verbose)}))
+  x <- unname(sapply(x, function (x) {polish_place_help(unlist(x), s, stopwords = stopwords, verbose = verbose)}))
 
   # Harmonize
   if (harmonize) {
@@ -96,11 +92,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
 
   if (verbose) {message(x)}
-  x <- harmonize_ie(x)
-  x <- remove_print_statements(x, remove.letters = FALSE)
-  x <- remove_stopwords(x, terms = stopwords, remove.letters = FALSE)
-  x <- harmonize_at(x)
-  x <- unlist(x)
 
   # London i.e. The Hague ->  The Hague
   # In the Yorke at London -> London
@@ -110,31 +101,23 @@ polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
   }  
 
   # New York N Y -> New York NY
-  inds <- grep(" [a-z] [a-z]$", x)
-  for (ind in inds) {
-    n <- nchar(x[[ind]])
-    x[[ind]] <- paste(substr(x[[ind]], 1, n-2), substr(x[[ind]], n, n), sep = "")
+  if (length(grep(" [a-z] [a-z]$", x))>0) {
+    n <- nchar(x)
+    x <- paste(substr(x, 1, n-2), substr(x, n, n), sep = "")
+
   }
 
-  # london re edinburgh -> london
-  spl <- unlist(strsplit(x, " re "))
+  # london re/now edinburgh -> london
+  spl <- unlist(strsplit(x, " [re|now] "))
   if (length(spl)>0) {x <- spl[[1]]}
-
-  # london now edinburgh -> london
-  spl <- unlist(strsplit(x, " now "))
-  if (length(spl)>0) { x <- spl[[1]] }
 
   if (!x %in% s) {
 
       # then take the first term that is
       spl <- unlist(strsplit(x, " "))
-
       inds <- which(!is.na(match(spl, s)))
-
       if (length(inds) > 0) {
         x <- spl[[min(inds)]]
-      } else {
-        x <- x
       }
   }
 

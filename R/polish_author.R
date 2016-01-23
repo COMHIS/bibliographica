@@ -28,15 +28,17 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
     message(paste("Polishing author field: ", length(suniq), "unique entries"))
   }
 
+  # Remove numerics
+  s <- gsub("[0-9]", " ", s) 
+
   # Remove brackets and ending commas / periods
-  s <- remove_numerics(s)
-  s <- gsub("\\[", "", s)
-  s <- gsub("\\]", "", s)
-  s <- gsub("\\(", "", s)
-  s <- gsub("\\)", "", s)
+  s <- gsub("[\\[|\\]|\\(|\\)]", "", s)
+  #s <- gsub("\\]", "", s)
+  #s <- gsub("\\(|\\)", "", s)
+  #s <- gsub("\\)", "", s)
   s <- str_trim(s)
-  s <- gsub("\\.$", "", s)
-  s <- gsub("\\,$", "", s)
+  s <- gsub("[\\.$|\\,$]", "", s)
+  #s <- gsub("\\,$", "", s)
 
   if (verbose) { message("Separating names") }
   # Assume names are of format Last, First
@@ -95,7 +97,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
 
   # OK, now we have polished first and last names
 
-
+  # FIXME this could go to enrich / qualitycheck
   ### VALIDATING THE NAMES
   valid <- list()
   invalid <- list()

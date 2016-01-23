@@ -41,9 +41,8 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
   # FIXME: this is estc-specific, move there
   # "122 s"; "2 p"
   x[grep("^[0-9]* [s|p]$", x)] <- NA
-  x <- gsub("2. p.;","",x)
+  x <- gsub("2\\. p\\.;","",x)
   x <- gsub("^(.*?);.*$","\\1",x) # nb. non-greedy match
-
   x[x==""] <- NA
 
   # Repeat n.iter times
