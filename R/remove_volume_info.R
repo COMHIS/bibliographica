@@ -19,24 +19,24 @@ remove_volume_info <- function (x, vols) {
   s <- gsub(" in [0-9]* ", " ", s)  
   s <- condense_spaces(s)  
 
-  # Remove some rare special cases manually
-  s <- gsub("v\\.[0-9]-[0-9]\\, [0-9] ;", "", s)
-  s <- gsub("v\\.[0-9]\\,[0-9]-[0-9] ;", "", s)
-  s <- gsub("v\\.[0-9]-[0-9]\\,[0-9]-[0-9]*", "", s)
-  s <- gsub("Vols\\.[0-9]-[0-9]\\,[0-9]-[0-9]*\\,plates :", "plates", s)
-
   # Cases 'v.1-3' etc
   inds <- intersect(grep("^v.", s), grep("-", s))
   s[inds] <- sapply(s[inds], function (si) {
     gsub(check_volumes(si)$text, "", si)
   })
 
+  # special cases 
+  s <- gsub("v\\.[0-9]-[0-9]\\, [0-9] ;", "", s)
+  s <- gsub("v\\.[0-9]\\,[0-9]-[0-9] ;", "", s)
+  s <- gsub("v\\.[0-9]-[0-9]\\,[0-9]-[0-9]*", "", s)
+  s <- gsub("Vols\\.[0-9]-[0-9]\\,[0-9]-[0-9]*\\,plates :", "plates", s)
+
   # Remove the volume information that was picked
   s <- gsub("^[0-9]{1,4}v\\.", "", s)
   s <- gsub("^v\\.[0-9]{1,4}", "", s)
   s <- gsub("^,", "", s)
 
-  # Remove Cases 'v.1' etc.
+  # Cases 'v.1' etc.
   s <- gsub("v\\.[0-9]* {0,1}\\:{0,1}", "", s)
 
   # "v. (183,[2]) -> (183,[2])"
@@ -61,7 +61,7 @@ remove_volume_info <- function (x, vols) {
 
   s[s == "."] <- "" # Faster than gsub
   s[s == ""] <- NA
-
+  
   s
 
 }

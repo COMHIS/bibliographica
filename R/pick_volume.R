@@ -10,10 +10,6 @@
 #' @keywords utilities
 pick_volume <- function (s) {
 
-  # Remove some rare misleading special cases manually
-  s <- gsub("v.1-3, 5 ;", "", s)
-  s <- gsub("v.1,4-7 ;", "", s)
-
   vol <- NA	    
   if (length(grep("^v\\.", s)) > 0) {
     s <- gsub("^v\\.", "", s)

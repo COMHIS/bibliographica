@@ -24,7 +24,6 @@ check_volumes <- function (x) {
   } else if (x == "Vols.6-7,9-12,plates :") {
     nvol <- 6
     vtext <- "v.6-7,9-12"
-
   } else if (length(grep("^v.[ ]*[0-9]+[ ]*-[ ]*[0-9]+.*$", x)) > 0) {
   
     n1 <- as.numeric(gsub("^v.[ ]*([0-9]+)[ ]*-[ ]*[0-9]+.*$", "\\1", x))

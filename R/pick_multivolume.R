@@ -9,10 +9,13 @@
 #' @keywords utilities
 pick_multivolume <- function (x) {
 
-  s <- as.character(x)
+  # 73 v. -> 73
+  if (length(grep("^[0-9]* {0,1}v\\.{0,1}$", x))>0) {
+    return(as.numeric(str_trim(gsub("v\\.{0,1}", "", x))))
+  }
 
   # v.1-3 -> 3
-  vol <- check_volumes(s)$n
+  vol <- check_volumes(x)$n
 
   # v.1 -> 1
   if (is.null(vol)) {
@@ -22,7 +25,6 @@ pick_multivolume <- function (x) {
       # FIXME: SPLITMEHERE used as a quick fix as v\\. was unrecognized char and
       # causes error
       s2 <- gsub("v\\.", "SPLITMEHERE", s)
-      #vol <- as.numeric(str_trim(unlist(strsplit(s, "v\\."))[[1]]))
       vol <- as.numeric(str_trim(unlist(strsplit(s2, "SPLITMEHERE"))[[1]]))
     }
   }

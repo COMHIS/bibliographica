@@ -67,6 +67,10 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   f <- system.file("extdata/harmonize_romans.csv", package = "bibliographica")
   romans.harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
 
+  # Remove some rare misleading special cases manually
+  s <- gsub("v.1-3, 5 ;", "", s)
+  s <- gsub("v.1,4-7 ;", "", s)
+
   # Polish unique pages separately for each volume
   # Return NA if conversion fails
   ret <- lapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, romans.harm, harm.pi)); if (class(a) == "try-error") { return(NA) } else { return(a) }})
