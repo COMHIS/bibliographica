@@ -114,7 +114,7 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("[1899-]1900.")$from, 1899)
   expect_equal(polish_years("[1899-]1900.")$till, 1900)
 
-  expect_equal(polish_years("1641. [1642]")$from, 1641)
+  expect_equal(polish_years("1641. [1642]")$from, 1642)
   expect_equal(polish_years("1677. [i.e. 1689.].")$from, 1689)
 
   expect_equal(polish_years("Printed in the year of the truely-hoped-for reformation of Englands oppressions and horrid deformation. 1647.")$from, 1647)

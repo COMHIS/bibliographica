@@ -33,12 +33,8 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
 
   # Remove brackets and ending commas / periods
   s <- gsub("[\\[|\\]|\\(|\\)]", "", s)
-  #s <- gsub("\\]", "", s)
-  #s <- gsub("\\(|\\)", "", s)
-  #s <- gsub("\\)", "", s)
   s <- str_trim(s)
   s <- gsub("[\\.$|\\,$]", "", s)
-  #s <- gsub("\\,$", "", s)
 
   if (verbose) { message("Separating names") }
   # Assume names are of format Last, First

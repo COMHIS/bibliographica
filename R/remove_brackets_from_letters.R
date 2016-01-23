@@ -7,16 +7,15 @@
 #' @references See citation("bibliographica")
 #' @examples x2 <- remove_brackets_from_letters("[p]")
 #' @keywords utilities
-remove_brackets_from_letters <- function (x) {
+remove_brackets_from_letters <- function (x, myletters = NULL) {
+
+  if (is.null(myletters)) {c(letters, LETTERS)}
 
   # [P] -> P
-  #x <- gsub("\\[[a-z]|[A-Z]\\]", l, x)
-  #x <- gsub("\\[[a-z]|[A-Z]\\]", l, x)    
-  for (l in c(letters, LETTERS)) {
-    x <- gsub(paste("\\[", l, "]", sep = ""), l, x)
-    x <- gsub(paste("\\(", l, "\\)", sep = ""), l, x)        
-  }
-
+  for (l in myletters) {
+      x <- gsub(paste("\\[", l, "]", sep = ""), l, x)
+      x <- gsub(paste("\\(", l, "\\)", sep = ""), l, x)
+  }   
   x
 
 }

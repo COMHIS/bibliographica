@@ -1,26 +1,24 @@
 #' @title remove_time_info
 #' @description Remove time information
-#'
 #' @param x Vector (time field)
 #' @param verbose verbose 
 #' @return Polished vector
-#'
 #' @export
 #' @details Remove months, year terms and numerics
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples \dontrun{x2 <- remove_time_info(x)}
 #' @keywords utilities
-remove_time_info <- function (x, verbose = FALSE) {
+remove_time_info <- function (x, verbose = FALSE, months = NULL) {
 
-  f <- system.file("extdata/months.csv", package = "bibliographica")
-  months <- as.character(read.csv(f, header = TRUE)[,1])
-  months <- unique(c(months, tolower(months)))
+  if (is.null(months)) {
+    f <- system.file("extdata/months.csv", package = "bibliographica")
+    months <- as.character(read.csv(f, header = TRUE)[,1])
+    months <- unique(c(months, tolower(months)))
 
-  # Handle from longest to shortest to avoid problems
-  months <- months[rev(order(nchar(months)))]
+    # Handle from longest to shortest to avoid problems
+    months <- months[rev(order(nchar(months)))]
+  }
 
   # 17th century 
   x <- condense_spaces(gsub("[0-9]*th century", " ", x))
