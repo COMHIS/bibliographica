@@ -4,12 +4,14 @@
 \alias{remove_time_info}
 \title{remove_time_info}
 \usage{
-remove_time_info(x, verbose = FALSE)
+remove_time_info(x, verbose = FALSE, months = NULL)
 }
 \arguments{
 \item{x}{Vector (time field)}
 
 \item{verbose}{verbose}
+
+\item{months}{months to remove}
 }
 \value{
 Polished vector

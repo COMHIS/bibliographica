@@ -4,10 +4,12 @@
 \alias{remove_brackets_from_letters}
 \title{remove_brackets_from_letters}
 \usage{
-remove_brackets_from_letters(x)
+remove_brackets_from_letters(x, myletters = NULL)
 }
 \arguments{
 \item{x}{A vector}
+
+\item{myletters}{Letters to remove}
 }
 \value{
 A polished vector

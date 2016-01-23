@@ -4,7 +4,7 @@
 \alias{polish_year}
 \title{polish_year}
 \usage{
-polish_year(x, start_synonyms = NULL, end_synonyms = NULL)
+polish_year(x, start_synonyms = NULL, end_synonyms = NULL, months)
 }
 \arguments{
 \item{x}{year string}
@@ -12,6 +12,8 @@ polish_year(x, start_synonyms = NULL, end_synonyms = NULL)
 \item{start_synonyms}{Synonyme table for start year}
 
 \item{end_synonyms}{Synonyme table for end year}
+
+\item{months}{months}
 }
 \value{
 vector with the fields 'from' and 'till'
