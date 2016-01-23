@@ -4,7 +4,7 @@
 \alias{remove_dimension}
 \title{Remove dimension data}
 \usage{
-remove_dimension(x)
+remove_dimension(x, terms)
 }
 \arguments{
 \item{x}{A character vector that may contain dimension information}

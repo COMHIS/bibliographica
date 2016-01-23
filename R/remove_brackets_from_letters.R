@@ -9,9 +9,9 @@
 #' @keywords utilities
 remove_brackets_from_letters <- function (x) {
 
-  x <- as.character(x)		
-
   # [P] -> P
+  #x <- gsub("\\[[a-z]|[A-Z]\\]", l, x)
+  #x <- gsub("\\[[a-z]|[A-Z]\\]", l, x)    
   for (l in c(letters, LETTERS)) {
     x <- gsub(paste("\\[", l, "]", sep = ""), l, x)
     x <- gsub(paste("\\(", l, "\\)", sep = ""), l, x)        

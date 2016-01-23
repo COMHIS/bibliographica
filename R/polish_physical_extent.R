@@ -97,12 +97,10 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, sheet.harmonize, romans.harm, harm.pi) {
 
   if (verbose) {message(s)}
+  if (is.na(s)) { return(NA) }
   
   # Estimate pages for each document separately via a for loop
   # Vectorization would be faster but we prefer simplicity and modularity here
-
-  # Convert to string 	    	    
-  if (is.na(s)) { return(NA) }
 
   #' A single document, but check which volume number ?
   # (document starting with '* v.' or 'v.1-3' etc.)  
@@ -111,6 +109,7 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
 
   # Volume count
   vols <- pick_multivolume(s)
+
   # Assume single volume when number not given
   # FIXME perhaps this better goes to enrichnment functions?
   # NOTE: voln (volume number must be NA as well, otherwise we have 

@@ -52,7 +52,7 @@ handle_ie <- function (x, harmonize = TRUE) {
   }
   x <- gsub("\\[ ", "\\[", x)
 
-  # x <- condense_spaces(x)
+  x <- condense_spaces(x)
 
   x
 }

@@ -29,20 +29,27 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   message(paste("Reading stopwords from file ", f))
   stopwords <- as.character(read.csv(f)[,1])
 
+  # Polish
+  xuniq <- sort(unique(x))
+  match.inds <- match(x, xuniq)
+  x <- xuniq
+
   # Prepare
   if (verbose) { message("Convert to lowercase character") }
   x <- tolower(as.character(x))
-  s <- synonymes$synonyme
 
   # Lo[n]don -> London
   x <- remove_brackets_from_letters(x)
 
   # Some trivial trimming to speed up
-  x <- remove_numerics(x)
+  # Remove numerics
+  x <- gsub("[0-9]", " ", x)
+    
   x <- gsub("s\\:t ", "st ", x)
   x <- gsub("n\\.w", "new", x)    
 
-  x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\.", ":$"), niter = 2)  
+  x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\.", ":$"), niter = 2)
+
   x <- gsub("^a ", "", x)
   x <- gsub("^at ", "", x)
   x <- gsub("^in ", "", x)    
@@ -54,16 +61,17 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- gsub(" i e ", " ie ", x)
   x <- gsub("'", "", x)
   x <- gsub("-", "", x)    
+  x <- gsub("Parliament ", "", x)
+  x <- gsub("^s$", "", x)    
+  x <- gsub("^re ", "", x)
+  x <- gsub("_", " ", x)  
 
-  # Polish
-  xuniq <- sort(unique(x))
-  match.inds <- match(x, xuniq)
   if (verbose) {message(paste("Polishing ", length(xuniq), " unique place names", sep = ""))}
-  x <- unname(sapply(xuniq, function (x) {polish_place_help(x, s, stopwords = stopwords, verbose = verbose)}))
+  x <- remove_persons(x)
 
-  # print(head(subset(synonymes, synonyme == x)))
-  # print(x)
-  
+  s <- synonymes$synonyme  
+  x <- unname(sapply(x, function (x) {polish_place_help(x, s, stopwords = stopwords, verbose = verbose)}))
+
   # Harmonize
   if (harmonize) {
     if (verbose) { message("Harmonize the synonymous names") }
@@ -77,14 +85,11 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   
   # Mark NAs
   if (verbose) {message("Replace special cases")}
-  x[tolower(x) %in% c("", "NA", NA)] <- NA
+  x[x %in% c("", "na")] <- NA
 
-  # Convert back to original indices
-  x <- x[match.inds]
+  # Convert back to original indices and return
+  x[match.inds]
 
-  # Return
-  x
-  
 }
 
 
@@ -96,7 +101,6 @@ polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
   x <- remove_stopwords(x, terms = stopwords, remove.letters = FALSE)
   x <- harmonize_at(x)
   x <- unlist(x)
-  x <- remove_persons(x)
 
   # London i.e. The Hague ->  The Hague
   # In the Yorke at London -> London
@@ -104,13 +108,6 @@ polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
      spl <- strsplit(x, ss)
      if (length(spl) > 0 ) {x <- spl[[length(spl)]]}
   }  
-
-  #if (verbose) {message("Custom polish")}
-  x <- gsub("Parliament ", "", x)
-  x <- gsub("^s$", "", x)    
-  x <- gsub("^re ", "", x)
-  x <- gsub("_", " ", x)  
-
 
   # New York N Y -> New York NY
   inds <- grep(" [a-z] [a-z]$", x)
@@ -125,10 +122,7 @@ polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
 
   # london now edinburgh -> london
   spl <- unlist(strsplit(x, " now "))
-  if (length(spl)>0) {x <- spl[[1]]}
-
-  # glasgow london -> glasgow
-  # if x itself is not on the synonyme list
+  if (length(spl)>0) { x <- spl[[1]] }
 
   if (!x %in% s) {
 

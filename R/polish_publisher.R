@@ -33,7 +33,8 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE) {
 
   x <- remove_print_statements(x)
 
-  x <- remove_numerics(x)
+  # Remove numerics
+  x <- gsub("[0-9]", " ", x)
 
   x <- condense_spaces(x)
 
