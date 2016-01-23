@@ -24,8 +24,15 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   }
 
   #------------------------------------------------------
-  
-  s <- as.character(suniq)
+
+  s <- suniq
+
+  # Remove commonly used volume formats
+  f <- system.file("extdata/remove_dimension.csv", package = "bibliographica")
+  terms <- as.character(read.csv(f)[,1])
+  s <- remove_dimension(s, terms)
+
+  s <- as.character(s)
   s[grep("^[ |\\.|;|:|!|?]*$", s)] <- NA # ""; "." ; " ... "
 
   # Harmonize volume info
@@ -39,18 +46,30 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   # In Finnish texts s. is used instead of p.		
   f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
   page.synonyms <- read.csv(f, sep = ";")
+  s <- harmonize_names(s, page.synonyms, mode="match")$name
+
+  s <- harmonize_ie(s)
 
   # Read the mapping table
   f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
   page.harmonize <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
 
+  # Pp. -> p etc.
+  f <- system.file("extdata/harmonize_page_info.csv", package = "bibliographica")
+  harm.pi <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))  
+
   # Read the mapping table
   f <- system.file("extdata/harmonize_sheets.csv", package = "bibliographica")
   sheet.harmonize <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
+  s <- harmonize_sheets(s, sheet.harmonize)
+
+  # Read the mapping table
+  f <- system.file("extdata/harmonize_romans.csv", package = "bibliographica")
+  romans.harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
 
   # Polish unique pages separately for each volume
   # Return NA if conversion fails
-  ret <- lapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize)); if (class(a) == "try-error") { return(NA) } else { return(a) }})
+  ret <- lapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, romans.harm, harm.pi)); if (class(a) == "try-error") { return(NA) } else { return(a) }})
 
   # Convert to data.frame
   ret <- data.frame(do.call("rbind", ret))
@@ -75,7 +94,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 #' @references See citation("bibliographica")
 #' @examples # TBA
 #' @keywords internal
-polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, sheet.harmonize) {
+polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, sheet.harmonize, romans.harm, harm.pi) {
 
   if (verbose) {message(s)}
   
@@ -100,7 +119,7 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
 
   # Pagecount
   spl <- unlist(strsplit(s, ";"))
-  x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, vols, page.synonyms, page.harmonize, sheet.harmonize)})))
+  x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, vols, page.synonyms, page.harmonize, sheet.harmonize, romans.harm, harm.pi)})))
   if (class(x) == "try-error") {
     x <- NA
   } 
@@ -122,11 +141,11 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
 #' @references See citation("bibliographica")
 #' @examples # TBA
 #' @keywords internal
-polish_physext_help2 <- function (s, vols, page.synonyms, page.harmonize, sheet.harmonize) {
+polish_physext_help2 <- function (s, vols, page.synonyms, page.harmonize, sheet.harmonize, romans.harm, harm.pi) {
 
   x <- suppressWarnings(remove_volume_info(s, vols))
 
-  x <- harmonize_pages(x, page.synonyms, page.harmonize, sheet.harmonize)
+  x <- harmonize_pages(x, page.synonyms, page.harmonize, sheet.harmonize, romans.harm, harm.pi) 
 
   x <- estimate_pages(x)
 

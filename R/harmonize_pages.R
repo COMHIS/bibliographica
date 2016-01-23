@@ -1,9 +1,5 @@
 #' @importFrom sorvi harmonize_names
-harmonize_pages <- function (x, synonyms, harm, sheetharm) {
-
-  # Remove dimension info
-  x <- harmonize_names(x, synonyms, mode="match")$name  
-  s <- remove_dimension(x)
+harmonize_pages <- function (s, synonyms, harm, sheetharm, romans.harm, harm.pi) {
 
   # ie harmonization
   # each comma place separately
@@ -11,34 +7,28 @@ harmonize_pages <- function (x, synonyms, harm, sheetharm) {
   s <- gsub("e\\.\\,", "e ", s)
 
   s <- unlist(strsplit(s, ","))
-  s <- sapply(s, function (si) {x <- unlist(strsplit(si, "-")); paste(sapply(x, function (x) handle_ie(x)), collapse = "-")})
+  s <- sapply(s, function (si) {x <- unlist(strsplit(si, "-")); paste(sapply(x, function (x) handle_ie(x, harmonize = FALSE)), collapse = "-")})
   s <- paste(s, collapse = ",")
 
   # Romans
-  s <- harmonize_romans(s) 
+  s <- harmonize_names(s, romans.harm, mode = "recursive")$name
+
+  # Harmonize pages
   s <- harmonize_names(s, harm, mode = "recursive")$name
-  s <- condense_spaces(s)
+
+  # Harmonize
+  s <- harmonize_names(s, harm.pi, mode = "recursive")$name  
 
   # Remove endings
   for (i in 1:5) {
-    s <- str_trim(remove_endings(s, c(" ", "\\.", "\\,", "\\;", "\\:")))
+    s <- remove_endings(s, c(" ", "\\.", "\\,", "\\;", "\\:"))
   }
 
-  # Harmonize sheet, plate and table info
-  s <- harmonize_sheets(s, sheetharm)
+  # Remove spaces around dashes
+  s <- gsub(" {0,1}- {0,1}", "-", s)
 
-  # Pp. -> p etc.
-  f <- system.file("extdata/harmonize_page_info.csv", package = "bibliographica")
-  harm.pi <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))  
-  # Harmonize
-  for (i in 1:nrow(harm.pi)) {
-    s <- gsub(harm.pi$synonyme[[i]], harm.pi$name[[i]], s)
-  }  
-
-  # Remove spaces around dashes and parentheses
-  s <- gsub(" -", "-", s)
-  s <- gsub("- ", "-", s)
-  s <- gsub("\\)", " ", gsub("\\(", " ", s))
+  # Remove parentheses
+  s <- gsub("[\\(|\\)]", " ", s)
   s <- condense_spaces(s)
 
   # Add commas
@@ -53,15 +43,12 @@ harmonize_pages <- function (x, synonyms, harm, sheetharm) {
 
   # p3 -> 3
   if (length(grep("^p[0-9]", s))) {
-    s <- substr(s, 2, nchar(s))
+    s <- gsub("^p", "", s)
   }
 
   # [24 } -> 24
   if (length(grep("^[[({][0-9]*[])}]$", gsub(" ", "", s)))) {
     s <- gsub("[\\[|\\]|\\{|\\}]", "", s)
-    #s <- gsub("\\]", "", s)
-    #s <- gsub("\\{", "", s)
-    #s <- gsub("\\}", "", s)
   }
 
   s <- str_trim(gsub("^,", "", s))

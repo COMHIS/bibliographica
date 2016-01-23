@@ -3,7 +3,6 @@
 #' @param x A vector
 #' @param harmonize Logical. Harmonize ie statements efore interpretation?
 #' @return A vector polished
-#' @export
 #' @importFrom stringr str_sub
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
@@ -52,7 +51,8 @@ handle_ie <- function (x, harmonize = TRUE) {
     
   }
   x <- gsub("\\[ ", "\\[", x)
-  
-  condense_spaces(x)
 
+  # x <- condense_spaces(x)
+
+  x
 }

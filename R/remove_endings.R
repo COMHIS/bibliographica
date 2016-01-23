@@ -19,7 +19,7 @@ remove_endings <- function (x, endings, random_order=FALSE) {
   }
   for (e in endings) {
     x <- gsub(paste(e, "$", sep = ""), "", x)
-}
+  }
 
   x
 }
