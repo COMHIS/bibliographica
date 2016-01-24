@@ -4,15 +4,14 @@
 \alias{polish_physext_help2}
 \title{Polish physical_extent help field 2}
 \usage{
-polish_physext_help2(s, vols, page.synonyms, page.harmonize, sheet.harmonize,
-  romans.harm, harm.pi)
+polish_physext_help2(s, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)
 }
 \arguments{
 \item{s}{Input char}
 
-\item{vols}{vols}
-
 \item{page.synonyms}{page.synonyms}
+
+\item{vols}{vols}
 }
 \value{
 Internal

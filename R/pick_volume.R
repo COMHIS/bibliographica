@@ -5,7 +5,7 @@
 #' @details A single document, but check which volume 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica") 
-#' @examples pick_volume("v.4")
+#' @examples \dontrun{pick_volume("v.4")}
 #' @keywords utilities
 pick_volume <- function (s) {
 

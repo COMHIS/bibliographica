@@ -5,7 +5,7 @@
 \title{Polish physical_extent help field}
 \usage{
 polish_physext_help(s, verbose, page.synonyms, page.harmonize, sheet.harmonize,
-  romans.harm, harm.pi)
+  harm.pi)
 }
 \arguments{
 \item{s}{Input char}
@@ -27,14 +27,5 @@ Leo Lahti \email{leo.lahti@iki.fi}
 \references{
 See citation("bibliographica")
 }
-\keyword{?}
-\keyword{A}
-\keyword{but}
-\keyword{check}
-\keyword{document,}
 \keyword{internal}
-\keyword{number}
-\keyword{single}
-\keyword{volume}
-\keyword{which}
 

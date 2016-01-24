@@ -5,12 +5,11 @@
 #' @return Raw and estimated pages per document part
 #' @details Document parts are separated by semicolons
 #' @export
-#' @importFrom stringr str_trim
 #' @details A summary of page counting rules that this function aims to (approximately) implement are provided in 
 #' \url{https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html}
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @examples # polish_pages("4p.")
+#' @examples tab <- polish_physical_extent("4p.")
 #' @keywords utilities
 polish_physical_extent <- function (x, verbose = FALSE) {
 

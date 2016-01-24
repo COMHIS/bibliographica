@@ -2,7 +2,6 @@
 #' @description Pick volume information for multi-volume documents
 #' @param x Page number field. Vector or factor of strings.
 #' @return Volume information
-#' @importFrom stringr str_trim
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{pick_multivolume("v.1-3, 293")}
