@@ -8,27 +8,22 @@
 #' @keywords utilities
 pick_multivolume <- function (x) {
 
-  vols <- rep(NA, length(x))
+  vols <- NA
 
-  # 73 v. -> 73
-  inds1 <- grep("^[0-9]* {0,1}v\\.{0,1}$", x)
-  if (length(inds1)>0) {
-    vols[inds1] <- as.numeric(str_trim(gsub("v\\.{0,1}", "", x[inds1])))
-  }
-  
-  # v.1-3 -> 3
-  inds2 <- setdiff(1:length(x), inds1)
-  vols[inds2] <- sapply(x[inds2], function (xx) {check_volumes(xx)$n})
-
-  # v.1 -> 1
-  inds3 <- setdiff(grep("v\\.", x), c(inds1, inds2))
-  if (length(inds3) > 0) {
-      # FIXME: SPLITMEHERE used as a quick fix as v\\. was unrecognized char and
+  if (length(grep("^[0-9]* {0,1}v\\.{0,1}$", x))>0) {
+    # 73 v. -> 73
+    vols <- as.numeric(str_trim(gsub("v\\.{0,1}", "", x)))
+  } else if (length(grep("^v\\.", x))>0) {
+    # v.1-3 -> 3
+    vols <- check_volumes(x)$n
+  } else if (length(grep("v\\.", x))>0) {
+    # v.1 -> 1
+    # FIXME: SPLITMEHERE used as a quick fix as v\\. was unrecognized char and
       # causes error
-      vols[inds3] <- sapply(x[inds3], function (xx) {s2 <- gsub("v\\.", "SPLITMEHERE", xx); s2 <- str_trim(unlist(strsplit(s2, "SPLITMEHERE"))); s3 <- s2[!s2 == ""]; as.numeric(s3[[1]])})
+    vols <- sapply(x, function (xx) {s2 <- gsub("v\\.", "SPLITMEHERE", xx); s2 <- str_trim(unlist(strsplit(s2, "SPLITMEHERE"))); as.numeric(s2[!s2 == ""][[1]])})
   }
 
-  vols[sapply(vols, length) == 0] <- NA
+  if (length(vols) == 0) {vols <- NA}
 
   vols
   

@@ -43,7 +43,8 @@ harmonize_pages <- function (s, synonyms, harm, sheetharm, harm.pi) {
     s <- gsub("[\\[|\\]|\\{|\\}]", "", s)
   }
 
-  s <- str_trim(gsub("^,", "", s))
+  s <- gsub("^,", "", s)
+  s <- str_trim(gsub("\\]$", "", s))  
   if (s %in% c("", "NA")) { s <- NA }
 
   s
