@@ -2,7 +2,6 @@
 #' @description Pick volume
 #' @param s Page number field. Vector or factor of strings.
 #' @return Volume
-#' @export
 #' @details A single document, but check which volume 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica") 
@@ -10,25 +9,19 @@
 #' @keywords utilities
 pick_volume <- function (s) {
 
-  vol <- NA	    
-  if (length(grep("^v\\.", s)) > 0) {
-    s <- gsub("^v\\.", "", s)
-    i <- 1
-    n <- as.numeric(substr(s, 1, 1))
-    while (i <= nchar(s) && !is.na(n)) {
-      n <- as.numeric(substr(s, 1, i))
-      # Pick cases v.1 but not v.1-3
-      if (!is.na(n) && !substr(s, i+1, i+1) == "-") {
-        vol <- n
-      } else if (substr(s, i+1, i+1) == "-") {
-        vol <- NA
-      } else {
-        i <- Inf
-      }
+  # Pick cases v.1 but not v.1-3
+  voln <- rep(NA, length(s))
 
-      i <- i+1
-    }
+  inds1 <- grep("^v\\.[0-9]+$", s)
+  voln[inds1] <- gsub("^v\\.", "", s[inds1])
+
+  inds2 <- setdiff(grep("^v\\.", s), c(inds1, grep("^v\\.[0-9]+-[0-9]+", s)))
+  if (length(inds2) > 0) { 
+    v <- gsub("^v\\.", "", s[inds2])
+    v <- suppressWarnings(unname(sapply(v, function (x) {spl <- as.numeric(unlist(strsplit(x, ""))); as.numeric(substr(x, 1, min(which(is.na(spl)))-1))})))
+    voln[inds2] <- v
   }
+  as.numeric(voln)
 
-  vol
 }
+

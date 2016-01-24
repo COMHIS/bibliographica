@@ -1,13 +1,12 @@
 #' @title remove_volume_info
 #' @description Remove volume info from the string start
 #' @param x Page number field. Vector or factor of strings.
-#' @param vols vols
 #' @return Page numbers without volume information
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{remove_volume_info("v.4, 293")}
 #' @keywords utilities
-remove_volume_info <- function (x, vols) {
+remove_volume_info <- function (x) {
 
   x <- gsub("^[0-9]* {0,1}v\\.$", "", x)		   
 

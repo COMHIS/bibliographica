@@ -79,12 +79,24 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   # each dash place separately  
   s <- gsub("e\\.\\,", "e ", s)
 
+  # Pick volume number
+  voln <- pick_volume(s) 
+
+  # Volume count
+  vols <- pick_multivolume(s)
+
+  # Assume single volume when number not given
+  # FIXME perhaps this better goes to enrichnment functions?
+  # NOTE: voln (volume number must be NA as well, otherwise we have 
+  # one part of a multi-volume document
+  vols[is.na(vols) & is.na(voln)] <- 1 
+
   # Polish unique pages separately for each volume
   # Return NA if conversion fails
-  ret <- lapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") { return(NA) } else { return(a) }})
+  pages  <- sapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") { return(NA) } else { return(a) }})
 
   # Convert to data.frame
-  ret <- data.frame(do.call("rbind", ret))
+  ret <- data.frame(pagecount = pages, volnumber = unlist(voln), volcount = unlist(vols))
 
   # Some final polishing
   ret$pagecount[ret$pagecount == 0] <- NA # Set zero page counts to NA
@@ -114,29 +126,15 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
   # Estimate pages for each document separately via a for loop
   # Vectorization would be faster but we prefer simplicity and modularity here
 
-  #' A single document, but check which volume number ?
-  # (document starting with '* v.' or 'v.1-3' etc.)  
-  # (document starting with 'v.*')
-  voln <- pick_volume(s)
-
-  # Volume count
-  vols <- pick_multivolume(s)
-
-  # Assume single volume when number not given
-  # FIXME perhaps this better goes to enrichnment functions?
-  # NOTE: voln (volume number must be NA as well, otherwise we have 
-  # one part of a multi-volume document
-  vols[is.na(vols) & is.na(voln)] <- 1 
-
   # Pagecount
   spl <- unlist(strsplit(s, ";"))
-  x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, vols, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)})))
+  x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)})))
   if (class(x) == "try-error") {
     x <- NA
   } 
 
   # Return
-  data.frame(pagecount = sum(x, na.rm = TRUE), volnumber = voln, volcount = vols)
+  sum(x, na.rm = TRUE)
 
 }
 
@@ -152,9 +150,9 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
 #' @references See citation("bibliographica")
 #' @examples # TBA
 #' @keywords internal
-polish_physext_help2 <- function (s, vols, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) {
+polish_physext_help2 <- function (s, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) {
 
-  x <- suppressWarnings(remove_volume_info(s, vols))
+  x <- suppressWarnings(remove_volume_info(s))
 
   x <- harmonize_pages(x, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) 
 
