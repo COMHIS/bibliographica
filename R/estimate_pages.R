@@ -143,9 +143,6 @@ estimate_pages <- function (x) {
   # Total page count
   x.pagecount <- sum(na.omit(pages))
 
-  # If total page count is 0, then mark it as NA
-  if (x.pagecount == 0) {x.pagecount <- NA}
-
   x.pagecount
 
 }

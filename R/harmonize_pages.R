@@ -1,23 +1,15 @@
 #' @importFrom sorvi harmonize_names
-harmonize_pages <- function (s, synonyms, harm, sheetharm, romans.harm, harm.pi) {
-
-  # ie harmonization
-  # each comma place separately
-  # each dash place separately  
-  s <- gsub("e\\.\\,", "e ", s)
+harmonize_pages <- function (s, synonyms, harm, sheetharm, harm.pi) {
 
   s <- unlist(strsplit(s, ","))
   s <- sapply(s, function (si) {x <- unlist(strsplit(si, "-")); paste(sapply(x, function (x) handle_ie(x, harmonize = FALSE)), collapse = "-")})
   s <- paste(s, collapse = ",")
 
-  # Romans
-  s <- harmonize_names(s, romans.harm, mode = "recursive")$name
-
-  # Harmonize pages
+  # FIXME move to main? pages
   s <- harmonize_names(s, harm, mode = "recursive")$name
 
-  # Harmonize
-  s <- harmonize_names(s, harm.pi, mode = "recursive")$name  
+  # FIXME move to main? page info
+  s <- harmonize_names(s, harm.pi, mode = "recursive")$name
 
   # Remove endings
   for (i in 1:5) {
