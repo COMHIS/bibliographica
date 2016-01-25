@@ -24,7 +24,7 @@ polish_university <- function(x, synonyms=NULL) {
     synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
   }
   
-  x <- harmonize_names(x, synonyms)
+  x <- harmonize_names(x, synonyms, check.synonymes = F, include.lowercase = TRUE)
   
   #x <- gsub("^.*Aleksan.*$","Helsinki",x)
   #x <- gsub("^.*Alexan.*$","Helsinki",x)

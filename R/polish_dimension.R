@@ -1,7 +1,7 @@
 #' @title polish_dimension
 #' @description Polish dimension field of a single document
 #' @param x A dimension note (a single string of one document)
-#' @param synonyms Synonyme table
+#' @param synonyms synonyms
 #' @return Polished dimension information with the original string 
 #' 	   and gatherings and cm information collected from it
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
@@ -11,9 +11,7 @@
 polish_dimension <- function (x, synonyms) {
 
   # Harmonize terms
-  sorig <- as.character(x)
-
-  s <- harmonize_dimension(sorig, synonyms)
+  s <- sorig <- x
 
   # "small"
   small <- FALSE
@@ -42,17 +40,17 @@ polish_dimension <- function (x, synonyms) {
   s <- condense_spaces(s)
 
   # No units given. Assume the number refers to the gatherings (not cm)
-  x <- unique(str_trim(unlist(strsplit(s, " "))))
-  x[x == "NA"] <- NA
-  x[x == "NAto"] <- NA  
+  x <- unique(str_trim(unlist(strsplit(s, " "), use.names = FALSE)))
+  x[x == "NA"]   <- NA
+  x[x == "NAto"] <- NA
+
   if (length(grep("cm", x)) == 0 && length(grep("[0-9]?o", x)) == 0) {
     if (length(x) == 1 && !is.na(x)) {
-      #x <- suppressWarnings(paste(as.numeric(gsub("\\(", "", gsub("\\)", "", x))), "to", sep = ""))
       x <- paste(as.numeric(x), "to", sep = "")
     }
   } else {
     # Pick gatherings measures separately
-    x <- str_trim(unlist(strsplit(s, " ")))
+    x <- str_trim(unlist(strsplit(s, " "), use.names = FALSE))
   }
 
   hits <- unique(c(grep("[0-9]+[a-z]o", x), grep("bs", x)))
@@ -68,12 +66,12 @@ polish_dimension <- function (x, synonyms) {
     } else {
       gatherings <- x
       if (long) {
-        a <- unlist(strsplit(gatherings, ""))
+        a <- unlist(strsplit(gatherings, ""), use.names = FALSE)
 	ind <- min(which(is.na(as.numeric(a))))-1
 	if (is.na(ind)) {ind <- length(a)}
 	gatherings <- paste(paste(a[1:ind], collapse = ""), "long", sep = "")
       } else if (small) {
-        a <- unlist(strsplit(gatherings, ""))
+        a <- unlist(strsplit(gatherings, ""), use.names = FALSE)
 	ind <- min(which(is.na(as.numeric(a))))-1
 	if (is.na(ind)) {ind <- length(a)}
 	gatherings <- paste(paste(a[1:ind], collapse = ""), "long", sep = "")
@@ -81,36 +79,31 @@ polish_dimension <- function (x, synonyms) {
     }
   }
 
-  gatherings <- na.omit(gsub("NAto", "NA", gatherings))
-  gatherings <- harmonize_dimension(gatherings)
-
-  if (length(gatherings) == 0) {gatherings <- NA}
-
-  if (length(unique(gatherings)) > 1) {gatherings <- NA}
-
-  # if (length(gatherings) == 1) {gatherings <- as.list(gatherings)}
+  gatherings <- harmonize_dimension(gatherings, synonyms)
+  if ( length(gatherings) == 0 ) { gatherings <- NA }
+  if ( length(unique(gatherings)) > 1 ) { gatherings <- NA }
 
   # 4to-4to / 4to-2fo
   inds <- c(grep("^[0-9]+.o-[0-9]+.o$", gatherings), 
             grep("^[0-9]+.o-[0-9]+.o-[0-9]+.o$", gatherings))
 
   if (length(inds) > 0) {
-    li <- lapply(gatherings[inds], function (x) {unique(unlist(strsplit(x, "-")))})
+    li <- lapply(gatherings[inds], function (x) {unique(unlist(strsplit(x, "-"), use.names = FALSE))})
     inds2 <- which(sapply(li, length) == 1)
     inds3 <- na.omit(inds[inds2])
     if (length(inds3) > 0) {
-      gatherings[inds3] <- unlist(li[inds3])
+      gatherings[inds3] <- unlist(li[inds3], use.names = FALSE)
       gatherings[setdiff(inds, inds3)] <- NA
     } else {
       gatherings[inds] <- NA
     }
   }
-  gatherings <- unlist(gatherings)
+  gatherings <- unlist(gatherings, use.names = FALSE)
   inds <- grep("^[0-9]+.o, [0-9]+.o$", gatherings)
   gatherings[inds] <- gsub("\\.;", "-", gatherings[inds])
 
   # Ambiguous CM information
-  x <- unique(str_trim(unlist(strsplit(s, " "))))
+  x <- unique(str_trim(unlist(strsplit(s, " "), use.names = FALSE)))
   if (length(grep("x", x)) > 1) {
     width <- height <- NA
   }
@@ -118,18 +111,15 @@ polish_dimension <- function (x, synonyms) {
   # Pick CM x CM format separately when it is unambiguous
   if (length(grep("cm", x)) > 0 && length(grep("x", x)) == 1) {
       # Then pick the dimensions
-      x <- str_trim(unlist(strsplit(x, "cm")))
-      x <- str_trim(unlist(strsplit(x, " ")))
+      x <- unlist(strsplit(x, "cm"), use.names = FALSE)
+      x <- str_trim(unlist(strsplit(x, " "), use.names = FALSE))
       i <- which(x == "x")
       height <- as.numeric(str_trim(gsub("\\)", "", x[i+1])))
       width <- as.numeric(str_trim(gsub("\\(", "", x[i-1])))
-  } 
-
-
-  # Pick CM format (single value) separately when it is unambiguous
-  if (length(grep("cm", x)) > 0 && length(grep("x", x)) == 0) {
+  } else if (length(grep("cm", x)) > 0 && length(grep("x", x)) == 0) {
+      # Pick CM format (single value) separately when it is unambiguous
       # Then pick the dimensions
-      x <- str_trim(gsub("\\(", "", gsub("\\)", "", unlist(strsplit(x, " ")))))
+      x <- str_trim(gsub("\\(", "", gsub("\\)", "", unlist(strsplit(x, " "), use.names = FALSE))))
       i <- which(x == "cm")
       height <- as.numeric(str_trim(x[i-1]))
       width <- NA
@@ -140,7 +130,7 @@ polish_dimension <- function (x, synonyms) {
     dims <- sort(c(width, height))
     if (obl) {
       dims <- rev(dims)
-    } 
+    }
     width <- dims[[1]]
     height <- dims[[2]]
   }

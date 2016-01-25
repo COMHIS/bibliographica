@@ -22,16 +22,16 @@ augment_dimension_table <- function (dimension.table, dimtab = NULL, verbose = F
     dimtab <- dimension_table()
   }
 
-  #tmp <- t(apply(dimension.table, 1, function (x) {fill_dimensions(x, dimtab)}))
   tmp <- NULL
   for (i in 1:nrow(dimension.table)) {
     x <- dimension.table[i, ]
+
     tmp2 <- fill_dimensions(x, dimtab)
+
     tmp <- rbind(tmp, tmp2)
   }
 
   dimension.table <- as.data.frame(tmp)
-
   dimension.table$original <- as.character(dimension.table$original)
   dimension.table$width <- as.numeric(as.character(dimension.table$width))
   dimension.table$height <- as.numeric(as.character(dimension.table$height))

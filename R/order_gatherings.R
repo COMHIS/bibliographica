@@ -1,14 +1,9 @@
-#' order_gatherings
-#'
+#' @title order_gatherings
 #' @description Sort gatherings levels 
-#'
 #' @param x A vector or factor of gathering data
-#'
 #' @return A factor with ordered gatherings levels
-#'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples order_gatherings(factor(c("2fo", "1to", "8vo")))
 #' @export
 #' @keywords utilities
@@ -20,9 +15,8 @@ order_gatherings <- function (x) {
   x <- as.character(x)
   x[is.na(x)] <- "NA"
 
-  fails <- unlist(setdiff(unique(x), glevels))
+  fails <- unlist(setdiff(unique(x), glevels), use.names = FALSE)
   x[x %in% fails] <- "NA"
-  #if (length(fails)>0) { stop(paste("Add", paste(fails, collapse = "/"), "in gatherings levels in order_gatherings function")) }
 
   # Order the levels
   xo <- factor(x, levels = glevels)

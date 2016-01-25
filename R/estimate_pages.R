@@ -11,29 +11,37 @@ estimate_pages <- function (x) {
   } else if (!is.na(suppressWarnings(as.numeric(x)))) {
     # "3"
     return(as.numeric(x))
-  } else if ((is.roman(x) && length(unlist(strsplit(x, ","))) == 1 && length(grep("-", x)) == 0)) {
+  } else if ((is.roman(x) && length(unlist(strsplit(x, ","), use.names = FALSE)) == 1 && length(grep("-", x)) == 0)) {
     # "III" but not "ccclxxiii-ccclxxiv"
     return(suppressWarnings(as.numeric(as.roman(x))))
-  } else if (!is.na(suppressWarnings(as.numeric(gsub(" [p|s]", "", remove.squarebrackets(x)))))) {
+  } else if (length(grep("^\\[[0-9]+ {0,1}[p|s]{0,1}\\]$", x)>0)) {
     # "[3]" or [3 p]
-    return(as.numeric(remove.squarebrackets(gsub(" [p|s]", "", x))))
-  } else if (length(grep("\\[[0-9]* \\] leaves", x)) > 0) {
+    return(as.numeric(remove.squarebrackets(gsub(" [p|s]", "", x))))    
+  } else if (length(grep("^[0-9]+ sheets$", x)) == 1) {
+    # "2 sheets"
+    if (x == "sheet") {x <- "1 sheet"}
+    if (x == "sheets") {x <- "2 sheets"}    
+    return(2 * as.numeric(as.roman(str_trim(unlist(strsplit(x, "sheet"), use.names = FALSE)[[1]])))) 
+  } else if (length(grep("\\[{0,1}[0-9]* \\]{0,1} leaves", x)) > 0) {
     # "[50 ] leaves" 
-    x <- remove.squarebrackets(x)
-  } else if (x %in% c("1 sheet", "1 kartta")) {
-    # "1 sheet"
-    return(2)
-  } else if (length(grep("^[0-9] sheets$", x)) == 1 | length(grep("^[0-9] karttaa$", x)) == 1) {
-    # "2 sheets" / 2 karttaa
-    return(as.numeric(sheets2pages(x)))
-  }  else if (length(grep("[0-9]+ \\+ [0-9]+", x))>0) {
+    x <- str_trim(gsub("\\[", "", gsub("\\]", "", x)))
+  } else if (length(grep("[0-9]+ \\+ [0-9]+", x))>0) {
     # 9 + 15
-    return(sum(as.numeric(str_trim(unlist(strsplit(x, "\\+"))))))
-  } else if (!is.na(sum(as.numeric(roman2arabic(str_trim(unlist(strsplit(x, "\\+")))))))) {
+    return(sum(as.numeric(str_trim(unlist(strsplit(x, "\\+"), use.names = FALSE)))))
+  } else if (!is.na(sum(as.numeric(roman2arabic(str_trim(unlist(strsplit(x, "\\+"), use.names = FALSE))))))) {
     # IX + 313
-    return(sum(as.numeric(roman2arabic(str_trim(unlist(strsplit(x, "\\+")))))))
+    return(sum(as.numeric(roman2arabic(str_trim(unlist(strsplit(x, "\\+"), use.names = FALSE))))))
+  } else if (length(grep("^p", x)) > 0 && length(grep("-", x)) == 0) {
+    # p66 -> 1
+    if (is.numeric(str_trim(gsub("^p", "", x)))) {
+      return(1)
+    } else if (length(grep("^p", x)) > 0 && length(grep("-", x)) > 0) {
+      # p5-8 -> 5-8
+      x <- str_trim(gsub("^p", "", x))
+    }
+    
   }
-
+  
   # --------------------------------------------
 
   # Then proceeding to the more complex cases...
@@ -42,17 +50,14 @@ estimate_pages <- function (x) {
   # Remove plus now
   x <- gsub("\\+", "", x)
 
-  # Split by comma and handle comma-separated elements as 
-  # interpretation units
-  spl <- str_trim(unlist(strsplit(x, ",")))
+  # Handle comma-separated elements separately
+  spl <- str_trim(unlist(strsplit(x, ","), use.names = FALSE))
 
   # Harmonize pages within each comma
   x <- sapply(spl, function (x) { harmonize_pages_by_comma(x) })
 
   # Remove empty items
   x <- as.vector(na.omit(x))
-
-  # -------------------------------------------------
 
   page.count.multiplier <- 1
   if (length(grep("^Ff", x[[1]]))==1) {
@@ -68,20 +73,14 @@ estimate_pages <- function (x) {
   # NOTE this has to come after harmonize_per_comma function ! 
   pagecount.attributes <- attribute_table(x)
 
-  # -----------------------------------------------------
-
   # If dashes are associated with square brackets, 
   # consider and convert them to arabic  
-  # ie. [3]-5 becomes 3-5
+  # ie. [3]-5 becomes 3-5 
   dash <- pagecount.attributes["dash", ]
   sqb  <- pagecount.attributes["squarebracket", ]
-  romans  <- pagecount.attributes["roman", ]  
   inds <- which(dash & sqb)
-  if (length(inds) > 0) {
-    x[inds] <- remove.squarebrackets(x[inds])
-  }
-  
   pagecount.attributes["arabic", inds] <- TRUE
+  
   # Now page count can't be roman and arabic at the same time.
   # Otherwise pages will calculated double
   pagecount.attributes["roman", pagecount.attributes["arabic", ]] <- FALSE
@@ -89,23 +88,21 @@ estimate_pages <- function (x) {
 
   # -----------------------------------------------------
 
-  # Remove square brackets to simplify later processing
-  x <- remove.squarebrackets(x)
+  # Remove square brackets
+  x <- gsub("\\[", "", x)
+  x <- gsub("\\]", "", x)
+  x <- str_trim(x)
 
   # -----------------------------------------------------
 
   # Convert romans to arabics (entries separated by spaces possibly)
   # also 3-iv -> 3-4 
   inds <- pagecount.attributes["roman", ] | pagecount.attributes["arabic", ]
-  if (any(inds)) {
-    x[inds] <- roman2arabic(x[inds])
-  }
+  x[inds] <- roman2arabic(x[inds])
 
   # Convert plates to arabics
   inds <- pagecount.attributes["plate", ]
-  if (any(inds)) {
-    x[inds] <- as.numeric(str_trim(gsub("pages calculated from plates", "", x[inds])))
-  }
+  x[inds] <- as.numeric(str_trim(gsub("pages calculated from plates", "", x[inds])))
 
   # ----------------------------------------------
 
@@ -116,11 +113,6 @@ estimate_pages <- function (x) {
   inds <- pagecount.attributes["squarebracket",] & !pagecount.attributes["roman",]
   pages$squarebracket <- sumrule(x[inds])
 
-  # Sum sheets 
-  inds <- pagecount.attributes["sheet",]
-  xx <- sheets2pages(x[inds])
-  pages$sheet <- sumrule(xx) 
-
   # Sum plates 
   # FIXME: at the moment these all go to sheets already
   inds <- pagecount.attributes["plate",]
@@ -128,21 +120,26 @@ estimate_pages <- function (x) {
 
   # Count pages according to the type
   for (type in c("arabic", "roman")) {
-    xx <- x[pagecount.attributes[type,]]
-    pages[[type]] <- count_pages(xx)
+    pages[[type]] <- count_pages(x[pagecount.attributes[type,]])
   }
 
-  # Convert to vector
-  pages <- unlist(pages)
+  # Sum sheets 
+  inds <- pagecount.attributes["sheet",]
+  xx <- NA
+  xinds <- x[inds]
+  if (length(grep("sheet", xinds))>0) {
+    # 1 sheet = 2 pages
+    xinds <- sapply(xinds, function (xi) {str_trim(unlist(strsplit(xi, "sheet"), use.names = FALSE)[[1]])})
+    xx <- suppressWarnings(2 * as.numeric(as.roman(xinds)))
+  } 
+  pages$sheet <- sumrule(xx) 
 
   # Take into account multiplier
   # (for instance when page string starts with Ff the document is folios
   # and page count will be multiplied by two - in most cases multiplier is 1)
-  pages <- page.count.multiplier * pages
+  pages <- page.count.multiplier * unlist(pages, use.names = FALSE)
 
   # Total page count
-  x.pagecount <- sum(na.omit(pages))
-
-  x.pagecount
+  sum(na.omit(pages))
 
 }

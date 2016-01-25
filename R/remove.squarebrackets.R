@@ -1,4 +1,5 @@
 remove.squarebrackets <- function (x) {
+
   rm.sqb <- function (x) {		      
     str_trim(gsub("\\[", "", gsub("\\]", "", x)))
   }

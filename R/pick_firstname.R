@@ -13,9 +13,9 @@ pick_firstname <- function (x, format = "last, first") {
   x <- as.character(x)
 
   if (format == "last, first") {
-    first <- sapply(x, function (x) {y <- unlist(strsplit(x, ", ")); if (length(y)>1) y[[2]] else NA}) 
+    first <- sapply(x, function (x) {y <- unlist(strsplit(x, ", "), use.names = FALSE); if (length(y)>1) y[[2]] else NA}) 
   } else if (format == "first last") {
-    first <- sapply(x, function (x) {unlist(strsplit(x, " "))[[1]]})
+    first <- sapply(x, function (x) {unlist(strsplit(x, " "), use.names = FALSE)[[1]]})
   } else {
     stop("Correct the unknown format in pick_firstname function.")
   }

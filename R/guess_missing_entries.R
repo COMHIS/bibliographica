@@ -25,7 +25,7 @@ guess_missing_entries <- function (id, values) {
 
   naind <- is.na(values) & (id %in% uniq)
   if (any(naind)) {
-    values[naind] <- unlist(spl[id[naind]])
+    values[naind] <- unlist(spl[id[naind]], use.names = FALSE)
   }
 
   data.frame(list(id = id, values = as.character(values)), stringsAsFactors = FALSE)

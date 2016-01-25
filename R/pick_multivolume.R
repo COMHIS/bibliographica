@@ -20,7 +20,7 @@ pick_multivolume <- function (x) {
     # v.1 -> 1
     # FIXME: SPLITMEHERE used as a quick fix as v\\. was unrecognized char and
       # causes error
-    vols <- sapply(x, function (xx) {s2 <- gsub("v\\.", "SPLITMEHERE", xx); s2 <- str_trim(unlist(strsplit(s2, "SPLITMEHERE"))); as.numeric(s2[!s2 == ""][[1]])})
+    vols <- sapply(x, function (xx) {s2 <- gsub("v\\.", "SPLITMEHERE", xx); s2 <- str_trim(unlist(strsplit(s2, "SPLITMEHERE"), use.names = FALSE)); as.numeric(s2[!s2 == ""][[1]])})
   }
 
   if (length(vols) == 0) {vols <- NA}

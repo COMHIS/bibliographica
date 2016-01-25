@@ -2,7 +2,7 @@
 % Please edit documentation in R/harmonize_dimension.R
 \name{harmonize_dimension}
 \alias{harmonize_dimension}
-\title{Harmonize dimension information}
+\title{Harmonize dimension}
 \usage{
 harmonize_dimension(x, synonyms = NULL)
 }
@@ -18,7 +18,7 @@ The character vector with dimension information harmonized
 Harmonize dimension information
 }
 \examples{
-harmonize_dimension("fol.")
+\dontrun{harmonize_dimension("fol.")}
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

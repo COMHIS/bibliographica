@@ -1,4 +1,8 @@
 #' @importFrom dplyr count
+#' @importFrom dplyr group_by
+#' @importFrom dplyr n
+#' @importFrom dplyr summarize
+#' @importFrom dplyr %>%
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 coord_flip
 #' @importFrom ggplot2 geom_bar
@@ -16,12 +20,9 @@
 #' @importFrom ggplot2 theme_bw
 #' @importFrom ggplot2 xlab
 #' @importFrom ggplot2 ylab
-#' @importFrom dplyr summarize
-#' @importFrom dplyr group_by
-#' @importFrom dplyr n
-#' @importFrom dplyr %>%
 #' @importFrom sorvi condense_spaces
 #' @importFrom stringr str_trim
+#' @importFrom tm stopwords
 .onAttach <- function(lib, pkg)
 {
 

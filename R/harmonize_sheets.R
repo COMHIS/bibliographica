@@ -5,22 +5,22 @@ harmonize_sheets <- function (s, harm) {
   }
 
   # Harmonize
-  s <- as.character(harmonize_names(s, harm, mode = "recursive")$name)
+  s <- as.character(harmonize_names(s, harm, mode = "recursive", check.synonymes = FALSE))
 
   # Harmonize '* sheets'
-  spl <- unlist(strsplit(s, ","))
+  spl <- unlist(strsplit(s, ","), use.names = FALSE)
 
   sheet.inds <- grep("sheet", spl)
 
   for (i in sheet.inds) {
 
     if (length(grep("^[0-9] sheet", s)) > 0) {
-      n <- as.numeric(str_trim(unlist(strsplit(spl[[i]], "sheet"))[[1]]))
+      n <- as.numeric(str_trim(unlist(strsplit(spl[[i]], "sheet"), use.names = FALSE)[[1]]))
       spl[[i]] <- paste(n, "sheets", sep = " ")
     }
 
     if (length(grep("\\[^[0-9]|[a-z]\\] sheets", s)) > 0) {
-      n <- as.numeric(as.roman(str_trim(gsub("\\[", "", gsub("\\]", "", unlist(strsplit(spl[[i]], "sheet"))[[1]])))))
+      n <- as.numeric(as.roman(str_trim(gsub("\\[", "", gsub("\\]", "", unlist(strsplit(spl[[i]], "sheet"), use.names = FALSE)[[1]])))))
       spl[[i]] <- paste(n, "sheets", sep = " ")
     }
 

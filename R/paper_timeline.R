@@ -23,7 +23,7 @@ paper_timeline <- function (x, field, nmin = 0) {
      summarize(paper.consumption.km2 = sum(paper.consumption.km2, na.rm = TRUE), n = n())
 
   # Remove entries with too few occurrences
-  df2 <- df2 %>% filter(field %in% setdiff(names(which(table(df2$field) >= nmin)), "NA")) 
+  df2 <- df2 %>% filter(any(field == setdiff(names(which(table(df2$field) >= nmin)), "NA")))
 	      
   p <- ggplot(df2, aes(y = paper.consumption.km2, x = publication_decade, shape = field, linetype = field)) +
      geom_point(size = 4) +

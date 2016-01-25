@@ -4,7 +4,7 @@ sheets2pages <- function (x) {
   sheets2pages.single <- function (x) {
     if (x == "sheet") {x <- "1 sheet"}
     if (x == "sheets") {x <- "2 sheets"}
-    str_trim(unlist(strsplit(x, "sheet"))[[1]]) 
+    str_trim(unlist(strsplit(x, "sheet"), use.names = FALSE)[[1]]) 
   }
 
   inds <- grep("sheet", x)

@@ -14,29 +14,28 @@ attribute_table <- function (x) {
 
   # ARABIC POSITIONS
   arabics <- position_arabics(x)
-  pagecount.attributes["arabic", arabics$positions]<- TRUE
+  pagecount.attributes["arabic", ] <- arabics$positions
 
   # ROMAN POSITIONS
-  romans <- position_romans(x)
-  pagecount.attributes["roman", romans$positions]<- TRUE
+  pagecount.attributes["roman", ] <- position_romans(x)
 
   # SQUARE BRACKET POSITIONS
   sqb <- position_squarebrackets(x)
-  pagecount.attributes["squarebracket", sqb$positions] <- TRUE
+  pagecount.attributes["squarebracket", ] <- sqb$positions
 
   # DASH POSITIONS
   pagecount.attributes["dash", grep("-", x)]<- TRUE
 
   # SHEET POSITIONS
   sheets <- position_sheets(x)
-  pagecount.attributes["sheet", sheets$positions]<- TRUE
+  pagecount.attributes["sheet", ] <- sheets$positions
 
   # PLATE POSITIONS  
   # Estimate pages for plates 
   # and indicate their positions along the page count sequence
   # Example: "127,[1]p.,plates" 
   plates <- position_plates(x) #plates$pages; plates$positions; plates$total
-  pagecount.attributes["plate", plates$positions] <- TRUE
+  pagecount.attributes["plate", ] <- plates$positions
 
   pagecount.attributes
 

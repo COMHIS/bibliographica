@@ -5,14 +5,9 @@
 #' @param validate Validate the names based on existing first/last name lists
 #' @param verbose verbose 
 #' @return Polished vector
-#'
 #' @export
-#' @importFrom tm stopwords
-#' @importFrom stringr str_trim
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples s2 <- polish_author("Smith, William")
 #' @keywords utilities
 polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALSE) {
@@ -74,8 +69,8 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   firsts <- c()
   for (i in 1:nrow(nametab)) {
     x <- nametab[i,]
-    first <- unlist(strsplit(nametab[i, "first"], " "))
-    last <- unlist(strsplit(nametab[i, "last"], " "))
+    first <- unlist(strsplit(nametab[i, "first"], " "), use.names = FALSE)
+    last <- unlist(strsplit(nametab[i, "last"], " "), use.names = FALSE)
     if (length(first) == 0) {first <- NA}
     if (length(last) == 0) {last <- NA}    
     if (!is.na(first) && !is.na(last)) {

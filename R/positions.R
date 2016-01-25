@@ -7,7 +7,7 @@ position_arabics <- function (x) {
   positions <- rep(FALSE, length(x))
 
   for (i in 1:length(x)) {
-    spl <- unlist(strsplit(x[[i]], "-"))
+    spl <- unlist(strsplit(x[[i]], "-"), use.names = FALSE)
     if (any(sapply(spl, function (x) {!is.na(suppressWarnings(as.numeric(x)))}))) {
       positions[[i]] <- TRUE
     }
@@ -44,15 +44,16 @@ position_sheets <- function (x) {
   positions <- rep(FALSE, length(x))
   positions[inds] <- TRUE
 
-  x.sheets <- 0
-  if (length(inds) > 0) { 
-    x.sheets <- x[inds]
-    x <- x[setdiff(1:length(x), inds)]
-  }
+  #x.sheets <- 0
+  #if (length(inds) > 0) { 
+  #  x.sheets <- x[inds]
+  #  x <- x[setdiff(1:length(x), inds)]
+  #}
   # Convert sheets to pages
-  x <- suppressWarnings(as.numeric(sheets2pages(x.sheets)))
+  #x <- suppressWarnings(as.numeric(sheets2pages(x.sheets)))
 
-  list(pages = x, positions = positions, total = sum(na.omit(x)))
+  #list(pages = x, positions = positions, total = sum(na.omit(x)))
+  list(positions = positions)  
 
 
 }
@@ -67,17 +68,17 @@ position_plates <- function (x) {
   positions <- rep(FALSE, length(x))
   positions[inds] <- TRUE
 
-  x.plates <- 0
-  if (length(inds) > 0) { 
-    x.plates <- x[inds]
-    x <- x[setdiff(1:length(x), inds)]
-  }
-
-  x <- suppressWarnings(as.numeric(str_trim(gsub("pages calculated from plates", "", x.plates))))
+  #x.plates <- 0
+  #if (length(inds) > 0) { 
+  #  x.plates <- x[inds]
+  #  x <- x[setdiff(1:length(x), inds)]
+  #}
+  #x <- suppressWarnings(as.numeric(str_trim(gsub("pages calculated from plates", "", x.plates))))
 
   # pages: pages calculated from plates separately for each position
   # positions: Positions for plate pages on the page count sequence
   # total: total pages calculated from plates
-  list(pages = x, positions = positions, total = sum(na.omit(x)))
+  #list(pages = x, positions = positions, total = sum(na.omit(x)))
+  list(positions = positions)  
 
 }

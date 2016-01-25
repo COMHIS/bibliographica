@@ -7,7 +7,7 @@ is.increasing <- function (x) {
   #x <- x[!pagecount.attributes["roman.start",]]
 
   # Remove dashes
-  x <- na.omit(suppressWarnings(as.numeric(unlist(strsplit(x, "-")))))
+  x <- na.omit(suppressWarnings(as.numeric(unlist(strsplit(x, "-"), use.names = FALSE))))
 
   # Test if the numeric series is monotonically increasing
   incr <- FALSE

@@ -1,13 +1,10 @@
 #' @title fill_dimensions
 #' @description Estimate missing entries in dimension vector where possible
-#'
 #' @param x dimension string 
 #' @param dimension.table Given mappings between document dimensions
 #' @return Augmented dimension vector
-#'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @export
 #' @seealso augment_dimension_table
 #' @examples # dimension.table <- dimension_table(); 
@@ -23,10 +20,10 @@ fill_dimensions <- function (x, dimension.table) {
     g <- as.character(x[["gatherings"]])
     o <- x[["original"]]
 
-    if (!"obl" %in% names(x)) {x[["obl"]] <- NA}
+    if (!any("obl" == names(x))) {x[["obl"]] <- NA}
     obl <- x[["obl"]] 
 
-    if (!g %in% colnames(dimension.table) && !is.na(g)) {
+    if (!any(g == colnames(dimension.table) && !is.na(g))) {
       warning(paste("gatherings ", g, " not available in dimension.table"))
     }
 

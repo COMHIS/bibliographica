@@ -46,7 +46,7 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE) {
     synonyms <- as.data.frame(read.csv(f, sep = ";", stringsAsFactors = FALSE, fileEncoding = "UTF-8", header = TRUE))
   }
   
-  x <- as.character(harmonize_names(x, synonyms, mode = "exact.match")$name)
+  x <- as.character(harmonize_names(x, synonyms, mode = "exact.match", check.synonymes = F))
 
   # Project unique cases back to the original list
   x2 <- as.character(x[match(xorig, xuniq)])

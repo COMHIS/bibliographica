@@ -36,7 +36,7 @@ get_gender <- function (x) {
   # name lists 
   f <- firstnames()
   gen <- f$gender
-  gen <- as.character(suppressWarnings(harmonize_names(gen, synonymes = sn)$name))
+  gen <- as.character(suppressWarnings(harmonize_names(gen, synonymes = sn, check.synonymes = FALSE)))
   names(gen) <- tolower(f$name)
   g2 <- gen
 

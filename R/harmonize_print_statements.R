@@ -24,7 +24,7 @@ harmonize_print_statements <- function (x, lowercase = FALSE) {
     x <- tolower(x)
 
     # Harmonize the terms
-    x <- as.character(harmonize_names(x, terms, mode = "recursive", check.synonymes = FALSE)$name)
+    x <- as.character(harmonize_names(x, terms, mode = "recursive", check.synonymes = FALSE))
     x <- condense_spaces(x)
 
   }

@@ -6,7 +6,7 @@ is.roman <- function (x) {
 
     if (x == "" || is.na(x)) {return(FALSE)}
 
-    xs <- unlist(strsplit(x, "-"))
+    xs <- unlist(strsplit(x, "-"), use.names = FALSE)
     isr <- c()
 
     for (i in 1:length(xs)) {  
@@ -28,26 +28,22 @@ is.roman <- function (x) {
 
 
 
+
 roman2arabic <- function (x) {
 
-  for (i in 1:length(x)) {
-
-    xi <- x[[i]]
-
+  helpf <- function(xi) {
     if (length(grep("-", xi)) > 0) {
-      x2 <- str_trim(unlist(strsplit(xi, "-")))
+      x2 <- str_trim(unlist(strsplit(xi, "-"), use.names = FALSE))
       n <- suppressWarnings(as.numeric(as.roman(x2)))
       n[is.na(n)] <- x2[is.na(n)] # vii-160
       xr <- paste(n, collapse = "-")
     } else {
       xr <- suppressWarnings(as.numeric(as.roman(xi)))
     }
-
-    x[[i]] <- xr
-
+    xr
   }
-
-  x 
+  
+  sapply(x, function (xi) {helpf(xi)})
 
 }
 

@@ -2,7 +2,7 @@
 pages2arabics <- function (s) {
 
   # Convert romans to arabics (entries separated by spaces possibly)
-  spl <- str_trim(unlist(strsplit(s, " ")))
+  spl <- str_trim(unlist(strsplit(s, " "), use.names = FALSE))
 
   ns <- c()
   romans <- rep(FALSE, length(spl))
@@ -11,7 +11,7 @@ pages2arabics <- function (s) {
     x <- spl[[i]]
 
     if (length(grep("-", x)) > 0) {
-      x2 <- str_trim(unlist(strsplit(x, "-")))
+      x2 <- str_trim(unlist(strsplit(x, "-"), use.names = FALSE))
       n <- suppressWarnings(as.numeric(as.roman(x2)))
       n[is.na(n)] <- x2[is.na(n)] # vii-160
       if (any(is.roman(x2))) {
@@ -51,7 +51,7 @@ all2arabics <- function (x) {
   # Convert all non-plate pages into arabics (arabics, romans, square
   # brackets, dashed) in the order of occurrence
   # Remove dashes
-  xseries <- str_trim(unlist(strsplit(x, "-")))
+  xseries <- str_trim(unlist(strsplit(x, "-"), use.names = FALSE))
 
   # Remove square brackets
   xseries <- str_trim(gsub("\\]", " ", gsub("\\[", " ", xseries)))  

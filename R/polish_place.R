@@ -50,7 +50,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\.", ":$"), niter = 1)
   x <- gsub("^and ", "", x)
   x <- gsub("^from ", "", x)            
-  # x <- gsub(" i e ", " ie ", x)
   x <- gsub("['|-]", "", x)
   x <- gsub("-", "", x)    
   x <- gsub("Parliament ", "", x)
@@ -66,7 +65,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- harmonize_ie(x)
 
   s <- synonymes$synonyme  
-  x <- unname(sapply(x, function (x) {polish_place_help(unlist(x), s, stopwords = stopwords, verbose = verbose)}))
+  x <- unname(sapply(x, function (x) {polish_place_help(unlist(x, use.names = FALSE), s, stopwords = stopwords, verbose = verbose)}))
 
   # Harmonize
   if (harmonize) {
@@ -74,14 +73,15 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
     x <- as.character(harmonize_names(x, synonymes,
        		remove.unknown = remove.unknown,
-		include.lowercase = TRUE,
-		mode = "exact.match")$name)
+		include.lowercase = TRUE,	
+		check.synonymes = F,
+		mode = "exact.match"))
 
   }
   
   # Mark NAs
   if (verbose) {message("Replace special cases")}
-  x[x %in% c("", "na")] <- NA
+  x[x == c("", "na")] <- NA
 
   # Convert back to original indices and return
   x[match.inds]
@@ -108,13 +108,13 @@ polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
   }
 
   # london re/now edinburgh -> london
-  spl <- unlist(strsplit(x, " [re|now] "))
+  spl <- unlist(strsplit(x, " [re|now] "), use.names = FALSE)
   if (length(spl)>0) {x <- spl[[1]]}
 
-  if (!x %in% s) {
+  if (!any(x == s)) {
 
       # then take the first term that is
-      spl <- unlist(strsplit(x, " "))
+      spl <- unlist(strsplit(x, " "), use.names = FALSE)
       inds <- which(!is.na(match(spl, s)))
       if (length(inds) > 0) {
         x <- spl[[min(inds)]]

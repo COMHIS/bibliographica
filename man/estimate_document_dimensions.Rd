@@ -2,7 +2,7 @@
 % Please edit documentation in R/estimate_document_dimension.R
 \name{estimate_document_dimensions}
 \alias{estimate_document_dimensions}
-\title{Estimate missing dimension information}
+\title{Estimate missing dimensions}
 \usage{
 estimate_document_dimensions(gatherings = NA, height = NA, width = NA,
   obl = NULL, dimension.table = NULL, sheet.dimension.table = NULL)

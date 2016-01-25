@@ -45,14 +45,13 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   # In Finnish texts s. is used instead of p.		
   f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
   page.synonyms <- read.csv(f, sep = ";")
-  s <- harmonize_names(s, page.synonyms, mode="match")$name
+  s <- harmonize_names(s, page.synonyms, mode="match", include.lowercase = FALSE, check.synonymes = F)
   
   s <- harmonize_ie(s)
 
   # Read the mapping table
   f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
   page.harmonize <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
-  #s <- harmonize_names(s, page.harmonize, mode = "recursive")$name
   
   # Pp. -> p etc.
   f <- system.file("extdata/harmonize_page_info.csv", package = "bibliographica")
@@ -67,11 +66,10 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   f <- system.file("extdata/harmonize_romans.csv", package = "bibliographica")
   romans.harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
   # Romans
-  s <- harmonize_names(s, romans.harm, mode = "recursive")$name
+  s <- harmonize_names(s, romans.harm, mode = "recursive", include.lowercase = FALSE, check.synonymes = F)
 
   # Remove some rare misleading special cases manually
-  s <- gsub("v.1-3, 5 ;", "", s)
-  s <- gsub("v.1,4-7 ;", "", s)
+  s <- gsub("a-m", " ", s)
 
   # ie harmonization
   # each comma place separately
@@ -80,12 +78,13 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 
   # Polish unique pages separately for each volume
   # Return NA if conversion fails
+
   pages <- sapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") { return(NA) } else { return(a) }})
   rownames(pages) <- NULL
 
   # Make data frame
   ret <- data.frame(unname(t(pages)))
-  for (k in 1:ncol(ret)) {ret[, k] <- unlist(ret[, k])}
+  for (k in 1:ncol(ret)) {ret[, k] <- unlist(ret[, k], use.names = FALSE)}
   names(ret) <- c("pagecount", "volnumber", "volcount")
 
   # Assume single volume when number not given
@@ -119,6 +118,11 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
   if (verbose) {message(s)}
   if (is.na(s)) { return(NA) }
 
+  # Shortcut for easy cases: "24p."
+  if (length(grep("[0-9]+ {0,1}p\\.{0,1}$",s))>0) {
+    c(as.numeric(str_trim(gsub(" {0,1}p\\.{0,1}$", "", s))), NA, NA)  
+  }
+
   # Pick volume number
   voln <- pick_volume(s) 
 
@@ -132,7 +136,7 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
   # Vectorization would be faster but we prefer simplicity and modularity here
 
   # Pagecount
-  spl <- unlist(strsplit(s, ";"))
+  spl <- unlist(strsplit(s, ";"), use.names = FALSE)
   x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)})))
   if (class(x) == "try-error") {
     x <- NA

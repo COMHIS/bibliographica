@@ -19,7 +19,7 @@ pick_volume <- function (s) {
     voln <- NA
   } else if (length(grep("^v\\.[0-9]+", s))>0) {
     voln <- gsub("^v\\.", "", s)
-    spl <- as.numeric(unlist(strsplit(voln, "")))
+    spl <- as.numeric(unlist(strsplit(voln, ""), use.names = FALSE))
     voln <- substr(voln, 1, min(which(is.na(spl)))-1)
   }
   as.numeric(voln)

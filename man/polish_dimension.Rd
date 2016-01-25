@@ -9,7 +9,7 @@ polish_dimension(x, synonyms)
 \arguments{
 \item{x}{A dimension note (a single string of one document)}
 
-\item{synonyms}{Synonyme table}
+\item{synonyms}{synonyms}
 }
 \value{
 Polished dimension information with the original string 

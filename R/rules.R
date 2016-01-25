@@ -1,11 +1,9 @@
 
 maxrule <- function (x) {
-  x <- unlist(strsplit(x, "-"))
-  max(na.omit(suppressWarnings(as.numeric(x))))
+  max(na.omit(suppressWarnings(as.numeric(unlist(strsplit(x, "-"), use.names = FALSE)))))
 }
 
 intervalrule <- function (x) {
-  x <- unlist(strsplit(x, "-"))
-  xx <- na.omit(suppressWarnings(as.numeric(x)))
+  xx <- na.omit(suppressWarnings(as.numeric(unlist(strsplit(x, "-"), use.names = FALSE))))
   max(xx) - min(xx) + 1
 }

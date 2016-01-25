@@ -4,7 +4,7 @@
 \alias{polish_dimensions}
 \title{polish_dimensions}
 \usage{
-polish_dimensions(x, fill = FALSE, dimtab = NULL, verbose = FALSE,
+polish_dimensions(x, fill = TRUE, dimtab = NULL, verbose = FALSE,
   synonyms = NULL)
 }
 \arguments{

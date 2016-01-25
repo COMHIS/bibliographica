@@ -11,7 +11,7 @@
 #' @references See citation("bibliographica")
 #' @examples # polish_dimensions(c("2fo", "14cm"), fill = TRUE)
 #' @keywords utilities
-polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, synonyms = NULL) {
+polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, synonyms = NULL) {
 
   s <- as.character(x)
 
@@ -28,12 +28,15 @@ polish_dimensions <- function (x, fill = FALSE, dimtab = NULL, verbose = FALSE, 
     message(paste("Estimating dimensions:", length(suniq), "unique cases"))    
   }
 
-  tab <- t(sapply(suniq, function (x) {
+  s <- harmonize_dimension(s, synonyms)
+
+  tab <- t(sapply(s, function (x) {
     polish_dimension(x, synonyms)
     }))
   rownames(tab) <- NULL
   tab <- data.frame(tab)
   tab <- tab[match.inds,]
+
 
   if (verbose) {
     message("Convert to desired format")    

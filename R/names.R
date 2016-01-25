@@ -32,7 +32,7 @@ validate_names <- function (namelist, database) {
   # Split to components and check each component is among accepted names
   uniq.names <- unique(namelist)
   uniq.names.spl <- strsplit(uniq.names, " ")
-  uniq.names.spl2 <- lapply(uniq.names.spl, function (x) {unlist(strsplit(x, "-"))})
+  uniq.names.spl2 <- lapply(uniq.names.spl, function (x) {unlist(strsplit(x, "-"), use.names = FALSE)})
   uniq.names.spl3 <- lapply(uniq.names.spl2, function (x) {str_trim(x)})
 
   # Accept names where all components (Jean-Luc -> Jean Luc for instance) are 
@@ -41,12 +41,9 @@ validate_names <- function (namelist, database) {
 
   validated <- namelist %in% unique(namelist)[ok]
 
-  # Final accepted names
-  # accepted <- unique(namelist[validated]) 
-
   # List name components that cannot be validated from public name databases
   # and not included in the custom stopword list
-  sdif <- setdiff(unlist(uniq.names.spl3), c(not_names, accepted_names, "", "NA", NA))
+  sdif <- setdiff(unlist(uniq.names.spl3, use.names = FALSE), c(not_names, accepted_names, "", "NA", NA))
   counts <- rev(sort(table(sdif)))
   invalid <- data.frame(list(Name = names(counts), Count = counts))
 
