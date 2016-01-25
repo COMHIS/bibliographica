@@ -1,8 +1,7 @@
-#' @title remove_terms
-#' @description Remove the given terms from the strings
+#' @title remove terms completely
+#' @description Fully Remove the given terms from the strings
 #' @param x A vector
 #' @param terms Terms to be removed
-#' @param where Locations to be removed ("all" / "begin" / "middle" / "end")
 #' @param include.lowercase Include also lowercase versions of the terms
 #' @param polish polish the entries after removing the terms (remove trailing spaces and periods)
 #' @param recursive Apply the changes recursively along the list ?
@@ -12,9 +11,9 @@
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @examples \dontrun{x2 <- remove_terms(x, terms, where = "all")}
+#' @examples \dontrun{x2 <- remove_terms_all(x, terms)}
 #' @keywords utilities
-remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, polish = TRUE, recursive = FALSE) {
+remove_terms_all <- function (x, terms, include.lowercase = FALSE, polish = TRUE, recursive = FALSE) {
 
   # If removal is recursive, then go through the list as is in the given order
   # otherwise, optionally include lowercase,
@@ -34,39 +33,11 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
     
   }
 
-  x <- gsub("[ |\\.|\\,]+$", "", x)
-  
   for (term in terms) {
 
-    x[x == term] <- " "
+    #x[x == term] <- " "
+    x <- gsub(term, " ", x)
 
-    # Here no spaces around the term needed, elsewhere yes
-    if (where == "all") {
-
-        # begin
-        rms <- paste("^", term, "[ |\\.|\\,]", sep = "")
-        x <- gsub(rms, " ", x)
-
-	# middle
-        x <- gsub(paste(" ", term, "[ |\\.|\\,]", sep = ""), " ", x)    
-
-	# all
-        rms <- paste(" ", term, "$", sep = "")
-        x <- gsub(rms, " ", x)
-
-    } else if (where == "full") {
-    
-      x <- gsub(term, " ", x)
-      
-    } else if (where == "begin") {
-        rms <- paste("^", term, "[ |\\.|\\,]", sep = "")
-        x <- gsub(rms, " ", x)
-    } else if (where == "middle") {
-        x <- gsub(paste(" ", term, "[ |\\.|\\,]", sep = ""), " ", x)    
-    } else if (where == "end") {
-        rms <- paste(" ", term, "$", sep = "")
-        x <- gsub(rms, " ", x)
-    }
   }
 
   if (polish) {
@@ -77,6 +48,3 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
   x 
 
 }
-
-
-

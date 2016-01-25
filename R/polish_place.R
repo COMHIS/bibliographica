@@ -63,7 +63,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- remove_print_statements(x, remove.letters = FALSE)
   x <- remove_stopwords(x, terms = stopwords, remove.letters = FALSE)
   x <- harmonize_ie(x)
-
   s <- synonymes$synonyme  
   x <- unname(sapply(x, function (x) {polish_place_help(unlist(x, use.names = FALSE), s, stopwords = stopwords, verbose = verbose)}))
 
@@ -111,7 +110,7 @@ polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
   spl <- unlist(strsplit(x, " [re|now] "), use.names = FALSE)
   if (length(spl)>0) {x <- spl[[1]]}
 
-  if (!any(x == s)) {
+  if (!is.na(x) && !is.na(s) && !any(x == s)) {
 
       # then take the first term that is
       spl <- unlist(strsplit(x, " "), use.names = FALSE)

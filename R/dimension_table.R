@@ -19,15 +19,17 @@ dimension_table <- function (...) {
   
   # Add 1to
   ss <- sheet_sizes()
+  
   dd <- cbind(dd, "1to" = rep("x", nrow(dd)))
   row1 <- rep("x", ncol(dd))
   dd <- rbind(row1, dd)  
   dd[, "height"] <- as.character(dd[, "height"])
   dd[,"NA"] <- as.character(dd[,"NA"])
   dd[,"1to"] <- as.character(dd[,"1to"])
-  dd[1, "height"] <- ss[ss$gatherings == "1to", "height"]
-  dd[1, "NA"] <- ss[ss$gatherings == "1to", "width"]
-  dd[1, "1to"] <- ss[ss$gatherings == "1to", "width"]
+  inds <- ss$gatherings == "1to"
+  dd[1, "height"] <- ss[inds, "height"]
+  dd[1, "NA"] <- ss[inds, "width"]
+  dd[1, "1to"] <- ss[inds, "width"]
 
   # Reorder columns
   rownames(dd) <- NULL

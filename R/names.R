@@ -31,21 +31,22 @@ validate_names <- function (namelist, database) {
   # Many names have multiple parts
   # Split to components and check each component is among accepted names
   uniq.names <- unique(namelist)
-  uniq.names.spl <- strsplit(uniq.names, " ")
-  uniq.names.spl2 <- lapply(uniq.names.spl, function (x) {unlist(strsplit(x, "-"), use.names = FALSE)})
-  uniq.names.spl3 <- lapply(uniq.names.spl2, function (x) {str_trim(x)})
+  #uniq.names.spl <- 
+  uniq.names.spl3 <- lapply(strsplit(uniq.names, " "), function (x) {str_trim(unlist(strsplit(x, "-"), use.names = FALSE))})
+  #uniq.names.spl3 <- lapply(uniq.names.spl2, function (x) {str_trim(x)})
 
   # Accept names where all components (Jean-Luc -> Jean Luc for instance) are 
   # among accepted names
   ok <- sapply(uniq.names.spl3, function (x) {all(x %in% accepted_names)})
-
   validated <- namelist %in% unique(namelist)[ok]
 
   # List name components that cannot be validated from public name databases
   # and not included in the custom stopword list
   sdif <- setdiff(unlist(uniq.names.spl3, use.names = FALSE), c(not_names, accepted_names, "", "NA", NA))
+
+  # FIXME why not just return counts as such? Would be faster
   counts <- rev(sort(table(sdif)))
-  invalid <- data.frame(list(Name = names(counts), Count = counts))
+  invalid <- quickdf(list(Name = names(counts), Count = counts))
 
   list(validated = validated, invalid = invalid)
 

@@ -25,13 +25,13 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
     
     # Individual characters not removed from the end
     terms.single <- terms[nchar(terms) == 1]    
-    x <- remove_terms(x, terms.single, where = "begin", polish = TRUE, include.lowercase = TRUE)
+    x <- remove_terms(x, terms.single, where = "begin", polish = FALSE, include.lowercase = TRUE)
     x <- remove_terms(x, terms.single, where = "middle", polish = TRUE, include.lowercase = TRUE)
 
-    if (remove.letters) {
-      x <- remove_letters(x)
-    }
+  }
 
+  if (remove.letters) {
+    x <- remove_letters(x)
   }
 
   # remove sine loco
@@ -41,14 +41,13 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
   # FIXME: this is estc-specific, move there
   # "122 s"; "2 p"
   x[grep("^[0-9]* [s|p]$", x)] <- NA
-  x <- gsub("2\\. p\\.;","",x)
+  x <- gsub("[0-9]\\. p\\.;","",x)
   x <- gsub("^(.*?);.*$","\\1",x) # nb. non-greedy match
   x[x==""] <- NA
 
   # Repeat n.iter times
   if (n.iter > 1) {
     for (cnt in 1:n.iter) {
-      # message(paste("remove_print_statements", cnt))
       x <- remove_print_statements(x, remove.letters = remove.letters, n.iter = 0)
     }
   }

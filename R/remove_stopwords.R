@@ -25,8 +25,6 @@ remove_stopwords <- function (x, terms = NULL, remove.letters = TRUE) {
     x <- remove_letters(x)
   }
 
-  x <- remove_trailing_periods(x)
-
   x
 
 }

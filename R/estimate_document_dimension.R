@@ -31,14 +31,6 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
     return(list(gatherings = gatherings, height = height, width = width))
   }
 
-  # Read dimension height/width/gatherings conversions
-  if (is.null(dimension.table)) {
-    dimension.table <- dimension_table()
-  }
-  if (is.null(sheet.dimension.table)) {
-    sheet_info <- sheet_area(verbose = FALSE)
-  }
-
   # Height and gatherings given
   if (is.na(width) && !is.na(height) && !is.na(gatherings)) {
 
@@ -56,9 +48,9 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
 
        if (is.na(height) || is.na(width)) {
          warning("Height and width could not be estimated from the dimension table. Using the default gatherings size instead.")
-    	 ind <- which(as.character(sheet_info$gatherings) == gatherings)
-    	 width <- sheet_info[ind, "width"]
-    	 height <- sheet_info[ind, "height"]
+    	 ind <- which(as.character(sheet.dimension.table$gatherings) == gatherings)
+    	 width <- sheet.dimension.table[ind, "width"]
+    	 height <- sheet.dimension.table[ind, "height"]
        }
 
     } else {
@@ -103,10 +95,10 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
   } else if (is.na(width) && is.na(height) && !is.na(gatherings)) {
 
     # Only gatherings given
-    ind <- which(as.character(sheet_info$gatherings) == gatherings)
+    ind <- which(as.character(sheet.dimension.table$gatherings) == gatherings)
     if (length(ind) == 0) { warning(paste("gatherings", gatherings, "not available in bibliographica::sheet_area conversion table")) }
-    width <- sheet_info[ind, "width"]
-    height <- sheet_info[ind, "height"]
+    width <- sheet.dimension.table[ind, "width"]
+    height <- sheet.dimension.table[ind, "height"]
 
   } else if (!is.na(width) && !is.na(height) && is.na(gatherings)) {
 

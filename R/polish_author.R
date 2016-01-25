@@ -89,6 +89,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   # OK, now we have polished first and last names
 
   # FIXME this could go to enrich / qualitycheck
+  
   ### VALIDATING THE NAMES
   valid <- list()
   invalid <- list()
@@ -125,7 +126,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
 
   if (verbose) { message("Collapse accepted names to the form: Last, First") }
   full.name <- apply(nametab, 1, function (x) { paste(x, collapse = ", ") })
-  full.name <- gsub("NA, NA", NA, full.name) # Handle NAs
+  full.name[full.name == "NA, NA"] <- NA
   nametab$full <- full.name
 
   if (verbose) { message("Map to the original indicesa") }

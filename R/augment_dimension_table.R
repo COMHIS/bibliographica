@@ -10,23 +10,16 @@
 #' @importFrom dplyr mutate
 #' @examples # augment_dimension_table(dimension.table)
 #' @keywords utilities
-augment_dimension_table <- function (dimension.table, dimtab = NULL, verbose = FALSE) {
+augment_dimension_table <- function (dimension.table, dimtab, verbose = FALSE, sheet.dimension.table) {
 
   dimtab.orig <- dimension.table
   width <- height <- gatherings <- NULL
-
-  if (is.null(dimtab)) {
-    if (verbose) {
-      message("dimtab dimension mapping table not provided, using the default table dimension_table()")
-    }
-    dimtab <- dimension_table()
-  }
 
   tmp <- NULL
   for (i in 1:nrow(dimension.table)) {
     x <- dimension.table[i, ]
 
-    tmp2 <- fill_dimensions(x, dimtab)
+    tmp2 <- fill_dimensions(x, dimtab, sheet.dimension.table)
 
     tmp <- rbind(tmp, tmp2)
   }

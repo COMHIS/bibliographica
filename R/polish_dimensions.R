@@ -5,15 +5,26 @@
 #' @param dimtab Dimension mapping table
 #' @param verbose verbose
 #' @param synonyms Synonyme table
+#' @param sheet.dimension.table Sheet dimension info
 #' @return Dimension table
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples # polish_dimensions(c("2fo", "14cm"), fill = TRUE)
 #' @keywords utilities
-polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, synonyms = NULL) {
+polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, synonyms = NULL, sheet.dimension.table = NULL) {
 
   s <- as.character(x)
+
+  if (is.null(dimtab)) {
+    if (verbose) {
+      message("dimtab dimension mapping table not provided, using the default table dimension_table()")
+    }
+    dimtab <- dimension_table()
+  }
+  if (is.null(sheet.dimension.table)) {
+    sheet.dimension.table <- sheet_area(verbose = FALSE)
+  }
 
   if (is.null(synonyms)) {
     f <- system.file("extdata/harmonize_dimensions.csv", package = "bibliographica")
@@ -57,7 +68,7 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
       message("Estimating missing entries")
     }
 
-    tab.estimated <- augment_dimension_table(tab.original, dimtab = dimtab, verbose = verbose)
+    tab.estimated <- augment_dimension_table(tab.original, dimtab = dimtab, verbose = verbose, sheet.dimension.table)
 
     tab.final <- cbind(tab.final, tab.estimated)
   }

@@ -115,7 +115,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 #' @keywords internal
 polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) {
 
-  if (verbose) {message(s)}
+  if (verbose) {message(paste(s, "\n"))}
   if (is.na(s)) { return(NA) }
 
   # Shortcut for easy cases: "24p."
