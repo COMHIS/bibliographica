@@ -88,37 +88,43 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
 
   # OK, now we have polished first and last names
 
+  # To speed up, discard names where both first and last are not accepted
+  valid <- list()
+  invalid <- list()
+  for (db in c("first", "last")) {
+
+    namelist <- nametab[[db]]
+    v <- list()
+    v$validated <- !is.na(namelist)
+    v$invalid <- suniq[is.na(namelist)]
+    valid[[db]] <- v$validated
+    invalid[[db]] <- v$invalid
+
+  }
+  nametab[(!valid[["first"]] | !valid[["last"]]), ] <- NA
+  nametab$last[is.na(nametab$first)] <- NA
+  nametab$first[is.na(nametab$last)] <- NA
+
+
   # FIXME this could go to enrich / qualitycheck
-  
   ### VALIDATING THE NAMES
   valid <- list()
   invalid <- list()
 
   if (verbose) { message("Validate names with known name lists") }
-  for (db in c("first", "last")) {
-
-    if (verbose) { message(db) }
-
-    namelist <- nametab[[db]]
-
-    if (validate) {  
+  if (validate) {  
+    for (db in c("first", "last")) {
+      if (verbose) { message(db) }
+      namelist <- nametab[[db]]
       v <- validate_names(namelist, db)
-    } else {
-      v <- list()
-      v$validated <- !is.na(namelist)
-      v$invalid <- suniq[is.na(namelist)]
+      valid[[db]] <- v$validated
+      invalid[[db]] <- v$invalid
     }
-
-    valid[[db]] <- v$validated
-    invalid[[db]] <- v$invalid
-
+    if (verbose) { message("Remove names that do not have both valid first and last names") }
+    nametab[(!valid[["first"]] | !valid[["last"]]), ] <- NA
+    nametab$last[is.na(nametab$first)] <- NA
+    nametab$first[is.na(nametab$last)] <- NA
   }
-
-  if (verbose) { message("Remove names that do not have both valid first and last names") }
-  
-  nametab[(!valid[["first"]] | !valid[["last"]]), ] <- NA
-  nametab$last[is.na(nametab$first)] <- NA
-  nametab$first[is.na(nametab$last)] <- NA
 
   if (verbose) { message("Capitalize names")}
   nametab$last <- capitalize(nametab$last, "all.words")
@@ -129,7 +135,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   full.name[full.name == "NA, NA"] <- NA
   nametab$full <- full.name
 
-  if (verbose) { message("Map to the original indicesa") }
+  if (verbose) { message("Map to the original indices") }
   nametab <- nametab[match(sorig, suniq), ]
   nametab$original <- sorig
 

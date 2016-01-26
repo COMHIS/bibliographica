@@ -53,7 +53,6 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- harmonize_ie(x) 
   x <- remove_print_statements(x)
   x <- try(x <- handle_ie(x, harmonize = TRUE))
-  # if (class(x) == "try-error") { x <- NA }
   x <- condense_spaces(gsub("\\.", " ", x))
   x <- remove_time_info(x, verbose = F, months)
 
@@ -61,16 +60,9 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- gsub("price [0-9] d", "", x)
   x <- gsub("-[0-9]{2,3}\\?{1,2}$", "", x)
   x <- gsub("\\?", "", x)
+  x <- gsub("^& ", "", x)  
   x <- gsub(" -", "-", gsub("- ", "-", x))
-
-  # Christian
-  x <- str_trim(as.character(x))
-  x <- gsub("anno dom.", "A.D", x)
-  x <- gsub("an. dom.", "A.D", x)  
-  x <- gsub("anno domini", "A.D", x)    
-  x <- gsub("a.d.", "A.D", x)
-  x <- gsub("b.c.", "B.C", x)
-  x <- gsub("before christian era", "B.C", x)  
+  x <- harmonize_christian(x)
 
   inds <- grep(" or ", x)
   if (length(inds)>0) {
@@ -78,10 +70,10 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   }
   x[inds] <- str_trim(x[inds])
 
-  tab <- suppressWarnings(t(sapply(x, function (x) {polish_year(x, start_synonyms = start_synonyms, end_synonyms = end_synonyms, months)})))
+  res <- suppressWarnings(sapply(x, function (x) {a <- try(polish_year(x, start_synonyms = start_synonyms, end_synonyms = end_synonyms, months, verbose)); if (class(a) == "try-error") {return(c(NA, NA))} else {return(a)}}))
 
-  start_year <- unname(tab[, "from"])
-  end_year   <- unname(tab[, "till"])  
+  start_year <- res[1,]
+  end_year   <- res[2,]
 
   # Match the unique cases to the original indices
   xorig <- xorig  # this is already in the original index domain
@@ -101,19 +93,21 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 
 
 
-#' @title polish_year
-#' @description Pick and polish the year interval (start and end
-#  years) from a time field '
+#' @title Polish year
+#' @description Pick and polish the year interval (start and end years) from a time field '
 #' @param x year string
 #' @param start_synonyms Synonyme table for start year
 #' @param end_synonyms Synonyme table for end year
 #' @param months months
+#' @param verbose verbose
 #' @return vector with the fields 'from' and 'till'
 #' @author Leo Lahti and Niko Ilomaki \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df <- polish_year(c("1746"))}
 #' @keywords utilities
-polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months) {
+polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, verbose = FALSE) {
+
+  if (verbose) {message(x)}
 
   # Convert romans
   num <- as.numeric(as.roman(gsub("\\,", "", gsub(" ", "", x))))
@@ -138,10 +132,9 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months) {
     x <- substr(x, 1, 4)
   }
 
-  # Remove some special chars
+  # Now Remove some special chars
   x <- gsub("\\(\\)", "", x)  
   x <- gsub("-+", "-", x)
-  x <- gsub("b\\.c\\.", "before christian era", x)
   x <- gsub("^[<|>]*", "", x)
   x <- gsub("[<*|>]", "", x)  
   x <- gsub(" - ", "-", x)
@@ -150,8 +143,9 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months) {
   x <- gsub("^\\, ", "", x)
   x <- gsub("[\\{|\\}]", " ", x)
   x <- gsub("\\\\>", " ", x)
-  x <- gsub("\\[=", "[", x)  
-  
+  x <- gsub("\\[=", "[", x)
+  x <- gsub("\\[\\]", "-", x)    
+
   if (length(grep("[0-9]{2}\\[[0-9]{2}\\]", x))>0) {
     # 19[99]
     x <- gsub("\\[", "", x)
@@ -169,11 +163,9 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months) {
     x <- substr(x, 6, 9)
   }
 
-
   x <- gsub("\\[[0-9]{2,3}-*\\]", "", x)  
   x <- condense_spaces(x)
   x <- gsub("-\\]-", "-", x)
-  #x <- gsub("- ", "-", x)
   x <- gsub(" -", "-", gsub("- ", "-", x))
   x <- gsub("\\[[0-9]{2}-\\]", "NA", x)
   x <- gsub("\\[[0-9]{2,3}-\\?", "NA", x)
@@ -191,9 +183,6 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months) {
   x <- gsub("^-", "NA-", gsub("-$", "-NA", x))
   x <- gsub("^[\\:|\\,|\\=]", "", x)
 
-  # Harmonize missing years
-  #if (is.na(x) || x == "") {x <- "NA-NA"}
-
   # Remove all letters
   x <- gsub("[a-z]+-[a-z]+", " ", x)
   x <- gsub("[a-z|A-Z]", "", x)
@@ -203,22 +192,18 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months) {
   if (length(x) > 1) {
     x <- na.omit(x)
   }
+  x <- condense_spaces(x)
 
   # NA-1524-1700
   if (length(grep("NA-[0-9]{4}-[0-9]{4}$", x))>0) {
     x <- substr(x, 4, 13)
-  }
-
-  # 1736-49
-  if (length(grep("NA-[0-9]{4}-NA$", x))>0) {
+  } else if (length(grep("NA-[0-9]{4}-NA$", x))>0) {
+    # 1736-49
     x <- substr(x, 4, 8)
   } else if (length(grep("[0-9]{4}-[0-9]{1,2}$", x))>0) {
     spl <- unlist(strsplit(x, "-"), use.names = FALSE)
     x <- paste(spl[[1]], paste(substr(spl[[1]], 1, 4-nchar(spl[[2]])), spl[[2]], sep = ""), sep = "-")
-  }
-
-  x <- condense_spaces(x)
-  if (length(grep("[0-9]{4}/[0-9]*$", x))>0) {
+  } else if (length(grep("[0-9]{4}/[0-9]*$", x))>0) {
     x <- substr(x, 1, 4)
   } else if (length(grep("[0-9]{4} [0-9]*$", x))>0) {
     # 1780 1800 > 1780-1800

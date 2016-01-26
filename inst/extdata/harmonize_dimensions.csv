@@ -61,13 +61,6 @@ octodecimo	18mo
 16to	16mo
 12long	12long
 12to	12mo
-8to	8vo
-4long	4long
-4small	4small
-4to	4to
-2small	2small
-2long	2long
-2to	2fo
 fol\.	2fo
 fol 	2fo
 64°	64mo
@@ -104,20 +97,26 @@ fol 	2fo
 ^1\.$	1to
 ^to$	NA
 1to	1to
-1:o	1to
+8to	8vo
+4long	4long
+4small	4small
+4to	4to
+2small	2small
+2long	2long
+2to	2fo
 NAto	NA
-vos	vo
-tos	to
-mos	mo
-to\?	to
-vo\?	vo
-mo\?	mo
-:o	to
+vo[s|p|\?|\.]	vo
+to[s|p|\?|\.]	to
+mo[s|p|\?|\.]f{0,1}	mo
+fo[s|p|\?|\.]	fo
+:[o|0]	to
 2fo-obl\. 2fo	2fo
 \(\?\)
 ^na$	NA
-o°$	o
-
+o°	o
+\.o\.	to
+(fol)	2fo
+cm\(	cm (
 
 
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/stopwords.R
 \name{remove_trailing_periods}
 \alias{remove_trailing_periods}
-\title{remove_trailing_periods}
+\title{Remove trailing periods}
 \usage{
 remove_trailing_periods(x)
 }

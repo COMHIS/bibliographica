@@ -41,7 +41,7 @@ estimate_pages <- function (x) {
     }
     
   }
-  
+
   # --------------------------------------------
 
   # Then proceeding to the more complex cases...
@@ -137,6 +137,7 @@ estimate_pages <- function (x) {
   # Take into account multiplier
   # (for instance when page string starts with Ff the document is folios
   # and page count will be multiplied by two - in most cases multiplier is 1)
+
   pages <- page.count.multiplier * unlist(pages, use.names = FALSE)
 
   # Total page count

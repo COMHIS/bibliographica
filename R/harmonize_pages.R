@@ -1,18 +1,18 @@
 #' @importFrom sorvi harmonize_names
 harmonize_pages <- function (s, synonyms, harm, sheetharm, harm.pi) {
 
-  if (length(grep("i\\.e", s)) > 0) {
-    s <- unlist(strsplit(s, ","), use.names = FALSE)
-    s <- sapply(s, function (si) {x <- unlist(strsplit(si, "-"), use.names = FALSE); paste(sapply(x, function (x) handle_ie(x, harmonize = FALSE)), collapse = "-")})
-    s <- paste(s, collapse = ",")
-  }
-  
   # FIXME move to main? pages
   s <- as.character(harmonize_names(s, harm, mode = "recursive", check.synonymes = FALSE, include.lowercase = FALSE))
 
   # FIXME move to main? page info
   s <- as.character(harmonize_names(s, harm.pi, mode = "recursive", check.synonymes = FALSE, include.lowercase = FALSE))
 
+  if (length(grep("i\\.e", s)) > 0) {
+    s <- unlist(strsplit(s, ","), use.names = FALSE)
+    s <- sapply(s, function (si) {x <- unlist(strsplit(si, "-"), use.names = FALSE); paste(sapply(x, function (x) handle_ie(x, harmonize = FALSE)), collapse = "-")})
+    s <- paste(s, collapse = ",")
+  }
+  
   # Remove endings
   s <- gsub("[ |\\.|\\,|\\;|\\:]+$", "", s)
 

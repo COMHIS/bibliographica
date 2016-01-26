@@ -1,4 +1,4 @@
-#' @title polish_dimension
+#' @title Polish dimension
 #' @description Polish dimension field of a single document
 #' @param x A dimension note (a single string of one document)
 #' @param synonyms synonyms
@@ -22,7 +22,7 @@ polish_dimension <- function (x, synonyms) {
 
   # Obl: height < width
   obl <- FALSE
-  if (length(grep("obl", s))) {
+  if (length(grep("obl", s))>0) {
     s <- gsub("obl", "", s)
     obl <- TRUE
   }
@@ -80,6 +80,7 @@ polish_dimension <- function (x, synonyms) {
   }
 
   gatherings <- harmonize_dimension(gatherings, synonyms)
+
   if ( length(gatherings) == 0 ) { gatherings <- NA }
   if ( length(unique(gatherings)) > 1 ) { gatherings <- NA }
 
@@ -89,8 +90,7 @@ polish_dimension <- function (x, synonyms) {
 
   if (length(inds) > 0) {
     li <- lapply(gatherings[inds], function (x) {unique(unlist(strsplit(x, "-"), use.names = FALSE))})
-    inds2 <- which(sapply(li, length) == 1)
-    inds3 <- na.omit(inds[inds2])
+    inds3 <- na.omit(inds[sapply(li, length) == 1])
     if (length(inds3) > 0) {
       gatherings[inds3] <- unlist(li[inds3], use.names = FALSE)
       gatherings[setdiff(inds, inds3)] <- NA

@@ -3,6 +3,7 @@ plates2pages <- function (s) {
   # If not plate number given, consider it as a single plate
   # Convert plates to pages: 1 plate = 2 pages
   if (length(grep("plate", s)) > 0 || length(grep("lea", s)) > 0) {
+
     if (length(grep("plates", s) > 0) && length(grep("lea", s)) == 0) {
       # "plates" instances without "leaf" or "leaves"
       xi <- str_trim(gsub("plates", "", s))
@@ -25,9 +26,9 @@ plates2pages <- function (s) {
       # When no leaf number is given, use 1 (1 leaf)
       # and multiply the numbers by 2 (1 leaf = 2 pages)
       s <- 2 * as.numeric(xi)
-    } else if (length(grep("leaves", s)) > 0) {
+    } else if (length(grep("leaves{0,1}", s)) > 0) {
       # "leaves" instances 
-      xi <- str_trim(gsub("leaves", "", s))   
+      xi <- str_trim(gsub("leaves{0,1}", "", s))   
       xi <- gsub("\\]", "", gsub("\\[", "", xi))
       # When no leaf number is given, use 2 (2 leaves)
       xi[xi == ""] <- 2

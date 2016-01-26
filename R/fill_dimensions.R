@@ -1,4 +1,4 @@
-#' @title fill_dimensions
+#' @title Fill missnig dimension info
 #' @description Estimate missing entries in dimension vector where possible
 #' @param x dimension string 
 #' @param dimension.table Given mappings between document dimensions
@@ -32,7 +32,7 @@ fill_dimensions <- function (x, dimension.table = NULL, sheet.dimension.table = 
     if (!any("obl" == names(x))) {x[["obl"]] <- NA}
     obl <- x[["obl"]] 
 
-    if (!any(g == colnames(dimension.table) && !is.na(g))) {
+    if ((!any(g == colnames(dimension.table)) && (!is.na(g)))) {
       warning(paste("gatherings ", g, " not available in dimension.table"))
     }
 

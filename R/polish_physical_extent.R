@@ -68,13 +68,9 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   # Romans
   s <- harmonize_names(s, romans.harm, mode = "recursive", include.lowercase = FALSE, check.synonymes = F)
 
-  # Remove some rare misleading special cases manually
-  s <- gsub("a-m", " ", s)
-
-  # ie harmonization
-  # each comma place separately
-  # each dash place separately  
-  s <- gsub("e\\.\\,", "e ", s)
+  f <- system.file("extdata/harmonize_pages2.csv", package = "bibliographica")
+  harm2 <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
+  s <- as.character(harmonize_names(s, harm2, mode = "recursive", check.synonymes = FALSE, include.lowercase = FALSE))
 
   # Polish unique pages separately for each volume
   # Return NA if conversion fails
@@ -102,8 +98,6 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 }
 
 
-
-
 #' @title Polish physical_extent help field
 #' @description Internal
 #' @param s Input char
@@ -115,7 +109,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 #' @keywords internal
 polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) {
 
-  if (verbose) {message(paste(s, "\n"))}
+  if (verbose) {message(s)}
   if (is.na(s)) { return(NA) }
 
   # Shortcut for easy cases: "24p."
@@ -143,7 +137,6 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
   } 
 
   # Return
-  #c(pagecount = sum(x, na.rm = TRUE), volnumber = voln, volcount = vols)
   c(sum(x, na.rm = TRUE), voln, vols)  
 
 }

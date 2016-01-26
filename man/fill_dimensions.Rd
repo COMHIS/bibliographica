@@ -2,14 +2,16 @@
 % Please edit documentation in R/fill_dimensions.R
 \name{fill_dimensions}
 \alias{fill_dimensions}
-\title{fill_dimensions}
+\title{Fill missnig dimension info}
 \usage{
-fill_dimensions(x, dimension.table)
+fill_dimensions(x, dimension.table = NULL, sheet.dimension.table = NULL)
 }
 \arguments{
 \item{x}{dimension string}
 
 \item{dimension.table}{Given mappings between document dimensions}
+
+\item{sheet.dimension.table}{Given mappings for sheet dimensions}
 }
 \value{
 Augmented dimension vector

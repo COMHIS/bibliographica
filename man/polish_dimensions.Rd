@@ -5,7 +5,7 @@
 \title{polish_dimensions}
 \usage{
 polish_dimensions(x, fill = TRUE, dimtab = NULL, verbose = FALSE,
-  synonyms = NULL)
+  synonyms = NULL, sheet.dimension.table = NULL)
 }
 \arguments{
 \item{x}{A vector of dimension notes}
@@ -17,6 +17,8 @@ polish_dimensions(x, fill = TRUE, dimtab = NULL, verbose = FALSE,
 \item{verbose}{verbose}
 
 \item{synonyms}{Synonyme table}
+
+\item{sheet.dimension.table}{Sheet dimension info}
 }
 \value{
 Dimension table

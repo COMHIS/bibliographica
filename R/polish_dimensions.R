@@ -32,14 +32,36 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   } 
 
   # Speed up by only handling unique cases
-  suniq <- unique(s)
-  match.inds <- match(s, suniq)
+  sorig <- s
+  s <- suniq <- unique(s)
+  match.inds <- match(sorig, suniq)
 
   if (verbose) {
     message(paste("Estimating dimensions:", length(suniq), "unique cases"))    
   }
 
-  s <- harmonize_dimension(s, synonyms)
+
+  # -------------------------------------
+  
+  # Harmonize the terms
+  s <- harmonize_names(s, synonyms, mode = "recursive", check.synonymes = FALSE, include.lowercase = F)
+  s <- tolower(as.character(s))
+  # Remove brackets
+  s <- gsub("\\(", " ", gsub("\\)", " ", s)) 
+  s <- gsub("\\[", " ", gsub("\\]", " ", s))
+  # Add spaces
+  s <- gsub("cm\\. {0,1}", " cm ", s)  
+  s <- gsub("x", " x ", s)
+  s <- gsub("obl\\.{0,1}", "obl ", s)
+  # Remove extra spaces
+  s <- condense_spaces(s)
+  # "16mo in 8's."
+  inds <- grep("[0-9]+.o in [0-9]+.o", s)  
+  s[inds] <- gsub(" in [0-9]+.o", "", s[inds])
+  s <- harmonize_dimension(s, synonyms) 
+  s <- harmonize_names(s, synonyms, mode = "recursive", check.synonymes = FALSE, include.lowercase = F)  
+
+  # --------------------------------------
 
   tab <- t(sapply(s, function (x) {
     polish_dimension(x, synonyms)
@@ -47,7 +69,6 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   rownames(tab) <- NULL
   tab <- data.frame(tab)
   tab <- tab[match.inds,]
-
 
   if (verbose) {
     message("Convert to desired format")    
@@ -57,7 +78,7 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   tab$width <- suppressWarnings(as.numeric(as.character(tab$width)))
   tab$height <- suppressWarnings(as.numeric(as.character(tab$height)))
   tab$gatherings <- order_gatherings(tab$gatherings)
-  tab$obl <- unlist(tab$obl)
+  tab$obl <- unlist(tab$obl, use.names = FALSE)
   tab.original <- tab 
 
   tab.final <- tab.original

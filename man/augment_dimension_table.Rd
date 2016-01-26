@@ -4,7 +4,8 @@
 \alias{augment_dimension_table}
 \title{augment_dimension_table}
 \usage{
-augment_dimension_table(dimension.table, dimtab = NULL, verbose = FALSE)
+augment_dimension_table(dimension.table, dimtab, verbose = FALSE,
+  sheet.dimension.table)
 }
 \arguments{
 \item{dimension.table}{dimension.table}
