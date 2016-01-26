@@ -1,8 +1,9 @@
-#' @title augment_dimension_table
+#' @title Augment dimension table
 #' @description Estimate missing entries in dimension table where possible
 #' @param dimension.table dimension.table
 #' @param dimtab Mapping between document dimensions.
 #' @param verbose verbose
+#' @param sheet.dimension.table sheet.dimension.table
 #' @return Augmented dimension.table
 #' @seealso polish_dimensions
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}

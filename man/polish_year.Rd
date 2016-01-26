@@ -2,9 +2,10 @@
 % Please edit documentation in R/polish_years.R
 \name{polish_year}
 \alias{polish_year}
-\title{polish_year}
+\title{Polish year}
 \usage{
-polish_year(x, start_synonyms = NULL, end_synonyms = NULL, months)
+polish_year(x, start_synonyms = NULL, end_synonyms = NULL, months,
+  verbose = FALSE)
 }
 \arguments{
 \item{x}{year string}
@@ -14,12 +15,14 @@ polish_year(x, start_synonyms = NULL, end_synonyms = NULL, months)
 \item{end_synonyms}{Synonyme table for end year}
 
 \item{months}{months}
+
+\item{verbose}{verbose}
 }
 \value{
 vector with the fields 'from' and 'till'
 }
 \description{
-Pick and polish the year interval (start and end
+Pick and polish the year interval (start and end years) from a time field '
 }
 \examples{
 \dontrun{df <- polish_year(c("1746"))}
