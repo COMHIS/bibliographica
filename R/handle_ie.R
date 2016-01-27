@@ -1,4 +1,4 @@
-#' @title handle_ie
+#' @title Handle ie
 #' @description Handle ie statement
 #' @param x A vector
 #' @param harmonize Logical. Harmonize ie statements efore interpretation?

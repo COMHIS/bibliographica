@@ -21,7 +21,9 @@ read_bibliographic_metadata <- function (file, verbose = FALSE) {
       if (verbose) {message(f)}
       dfs[[f]] <- read_bibliographic_metadata(f)
     }
+    if (verbose) {message("Combining the batches..")}    
     df.all <- rbind_all(dfs)
+    if (verbose) {message("OK")}    
 
     return(df.all)
 
@@ -31,7 +33,8 @@ read_bibliographic_metadata <- function (file, verbose = FALSE) {
     tab <- read.csv(file, sep = "|", strip.white = TRUE,
     	   		  stringsAsFactors = FALSE, encoding = "UTF-8")
 
-    # Removes additional whitespace and some special characters from beginning and end of strings
+    # Removes additional whitespace and some special characters from
+    # beginning and end of strings
     tab <- apply(tab,1:2,function(x){
       x <- gsub("^[[:space:],:;]+","",gsub("[[:space:],:;]+$","",x)) 
       x

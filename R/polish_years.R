@@ -52,7 +52,8 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 
   x <- harmonize_ie(x) 
   x <- remove_print_statements(x)
-  x <- try(x <- handle_ie(x, harmonize = TRUE))
+  x <- sapply(x, function (xi) {handle_ie(xi, harmonize = TRUE)})
+
   x <- condense_spaces(gsub("\\.", " ", x))
   x <- remove_time_info(x, verbose = F, months)
 
@@ -70,10 +71,11 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   }
   x[inds] <- str_trim(x[inds])
 
-  res <- suppressWarnings(sapply(x, function (x) {a <- try(polish_year(x, start_synonyms = start_synonyms, end_synonyms = end_synonyms, months, verbose)); if (class(a) == "try-error") {return(c(NA, NA))} else {return(a)}}))
+  res <- suppressWarnings(lapply(x, function (xi) {a <- try(polish_year(xi, start_synonyms = start_synonyms, end_synonyms = end_synonyms, months, verbose)); if (class(a) == "try-error") {return(c(NA, NA))} else {return(a)}}))
 
-  start_year <- res[1,]
-  end_year   <- res[2,]
+  res <- do.call("rbind", res)
+  start_year <- res[,1]
+  end_year   <- res[,2]
 
   # Match the unique cases to the original indices
   xorig <- xorig  # this is already in the original index domain
@@ -313,7 +315,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   if (length(start_year) > 1) {start_year <- NA}
   if (length(end_year) > 1) {end_year <- NA}
 
-  c(from = start_year, till = end_year)
+  c(start_year, end_year)
 
 }
 
