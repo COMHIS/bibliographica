@@ -29,7 +29,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   # Remove brackets and ending commas / periods
   s <- gsub("[\\[|\\]|\\(|\\)]", "", s)
   s <- str_trim(s)
-  s <- gsub("[\\.$|\\,$]", "", s)
+  s <- gsub("[\\.|\\,]$", "", s)
 
   if (verbose) { message("Separating names") }
   # Assume names are of format Last, First
@@ -54,7 +54,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
     stopwords <- unique(c(stopwords.general, stopwords.names, stopwords.titles))
   }
 
-  # Must exclude some names from assumed stopwords
+  # Exclude some names from assumed stopwords
   stopwords <- setdiff(stopwords, c("humble", "about", "most"))
 
   if (verbose) { message("Harmonize names") }
@@ -133,6 +133,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   if (verbose) { message("Collapse accepted names to the form: Last, First") }
   full.name <- apply(nametab, 1, function (x) { paste(x, collapse = ", ") })
   full.name[full.name == "NA, NA"] <- NA
+  full.name <- gsub(", NA$", "", full.name) # "Tolonen, NA" -> "Tolonen"
   nametab$full <- full.name
 
   if (verbose) { message("Map to the original indices") }
