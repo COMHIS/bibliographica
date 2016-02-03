@@ -2,7 +2,7 @@
 % Please edit documentation in R/augment_dimension_table.R
 \name{augment_dimension_table}
 \alias{augment_dimension_table}
-\title{augment_dimension_table}
+\title{Augment dimension table}
 \usage{
 augment_dimension_table(dimension.table, dimtab, verbose = FALSE,
   sheet.dimension.table)
@@ -13,6 +13,8 @@ augment_dimension_table(dimension.table, dimtab, verbose = FALSE,
 \item{dimtab}{Mapping between document dimensions.}
 
 \item{verbose}{verbose}
+
+\item{sheet.dimension.table}{sheet.dimension.table}
 }
 \value{
 Augmented dimension.table

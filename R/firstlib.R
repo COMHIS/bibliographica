@@ -21,6 +21,7 @@
 #' @importFrom ggplot2 xlab
 #' @importFrom ggplot2 ylab
 #' @importFrom sorvi condense_spaces
+#' @importFrom sorvi quickdf
 #' @importFrom stringr str_trim
 #' @importFrom tm stopwords
 .onAttach <- function(lib, pkg)

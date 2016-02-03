@@ -2,7 +2,7 @@
 % Please edit documentation in R/handle_ie.R
 \name{handle_ie}
 \alias{handle_ie}
-\title{handle_ie}
+\title{Handle ie}
 \usage{
 handle_ie(x, harmonize = TRUE)
 }

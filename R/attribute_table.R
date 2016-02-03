@@ -24,7 +24,7 @@ attribute_table <- function (x) {
   pagecount.attributes["squarebracket", ] <- sqb$positions
 
   # DASH POSITIONS
-  pagecount.attributes["dash", grep("-", x)]<- TRUE
+  pagecount.attributes["dash", grep("-", x)] <- TRUE
 
   # SHEET POSITIONS
   sheets <- position_sheets(x)
