@@ -27,30 +27,31 @@ polish_university <- function(x, synonyms=NULL) {
   x <- harmonize_names(x, synonyms, check.synonymes = F, include.lowercase = TRUE, include.original = FALSE)
 
   # TODO conversion file
-  x <- gsub("^.*Aleksan.*$","Helsinki",x)
-  x <- gsub("^.*Alexan.*$","Helsinki",x)
-  x <- gsub("^.*Helsink.*$","Helsinki",x)
-  x <- gsub("^.*Helsing.*$","Helsinki",x)
-  x <- gsub("^.*Tekn.*$","TKK",x)
-  x <- gsub("^.*Bern.*$","Bern",x)
-  x <- gsub("^.*Jena.*$","Jena",x)
-  x <- gsub("^.*Lund.*$","Lund",x)
-  x <- gsub("^.*Upps.*$","Uppsala",x)
-  x <- gsub("^.*Ups.*$","Uppsala",x)
-  x <- gsub("^.*Leipzig.*$","Leipzig",x)
-  x <- gsub("^.*Turk.*$","Turku",x)
-  x <- gsub("^.*Basel.*$","Basel",x)
-  x <- gsub("^.*Berlin.*$","Berliini",x)
-  x <- gsub("^.*Strängnäs.*$","Strängnäs",x)
-  x <- gsub("^.*Göteborg.*$","Göteborg",x)
-  x <- gsub("^.*Ludwigs.*$","Freiburg",x) # tarkista
-  x <- gsub("^.*Hannover.*$","Hannover",x) # "Technischen Hochschule Hannover", nyyään Hannoverin yliopisto
-  x <- gsub("^.*bingen.*$","Tübingen",x)
-  x <- gsub("^.*Königsberg.*$","Königsberg",x)
-  x <- gsub("^.*rich.*$","Zürich",x)
-  x <- gsub("^.*Montpellier.*$","Montpellier",x)
-  x <- gsub("^.*Paris.*$","Pariisi",x)
-  x <- gsub("^.*Wittenberg.*$","Wittenberg",x)
+  # Check these are already in Fennica conversions?
+  #x <- gsub("^.*Aleksan.*$","Helsinki",x)
+  #x <- gsub("^.*Alexan.*$","Helsinki",x)
+  #x <- gsub("^.*Helsink.*$","Helsinki",x)
+  #x <- gsub("^.*Helsing.*$","Helsinki",x)
+  #x <- gsub("^.*Tekn.*$","TKK",x)
+  #x <- gsub("^.*Bern.*$","Bern",x)
+  #x <- gsub("^.*Jena.*$","Jena",x)
+  #x <- gsub("^.*Lund.*$","Lund",x)
+  #x <- gsub("^.*Upps.*$","Uppsala",x)
+  #x <- gsub("^.*Ups.*$","Uppsala",x)
+  #x <- gsub("^.*Leipzig.*$","Leipzig",x)
+  #x <- gsub("^.*Turk.*$","Turku",x)
+  #x <- gsub("^.*Basel.*$","Basel",x)
+  #x <- gsub("^.*Berlin.*$","Berliini",x)
+  #x <- gsub("^.*Strängnäs.*$","Strängnäs",x)
+  #x <- gsub("^.*Göteborg.*$","Göteborg",x)
+  #x <- gsub("^.*Ludwigs.*$","Freiburg",x) # tarkista
+  #x <- gsub("^.*Hannover.*$","Hannover",x) # "Technischen Hochschule Hannover", nyyään Hannoverin yliopisto
+  #x <- gsub("^.*bingen.*$","Tübingen",x)
+  #x <- gsub("^.*Königsberg.*$","Königsberg",x)
+  #x <- gsub("^.*rich.*$","Zürich",x)
+  #x <- gsub("^.*Montpellier.*$","Montpellier",x)
+  #x <- gsub("^.*Paris.*$","Pariisi",x)
+  #x <- gsub("^.*Wittenberg.*$","Wittenberg",x)
 
   x
 }

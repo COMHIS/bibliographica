@@ -62,10 +62,6 @@ polish_field <- function (df, field, verbose = TRUE) {
       	df.tmp <- polish_dimensions(df[[field]],
 		fill = FALSE, verbose = verbose)
 
-      	# FIXME Filling should go in the enrichment section
-      	# Remove the 'original' fields      
-      	df.tmp <- df.tmp[, -grep("original", names(df.tmp))] 
-
       } else if (field == "publisher") {
 
       	tab <- polish_publisher(df[[field]], verbose = verbose)

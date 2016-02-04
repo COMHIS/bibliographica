@@ -2,9 +2,9 @@
 % Please edit documentation in R/sheet_area.R
 \name{sheet_area}
 \alias{sheet_area}
-\title{sheet_area}
+\title{Sheet area}
 \usage{
-sheet_area(x = NULL, sheet.dimension.table = NULL, verbose = TRUE)
+sheet_area(x = NULL, sheet.dimension.table = NULL, verbose = FALSE)
 }
 \arguments{
 \item{x}{Sheet size}

@@ -11,10 +11,20 @@
 #' @importFrom dplyr mutate
 #' @examples # augment_dimension_table(dimension.table)
 #' @keywords utilities
-augment_dimension_table <- function (dimension.table, dimtab, verbose = FALSE, sheet.dimension.table) {
+augment_dimension_table <- function (dimension.table, dimtab = NULL, verbose = FALSE, sheet.dimension.table = NULL) {
 
   dimtab.orig <- dimension.table
   width <- height <- gatherings <- NULL
+
+  if (is.null(dimtab)) {
+    if (verbose) {
+      message("dimtab dimension mapping table not provided, using the default table dimension_table()")
+    }
+    dimtab <- dimension_table()
+  }
+  if (is.null(sheet.dimension.table)) {
+    sheet.dimension.table <- sheet_area(verbose = verbose)
+  }
 
   tmp <- NULL
   for (i in 1:nrow(dimension.table)) {

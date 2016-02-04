@@ -1,23 +1,18 @@
-#' @title sheet_area
+#' @title Sheet area
 #' @description Sheet area in cm2
-#'
 #' @param x Sheet size 
 #' @param sheet.dimension.table Table to estimate sheet area. 
 #' 	  If not given, the table given by sheet_sizes() is used by default.
 #' @param verbose Verbose
-#'
 #' @return Sheet area (cm2)
-#'
 #' @export
 #' @details Sheet size is calculated according to the table given as output 
 #'          from call sheet_area()
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' 
 #' @examples sheet_area("2to")
 #' @keywords utilities
-sheet_area <- function (x = NULL, sheet.dimension.table = NULL, verbose = TRUE) {
+sheet_area <- function (x = NULL, sheet.dimension.table = NULL, verbose = FALSE) {
 	
   if (is.null(sheet.dimension.table)) {
 
