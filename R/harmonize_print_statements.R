@@ -1,12 +1,12 @@
-#' @title harmonize_print_statements
-#' @description Harmonize print statements
+#' @title Harmonize print statements
+#' @description Harmonize print statements.
 #' @param x a vector
 #' @param lowercase Set all in lowercase
 #' @return Harmonized vector
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @examples # x2 <- harmonize_print_statements("prentyd in London")$name
+#' @examples # x2 <- harmonize_print_statements("prentyd in London")
 #' @keywords utilities
 harmonize_print_statements <- function (x, lowercase = FALSE) {
 

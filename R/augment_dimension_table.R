@@ -13,7 +13,6 @@
 #' @keywords utilities
 augment_dimension_table <- function (dimension.table, dimtab = NULL, verbose = FALSE, sheet.dimension.table = NULL) {
 
-  dimtab.orig <- dimension.table
   width <- height <- gatherings <- NULL
 
   if (is.null(dimtab)) {
@@ -29,12 +28,11 @@ augment_dimension_table <- function (dimension.table, dimtab = NULL, verbose = F
   tmp <- NULL
   for (i in 1:nrow(dimension.table)) {
     x <- dimension.table[i, ]
-
     tmp2 <- fill_dimensions(x, dimtab, sheet.dimension.table)
-
     tmp <- rbind(tmp, tmp2)
   }
 
+  dimension.table <- as.data.frame(tmp)
   dimension.table$original <- as.character(dimension.table$original)
   dimension.table$width <- as.numeric(as.character(dimension.table$width))
   dimension.table$height <- as.numeric(as.character(dimension.table$height))

@@ -10,8 +10,8 @@
 #' @keywords utilities
 self_published <- function (df) {
 
-  publisher <- df$publisher
-  author <- df$author
+  publisher <- as.character(df$publisher)
+  author <- as.character(df$author)
   author[author == "NA"] <- NA
 
   #print("Self-published docs where author is known but publisher not")
@@ -30,6 +30,7 @@ self_published <- function (df) {
   }
   
   selfpub <- as.logical((publisher %in% "Self-published (unknown author)") | (author == publisher))
+  #selfpub[is.na(selfpub)] <- FALSE
 
   data.frame(publisher = publisher, self_publisher = selfpub)
 

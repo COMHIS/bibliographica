@@ -2,7 +2,7 @@
 % Please edit documentation in R/harmonize_print_statements.R
 \name{harmonize_print_statements}
 \alias{harmonize_print_statements}
-\title{harmonize_print_statements}
+\title{Harmonize print statements}
 \usage{
 harmonize_print_statements(x, lowercase = FALSE)
 }
@@ -15,10 +15,10 @@ harmonize_print_statements(x, lowercase = FALSE)
 Harmonized vector
 }
 \description{
-Harmonize print statements
+Harmonize print statements.
 }
 \examples{
-# x2 <- harmonize_print_statements("prentyd in London")$name
+# x2 <- harmonize_print_statements("prentyd in London")
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
