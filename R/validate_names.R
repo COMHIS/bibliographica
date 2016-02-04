@@ -1,7 +1,8 @@
 #' @title Validate names
 #' @description Validate names by known name lists.
 #' @param namelist Vector of names to be validated
-#' @param database Specify the name database to be used 
+#' @param database Specify the name database to be used
+#' @param verbose verbose
 #' @return List with following elements:
 #'    \itemize{
 #'      \item validated Logical vector indicating the valid names
@@ -12,7 +13,7 @@
 #' @references See citation("bibliographica")
 #' @examples \dontrun{x <- validate_names(namelist, database)}
 #' @keywords utilities
-validate_names <- function (namelist, database) {
+validate_names <- function (namelist, database, verbose = TRUE) {
 
   # Get name lists from public databases
   # TODO: validating names could make its own R package later,

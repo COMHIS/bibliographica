@@ -4,12 +4,14 @@
 \alias{validate_names}
 \title{Validate names}
 \usage{
-validate_names(namelist, database)
+validate_names(namelist, database, verbose = TRUE)
 }
 \arguments{
 \item{namelist}{Vector of names to be validated}
 
 \item{database}{Specify the name database to be used}
+
+\item{verbose}{verbose}
 }
 \value{
 List with following elements:
