@@ -17,7 +17,7 @@ fill_dimensions <- function (x, dimension.table = NULL, sheet.dimension.table = 
 
     # Read dimension height/width/gatherings conversions
     if (is.null(dimension.table)) {
-     dimension.table <- dimension_table()
+      dimension.table <- dimension_table()
     }
     if (is.null(sheet.dimension.table)) {
       sheet.dimension.table <- sheet_area(verbose = FALSE)

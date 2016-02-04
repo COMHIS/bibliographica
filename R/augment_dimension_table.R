@@ -8,6 +8,7 @@
 #' @seealso polish_dimensions
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
+#' @export
 #' @importFrom dplyr mutate
 #' @examples # augment_dimension_table(dimension.table)
 #' @keywords utilities
@@ -25,11 +26,13 @@ augment_dimension_table <- function (dimension.table, dimtab = NULL, verbose = F
     sheet.dimension.table <- sheet_area(verbose = verbose)
   }
 
+  tmp <- NULL
   for (i in 1:nrow(dimension.table)) {
-    dimension.table[i,] <- fill_dimensions(dimension.table[i, ], dimtab, sheet.dimension.table) 
+    tmp <- rbind(tmp, fill_dimensions(dimension.table[i, ], dimtab, sheet.dimension.table))
   }
 
-  dimension.table <- as.data.frame(dimension.table)
+  dimension.table <- as.data.frame(tmp)
+  rm(tmp)
   rownames(dimension.table) <- NULL
   dimension.table$width <- as.numeric(as.character(dimension.table$width))
   dimension.table$height <- as.numeric(as.character(dimension.table$height))
