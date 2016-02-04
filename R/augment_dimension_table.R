@@ -25,15 +25,12 @@ augment_dimension_table <- function (dimension.table, dimtab = NULL, verbose = F
     sheet.dimension.table <- sheet_area(verbose = verbose)
   }
 
-  tmp <- NULL
   for (i in 1:nrow(dimension.table)) {
-    x <- dimension.table[i, ]
-    tmp2 <- fill_dimensions(x, dimtab, sheet.dimension.table)
-    tmp <- rbind(tmp, tmp2)
+    dimension.table[i,] <- fill_dimensions(dimension.table[i, ], dimtab, sheet.dimension.table) 
   }
 
-  dimension.table <- as.data.frame(tmp)
-  dimension.table$original <- as.character(dimension.table$original)
+  dimension.table <- as.data.frame(dimension.table)
+  rownames(dimension.table) <- NULL
   dimension.table$width <- as.numeric(as.character(dimension.table$width))
   dimension.table$height <- as.numeric(as.character(dimension.table$height))
   dimension.table$gatherings <- order_gatherings(dimension.table$gatherings)
