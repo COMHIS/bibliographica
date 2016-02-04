@@ -2,7 +2,7 @@
 % Please edit documentation in R/harmonize_field_names.R
 \name{harmonize_field_names}
 \alias{harmonize_field_names}
-\title{harmonize_field_names}
+\title{Harmonize field names}
 \usage{
 harmonize_field_names(x)
 }
@@ -14,6 +14,9 @@ Vector of field names
 }
 \description{
 Convert field codes to names
+}
+\details{
+For MARC field descriptions, see \url{https://www.loc.gov/marc/bibliographic/}.
 }
 \examples{
 x2 <- harmonize_field_names("041a")

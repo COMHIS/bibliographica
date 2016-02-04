@@ -1,10 +1,8 @@
-#' @title read_bibliographic_metadata
-#' @description Read preparsed metadata
+#' @title Read bibliographic metadata
+#' @description Read metadata parsed from XML.
 #' @param file Parsed raw data file/s
 #' @param verbose verbose
 #' @return data.frame with raw data fields
-#' @importFrom dplyr tbl_df
-#' @importFrom dplyr rbind_all
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")

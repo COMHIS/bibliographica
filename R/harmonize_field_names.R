@@ -1,4 +1,4 @@
-#' @title harmonize_field_names
+#' @title Harmonize field names
 #' @description Convert field codes to names 
 #' @param x a vector of field codes
 #' @return Vector of field names
@@ -6,6 +6,7 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples x2 <- harmonize_field_names("041a")
+#' @details For MARC field descriptions, see \url{https://www.loc.gov/marc/bibliographic/}.
 #' @keywords utilities
 harmonize_field_names <- function (x) {
   

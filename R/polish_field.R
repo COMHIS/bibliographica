@@ -12,10 +12,12 @@
 #' @keywords utilities
 polish_field <- function (df, field, verbose = TRUE) {
 
+  from <- till <- NULL
+
     if (field == "language") {
 
-      df.tmp <- data.frame(language = df[[field]])
-      
+      df.tmp <- data.frame(language = mark_languages(df[[field]]))
+
     } else if (field == "title") {
 
       df.tmp <- data.frame(title = polish_title(df[[field]]))
@@ -69,12 +71,22 @@ polish_field <- function (df, field, verbose = TRUE) {
       	tab <- polish_publisher(df[[field]], verbose = verbose)
       	df.tmp <- data.frame(publisher = tab)
 
+      } else if (field == "corporate") {
+
+      	df.tmp <- data.frame(corporate = polish_corporate(df[[field]]))
+
+      } else if (field == "note_granter") {
+
+        # Use the university function for note_granter
+      	df.tmp <- data.frame(note_granter = polish_university(df[[field]]))
+
       } else if (field == "author_date") {
 
         # TODO make a tidy cleanup function to shorten the code here
-      	tmp <- polish_years(df[[field]], check = TRUE, verbose = verbose)
-      	df.tmp <- data.frame(author_birth = tmp$from, author_death = tmp$till)
-
+      	df.tmp <- polish_years(df[[field]], check = TRUE, verbose = verbose)
+	df.tmp <- dplyr::rename(df.tmp, author_birth = from)
+	df.tmp <- dplyr::rename(df.tmp, author_death = till)	
+      	
       } else if (field == "publication_time") {
     
         tmp <- polish_years(df[[field]], check = TRUE)

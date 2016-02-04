@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_university.R
 \name{polish_university}
 \alias{polish_university}
-\title{polish_university}
+\title{Polish university}
 \usage{
 polish_university(x, synonyms = NULL)
 }

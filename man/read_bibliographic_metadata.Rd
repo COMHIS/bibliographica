@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_bibliographic_metadata.R
 \name{read_bibliographic_metadata}
 \alias{read_bibliographic_metadata}
-\title{read_bibliographic_metadata}
+\title{Read bibliographic metadata}
 \usage{
 read_bibliographic_metadata(file, verbose = FALSE)
 }
@@ -15,7 +15,7 @@ read_bibliographic_metadata(file, verbose = FALSE)
 data.frame with raw data fields
 }
 \description{
-Read preparsed metadata
+Read metadata parsed from XML.
 }
 \examples{
 \dontrun{df.raw <- read_bibliographic_metadata(file)}
