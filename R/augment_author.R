@@ -50,6 +50,9 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
   df$author_birth[inds] <- birth
   df$author_death[inds] <- death
 
+  df$author <- df$author_unique
+  df$author_unique <- NULL
+
   df
 
 }
