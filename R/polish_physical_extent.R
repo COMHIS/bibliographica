@@ -52,7 +52,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   # Read the mapping table
   f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
   page.harmonize <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
-  
+
   # Pp. -> p etc.
   f <- system.file("extdata/harmonize_page_info.csv", package = "bibliographica")
   harm.pi <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))  
@@ -75,7 +75,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   # Polish unique pages separately for each volume
   # Return NA if conversion fails
 
-  pages <- sapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") { return(NA) } else { return(a) }})
+  pages <- sapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") {return(rep("MOI", 3))} else {return(a)}})
   rownames(pages) <- NULL
 
   # Make data frame
@@ -110,7 +110,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) {
 
   if (verbose) {message(s)}
-  if (is.na(s)) { return(NA) }
+  if (is.na(s)) { return(rep(NA, 3)) }
 
   # Shortcut for easy cases: "24p."
   if (length(grep("[0-9]+ {0,1}p\\.{0,1}$",s))>0) {

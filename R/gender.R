@@ -1,5 +1,5 @@
-#' @title get_gender
-#' @description Pick gender based on first names
+#' @title Get gender
+#' @description Pick gender based on first names.
 #' @param x Vector of first names
 #' @return Author gender information
 #' @export
@@ -8,6 +8,7 @@
 #' @examples get_gender("julius")
 #' @keywords utilities
 #' @importFrom gender gender
+#' @importFrom sorvi quickdf
 #' @import genderdata
 get_gender <- function (x) {
 
@@ -49,7 +50,7 @@ get_gender <- function (x) {
   names(g3) <- custom$Name
   custom <- g3
 
-  g <- data.frame(list(name = first.names.unique, 
+  g <- quickdf(list(name = first.names.unique, 
        		       list1 = g1[first.names.unique],
        		       list2 = g2[first.names.unique]
 		       ))
@@ -70,12 +71,13 @@ get_gender <- function (x) {
   names(author.gender) <- first.names
 
   # List unknown or ambiguous gender mapping
-  u <- names(author.gender[!is.na(names(author.gender)) & is.na(author.gender)])
-  unknown <- sort(table(u))
-  unknown <- rev(unknown[!names(unknown) %in% rownames(custom)]  )
-  unknown <- cbind(Name = names(unknown), Count = unknown)
+  #u <- names(author.gender[!is.na(names(author.gender)) & is.na(author.gender)])
+  #unknown <- sort(table(u))
+  #unknown <- rev(unknown[!names(unknown) %in% rownames(custom)]  )
+  #unknown <- cbind(Name = names(unknown), Count = unknown)
+  #list(gender = author.gender, unknown = unknown)
 
-  list(gender = author.gender, unknown = unknown)
-
+  author.gender
+  
 }
 

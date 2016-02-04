@@ -7,6 +7,7 @@
 #' @param check If true, remove entries (replace by NA) where start > end
 #' @return data.frame with the fields 'start' and 'end'
 #' @export
+#' @importFrom sorvi quickdf
 #' @author Leo Lahti and Niko Ilomaki \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df <- polish_years(c("1746", "1745-1750"))}
@@ -90,7 +91,9 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
     }
   }
 
-  data.frame(list(original = xorig, from = start_year, till = end_year))
+  #quickdf(list(from = start_year, till = end_year))
+  data.frame(from = start_year, till = end_year)
+
 }
 
 

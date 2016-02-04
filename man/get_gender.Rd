@@ -2,7 +2,7 @@
 % Please edit documentation in R/gender.R
 \name{get_gender}
 \alias{get_gender}
-\title{get_gender}
+\title{Get gender}
 \usage{
 get_gender(x)
 }
@@ -13,7 +13,7 @@ get_gender(x)
 Author gender information
 }
 \description{
-Pick gender based on first names
+Pick gender based on first names.
 }
 \examples{
 get_gender("julius")

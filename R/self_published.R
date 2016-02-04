@@ -32,6 +32,6 @@ self_published <- function (df) {
   selfpub <- as.logical((publisher %in% "Self-published (unknown author)") | (author == publisher))
   #selfpub[is.na(selfpub)] <- FALSE
 
-  data.frame(publisher = publisher, self_publisher = selfpub)
+  data.frame(publisher = publisher, self_published = selfpub)
 
 }
