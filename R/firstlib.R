@@ -8,6 +8,7 @@
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 coord_flip
 #' @importFrom ggplot2 geom_bar
+#' @importFrom ggplot2 geom_line
 #' @importFrom ggplot2 geom_point
 #' @importFrom ggplot2 geom_smooth
 #' @importFrom ggplot2 geom_text
