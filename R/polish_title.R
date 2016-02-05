@@ -1,16 +1,12 @@
-#' @title polish_title
+#' @title Polish title
 #' @description Polish title field
-#'
 #' @param x Vector of titles
 #' @return Vector of titles polished
-#'
 #' @export
 #' @details Remove ending commas, periods, spaces and parentheses, 
 #' 	    starting prepositions etc.
-#' 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("estc")
-#' 
 #' @examples \dontrun{x2 <- polish_title(x)}
 #' @keywords utilities
 polish_title <- function (x) {

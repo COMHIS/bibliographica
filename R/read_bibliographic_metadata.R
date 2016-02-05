@@ -35,7 +35,6 @@ read_bibliographic_metadata <- function (file, verbose = FALSE) {
     # beginning and end of strings
     tab <- apply(tab,1:2,function(x){
       x <- gsub("^[[:space:],:;]+","",gsub("[[:space:],:;]+$","",x)) 
-      x
     })
 
     # Convert empty cells to NAs
@@ -50,7 +49,7 @@ read_bibliographic_metadata <- function (file, verbose = FALSE) {
 
     if (any(is.na(names(df)))) {
       warnings(paste("Fields", paste(names.orig[which(is.na(names(df)))], collapse = ";"), "not recognized"))
-  }
+    }
 
     # Add one identifier column
     df$original_row <- 1:nrow(df)

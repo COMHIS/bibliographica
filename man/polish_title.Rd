@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_title.R
 \name{polish_title}
 \alias{polish_title}
-\title{polish_title}
+\title{Polish title}
 \usage{
 polish_title(x)
 }

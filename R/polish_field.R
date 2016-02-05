@@ -14,7 +14,15 @@ polish_field <- function (df, field, verbose = TRUE) {
 
   from <- till <- NULL
 
-    if (field == "language") {
+    if (field == "subject_geography") {
+
+      df.tmp <- data.frame(subject_geography = df[[field]])
+      
+    } else if (field == "subject_topic") {
+
+      df.tmp <- data.frame(topic = df[[field]])
+      
+    } else if (field == "language") {
 
       df.tmp <- data.frame(language = mark_languages(df[[field]]))
 

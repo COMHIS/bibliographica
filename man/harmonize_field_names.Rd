@@ -4,7 +4,7 @@
 \alias{harmonize_field_names}
 \title{Harmonize field names}
 \usage{
-harmonize_field_names(x)
+harmonize_field_names(x = NULL)
 }
 \arguments{
 \item{x}{a vector of field codes}
