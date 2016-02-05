@@ -51,6 +51,8 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
   df$author_death[inds] <- death
 
   df$author <- df$author_unique
+  df$author[df$author == "NA, NA"] <- NA
+  df$author[grep("^NA, NA ", df$author)] <- NA  
   df$author_unique <- NULL
 
   df
