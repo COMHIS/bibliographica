@@ -1,4 +1,4 @@
-#' @title polish_years
+#' @title Polish years
 #' @description Pick and polish the year interval (start and end years) from a time field which is of the form 1800 or 1823-1845 etc.
 #' @param x year field (a vector) 
 #' @param start_synonyms Synonyme table for start year

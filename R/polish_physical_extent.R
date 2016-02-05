@@ -26,7 +26,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 
   s <- suniq
 
-  # Remove commonly used volume formats
+  if (verbose) {message("Remove commonly used volume formats")}
   f <- system.file("extdata/remove_dimension.csv", package = "bibliographica")
   terms <- as.character(read.csv(f)[,1])
   s <- remove_dimension(s, terms)
@@ -34,7 +34,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   s <- as.character(s)
   s[grep("^[ |\\.|;|:|!|?]*$", s)] <- NA # ""; "." ; " ... "
 
-  # Harmonize volume info
+  if (verbose) {message("Harmonize volume info")}
   inds <- 1:length(s)  
   inds <- setdiff(inds, setdiff(grep("v\\.$", s), grep("^v\\.$", s)))
   if (length(inds)>0) {
@@ -49,7 +49,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   
   s <- harmonize_ie(s)
 
-  # Read the mapping table
+  if (verbose) {message("Read the mapping table for pages")}
   f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
   page.harmonize <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
 
@@ -57,28 +57,30 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   f <- system.file("extdata/harmonize_page_info.csv", package = "bibliographica")
   harm.pi <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))  
 
-  # Read the mapping table
+  if (verbose) {message("Read the mapping table for sheets")}  
   f <- system.file("extdata/harmonize_sheets.csv", package = "bibliographica")
   sheet.harmonize <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
   s <- harmonize_sheets(s, sheet.harmonize)
 
-  # Read the mapping table
+  if (verbose) {message("Read the mapping table for romans")}  
   f <- system.file("extdata/harmonize_romans.csv", package = "bibliographica")
   romans.harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
   # Romans
   s <- harmonize_names(s, romans.harm, mode = "recursive", include.lowercase = FALSE, check.synonymes = F)
 
+  if (verbose) {message("Page harmonization part 2")}  
   f <- system.file("extdata/harmonize_pages2.csv", package = "bibliographica")
   harm2 <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
   s <- as.character(harmonize_names(s, harm2, mode = "recursive", check.synonymes = FALSE, include.lowercase = FALSE))
 
-  # Polish unique pages separately for each volume
+  if (verbose) {message("Polish unique pages separately for each volume")}  
   # Return NA if conversion fails
-
-  pages <- sapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") {return(rep("MOI", 3))} else {return(a)}})
+  s <- str_trim(s)  
+  pages <- sapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") {return(NA)} else {return(a)}})
+  #pages <- sapply(s, function (s) { polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) })
   rownames(pages) <- NULL
 
-  # Make data frame
+  if (verbose) {message("Make data frame")}  
   ret <- data.frame(unname(t(pages)))
   for (k in 1:ncol(ret)) {ret[, k] <- unlist(ret[, k], use.names = FALSE)}
   names(ret) <- c("pagecount", "volnumber", "volcount")
@@ -110,7 +112,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) {
 
   if (verbose) {message(s)}
-  if (is.na(s)) { return(rep(NA, 3)) }
+  if (is.na(s) || s == "s") { return(rep(NA, 3)) }
 
   # Shortcut for easy cases: "24p."
   if (length(grep("[0-9]+ {0,1}p\\.{0,1}$",s))>0) {
@@ -132,6 +134,7 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
   # Pagecount
   spl <- unlist(strsplit(s, ";"), use.names = FALSE)
   x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)})))
+  #x <- unname(sapply(spl, function (x) {polish_physext_help2(x, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)}))
   if (class(x) == "try-error") {
     x <- NA
   } 
