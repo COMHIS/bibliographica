@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_country.R
 \name{get_country}
 \alias{get_country}
-\title{get_country}
+\title{Get country}
 \usage{
 get_country(x, map = NULL)
 }
@@ -12,7 +12,7 @@ get_country(x, map = NULL)
 \item{map}{data.frame with region to country mappings (fields 'region' and 'country')}
 }
 \value{
-data.frame
+Country vector
 }
 \description{
 Map geographic places to country names

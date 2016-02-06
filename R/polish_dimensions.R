@@ -89,7 +89,7 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
       message("Estimating missing entries")
     }
 
-    tab.estimated <- augment_dimension_table(tab.original, dimtab = dimtab, verbose = verbose, sheet.dimension.table)
+    tab.estimated <- augment_dimension_table(tab.original, dim.info = dimtab, sheet.dim.tab = sheet.dimension.table, verbose = verbose)
 
     tab.final <- cbind(tab.final, tab.estimated)
   }

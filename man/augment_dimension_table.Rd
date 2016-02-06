@@ -4,26 +4,26 @@
 \alias{augment_dimension_table}
 \title{Augment dimension table}
 \usage{
-augment_dimension_table(dimension.table, dimtab = NULL, verbose = FALSE,
-  sheet.dimension.table = NULL)
+augment_dimension_table(dim.tab, dim.info = NULL, sheet.dim.tab = NULL,
+  verbose = FALSE)
 }
 \arguments{
-\item{dimension.table}{dimension.table}
+\item{dim.tab}{dim.tab}
 
-\item{dimtab}{Mapping between document dimensions.}
+\item{dim.info}{Mapping between document dimensions.}
+
+\item{sheet.dim.tab}{sheet.dim.tab}
 
 \item{verbose}{verbose}
-
-\item{sheet.dimension.table}{sheet.dimension.table}
 }
 \value{
-Augmented dimension.table
+Augmented dim.tab
 }
 \description{
 Estimate missing entries in dimension table where possible
 }
 \examples{
-# augment_dimension_table(dimension.table)
+# augment_dimension_table(dim.tab)
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

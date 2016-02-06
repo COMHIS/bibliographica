@@ -10,7 +10,9 @@
 #' @keywords utilities
 pick_firstname <- function (x, format = "last, first") {
 
-  x <- as.character(x)
+  xorig <- as.character(x)
+  xuniq <- unique(xorig)
+  x <- xuniq
 
   if (format == "last, first") {
     first <- sapply(x, function (x) {y <- unlist(strsplit(x, ", "), use.names = FALSE); if (length(y)>1) y[[2]] else NA}) 
@@ -23,7 +25,7 @@ pick_firstname <- function (x, format = "last, first") {
   # Remove possible life year info
   first <- gsub(" \\([0-9|N|A]+-[0-9|N|A]+\\)", "", first)
 
-  first
+  first[match(xorig, xuniq)]
 
 }
 

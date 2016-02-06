@@ -12,6 +12,10 @@
 #' @import genderdata
 get_gender <- function (x) {
 
+  xorig <- as.character(x)
+  xuniq <- unique(xorig)
+  x <- xuniq
+
   if (is.character(x) && length(x) == 1) {
     author.gender <- gender(x)
     return(author.gender$gender)
@@ -77,7 +81,7 @@ get_gender <- function (x) {
   #unknown <- cbind(Name = names(unknown), Count = unknown)
   #list(gender = author.gender, unknown = unknown)
 
-  author.gender
+  author.gender[match(xorig, xuniq)]
   
 }
 

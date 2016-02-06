@@ -13,24 +13,31 @@ author_unique <- function (df, format = "last, first", initialize.first = FALSE)
 
   author_name <- author_birth <- author_death <- NULL
 
-  author_unique <- rep(NA, nrow(df))
+  dfa <- df[, c("author_name", "author_birth", "author_death")]
+  dfa.orig <- dfa
+  dfa.uniq <- unique(dfa.orig)
+  # Entry IDs
+  id.orig <- apply(dfa.orig, 1, function (x) {paste(as.character(x), collapse = "")})
+  id.uniq <- apply(dfa.uniq, 1, function (x) {paste(as.character(x), collapse = "")})
+  match.inds <- match(id.orig, id.uniq)
+  rm(id.orig)  
 
-  first <- pick_firstname(df$author_name, format = format)
-  last <- pick_lastname(df$author_name, format = format)  
-  birth <- df$author_birth
-  death <- df$author_death
+  author_unique <- rep(NA, nrow(dfa.uniq))
 
+  first <- pick_firstname(dfa.uniq$author_name, format = format)
+  last <- pick_lastname(dfa.uniq$author_name, format = format)  
+  
   # Cut the full first names into initials
   if (initialize.first) {
     first <- name_initials(first)
   }
 
-  author_unique <- apply(cbind(last, first, birth, death), 1, function (x) {paste(x[[1]], ", ", x[[2]], " (", x[[3]], "-", x[[4]], ")", sep = "")})  
-  author_unique[is.na(df$author_name)] <- NA
+  author_unique <- apply(cbind(last, first, dfa.uniq$author_birth, dfa.uniq$author_death), 1, function (x) {paste(x[[1]], ", ", x[[2]], " (", x[[3]], "-", x[[4]], ")", sep = "")})  
+  author_unique[is.na(dfa.uniq$author_name)] <- NA
   author_unique <- gsub(" \\(NA-NA\\)", "", author_unique)
   author_unique <- gsub("NA \\(NA-NA\\)", NA, author_unique)
   
-  as.factor(unname(author_unique))
+  as.factor(unname(author_unique))[match.inds]
 
 }
 

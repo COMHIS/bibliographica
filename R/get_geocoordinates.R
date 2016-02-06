@@ -185,7 +185,8 @@ get_geocoordinates <- function (x, geonames, places.geonames) {
   }
 
   tmpdf <- quickdf(list(latitude = latitude, longitude = longitude))
-  
+
+  # Map back to the original domain
   return(tmpdf[match(pubplace.orig, pubplace.uniq),])
 
 }
