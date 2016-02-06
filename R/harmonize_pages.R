@@ -36,12 +36,7 @@ harmonize_pages <- function (s, synonyms, harm, sheetharm, harm.pi) {
   for (n in 0:9) {
      s <- gsub(paste("] ", n, sep = ""), paste("], ", n, sep = ""), s)
   }
-  # Remove too many commas
-  s <- gsub("\\,+", ",", s)
-  
-  s <- gsub("^,", "", s)
   s <- str_trim(gsub("\\]$", "", s))  
-  if (s %in% c("", "NA")) { s <- NA }
 
   s
 

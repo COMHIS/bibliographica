@@ -147,7 +147,7 @@ get_geocoordinates <- function (x, geonames, places.geonames) {
   coms <- intersect(geotab$place, rownames(geocoordinates))
   geocoordinates[coms, c("latitude", "longitude")] <- geotab[coms, c("latitude", "longitude")]
 
-  print("FIXME move to tidy data principles ie. geographic info are in their own data frames..")
+  # print("FIXME move to tidy data principles ie. geographic info are in their own data frames..")
   latitude <- as.numeric(as.character(geocoordinates[as.character(pubplace), "latitude"]))
   longitude <- as.numeric(as.character(geocoordinates[as.character(pubplace), "longitude"]))
 

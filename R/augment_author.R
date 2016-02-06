@@ -14,10 +14,6 @@
 #' @keywords utilities
 augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
 
-  #library(estc)
-  #source("../estc/R/author_info_table.R")
-  #source("../estc/R/author.R")
-
   # For authors with a unique birth, use this birth year also for documents where
   # birth year not given in the raw data
   df$author_birth <- guess_missing_entries(id = df$author_name, values = df$author_birth)$values

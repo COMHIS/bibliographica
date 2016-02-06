@@ -248,6 +248,16 @@ test_that("volume count is correct", {
   expect_equal(polish_physical_extent("v, 5")$volcount, 1) # 5 + 5 pages, 1 volume
   expect_equal(polish_physical_extent("v")$volcount, 1)
   expect_equal(polish_physical_extent("v ;")$volcount, 1)
+  #} else if (x == "v.1-3, 5 ;") {
+  #    nvol <- 4
+  #  vtext <- "v.1-3,5"
+  #} else if (x == "v.1,4-7 ;") {
+  #  nvol <- 5
+  #  vtext <- "v.1,4-7"
+  #} else if (x == "Vols.6-7,9-12,plates :") {
+  #  nvol <- 6
+  #  vtext <- "v.6-7,9-12"
+
 })
 
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_volume_info.R
 \name{remove_volume_info}
 \alias{remove_volume_info}
-\title{remove_volume_info}
+\title{Remove volume info}
 \usage{
 remove_volume_info(x)
 }
@@ -13,7 +13,7 @@ remove_volume_info(x)
 Page numbers without volume information
 }
 \description{
-Remove volume info from the string start
+Remove volume info from the string start.
 }
 \examples{
 \dontrun{remove_volume_info("v.4, 293")}

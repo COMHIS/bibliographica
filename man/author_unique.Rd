@@ -2,7 +2,7 @@
 % Please edit documentation in R/author_unique.R
 \name{author_unique}
 \alias{author_unique}
-\title{author_unique}
+\title{Create unique author ID}
 \usage{
 author_unique(df, format = "last, first", initialize.first = FALSE)
 }

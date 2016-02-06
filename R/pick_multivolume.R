@@ -1,5 +1,5 @@
-#' @title pick_multivolume
-#' @description Pick volume information for multi-volume documents
+#' @title Pick multivolume
+#' @description Pick volume information for multi-volume documents.
 #' @param x Page number field. Vector or factor of strings.
 #' @return Volume information
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}

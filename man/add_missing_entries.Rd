@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_missing_entries.R
 \name{add_missing_entries}
 \alias{add_missing_entries}
-\title{add_missing_entries}
+\title{Add missing entries}
 \usage{
 add_missing_entries(df, info, id, field)
 }
@@ -22,7 +22,7 @@ Character vector of unique author IDs
 Fill in missing entries in the data based on supplied information table
 }
 \examples{
-\dontrun{a <- author_unique(df)}
+\dontrun{a <- add_missing_entries(...)}
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

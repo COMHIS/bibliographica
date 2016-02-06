@@ -13,17 +13,10 @@ check_volumes <- function (x) {
 
   # Handle some rare special cases manually
   if (is.na(x)) {
+  
     nvol <- NA
     vtext <- NA
-  } else if (x == "v.1-3, 5 ;") {
-    nvol <- 4
-    vtext <- "v.1-3,5"
-  } else if (x == "v.1,4-7 ;") {
-    nvol <- 5
-    vtext <- "v.1,4-7"
-  } else if (x == "Vols.6-7,9-12,plates :") {
-    nvol <- 6
-    vtext <- "v.6-7,9-12"
+  
   } else if (length(grep("^v.[ ]*[0-9]+[ ]*-[ ]*[0-9]+.*$", x)) > 0) {
   
     n1 <- as.numeric(gsub("^v.[ ]*([0-9]+)[ ]*-[ ]*[0-9]+.*$", "\\1", x))
@@ -37,7 +30,7 @@ check_volumes <- function (x) {
 
   }
 
-  if (is.null(vtext)) {vtext <- ""}
+  if ( is.null(vtext) ) { vtext <- "" }
 
   list(n = nvol, text = vtext)
  

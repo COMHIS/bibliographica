@@ -24,7 +24,7 @@ estimate_pages <- function (x) {
     return(2 * as.numeric(as.roman(str_trim(unlist(strsplit(x, "sheet"), use.names = FALSE)[[1]])))) 
   } else if (length(grep("\\[{0,1}[0-9]* \\]{0,1} leaves", x)) > 0) {
     # "[50 ] leaves" 
-    x <- str_trim(gsub("\\[", "", gsub("\\]", "", x)))
+    x <- gsub("\\[", "", gsub("\\]", "", x))    
   } else if (length(grep("[0-9]+ \\+ [0-9]+", x))>0) {
     # 9 + 15
     return(sum(as.numeric(str_trim(unlist(strsplit(x, "\\+"), use.names = FALSE)))))
@@ -37,7 +37,7 @@ estimate_pages <- function (x) {
       return(1)
     } else if (length(grep("^p", x)) > 0 && length(grep("-", x)) > 0) {
       # p5-8 -> 5-8
-      x <- str_trim(gsub("^p", "", x))
+      x <- gsub("^p", "", x)
     }
     
   }
@@ -51,7 +51,7 @@ estimate_pages <- function (x) {
   x <- gsub("\\+", "", x)
 
   # Handle comma-separated elements separately
-  spl <- str_trim(unlist(strsplit(x, ","), use.names = FALSE))
+  spl <- unlist(strsplit(x, ","), use.names = FALSE)
 
   # Harmonize pages within each comma
   x <- sapply(spl, function (x) { harmonize_pages_by_comma(x) })
@@ -91,7 +91,6 @@ estimate_pages <- function (x) {
   # Remove square brackets
   x <- gsub("\\[", "", x)
   x <- gsub("\\]", "", x)
-  x <- str_trim(x)
 
   # -----------------------------------------------------
 
@@ -137,7 +136,6 @@ estimate_pages <- function (x) {
   # Take into account multiplier
   # (for instance when page string starts with Ff the document is folios
   # and page count will be multiplied by two - in most cases multiplier is 1)
-
   pages <- page.count.multiplier * unlist(pages, use.names = FALSE)
 
   # Total page count

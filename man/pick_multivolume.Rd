@@ -2,7 +2,7 @@
 % Please edit documentation in R/pick_multivolume.R
 \name{pick_multivolume}
 \alias{pick_multivolume}
-\title{pick_multivolume}
+\title{Pick multivolume}
 \usage{
 pick_multivolume(x)
 }
@@ -13,7 +13,7 @@ pick_multivolume(x)
 Volume information
 }
 \description{
-Pick volume information for multi-volume documents
+Pick volume information for multi-volume documents.
 }
 \examples{
 \dontrun{pick_multivolume("v.1-3, 293")}

@@ -1,4 +1,4 @@
-#' @title author_unique
+#' @title Create unique author ID
 #' @description Form unique author identifiers by combining name and life years
 #' @param df data.frame with fields "author_name", "author_birth", "author_death"
 #' @param format name format ("last, first" or "first last")

@@ -74,10 +74,10 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   s <- as.character(harmonize_names(s, harm2, mode = "recursive", check.synonymes = FALSE, include.lowercase = FALSE))
 
   if (verbose) {message("Polish unique pages separately for each volume")}  
+
   # Return NA if conversion fails
-  s <- str_trim(s)  
+  s <- str_trim(s)
   pages <- sapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") {return(NA)} else {return(a)}})
-  #pages <- sapply(s, function (s) { polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) })
   rownames(pages) <- NULL
 
   if (verbose) {message("Make data frame")}  
@@ -91,8 +91,8 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   # one part of a multi-volume document
   ret$volcount[is.na(ret$volcount) & is.na(ret$volnumber)] <- 1 
 
-  # Some final polishing
-  ret$pagecount[is.na(ret$pagecount) | ret$pagecount == 0] <- NA # Set zero page counts to NA
+  # Set zero page counts to NA  
+  ret$pagecount[is.na(ret$pagecount) | ret$pagecount == 0] <- NA 
 
   if (verbose) { message("Project unique entries back to the original list") }
   ret[match(sorig, suniq), ]
@@ -111,12 +111,12 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 #' @keywords internal
 polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) {
 
-  if (verbose) {message(s)}
-  if (is.na(s) || s == "s") { return(rep(NA, 3)) }
+  if (verbose) { message(s) }
+  if (is.na(s) || s == "s") { return(rep(NA, 3)) } 
 
   # Shortcut for easy cases: "24p."
-  if (length(grep("[0-9]+ {0,1}p\\.{0,1}$",s))>0) {
-    c(as.numeric(str_trim(gsub(" {0,1}p\\.{0,1}$", "", s))), NA, NA)  
+  if (length(grep("^[0-9]+ {0,1}p\\.{0,1}$",s))>0) {
+    return(c(as.numeric(str_trim(gsub(" {0,1}p\\.{0,1}$", "", s))), NA, NA))
   }
 
   # Pick volume number
@@ -134,10 +134,12 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
   # Pagecount
   spl <- unlist(strsplit(s, ";"), use.names = FALSE)
   x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)})))
-  #x <- unname(sapply(spl, function (x) {polish_physext_help2(x, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)}))
   if (class(x) == "try-error") {
     x <- NA
   } 
+
+  x[x == ""] <- NA
+  x[x == "NA"] <- NA  
 
   # Return
   c(sum(x, na.rm = TRUE), voln, vols)  

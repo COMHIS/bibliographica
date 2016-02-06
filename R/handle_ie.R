@@ -41,8 +41,9 @@ handle_ie <- function (x, harmonize = TRUE) {
     x[inds] <- handle_ie(x[inds])
     x <- paste(x, collapse = "[")
   }
-  x <- gsub("\\[ ", "\\[", x)
-  x <- condense_spaces(x)
+
+  x <- gsub("\\[ ", "[", x)
+  x <- str_trim(x)
 
   x
 }

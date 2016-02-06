@@ -1,4 +1,4 @@
-#' @title add_missing_entries
+#' @title Add missing entries
 #' @description Fill in missing entries in the data based on supplied information table
 #' @param df data.frame with the fields given in the 'id' and 'field' arguments
 #' @param info Information table including the 'id' and 'field' fields
@@ -8,7 +8,7 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @export
-#' @examples \dontrun{a <- author_unique(df)}
+#' @examples \dontrun{a <- add_missing_entries(...)}
 #' @keywords utilities
 add_missing_entries <- function (df, info, id, field) {
   v <- df[[field]]
