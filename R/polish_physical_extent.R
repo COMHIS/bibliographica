@@ -38,6 +38,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   s <- s[match(sorig, suniq)]
   sorig <- s
   suniq <- unique(sorig)
+  s <- suniq
 
   if (verbose) {message("Harmonize volume info")}
   inds <- 1:length(s)  
@@ -51,7 +52,13 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
   page.synonyms <- read.csv(f, sep = ";")
   s <- harmonize_names(s, page.synonyms, mode="match", include.lowercase = FALSE, check.synonymes = F)
-  
+
+  # Back to original indices and new unique reduction 
+  s <- s[match(sorig, suniq)]
+  sorig <- s
+  suniq <- unique(sorig)
+  s <- suniq
+
   s <- harmonize_ie(s)
 
   if (verbose) {message("Read the mapping table for pages")}
@@ -66,6 +73,12 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   f <- system.file("extdata/harmonize_sheets.csv", package = "bibliographica")
   sheet.harmonize <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
   s <- harmonize_sheets(s, sheet.harmonize)
+
+  # Back to original indices and new unique reduction 
+  s <- s[match(sorig, suniq)]
+  sorig <- s
+  suniq <- unique(sorig)
+  s <- suniq
 
   if (verbose) {message("Read the mapping table for romans")}  
   f <- system.file("extdata/harmonize_romans.csv", package = "bibliographica")

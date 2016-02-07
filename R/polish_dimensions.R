@@ -39,6 +39,9 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   s <- suniq <- unique(s)
   match.inds <- match(sorig, suniq)
 
+  # 75,9 -> 75.9  
+  s <- gsub(",", ".", s) 
+
   # Harmonize the terms
   s <- harmonize_names(s, synonyms, mode = "recursive", check.synonymes = FALSE, include.lowercase = F)
   s <- tolower(as.character(s))

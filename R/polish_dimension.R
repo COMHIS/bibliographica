@@ -57,7 +57,7 @@ polish_dimension <- function (x, synonyms) {
 
   gatherings <- NA
   if (length(hits) > 0) {
-    x <- gsub(";;", "", gsub("\\(", "", gsub("\\)", "", x[hits])))
+    x <- gsub(";;", "", x[hits])
 
     x <- unique(x)
     if (!length(x) == 1) {
@@ -114,12 +114,12 @@ polish_dimension <- function (x, synonyms) {
       x <- unlist(strsplit(x, "cm"), use.names = FALSE)
       x <- str_trim(unlist(strsplit(x, " "), use.names = FALSE))
       i <- which(x == "x")
-      height <- as.numeric(str_trim(gsub("\\)", "", x[i+1])))
-      width <- as.numeric(str_trim(gsub("\\(", "", x[i-1])))
+      height <- as.numeric(str_trim(x[i+1]))
+      width <- as.numeric(str_trim(x[i-1]))
   } else if (length(grep("cm", x)) > 0 && length(grep("x", x)) == 0) {
       # Pick CM format (single value) separately when it is unambiguous
       # Then pick the dimensions
-      x <- str_trim(gsub("\\(", "", gsub("\\)", "", unlist(strsplit(x, " "), use.names = FALSE))))
+      x <- str_trim(unlist(strsplit(x, " "), use.names = FALSE))
       i <- which(x == "cm")
       height <- as.numeric(str_trim(x[i-1]))
       width <- NA
