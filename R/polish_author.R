@@ -31,6 +31,12 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   s <- str_trim(s)
   s <- gsub("[\\.|\\,]$", "", s)
 
+  # Map back to original indices, then make unique again. Helps to further reduce cases.
+  s <- s[match(sorig, suniq)]
+  sorig <- s
+  suniq <- unique(s)
+  s <- suniq
+
   if (verbose) { message("Separating names") }
   # Assume names are of format Last, First
   nametab <- t(sapply(strsplit(s, ","), function (x) {
@@ -90,7 +96,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
 
   # To speed up, discard names where both first and last are not accepted
   valid <- list()
-  invalid <- list()
+  #invalid <- list()
   for (db in c("first", "last")) {
 
     namelist <- nametab[[db]]
@@ -98,7 +104,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
     v$validated <- !is.na(namelist)
     v$invalid <- suniq[is.na(namelist)]
     valid[[db]] <- v$validated
-    invalid[[db]] <- v$invalid
+    #invalid[[db]] <- v$invalid
 
   }
   nametab[(!valid[["first"]] | !valid[["last"]]), ] <- NA
@@ -109,7 +115,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   # FIXME this could go to enrich / qualitycheck
   ### VALIDATING THE NAMES
   valid <- list()
-  invalid <- list()
+  #invalid <- list()
 
   if (verbose) { message("Validate names with known name lists") }
   if (validate) {  
@@ -118,7 +124,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
       namelist <- nametab[[db]]
       v <- validate_names(namelist, db)
       valid[[db]] <- v$validated
-      invalid[[db]] <- v$invalid
+      #invalid[[db]] <- v$invalid
     }
     if (verbose) { message("Remove names that do not have both valid first and last names") }
     nametab[(!valid[["first"]] | !valid[["last"]]), ] <- NA
@@ -134,13 +140,15 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   full.name <- apply(nametab, 1, function (x) { paste(x, collapse = ", ") })
   full.name[full.name == "NA, NA"] <- NA
   full.name <- gsub(", NA$", "", full.name) # "Tolonen, NA" -> "Tolonen"
+  full.name <- gsub("^NA, ", "", full.name) # "NA, Mikael" -> "Mikael"  
   nametab$full <- full.name
 
   if (verbose) { message("Map to the original indices") }
   nametab <- nametab[match(sorig, suniq), ]
   nametab$original <- sorig
 
-  list(names = nametab, invalid = invalid)
+  #list(names = nametab, invalid = invalid)
+  list(names = nametab)  
 
 }
 

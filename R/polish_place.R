@@ -29,9 +29,9 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   message(paste("Reading stopwords from file ", f))
   stopwords <- as.character(read.csv(f)[,1])
 
-  # Polish
+  # Unique
+  xorig <- x
   xuniq <- sort(unique(x))
-  match.inds <- match(x, xuniq)
   x <- xuniq
 
   # Prepare
@@ -57,14 +57,33 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- gsub("^re ", "", x)
   x <- gsub("_", " ", x)  
 
+  # Back to original indices, then unique again; reduces number of unique cases further
+  x <- x[match(xorig, xuniq)]
+  xorig <- x
+  xuniq <- sort(unique(x))
+  x <- xuniq
+
   if (verbose) {message(paste("Polishing ", length(xuniq), " unique place names", sep = ""))}
   x <- remove_persons(x)
 
   x <- remove_print_statements(x, remove.letters = FALSE)
   x <- remove_stopwords(x, terms = stopwords, remove.letters = FALSE)
   x <- harmonize_ie(x)
-  s <- synonymes$synonyme  
+  s <- synonymes$synonyme
+
+  # Back to original indices, then unique again; reduces number of unique cases further
+  x <- x[match(xorig, xuniq)]
+  xorig <- x
+  xuniq <- sort(unique(x))
+  x <- xuniq
+
   x <- unname(sapply(x, function (x) {polish_place_help(unlist(x, use.names = FALSE), s, stopwords = stopwords, verbose = verbose)}))
+
+  # Back to original indices, then unique again; reduces number of unique cases further
+  x <- x[match(xorig, xuniq)]
+  xorig <- x
+  xuniq <- sort(unique(x))
+  x <- xuniq
 
   # Harmonize
   if (harmonize) {
@@ -83,7 +102,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x[x == c("", "na")] <- NA
 
   # Convert back to original indices and return
-  x[match.inds]
+  x[match(xorig, xuniq)]
 
 }
 

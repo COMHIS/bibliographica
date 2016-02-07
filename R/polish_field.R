@@ -48,7 +48,6 @@ polish_field <- function (df, field, verbose = TRUE) {
 
       } else if (field == "author_name") {
 
-      	#print("Arrange author first and last names in a table")      
       	# Full author name (Last, First) 
       	author <- polish_author(df[[field]], validate = FALSE, verbose = verbose)
       	df.tmp <- data.frame(author_name = author$names$full)

@@ -34,6 +34,11 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   s <- as.character(s)
   s[grep("^[ |\\.|;|:|!|?]*$", s)] <- NA # ""; "." ; " ... "
 
+  # Back to original indices and new unique reduction 
+  s <- s[match(sorig, suniq)]
+  sorig <- s
+  suniq <- unique(sorig)
+
   if (verbose) {message("Harmonize volume info")}
   inds <- 1:length(s)  
   inds <- setdiff(inds, setdiff(grep("v\\.$", s), grep("^v\\.$", s)))
@@ -74,6 +79,11 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   s <- as.character(harmonize_names(s, harm2, mode = "recursive", check.synonymes = FALSE, include.lowercase = FALSE))
 
   if (verbose) {message("Polish unique pages separately for each volume")}  
+
+  # Back to original indices and new unique reduction 
+  s <- s[match(sorig, suniq)]
+  sorig <- s
+  suniq <- unique(sorig)
 
   # Return NA if conversion fails
   s <- str_trim(s)

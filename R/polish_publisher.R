@@ -16,15 +16,19 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE) {
   f <- system.file("extdata/stopwords_for_names.csv", package = "bibliographica")
   terms <- read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8", header = TRUE)$Term
 
+  # Initial hamornization
+  x <- tolower(x)
+  #x <- gsub("o\\.y", "oy", x) #o.y -> oy
+  x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "\\.", "-"), niter = 2)
+
   xorig <- x
   xuniq <- unique(x)
+  x <- xuniq
+
   if (verbose) {
     message(paste("Polishing publisher:", length(xuniq), "unique cases"))
   }
 
-  x <- tolower(xuniq)
-  x <- gsub("o\\.y", "oy", x) #o.y -> oy
-  x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "\\.", "-"), niter = 2)
   x <- gsub("w ja g", "weilin goos", x)
   
   x <- remove_terms(x, terms, where = "begin")

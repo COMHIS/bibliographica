@@ -30,10 +30,8 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   # Handle from longest to shortest to avoid problems
   months <- months[rev(order(nchar(months)))]
 
-  xorig <- x <- as.character(x)
-  
-  xuniq <- unique(x)
-  match.inds <- match(xorig, xuniq)
+  xorig <- x <- as.character(x)  
+  xuniq <- unique(xorig)
   x <- xuniq
 
   if (verbose) {
@@ -55,12 +53,30 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
     x <- gsub("-", "", x)        
   }
 
+  # Map back to original indices and make unique again. To speedup further.
+  x <- x[match(xorig, xuniq)]
+  xorig <- x
+  xuniq <- unique(xorig)
+  x <- xuniq
+
   x <- harmonize_ie(x) 
   x <- remove_print_statements(x)
-  x <- sapply(x, function (xi) {handle_ie(xi, harmonize = TRUE)})
 
+  # Map back to original indices and make unique again. To speedup further.
+  x <- x[match(xorig, xuniq)]
+  xorig <- x
+  xuniq <- unique(xorig)
+  x <- xuniq
+  
+  x <- sapply(x, function (xi) {handle_ie(xi, harmonize = TRUE)})
   x <- condense_spaces(gsub("\\.", " ", x))
   x <- remove_time_info(x, verbose = F, months)
+
+  # Map back to original indices and make unique again. To speedup further.
+  x <- x[match(xorig, xuniq)]
+  xorig <- x
+  xuniq <- unique(xorig)
+  x <- xuniq
 
   # Remove some other info
   x <- gsub("price [0-9] d", "", x)
@@ -76,16 +92,17 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   }
   x[inds] <- str_trim(x[inds])
 
+  # Map back to original indices and make unique again. To speedup further.
+  x <- x[match(xorig, xuniq)]
+  xorig <- x
+  xuniq <- unique(xorig)
+  x <- xuniq
+
   res <- suppressWarnings(lapply(x, function (xi) {a <- try(polish_year(xi, start_synonyms = start_synonyms, end_synonyms = end_synonyms, months, verbose)); if (class(a) == "try-error") {return(c(NA, NA))} else {return(a)}}))
 
   res <- do.call("rbind", res)
   start_year <- res[,1]
   end_year   <- res[,2]
-
-  # Match the unique cases to the original indices
-  xorig <- xorig  # this is already in the original index domain
-  start_year <- start_year[match.inds]
-  end_year <- end_year[match.inds]
 
   if (check) {
     inds <- which(start_year > end_year)
@@ -96,7 +113,11 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   }
 
   #quickdf(list(from = start_year, till = end_year))
-  data.frame(from = start_year, till = end_year)
+  df <- data.frame(from = start_year, till = end_year)
+
+  # Match the unique cases to the original indices
+  # before returning the df
+  df[match(xorig, xuniq), ]
 
 }
 

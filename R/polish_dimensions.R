@@ -31,18 +31,14 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
     synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
   } 
 
-  # Speed up by only handling unique cases
+  # -------------------------------------
+
+  if (verbose) { message("Initial harmonization..") }
+
   sorig <- s
   s <- suniq <- unique(s)
   match.inds <- match(sorig, suniq)
 
-  if (verbose) {
-    message(paste("Estimating dimensions:", length(suniq), "unique cases"))    
-  }
-
-
-  # -------------------------------------
-  
   # Harmonize the terms
   s <- harmonize_names(s, synonyms, mode = "recursive", check.synonymes = FALSE, include.lowercase = F)
   s <- tolower(as.character(s))
@@ -61,14 +57,26 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   s <- harmonize_dimension(s, synonyms) 
   s <- harmonize_names(s, synonyms, mode = "recursive", check.synonymes = FALSE, include.lowercase = F)  
 
+  # Temporarily map to original indices to keep it clear
+  s <- s[match.inds]
+
+  if (verbose) {
+    message(paste("Estimating dimensions:", length(suniq), "unique cases"))    
+  }
+
+  # Make it unique here: after the initial harmonization
+  # This helps to further reduce the number of unique cases 
+  # Speed up by only handling unique cases
+  sorig <- s
+  s <- suniq <- unique(s)
+  match.inds <- match(sorig, suniq)
+
   # --------------------------------------
 
-  tab <- t(sapply(s, function (x) {
-    polish_dimension(x, synonyms)
+  tab <- t(sapply(s, function (x) {a <- try(polish_dimension(x, synonyms)); if (class(a) == "try-error") {a <- rep(NA, 5)}; return(a)
     }))
   rownames(tab) <- NULL
   tab <- data.frame(tab)
-  tab <- tab[match.inds,]
 
   if (verbose) {
     message("Convert to desired format")    
@@ -96,6 +104,8 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
 
   #tab.final$obl.original <- NULL
   tab.final$original.original <- NULL  
+
+  tab.final <- tab.final[match.inds,]
 
   tab.final
 

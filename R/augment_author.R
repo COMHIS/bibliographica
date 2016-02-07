@@ -37,7 +37,7 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
     df$author <- harmonize_names(df$author, ambiguous_authors, include.original = FALSE, check.synonymes = FALSE, include.lowercase = FALSE)
   }
   #df$author[df$author == "NA, NA"] <- NA
-  df$author[grep("^NA, NA ", df$author)] <- NA  
+  df$author[grep("^NA, NA", df$author)] <- NA  
 
   print("Correct author living years using the ones from the final harmonized version")	
   dfa.orig <- df
