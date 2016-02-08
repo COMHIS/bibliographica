@@ -60,7 +60,7 @@ estimate_pages <- function (x) {
   x <- as.vector(na.omit(x))
 
   page.count.multiplier <- 1
-  if (length(grep("^Ff", x[[1]]))==1) {
+  if (length(grep("^ff", x[[1]]))==1) {
     # Document is folios - double the page count!
     page.count.multiplier <- 2
   }

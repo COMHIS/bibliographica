@@ -1,5 +1,5 @@
-#' @title polish_place
-#' @description Polish place
+#' @title Polish place
+#' @description Polish place names.
 #' @param x A vector of place names
 #' @param synonymes Synonyme table for place names
 #' @param remove.unknown Logical. Remove places that are not validated (ie. listed in the synonyme table)?
@@ -51,8 +51,8 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- gsub("^and ", "", x)
   x <- gsub("^from ", "", x)            
   x <- gsub("['|-]", "", x)
-  x <- gsub("-", "", x)    
-  x <- gsub("Parliament ", "", x)
+  #x <- gsub("-", "", x)    
+  x <- gsub("parliament ", "", x)
   x <- gsub("^s$", "", x)    
   x <- gsub("^re ", "", x)
   x <- gsub("_", " ", x)  
@@ -67,6 +67,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- remove_persons(x)
 
   x <- remove_print_statements(x, remove.letters = FALSE)
+  x <- condense_spaces(x)
   x <- remove_stopwords(x, terms = stopwords, remove.letters = FALSE)
   x <- harmonize_ie(x)
   s <- synonymes$synonyme
@@ -109,7 +110,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
 polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
 
-  if (verbose) {message(x)}
+  # if (verbose) {message(x)}
 
   # London i.e. The Hague ->  The Hague
   # In the Yorke at London -> London

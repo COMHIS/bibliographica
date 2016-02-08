@@ -39,7 +39,7 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
   #df$author[df$author == "NA, NA"] <- NA
   df$author[grep("^NA, NA", df$author)] <- NA  
 
-  print("Correct author living years using the ones from the final harmonized version")	
+  message("Correct author living years using the ones from the final harmonized version")	
   dfa.orig <- df
   dfa.uniq <- unique(dfa.orig)
   # Entry IDs

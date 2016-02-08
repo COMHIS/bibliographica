@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_author.R
 \name{polish_author}
 \alias{polish_author}
-\title{polish_author}
+\title{Polish author}
 \usage{
 polish_author(s, stopwords = NULL, validate = FALSE, verbose = FALSE)
 }
@@ -19,7 +19,7 @@ polish_author(s, stopwords = NULL, validate = FALSE, verbose = FALSE)
 Polished vector
 }
 \description{
-Polish author
+Polish author.
 }
 \examples{
 s2 <- polish_author("Smith, William")

@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_place.R
 \name{polish_place}
 \alias{polish_place}
-\title{polish_place}
+\title{Polish place}
 \usage{
 polish_place(x, synonymes = NULL, remove.unknown = FALSE, verbose = FALSE,
   harmonize = TRUE)
@@ -22,7 +22,7 @@ polish_place(x, synonymes = NULL, remove.unknown = FALSE, verbose = FALSE,
 Polished vector
 }
 \description{
-Polish place
+Polish place names.
 }
 \examples{
 # x2 <- polish_place(c("London", "Paris"))

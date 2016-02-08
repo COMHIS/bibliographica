@@ -8,7 +8,33 @@
 #' @keywords internal
 remove_dimension <- function (x, terms) {
 
-  x <- sapply(x, function(xi) remove_terms(xi, terms))
+  # Go from longest to shortest term to avoid nested effects
+  terms <- terms[rev(order(sapply(unique(terms), nchar)))]
+
+  x[x %in% terms] <- " "
+
+  for (term in terms) {
+
+    inds <- grep(term, x)
+    if (length(inds) > 0) {
+
+      # begin
+      rms <- paste("^", term, "[ |\\.|\\,]", sep = "")
+      x[inds] <- gsub(rms, " ", x[inds])
+
+      # middle
+      x[inds] <- gsub(paste(" ", term, "[ |\\.|\\,]", sep = ""), " ", x[inds])
+
+      # all
+      rms <- paste(" ", term, "$", sep = "")
+      x[inds] <- gsub(rms, " ", x[inds])
+
+    }
+    
+  }
+
+  x <- condense_spaces(x)
+  x <- remove_trailing_periods(x)
   x[x == ""] <- NA
   
   x

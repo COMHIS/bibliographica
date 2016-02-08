@@ -9,20 +9,10 @@
 #' @keywords utilities
 remove_trailing_periods <- function (x){ 
 
-  if (is.na(x)) {
-    return(x)
-  }
+  if (is.na(x)) {return(x)}
   x <- gsub("\\.+$", "", x)
   x <- gsub("^\\.+", "", x)
     
-  #xold <- x; xold[[1]] <- "XXXXXX"
-  #while (!mean(na.omit(xold == x)) == 1) {
-  #  xold <- x
-  #  x <- condense_spaces(x)#
-  #    x <- gsub("\\.$", "", x)
-  #  x <- gsub("^\\.", "", x)
-  #}
-
   x
 }
 

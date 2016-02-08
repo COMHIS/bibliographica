@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_print_statements.R
 \name{remove_print_statements}
 \alias{remove_print_statements}
-\title{remove_print_statements}
+\title{Remove print statements}
 \usage{
 remove_print_statements(x, remove.letters = FALSE, n.iter = 1)
 }
@@ -17,7 +17,7 @@ remove_print_statements(x, remove.letters = FALSE, n.iter = 1)
 Polished vector
 }
 \description{
-Remove print statements
+Remove print statements.
 }
 \examples{
 x2 <- remove_print_statements("Printed in London")

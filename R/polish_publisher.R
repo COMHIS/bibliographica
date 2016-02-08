@@ -18,7 +18,6 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE) {
 
   # Initial hamornization
   x <- tolower(x)
-  #x <- gsub("o\\.y", "oy", x) #o.y -> oy
   x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "\\.", "-"), niter = 2)
 
   xorig <- x

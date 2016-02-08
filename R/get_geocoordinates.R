@@ -42,8 +42,7 @@ get_geocoordinates <- function (x, geonames, places.geonames) {
   # and are hence still missing the coordinates
   #top <- rev(sort(table(subset(df, publication_place %in% names(which(is.na(places.geonames)))$publication_place)))
 
-  print("Manual matching")
-
+  message("Manual matching")
   place <- "London"
   f <- filter(geonames, asciiname == place & country.code == "GB")
   geocoordinates[place,] <- f
@@ -136,7 +135,7 @@ get_geocoordinates <- function (x, geonames, places.geonames) {
   f <- filter(geonames, asciiname == "Baltimore")
   geocoordinates[place,] <- f
 
-  print("Read custom mappings from file")
+  message("Read custom mappings from file")
   # FIXME integrate all into a single place - country - geocoordinates file
   # that will be used in place - country and place - coordinate mappings
   # systematically
@@ -162,7 +161,7 @@ get_geocoordinates <- function (x, geonames, places.geonames) {
   hits <- list()
   if (length(missing) > 0) {
     for (place in missing) {
-      print(place)
+      # print(place)
       inds <- unique(c(grep(place, geonames$name), grep(place, geonames$asiiname), grep(place, geonames$alternatenames)))
 
       # Cambridge Ma -> Cambridge
@@ -176,7 +175,7 @@ get_geocoordinates <- function (x, geonames, places.geonames) {
     }
   }
 
-  print("Places with no hit whatsoever in geonames")
+  message("Places with no hit whatsoever in geonames")
   absent <- NULL 
   if (length(hits) > 0) {
     absent <- names(which(sapply(hits, function (x) {nrow(x) == 0})))

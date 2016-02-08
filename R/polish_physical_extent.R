@@ -15,11 +15,11 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 
   # Summary of abbreviations
   # http://ac.bslw.com/community/wiki/index.php5/RDA_4.5
-  sorig <- as.character(x)
+  sorig <- tolower(as.character(x))
   suniq <- unique(sorig)
 
   if (verbose) {
-    message(paste("Polishing page count field:", length(suniq), "unique cases"))
+    message(paste("Polishing physical extent field:", length(suniq), "unique cases"))
   }
 
   #------------------------------------------------------
@@ -30,15 +30,18 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   f <- system.file("extdata/remove_dimension.csv", package = "bibliographica")
   terms <- as.character(read.csv(f)[,1])
   s <- remove_dimension(s, terms)
-
-  s <- as.character(s)
-  s[grep("^[ |\\.|;|:|!|?]*$", s)] <- NA # ""; "." ; " ... "
+  #s <- as.character(s)
+  s[grep("^[ |;|:|!|?]*$", s)] <- NA 
 
   # Back to original indices and new unique reduction 
   s <- s[match(sorig, suniq)]
   sorig <- s
   suniq <- unique(sorig)
   s <- suniq
+
+  if (verbose) {
+    message(paste("Polishing physical extent field 2:", length(suniq), "unique cases"))
+  }
 
   if (verbose) {message("Harmonize volume info")}
   inds <- 1:length(s)  
@@ -98,6 +101,10 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   sorig <- s
   suniq <- unique(sorig)
 
+  if (verbose) {
+    message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))
+  }
+
   # Return NA if conversion fails
   s <- str_trim(s)
   pages <- sapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") {return(NA)} else {return(a)}})
@@ -134,7 +141,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 #' @keywords internal
 polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) {
 
-  if (verbose) { message(s) }
+  # if (verbose) { message(s) }
   if (is.na(s) || s == "s") { return(rep(NA, 3)) } 
 
   # Shortcut for easy cases: "24p."

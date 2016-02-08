@@ -18,6 +18,7 @@ remove_volume_info <- function (x) {
   s <- condense_spaces(s)  
 
   # Cases 'v.1-3' etc
+  s <- gsub("^v\\. ", "v\\.", s)
   inds <- intersect(grep("^v.", s), grep("-", s))
   s[inds] <- sapply(s[inds], function (si) {
     gsub(check_volumes(si)$text, "", si)
@@ -29,7 +30,7 @@ remove_volume_info <- function (x) {
   s <- gsub("v\\.[0-9]-[0-9]\\,[0-9]-[0-9]*", "", s)
   s <- gsub("Vols\\.[0-9]-[0-9]\\,[0-9]-[0-9]*\\,plates :", "plates", s)
 
-  # Remove the volume information that was picked
+  # Remove the volume information 
   s <- gsub("^[0-9]{1,4}v\\.", "", s)
 
   # Cases 'v.1' etc.
@@ -38,17 +39,15 @@ remove_volume_info <- function (x) {
   # "v. (183,[2]) -> (183,[2])"
   s <- gsub("^v\\.", " ", s)
 
-  vol.synonymes <- c("vol", "part")
-  for (vnam in vol.synonymes) {
-    s <- gsub(paste("^[0-9]{1,3} {0,1}", vnam, "[\\.| ]", sep = ""), " ", s)
-    s <- gsub(paste("^[0-9]{1,3} {0,1}", vnam, "$", sep = ""), " ", s)
-  }
+  #vol.synonymes <- c("vol", "part")
+  s <- gsub(paste("^[0-9]{1,3} {0,1}vol[\\.| ]", sep = ""), " ", s)
+  s <- gsub(paste("^[0-9]{1,3} {0,1}vol$", sep = ""), " ", s)
 
   # "8p. 21cm. (8vo)"
   s <- gsub("\\([0-9]{1,2}.o\\)" , "", s)
   s <- gsub("[0-9]*cm" , "", s)  
   s[s == ""] <- NA
-  
+
   s
 
 }

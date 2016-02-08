@@ -1,5 +1,5 @@
-#' @title remove_terms
-#' @description Remove the given terms from the strings
+#' @title Remove terms
+#' @description Remove the given terms from the strings.
 #' @param x A vector
 #' @param terms Terms to be removed
 #' @param where Locations to be removed ("all" / "begin" / "middle" / "end")
@@ -15,6 +15,7 @@
 #' @examples \dontrun{x2 <- remove_terms(x, terms, where = "all")}
 #' @keywords utilities
 remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, polish = TRUE, recursive = FALSE) {
+
 
   # If removal is recursive, then go through the list as is in the given order
   # otherwise, optionally include lowercase,
@@ -34,7 +35,7 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
     
   }
 
-  x <- gsub("[ |\\.|\\,]+$", "", x)
+  #x <- gsub("[ |\\.|\\,]+$", "", x)
   
   for (term in terms) {
 
@@ -45,10 +46,12 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
 
         # begin
         rms <- paste("^", term, "[ |\\.|\\,]", sep = "")
+        #rms <- paste("^", term, " ", sep = "")	
         x <- gsub(rms, " ", x)
 
 	# middle
-        x <- gsub(paste(" ", term, "[ |\\.|\\,]", sep = ""), " ", x)    
+        x <- gsub(paste(" ", term, "[ |\\.|\\,]", sep = ""), " ", x)
+        #x <- gsub(paste(" ", term, " ", sep = ""), " ", x)    	
 
 	# all
         rms <- paste(" ", term, "$", sep = "")
@@ -62,7 +65,8 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
         rms <- paste("^", term, "[ |\\.|\\,]", sep = "")
         x <- gsub(rms, " ", x)
     } else if (where == "middle") {
-        x <- gsub(paste(" ", term, "[ |\\.|\\,]", sep = ""), " ", x)    
+        x <- gsub(paste(" ", term, "[ |\\.|\\,]", sep = ""), " ", x)
+        #x <- gsub(paste(" ", term, sep = ""), " ", x)    		
     } else if (where == "end") {
         rms <- paste(" ", term, "$", sep = "")
         x <- gsub(rms, " ", x)

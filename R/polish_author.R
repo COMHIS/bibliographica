@@ -1,5 +1,5 @@
-#' @title polish_author
-#' @description Polish author
+#' @title Polish author
+#' @description Polish author.
 #' @param s Vector of author names
 #' @param stopwords Stopwords
 #' @param validate Validate the names based on existing first/last name lists
@@ -12,7 +12,25 @@
 #' @keywords utilities
 polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALSE) {
 
-  s <- as.character(s)
+  if (is.null(stopwords)) {
+    message("No stopwords provided for authors. Using ready-made stopword lists")
+
+    f <- system.file("extdata/stopwords.csv", package = "bibliographica")
+    stopwords.general <- as.character(read.csv(f, sep = "\t")[,1])
+
+    stopwords.general <- c(stopwords.general, stopwords(kind = "en"))
+    f <- system.file("extdata/stopwords_for_names.csv", package = "bibliographica")
+
+    stopwords.names <- as.character(read.csv(f, sep = "\t")[,1])
+    f <- system.file("extdata/stopwords_titles.csv", package = "bibliographica")
+    stopwords.titles <- as.character(read.csv(f, sep = "\t")[,1])
+    stopwords <- unique(c(stopwords.general, stopwords.names, stopwords.titles))
+  }
+
+  # Exclude some names from assumed stopwords
+  stopwords <- setdiff(stopwords, c("humble", "about", "most"))
+
+  s <- tolower(as.character(s))
 
   # Only handle unique entries, in the end map back to original indices
   sorig <- s
@@ -45,26 +63,8 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
     return(name)
   }))
 
-  if (is.null(stopwords)) {
-    message("No stopwords provided for authors. Using ready-made stopword lists")
-
-    f <- system.file("extdata/stopwords.csv", package = "bibliographica")
-    stopwords.general <- as.character(read.csv(f, sep = "\t")[,1])
-
-    stopwords.general <- c(stopwords.general, stopwords(kind = "en"))
-    f <- system.file("extdata/stopwords_for_names.csv", package = "bibliographica")
-
-    stopwords.names <- as.character(read.csv(f, sep = "\t")[,1])
-    f <- system.file("extdata/stopwords_titles.csv", package = "bibliographica")
-    stopwords.titles <- as.character(read.csv(f, sep = "\t")[,1])
-    stopwords <- unique(c(stopwords.general, stopwords.names, stopwords.titles))
-  }
-
-  # Exclude some names from assumed stopwords
-  stopwords <- setdiff(stopwords, c("humble", "about", "most"))
-
-  if (verbose) { message("Harmonize names") }
-  # TODO O. K. Humble, Verner -> First: Verner O K Last: Humble  		    
+  if (verbose) { message("Trim names") }
+  # TODO O. K. Humble, Verner -> First: Verner O K Last: Humble
   nametab <- as.data.frame(nametab)
   nametab$last  <- gsub("^-", "", trim_names(nametab$last,  stopwords, remove.letters = FALSE))
   nametab$first <- gsub("^-", "", trim_names(nametab$first, stopwords, remove.letters = FALSE))

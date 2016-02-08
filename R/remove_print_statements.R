@@ -1,5 +1,5 @@
-#' @title remove_print_statements
-#' @description Remove print statements
+#' @title Remove print statements
+#' @description Remove print statements.
 #' @param x a vector
 #' @param remove.letters Remove individual letters TRUE/FALSE
 #' @param n.iter Number of iterative repetitions of this function
@@ -16,19 +16,26 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
 
   ### Get printing terms from tables in various languages
   for (lang in c("finnish", "french", "german", "swedish", "english")) {
+
     f <- system.file(paste0("extdata/printstop_", lang, ".csv"), package = "bibliographica")
     terms <- read.csv(f, stringsAsFactors = FALSE)[,1]
 
     # Harmonize the terms 
     terms.multi <- terms[nchar(terms) > 1]
-    x <- remove_terms(x, terms.multi, where = "all", polish = TRUE, include.lowercase = TRUE)
-    
+
+    x <- remove_terms(x, terms.multi, where = "all", polish = FALSE, include.lowercase = FALSE)
+    x <- condense_spaces(x)
+
     # Individual characters not removed from the end
     terms.single <- terms[nchar(terms) == 1]    
-    x <- remove_terms(x, terms.single, where = "begin", polish = FALSE, include.lowercase = TRUE)
-    x <- remove_terms(x, terms.single, where = "middle", polish = TRUE, include.lowercase = TRUE)
+    x <- remove_terms(x, terms.single, where = "begin", polish = FALSE, include.lowercase = FALSE)
+    x <- remove_terms(x, terms.single, where = "middle", polish = FALSE, include.lowercase = FALSE)
+    x <- condense_spaces(x)
 
   }
+
+  x <- condense_spaces(x)
+  x <- remove_trailing_periods(x)
 
   if (remove.letters) {
     x <- remove_letters(x)

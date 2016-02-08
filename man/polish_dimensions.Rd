@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_dimensions.R
 \name{polish_dimensions}
 \alias{polish_dimensions}
-\title{polish_dimensions}
+\title{Polish dimensions}
 \usage{
 polish_dimensions(x, fill = TRUE, dimtab = NULL, verbose = FALSE,
   synonyms = NULL, sheet.dimension.table = NULL)
@@ -24,7 +24,7 @@ polish_dimensions(x, fill = TRUE, dimtab = NULL, verbose = FALSE,
 Dimension table
 }
 \description{
-Polish dimension field for many documents at once
+Polish dimension field for many documents at once.
 }
 \examples{
 # polish_dimensions(c("2fo", "14cm"), fill = TRUE)

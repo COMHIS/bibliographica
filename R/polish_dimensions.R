@@ -1,5 +1,5 @@
-#' @title polish_dimensions
-#' @description Polish dimension field for many documents at once
+#' @title Polish dimensions
+#' @description Polish dimension field for many documents at once.
 #' @param x A vector of dimension notes
 #' @param fill Logical. Estimate and fill in the missing information: TRUE/FALSE
 #' @param dimtab Dimension mapping table
@@ -31,9 +31,8 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
     synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
   } 
 
-  # -------------------------------------
-
   if (verbose) { message("Initial harmonization..") }
+  s <- tolower(as.character(s))
 
   sorig <- s
   s <- suniq <- unique(s)
@@ -44,7 +43,6 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
 
   # Harmonize the terms
   s <- harmonize_names(s, synonyms, mode = "recursive", check.synonymes = FALSE, include.lowercase = F)
-  s <- tolower(as.character(s))
   # Remove brackets
   s <- gsub("\\(", " ", gsub("\\)", " ", s)) 
   s <- gsub("\\[", " ", gsub("\\]", " ", s))
@@ -60,22 +58,21 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   s <- harmonize_dimension(s, synonyms) 
   s <- harmonize_names(s, synonyms, mode = "recursive", check.synonymes = FALSE, include.lowercase = F)  
 
+  # Make it unique here: after the initial harmonization
+  # This helps to further reduce the number of unique cases 
+  # Speed up by only handling unique cases
   # Temporarily map to original indices to keep it clear
-  s <- s[match.inds]
+  s <- s[match(sorig, suniq)]  
+  sorig <- s
+  s <- suniq <- unique(sorig)
+
 
   if (verbose) {
     message(paste("Estimating dimensions:", length(suniq), "unique cases"))    
   }
 
-  # Make it unique here: after the initial harmonization
-  # This helps to further reduce the number of unique cases 
-  # Speed up by only handling unique cases
-  sorig <- s
-  s <- suniq <- unique(s)
-  match.inds <- match(sorig, suniq)
-
   # --------------------------------------
-
+  
   tab <- t(sapply(s, function (x) {a <- try(polish_dimension(x, synonyms)); if (class(a) == "try-error") {a <- rep(NA, 5)}; return(a)
     }))
   rownames(tab) <- NULL
@@ -108,7 +105,7 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   #tab.final$obl.original <- NULL
   tab.final$original.original <- NULL  
 
-  tab.final <- tab.final[match.inds,]
+  tab.final <- tab.final[match(sorig, suniq),]
 
   tab.final
 

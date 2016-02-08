@@ -11,8 +11,8 @@
 #' @keywords utilities
 trim_names <- function (s, stopwords, remove.letters = FALSE) {
 
-  s <- as.character(s)	   
-  s <- tolower(str_trim(gsub("\\.", " ", s)))
+  #s <- as.character(s)	   
+  #s <- tolower(str_trim(gsub("\\.", " ", s)))
 
   # Remove stopwords (TODO also in tau package, check that)
   s <- remove_stopwords(s, terms = stopwords, remove.letters = remove.letters) 
