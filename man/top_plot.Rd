@@ -4,10 +4,10 @@
 \alias{top_plot}
 \title{Plot top entries}
 \usage{
-top_plot(df, field = NULL, ntop = NULL, highlight = NULL)
+top_plot(x, field = NULL, ntop = NULL, highlight = NULL)
 }
 \arguments{
-\item{df}{Data frame, vector or factor}
+\item{x}{Data frame, vector or factor}
 
 \item{field}{Field to show}
 
@@ -22,7 +22,7 @@ ggplot object
 Plot the top entries for a given field in a data frame
 }
 \examples{
-\dontrun{p <- top_plot(df, field, 50)}
+\dontrun{p <- top_plot(x, field, 50)}
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

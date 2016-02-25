@@ -21,8 +21,9 @@ field_availability <- function (df) {
       missing = 100*(1-colMeans(!is.na(df))),
       n = colSums(!is.na(df)),      
       unique_entries = apply(df, 2, function (x) {length(unique(x))})))
-
-  df2 <- data.frame(list(available = ava$available, field = ava$field_name))
+  df2 <- ava[, c("available", "field_name")]
+  #df2 <- data.frame(list(available = ava$available, field = ava$field_name))
+  #df2 <- quickdf(list(available = ava$available, field = ava$field_name))
   df2$field <- factor(df2$field, levels = df2$field[order(df2$available)])
   theme_set(theme_bw(15))
   p <- ggplot(df2, aes(x = field, y = available))

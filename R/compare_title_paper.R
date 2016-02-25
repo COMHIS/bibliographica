@@ -23,11 +23,11 @@ compare_title_paper <- function (x, field, selected = NULL, plot.mode = "text") 
   # Nothing selected - take all
   if (is.null(selected)) {selected <- unique(x$field)}
 
-  x <- x %>% group_by(field) %>%
-            filter(!is.na(field)) %>%
-            filter(field %in% selected) %>%              
+  x <- x %>% filter(!is.na(field)) %>%
+            filter(field %in% selected) %>%
+	    group_by(field) %>%	    
             summarize(titles = n(),
-            paper = sum(paper.consumption.km2, na.rm = T))
+                      paper = sum(paper.consumption.km2, na.rm = T))
 
 
   # Prepare the plot
