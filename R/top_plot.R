@@ -15,7 +15,7 @@ top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL) {
   # Circumvent warnings in build
   color <- NULL
 
-  if (is.data.frame(x)) {
+  if (is.data.frame(x) && is.factor(x[[field]])) {
     x <- droplevels(x[[field]])
   }
 
