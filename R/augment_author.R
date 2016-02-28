@@ -22,7 +22,7 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
   df$author_birth <- guess_missing_entries(id = df$author_name, values = df$author_birth)$values
   df$author_death <- guess_missing_entries(id = df$author_name, values = df$author_death)$values
 
-  # print("Add missing author life years")
+  # print("Add missing author life years from the predefined table")
   if (!is.null(life_info)) {  
     df$author_birth <- add_missing_entries(df, life_info, id = "author_name", field = "author_birth")
     df$author_death <- add_missing_entries(df, life_info, id = "author_name", field = "author_death") 
@@ -36,12 +36,12 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
     #ambiguous_authors <- ambiguous_authors_table()
     df$author <- harmonize_names(df$author, ambiguous_authors, include.original = FALSE, check.synonymes = FALSE, include.lowercase = FALSE)
   }
-  #df$author[df$author == "NA, NA"] <- NA
   df$author[grep("^NA, NA", df$author)] <- NA  
 
   message("Correct author living years using the ones from the final harmonized version")	
   dfa.orig <- df
   dfa.uniq <- unique(dfa.orig)
+  
   # Entry IDs
   id.orig <- apply(dfa.orig, 1, function (x) {paste(as.character(x), collapse = "")})
   id.uniq <- apply(dfa.uniq, 1, function (x) {paste(as.character(x), collapse = "")})
@@ -55,7 +55,7 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
   years <- gsub("\\)", "", dfa.uniqs$years)
   years <- sapply(years, function (x) {if (length(grep("-", unlist(strsplit(x, "")))) == 1) {return(strsplit(x, "-"))} else {return(strsplit(x, " "))}})
   birth <- as.numeric(gsub("-$", "", sapply(years, function (x) {x[[1]]})))
-  death <- as.numeric(sapply(years, function (x) {if (length(x) >=2) x[[2]] else NA}))
+  death <- as.numeric(sapply(years, function (x) {if (length(x) > 1) x[[2]] else NA}))
   dfa.uniq$author_birth[inds] <- birth
   dfa.uniq$author_death[inds] <- death
 

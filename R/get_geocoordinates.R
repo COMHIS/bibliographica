@@ -139,7 +139,7 @@ get_geocoordinates <- function (x, geonames, places.geonames) {
   # FIXME integrate all into a single place - country - geocoordinates file
   # that will be used in place - country and place - coordinate mappings
   # systematically
-  f <- system.file("extdata/geocoordinates.csv", package = "bibliographica") 
+  f <- system.file("extdata/geocoordinates.csv", package = "bibliographica")
   #f <- "../extdata/geocoordinates.csv"
   geotab <- read.csv(f, sep = "\t")
   rownames(geotab) <- geotab$place

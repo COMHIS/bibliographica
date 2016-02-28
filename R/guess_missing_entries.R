@@ -1,9 +1,10 @@
-#' @title guess_missing_entries
-#' @description Fill in the missing values. This function assumes that each id has a unique value which is missing for some occurrences of the id but available in others and copied from there to fill in the missing occurrences.
+#' @title Guess missing entries
+#' @description Fill in missing values. This function assumes that each unique id has a unique value which can be missing for some entries of the id but available in others. The missing data will be filled based on the available values. Ambiguous cases (same id but multiple values) are ignored.
 #' @param id identifier vector
 #' @param values corresponding values with potentially missing information (NAs)
 #' @return A vector with augmented values
 #' @examples \dontrun{guess_missing_entries(id = c("Tom", "Tom", "Pete", "Pete", "Pete"), values = c(1, NA, 2, 3, NA))}
+#' @importFrom sorvi quickdf 
 #' @export
 #' @details For instance, we may have authors and author life years (birth and death).
 #' The life years may be available for a given author in some entries and missing in others.
@@ -15,20 +16,24 @@
 #' @keywords utils
 guess_missing_entries <- function (id, values) {
 
+  id <- as.character(id)
+  values <- as.character(values)		        
   tab <- cbind(id = id, values = values)
-  tab <- tab[!apply(is.na(tab), 1, any),]
+  #tab <- tab[rowSums(is.na(tab)) == 0, ]
 
   # Unique entries
-  spl <- split(tab[, "values"], tab[, "id"])  
-  uniq <- names(which(sapply(spl, length) == 1))
+  spl <- split(tab[, "values"], tab[, "id"])
+  spl <- lapply(spl, function (x) {unique(na.omit(x))})
+  uniq <- names(which(sapply(spl, function (x) {length(x)}) == 1))
   spl <- spl[uniq]
 
   naind <- is.na(values) & (id %in% uniq)
-  if (any(naind)) {
+
+  if (length(naind)>0) {
     values[naind] <- unlist(spl[id[naind]], use.names = FALSE)
   }
 
-  data.frame(list(id = id, values = as.character(values)), stringsAsFactors = FALSE)
+  quickdf(list(id = id, values = values))
   
 }
 

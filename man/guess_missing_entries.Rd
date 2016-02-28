@@ -2,7 +2,7 @@
 % Please edit documentation in R/guess_missing_entries.R
 \name{guess_missing_entries}
 \alias{guess_missing_entries}
-\title{guess_missing_entries}
+\title{Guess missing entries}
 \usage{
 guess_missing_entries(id, values)
 }
@@ -15,7 +15,7 @@ guess_missing_entries(id, values)
 A vector with augmented values
 }
 \description{
-Fill in the missing values. This function assumes that each id has a unique value which is missing for some occurrences of the id but available in others and copied from there to fill in the missing occurrences.
+Fill in missing values. This function assumes that each unique id has a unique value which can be missing for some entries of the id but available in others. The missing data will be filled based on the available values. Ambiguous cases (same id but multiple values) are ignored.
 }
 \details{
 For instance, we may have authors and author life years (birth and death).
