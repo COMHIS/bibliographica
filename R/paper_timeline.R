@@ -28,12 +28,11 @@ paper_timeline <- function (x, field, nmin = 0) {
 
   p <- ggplot(df2, aes(y = paper.consumption.km2, x = publication_decade, shape = field, linetype = field)) +
      geom_point(size = 4) +
-     #geom_smooth(method = "loess", size = 1, color = "black") +
-     #geom_line(size = 1, color = "black") +
-     geom_line(size = 1, color = field) +          
+     geom_line(aes(color = field), size = 1) +          
      ggtitle(paste("Paper consumption in time by ", field)) +
      xlab("Year") + ylab("Paper consumption (km2)") +
      guides(linetype = guide_legend(keywidth = 5), shape = guide_legend(keywidth = 5)) +
-     ggtitle("Paper consumption")
+     ggtitle("Paper consumption") 
+     #scale_y_log10()
    list(plot = p, table = df2)
 }
