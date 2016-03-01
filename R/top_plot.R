@@ -15,8 +15,12 @@ top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL) {
   # Circumvent warnings in build
   color <- NULL
 
-  if (is.data.frame(x) && is.factor(x[[field]])) {
-    x <- droplevels(x[[field]])
+  if (is.data.frame(x)) {
+    x <- x[[field]]
+  }
+
+  if (is.factor(x)) {
+    x <- droplevels(x)
   }
 
   tab <- rev(sort(table(x)))

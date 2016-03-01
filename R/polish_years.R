@@ -56,7 +56,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   if (length(grep("-+[a-z]*[0-9]{4}-+", x))>0) {
     x <- gsub("[a-z]", "", x)
     # x <- gsub("[A-Z]", "", x)
-    x <- gsub("-", "", x)        
+    # x <- gsub("-", "", x)        
   }
 
   # Map back to original indices and make unique again. To speedup further.
