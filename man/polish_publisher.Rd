@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_publisher.R
 \name{polish_publisher}
 \alias{polish_publisher}
-\title{polish_publisher}
+\title{Polish publisher}
 \usage{
 polish_publisher(x, synonyms = NULL, verbose = TRUE)
 }

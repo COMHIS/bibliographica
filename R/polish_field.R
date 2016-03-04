@@ -14,27 +14,43 @@ polish_field <- function (df, field, verbose = TRUE) {
 
   from <- till <- NULL
 
-    if (field == "subject_geography") {
+  if (field == "subject_geography") {
 
-      df.tmp <- data.frame(subject_geography = df[[field]])
+    df.tmp <- data.frame(subject_geography = df[[field]])
+
+  } else if (field == "publication_geography") {
+
+    df.tmp <- data.frame(publication_geography = df[[field]])
       
-    } else if (field == "subject_topic") {
+  } else if (field == "subject_topic") {
 
-      df.tmp <- data.frame(topic = df[[field]])
+    df.tmp <- data.frame(topic = df[[field]])
+
+  } else if (field == "publication_topic") {
+
+    df.tmp <- data.frame(topic_publication = df[[field]])
+
+  } else if (field == "language") {
+
+    df.tmp <- data.frame(language = mark_languages(df[[field]]))
+
+  } else if (field == "title") {
+
+    df.tmp <- data.frame(title = polish_title(df[[field]]))
+
+  } else if (field == "title_uniform") {
+
+      df.tmp <- data.frame(title_uniform = polish_title(df[[field]]))
       
-    } else if (field == "language") {
+    } else if (field == "title_uniform2") {
 
-      df.tmp <- data.frame(language = mark_languages(df[[field]]))
-
-    } else if (field == "title") {
-
-      df.tmp <- data.frame(title = polish_title(df[[field]]))
+      df.tmp <- data.frame(title_uniform2 = polish_title(df[[field]]))
       
-     } else if (field == "publication_frequency") {
+    } else if (field == "publication_frequency") {
    
        df.tmp <- data.frame(publication_frequency = df[[field]])
      
-     } else if (field == "publication_interval") {
+    } else if (field == "publication_interval") {
    
        df.tmp <- data.frame(publication_interval = df[[field]])
      
@@ -83,14 +99,14 @@ polish_field <- function (df, field, verbose = TRUE) {
         # Use the university function for note_granter
       	df.tmp <- data.frame(note_granter = polish_university(df[[field]]))
 
-      } else if (field == "author_date") {
+    } else if (field == "author_date") {
 
         # TODO make a tidy cleanup function to shorten the code here
       	df.tmp <- polish_years(df[[field]], check = TRUE, verbose = verbose)
 	df.tmp <- dplyr::rename(df.tmp, author_birth = from)
 	df.tmp <- dplyr::rename(df.tmp, author_death = till)	
       	
-      } else if (field == "publication_time") {
+    } else if (field == "publication_time") {
     
         tmp <- polish_years(df[[field]], check = TRUE)
       
@@ -99,19 +115,19 @@ polish_field <- function (df, field, verbose = TRUE) {
               		     publication_year_till = tmp$till
         )
 
-     } else if (field == "row.index") {
+    } else if (field == "row.index") {
 
         df.tmp <- data.frame(row.index = df[[field]])
 
-     } else if (field == "original_row") {
+    } else if (field == "original_row") {
 
         df.tmp <- data.frame(original_row = df[[field]])
 
-     } else {
+    } else {
    
        stop(paste("No info on how to preprocess field: ", field))
      
-     }
+    }
 
     df.tmp
 

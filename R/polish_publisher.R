@@ -1,4 +1,4 @@
-#' @title polish_publisher
+#' @title Polish publisher
 #' @description Polish publishing house names
 #' @param x publisher field (a vector)
 #' @param synonyms Synonyme table
