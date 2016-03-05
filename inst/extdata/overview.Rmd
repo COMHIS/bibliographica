@@ -1,0 +1,85 @@
+---
+title: "Preprocessing overview"
+author: "`r author`"
+date: "`r Sys.Date()`"
+output: markdown_document
+---
+
+# Summary
+
+Date:
+
+```{r date, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE}
+date()
+```
+
+
+## Specific fields
+
+  * [Author info](author.md)
+  * [Gender info](gender.md)
+  * [Publisher info](publisher.md)
+  * [Publication geography](publicationplace.md)
+  * [Generic document info](documents.md)
+  * [Document sizes](size.md)
+  * [Document topics](topic.md)
+
+
+## Field conversions
+
+This documents the conversions from raw data to the final preprocessed version (accepted, discarded, conversions). Only some of the key tables are explicitly linked below. The complete list of all summary tables is [here](output.tables/).
+
+## Annotated documents
+
+Fraction of documents with entries:
+
+```{r summaryannotations, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=8, fig.height=11}
+availability <- field_availability(df)
+print(availability$plot)
+```
+
+Documents with data (number and percentage) and number of unique entries for each field:
+
+```{r sumtab, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE}
+tab <- availability$table %<>% arrange(n)
+kable(tab[, c(1, 3, 2, 4, 5)])
+```
+
+
+## Histograms of all entries for numeric variables
+
+```{r summary-histograms, echo=FALSE, message=FALSE, warning=FALSE, fig.width=5, fig.height=4, fig.show='hold', out.width="200px"}
+num <- c(); for (field in names(df)) {num[[field]] <- is.numeric(df[[field]])}
+numeric.fields <- setdiff(names(which(num)), c("row.index", "original_row", "unity"))
+for (field in numeric.fields) {
+  df$fieldtoplot <- df[[field]]
+  p <- ggplot(df, aes(x = fieldtoplot))
+  p <- p + geom_histogram()
+  #p <- p + scale_x_log10()
+  p <- p + ggtitle(paste(field, "histogram"))
+  p <- p + ylab("Documents")
+  #p <- p + xlab(paste(field, "(log10)"))
+  p <- p + xlab(field)  
+  print(p)
+}
+```
+
+## Histograms of the top entries for factor variables
+
+```{r summary-bars, echo=FALSE, message=FALSE, warning=FALSE, fig.width=5, fig.height=4, fig.show='hold', out.width="200px"}
+fac <- c(); for (field in names(df)) {fac[[field]] <- is.factor(df[[field]])}
+factor.fields <- names(which(fac))
+for (field in factor.fields) {
+  #df$fieldtoplot <- df[[field]]
+  n <- min(length(unique(df[[field]])), ntop)
+  #p <- top_plot(df, "fieldtoplot", n)
+  p <- top_plot(df, field, n)  
+  p <- p + ggtitle(paste("Top ", field))
+  p <- p + scale_y_log10()
+  p <- p + ylab("Documents (Log10)")
+  print(p)
+}
+```
+
+
+

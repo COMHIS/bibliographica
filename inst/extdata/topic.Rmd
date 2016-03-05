@@ -1,0 +1,27 @@
+---
+title: "Topic preprocessing summaries"
+author: "Leo Lahti"
+date: "`r Sys.Date()`"
+output: markdown_document
+---
+
+## Topics
+
+```{r summarytopics, echo=FALSE, message=FALSE, warning=FALSE}
+# List all topics
+spl <- strsplit(na.omit(as.character(df$topic)), ";")
+
+# Documents per topic
+tab <- sort(table(unlist(spl)))
+tab <- tab[!names(tab) == "NA"]
+tab <- rev(sort(tab)) 
+```
+
+Top-`r ntop` topics and number of documents for each. In total, there are `r length(unique(df$topic))` unique topics and `r sum(!is.na(df$topic))` documents assigned to one or more topics (`r round(100*mean(!is.na(df$topic)))`).
+
+```{r summarytopics22, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=8}
+p <- top_plot(df, "topic", ntop)
+p <- p + ggtitle(paste("Most common topics"))
+p <- p + ylab("Documents")
+print(p)
+```

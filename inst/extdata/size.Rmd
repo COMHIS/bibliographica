@@ -1,0 +1,203 @@
+---
+title: "Document dimension preprocessing summary"
+author: "`r author`"
+date: "`r Sys.Date()`"
+output: markdown_document
+---
+
+
+## Page counts
+
+[Page conversions from raw data to final page count estimates](https://raw.githubusercontent.com/rOpenGov/estc/master/inst/examples/output.tables/pagecount_conversion_nontrivial.csv)
+
+<!--[Page conversions from raw data to final page count estimates with volume info](https://raw.githubusercontent.com/rOpenGov/estc/master/inst/examples/output.tables/page_conversion_table_full.csv)-->
+
+[Discarded pagecount info](https://raw.githubusercontent.com/rOpenGov/estc/master/inst/examples/output.tables/pagecount_discarded.csv)
+
+
+
+## Document size comparisons
+
+[Dimension conversion table](https://raw.githubusercontent.com/rOpenGov/estc/master/inst/examples/output.tables/conversions_physical_dimension.csv)
+
+<!--[Discarded dimension info](https://raw.githubusercontent.com/rOpenGov/estc/master/inst/examples/output.tables/dimensions_discarded.csv)-->
+
+Document size (area) info in area is available for `r sum(!is.na(df$area))` documents (`r round(100*mean(!is.na(df$area)))`%). Estimates of document size (area) info in gatherings system are available for `r sum(!is.na(df$gatherings))` documents (`r round(100*mean(!is.na(df$gatherings)))`%). 
+
+```{r summarysize, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=5}
+p <- ggplot(df, aes(x = gatherings)) 
+p <- p + geom_bar()
+n <- nchar(max(na.omit(table(df$gatherings))))
+p <- p + scale_y_log10(breaks=10^(0:n))
+p <- p + ggtitle("Document size (gatherings)")
+p <- p + xlab("Size (gatherings)")
+p <- p + ylab("Title count")
+p <- p + coord_flip()
+print(p)
+```
+
+
+Compare gatherings and area sizes as a quality check. This includes all data; the area has been estimated from the gatherings when dimension information was not available.
+
+```{r summarysizecomp, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7}
+dfs <- df %>% filter(!is.na(area) & !is.na(gatherings))
+dfs <- dfs[, c("gatherings", "area")]
+dfm <- melt(table(dfs)) # TODO switch to gather here
+names(dfm) <- c("gatherings", "area", "documents")
+dfm$gatherings <- factor(dfm$gatherings, levels = levels(df$gatherings))
+p <- ggplot(dfm, aes(x = gatherings, y = area)) 
+p <- p + scale_y_continuous(trans = "log2")
+p <- p + geom_point(aes(size = documents))
+p <- p + scale_size(trans="log10")
+p <- p + ggtitle("Document size distribution: gatherings vs. area")
+p <- p + xlab("Size (gatherings)")
+p <- p + ylab("Size (area)")
+p <- p + coord_flip()
+print(p)
+```
+
+Document dimension histogram (surface area). Few document sizes dominate publishing.
+
+```{r summary-surfacearea, fig.height=8, fig.width=10, echo=FALSE, warning=FALSE, message=FALSE}
+p <- ggplot(df, aes(x = area))
+p <- p + geom_histogram() 
+p <- p + xlab("Document surface area (log10)")
+p <- p + ggtitle("Document dimension (surface area)")
+p <- p + scale_x_log10()
+print(p)
+```
+
+
+Compare gatherings and page counts. Page count information is estimated for `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount))` documents and updated (changed) for `r sum(!df$pagecount.orig == df$pagecount, na.rm = T)` documents. 
+
+```{r summarypagecomp, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=7}
+dfs <- select(df, pagecount, gatherings) 
+dfs$pagecount <- as.numeric(gsub(" pages", "", dfs$pagecount))
+dfs <- dfs %>% filter(!is.na(pagecount) & !is.na(gatherings))
+dfg <- group_by(dfs, pagecount, gatherings) %>% tally()
+names(dfg) <- c("pages", "gatherings", "documents")
+dfg$gatherings <- factor(dfg$gatherings, levels = levels(df$gatherings))
+ylims <- range(dfg$pages)
+p <- ggplot(dfg, aes(x = gatherings, y = pages)) 
+#p <- p + scale_y_continuous(trans = "log10")
+n <- nchar(max(na.omit(table(dfg$pages))))
+ylim <- ylim(ylims)
+p <- p + scale_y_log10(breaks=10^(0:n))
+p <- p + geom_point(aes(size = documents))
+p <- p + scale_size(trans="log10")
+p <- p + ggtitle(paste("gatherings vs. estimated and original pages (n=", sum(dfg$documents), ")", sep = ""))
+p <- p + xlab("Size (gatherings)")
+p <- p + ylab("Pages (original and estimated)")
+p <- p + coord_flip()
+print(p)
+```
+
+Compare original gatherings and original heights where both are available. The point size indicates the number of documents with the corresponding combination. The red dots indicate the estimated height that is used when only gathering information is available. It seems that in most documents, the given height is smaller than the correponding estimate.
+
+```{r summarysizevalidation, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7}
+# Compare given dimensions to gatherings
+# (not so much data with width so skip that)
+df2 <- filter(df, !is.na(height) | !is.na(width))
+df2 <- df2[!is.na(as.character(df2$gatherings)),]
+df3 <- filter(df2, !is.na(height))
+ss <- sheet_sizes()
+df3$gathering.height.estimate <- ss[match(df3$gatherings, ss$gatherings),"height"]
+df4 <- df3 %>% group_by(gatherings, height) %>% tally()
+p <- ggplot(df4, aes(y = gatherings, x = height))
+p <- p + geom_point(aes(size = n))
+p <- p + geom_point(data = unique(df3), aes(y = gatherings, x = gathering.height.estimate), color = "red")
+p <- p + ylab("Gatherings (original)") + xlab("Height (original)") 
+p <- p + ggtitle("Height comparison")
+print(p)
+```
+
+### Gatherings timelines
+
+```{r papercompbyformat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7}
+dfs <- df %>% filter(!gatherings == "NA" & publication_decade > 1450 & publication_decade < 2020)
+res <- paper_timeline(dfs, "gatherings", nmin = 15) 
+print(res$plot)
+```
+
+## Average page counts 
+
+Multi-volume documents average page counts are given per volume.
+
+```{r summarypagecountsmulti, echo=FALSE, message=FALSE, warning=FALSE}
+mean.pagecounts.multivol <- mean_pagecounts_multivol(df) 
+mean.pagecounts.univol <- mean_pagecounts_univol(df) 
+mean.pagecounts.issue <- mean_pagecounts_issue(df) 
+mean.pagecounts <- full_join(mean.pagecounts.univol, mean.pagecounts.multivol, by = "doc.dimension")
+mean.pagecounts <- full_join(mean.pagecounts, mean.pagecounts.issue, by = "doc.dimension")
+mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension, levels = levels(mean.pagecounts.univol$doc.dimension))
+mean.pagecounts$doc.dimension <- order_gatherings(mean.pagecounts$doc.dimension)
+kable(mean.pagecounts, caption = "Average page counts")
+```
+
+
+```{r summarypagecountsmulti2, echo=FALSE, message=FALSE, warning=FALSE, fig.width=15, fig.height=6}
+p <- ggplot(melt(mean.pagecounts[, c("median.pages.multivol", "median.pages.singlevol", "median.pages.issue", "doc.dimension")]), aes(fill = variable, y = value, x = doc.dimension)) 
+p <- p + geom_bar(stat = "identity", position = "dodge")
+p <- p + ylab("Pages")
+p <- p + xlab("")
+p <- p + coord_flip()
+p <- p + ggtitle("Median page counts")
+p1 <- p
+
+p <- ggplot(melt(mean.pagecounts[, c("mean.pages.multivol", "mean.pages.singlevol", "mean.pages.issue", "doc.dimension")]), aes(fill = variable, y = value, x = doc.dimension)) 
+p <- p + geom_bar(stat = "identity", position = "dodge")
+p <- p + ylab("Pages")
+p <- p + xlab("")
+p <- p + coord_flip()
+p <- p + ggtitle("Mean page counts")
+p2 <- p
+grid.arrange(p1, p2, nrow = 1)
+```
+
+
+## Average document dimensions 
+
+Here we use the original data only:
+
+```{r summaryavedimstime, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12, fig.height=7}
+# only include gatherings with sufficiently many documents
+nmin <- 2000
+top.gatherings <- names(which(table(df$gatherings.original) > nmin))
+
+df2 <- filter(df, !is.na(gatherings.original) & (!is.na(height.original) | !is.na(width.original))) %>%
+       filter(gatherings.original %in% top.gatherings) %>%
+       select(publication_decade, gatherings.original, height.original, width.original)
+       
+df3 <- df2 %>% group_by(gatherings.original, publication_decade) %>% 
+       summarize(mean.height.original = mean(height.original, na.rm = T),
+    	         mean.width.original  = mean(width.original, na.rm = T),
+		 n = n())
+
+p <- ggplot()
+p <- p + geom_point(data = df3, aes(x = publication_decade, y = mean.height.original, size = n, group = gatherings.original, color = gatherings.original))
+
+p <- p + geom_smooth(data = df2, method = "loess", aes(x = publication_decade, y = height.original, group = gatherings.original, color = gatherings.original))
+
+p <- p + ggtitle("Mean height")
+print(p)
+```
+
+
+
+
+Only cases with `r nmin` documents are listed here:
+
+```{r summaryavedims, echo=FALSE, message=FALSE, warning=FALSE}
+df2 <- filter(df, !is.na(gatherings.original) & (!is.na(height.original) | !is.na(width.original))) %>%
+       filter(gatherings.original %in% top.gatherings) %>%
+       group_by(gatherings.original) %>% 
+       summarize(mean.height = mean(height.original, na.rm = T),
+	    median.height = mean(height.original, na.rm = T),
+    	    mean.width = mean(width.original, na.rm = T), 
+	    median.width = mean(width.original, na.rm = T), 
+	    n = n())
+
+mean.dimensions <- as.data.frame(df2)
+kable(mean.dimensions, caption = "Average document dimensions")
+```
+

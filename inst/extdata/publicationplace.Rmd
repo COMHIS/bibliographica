@@ -1,0 +1,42 @@
+---
+title: "Publication place preprocessing summary"
+author: "`r author`"
+date: "`r Sys.Date()`"
+output: markdown_document
+---
+
+### Publication places
+
+[Publication countries](output.tables/country_accepted.csv)
+
+[Publication country not identified](output.tables/country_discarded.csv)
+
+[Discarded publication places](output.tables/publication_place_discarded.csv)
+
+[Publication place conversions](output.tables/publication_place_conversion_nontrivial.csv)
+
+[Places missing geocoordinate information](output.tables/absentgeocoordinates.csv)
+
+
+Top-`r ntop` publication places are shown together with the number of documents. This info is available for `r sum(!is.na(df$publication_place))` documents (`r round(100*mean(!is.na(df$publication_place)))`%). There are `r length(unique(str_trim(unlist(strsplit(as.character(df$publication_place), ";")))))` unique publication places. Overall `r round(100*mean(!is.na(df$latitude) & !is.na(df$longitude)), 1)`% of the places could be matched to geographic coordinates (from the [Geonames](http://download.geonames.org/export/dump/) database).
+
+
+```{r summaryplace, echo=FALSE, message=FALSE, warning=FALSE, fig.width=5, fig.height=4, fig.show='hold', out.width='430px'}
+p <- top_plot(df, "publication_place", ntop)
+p <- p + ggtitle(paste("Top publication places"))
+p <- p + scale_y_log10()
+p <- p + ylab("Title count")
+print(p)
+
+p <- top_plot(df, "country", ntop)
+p <- p + ggtitle(paste("Top publication countries"))
+p <- p + scale_y_log10()
+p <- p + ylab("Title count")
+print(p)
+```
+
+
+```{r summaryplace3, echo=FALSE, results='asis'}
+pubc <- top(df, "country", output = "data.frame")
+kable(head(pubc), caption = "Top publication country counts")
+```

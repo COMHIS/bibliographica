@@ -1,0 +1,112 @@
+---
+title: "Author preprocessing summary"
+author: "`r author`"
+date: "`r Sys.Date()`"
+output: markdown_document
+---
+
+## Authors
+
+[Accepted author names](output.tables/author_accepted.csv)
+
+[Discarded author names](output.tables/author_discarded.csv)
+
+[Author name conversions](output.tables/author_conversion_nontrivial.csv)
+
+Top-`r ntop` uniquely identified authors and number of documents for each (duplicate docs not checked yet). In total, there are `r length(unique(df$author))` unique authors and `r sum(!is.na(df$author))` documents with unambiguous author information (`r round(100*mean(!is.na(df$author_name)))`%).
+
+```{r summaryauthors, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=10, out.width='430px', fig.show='hold'}
+p <- NULL
+p <- top_plot(df, "author", ntop) +
+     		  ggtitle(paste("Top authors")) +
+		  ylab("Documents")
+print(p)
+
+p <- top_plot(df[is.na(df$author), ] %>% select(author_name), "author_name", ntop) + ggtitle("Top discarded authors")
+print(p)
+```
+
+
+Title count versus paper consumption (all authors):
+
+```{r authortitlespapers, fig.height=8, fig.width=16, echo=FALSE, warning=FALSE}
+res1 <- compare_title_paper(df, "author", plot.mode = "text")
+res2 <- compare_title_paper(df, "author", plot.mode = "point")
+grid.arrange(res2$plot, res1$plot, nrow = 1)
+#kable(res1$table)
+```
+
+### Life span of uniquely identified top authors
+
+Ordered by productivity (number of documents))
+
+```{r, summaryauthorslife, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=10}
+a <- rev(rev(sort(table(df$author_unique)))[1:ntop])
+dfa <- df[, c("author_unique", "author_birth", "author_death")]
+dfa <- filter(dfa, !is.na(author_unique) & (author_unique %in% names(a)))
+dfa <- dfa[!duplicated(dfa), ]
+dfa <- dfa[match(names(a), dfa$author_unique),]
+dfa <- arrange(dfa, author_birth)
+# Order authors by birth year
+dfa$author_unique <- factor(dfa$author_unique, levels = dfa$author_unique)
+dfa$index <- 1:nrow(dfa)
+
+p <- ggplot(dfa)
+p <- p + geom_segment(aes(y = author_unique, yend = author_unique, x = author_birth, xend = author_death), size = 2) 
+p <- p + theme(axis.text.y = element_text(size = 9))
+p <- p + xlab("Author life span (year)") + ylab("")
+print(p)
+```
+
+### Ambiguous authors
+
+Authors with ambiguous living year information - can we spot here
+cases where these are clearly known identical or distinct authors?
+Should also add living year information from supporting sources later.
+
+[Authors with ambiguous life years](output.tables/author_life_ambiguous.csv)
+
+[Authors with missing life years](output.tables/authors_missing_lifeyears.csv)
+
+
+### Publication timeline for top authors
+
+Title count
+
+```{r summaryTop10authorstimeline, fig.height=10, fig.width=20, echo=FALSE}
+theme_set(theme_bw(20))
+top.authors <- names(top(df, field = "author", n = 3))
+dfs <- df %>% filter(author %in% top.authors) %>%
+     	 group_by(author, publication_decade) %>%
+     	 tally() %>%
+     	 arrange(publication_decade)
+p <- ggplot(dfs, aes(x = publication_decade, y = n, fill = author)) +
+       geom_bar(stat = "identity", position = "stack", color = "black") +
+       xlab("Publication Decade") +
+       ylab("Title Count") +
+       scale_fill_grey() +
+       guides(fill = guide_legend("Author")) +
+       ggtitle("Title count timeline for the top authors")
+print(p)
+```
+
+
+Paper consumption
+
+```{r summaryTop10authorstimelinepaper, fig.height=30, fig.width=10, echo=FALSE}
+# Calculate paper consumption for authors
+df2 <- df %>%
+    group_by(author) %>%
+    summarize(paper.consumption.km2 = sum(paper.consumption.km2, na.rm = TRUE), n = n()) 
+# Pick top authors
+top10 <- na.omit(as.character(df2[order(df2$paper.consumption.km2, decreasing = TRUE), ]$author))[1:10]
+dfs <- filter(df, author %in% top10)
+dfs <- group_by(dfs, author, publication_year) %>%
+    summarize(paper.consumption.km2 = sum(paper.consumption.km2, na.rm = TRUE), n = n()) 
+p <- ggplot(dfs, aes(x = publication_year, y = paper.consumption.km2)) 
+p <- p + geom_bar(stat = "identity") 
+p <- p + facet_grid(author ~ .)
+p <- p + ggtitle("Annual paper comsumption by top authors")
+print(p)
+```
+
