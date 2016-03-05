@@ -13,7 +13,7 @@ output: markdown_document
 
 [All conversions from the original to final names](output.tables/author_conversion_nontrivial.csv)
 
-Top-`r ntop` uniquely identified authors and number of documents for each (duplicate docs not checked yet). In total, there are `r length(unique(df$author))` unique authors and `r sum(!is.na(df$author))` documents with unambiguous author information (`r round(100*mean(!is.na(df$author_name)))`%).
+Top-`r ntop` uniquely identified authors and their productivity (title count). In total, there are `r length(unique(df$author))` unique authors and `r sum(!is.na(df$author))` documents with unambiguous author information (`r round(100*mean(!is.na(df$author_name)))`%).
 
 ```{r summaryauthors, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=10, out.width='430px', fig.show='hold'}
 p <- NULL

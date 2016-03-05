@@ -23,6 +23,9 @@ read_bibliographic_metadata <- function (file, verbose = FALSE) {
     df.all <- rbind_all(dfs)
     if (verbose) {message("OK")}    
 
+    # Add identifier column
+    df.all$original_row <- 1:nrow(df.all)
+
     return(df.all)
 
   } else {
@@ -50,9 +53,6 @@ read_bibliographic_metadata <- function (file, verbose = FALSE) {
     if (any(is.na(names(df)))) {
       warnings(paste("Fields", paste(names.orig[which(is.na(names(df)))], collapse = ";"), "not recognized"))
     }
-
-    # Add one identifier column
-    df$original_row <- 1:nrow(df)
 
     df <- tbl_df(df)
 
