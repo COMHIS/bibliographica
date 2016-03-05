@@ -6,10 +6,15 @@
 #' @return NULL
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
+#' @importFrom dplyr full_join
 #' @export
 #' @examples # generate_summary_tables(df)
 #' @keywords utilities
 generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "output.tables") {
+
+  # Circumvent build warnings			
+  author_name <- author_birth <- author_death <- NULL
+  mean_pagecounts_multivol <- mean_pagecounts_univol <- mean_pagecounts_issue <- NULL
 
   # Ensure compatibility			
   df.orig <- df.orig[df.preprocessed$original_row,]
@@ -20,7 +25,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     message(field)
 
     message("Accepted entries in the preprocessed data")
-    s <- write_xtable(df.preprocessed[[field]], file = paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
+    s <- write_xtable(df.preprocessed[[field]], paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
 
     message("Discarded entries")
     if ((field %in% names(df.preprocessed)) && (field %in% names(df.orig))) {
@@ -83,7 +88,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   # Authors with missing life years
   tab <- df.preprocessed %>% filter(!is.na(author_name) & (is.na(author_birth) | is.na(author_death))) %>% select(author_name, author_birth, author_death)
-  tmp <- write_xtable(tab, file = paste(output.folder, "authors_missing_lifeyears.csv", sep = ""))
+  tmp <- write_xtable(tab, paste(output.folder, "authors_missing_lifeyears.csv", sep = ""))
 
   # Ambiguous authors with many birth years
   births <- split(df.preprocessed$author_birth, df.preprocessed$author_name)
@@ -112,9 +117,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tab <- data.frame(list(name = df.preprocessed$author, gender = df.preprocessed$author_gender))
   tab <- tab[!is.na(tab$gender), ] # Remove NA gender
 
-  write_xtable(subset(tab, gender == "male")[,-2], file = paste(output.folder, "gender_male.csv", sep = ""))
-  write_xtable(subset(tab, gender == "female")[,-2], file = paste(output.folder, "gender_female.csv", sep = ""))
-  write_xtable(unname(pick_firstname(df.preprocessed$author_name)[is.na(df.preprocessed$author_gender)]), file = paste(output.folder, "gender_unknown.csv", sep = ""))
+  write_xtable(subset(tab, gender == "male")[,-2], paste(output.folder, "gender_male.csv", sep = ""))
+  write_xtable(subset(tab, gender == "female")[,-2], paste(output.folder, "gender_female.csv", sep = ""))
+  write_xtable(unname(pick_firstname(df.preprocessed$author_name)[is.na(df.preprocessed$author_gender)]), paste(output.folder, "gender_unknown.csv", sep = ""))
 
   # Mean page counts
   message("Average pagecounts")
