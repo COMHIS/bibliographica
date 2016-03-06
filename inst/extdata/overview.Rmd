@@ -42,7 +42,7 @@ Documents with data (number and percentage) and number of unique entries for eac
 
 ```{r sumtab, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE}
 tab <- availability$table %<>% arrange(n)
-kable(tab[, c(1, 3, 2, 4, 5)])
+kable(tab[, c(1, 3, 2, 4, 5)], digits = 1, caption = "Data availability")
 ```
 
 

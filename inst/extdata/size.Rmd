@@ -164,6 +164,10 @@ Here we use the original data only:
 nmin <- 2000
 top.gatherings <- names(which(table(df$gatherings.original) > nmin))
 
+#df1 <- filter(df, !is.na(gatherings.original) & (!is.na(height.original) | !is.na(width.original))) %>%
+#       filter(gatherings.original %in% top.gatherings) %>%
+#       select(publication_year, gatherings.original, height.original, width.original)
+
 df2 <- filter(df, !is.na(gatherings.original) & (!is.na(height.original) | !is.na(width.original))) %>%
        filter(gatherings.original %in% top.gatherings) %>%
        select(publication_decade, gatherings.original, height.original, width.original)
@@ -175,10 +179,11 @@ df3 <- df2 %>% group_by(gatherings.original, publication_decade) %>%
 
 p <- ggplot()
 p <- p + geom_point(data = df3, aes(x = publication_decade, y = mean.height.original, size = n, group = gatherings.original, color = gatherings.original))
-
-p <- p + geom_smooth(data = df2, method = "loess", aes(x = publication_decade, y = height.original, group = gatherings.original, color = gatherings.original))
-
-p <- p + ggtitle("Mean height")
+#p <- p + geom_point(data = df1, aes(x = publication_year, y = height.original, size = n, group = gatherings.original, color = gatherings.original))
+#p <- p + geom_smooth(data = df2, method = "loess", aes(x = publication_decade, y = height.original, group = gatherings.original, color = gatherings.original))
+# Use mean height here to speed up
+p <- p + geom_smooth(data = df3, method = "loess", aes(x = publication_decade, y = mean.height.original, group = gatherings.original, color = gatherings.original))
+p <- p + ggtitle("Height")
 print(p)
 ```
 
