@@ -47,16 +47,19 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
  
   # 23.1967 -> 1967
   x <- gsub(" [0-9]{1,2}\\.", "", x)   
-  
+
   # "Printed in the Yeare,;1648."
   inds <- grep(";", x)
   x[inds] <- unlist(sapply(x[inds], function (x) {x <- unlist(strsplit(x, ";")); paste(x[grep("[0-9]", x)], collapse = ", ")}), use.names = FALSE)
   x <- gsub("\\.", "", x)
 
+  # 18th century (remove separately before removing other letters)
+  #x <- gsub("[0-9]{1,4}th ", "", x)
+  x <- gsub("[0-9]{1,4}[a-z]", "", x)  
+    
+  # Remove the remaining letters
   if (length(grep("-+[a-z]*[0-9]{4}-+", x))>0) {
     x <- gsub("[a-z]", "", x)
-    # x <- gsub("[A-Z]", "", x)
-    # x <- gsub("-", "", x)        
   }
 
   # Map back to original indices and make unique again. To speedup further.
