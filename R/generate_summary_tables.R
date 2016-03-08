@@ -94,6 +94,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     count = TRUE)
 
   message("Automated summaries done.")
+
+
   # Authors with missing life years
   tab <- df.preprocessed %>% filter(!is.na(author_name) & (is.na(author_birth) | is.na(author_death))) %>% select(author_name, author_birth, author_death)
   tmp <- write_xtable(tab, paste(output.folder, "authors_missing_lifeyears.csv", sep = ""))
@@ -118,10 +120,16 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tab <- cbind(original = df.orig$physical_extent, df.preprocessed[, c("pagecount", "volnumber", "volcount")])
   tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_extent.csv")
 
-
+  print("Physical dimension info")
   tab <- cbind(original = df.orig$physical_dimension, df.preprocessed[, c("gatherings.original", "width.original", "height.original", "obl.original", "gatherings", "width", "height", "obl", "area")])
   tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_dimension.csv")
 
+  # Accepted / Discarded dimension info
+  inds <- which(is.na(df.preprocessed[["area"]]))
+  tmp <- write_xtable(
+    cbind(original = as.character(df.orig[df.preprocessed$original_row]$physical_dimension)[inds], df.preprocessed[inds, c("gatherings", "width", "height", "obl")]),
+    paste(output.folder, paste("physical_dimension_incomplete.csv", sep = "_"), sep = ""),
+    count = TRUE)
 
   message("Write the mapped author genders in tables")
   tab <- data.frame(list(name = df.preprocessed$author, gender = df.preprocessed$author_gender))

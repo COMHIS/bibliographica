@@ -14,6 +14,8 @@ test_that("Year polishing is correct", {
 
   # Fix later
   expect_true(is.na(polish_years("-1776.")$from))
+  expect_true(is.na(polish_years("18th century")$from))
+  
   expect_equal(polish_years("-1768")$till, 1768)      
   expect_equal(polish_years("-1776.")$till, 1776)
 
@@ -177,12 +179,15 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("-<1888>")$till, 1888)  
   expect_equal(polish_years("Anno.1564. Mense Iulii [1564]")$from, 1564)
   expect_equal(polish_years("Septemb. 6. 1634 [i.e. 1643-1647]")$from, 1643)
-  expect_equal(polish_years("Septemb. 6. 1634 [i.e. 1643-1647]")$till, 1647)  
+  expect_equal(polish_years("Septemb. 6. 1634 [i.e. 1643-1647]")$till, 1647)
+
+  expect_equal(polish_years("approximately 19 B.C.-approximately 30 A.D.")$from, -19)
+  expect_equal(polish_years("100 B.C-44B.C")$from, -100)
+  expect_equal(polish_years("100B.C-44 B.C")$till, -44)    
+  expect_equal(polish_years("approximately 19 B.C.-approximately 30 A.D.")$till, 30)  
 
   # expect_equal(polish_years("1905 [oik. 15]")$from, 1905)   
   # expect_equal(polish_years("étei a kh o s [=1676]")$from, 1676)  
-  #expect_equal(polish_years("approximately 19 B.C.-approximately 30 A.D.")$from, -19)
-  #expect_equal(polish_years("approximately 19 B.C.-approximately 30 A.D.")$till, 30)  
   #expect_equal(polish_years("wuona jelken Christuxen syndymän 1616,;1616")$from, 1616)
   # MDCCI. [1701] [1702]
 

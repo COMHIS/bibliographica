@@ -54,9 +54,8 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- gsub("\\.", "", x)
 
   # 18th century (remove separately before removing other letters)
-  #x <- gsub("[0-9]{1,4}th ", "", x)
-  x <- gsub("[0-9]{1,4}[a-z]", "", x)  
-    
+  x <- gsub("[0-9]{1,4}th", "", x)  
+
   # Remove the remaining letters
   if (length(grep("-+[a-z]*[0-9]{4}-+", x))>0) {
     x <- gsub("[a-z]", "", x)
@@ -68,7 +67,8 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   xuniq <- unique(xorig)
   x <- xuniq
 
-  x <- harmonize_ie(x) 
+  x <- harmonize_ie(x)
+  x <- gsub("-a", "- a", x) # -approximately 
   x <- remove_print_statements(x)
 
   # Map back to original indices and make unique again. To speedup further.
@@ -94,7 +94,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- gsub("^& ", "", x)  
   x <- gsub(" -", "-", gsub("- ", "-", x))
   x <- harmonize_christian(x)
-  
+
   inds <- grep(" or ", x)
   if (length(inds)>0) {
     x[inds] <- sapply(x[inds], function (x) unlist(strsplit(x, " or "), use.names = FALSE)[[2]])
@@ -113,7 +113,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   xorig <- x
   xuniq <- unique(xorig)
   x <- xuniq
-  
+
   res <- suppressWarnings(lapply(x, function (xi) {a <- try(polish_year(xi, start_synonyms = start_synonyms, end_synonyms = end_synonyms, months, verbose)); if (class(a) == "try-error") {return(c(NA, NA))} else {return(a)}}))
 
   res <- do.call("rbind", res)
@@ -166,6 +166,22 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     start <- gsub("^([0-9]{4}).*", "\\1", x)
     end <- gsub(".*([0-9]{4})$", "\\1", x)
     return (c(from=as.numeric(start), till=as.numeric(end)))
+  } else if (length(grep("^[0-9]{1,4}B\\.C-[0-9]{1,4}B\\.C$", x)) > 0) {
+    # 30bc-26bc
+    tmp <- as.numeric(gsub("B\\.C", "", unlist(strsplit(x, "-"))))
+    start <- -tmp[[1]]
+    end <- -tmp[[2]]
+    return (c(from=as.numeric(start), till=as.numeric(end)))
+  } else if (length(grep("^[0-9]{1,4}B\\.C-[0-9]{1,4}$", x)) > 0) {
+    # 30bc-26
+    tmp <- as.numeric(gsub("B\\.C", "", unlist(strsplit(x, "-"))))
+    start <- -tmp[[1]]
+    end <- tmp[[2]]
+    return (c(from=as.numeric(start), till=as.numeric(end)))        
+  } else if (length(grep("^[0-9]{1,4}B\\.C$", x)) > 0) {
+    start <- -as.numeric(gsub("B\\.C", "", x))
+    end <- NA
+    return (c(from=as.numeric(start), till=as.numeric(end)))    
   }
 
   # More complex cases..

@@ -56,8 +56,8 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
   years <- sapply(years, function (x) {if (length(grep("-", unlist(strsplit(x, "")))) == 1) {return(strsplit(x, "-"))} else {return(strsplit(x, " "))}})
   birth <- as.numeric(gsub("-$", "", sapply(years, function (x) {x[[1]]})))
   death <- as.numeric(sapply(years, function (x) {if (length(x) > 1) x[[2]] else NA}))
-  dfa.uniq$author_birth[inds] <- birth
-  dfa.uniq$author_death[inds] <- death
+  dfa.uniq$author_birth[inds] <- as.numeric(as.character(birth))
+  dfa.uniq$author_death[inds] <- as.numeric(as.character(death))
 
   dfa.uniq[match.inds,]
 

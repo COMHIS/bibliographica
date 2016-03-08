@@ -60,7 +60,7 @@ write_xtable <- function (x, filename, count = FALSE) {
       tab <- apply(tab, 2, as.character)
     }
     n <- sum(as.numeric(tab[,"Count"]), na.rm = TRUE)
-    suppressWarnings(tab <- rbind(c("Total count: ", paste("n=", n, " (", round(100*n/length(x), 2), "% non-NA values)", sep = "")), tab))
+    suppressWarnings(tab <- rbind(c("Total count: ", paste("n=", n, " (", round(100*n/length(x), 2), "% non-NA values)", collapse = "")), tab))
   }
 
   write.table(tab, file = filename, quote = FALSE, sep = "\t", row.names = FALSE)
