@@ -188,9 +188,9 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   # "mdccx-mdccxi [1710-1711]" -> [1710-1711]
   if (length(grep("[a-z]*-[a-z]* \\[[0-9]*-[0-9]*\\]", x))>0) {
     x <- remove_letters(x)
-  } else if (length(grep("^[0-9]{4}\\[[0-9]\\]", x))>0) {
-    # "1646[7]" -> 1646  
-    x <- substr(x, 1, 4)
+  } else if (length(grep("^[0-9]{4}\\[[0-9]\\]$", x))>0) {
+    # "1646[7]" -> 1647
+    x <- paste(substr(x, 1, 3), substr(x, 6, 6), sep = "")
   } else if (length(grep("^[0-9]{4}-\\[[0-9]*\\]", x))>0) {
     # "1646-[47]" -> 1646-47
     x <- gsub("\\[", "", gsub("\\]", "", x))

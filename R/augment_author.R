@@ -28,17 +28,23 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
     df$author_death <- add_missing_entries(df, life_info, id = "author_name", field = "author_death") 
   }
 
+  # Add pseudonyme indicator field
+  pseudo1 <- as.character(read.csv(system.file("extdata/stopwords_pseudonymes.csv", package = "bibliographica"), sep = "\t")[,1])
+  pseudo2 <- as.character(read.csv(system.file("extdata/names/pseudonymes/first.csv", package = "bibliographica"), sep = "\t")[,1])
+  pseudo3 <- as.character(read.csv(system.file("extdata/names/pseudonymes/last.csv", package = "bibliographica"), sep = "\t")[,1])
+  pseudo <- sort(unique(c(pseudo1, pseudo2, pseudo3)))
+  df$author_pseudonyme <- tolower(df$author_name) %in% pseudo
+
   message("Unique author identifier by combining name, birth and death years")
   df$author <- author_unique(df, initialize.first = FALSE)
 
   message("Harmonize ambiguous authors")
   if (!is.null(ambiguous_authors)) {	  	    
-    #ambiguous_authors <- ambiguous_authors_table()
     df$author <- harmonize_names(df$author, ambiguous_authors, include.original = FALSE, check.synonymes = FALSE, include.lowercase = FALSE)
   }
   df$author[grep("^NA, NA", df$author)] <- NA  
 
-  message("Correct author living years using the ones from the final harmonized version")	
+  message("Fix author life years using the ones from the final harmonized version")
   dfa.orig <- df
   dfa.uniq <- unique(dfa.orig)
   

@@ -51,10 +51,19 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   s <- gsub("x", " x ", s)
   s <- gsub("obl\\.{0,1}", "obl ", s)
   # Remove extra spaces
+  s <- gsub(" /", "/", s)
   s <- condense_spaces(s)
+  
   # "16mo in 8's."
   inds <- grep("[0-9]+.o in [0-9]+.o", s)  
   s[inds] <- gsub(" in [0-9]+.o", "", s[inds])
+
+  # "12 mo
+  inds <- grep("[0-9]+ .o", s)  
+  for (id in c("mo", "to", "vo", "fo")) {
+    s[inds] <- gsub(paste(" ", id, sep = ""), id, s[inds])
+  }
+
   s <- harmonize_dimension(s, synonyms) 
   s <- harmonize_names(s, synonyms, mode = "recursive", check.synonymes = FALSE, include.lowercase = F)  
 

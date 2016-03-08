@@ -40,6 +40,7 @@ test_that("Year polishing is correct", {
 
   expect_true(is.na(polish_years("active 17th century.")$from))
   expect_true(is.na(polish_years("active 17th century.")$till))
+  expect_true(is.na(polish_years("17th century")$from))  
 
   expect_equal(polish_years("[between 1790 and 1800?]")$from, 1790)
   expect_equal(polish_years("[between 1790 and 1800?]")$till, 1800)
@@ -53,6 +54,8 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("Re-printed in the year, 1689]")$from, 1689)
   expect_equal(polish_years("August 5, 1799.")$from, 1799)
   expect_equal(polish_years("1726[1727]")$from, 1727)
+  expect_equal(polish_years("1726[7]")$from, 1727)
+  
   expect_equal(polish_years("May 27, 1643.")$from, 1643)
   expect_equal(polish_years("Iune 8, 1642.")$from, 1642)
   expect_equal(polish_years("Anno M.DC.XVIII [1618, i.e. 1619]")$from, 1619)
@@ -132,7 +135,7 @@ test_that("Year polishing is correct", {
 
   expect_equal(polish_years("M.DC.XXVIII.")$from, 1628)
   expect_equal(polish_years("M,DCC,LXXV.")$from, 1775)    
-  expect_equal(polish_years("Febr. 8. 1646[7]")$from, 1646)  
+  expect_equal(polish_years("Febr. 8. 1646[7]")$from, 1647)  
   expect_equal(polish_years("Anno Dom. MDCLXXXV.")$from, 1685)  
   expect_equal(polish_years("Anno 1643. Sept. 16.")$from, 1643)
 

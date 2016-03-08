@@ -84,6 +84,12 @@ test_that("dimension polish works correctly", {
   expect_equal(as.character(polish_dimensions("32 cm. (fol))")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("20 cm. (4to & 8vo)")$gatherings), "NA")
 
+  expect_equal(as.character(polish_dimensions("1 /2⁰.")$gatherings), "2fo")
+  expect_equal(as.character(polish_dimensions("8⁸.")$gatherings), "8vo")
+  expect_equal(as.character(polish_dimensions("(12 mo)")$gatherings), "12mo")    
+
+
+
 })
 
 

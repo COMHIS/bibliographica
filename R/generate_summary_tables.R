@@ -13,14 +13,14 @@
 generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "output.tables") {
 
   # Circumvent build warnings			
-  author_name <- author_birth <- author_death <- NULL
+  author_name <- author_birth <- author_death <- author_pseudonyme <- NULL
   mean_pagecounts_multivol <- mean_pagecounts_univol <- mean_pagecounts_issue <- NULL
 
   # Ensure compatibility			
   df.orig <- df.orig[df.preprocessed$original_row,]
 
   message("Write summaries of field entries and count stats for all fields")
-  for (field in setdiff(names(df.preprocessed), c(names(df.preprocessed)[grep("language", names(df.preprocessed))], "row.index", "paper.consumption.km2", "publication_decade", "publication_year", "pagecount", "obl", "obl.original", "original_row", "dissertation", "synodal", "original", "unity", "author_birth", "author_death", "gatherings.original", "width.original", "height.original", "longitude", "latitude", "page", "item", "publisher.printedfor", "publisher", "country"))) {
+  for (field in setdiff(names(df.preprocessed), c(names(df.preprocessed)[grep("language", names(df.preprocessed))], "row.index", "paper.consumption.km2", "publication_decade", "publication_year", "pagecount", "obl", "obl.original", "original_row", "dissertation", "synodal", "original", "unity", "author_birth", "author_death", "gatherings.original", "width.original", "height.original", "longitude", "latitude", "page", "item", "publisher.printedfor", "publisher", "country", "author_pseudonyme"))) {
 
     message(field)
 
@@ -65,7 +65,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     tmp <- write_xtable(cbind(original = o[inds],
       	 		    polished = x[inds]),
       paste(output.folder, paste(nam, "conversion_nontrivial.csv", sep = "_"), sep = ""))
-
   }
 
   message("Accept summaries")
@@ -85,6 +84,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       count = TRUE)
   }
 
+  message("Automated summaries done.")
+
   nam <- "country"
   o <- as.character(df.preprocessed[[originals[[nam]]]])
   x <- as.character(df.preprocessed[[nam]])
@@ -93,14 +94,14 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
     count = TRUE)
 
-  message("Automated summaries done.")
-
+  # Author pseudonymes
+  tab <- df.preprocessed %>% filter(author_pseudonyme) %>% select(author_name)
+  tmp <- write_xtable(tab, paste(output.folder, "author_pseudonymes.csv", sep = ""), count = TRUE)
 
   # Authors with missing life years
   tab <- df.preprocessed %>% filter(!is.na(author_name) & (is.na(author_birth) | is.na(author_death))) %>% select(author_name, author_birth, author_death)
   tmp <- write_xtable(tab, paste(output.folder, "authors_missing_lifeyears.csv", sep = ""))
  
-  
   # Ambiguous authors with many birth years
   births <- split(df.preprocessed$author_birth, df.preprocessed$author_name)
   births <- births[sapply(births, length) > 0]

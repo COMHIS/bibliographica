@@ -11,7 +11,9 @@ output: markdown_document
 
 [Discarded author names](output.tables/author_discarded.csv)
 
-[All conversions from the original to final names](output.tables/author_conversion_nontrivial.csv)
+[Author names classified as pseudonymes](output.tables/author_pseudonymes.csv)
+
+[Conversions from original to final names](output.tables/author_conversion_nontrivial.csv)
 
 Top-`r ntop` uniquely identified authors and their productivity (title count). In total, there are `r length(unique(df$author))` unique authors and `r sum(!is.na(df$author))` documents with unambiguous author information (`r round(100*mean(!is.na(df$author_name)))`%).
 
