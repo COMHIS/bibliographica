@@ -23,7 +23,7 @@ read_bibliographic_metadata <- function (file, verbose = FALSE) {
     df.all <- rbind_all(dfs)
     if (verbose) {message("OK")}    
 
-    # Add identifier column
+    # Replace individual identifier columns
     df.all$original_row <- 1:nrow(df.all)
 
     return(df.all)
@@ -56,6 +56,9 @@ read_bibliographic_metadata <- function (file, verbose = FALSE) {
 
     df <- tbl_df(df)
 
+    # Add identifier column
+    df$original_row <- 1:nrow(all)
+    
     return(df)
 
   }

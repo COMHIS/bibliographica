@@ -20,7 +20,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   df.orig <- df.orig[df.preprocessed$original_row,]
 
   message("Write summaries of field entries and count stats for all fields")
-  for (field in setdiff(names(df.preprocessed), c(names(df.preprocessed)[grep("language", names(df.preprocessed))], "row.index", "paper.consumption.km2", "publication_decade", "publication_year", "pagecount", "obl", "obl.original", "original_row", "dissertation", "synodal", "original", "unity", "author_birth", "author_death", "gatherings.original", "width.original", "height.original", "longitude", "latitude", "page", "item", "publisher.printedfor", "publisher"))) {
+  for (field in setdiff(names(df.preprocessed), c(names(df.preprocessed)[grep("language", names(df.preprocessed))], "row.index", "paper.consumption.km2", "publication_decade", "publication_year", "pagecount", "obl", "obl.original", "original_row", "dissertation", "synodal", "original", "unity", "author_birth", "author_death", "gatherings.original", "width.original", "height.original", "longitude", "latitude", "page", "item", "publisher.printedfor", "publisher", "country"))) {
 
     message(field)
 
@@ -43,6 +43,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       # Exclude trivial cases (original == polished exluding cases)
       #tab <- tab[!tab[, "original"] == tab[, "polished"], ]
       tab <- tab[!tolower(tab[, "original"]) == tolower(tab[, "polished"]), ]
+      
       tmp <- write_xtable(tab, paste(output.folder, field, "_conversions_nontrivial.csv", sep = ""), count = TRUE)
     }
   }
@@ -75,7 +76,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   }
 
   message("Discard summaries")
-  for (nam in names(originals)) {
+  for (nam in setdiff(names(originals), "country")) {
     o <- as.character(df.orig[[originals[[nam]]]])
     x <- as.character(df.preprocessed[[nam]])
     inds <- which(is.na(x))
@@ -84,12 +85,20 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       count = TRUE)
   }
 
-  message("Automated summaries done.")
+  nam <- "country"
+  o <- as.character(df.preprocessed[[originals[[nam]]]])
+  x <- as.character(df.preprocessed[[nam]])
+  inds <- which(is.na(x))
+  tmp <- write_xtable(o[inds],
+    paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
+    count = TRUE)
 
+  message("Automated summaries done.")
   # Authors with missing life years
   tab <- df.preprocessed %>% filter(!is.na(author_name) & (is.na(author_birth) | is.na(author_death))) %>% select(author_name, author_birth, author_death)
   tmp <- write_xtable(tab, paste(output.folder, "authors_missing_lifeyears.csv", sep = ""))
-
+ 
+  
   # Ambiguous authors with many birth years
   births <- split(df.preprocessed$author_birth, df.preprocessed$author_name)
   births <- births[sapply(births, length) > 0]
@@ -103,11 +112,12 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tmp <- write_xtable(as.character(df.orig$language[df.preprocessed$language.undetermined]), filename = "output.tables/language_unidentified.csv")
 
   # No country mapping
-  tmp <- write_xtable(as.character(df.preprocessed$publication_place[is.na(df.preprocessed$country)]), filename = "output.tables/publication_place_missingcountry.csv")
+  tab <- as.character(df.preprocessed$publication_place[is.na(df.preprocessed$country)])
+  tmp <- write_xtable(tab, filename = "output.tables/publication_place_missingcountry.csv")
 
-  # TODO conversion tables can be automatized
   tab <- cbind(original = df.orig$physical_extent, df.preprocessed[, c("pagecount", "volnumber", "volcount")])
   tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_extent.csv")
+
 
   tab <- cbind(original = df.orig$physical_dimension, df.preprocessed[, c("gatherings.original", "width.original", "height.original", "obl.original", "gatherings", "width", "height", "obl", "area")])
   tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_dimension.csv")

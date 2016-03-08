@@ -16,7 +16,9 @@ write_xtable <- function (x, filename, count = FALSE) {
   if (is.factor(x)) {
     x <- as.character(x)
   }
- 
+
+  tab <- NULL
+
   if (is.vector(x)) {
   
     # Remove NAs
@@ -42,12 +44,19 @@ write_xtable <- function (x, filename, count = FALSE) {
     tab <- tab[rev(order(as.numeric(tab[, "Count"]))),]
     tab <- tab[!duplicated(tab),]
 
-    rownames(tab) <- NULL
-
+    if (length(tab) > 0) {
+      tab <- as.matrix(tab, nrow = nrow(x))
+      if (ncol(tab) == 1) {tab <- t(tab)}
+      colnames(tab) <- c(colnames(x), "Count")
+      rownames(tab) <- NULL
+    } else {
+      tab <- NULL
+    }
   }
 
   if (count) {
-    if (nrow(tab) > 1) {
+
+    if (!is.null(tab) && nrow(tab) > 1) {
       tab <- apply(tab, 2, as.character)
     }
     n <- sum(as.numeric(tab[,"Count"]), na.rm = TRUE)
