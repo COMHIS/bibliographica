@@ -57,7 +57,7 @@ read_bibliographic_metadata <- function (file, verbose = FALSE) {
     df <- tbl_df(df)
 
     # Add identifier column
-    df$original_row <- 1:nrow(all)
+    df$original_row <- 1:nrow(df)
     
     return(df)
 
