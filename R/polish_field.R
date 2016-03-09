@@ -14,7 +14,11 @@ polish_field <- function (df, field, verbose = TRUE) {
 
   from <- till <- NULL
 
-  if (field == "subject_geography") {
+  if (field == "control_number") {
+
+    df.tmp <- data.frame(control_number = df[[field]])
+
+  } else if (field == "subject_geography") {
 
     df.tmp <- data.frame(subject_geography = df[[field]])
 
