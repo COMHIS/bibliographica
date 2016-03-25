@@ -34,7 +34,11 @@ write_xtable <- function (x, filename, count = FALSE) {
     counts <- rev(sort(table(x)))
     tab <- data.frame(list(Name = names(counts), Count = as.vector(counts)))
 
-  } else if (is.matrix(x) | is.data.frame(x)) {
+  } else if (is.matrix(x) || is.data.frame(x)) {
+
+    if (is.null(colnames(x))) {
+      colnames(x) <- paste("X", 1:ncol(x), sep = "")
+    }
 
     id <- apply(x, 1, function (x) {paste(x, collapse = "-")})
     ido <- rev(sort(table(id)))
