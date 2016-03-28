@@ -20,7 +20,7 @@ Output of the polished field
 Polish a specified library catalogue field.
 }
 \details{
-A generic wrapper bringing together the separate field processing methods into a single function.
+A wrapper bringing together the separate field processing methods into a single function.
 }
 \examples{
 \dontrun{a <- polish_field(df, "title")}

@@ -1,0 +1,57 @@
+#' @title Polish all fields
+#' @description Polish all fields.
+#' @param df.orig Original data.frame 
+#' @param fields Fields to be preprocessed.
+#' @param verbose verbose
+#' @param file Temporary results saved into a file 
+#' @return Preprocessed data.frame and field conversion list.
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' @examples \dontrun{a <- polish_all(df.orig)}
+#' @export
+#' @keywords utilities
+polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL) {
+
+  if (is.null(fields)) {
+    message("List raw data fields to be preprocessed")
+    fields <- names(df.orig) # Update all
+  }
+  
+  message("Entry identifier to match back to the originals")
+  df.preprocessed <- data.frame(original_row = df.orig$original_row)
+
+  # List how raw data fields will be converted into
+  # preprocessed data fields
+  conversions <- list()
+
+  # Preprocess the field only if it has to be updated
+  for (field in fields) {
+
+    message(field)
+
+    # Polish the given field
+    df.tmp <- polish_field(df.orig, field, verbose = FALSE)
+
+    # List the output fields for this input field
+    conversions[[field]] <- names(df.tmp)
+
+    # Remove fields to be updated
+    inds <- which(names(df.preprocessed) %in% unlist(conversions[[field]]))
+    if (length(inds) > 0) { df.preprocessed <- df.preprocessed[, -inds]}
+
+    # Add the newly preprocessed field
+    df.preprocessed <- cbind(df.preprocessed, df.tmp)
+
+    # Remove the temporary data.frame
+    rm(df.tmp)
+
+    if (!is.null(file)) {
+      save(df.preprocessed, conversions, file = file)
+    }
+    
+  }
+
+  list(df.preprocessed = df.preprocessed, conversions = conversions)
+
+}
+
