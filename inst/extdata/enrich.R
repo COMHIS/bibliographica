@@ -143,13 +143,16 @@ df.preprocessed <- mutate(df.preprocessed, paper.consumption.km2 = width * heigh
 
 # -------------------------------------------------------------------
 
-#print("Enrich author info")
+print("Enrich author info")
 # Life years + author_unique field
 library(estc)
-life.info <- read.csv(system.file("extdata/author_info.csv", package = "estc"), stringsAsFactors = FALSE, sep = "\t")
-ambiguous.authors <- estc::ambiguous_authors_table()
-## Combine synonymous authors; augment author life years where missing etc.
+life.info <- read.csv(system.file("extdata/author_info.csv", package = "bibliographica"), stringsAsFactors = FALSE, sep = "\t")
+ambiguous.authors <- bibliographica::ambiguous_authors_table()
+
+# Combine synonymous authors; augment author life years where missing etc.
 df.preprocessed <- augment_author(df.preprocessed, life.info, ambiguous.authors)
+
+# -------------------------------------------------------------------
 
 # TODO improve: many names are missing gender now
 print("Estimate author genders")

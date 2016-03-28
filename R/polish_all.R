@@ -23,6 +23,7 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL) {
   # List how raw data fields will be converted into
   # preprocessed data fields
   conversions <- list()
+  preprocessing.times <- c()
 
   # Preprocess the field only if it has to be updated
   for (field in fields) {
