@@ -29,6 +29,9 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL) {
 
     message(field)
 
+    # Starting time
+    start.time <- Sys.time()
+
     # Polish the given field
     df.tmp <- polish_field(df.orig, field, verbose = FALSE)
 
@@ -45,13 +48,25 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL) {
     # Remove the temporary data.frame
     rm(df.tmp)
 
+    # Monitor time
+    stop.time <- Sys.time()
+    preprocessing.times[[field]] <- difftime(stop.time, start.time, units = "mins")
+    
     if (!is.null(file)) {
-      save(df.preprocessed, conversions, file = file)
+      save(df.preprocessed, conversions, file = file, compress = TRUE)
+      save(preprocessing.times, file = "preprocessing.times.RData")         
     }
+
+    # Cleanup
+    gc()
     
   }
 
   list(df.preprocessed = df.preprocessed, conversions = conversions)
 
 }
+
+
+
+
 
