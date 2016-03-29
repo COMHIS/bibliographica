@@ -45,7 +45,7 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
   x <- remove_sl(x)
 
   # handle some odd cases manually
-  # FIXME: this is estc-specific, move there
+  # FIXME: estc-specific, move there
   # "122 s"; "2 p"
   x[grep("^[0-9]* [s|p]$", x)] <- NA
   x <- gsub("[0-9]\\. p\\.;","",x)

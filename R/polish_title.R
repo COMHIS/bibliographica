@@ -6,7 +6,7 @@
 #' @details Remove ending commas, periods, spaces and parentheses, 
 #' 	    starting prepositions etc.
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
+#' @references See citation("bibliographica")
 #' @examples \dontrun{x2 <- polish_title(x)}
 #' @keywords utilities
 polish_title <- function (x) {

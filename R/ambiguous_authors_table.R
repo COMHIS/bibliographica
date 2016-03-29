@@ -4,7 +4,7 @@
 #' @return Author synonyme data frame with fields 'name' and 'synonyme' 
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
+#' @references See citation("bibliographica")
 #' @examples aa <- ambiguous_authors_table()
 #' @keywords utilities
 ambiguous_authors_table <- function (file = NULL) {

@@ -4,7 +4,7 @@
 #' @return Average page count information
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
+#' @references See citation("bibliographica")
 #' @examples # m <- mean_pagecounts_multivol(df)
 #' @keywords utilities
 mean_pagecounts_multivol <- function (df) {

@@ -5,7 +5,7 @@
 #' @return Polished dimension information with the original string 
 #' 	   and gatherings and cm information collected from it
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("estc")
+#' @references See citation("bibliographica")
 #' @examples # polish_dimension("4")
 #' @keywords internal
 polish_dimension <- function (x, synonyms) {
