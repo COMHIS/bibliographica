@@ -4,10 +4,10 @@
 \alias{ambiguous_authors_table}
 \title{Ambiguous authors table}
 \usage{
-ambiguous_authors_table(...)
+ambiguous_authors_table(file = NULL)
 }
 \arguments{
-\item{...}{Arguments to be pased}
+\item{file}{Input file}
 }
 \value{
 Author synonyme data frame with fields 'name' and 'synonyme'

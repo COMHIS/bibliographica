@@ -9,6 +9,9 @@ preprocessing.times <- res$preprocessing.times
 saveRDS(df.preprocessed0, "df0.Rds", compress = TRUE)
 saveRDS(conversions, "conversions.Rds", compress = TRUE)
 
+sessioninfo <- sessionInfo()
+saveRDS(sessioninfo, "sessioninfo.Rds", compress = TRUE)
+
 # -----------------------------------------------
 
 # Processing times

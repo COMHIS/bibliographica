@@ -102,17 +102,19 @@ tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_extent.c
 tab <- cbind(original = df.orig$physical_dimension, df.preprocessed[, c("gatherings.original", "width.original", "height.original", "obl.original", "gatherings", "width", "height", "obl", "area")])
 tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_dimension.csv")
 
-# -------------------
+# -----------------------------------------------------
 
 print("Write the mapped author genders in tables")
-tab <- data.frame(list(name = df.preprocessed$author, gender = df.preprocessed$author_gender))
+tab <- data.frame(list(name = df.preprocessed$author,
+       		     gender = df.preprocessed$author_gender))
 tab <- tab[!is.na(tab$gender), ] # Remove NA gender
 
 write_xtable(subset(tab, gender == "male")[,-2], file = paste(output.folder, "gender_male.csv", sep = ""))
 write_xtable(subset(tab, gender == "female")[,-2], file = paste(output.folder, "gender_female.csv", sep = ""))
 write_xtable(unname(pick_firstname(df.preprocessed$author_name)[is.na(df.preprocessed$author_gender)]), file = paste(output.folder, "gender_unknown.csv", sep = ""))
 
-# Mean page counts
+# ----------------------------------------------------
+
 print("Average pagecounts")
 mean.pagecounts.multivol <- mean_pagecounts_multivol(df.preprocessed) 
 mean.pagecounts.univol <- mean_pagecounts_univol(df.preprocessed) 
