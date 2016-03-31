@@ -15,6 +15,9 @@ Author synonyme data frame with fields 'name' and 'synonyme'
 \description{
 Read table of ambiguous author name synonymes
 }
+\details{
+Each row of the input file corresponds to a unique author with potentially multiple name variants, separated by semicolon. The first column gives the accepted version of the name, the other columns list synonymes that will be mapped to the accepted version.
+}
 \examples{
 aa <- ambiguous_authors_table()
 }
@@ -22,7 +25,7 @@ aa <- ambiguous_authors_table()
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("estc")
+See citation("bibliographica")
 }
 \keyword{utilities}
 

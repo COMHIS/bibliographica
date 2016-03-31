@@ -17,7 +17,7 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
   author <- NULL
 
   message("Augment author life years")	       
-  # For authors with a unique birth, use this birth year also for documents where
+  # For authors with a unique birth, use this birth year also when
   # birth year not given in the raw data
   df$author_birth <- guess_missing_entries(id = df$author_name, values = df$author_birth)$values
   df$author_death <- guess_missing_entries(id = df$author_name, values = df$author_death)$values
@@ -28,7 +28,7 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
     df$author_death <- add_missing_entries(df, life_info, id = "author_name", field = "author_death") 
   }
 
-  # Add pseudonyme indicator field
+  message("Add pseudonyme indicator field")
   pseudo1 <- as.character(read.csv(system.file("extdata/stopwords_pseudonymes.csv", package = "bibliographica"), sep = "\t")[,1])
   pseudo2 <- as.character(read.csv(system.file("extdata/names/pseudonymes/first.csv", package = "bibliographica"), sep = "\t")[,1])
   pseudo3 <- as.character(read.csv(system.file("extdata/names/pseudonymes/last.csv", package = "bibliographica"), sep = "\t")[,1])
@@ -59,6 +59,8 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
   dfa.uniqs <- select(dfa.uniqs, author)
   dfa.uniqs <- dfa.uniqs %>% separate(col = author, sep = c("\\("), into = c("name", "years"))
   years <- gsub("\\)", "", dfa.uniqs$years)
+
+  message(".. retrieving the years ..")
   years <- sapply(years, function (x) {if (length(grep("-", unlist(strsplit(x, "")))) == 1) {return(strsplit(x, "-"))} else {return(strsplit(x, " "))}})
   birth <- as.numeric(gsub("-$", "", sapply(years, function (x) {x[[1]]})))
   death <- as.numeric(sapply(years, function (x) {if (length(x) > 1) x[[2]] else NA}))

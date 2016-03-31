@@ -1,0 +1,106 @@
+---
+title: "Summary for a selected author: `r selected.author`"
+author: "`r author`"
+date: "`r Sys.Date()`"
+output: markdown_document
+---
+
+## Summary for `r selected.author`
+
+```{r selected_author_summary_init, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+library(reshape2)
+library(estc)
+library(bibliographica)
+library(dplyr)
+
+dfa <- dplyr::filter(df.preprocessed, author %in% selected.author)
+
+# Drop empty levels from factors
+inds <- which(sapply(dfa, class) == "factor")
+for (i in inds) {dfa[,i] <- droplevels(dfa[,i])}
+
+title.file < gsub(" ", "_", paste("summary_author_title_", selected.author, ".tab", sep = ""))
+tmp <- write_xtable(dfa$title, file = title.file)
+```
+
+This author has:
+
+  * `r nrow(dfa)` documents
+  * `r length(unique(dfa$title))` unique titles ([table]('r title.file'))
+  * `r length(unique(dfa$publication_place))` unique publication places
+  * `r length(unique(dfa$country))` unique publication countries
+  * `r paste(range(dfa$publication_year), sep = "-")` time span   
+
+
+```{r selected_author_summary_titlecount, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=10, out.width='430px', fig.show='hold'}
+p <- NULL
+p <- top_plot(df, "title", 10) + ggtitle(paste("Top titles")) + ylab("Title count")
+print(p)
+```
+
+
+Publication timeline:
+
+```{r selected_author_summary_timeline, fig.height=10, fig.width=20, echo=FALSE}
+theme_set(theme_bw(20))
+df <- dfa %>% group_by(publication_year) %>%
+     	 tally() %>% arrange(publication_year)
+p <- ggplot(df, aes(x = publication_year, y = n)) +
+       geom_bar(stat = "identity", position = "stack", color = "black") +
+       xlab("Publication Year") +
+       ylab("Title Count") +
+       ggtitle("Title count timeline")
+print(p)
+```
+
+
+```{r selected_author_summary_timeline_by_country, fig.height=10, fig.width=20, echo=FALSE}
+theme_set(theme_bw(20))
+df <- dfa %>% group_by(publication_year, country) %>%
+     	 tally() %>% arrange(publication_year)
+p <- ggplot(df, aes(x = publication_year, y = n, group = country)) +
+       geom_line(aes(color = country)) +
+       xlab("Publication Year") +
+       ylab("Title Count") +
+       ggtitle("Title count timeline")
+print(p)
+```
+
+## Selected title
+
+```{r selected_author_summary_timeline_by_title, fig.height=10, fig.width=15, echo=FALSE, fig.show="hold", out.width="230px"}
+theme_set(theme_bw(20))
+for (selected.title in names(rev(sort(table(dfa$title))))[1:4]) {
+  df <- dfa %>% filter(title == selected.title) %>%
+         group_by(publication_decade, country) %>%
+     	 tally() %>% arrange(publication_decade) 
+  p <- ggplot(df, aes(x = publication_decade, y = n)) +
+       geom_bar(aes(fill = country), stat = "identity") + 
+       xlab("Publication Decade") +
+       ylab("Title Count") +
+       ggtitle(selected.title)
+  print(p)
+}
+```
+
+
+## Language
+
+```{r selected_author_summary_language, fig.height=5, fig.width=5, echo=FALSE}
+lan <- sort(colSums(select(dfa, starts_with("language"))))
+lan <- lan[lan > 0]
+names(lan) <- gsub("language\\.", "", names(lan))
+par(mar = c(5, 8, 3, 1)); barplot(lan, las = 1, horiz = T, main = "Language", xlab = "Title count")
+```
+
+
+## Publication place
+
+```{r selected_author_summary_place, fig.height=5, fig.width=5, echo=FALSE}
+p <- top_plot(dfa, "publication_place") + scale_y_log10() + ggtitle("Top publication places")
+print(p)
+```
+

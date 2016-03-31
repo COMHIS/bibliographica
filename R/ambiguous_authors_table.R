@@ -3,8 +3,10 @@
 #' @param file Input file
 #' @return Author synonyme data frame with fields 'name' and 'synonyme' 
 #' @export
+#' @importFrom sorvi read_synonymes
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
+#' @details Each row of the input file corresponds to a unique author with potentially multiple name variants, separated by semicolon. The first column gives the accepted version of the name, the other columns list synonymes that will be mapped to the accepted version.
 #' @examples aa <- ambiguous_authors_table()
 #' @keywords utilities
 ambiguous_authors_table <- function (file = NULL) {
@@ -13,15 +15,8 @@ ambiguous_authors_table <- function (file = NULL) {
   if (is.null(file)) {
     file <- system.file("extdata/ambiguous-authors.csv", package = "bibliographica")
   }
-  aa <- readLines(file)[-1]
-  aa <- lapply(aa, function (x) {unlist(strsplit(x, ";"))})
-  names(aa) <- sapply(aa, function (x) {rev(x)[[1]]})
-  map <- NULL
-  for (nam in names(aa)) {
-    map <- rbind(map, cbind(rep(nam, length(aa[[nam]])), aa[[nam]]))
-  }
-  aa <- as.data.frame(map)
-  names(aa) <- c("name", "synonyme")
+
+  aa <- read_synonymes(file, mode = "list", sep = ";") 
 
   aa 
 

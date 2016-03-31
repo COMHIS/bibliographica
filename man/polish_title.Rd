@@ -26,7 +26,7 @@ Remove ending commas, periods, spaces and parentheses,
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("estc")
+See citation("bibliographica")
 }
 \keyword{utilities}
 

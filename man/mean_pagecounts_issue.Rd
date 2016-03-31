@@ -2,7 +2,7 @@
 % Please edit documentation in R/mean_pagecounts_issue.R
 \name{mean_pagecounts_issue}
 \alias{mean_pagecounts_issue}
-\title{mean_pagecounts_issue}
+\title{Mean pagecounts - issue}
 \usage{
 mean_pagecounts_issue(df)
 }
@@ -13,7 +13,7 @@ mean_pagecounts_issue(df)
 Average page count information
 }
 \description{
-Estimate page counts for issues
+Estimate page counts for issues.
 }
 \examples{
 # m <- mean_pagecounts_issue(df)
@@ -22,7 +22,7 @@ Estimate page counts for issues
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("estc")
+See citation("bibliographica")
 }
 \keyword{utilities}
 

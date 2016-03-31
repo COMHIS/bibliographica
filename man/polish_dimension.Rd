@@ -25,7 +25,7 @@ Polish dimension field of a single document
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("estc")
+See citation("bibliographica")
 }
 \keyword{internal}
 

@@ -22,7 +22,7 @@ Calculate mean page counts for multi-volume documents.
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("estc")
+See citation("bibliographica")
 }
 \keyword{utilities}
 
