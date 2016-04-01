@@ -1,5 +1,5 @@
 # Preprocess all fields at once
-res <- polish_all(df.orig, file = "df.preprocessed.RData")
+res <- polish_all(df.orig, file = "df.preprocessed.RData", mc.cores = mc.cores)
 df.preprocessed <- df.preprocessed0 <- res$df.preprocessed
 conversions <- res$conversions
 preprocessing.times <- res$preprocessing.times

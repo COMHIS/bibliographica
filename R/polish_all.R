@@ -4,13 +4,14 @@
 #' @param fields Fields to be preprocessed.
 #' @param verbose verbose
 #' @param file Temporary results saved into a file 
+#' @param mc.cores Number of cores for parallelization
 #' @return Preprocessed data.frame and field conversion list.
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{a <- polish_all(df.orig)}
 #' @export
 #' @keywords utilities
-polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL) {
+polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.cores = 1) {
 
   if (is.null(fields)) {
     message("List raw data fields to be preprocessed")
@@ -34,7 +35,7 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL) {
     start.time <- Sys.time()
 
     # Polish the given field
-    df.tmp <- polish_field(df.orig, field, verbose = FALSE)
+    df.tmp <- polish_field(df.orig, field, verbose = FALSE, mc.cores = mc.cores)
 
     # List the output fields for this input field
     conversions[[field]] <- names(df.tmp)

@@ -4,7 +4,8 @@
 \alias{polish_all}
 \title{Polish all fields}
 \usage{
-polish_all(df.orig, fields = NULL, verbose = TRUE, file = NULL)
+polish_all(df.orig, fields = NULL, verbose = TRUE, file = NULL,
+  mc.cores = 1)
 }
 \arguments{
 \item{df.orig}{Original data.frame}
@@ -14,6 +15,8 @@ polish_all(df.orig, fields = NULL, verbose = TRUE, file = NULL)
 \item{verbose}{verbose}
 
 \item{file}{Temporary results saved into a file}
+
+\item{mc.cores}{Number of cores for parallelization}
 }
 \value{
 Preprocessed data.frame and field conversion list.

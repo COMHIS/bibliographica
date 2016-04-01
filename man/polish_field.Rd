@@ -4,7 +4,7 @@
 \alias{polish_field}
 \title{Polish field}
 \usage{
-polish_field(df, field, verbose = TRUE)
+polish_field(df, field, verbose = TRUE, mc.cores = 1)
 }
 \arguments{
 \item{df}{data.frame that includes the given field}
@@ -12,6 +12,8 @@ polish_field(df, field, verbose = TRUE)
 \item{field}{Field to be preprocessed.}
 
 \item{verbose}{verbose}
+
+\item{mc.cores}{Number of cores for parallelization}
 }
 \value{
 Output of the polished field

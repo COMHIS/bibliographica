@@ -25,11 +25,11 @@ if (reload.data) {
   df.orig <- df.orig[, setdiff(names(df.orig), ignore.fields)]
 
   # Save the raw data
-  saveRDS(df.orig, file = "df.raw.RDs", compress = "xz")
+  saveRDS(df.orig, file = "df.raw.Rds", compress = "xz")
 
 } else {
 
-  load("df.raw.RData")
+  df.orig <- readRDS("df.raw.Rds")
 
 }
 

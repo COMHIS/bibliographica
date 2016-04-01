@@ -4,12 +4,14 @@
 \alias{polish_physical_extent}
 \title{Polish physical_extent field}
 \usage{
-polish_physical_extent(x, verbose = FALSE)
+polish_physical_extent(x, verbose = FALSE, mc.cores = 1)
 }
 \arguments{
 \item{x}{Page number field. Vector or factor of strings.}
 
 \item{verbose}{Print progress info}
+
+\item{mc.cores}{Number of cores for parallelization}
 }
 \value{
 Raw and estimated pages per document part

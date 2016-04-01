@@ -2,6 +2,7 @@
 #' @description Pick page counts, volume counts and volume numbers
 #' @param x Page number field. Vector or factor of strings.
 #' @param verbose Print progress info
+#' @param mc.cores Number of cores for parallelization
 #' @return Raw and estimated pages per document part
 #' @details Document parts are separated by semicolons
 #' @export
@@ -11,7 +12,7 @@
 #' @references See citation("bibliographica")
 #' @examples tab <- polish_physical_extent("4p.")
 #' @keywords utilities
-polish_physical_extent <- function (x, verbose = FALSE) {
+polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
   # Summary of abbreviations
   # http://ac.bslw.com/community/wiki/index.php5/RDA_4.5
@@ -107,7 +108,10 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 
   # Return NA if conversion fails
   s <- str_trim(s)
-  pages <- sapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") {return(NA)} else {return(a)}})
+  #pages <- sapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") {return(NA)} else {return(a)}})
+
+  pages <- unlist(parallel::mclapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores))
+  
   rownames(pages) <- NULL
 
   if (verbose) {message("Make data frame")}  

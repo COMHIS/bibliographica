@@ -3,6 +3,7 @@
 #' @param df data.frame that includes the given field
 #' @param field Field to be preprocessed.
 #' @param verbose verbose
+#' @param mc.cores Number of cores for parallelization
 #' @return Output of the polished field
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
@@ -10,7 +11,7 @@
 #' @examples \dontrun{a <- polish_field(df, "title")}
 #' @export
 #' @keywords utilities
-polish_field <- function (df, field, verbose = TRUE) {
+polish_field <- function (df, field, verbose = TRUE, mc.cores = 1) {
 
   from <- till <- NULL
 
@@ -61,7 +62,7 @@ polish_field <- function (df, field, verbose = TRUE) {
      
   } else if (field == "physical_extent") {
 
-    df.tmp <- polish_physical_extent(df[[field]], verbose = verbose)
+    df.tmp <- polish_physical_extent(df[[field]], verbose = verbose, mc.cores = mc.cores)
 
   } else if (field == "author_name") {
 

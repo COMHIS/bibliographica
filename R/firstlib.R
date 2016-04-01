@@ -23,6 +23,7 @@
 #' @importFrom ggplot2 theme_bw
 #' @importFrom ggplot2 xlab
 #' @importFrom ggplot2 ylab
+#' @importFrom parallel mclapply
 #' @importFrom sorvi condense_spaces
 #' @importFrom sorvi quickdf
 #' @importFrom stringr str_trim
