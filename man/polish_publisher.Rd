@@ -4,7 +4,7 @@
 \alias{polish_publisher}
 \title{Polish publisher}
 \usage{
-polish_publisher(x, synonyms = NULL, verbose = TRUE)
+polish_publisher(x, synonyms = NULL, verbose = TRUE, mc.cores = 1)
 }
 \arguments{
 \item{x}{publisher field (a vector)}
@@ -12,6 +12,8 @@ polish_publisher(x, synonyms = NULL, verbose = TRUE)
 \item{synonyms}{Synonyme table}
 
 \item{verbose}{verbose}
+
+\item{mc.cores}{Number of cores for parallelization}
 }
 \value{
 polished publisher field (a vector)
