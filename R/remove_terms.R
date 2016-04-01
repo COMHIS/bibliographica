@@ -16,10 +16,8 @@
 #' @keywords utilities
 remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, polish = TRUE, recursive = FALSE) {
 
-
   # If removal is recursive, then go through the list as is in the given order
-  # otherwise, optionally include lowercase,
-  # remove unique terms and sort by length 
+  # otherwise, optionally include lowercase, remove unique terms and sort by length 
   if (!recursive) {
 
     # Add lowercase versions
@@ -35,44 +33,13 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
     
   }
 
-  #x <- gsub("[ |\\.|\\,]+$", "", x)
-  
-  for (term in terms) {
-
-    x[x == term] <- " "
-
-    # Here no spaces around the term needed, elsewhere yes
-    if (where == "all") {
-
-        # begin
-        rms <- paste("^", term, "[ |\\.|\\,]", sep = "")
-        #rms <- paste("^", term, " ", sep = "")	
-        x <- gsub(rms, " ", x)
-
-	# middle
-        x <- gsub(paste(" ", term, "[ |\\.|\\,]", sep = ""), " ", x)
-        #x <- gsub(paste(" ", term, " ", sep = ""), " ", x)    	
-
-	# all
-        rms <- paste(" ", term, "$", sep = "")
-        x <- gsub(rms, " ", x)
-
-    } else if (where == "full") {
-    
-      x <- gsub(term, " ", x)
-      
-    } else if (where == "begin") {
-        rms <- paste("^", term, "[ |\\.|\\,]", sep = "")
-        x <- gsub(rms, " ", x)
-    } else if (where == "middle") {
-        x <- gsub(paste(" ", term, "[ |\\.|\\,]", sep = ""), " ", x)
-        #x <- gsub(paste(" ", term, sep = ""), " ", x)    		
-    } else if (where == "end") {
-        rms <- paste(" ", term, "$", sep = "")
-        x <- gsub(rms, " ", x)
-    }
+  # Only consider cases with matches, to speed up analysis
+  x[x %in% terms] <- " "
+  tmp <- matrix(sapply(terms, function (term) grepl(term, x)), ncol = length(terms))
+  for (i in 1:length(terms)) {  
+    x[tmp[, i]] <- remove_terms_help(x[tmp[, i]], terms[[i]], where)
   }
-
+  
   if (polish) {
     x <- condense_spaces(x)
     x <- remove_trailing_periods(x)
@@ -83,4 +50,44 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
 }
 
 
+
+remove_terms_help <- function (x, term, where) {
+
+    # Here no spaces around the term needed, elsewhere yes
+    if (where == "all") {
+
+      # begin
+      rms <- paste("^", term, "[ |\\.|\\,]", sep = "")
+      x <- gsub(rms, " ", x)
+
+      # middle
+      x <- gsub(paste(" ", term, "[ |\\.|\\,]", sep = ""), " ", x)
+
+      # all
+      rms <- paste(" ", term, "$", sep = "")
+      x <- gsub(rms, " ", x)
+
+    } else if (where == "full") {
+    
+      x <- gsub(term, " ", x)
+      
+    } else if (where == "begin") {
+    
+      rms <- paste("^", term, "[ |\\.|\\,]", sep = "")
+      x <- gsub(rms, " ", x)
+      
+    } else if (where == "middle") {
+    
+      x <- gsub(paste(" ", term, "[ |\\.|\\,]", sep = ""), " ", x)
+      
+    } else if (where == "end") {
+    
+      rms <- paste(" ", term, "$", sep = "")
+      x <- gsub(rms, " ", x)
+      
+    }
+    
+    x
+    
+}
 

@@ -3,6 +3,7 @@
 #' @param x publisher field (a vector)
 #' @param synonyms Synonyme table
 #' @param verbose verbose
+#' @param mc.cores Number of cores for parallelization
 #' @return polished publisher field (a vector)
 #' @export
 #' @importFrom sorvi condense_spaces
@@ -10,7 +11,7 @@
 #' @references See citation("bibliographica")
 #' @examples \dontrun{v <- polish_publisher(c("Oxford University Press","tryckt hos Cambridge University Press"))}
 #' @keywords utilities
-polish_publisher <- function(x, synonyms = NULL, verbose = TRUE) {
+polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
   
   # Remove stopwords
   f <- system.file("extdata/stopwords_for_names.csv", package = "bibliographica")
@@ -28,11 +29,12 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE) {
     message(paste("Polishing publisher:", length(xuniq), "unique cases"))
   }
 
+  # TODO: Move this to fennica
   x <- gsub("w ja g", "weilin goos", x)
   
   x <- remove_terms(x, terms, where = "begin")
 
-  x <- remove.squarebrackets(x)
+  x <- remove.squarebrackets(x, mc.cores = mc.cores)
 
   x <- remove_print_statements(x)
 

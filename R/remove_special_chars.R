@@ -12,15 +12,16 @@
 remove_special_chars <- function (x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&"), niter = 5) {
 
   for (n in 1:niter) {
+  
+    x <- str_trim(x)
+
     for (char in chars) {
-      x <- str_trim(x)
       x <- gsub(paste(char, "$", sep = ""), " ", x)
       x <- gsub(paste("^", char, sep = ""), " ", x)
       x <- gsub(char, " ", x)
     }
 
     for (char in c("\\[", "]")) {
-      x <- str_trim(x)
       x <- gsub(paste(char, "$", sep = ""), "", x)
       x <- gsub(paste("^", char, sep = ""), "", x)
       x <- gsub(char, "", x)

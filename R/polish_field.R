@@ -89,7 +89,7 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1) {
 
   } else if (field == "publisher") {
 
-    tab <- polish_publisher(df[[field]], verbose = verbose)
+    tab <- polish_publisher(df[[field]], verbose = verbose, mc.cores = mc.cores)
     df.tmp <- data.frame(publisher = tab)
 
   } else if (field == "corporate") {

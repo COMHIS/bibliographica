@@ -16,3 +16,4 @@ remove_trailing_periods <- function (x){
   x
 }
 
+
