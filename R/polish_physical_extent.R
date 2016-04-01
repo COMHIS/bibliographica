@@ -110,12 +110,14 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   s <- str_trim(s)
   #pages <- sapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") {return(NA)} else {return(a)}})
 
-  pages <- unlist(parallel::mclapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores))
+  pages <- data.frame(parallel::mclapply(s, function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores))
   
   rownames(pages) <- NULL
 
   if (verbose) {message("Make data frame")}  
   ret <- data.frame(unname(t(pages)))
+  #ret <- data.frame(unname(pages))
+  #ret <- pages
   for (k in 1:ncol(ret)) {ret[, k] <- unlist(ret[, k], use.names = FALSE)}
   names(ret) <- c("pagecount", "volnumber", "volcount")
 
