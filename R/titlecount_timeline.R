@@ -23,7 +23,7 @@ titlecount_timeline <- function (x, field, nmin = 0) {
      summarize(n = n())
 
   # Remove entries with too few occurrences
-  df2 <- df2 %>% filter(any(field == setdiff(names(which(table(df2$field) >= nmin)), "NA")))
+  df2 <- dplyr::filter(df2, field %in% setdiff(names(which(table(df2$field) >= nmin)), "NA"))
   df2$field <- droplevels(df2$field)
 
   p <- ggplot(df2, aes(y = n, x = publication_decade, shape = field, linetype = field)) +
