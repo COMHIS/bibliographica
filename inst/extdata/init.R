@@ -8,9 +8,6 @@ library(sorvi)
 # Create the output directory if not yet exists
 dir.create(output.folder)
 
-# List fields to ignore
-if (!exists(ignore.fields)) { ignore.fields <- NULL } 
-
 # --------------------
 
 print("Read raw data")
@@ -19,10 +16,7 @@ print("Read raw data")
 if (reload.data) {
 
   # Read the raw data
-  df.orig <- read_bibliographic_metadata(fs, verbose = TRUE)
-
-  # Keep selected fields 
-  df.orig <- df.orig[, setdiff(names(df.orig), ignore.fields)]
+  df.orig <- read_bibliographic_metadata(fs, ignore.fields = ignore.fields, verbose = TRUE)
 
   # Save the raw data
   saveRDS(df.orig, file = "df.raw.Rds", compress = "xz")

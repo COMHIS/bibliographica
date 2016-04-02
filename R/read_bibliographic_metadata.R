@@ -1,6 +1,7 @@
 #' @title Read bibliographic metadata
 #' @description Read metadata parsed from XML.
 #' @param file Parsed raw data file/s
+#' @param ignore.fields Fields to ignore
 #' @param verbose verbose
 #' @return data.frame with raw data fields
 #' @export
@@ -8,7 +9,7 @@
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df.raw <- read_bibliographic_metadata(file)}
 #' @keywords utilities
-read_bibliographic_metadata <- function (file, verbose = FALSE) {
+read_bibliographic_metadata <- function (file, ignore.fields = NULL, verbose = FALSE) {
 
   # If there are multiple files, read in a list and combine
   # in the end
@@ -58,7 +59,10 @@ read_bibliographic_metadata <- function (file, verbose = FALSE) {
 
     # Add identifier column
     df$original_row <- 1:nrow(df)
-    
+
+    # Keep selected fields 
+    df <- df[, setdiff(names(df), ignore.fields)]
+
     return(df)
 
   }
