@@ -22,7 +22,6 @@ output: markdown_document
 
 [Dimension conversion table](https://raw.githubusercontent.com/rOpenGov/estc/master/inst/examples/output.tables/conversions_physical_dimension.csv)
 
-
 <!--[Discarded dimension info](https://raw.githubusercontent.com/rOpenGov/estc/master/inst/examples/output.tables/dimensions_discarded.csv)-->
 
 Document size (area) info in area is available for `r sum(!is.na(df$area))` documents (`r round(100*mean(!is.na(df$area)))`%). Estimates of document size (area) info in gatherings system are available for `r sum(!is.na(df$gatherings))` documents (`r round(100*mean(!is.na(df$gatherings)))`%). 
@@ -71,7 +70,8 @@ print(p)
 ```
 
 
-Compare gatherings and page counts. Page count information is estimated for `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount))` documents and updated (changed) for `r sum(!df$pagecount.orig == df$pagecount, na.rm = T)` documents. 
+Compare gatherings and page counts. Page count information is originally missing but subsequently estimated for `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents and updated (changed) for `r sum(!df$pagecount.orig == df$pagecount, na.rm = T)` documents. 
+
 
 ```{r summarypagecomp, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=7}
 dfs <- select(df, pagecount, gatherings) 
@@ -134,7 +134,7 @@ mean.pagecounts <- full_join(mean.pagecounts.univol, mean.pagecounts.multivol, b
 mean.pagecounts <- full_join(mean.pagecounts, mean.pagecounts.issue, by = "doc.dimension")
 mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension, levels = levels(mean.pagecounts.univol$doc.dimension))
 mean.pagecounts$doc.dimension <- order_gatherings(mean.pagecounts$doc.dimension)
-kable(mean.pagecounts, caption = "Average page counts")
+kable(mean.pagecounts, caption = "Average page counts", digits = 2)
 ```
 
 
@@ -166,10 +166,6 @@ Here we use the original data only:
 # only include gatherings with sufficiently many documents
 nmin <- 2000
 top.gatherings <- setdiff(names(which(table(df$gatherings.original) > nmin)), "NA")
-
-#df1 <- filter(df, !is.na(gatherings.original) & (!is.na(height.original) | !is.na(width.original))) %>%
-#       filter(gatherings.original %in% top.gatherings) %>%
-#       select(publication_year, gatherings.original, height.original, width.original)
 
 df2 <- filter(df, !is.na(gatherings.original) & (!is.na(height.original) | !is.na(width.original))) %>%
        filter(gatherings.original %in% top.gatherings) %>%

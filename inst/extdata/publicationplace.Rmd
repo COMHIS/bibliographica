@@ -15,7 +15,8 @@ output: markdown_document
 
 [Publication place conversions](output.tables/publication_place_conversion_nontrivial.csv)
 
-[Places missing geocoordinate information](output.tables/absentgeocoordinates.csv)
+[Places missing geocoordinate information](output.tables/absentgeocoordinates.csv). Altogether ```r round(100 * mean(is.na(df.preprocessed$latitude) | is.na(df.preprocessed$longitude)), 2)```% of the documents have missing geocoordinates.
+
 
 
 Top-`r ntop` publication places are shown together with the number of documents. This info is available for `r sum(!is.na(df$publication_place))` documents (`r round(100*mean(!is.na(df$publication_place)))`%). There are `r length(unique(str_trim(unlist(strsplit(as.character(df$publication_place), ";")))))` unique publication places. Overall `r round(100*mean(!is.na(df$latitude) & !is.na(df$longitude)), 1)`% of the places could be matched to geographic coordinates (from the [Geonames](http://download.geonames.org/export/dump/) database).
