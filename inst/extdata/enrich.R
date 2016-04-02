@@ -179,13 +179,20 @@ df.preprocessed$publisher <- tmp$publisher
 print("Calculate average page counts based on available data")
 # TODO make a function that quickly returns this. No need to precalculate it.
 print("Average pagecounts")
-mean.pagecounts.multivol <- mean_pagecounts_multivol(df.preprocessed) 
-mean.pagecounts.univol <- mean_pagecounts_univol(df.preprocessed) 
-mean.pagecounts.issue <- mean_pagecounts_issue(df.preprocessed) 
+library(estc)
+dftmp <- df.preprocessed
+if (!"volcount" %in% names(dftmp)) {dftmp$volcount <- 1}
+if (!"volnumber" %in% names(dftmp)) {dftmp$volnumber <- 1}
+mean.pagecounts.multivol <- mean_pagecounts_multivol(dftmp) 
+mean.pagecounts.univol <- mean_pagecounts_univol(dftmp) 
+mean.pagecounts.issue <- mean_pagecounts_issue(dftmp) 
+
 mean.pagecounts <- full_join(mean.pagecounts.univol, mean.pagecounts.multivol, by = "doc.dimension")
 mean.pagecounts <- full_join(mean.pagecounts, mean.pagecounts.issue, by = "doc.dimension")
-mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension, levels = levels(mean.pagecounts.univol$doc.dimension))
-# write.table(mean.pagecounts, file = paste(output.folder, "estimated_page_counts.csv", sep = ""), quote = F, row.names = F, sep = ",")
+mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension,
+			      levels = levels(mean.pagecounts.univol$doc.dimension))
+# write.table(mean.pagecounts, file = paste(output.folder, "estimated_page_counts.csv", sep = ""),
+#  quote = F, row.names = F, sep = ",")
 
 # -----------------------------------------------------------------------
 
