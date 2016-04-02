@@ -5,14 +5,7 @@ date: "`r Sys.Date()`"
 output: markdown_document
 ---
 
-# Summary
-
-Date:
-
-```{r date, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE}
-date()
-```
-
+# Preprocessing summary
 
 ## Specific fields
 
