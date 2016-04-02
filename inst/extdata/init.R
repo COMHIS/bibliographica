@@ -3,7 +3,7 @@ library(devtools)
 library(dplyr)
 library(bibliographica)
 library(sorvi)
-library(estc)
+# library(estc)
 
 # Create the output directory if not yet exists
 dir.create(output.folder)

@@ -31,17 +31,22 @@ This documents the conversions from raw data to the final preprocessed version (
 
 ## Annotated documents
 
-Fraction of documents with entries:
+Fraction of documents with data:
 
 ```{r summaryannotations, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=8, fig.height=11}
 availability <- field_availability(df)
 print(availability$plot)
 ```
 
-Documents with data (number and percentage) and number of unique entries for each field:
+Same in exact numbers: documents with available/missing entries, and number of unique entries for each field. Sorted by missing data:
 
 ```{r sumtab, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE}
 tab <- availability$table %<>% arrange(n)
+names(tab) <- gsub("missing", "missing (%)", names(tab))
+names(tab) <- gsub("available", "available (%)", names(tab))
+names(tab) <- gsub("^n$", "available (n)", names(tab))
+names(tab) <- gsub("unique_entries", "unique (n)", names(tab))
+names(tab) <- gsub("field_name", "field name", names(tab))
 kable(tab[, c(1, 3, 2, 4, 5)], digits = 1, caption = "Data availability")
 ```
 

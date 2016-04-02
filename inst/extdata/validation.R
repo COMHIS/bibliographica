@@ -1,10 +1,11 @@
 print("Fix publication years")
 # Remove apparent errors: no future publications or publications before historical times
-max.year <- as.numeric(format(Sys.time(), "%Y")) # CERL (this.year)
+min.year <- (-2000)
+max.year <- as.numeric(format(Sys.time(), "%Y")) # this.year
 df.preprocessed$publication_year_from[which(df.preprocessed$publication_year_from > max.year)] <- NA
-df.preprocessed$publication_year_from[which(df.preprocessed$publication_year_from < (-2000))] <- NA
+df.preprocessed$publication_year_from[which(df.preprocessed$publication_year_from < min.year)] <- NA
 df.preprocessed$publication_year_till[which(df.preprocessed$publication_year_till > max.year)] <- NA
-df.preprocessed$publication_year_till[which(df.preprocessed$publication_year_till < (-2000))] <- NA
+df.preprocessed$publication_year_till[which(df.preprocessed$publication_year_till < min.year)] <- NA
 
 # Author life years cannot exceed the present year
 # If they do, set to NA
