@@ -117,8 +117,8 @@ print(p)
 ### Gatherings timelines
 
 ```{r papercompbyformat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7}
-dfs <- df %>% filter(!gatherings == "NA" & publication_decade > 1450 & publication_decade < 2020)
-res <- paper_timeline(dfs, "gatherings", nmin = 15) 
+dfs <- df %>% filter(!gatherings == "NA")
+res <- titlecount_timeline(dfs, "gatherings", nmin = 15) 
 print(res$plot)
 ```
 
@@ -165,7 +165,7 @@ Here we use the original data only:
 ```{r summaryavedimstime, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12, fig.height=7}
 # only include gatherings with sufficiently many documents
 nmin <- 2000
-top.gatherings <- names(which(table(df$gatherings.original) > nmin))
+top.gatherings <- setdiff(names(which(table(df$gatherings.original) > nmin)), "NA")
 
 #df1 <- filter(df, !is.na(gatherings.original) & (!is.na(height.original) | !is.na(width.original))) %>%
 #       filter(gatherings.original %in% top.gatherings) %>%

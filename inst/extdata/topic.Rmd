@@ -1,27 +1,30 @@
 ---
-title: "Topic preprocessing summaries"
+title: "Subject topic preprocessing summaries"
 author: "Leo Lahti"
 date: "`r Sys.Date()`"
 output: markdown_document
 ---
 
-## Topics
+## Subject topics
 
 ```{r summarytopics, echo=FALSE, message=FALSE, warning=FALSE}
 # List all topics
-spl <- strsplit(na.omit(as.character(df$topic)), ";")
+spl <- strsplit(na.omit(as.character(df$subject_topic)), ";")
 
-# Documents per topic
+# Title count per subject topic
 tab <- sort(table(unlist(spl)))
 tab <- tab[!names(tab) == "NA"]
 tab <- rev(sort(tab)) 
 ```
 
-Top-`r ntop` topics and number of documents for each. In total, there are `r length(unique(df$topic))` unique topics and `r sum(!is.na(df$topic))` documents assigned to one or more topics (`r round(100*mean(!is.na(df$topic)))`).
+  * `r length(unique(df$subject_topic))` unique subject topics
+  * `r sum(!is.na(df$subject_topic))` documents assigned to at least one subject topic (`r round(100*mean(!is.na(df$subject_topic)))`)
+
+Top-`r ntop` subject topics and number of documents for each.
 
 ```{r summarytopics22, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=8}
-p <- top_plot(df, "topic", ntop)
-p <- p + ggtitle(paste("Most common topics"))
+p <- top_plot(df, "subject_topic", ntop)
+p <- p + ggtitle(paste("Top subject topics"))
 p <- p + ylab("Documents")
 print(p)
 ```

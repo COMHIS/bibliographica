@@ -143,14 +143,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   # Mean page counts
   # TODO make this more generic; otherwise move completely to ESTC
-  library(estc)
-  dftmp <- df.preprocessed
-  if (!"volcount" %in% names(dftmp)) {dftmp$volcount <- 1}
-  if (!"volnumber" %in% names(dftmp)) {dftmp$volnumber <- 1}
-  mean.pagecounts.multivol <- mean_pagecounts_multivol(dftmp) 
-  mean.pagecounts.univol <- mean_pagecounts_univol(dftmp) 
-  mean.pagecounts.issue <- mean_pagecounts_issue(dftmp) 
-
+  mean.pagecounts.multivol <- mean_pagecounts_multivol(df.preprocessed) 
+  mean.pagecounts.univol <- mean_pagecounts_univol(df.preprocessed) 
+  mean.pagecounts.issue <- mean_pagecounts_issue(df.preprocessed) 
   mean.pagecounts <- full_join(mean.pagecounts.univol, mean.pagecounts.multivol, by = "doc.dimension")
   mean.pagecounts <- full_join(mean.pagecounts, mean.pagecounts.issue, by = "doc.dimension")
   mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension,

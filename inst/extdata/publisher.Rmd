@@ -51,26 +51,6 @@ p <- ggplot(dfs, aes(x = publication_decade, y = n, fill = field)) +
 print(p)
 ```
 
-Paper consumption
-
-```{r summaryTop10publisherstimelinepaper, fig.height=30, fig.width=10, echo=FALSE, warning=FALSE}
-# Calculate paper consumption for publishers
-df2 <- df %>%
-    group_by(publisher) %>%
-    summarize(paper.consumption.km2 = sum(paper.consumption.km2, na.rm = TRUE), n = n()) 
-# Pick top-10 paper publishers
-o <- order(df2$paper.consumption.km2, decreasing = TRUE)
-top10 <- na.omit(df2$publisher[o])[1:10]
-dfs <- filter(df, publisher %in% top10)
-dfs <- group_by(dfs, publisher, publication_year) %>%
-    summarize(paper.consumption.km2 = sum(paper.consumption.km2, na.rm = TRUE), n = n()) 
-p <- ggplot(dfs, aes(x = publication_year, y = paper.consumption.km2)) 
-p <- p + geom_bar(stat = "identity") 
-p <- p + facet_grid(publisher ~ .)
-p <- p + ggtitle("Annual paper consumption by top publishers")
-print(p)
-```
-
 
 
 Title count versus paper consumption (top publishers):
