@@ -118,7 +118,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tab <- as.character(df.preprocessed$publication_place[is.na(df.preprocessed$country)])
   tmp <- write_xtable(tab, filename = "output.tables/publication_place_missingcountry.csv")
 
-  tab <- cbind(original = df.orig$physical_extent, df.preprocessed[, c("pagecount", "volnumber", "volcount")])
+  use.fields <- intersect(c("pagecount", "volnumber", "volcount"), names(df.preprocessed))
+  tab <- cbind(original = df.orig$physical_extent, df.preprocessed[, use.fields])
   tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_extent.csv")
 
   print("Physical dimension info")
@@ -141,13 +142,19 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   write_xtable(unname(pick_firstname(df.preprocessed$author_name)[is.na(df.preprocessed$author_gender)]), paste(output.folder, "gender_unknown.csv", sep = ""))
 
   # Mean page counts
-  message("Average pagecounts")
-  mean.pagecounts.multivol <- mean_pagecounts_multivol(df.preprocessed) 
-  mean.pagecounts.univol <- mean_pagecounts_univol(df.preprocessed) 
-  mean.pagecounts.issue <- mean_pagecounts_issue(df.preprocessed) 
+  # TODO make this more generic; otherwise move completely to ESTC
+  library(estc)
+  dftmp <- df.preprocessed
+  if (!"volcount" %in% names(dftmp)) {dftmp$volcount <- 1}
+  if (!"volnumber" %in% names(dftmp)) {dftmp$volnumber <- 1}
+  mean.pagecounts.multivol <- mean_pagecounts_multivol(dftmp) 
+  mean.pagecounts.univol <- mean_pagecounts_univol(dftmp) 
+  mean.pagecounts.issue <- mean_pagecounts_issue(dftmp) 
+
   mean.pagecounts <- full_join(mean.pagecounts.univol, mean.pagecounts.multivol, by = "doc.dimension")
   mean.pagecounts <- full_join(mean.pagecounts, mean.pagecounts.issue, by = "doc.dimension")
-  mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension, levels = levels(mean.pagecounts.univol$doc.dimension))
+  mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension,
+			      levels = levels(mean.pagecounts.univol$doc.dimension))
   write.table(mean.pagecounts, file = paste(output.folder, "mean_page_counts.csv", sep = ""), quote = F, row.names = F, sep = ",")
 
   message("Write places with missing geolocation to file")
