@@ -21,7 +21,7 @@ get_country <- function (x, map = NULL) {
 
   # Speed up by handling unique cases only
   xorig <- as.character(x)
-  xorig.unique <- unique(x)  
+  xorig.unique <- unique(xorig)  
   x <- xorig.unique
 
   if (is.null(map)) {
@@ -32,7 +32,7 @@ get_country <- function (x, map = NULL) {
   country <- map$country[match(x, map$region)]
 
   # If multiple possible countries listed; use the first one (most likely)
-  country <- str_trim(sapply(strsplit(as.character(country), "\\|"), function (x) {x[[1]]}))
+  country <- str_trim(sapply(strsplit(as.character(country), "\\|"), function (x) {ifelse(length(x) > 0, x[[1]], NA)}))
 
   # The function was sped up by operating with unique terms
   inds <- match(xorig, xorig.unique)

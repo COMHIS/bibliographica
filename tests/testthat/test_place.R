@@ -102,7 +102,7 @@ test_that("Places are harmonized correctly", {
   expect_equal(polish_place("Imprynted at London in Powles church yarde by Rycharde Iugge and Iohn Cawood printers to the Quenes Maiestie. Cum priuilegio Regiæ Maiestatis]"), "London")
   expect_equal(polish_place("Imprintyd at London"), "London")
   expect_equal(polish_place("Imprintit at Edinburgh"), "Edinburgh")
-  expect_equal(polish_place("Imprinted at Roan by Martin Mesgissier, the kinges printer. 1585. With priuiledge. And imprinted at London"), "London")
+  expect_equal(polish_place("Imprinted at Roan by Martin Mesgissier, the kinges printer. 1585. With priuiledge. And imprinted at London"), "Rouen")
   expect_equal(polish_place("Impr]inted at Lon[don"), "London")
   expect_equal(polish_place("Hamburg and London]"), "Hamburg")
   expect_equal(polish_place("Glasgow] London printed, and re-printed at Glasgow"), "Glasgow")

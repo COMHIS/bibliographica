@@ -48,6 +48,17 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     }
   }
 
+  
+  # Discarded publication place
+  nam = "publication_place"
+  o <- as.character(df.orig[[originals[[nam]]]])
+  x <- as.character(df.preprocessed[[nam]])
+  inds <- which(is.na(x))
+  tmp <- write_xtable(polish_place(o[inds], harmonize = FALSE),
+      paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
+      count = TRUE)
+
+
   message("Conversion summaries")
   originals <- c(publisher = "publisher",
 	       pagecount = "physical_extent",
@@ -75,7 +86,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   }
 
   message("Discard summaries")
-  for (nam in setdiff(names(originals), "country")) {
+  for (nam in setdiff(names(originals), c("country", "publication_place"))) {
     o <- as.character(df.orig[[originals[[nam]]]])
     x <- as.character(df.preprocessed[[nam]])
     inds <- which(is.na(x))
