@@ -61,7 +61,7 @@ test_that("Places are harmonized correctly", {
   expect_equal(polish_place("Printed at London, and reprinted at Dublin"), "London")
   expect_equal(polish_place("Printed at London, and re-printed at Leith"), "London")
   expect_equal(polish_place("Prentyd at London"), "London")
-  expect_equal(polish_place("Portland (District of Maine)"), "Portland Me")
+  expect_equal(polish_place("Portland (District of Maine)"), "Portland ME")
   expect_equal(polish_place("Pointe-A-Pitre, [Guadeloupe]"), "Pointe-A-Pitre")
   expect_equal(polish_place("Paris :b chez Nicolas Buon, rue S. Jacques a l'Enseigne Sainct Claude, & de l'homme Sauvage"), "Paris")
   expect_equal(polish_place("Oxford [and London]"), "Oxford")

@@ -7,9 +7,11 @@ output: markdown_document
 
 ### Publication places
 
-[Publication countries](output.tables/country_accepted.csv)
+[Accepted publication countries](output.tables/country_accepted.csv)
 
 [Publication country not identified](output.tables/country_discarded.csv)
+
+[Ambiguous publication places](output.tables/publication_place_ambiguous.csv)
 
 [Discarded publication places](output.tables/publication_place_discarded.csv)
 

@@ -48,17 +48,16 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     }
   }
 
-  
+
   # Discarded publication place
   nam = "publication_place"
-  o <- as.character(df.orig[[originals[[nam]]]])
+  o <- as.character(df.orig[[nam]])
   x <- as.character(df.preprocessed[[nam]])
   inds <- which(is.na(x))
   tmp <- write_xtable(polish_place(o[inds], harmonize = FALSE),
       paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
       count = TRUE)
-
-
+  
   message("Conversion summaries")
   originals <- c(publisher = "publisher",
 	       pagecount = "physical_extent",
@@ -75,14 +74,16 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
     tmp <- write_xtable(cbind(original = o[inds],
       	 		    polished = x[inds]),
-      paste(output.folder, paste(nam, "conversion_nontrivial.csv", sep = "_"), sep = ""))
+      paste(output.folder, paste(nam, "conversion_nontrivial.csv", sep = "_"),
+      sep = ""), count = TRUE)
   }
 
   message("Accept summaries")
   for (nam in names(originals)) {
     x <- as.character(df.preprocessed[[nam]])
     tmp <- write_xtable(x,
-      paste(output.folder, paste(nam, "accepted.csv", sep = "_"), sep = ""))
+      paste(output.folder, paste(nam, "accepted.csv", sep = "_"), sep = ""),
+      count = TRUE)
   }
 
   message("Discard summaries")
@@ -125,8 +126,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # Undefined language
   tmp <- write_xtable(as.character(df.orig$language[df.preprocessed$language.undetermined]), filename = "output.tables/language_unidentified.csv")
 
-  # No country mapping
-  tab <- as.character(df.preprocessed$publication_place[is.na(df.preprocessed$country)])
+  # No country mapping - use harmonized names here
+  tab <- as.character(polish_place(df.preprocessed$publication_place)[is.na(df.preprocessed$country)])
   tmp <- write_xtable(tab, filename = "output.tables/publication_place_missingcountry.csv")
 
   use.fields <- intersect(c("pagecount", "volnumber", "volcount"), names(df.preprocessed))
@@ -169,6 +170,14 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tab <- cbind(names(tab), tab)
   colnames(tab) <- c("name", "count")
   write.table(tab, file = paste(output.folder, "absentgeocoordinates.csv", sep = ""), quote = F, row.names = F, sep = "\t")
+
+  message("Ambiguous publication place harmonization")  
+  tab = read.csv(system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica"), sep = ";")
+  s <- split(as.character(tab$name), as.character(tab$synonyme))
+  s <- s[sapply(s, function(x) {length(unique(x))}) > 1]
+  tab <- tab[tab$synonyme %in% names(s),]
+  tab <- tab[order(tab$synonyme),]
+  write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
 
   return(NULL)
 }
