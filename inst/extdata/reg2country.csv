@@ -1,1092 +1,1217 @@
-region;country
-Libau;Latvia
-Liepaja;Latvia
-Litoměřice;Czech Republic
-Uusikirkko;Finland
-Sarvilahti;Finland
-Freiburg im Breisgau;Germany
-Porth Arthur ON;USA
-Lybeck;Germany
-Augsburg;Germany
-Isokyrö;Finland
-Terijoki;Finland
-Salo;Finland
-Zurich;Germany
-Tübingen;Germany
-Tubingen;Germany
-Pernaja;Finland
-Milano;Italy
-Jämsä;Finland
-Haapajärvi;Finland
-Chicago;USA
-Archangelsk;Russia
-Seinäjoki;Finland
-Rovaniemi;Finland
-Malmö;Sweden
-Kuortane;Finland
-Karjalohja;Finland
-Antwerpen;Belgium
-Warsow;Poland
-Lohja;Finland
-Leibzig;Germany
-Krakow;Poland
-Kainuu;Finland
-Juva;Finland
-Haunia;Finland
-Hankoniemi;Finland
-Ypäjä;Finland
-Ylistaro;Finland
-Virolahti;Finland
-Viljandi;Estonia
-Viitasaari;Finland
-Urjala;Finland
-Tyrvää;Finland
-Trieste;Italy
-Suomussalmi;Finland
-Saarijärvi;Finland
-Red Jacket MI;USA
-Pihlava;Finland
-Petäjävesi;Finland
-Offenbach am Main;Germany
-Nyköping;Sweden
-Napoli;Italy
-Naantali;Finland
-Mustiala;Finland
-Minneapolis;USA
-Maastricht;Netherlands
-Koivisto;Finland
-Kirkkonummi;Finland
-Kiiminki;Finland
-Karstula;Finland
-Karkku;Finland
-Karhula;Finland
-Janakkala;Finland
-Jaakkima;Finland
-Ilmajoki;Finland
-Ikaalinen;Finland
-Huopalahti;Finland
-Houghton MI;USA
-Heinävesi;Finland
-Harbor OH;USA
-Hämeenkyrö;Finland
-Geneve;Switzerland
-Ylivieska;Finland
-Ylimarkku;Finland
-Würzburg;Germany
-Watton MI;USA
-Virginia MN;USA
-Verona;Italy
-Vammala;Finland
-Valkjärvi;Finland
-Vainikkala;Finland
-uusikirkko;Finland
-USA;USA
-Tyrnävä;Finland
-Tuusula;Finland
-Turtle Lake WI;USA
-Trondheim;Norway
-Toholampi;Finland
-Tikkurila;Finland
-Terni;Finland
-Tammela;Finland
-Taipalsaari;Finland
-Suonenjoki;Finland
-Sudbury ON;USA
-St Louis Kaunti MI;USA
-Simola;Finland
-Sauvo;Finland
-Sandstone MI;USA
-Salmi;Finland
-Sakkola;Finland
-Säkkijärvi;Finland
-Rock Springs WY;USA
-Red Lodge MT;USA
-Rautio;Finland
-Rautalampi;Finland
-Rantasalmi;Finland
-Raisio;Finland
-Räisälä;Finland
-Rääkkylä;Finland
-Prague;Czech Republic
-Pistoia;Finland
-Pirkkala;Finland
-Pinjainen;Finland
-Perno;Finland
-Perkjärvi;Finland
-Perho;Finland
-Pännäinen;Finland
-Paimio;Finland
-Oulainen;Finland
-Otava;Finland
-Orismala;Finland
-Orimattila;Finland
-Nurmijärvi;Finland
-Nummela;Finland
-Noormarkku;Finland
-Nokia;Finland
-Nizza;Italy
-Naples;Italy
-Mustio;Finland
-Mustasaari;Finland
-Messina;Finland
-Marttila;Finland
-Mäntyharju;Finland
-Mänttä;Finland
-Maaninka;Finland
-Loimijoki;Finland
-Lohtaja;Finland
-Lisbon;Portugal
-Lammi;Finland
-Laihiala;Finland
-Kyrö;Finland
-Kylmäkoski;Finland
-Kuusankoski;Finland
-Kurkijoki;Finland
-Kokemäki;Finland
-Koivulahti;Finland
-Kodisjoki;Finland
-Kivennapa;Finland
-Kirvu;Finland
-Kettuvaara;Finland
-Keltto;Finland
-Kausala;Finland
-Kaukaa;Finland
-Kauhajoki;Finland
-Kaprio;Finland
-Kangasala;Finland
-Kallislahti;Finland
-Kaleva;Finland
-Jalasjärvi;Finland
-Jacobson MI;USA
-jääski;Finland
-Inkoo;Finland
-Inkerinmaa;Finland
-Inari;Finland
-Impilahti;Finland
-Imatra;Finland
-Hirvensalmi;Finland
-Hinnerjoki;Finland
-Heinäjoki;Finland
-Haukilahti;Finland
-Harjavalta;Finland
-Hanna WY;USA
-Eveleth MI;USA
-Clear Creek UT;USA
-Billnäs;Finland
-Bielefeld;Germany
-Anttola;Finland
-Amersfoort;Netherlands
-Alatornio;Finland
-Reykjavik;Iceland
-München;Germany
-Nurnberg;Germany
-Nürnberg;Germany
-Moscow;Russia
-Salisbury Ma;USA
-Newport Isle of Wight;England
-Aldermanbury;England
-Abbeville;France
-Aberdeen;Scotland
-Abingdon;England
-Albany N.Y;USA
-Alexandria Va;USA
-Alnwick;England
-Altmore;Northern Ireland
-Altona;Germany
-America;USA
-Amherst N.H;USA
-Ampthill;England
-Amsterdam;Netherlands
-Andover Ma;USA
-Annapolis Md;USA
-Antwerp;Belgium
-Augusta Ga;USA
-Augusta Me;USA
-Ayr;Scotland
-Baltimore Md;USA
-Banbury;England
-Basel;Switzerland
-Basseterre Saint Kitts;Saint Kitts and Nevis
-Bath;England
-Bath N.Y;USA
-Belfast;Ireland
-Belfast;Northern Ireland
-Bennington Vt;USA
-Berlin;Germany
-Bern;Switzerland
-Beverley;England
-Birmingham;England
-Birstall;England
-Bishopstone;England
-Blackburn;England
-Bolton;England
-Bombay;India
-Boston;England | USA
-Boston Ma;USA
-Bottisham;England
-Bouillon;Belgium
-Boulogne;France
-Bradford;England
-Brattleborough Vt;USA
-Brentford;England
-Bridgeton N.J;USA
-Bridgetown Barbados;Barbados
-Bridgnorth;England
-Bristol;England
-Brookfield Ma;USA
-Brussels;Belgium
-Buckden;England
-Bungay;England
-Burlington N.J;USA
-Burlington Vt;USA
-Burnley;England
-Burton;England
-Bury;England
-Bury St. Edmunds;England
-Caen;France
-Caernarfon;Ireland
-Calcutta;India
-Cambridge;England
-Cambridge;England | USA
-Cambridge Ma;USA
-Campbeltown;Scotland
-Canterbury;England
-Canterbury N.H;USA
-Cap Haitien;Haiti
-Carlisle;England
-Carlisle Pa;USA
-Carlow;England
-Carmarthen;Ireland
-Cashel;Ireland
-Chambersburg Pa;USA
-Charleston S.C;USA
-Charlestown Ma;USA
-Charlottesville Va;USA
-Charlottetown Pe;USA
-Chatham;England
-Chatham N.J;USA
-Chelmsford;England
-Chelmsford Ma;USA
-Chelsea;England
-Chesire Ct;USA
-Chester;England
-Chesterfield;England
-Chillicothe Oh;USA
-Cincinnati Oh;USA
-Cirencester;England
-Clipstone;England
-Clonmel;Ireland
-Colchester;England
-Cologne;Germany
-Columbia S.C;USA
-Concord Ma;USA
-Concord N.H;USA
-Copenhagen;Denmark
-Cork;Ireland
-Coventry;England
-Danbury Ct;USA
-Danvers Ma;USA
-Darlington;England
-Daventry;England
-Dedham Ma;USA
-Delft;Netherlands
-Deptford;England
-Derby;England
-Devizes;England
-Doncaster;England
-Dorchester;England
-Dort;Netherlands
-Douai;France
-Dover;England
-Dover N.H;USA
-Downpatrick;Ireland
-Dresden;Germany
-Drogheda;Ireland
-Dublin;Ireland
-Dumfries;Scotland | USA
-Dumfries Va;USA
-Dunbar;Scotland
-Dundee;Scotland
-Durham;England
-East Molesey;England
-Easton Md;USA
-East-Windsor Ct;USA
-Edenton N.C;USA
-Edinburgh;Scotland
-Egham;England
-Elizabeth N.J;USA
-Elizabethtown Md;USA
-Emden;Germany
-England;England
-Ennis;Ireland
-Ephrata Pa;USA
-Eton;England
-Europe;Europe
-Evesham;England
-Exeter;England
-Exeter;England | USA
-Exeter N.H;USA
-Falkirk;England
-Fincastle Va;USA
-Fishkill N.Y;USA
-Florence;Italy
-France;France
-Frankfurt;Germany
-Frederick Md;USA
-Fredericton;Canada
-Fredicksburg Va;USA
-Fryeburg Me;USA
-Gainsborough;England
-Galway;Ireland
-Gateshead;England
-Gaunt;unknown
-Gdansk;Poland
-Geneva;Switzerland | USA
-Geneva N.Y;USA
-Germantown Pa;USA
-Germany;Germany
-Ghent;Belgium
-Gilmanton N.H;USA
-Glasgow;Scotland
-Glocester;England
-Glocester Ma;USA
-Gloucester;England
-Goa;India
-Gosport;England
-Gothenburg;Sweden
-Gouda;Netherlands
-Grantham;England
-Gravesend;England
-Greenfield Ma;USA
-Greenock;Scotland
-Grenada;Grenada
-Guernesey;Guernesey
-Haarlem;Netherlands
-Hagerstown Md;USA
-Halifax;England | USA
-Halifax N.C;USA
-Halifax N.S;USA
-Halle;Germany
-Hallowell Ma;USA
-Hamburg;Germany
-Hannover;Germany
-Hanover;Germany | USA
-Hanover N.H;USA
-Harlow;England
-Harrisburgh Pa;USA
-Hartford Ct;USA
-Haverhill Ma;USA
-Haverhill N.H;USA
-Heidelberg;Germany
-Hereford;England
-Hertford;England
-Hillsborough N.C;USA
-Horncastle;England
-Houghton Park;England
-Howden;England
-Hudson N.Y;USA
-Hull;England
-Inverlochie;Scotland
-Ipswich;England
-Ipswich England;England
-Ireland;Ireland
-Jacksonburgh S.C;USA
-Jamaica;Jamaica
-Keene N.H;USA
-Kelso;Scotland
-Kendal;England
-Kilkenny;Ireland
-Kilmarnock;Ireland
-King's Lynn;England
-Kingston;Jamaica | England
-Kingston Jamaica;Jamaica | England | USA
-Kingston N.Y;USA
-Kirkcudbright;Scotland
-Knaresborough;England
-Knoxville Tn;USA
-Koningsberg;Germany
-Lancaster N.J;USA
-Lancaster Pa;USA
-Lansingburgh N.Y;USA
-La Rochelle;France
-Lausanne;Switzerland
-Leeds;England
-Leeuwarden;Netherlands
-Leicester;England
-Leiden;Netherlands
-Leipzig;Germany
-Leominster Ma;USA
-Lewes;England
-Lexington Ky;USA
-Liege;Belgium
-Lille;France
-Limerick;Ireland
-Lincoln;England
-Litchfield Ct;USA
-Liverpool;England
-Livorno;Italy
-London;England
-Londonderry;Northern Ireland
-Louvain;Belgium
-Ludlow;England
-Lyon;France
-Macclesfield;England
-Madras;India
-Madras India;India
-Maidstone;England
-Manchester;England
-Margate;England
-Marlborough;England
-Martinsburg Va;USA
-Mechelen;Belgium
-Medford Ma;USA
-Middelburg;Netherlands
-Minorca;Spain
-Monmouth;England | USA
-Monmouth N.J;USA
-Montego Bay;Jamaica
-Montreal;Canada
-Montrose;Scotland
-Mount Holly N.J;USA
-Nassau;Bahamas
-Natchez Ms;USA
-Netherlands;Netherlands
-Newark;England
-Newark N.J;USA
-New Bedford Ma;USA
-New Bedford Ms;USA
-New Bern N.C;USA
-New Brunswick N.J;USA
-Newburgh N.Y;USA
-Newbury Ma;USA
-Newburyport Ma;USA
-Newbury Vt;USA
-Newcastle;England
-Newfield Ct;USA
-New Haven Ct;USA
-New Haven Ma;USA
-New London Ct;USA
-New Orleans La;USA
-Newport Isle Wight;England
-Newport R.I;USA
-Newry;Ireland
-Newton N.J;USA
-New Windsor N.Y;USA
-New York;USA
-New York N.Y;USA
-Niagara;Canada
-Norfolk Va;USA
-Northallerton;England
-Northampton;England
-Northampton Ma;USA
-North Shields;England
-Norwich;England
-Norwich Ct;USA
-Nottingham;England
-Ossining N.Y;USA
-Oxford;England
-Paisley;Scotland
-Paris;France | USA
-Paris Ky;USA
-Parr-Town;Canada
-Pembroke Ma;USA
-Penrith;England
-Perth;Scotland
-Peterborough;England
-Petersburg Va;USA
-Philadelphia Pa;USA
-Plymouth;England
-Pointe-A-Pitre;Guadaloupe
-Poole;England
-Port-au-Prince;Haiti
-Portland Me;USA
-Portsmouth;England | USA
-Portsmouth N.H;USA
-Poughkeepsie N.Y;USA
-Preston;England
-Providence R.I;USA
-Quebec;Canada
-Raleigh N.C;USA
-Reading;England
-Reading;England | USA
-Reading Pa;USA
-Regensburg;Germany
-Reims;Netherlands
-Richmond;England | USA
-Richmond Va;USA
-Rochdale;England
-Rochester;England
-Rodborough;England
-Rome;Italy | USA
-Rome N.Y;USA
-Romsey;England
-Roscrea;Ireland
-Roseau Dominica;Dominica
-Rotterdam;Netherlands
-Rouen;France
-Rutland Vt;USA
-Saarbrucken;Germany
-Salamanca;Spain
-Salem Ma;USA
-Salem N.Y;USA
-Salisbury;England
-Salisbury N.C;USA
-Savannah Ga;USA
-Savanna-la-Mar Jamaica;Jamaica
-Schenectady N.Y;USA
-Scipio N.Y;USA
-Sheffield;England
-Shelburne Nova Scotia;Canada
-Shepherdstown Va;USA
-Sherborne;England
-Shiffnal;England
-Shrewsbury;England
-Siena;Italy
-Sligo;Ireland
-Southampton;England
-South Shields;England
-Spanish Town Jamaica;Jamaica
-Springfield Ma;USA
-Stafford;England
-St. Albans;England
-Stamford;England
-St. Andrews;Scotland
-Stanford;England
-St. Augustine Fl;USA
-Staunton Va;USA
-St. Eustatius;Netherlands
-St. George's Grenada;Grenada
-St. Germans;England
-St. Helier;Jersey (UK)
-Stirling;Scotland
-St. Ives;England
-St. John New Brunswick;Canada
-St. John's Antiqua;Antiqua
-St. Mary's Md;USA
-Stockbridge Ma;USA
-Stockton;England
-St. Omer;France
-St. Pierre Martinique;Martinique
-Strabane;Northern Ireland
-Strasbourg;France
-Sudbury;England
-Sunderland;England
-Taunton;England
-Tewkesbury;England
-The Hague;Netherlands
-Trefeca;Walkes
-Trenton;Canada | USA
-Trenton N.J;USA
-Trevoux;France
-Tunbridge Wells;England
-Twickenham;England
-United States;USA
-unknown;unknown
-Utrecht;Netherlands
-Venice;Italy
-Verdun;France
-Vergennes Vt;USA
-Vevey;Switzerland
-Vienna;Austria
-Wakefield;England
-Walpole N.H;USA
-Walsall;England
-Waltham;England
-Warren R.I;USA
-Warrington;England
-Warwick;England
-Washington D.C;USA
-Washington Pa;USA
-Waterford;Ireland
-Watertown Ma;USA
-Wesel;Germany
-Westminster Vt;USA
-West Springfield Ma;USA
-Wexford;England
-Weymouth;England
-Whitby;England
-Whitehaven;England
-Wigan;England
-Williamsburg Va;USA
-Wilmington De;USA
-Wilmington N.C;USA
-Winchester;England
-Winchester;England | USA
-Winchester Va;USA
-Windham Ct;USA
-Windsor;England
-Windsor Vt;USA
-Winterthur;Switzerland
-Winton;England
-Wisbech;England
-Wokingham;England
-Wolverhampton;England
-Woodbridge N.J;USA
-Worcester;England
-Worcester Ma;USA
-Wrexham;England
-Yarmouth;England
-Yeovil;England
-York;England
-York Pa;USA
-Almena WI;USA
-Altdorf;Germany
-Amsterdam;Netherlands
-Ashtabula OH;USA
-Astoria OR;USA
-Barcelona;Spain
-Berliini;Germany
-Boston MA;USA
-Braunschweig;Germany
-Bridgeport CT;USA
-Bronx NY;USA
-Brooklyn NY;USA
-Calumet MI;USA
-Chicago IL;USA
-Chisholm MN;USA
-Cincinnati OH;USA
-Cleveland OH;USA
-Budapest;Hungary
-Dresden;Germany
-Duluth MN;USA
-Espoo;Finland
-Eura;Finland
-Firenze;Italy
-Fitchburg MA;USA
-Forssa;Finland
-Frankfurt;Germany
-Giessen;Germany
-Göteborg;Sweden
-Göttingen;Germany
-Greifswald;Germany
-Haaparanta;Finland
-Hamina;Finland
-Hampuri;Germany
-Hancock MI;USA
-Hanko;Finland
-Heinola;Finland
-Helsinki;Finland
-Hyvinkää;Finland
-Hämeenlinna;Finland
-Iisalmi;Finland
-Ironwood MI;USA
-Ishpeming MI;USA
-Jena;Germany
-Joensuu;Finland
-Jyväskylä;Finland
-Kajaani;Finland
-Kaleva MI;USA
-Kaliningrad;Russia
-Karjaa;Finland
-Kaskinen;Finland
-Kemi;Finland
-Kiel;Germany
-Kokkola;Finland
-Kotka;Finland
-Kouvola;Finland
-Kristiinankaupunki;Finland
-Kruunupyy;Finland
-Kuopio;Finland
-Käkisalmi;Finland
-Köln;Germany
-Kööpenhamina;Tanska
-Laihia;Finland
-Lahti;Finland
-Lappeenranta;Finland
-Lapua;Finland
-Leiden;Germany
-Leipzig;Germany
-Linköping;Sweden
-Lontoo;UK
-Loviisa;Finland
-Lund;Sweden
-Lyypekki;Germany
-Maarianhamina;Finland
-Magdeburg;Germany
-Marburg;Germany
-Mikkeli;Finland
-Milwaukee WI;USA
-Minneapolis MN;USA
-Moskova;Russia
-Nanaimo BC;Canada
-Narva;Estonia
-New York NY;USA
-New York Mills MN;USA
-Oslo;Norway
-Oulu;Finland
-Pariisi;France
-Parkano;Finland
-Philadelphia PA;USA
-Pietari;Russia
-Pietarsaari;Finland
-Pori;Finland
-Port Arthur ON;Canada
-Portland OR;USA
-Porvoo;Finland
-Pärnu;Estonia
-Quincy MA;USA
-Raahe;Finland
-Rauma;Finland
-Riga;Latvia
-Rock Island IL;USA
-Rooma;Italy
-Rostock;Germany
-Sairala;Finland
-Savonlinna;Finland
-Seattle WA;USA
-Sipoo;Finland
-Skara;Sweden
-Smithville MN;USA
-Sortavala;Russia
-Strängnäs;Sweden
-Stuttgart;Germany
-Superior WI;USA
-Tallinna;Estonia
-Tammisaari;Finland
-Tampere;Finland
-Tartto;Estonia
-Tukholma;Sweden
-Turenki;Finland
-Turku;Finland
-Uppsala;Sweden
-Uusikaarlepyy;Finland
-Uusikaupunki;Finland
-Vaasa;Finland
-Varsova;Poland
+Aabenraa;Denmark;
+Aalborg;Denmark;
+Aarhus;Denmark;
+Abbeville;France;
+Aberdeen;Scotland;
+Abingdon;England;
+Agnifitiae;Sweden;
+Akureyri;Iceland;
+Alatornio;Finland;
+Albany N.Y;USA;
+Albany N\.Y;USA;
+Albany NY;USA;
+Aldermanbury;England;
+Aldershot;England;
+Alexandria Va;USA;
+AlexandriaVA;USA;
+Alfend;NA;
+Almena WI;USA;
+Almena WI;USA;
+Alnwick;England;
+Altdorf;Germany;
+Altdorf;Germany;
+Altenstein;Germany;
+Altmore;Northern Ireland;
+Altona;Germany;
+America;USA;
+Amersfoort;Netherlands;
+Amherst N.H;USA;
+Amherst N\.H;USA;
+Amherst NH;USA;
+Ampthill;England;
+Amsterdam;Netherlands;
+Amsterdam;Netherlands;
+Amsterdam;Netherlands;
+Ancova;Latvia;
+Andover Ma;USA;
+Andover MA;USA;
+Annapolis Md;USA;
+Anttola;Finland;
+Antwerp;Belgium;
+Antwerpen;Belgium;
+Archangelsk;Russia;
+Arezzo;Italy;
+Arnstadt;Germany;
+Ashtabula OH;USA;
+Ashtabula OH;USA;
+Askersund;Sweden;
+Astoria OR;USA;
+Astoria OR;USA;
+Augsburg;Germany;
+Augusta Ga;USA;
+Augusta Me;USA;
+Ayr;Scotland;
+Baltimore Md;USA;
+Banbury;England;
+Barcelona;Spain;
+Barcelona;Spain;
+Basel;Switzerland;
+Basseterre Saint Kitts;Saint Kitts and Nevis;
+Bath;England;
+Bath N.Y;USA;
+Bath N\.Y;USA;
+Bath NY;USA;
+Belfast;Ireland;
+Belfast;Northern Ireland;
+Bennington Vt;USA;
+Bergen;Norway;
+Berliini;Germany;
+Berliini;Germany;
+Berlin;Germany;
+Bern;Switzerland;
+Beverley;England;
+Bielefeld;Germany;
+Billnäs;Finland;
+Birmingham;England;
+Birstall;England;
+Bishopstone;England;
+Björkboda;Finland;
+Blackburn;England;
+Bolton;England;
+Bombay;India;
+Bonn;Germany;
+Boston;England | USA;
+Boston Ma;USA;
+Boston MA;USA;
+Boston MA;USA;
+Bottisham;England;
+Bouillon;Belgium;
+Boulogne;France;
+Bradford;England;
+Brändö;Finland;
+Braniewo;Poland;
+Brattleborough Vt;USA;
+Braunschweig;Germany;
+Braunschweig;Germany;
+Bremen;Germany;
+Brentford;England;
+Breslau;Poland;
+Bridgeport CT;USA;
+Bridgeport CT;USA;
+Bridgeton N.J;USA;
+Bridgeton N\.J;USA;
+Bridgeton NJ;USA;
+Bridgetown Barbados;Barbados;
+Bridgnorth;England;
+Brisbane;Australia;
+Bristol;England;
+Bronx NY;USA;
+Bronx NY;USA;
+Brookfield Ma;USA;
+Brookfield MA;USA;
+Brooklyn NY;USA;
+Brooklyn NY;USA;
+Brunn;Germany;
+Brussels;Belgium;
+Buckden;England;
+Budapest;Hungary;
+Budapest;Hungary;
+Buenos Aires;Argentina;
+Bungay;England;
+Burlington N.J;USA;
+Burlington N\.J;USA;
+Burlington NJ;USA;
+Burlington Vt;USA;
+Burnley;England;
+Burton;England;
+Bury;England;
+Bury St Edmunds;England;
+Bury St. Edmunds;England;
+Caen;France;
+Caernarfon;Ireland;
+Calcutta;India;
+Calumet MI;USA;
+Calumet MI;USA;
+Cambridge;England;
+Cambridge;England | USA;
+Cambridge Ma;USA;
+Cambridge MA;USA;
+Campbeltown;Scotland;
+Canterbury;England;
+Canterbury N.H;USA;
+Canterbury NH;USA;
+Cap Haitien;Haiti;
+Carlisle;England;
+Carlisle Pa;USA;
+Carlisle PA;USA;
+Carlow;England;
+Carlstad;Sweden;
+Carmarthen;Ireland;
+Cashel;Ireland;
+Cassel;France;
+Chambersburg Pa;USA;
+Chambersburg PA;USA;
+Charleston S.C;USA;
+Charleston S\.C;USA;
+Charleston SC;USA;
+Charlestown Ma;USA;
+Charlestown MA;USA;
+Charlottesville;;
+Charlottesville Va;USA;
+Charlottetown Pe;USA;
+Chatham;England;
+Chatham N.J;USA;
+Chatham N\.J;USA;
+Chatham NJ;USA;
+Chelmsford;England;
+Chelmsford Ma;USA;
+Chelmsford MA;USA;
+Chelsea;England;
+Chesire Ct;USA;
+Chesire CT;USA;
+Chester;England;
+Chesterfield;England;
+Chicago IL;USA;
+Chicago IL;USA;
+Chicago;USA;
+Chillicothe Oh;USA;
+Chisholm MN;USA;
+Chisholm MN;USA;
+Cincinnati Oh;USA;
+Cincinnati OH;USA;
+Cincinnati OH;USA;
+Cirencester;England;
+Clear Creek UT;USA;
+Cleveland OH;USA;
+Cleveland OH;USA;
+Clipstone;England;
+Clonmel;Ireland;
+Cluj-Napoca;Romania;
+Colchester;England;
+Cologne;Germany;
+Columbia S.C;USA;
+Columbia S\.C;USA;
+Columbia SC;USA;
+Concord Ma;USA;
+Concord MA;USA;
+Concord N.H;USA;
+Concord N\.H;USA;
+Concord NH;USA;
+Copenhagen;Denmark;
+Cork;Ireland;
+Coventry;England;
+Danbury Ct;USA;
+Danbury CT;USA;
+Dantzig;Poland;
+Danvers Ma;USA;
+Danvers MA;USA;
+Darlington;England;
+Daventry;England;
+Dedham Ma;USA;
+Dedham MA;USA;
+Delft;Netherlands;
+Deptford;England;
+Derby;England;
+Dessau;Germany;
+Devizes;England;
+Dieren;Netherlands;
+Doncaster;England;
+Dorchester;England;
+Dordrecht;Netherlands;
+Dort;Netherlands;
+Douai;France;
+Dover;England;
+Dover N.H;USA;
+Dover N\.H;USA;
+Dover NH;USA;
+Downpatrick;Ireland;
+Dresden;Germany;
+Dresden;Germany;
+Dresden;Germany;
+Drogheda;Ireland;
+Dublin;Ireland;
+Duluth MN;USA;
+Duluth MN;USA;
+Dumfries;Scotland | USA;
+Dumfries Va;USA;
+DumfriesVA;USA;
+Dunbar;Scotland;
+Dundee;Scotland;
+Durham;England;
+East Molesey;England;
+Easton Md;USA;
+East-Windsor Ct;USA;
+Edenton N.C;USA;
+Edenton N\.C;USA;
+Edenton NC;USA;
+Edinburgh;Scotland;
+Egham;England;
+Elbingen;Germany;
+Elizabeth N.J;USA;
+Elizabeth N\.J;USA;
+Elizabeth NJ;USA;
+Elizabethtown Md;USA;
+Ely MI;USA;
+Emden;Germany;
+England;England;
+Ennis;Ireland;
+Ephrata Pa;USA;
+Ephrata PA;USA;
+Erfurt;Germany;
+Erlangen;Germany;
+Espoo;Finland;
+Espoo;Finland;
+Eton;England;
+Eura;Finland;
+Eura;Finland;
+Europe;Europe;
+Eveleth MI;USA;
+Evesham;England;
+Exeter;England;
+Exeter;England | USA;
+Exeter N.H;USA;
+Exeter N\.H;USA;
+Exeter NH;USA;
+Falkirk;England;
+Falun;Sweden;
+Fincastle Va;USA;
+FincastleVA;USA;
+Firenze;Italy;
+Firenze;Italy;
+Fishkill N.Y;USA;
+Fishkill N\.Y;USA;
+Fishkill NY;USA;
+Fitchburg MA;USA;
+Fitchburg MA;USA;
+Florence;Italy;
+Forssa;Finland;
+Forssa;Finland;
+France;France;
+Frankfurt;Germany;
+Frankfurt;Germany;
+Frankfurt;Germany;
+Frederick Md;USA;
+Fredericton;Canada;
+Fredicksburg Va;USA;
+Fredicksburg VA;USA;
+Freiburg im Breisgau;Germany;
+Fryeburg Me;USA;
+Furth;Germany;
+Gainsborough;England;
+Galway;Ireland;
+Gateshead;England;
+Gaunt;unknown;
+Gdansk;Poland;
+Gefle;Sweden;
+Geneva N.Y;USA;
+Geneva N\.Y;USA;
+Geneva NY;USA;
+Geneva;Switzerland | USA;
+Geneve;Switzerland;
+Gera;Germany;
+Germantown Pa;USA;
+Germantown PA;USA;
+Germany;Germany;
+Ghent;Belgium;
+Giessen;Germany;
+Giessen;Germany;
+Gilmanton N.H;USA;
+Gilmanton NH;USA;
+Glasgow;Scotland;
+Glocester;England;
+Glocester Ma;USA;
+Gloucester;England;
+Gloucester MA;USA;
+Goa;India;
+Godby;Finland;
+Gosport;England;
+Göteborg;Sweden;
+Göteborg;Sweden;
+Gotha;Germany;
+Gothenburg;Sweden;
+Göttingen;Germany;
+Göttingen;Germany;
+Gouda;Netherlands;
+Grand Rapids MI;USA;
+Grantham;England;
+Gravesend;England;
+Greenfield Ma;USA;
+Greenfield MA;USA;
+Greenock;Scotland;
+Greifswald;Germany;
+Greifswald;Germany;
+Grenada;Grenada;
+Guernesey;Guernesey;
+Gutersloh;Germany;
+Haapajärvi;Finland;
+Haaparanta;Finland;
+Haaparanta;Finland;
+Haarlem;Netherlands;
+Haderslev;Denmark;
+Hagerstown Md;USA;
+Halberstadt;Germany;
+Halifax;England | USA;
+Halifax N.C;USA;
+Halifax NC;USA;
+Halifax N.S;USA;
+Halifax NS;USA;
+Halle;Germany;
+Hallowell Ma;USA;
+Hallowell Me;USA;
+Hamburg;Germany;
+Hämeenkyrö;Finland;
+Hämeenlinna;Finland;
+Hämeenlinna;Finland;
+Hamina;Finland;
+Hamina;Finland;
+Hampuri;Germany;
+Hampuri;Germany;
+Hancock MI;USA;
+Hancock MI;USA;
+Hanko;Finland;
+Hanko;Finland;
+Hankoniemi;Finland;
+Hanna WY;USA;
+Hannover;Germany;
+Hanover;Germany | USA;
+Hanover N.H;USA;
+Hanover N\.H;USA;
+Hanover NH;USA;
+Harbor OH;USA;
+Harjavalta;Finland;
+Harlow;England;
+Härnösand;Sweden;
+Harrisburgh Pa;USA;
+Harrisburgh PA;USA;
+Hartford Ct;USA;
+Hartford Ct;USA;
+Haukilahti;Finland;
+Haunia;Finland;
+Haverhill Ma;USA;
+Haverhill MA;USA;
+Haverhill N.H;USA;
+Haverhill N\.H;USA;
+Haverhill NH;USA;
+Heidelberg;Germany;
+Heilbronn;Germany;
+Heinäjoki;Finland;
+Heinävesi;Finland;
+Heinola;Finland;
+Heinola;Finland;
+Helmstedt;Germany;
+Helsingborg;Sweden;
+Helsingör;Denmark;
+Helsinki;Finland;
+Helsinki;Finland;
+Hereford;England;
+Hertford;England;
+Hillsborough N.C;USA;
+Hillsborough N\.C;USA;
+Hillsborough NC;USA;
+Hinnerjoki;Finland;
+Hirvensalmi;Finland;
+Horncastle;England;
+Houghton MI;USA;
+Houghton Park;England;
+Howden;England;
+Hudson N.Y;USA;
+Hudson N\.Y;USA;
+Hudson NY;USA;
+Hull;England;
+Huopalahti;Finland;
+Hvitträsk;Finland;
+Hyvinkää;Finland;
+Hyvinkää;Finland;
+Iisalmi;Finland;
+Iisalmi;Finland;
+Ikaalinen;Finland;
+Ilmajoki;Finland;
+Imatra;Finland;
+Impilahti;Finland;
+Inari;Finland;
+Inkerinmaa;Finland;
+Inkeri;Russia;
+Inkoo;Finland;
+Inverlochie;Scotland;
+Ipswich;England;
+Ipswich England;England;
+Ireland;Ireland;
+Ironwood MI;USA;
+Ironwood MI;USA;
+Ísafjördur;Iceland;
+Ishpeming MI;USA;
+Ishpeming MI;USA;
+Isokyrö;Finland;
+Jaakkima;Finland;
+jääski;Finland;
+Jääski;Russia;
+Jacksonburgh S.C;USA;
+Jacksonburgh S\.C;USA;
+Jacksonburgh SC;USA;
+Jacobson MI;USA;
+Jalasjärvi;Finland;
+Jamaica;Jamaica;
+Jämsä;Finland;
+Janakkala;Finland;
+Jelgava;Latvia;
+Jena;Germany;
+Jena;Germany;
+Joensuu;Finland;
+Joensuu;Finland;
+Jönnköping;Sweden;
+Jurjew;Latvia;
+Juva;Finland;
+Jyväskylä;Finland;
+Jyväskylä;Finland;
+Kainuu;Finland;
+Kajaani;Finland;
+Kajaani;Finland;
+Käkisalmi;Finland;
+Käkisalmi;Finland;
+Kaleva;Finland;
+Kaleva MI;USA;
+Kaleva MI;USA;
+Kaliningrad;Russia;
+Kaliningrad;Russia #huom!;
+Kallislahti;Finland;
+Kangasala;Finland;
+Kaprio;Finland;
+Karhula;Finland;
+Karjaa;Finland;
+Karjaa;Finland;
+Karjalohja;Finland;
+Karkku;Finland;
+Karlskrona;Sweden;
+Karlstad;Sweden;
+Karstula;Finland;
+Kaskinen;Finland;
+Kaskinen;Finland;
+Kauhajoki;Finland;
+Kaukaa;Finland;
+Kausala;Finland;
+Kauvatsa;Finland;
+Kazan;Russia;
+Keene N.H;USA;
+Keene N\.H;USA;
+Keene NH;USA;
+Kelso;Scotland;
+Keltto;Finland;
+Kemi;Finland;
+Kemi;Finland;
+Kendal;England;
+Kettuvaara;Finland;
+Kharkiv;Ukraine;
+Kiel;Germany;
+Kiel;Germany;
+Kiiminki;Finland;
+Kilkenny;Ireland;
+Kilmarnock;Ireland;
+King's Lynn;England;
+Kings Lynn;England;
+Kingston;Jamaica | England;
+Kingston Jamaica;Jamaica | England | USA;
+Kingston N.Y;USA;
+Kingston N\.Y;USA;
+Kingston NY;USA;
+Kirchhain;Germany;
+Kirkcudbright;Scotland;
+Kirkkonummi;Finland;
+Kirvu;Finland;
+Kivennapa;Finland;
+Knaresborough;England;
+Knoxville Tn;USA;
+Kodisjoki;Finland;
+Koivisto;Finland;
+Koivulahti;Finland;
+Kokemäki;Finland;
+Kokkola;Finland;
+Kokkola;Finland;
+Köln;Germany;
+Köln;Germany;
+Koningsberg;Germany;
+Kööpenhamina;Denmark;
+Kööpenhamina;Tanska;
+Köping;Sweden;
+Korsnäs;Finland;
+Kotka;Finland;
+Kotka;Finland;
+Kouvola;Finland;
+Kouvola;Finland;
+Krakow;Poland;
+Kristiinankaupunki;Finland;
+Kristiinankaupunki;Finland;
+Kristinehamn;Sweden;
+Kruunupyy;Finland;
+Kruunupyy;Finland;
+Kuopio;Finland;
+Kuopio;Finland;
+Kuortane;Finland;
+Kurkijoki;Finland;
+Kuusankoski;Finland;
+Kylmäkoski;Finland;
+Kyrö;Finland;
+La Chapelle-Montligeon;France;
+Lahti;Finland;
+Lahti;Finland;
+Laihia;Finland;
+Laihia;Finland;
+Laihiala;Finland;
+Laitila;Finland;
+Lammi;Finland;
+Lancaster N.J;USA;
+Lancaster N\.J;USA;
+Lancaster NJ;USA;
+Lancaster Pa;USA;
+Lancaster PA;USA;
+Landskrona;Sweden;
+Lansingburgh N.Y;USA;
+Lansingburgh N\.Y;USA;
+Lansingburgh NY;USA;
+Lappeenranta;Finland;
+Lappeenranta;Finland;
+Lapua;Finland;
+Lapua;Finland;
+La Rochelle;France;
+Lausanne;Switzerland;
+Leeds;England;
+Leeuwarden;Netherlands;
+Leibzig;Germany;
+Leicester;England;
+Leiden;Germany;
+Leiden;Germany;
+Leiden;Netherlands;
+Leipzig;Germany;
+Leipzig;Germany;
+Leipzig;Germany;
+Le Mans;France;
+Leominster Ma;USA;
+Leominster MA;USA;
+Letchworth;England;
+Lewes;England;
+Lexington Ky;USA;
+Libau;Latvia;
+Liege;Belgium;
+Liège;Belgium;
+Liepaja;Latvia;
+Lille;France;
+Limerick;Ireland;
+Lincoln;England;
+Linköping;Sweden;
+Linköping;Sweden;
+Lisbon;Portugal;
+Litchfield Ct;USA;
+Litchfield Ct;USA;
+Litoměřice;Czech Republic;
+Litom“¿ice;Czech Republic;
+Liverpool;England;
+Livorno;Italy;
+Lohja;Finland;
+Lohtaja;Finland;
+Loimaa;Finland;
+Loimijoki;Finland;
+Londonderry;Northern Ireland;
+London;England;
+Lontoo;UK;
+Lontoo;UK;
+Louvain;Belgium;
+Loviisa;Finland;
+Loviisa;Finland;
+Ludlow;England;
+Luleå;Sweden;
+Lund;Sweden;
+Lund;Sweden;
+Lviv;Ukraine;
+Lybeck;Germany;
+Lyon;France;
+Lyypekki;Germany;
+Lyypekki;Germany;
+Maaninka;Finland;
+Maarianhamina;Finland;
+Maarianhamina;Finland;
+Maastricht;Netherlands;
+Macclesfield;England;
+Macon;France;
+Madras;India;
+Madras India;India;
+Madrid;Spain;
+Magdeburg;Germany;
+Magdeburg;Germany;
+Maidstone;England;
+Malmö;Sweden;
+Manchester;England;
+Mänttä;Finland;
+Mäntyharju;Finland;
+Marburg;Germany;
+Marburg;Germany;
+Margate;England;
+Marlborough;England;
+Martinsburg Va;USA;
+Martinsburg VA;USA;
+Marttila;Finland;
+Mass;;
+Mechelen;Belgium;
+Medford Ma;USA;
+Medford MA;USA;
+Messina;Finland;
+Middelburg;Netherlands;
+Mikkeli;Finland;
+Mikkeli;Finland;
+Milano;Italy;
+Milwaukee WI;USA;
+Milwaukee WI;USA;
+Minneapolis MN;USA;
+Minneapolis MN;USA;
+Minneapolis;USA;
+Minorca;Spain;
+Minsk;Belarus;
+Monmouth;England | USA;
+Monmouth N.J;USA;
+Monmouth N\.J;USA;
+Monmouth NJ;USA;
+Montego Bay;Jamaica;
+Montpellier;France;
+Montreal;Canada;
+Montrose;Scotland;
+Moscow;Russia;
+Moskova;Russia;
+Moskova;Russia;
+Mount Holly N.J;USA;
+Mount Holly N\.J;USA;
+Mount Holly NJ;USA;
+München;Germany;
+Mustasaari;Finland;
+Mustiala;Finland;
+Mustio;Finland;
+Naantali;Finland;
+Nanaimo BC;Canada;
+Nanaimo BC;Canada;
+Naples;Italy;
+Napoli;Italy;
+Närpiö;Finland;
+Narva;Estonia;
+Narva;Estonia;
+Nassau;Bahamas;
+Natchez Ms;USA;
+Netherlands;Netherlands;
+Neuchatel;Switzerland;
+Neuruppin;Germany;
+Newark;England;
+Newark N.J;USA;
+Newark N\.J;USA;
+Newark NJ;USA;
+New Bedford Ma;USA;
+New Bedford MA;USA;
+New Bedford Ms;USA;
+New Bern N.C;USA;
+New Bern N\.C;USA;
+New Bern NC;USA;
+New Brunswick N.J;USA;
+New Brunswick N\.J;USA;
+New Brunswick NJ;USA;
+Newburgh N.Y;USA;
+Newburgh N\.Y;USA;
+Newburgh NY;USA;
+Newbury Ma;USA;
+Newbury MA;USA;
+Newburyport Ma;USA;
+Newburyport MA;USA;
+Newbury Vt;USA;
+Newcastle;England;
+Newfield Ct;USA;
+Newfield CT;USA;
+New Haven Ct;USA;
+New Haven Ma;USA;
+New Haven MA;USA;
+New London Ct;USA;
+New London Ct;USA;
+New Orleans La;USA;
+Newport Isle of Wight;England;
+Newport Isle Wight;England;
+Newport R.I;USA;
+Newport R\.I;USA;
+Newport R\.I;USA;
+Newport RI;USA;
+Newry;Ireland;
+Newton N.J;USA;
+Newton N\.J;USA;
+Newton NJ;USA;
+New Windsor N.Y;USA;
+New Windsor N\.Y;USA;
+New Windsor NY;USA;
+New York Mills MN;USA;
+New York Mills MN;USA;
+New York N.Y;USA;
+New York NY;USA;
+New York NY;USA;
+New York;USA;
+Niagara;Canada;
+Nizza;Italy;
+Nokia;Finland;
+Noormarkku;Finland;
+Nora;Sweden;
+Norfolk Va;USA;
+Norfolk VA;USA;
+Norrköping;Sweden;
+North;;
+Northallerton;England;
+Northampton;England;
+Northampton Ma;USA;
+Northampton MA;USA;
+North Shields;England;
+Norwich Ct;USA;
+Norwich CT;USA;
+Norwich;England;
+Nottingham;England;
+Nummela;Finland;
+Nurmijärvi;Finland;
+Nurnberg;Germany;
+Nürnberg;Germany;
+Nyköping;Sweden;
+Nytorp;Sweden;
+Odense;Denmark;
+Odessa;Ukraine;
+Offenbach am Main;Germany;
+Oniipa;Namibia;
+Oradea;Romania;
+Örebro;Sweden;
+Örebro;Sweden;
+Orimattila;Finland;
+Orisberg;Finland;
+Orismala;Finland;
+Orivesi;Finland;
+Oslo;Norja;
+Oslo;Norway;
+Ossining N.Y;USA;
+Ossining N\.Y;USA;
+Ossining NY;USA;
+Otava;Finland;
+Ottawa;Canada;
+Oulainen;Finland;
+Oulu;Finland;
+Oulu;Finland;
+Oulunkylä;Finland;
+Oxford;England;
+Padova;Italy;
+Paimio;Finland;
+Paisley;Scotland;
+Pännäinen;Finland;
+Parainen;Finland;
+Pariisi;France;
+Pariisi;Ranska;
+Parikkala;Finland;
+Paris;France | USA;
+Paris Ky;USA;
+Parkano;Finland;
+Parkano;Finland;
+Pärnu;Estonia;
+Pärnu;Estonia;
+Parr-Town;Canada;
+Pembroke Ma;USA;
+Pembroke MA;USA;
+Penrith;England;
+Perho;Finland;
+Perkjärvi;Finland;
+Pernaja;Finland;
+Perno;Finland;
+Perth;Scotland;
+Petäjävesi;Finland;
+Peterborough;England;
+Petersburg Va;USA;
+Petersburg VA;USA;
+Philadelphia Pa;USA;
+Philadelphia PA;USA;
+Philadelphia PA;USA;
+Pieksämäki;Finland;
+Pietari;Russia;
+Pietari;Russia;
+Pietarsaari;Finland;
+Pietarsaari;Finland;
+Pihlava;Finland;
+Piikkiö;Finland;
+Pinjainen;Finland;
+Pirkkala;Finland;
+Pistoia;Finland;
+Plymouth;England;
+Pointe-A-Pitre;Guadaloupe;
+Poole;England;
+Pori;Finland;
+Pori;Finland;
+Port Arthur ON;Canada;
+Port Arthur ON;Canada;
+Port-au-Prince;Haiti;
+Porth Arthur ON;USA;
+Portland Me;USA;
+Portland OR;USA;
+Portland OR;USA;
+Portsmouth;England | USA;
+Portsmouth N.H;USA;
+Portsmouth N\.H;USA;
+Portsmouth NH;USA;
+Porvoo;Finland;
+Porvoo;Finland;
+Poughkeepsie N.Y;USA;
+Poughkeepsie N\.Y;USA;
+Poughkeepsie NY;USA;
+Poznan;Poland;
+Prague;Czech Republic;
+Preston;England;
+Providence R.I;USA;
+Providence R\.I;USA;
+Providence RI;USA;
+Purleigh;England;
+Quebec;Canada;
+Quedlinburg;Germany;
+Quincy MA;USA;
+Quincy MA;USA;
+Raahe;Finland;
+Raahe;Finland;
+Rääkkylä;Finland;
+Räisälä;Finland;
+Raisio;Finland;
+Raleigh N.C;USA;
+Raleigh N\.C;USA;
+Raleigh NC;USA;
+Rantasalmi;Finland;
+Rauma;Finland;
+Rauma;Finland;
+Rautalampi;Finland;
+Rautio;Finland;
+Ravenna;Italy;
+Reading;England;
+Reading;England | USA;
+Reading Pa;USA;
+Reading PA;USA;
+Red Jacket MI;USA;
+Red Lodge MT;USA;
+Regensburg;Germany;
+region;country;
+Reims;Netherlands;
+Reykjavik;Iceland;
+Richmond;England | USA;
+Richmond Va;USA;
+Richmond VA;USA;
+Riga;Latvia;
+Riika;Latvia;
+Rochdale;England;
+Rochester;England;
+Rock Island IL;USA;
+Rock Island IL;USA;
+Rock Springs WY;USA;
+Rodborough;England;
+Rome;Italy | USA;
+Rome N.Y;USA;
+Rome N\.Y;USA;
+Rome NY;USA;
+Romsey;England;
+Rooma;Italy;
+Rooma;Italy;
+Roscrea;Ireland;
+Roseau Dominica;Dominica;
+Rostock;Germany;
+Rostock;Germany;
+Rotterdam;Netherlands;
+Rouen;France;
+Rovaniemi;Finland;
+Rutland Vt;USA;
+Sääksmäki;Finland;
+Saarbrucken;Germany;
+Saarijärvi;Finland;
+Sairala;Finland;
+Sairala;Finland;
+Säkkijärvi;Finland;
+Sakkola;Finland;
+Salamanca;Spain;
+Salem Ma;USA;
+Salem MA;USA;
+Salem N.Y;USA;
+Salem NY;USA;
+Salisbury;England;
+Salisbury Ma;USA;
+Salisbury MA;USA;
+Salisbury N.C;USA;
+Salisbury N\.C;USA;
+Salisbury NC;USA;
+Salmi;Finland;
+Salo;Finland;
+Sandstone MI;USA;
+Sarvilahti;Finland;
+Satakunta;Finland;
+Sauvo;Finland;
+Savannah Ga;USA;
+Savanna-la-Mar Jamaica;Jamaica;
+Savonlinna;Finland;
+Savonlinna;Finland;
+Schenectady N.Y;USA;
+Schenectady N\.Y;USA;
+Schenectady NY;USA;
+Schwerin;Germany;
+Scipio N.Y;USA;
+Scipio N\.Y;USA;
+Scipio NY;USA;
+Seattle WA;USA;
+Seattle WA;USA;
+Seinäjoki;Finland;
+Sheffield;England;
+Shelburne Nova Scotia;Canada;
+Shepherdstown Va;USA;
+Shepherdstown VA;USA;
+Sherborne;England;
+Shiffnal;England;
+Shrewsbury;England;
+Siena;Italy;
+Simola;Finland;
+Sipoo;Finland;
+Sipoo;Finland;
+Skara;Sweden;
+Skara;Sweden;
+Sligo;Ireland;
+Smithville MN;USA;
+Smithville MN;USA;
+Sorau;Poland;
+Sortavala;Russia;
+Sortavala;Russia;
+Southampton;England;
+South Shields;England;
+Spanish Town Jamaica;Jamaica;
+Springfield Ma;USA;
+Springfield MA;USA;
+Stafford;England;
+St Albans;England;
+St. Albans;England;
+St\. Albans;England;
+Stamford;England;
+St Andrews;Scotland;
+St. Andrews;Scotland;
+St\. Andrews;Scotland;
+Stanford;England;
+St Augustine Fl;USA;
+St. Augustine Fl;USA;
+St\. Augustine Fl;USA;
+Staunton Va;USA;
+Staunton VA;USA;
+St. Eustatius;Netherlands;
+St Eustatius;St Eustatius;
+St\. Eustatius;St\. Eustatius;
+St Georges Grena;;
+St George's grenada;Grenada;
+St. George's Grenada;Grenada;
+St Germans;England;
+St. Germans;England;
+St\. Germans;England;
+St Helier;England;
+St\. Helier;England;
+St. Helier;Jersey (UK);
+Stirling;Scotland;
+St Ives;England;
+St. Ives;England;
+St\. Ives;England;
+St John New Brun;;
+St. John New Brunswick;Canada;
+St\. John New Brunswick;Canada;
+St\. John's Antiqua;Antigua;
+St Johns Antiqua;Antiqua;
+St. John's Antiqua;Antiqua;
+St Louis Kaunti MI;USA;
+St Marys Md;USA;
+St. Mary's Md;USA;
+St\. Mary's Md;USA;
+Stockbridge Ma;USA;
+Stockbridge MA;USA;
+Stockholm;Sweden;
+Stockton;England;
+St Omer;France;
+St. Omer;France;
+St\. Omer;France;
+St Petersburg;Russia;
+St Pierre Martin;;
+St. Pierre Martinique;Martinique;
+St\. Pierre Martinique;Martinique;
+Strabane;Northern Ireland;
+Stralsund;Germany;
+Strängnäs;Sweden;
+Strängnäs;Sweden;
+Strasbourg;France;
+Stuttgart;Germany;
+Stuttgart;Germany;
+Sudbury;England;
+Sudbury ON;USA;
+Sunderland;England;
+Sundsvall;Sweden;
+Suomussalmi;Finland;
+Suonenjoki;Finland;
+Superior WI;USA;
+Superior WI;USA;
+Szczecin;Poland;
+Taipalsaari;Finland;
+Tallinna;Estonia;
+Tallinna;Estonia;
+Tallinn;Estonia;
+Tammela;Finland;
+Tammisaari;Finland;
+Tammisaari;Finland;
+Tampere;Finland;
+Tampere;Finland;
+Tartto;Estonia;
+Tartto;Estonia;
+Tartu;Estonia;
+Taunton;England;
+Terijoki;Finland;
+Terni;Finland;
+Tervonsalmi;Finland;
+Tewkesbury;England;
+The Hague;Netherlands;
+Tikkurila;Finland;
+Toholampi;Finland;
+Tomsk;Russia;
+Torgelow;Germany;
+Tornio;Finland;
+Trefeca;Walkes;
+Trenton;Canada | USA;
+Trenton N.J;USA;
+Trenton N\.J;USA;
+Trenton NJ;USA;
+Trevoux;France;
+Trieste;Italy;
+Tromsö;Norway;
+Trondheim;Norway;
+Tsingshi;China;
+Tubingen;Germany;
+Tübingen;Germany;
+Tukholma;Sweden;
+Tukholma;Sweden;
+Tunbridge Wells;England;
+Turenki;Finland;
+Turenki;Finland;
+Turku;Finland;
+Turku;Finland;
+Turtle Lake WI;USA;
+Tuusula;Finland;
+Twickenham;England;
+Tyrnävä;Finland;
+Tyrvää;Finland;
+Ugra;Russia;
+Ulm;Germany;
+United States;USA;
+unknown;unknown;
+Uppsala;Sweden;
+Uppsala;Sweden;
+Urjala;Finland;
+USA;USA;
+Utrecht;Netherlands;
+Uusikaarlepyy;Finland;
+Uusikaarlepyy;Finland;
+Uusikaupunki;Finland;
+Uusikaupunki;Finland;
+uusikirkko;Finland;
+Uusikirkko;Finland;
+Vaasa;Finland;
+Vaasa;Finland;
+Vainikkala;Finland;
+Valamo;Finland;
+Valkjärvi;Finland;
+Vammala;Finland;
+Vantaa;Finland;
+Varsova;Poland;
+Varsova;Poland;
+Västerås;Sweden;
+Västerås;Sweden;
+Venice;Italy;
+Verdun;France;
+Vergennes Vt;USA;
+Verona;Italy;
+Vevey;Switzerland;
+Vicenza;Italy;
+Vienna;Austria;
+Viipuri;Finland;
+Viitasaari;Finland;
+Viljandi;Estonia;
+Vilna;Lithuania;
+Vilna;Lithuania;
+Vilnius;Lithuania;
+Virginia MN;USA;
+Virolahti;Finland;
+Visingsborg;Sweden;
+Vjatka;Russia;
+Vreta;Sweden;
 Vyborg;Russia;Could also be classified as Finland depending on the historical context
-Vilna;Lithuania
-Vilnius;Lithuania
-Västerås;Sweden
-Weimar;Germany
-Wien;Austria
-Wiesbaden;Germany
-Wittenberg;Germany
-Worcester MA;USA
-Örebro;Sweden
-Almena WI;USA
-Altdorf;Germany
-Amsterdam;Netherlands
-Ashtabula OH;USA
-Astoria OR;USA
-Barcelona;Spain
-Berliini;Germany
-Boston MA;USA
-Braunschweig;Germany
-Bridgeport CT;USA
-Bronx NY;USA
-Brooklyn NY;USA
-Calumet MI;USA
-Chicago IL;USA
-Chisholm MN;USA
-Cincinnati OH;USA
-Cleveland OH;USA
-Budapest;Hungary
-Dresden;Germany
-Duluth MN;USA
-Espoo;Finland
-Eura;Finland
-Firenze;Italy
-Fitchburg MA;USA
-Forssa;Finland
-Frankfurt;Germany
-Giessen;Germany
-Göteborg;Sweden
-Göttingen;Germany
-Greifswald;Germany
-Haaparanta;Finland
-Hamina;Finland
-Hampuri;Germany
-Hancock MI;USA
-Hanko;Finland
-Heinola;Finland
-Helsinki;Finland
-Hyvinkää;Finland
-Hämeenlinna;Finland
-Iisalmi;Finland
-Ironwood MI;USA
-Ishpeming MI;USA
-Jena;Germany
-Joensuu;Finland
-Jyväskylä;Finland
-Kajaani;Finland
-Kaleva MI;USA
-Kaliningrad;Russia #huom!
-Karjaa;Finland
-Kaskinen;Finland
-Kemi;Finland
-Kiel;Germany
-Kokkola;Finland
-Kotka;Finland
-Kouvola;Finland
-Kristiinankaupunki;Finland
-Kruunupyy;Finland
-Kuopio;Finland
-Käkisalmi;Finland
-Köln;Germany
-Kööpenhamina;Denmark
-Laihia;Finland
-Lahti;Finland
-Lappeenranta;Finland
-Lapua;Finland
-Leiden;Germany
-Leipzig;Germany
-Linköping;Sweden
-Lontoo;UK
-Loviisa;Finland
-Lund;Sweden
-Lyypekki;Germany
-Maarianhamina;Finland
-Magdeburg;Germany
-Marburg;Germany
-Mikkeli;Finland
-Milwaukee WI;USA
-Minneapolis MN;USA
-Moskova;Russia
-Nanaimo BC;Canada
-Narva;Estonia
-New York NY;USA
-New York Mills MN;USA
-Oslo;Norja
-Oulu;Finland
-Pariisi;Ranska
-Parkano;Finland
-Philadelphia PA;USA
-Pietari;Russia
-Pietarsaari;Finland
-Pori;Finland
-Port Arthur ON;Canada
-Portland OR;USA
-Porvoo;Finland
-Pärnu;Estonia
-Quincy MA;USA
-Raahe;Finland
-Rauma;Finland
-Riika;Latvia
-Rock Island IL;USA
-Rooma;Italy
-Rostock;Germany
-Sairala;Finland
-Savonlinna;Finland
-Seattle WA;USA
-Sipoo;Finland
-Skara;Sweden
-Smithville MN;USA
-Sortavala;Russia
-Strängnäs;Sweden
-Stuttgart;Germany
-Superior WI;USA
-Tallinna;Estonia
-Tammisaari;Finland
-Tampere;Finland
-Tartu;Estonia
-Tartto;Estonia
-Tukholma;Sweden
-Turenki;Finland
-Turku;Finland
-Uppsala;Sweden
-Uusikaarlepyy;Finland
-Uusikaupunki;Finland
-Vaasa;Finland
-Varsova;Poland
-Viipuri;Finland
-Vilna;Lithuania
-Västerås;Sweden
-Weimar;Germany
-Wien;Austria
-Wiesbaden;Germany
-Wittenberg;Germany
-Worcester MA;USA
-Örebro;Sweden
-Stockholm;Sweden
-St Petersburg;Russia
-Tallinn;Estonia
-Tornio;Finland
-Bonn;Germany
-Bergen;Norway
-Warsaw;Poland
-Parainen;Finland
-Orivesi;Finland
-Sääksmäki;Finland
-Satakunta;Finland
-Madrid;Spain
-Laitila;Finland
-Parikkala;Finland
-Piikkiö;Finland
-Tervonsalmi;Finland
-Pieksämäki;Finland
-Oulunkylä;Finland
-Närpiö;Finland
-Loimaa;Finland
-Providence R\.I;USA
-Charleston S\.C;USA
-Newport R\.I;USA
-Portsmouth N\.H;USA
-Albany N\.Y;USA
-Exeter N\.H;USA
-Fishkill N\.Y;USA
-Burlington N\.J;USA
-Poughkeepsie N\.Y;USA
-New Bern N\.C;USA
-Woodbridge N\.J;USA
-Newark N\.J;USA
-Concord N\.H;USA
-New Brunswick N\.J;USA
-Hudson N\.Y;USA
-Trenton N\.J;USA
-Walpole N\.H;USA
-Newburgh N\.Y;USA
-Lansingburgh N\.Y;USA
-Kingston N\.Y;USA
-Hanover N\.H;USA
-Amherst N\.H;USA
-Warren R\.I;USA
-St\. Augustine Fl;USA
-Keene N\.H;USA
-Jacksonburgh S\.C;USA
-Wilmington N\C.;USA
-Washington D\.C;USA
-Schenectady N\.Y;USA
-New Windsor N\.Y;USA
-Hillsborough N\.C;USA
-Haverhill N\.H;USA
-Edenton N\.C;USA
-Dover N\.H;USA
-Columbia S\.C;USA
-Chatham N\.J;USA
-St\. Mary's Md;USA
-Scipio N\.Y;USA
-Salisbury N\.C;USA
-Rome N\.Y;USA
-Raleigh N\.C;USA
-Ossining N\.Y;USA
-Newton N\.J;USA
-Mount Holly N\.J;USA
-Monmouth N\.J;USA
-Lancaster N\.J;USA
-Geneva N\.Y;USA
-Elizabeth N\.J;USA
-Bridgeton N\.J;USA
-Bath N\.Y;USA
-St\. Omer;France
-St\. John's Antiqua;Antigua
-St\. Andrews;Scotland
-St George's grenada;Grenada
-St\. Pierre Martinique;Martinique
-St\. Ives;England
-St\. John New Brunswick;Canada
-St\. Helier;England
-St\. Germans;England
-St\. Eustatius;St\. Eustatius
-St\. Albans;England
-Norrköping;Sweden
-Karlskrona;Sweden
-Härnösand;Sweden
-Jelgava;Latvia
-Ísafjördur;Iceland
-Visingsborg;Sweden
-Tromsö;Norway
-Odense;Denmark
-Nytorp;Sweden
-Jönnköping;Sweden
-Falun;Sweden
-Szczecin;Poland
-Odessa;Ukraine
-Gotha;Germany
-Cassel;France
-Stralsund;Germany
-Kharkiv;Ukraine
-Kauvatsa;Finland
-Helmstedt;Germany
-Gefle;Sweden
-Braniewo;Poland
-Altenstein;Germany
-Wandsbek;Germany
-Vicenza;Italy
-Sorau;Poland
-Ottawa;Canada
-Newport R\.I;USA
-New Haven MA;USA
-Luleå;Sweden
-Köping;Sweden
-Kazan;Russia
-Karlstad;Sweden
-Jurjew;Latvia
-Helsingborg;Sweden
-Furth;Germany
-Erfurt;Germany
-Ely MI;USA
-Dessau;Germany
-Breslau;Poland
-Aarhus;Denmark
-Aalborg;Denmark
-Aabenraa;Denmark
-Wurzburg;Germany
-Wismar;Germany
-Weida;Germany
-Vreta;Sweden
-Vjatka;Russia
-Vantaa;Finland
-Valamo;Finland
-Ulm;Germany
-Ugra;Russia
-Tsingshi;China
-Torgelow;Germany
-Tomsk;Russia
-Sundsvall;Sweden
-Schwerin;Germany
-Ravenna;Italy
-Quedlinburg;Germany
-Purleigh;England
-Poznan;Poland
-Padova;Italy
-Orisberg;Finland
-Oradea;Romania
-Oniipa;Namibia
-Nora;Sweden
-Neuruppin;Germany
-Neuchatel;Switzerland
-Montpellier;France
-Minsk;Belarus
-Macon;France
-Lviv;Ukraine
-Litom“¿ice;Czech Republic
-Liège;Belgium
-Letchworth;England
-Le Mans;France
-Landskrona;Sweden
-La Chapelle-Montligeon;France
-Kristinehamn;Sweden
-Korsnäs;Finland
-Kirchhain;Germany
-Jääski;Russia
-Inkeri;Russia
-Hvitträsk;Finland
-Helsingör;Denmark
-Heilbronn;Germany
-Halberstadt;Germany
-Haderslev;Denmark
-Gutersloh;Germany
-Grand Rapids MI;USA
-Godby;Finland
-Gera;Germany
-Erlangen;Germany
-Elbingen;Germany
-Dordrecht;Netherlands
-Dieren;Netherlands
-Dantzig;Poland
-Cluj-Napoca;Romania
-Carlstad;Sweden
-Buenos Aires;Argentina
-Brunn;Germany
-Brisbane;Australia
-Bremen;Germany
-Brändö;Finland
-Björkboda;Finland
-Askersund;Sweden
-Arnstadt;Germany
-Arezzo;Italy
-Ancova;Latvia
-Alfend;NA
-Akureyri;Iceland
-Agnifitiae;Sweden
-
+Wakefield;England;
+Walpole N.H;USA;
+Walpole N\.H;USA;
+Walpole NH;USA;
+Walsall;England;
+Waltham;England;
+Wandsbek;Germany;
+Warren R.I;USA;
+Warren R\.I;USA;
+Warren RI;USA;
+Warrington;England;
+Warsaw;Poland;
+Warsow;Poland;
+Warwick;England;
+Washington D.C;USA;
+Washington D\.C;USA;
+Washington DC;USA;
+Washington Pa;USA;
+Washington PA;USA;
+Waterford;Ireland;
+Watertown Ma;USA;
+Watertown MA;USA;
+Watton MI;USA;
+Weida;Germany;
+Weimar;Germany;
+Weimar;Germany;
+Wesel;Germany;
+Westminster Vt;USA;
+West Springfield Ma;USA;
+West Springfield;USA;
+Wexford;England;
+Weymouth;England;
+Whitby;England;
+Whitehaven;England;
+Wien;Austria;
+Wien;Austria;
+Wiesbaden;Germany;
+Wiesbaden;Germany;
+Wigan;England;
+Williamsburg Va;USA;
+Williamsburg VA;USA;
+Wilmington De;USA;
+Wilmington N.C;USA;
+Wilmington N\C.;USA;
+Wilmington NC;USA;
+Winchester;England;
+Winchester;England | USA;
+Winchester Va;USA;
+Winchester VA;USA;
+Windham Ct;USA;
+Windham CT;USA;
+Windsor;England;
+Windsor Vt;USA;
+Winterthur;Switzerland;
+Winton;England;
+Wisbech;England;
+Wismar;Germany;
+Wittenberg;Germany;
+Wittenberg;Germany;
+Wokingham;England;
+Wolverhampton;England;
+Woodbridge N.J;USA;
+Woodbridge N\.J;USA;
+Woodbridge NJ;USA;
+Worcester;England;
+Worcester Ma;USA;
+Worcester MA;USA;
+Worcester MA;USA;
+Wrexham;England;
+Wurzburg;Germany;
+Würzburg;Germany;
+Yarmouth;England;
+Yeovil;England;
+Ylimarkku;Finland;
+Ylistaro;Finland;
+Ylivieska;Finland;
+York;England;
+York Pa;USA;
+York PA;USA;
+Ypäjä;Finland;
+Zurich;Germany;

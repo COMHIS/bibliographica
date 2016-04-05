@@ -26,6 +26,7 @@
 #' @importFrom parallel mclapply
 #' @importFrom sorvi condense_spaces
 #' @importFrom sorvi quickdf
+#' @importFrom sorvi read_synonymes
 #' @importFrom stringr str_trim
 #' @importFrom tm stopwords
 .onAttach <- function(lib, pkg)

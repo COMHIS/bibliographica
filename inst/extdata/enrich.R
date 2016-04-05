@@ -24,7 +24,6 @@ dim.estimates <- dim.orig %>%
      mean.height = mean(height, na.rm = TRUE),
      n = n()
    )
-
 dim.estimates.orig <- dim.estimates
 
 
@@ -63,15 +62,15 @@ for (g in unique(dim.estimates$gatherings)) {
   if (length(wobl) == 0) {wobl <- NA}
   if (length(hobl) == 0) {hobl <- NA}  
 
-  if (is.na(wobl)) {
-    h <- filter(dim.estimates, gatherings == g & obl == FALSE)$mean.height
+  h <- filter(dim.estimates, gatherings == g & obl == FALSE)$mean.height
+  if (is.na(wobl) && length(h) > 0) {
     wobl <- h
     inds <- which(dim.estimates$gatherings == g & dim.estimates$obl == TRUE)
     dim.estimates[inds, "mean.width"] <- wobl    
   }
 
-  if (is.na(hobl)) {
-    w <- filter(dim.estimates, gatherings == g & obl == FALSE)$mean.width
+  w <- filter(dim.estimates, gatherings == g & obl == FALSE)$mean.width
+  if (is.na(hobl) && length(w) > 0) {  
     hobl <- w
     inds <- which(dim.estimates$gatherings == g & dim.estimates$obl == TRUE)
     dim.estimates[inds, "mean.height"] <- hobl    
