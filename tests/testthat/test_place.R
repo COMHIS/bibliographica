@@ -107,7 +107,7 @@ test_that("Places are harmonized correctly", {
   expect_equal(polish_place("Hamburg and London]"), "Hamburg")
   expect_equal(polish_place("Glasgow] London printed, and re-printed at Glasgow"), "Glasgow")
   expect_equal(polish_place("Enpre[n]tyd in the Duchye of Braband in the towne of Andewarpe"), "Antwerp")
-  expect_equal(polish_place("Emprynted at westmynstre"), "Westminster Vt")
+  expect_equal(polish_place("Emprynted at westmynstre"), "Westminster VT")
   expect_equal(polish_place("Emprented in ye famous cite of Andwarpe"), "Antwerp")
   expect_equal(polish_place("Edinburgh] Re-printed at Edinburgh"), "Edinburgh")
   expect_equal(polish_place("Edinburgh] Printed at Dublin, and re-printed at Edinburgh"), "Edinburgh")
