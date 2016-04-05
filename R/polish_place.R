@@ -46,7 +46,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- gsub("[0-9]", " ", x) 
   x <- gsub("s\\:t ", "st ", x)
   x <- gsub("n\\.w", "new", x)
-  
+
   x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\.", ":$"), niter = 1)
   x <- gsub("^and ", "", x)
   x <- gsub("^from ", "", x)            
@@ -88,8 +88,8 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   # Harmonize
   if (harmonize) {
-    if (verbose) { message("Harmonize the synonymous names") }
 
+    if (verbose) { message("Harmonize the synonymous names") }
     x <- as.character(harmonize_names(x, synonymes,
        		remove.unknown = remove.unknown,
 		include.lowercase = TRUE,	
@@ -97,7 +97,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 		mode = "exact.match"))
 
   }
-  
+
   # Mark NAs
   if (verbose) {message("Replace special cases")}
   x[x == c("", "na")] <- NA

@@ -9,7 +9,7 @@ place2country <- function (...) {
 
   f <- system.file("extdata/reg2country.csv", package = "bibliographica")
   message(paste("Reading region-country mappings from file ", f))
-  map <- read.csv(f, sep = ";")
+  map <- read.csv(f, sep = ";", header = T, row.names = NULL)
 
   # Remove duplicates
   map <- map[!duplicated(map),]
@@ -19,3 +19,4 @@ place2country <- function (...) {
 
   map
 }
+

@@ -32,7 +32,7 @@ get_country <- function (x, map = NULL) {
   country <- map$country[match(x, map$region)]
 
   # If multiple possible countries listed; use the first one (most likely)
-  country <- sapply(strsplit(as.character(country), " | "), function (x) {x[[1]]})
+  country <- str_trim(sapply(strsplit(as.character(country), "\\|"), function (x) {x[[1]]}))
 
   # The function was sped up by operating with unique terms
   inds <- match(xorig, xorig.unique)
