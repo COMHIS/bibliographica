@@ -2,14 +2,13 @@ context("Harmonize place names")
 
 test_that("Places are harmonized correctly", {
 
-  expect_equal(polish_place("[Newport, R.I."), "Newport RI")
-  expect_equal(polish_place("[Imprynted at London"), "London")
+  expect_equal(polish_place(c("[Newport, R.I.", "London")), c("Newport RI", "London"))
+  
   expect_equal(polish_place("Printed by His Majesties command at Oxford"), "Oxford")
   expect_equal(polish_place("London printed"), "London")
 
   expect_equal(polish_place("Aff trycket vthgångit i Stockholm"), "Stockholm")
   expect_equal(polish_place("aff tryktet vthgångit i Stockholm"), "Stockholm")  
-  #expect_equal(polish_place("B:borg"), NA)
 
   expect_equal(polish_place("Ja toisen kerran Turusa prändätty"), "Turku")
   expect_equal(polish_place("toisen kerran Turusa"), "Turku")  
@@ -82,7 +81,7 @@ test_that("Places are harmonized correctly", {
   expect_equal(polish_place("Imprinnted [sic] at London"), "London")
   expect_equal(polish_place("Imprimé à Londres par Richard Field, sur les copies impriméez à Tours & à la Rochelle"), "London")
   expect_equal(polish_place("Hagh [The Hague]"), "The Hague")
-  expect_equal(polish_place("Frederick-Town: (state of Maryland)"), "Frederick Md")
+  expect_equal(polish_place("Frederick-Town: (state of Maryland)"), "Frederick MD")
   expect_equal(polish_place("Edinburgh :bprinted by the heir of Andrew Anderson, printer to His most Sacred Majesty"), "Edinburgh")
   expect_equal(polish_place("Dublin [Ireland] : printed by Thomas Walsh, at Dick's Coffee-House in Skinner-Row, where printing work is done"), "Dublin")
   expect_equal(polish_place("Dublin [Ireland] : printed by T[homas]. Walsh, in Skinner-Row; where advertisements are taken in, and all manner of printing work perform'd, at reasonable rates"), "Dublin")
@@ -299,7 +298,6 @@ test_that("Places are harmonized correctly", {
   expect_equal(polish_place("Lubecae"), "Lybeck")
   expect_equal(polish_place("Linköpingisä"), "Linköping")
   expect_equal(polish_place("Leipsic"), "Leipzig")
-  expect_equal(polish_place("Königsberg"), "Kaliningrad")
   expect_equal(polish_place("Kalevassa (Mich.)"), "Kaleva MI")
   expect_equal(polish_place("Jönkiöping"), "Jönnköping")
   expect_equal(polish_place("Jääski"), "Jääski")
