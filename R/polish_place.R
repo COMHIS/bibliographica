@@ -112,10 +112,11 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 		check.synonymes = F,
 		mode = "exact.match"))
 
-    # Capitalize all names 
-    x <- capitalize(x)
 
   }
+
+  # Capitalize all names 
+  x <- capitalize(x)
 
   # Mark NAs
   if (verbose) {message("Replace special cases")}

@@ -73,7 +73,7 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1) {
   } else if (field == "publication_place") {
 
     tab <- polish_place(df[[field]],
-		remove.unknown = TRUE, verbose = verbose)
+		remove.unknown = FALSE, verbose = verbose)
     df.tmp <- data.frame(publication_place = tab)
 
   } else if (field == "physical_dimension") {

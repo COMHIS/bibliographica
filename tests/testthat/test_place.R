@@ -128,7 +128,7 @@ test_that("Places are harmonized correctly", {
   expect_equal(polish_place("Printed at London"), "London")
   expect_equal(polish_place("[Philadelphia"), "Philadelphia PA")
   expect_equal(polish_place("London [England]"), "London")
-  expect_equal(polish_place("Boston"), "Boston MA")
+  expect_equal(polish_place("Boston"), "Boston")
   expect_equal(polish_place("[Impr]inted at Lon[don"), "London")
   expect_equal(polish_place("Imprinted at Lo[n]don"), "London")  
   expect_equal(polish_place("Imprynted at Ca[n]terbury"), "Canterbury")

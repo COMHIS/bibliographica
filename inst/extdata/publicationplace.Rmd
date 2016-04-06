@@ -9,13 +9,13 @@ output: markdown_document
 
 [Accepted publication countries](output.tables/country_accepted.csv)
 
-[Publication country not identified](output.tables/publication_place_missingcountry.csv)
+[Publication country not identified](output.tables/publication_place_missingcountry.csv) (add to [country mappings](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/reg2country.csv))
 
 [Accepted publication places](output.tables/publication_place_accepted.csv)
 
 [Ambiguous publication places](output.tables/publication_place_ambiguous.csv)
 
-[Discarded publication places](output.tables/publication_place_discarded.csv)
+[Discarded publication places](output.tables/publication_place_discarded.csv) (add to [synonyme list](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/PublicationPlaceSynonymes.csv) to accept)
 
 [Publication place conversions](output.tables/publication_place_conversion_nontrivial.csv)
 
