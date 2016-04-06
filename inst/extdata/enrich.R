@@ -110,14 +110,15 @@ print("Geocoordinates")
 load(system.file("extdata/geonames.RData", package = "bibliographica"))
 load(system.file("extdata/places.geonames.RData", package = "bibliographica"))
 
-geoc <- bibliographica::get_geocoordinates(df.preprocessed$publication_place, geonames, places.geonames)
+geoc <- bibliographica::get_geocoordinates(df.preprocessed$publication_place,
+				geonames, places.geonames)
 geoc$publication_place <- df.preprocessed$publication_place
 
 # Remove earlier versions of these fields
 if (any(names(geoc) %in% names(df.preprocessed))) {
   df.preprocessed <- df.preprocessed[, -which(names(df.preprocessed) %in% names(geoc))]
 }
-# Merge
+# Merge 
 df.preprocessed <- cbind(df.preprocessed, geoc)  
 
 # -----------------------------------------------------------------

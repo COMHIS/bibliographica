@@ -22,7 +22,16 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
     synonymes <- read.csv(f, sep = ";", stringsAsFactors = FALSE)
     synonymes$synonyme <- tolower(synonymes$synonyme)
     synonymes <- synonymes[!duplicated(synonymes),]
-    if (verbose) { message(paste("Reading publication place synonyme table", f)) }    
+    if (verbose) { message(paste("Reading publication place synonyme table", f)) }
+
+    # Harmonize places with synonyme table
+    f <- system.file("extdata/replace_special_chars.csv",
+		package = "bibliographica")
+    spechars <- read.csv(f, sep = ";", stringsAsFactors = FALSE)
+    spechars$synonyme <- tolower(spechars$synonyme)
+    spechars <- spechars[!duplicated(spechars),]
+    if (verbose) { message(paste("Reading publication place synonyme table", f)) }
+    
   }
 
   f <- system.file("extdata/stopwords.csv", package = "bibliographica")
@@ -51,7 +60,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- gsub("^and ", "", x)
   x <- gsub("^from ", "", x)            
   x <- gsub("['|-]", "", x)
-  #x <- gsub("-", "", x)    
   x <- gsub("parliament ", "", x)
   x <- gsub("^s$", "", x)    
   x <- gsub("^re ", "", x)
@@ -90,6 +98,14 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (harmonize) {
 
     if (verbose) { message("Harmonize the synonymous names") }
+    # First replace some special characters
+    x <- as.character(harmonize_names(x, spechars,
+       		remove.unknown = FALSE,
+		include.lowercase = TRUE,	
+		check.synonymes = F,
+		mode = "recursive"))
+
+    # Then match place names to synonymes		
     x <- as.character(harmonize_names(x, synonymes,
        		remove.unknown = remove.unknown,
 		include.lowercase = TRUE,	

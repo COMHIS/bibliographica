@@ -11,6 +11,8 @@ output: markdown_document
 
 [Publication country not identified](output.tables/country_discarded.csv)
 
+[Accepted publication places](output.tables/publication_place_accepted.csv)
+
 [Ambiguous publication places](output.tables/publication_place_ambiguous.csv)
 
 [Discarded publication places](output.tables/publication_place_discarded.csv)
