@@ -1,3 +1,5 @@
+message("Enriching geo fields..")
+
 print("Geocoordinates")
 #source("geocoordinates.R")
 load(system.file("extdata/geonames.RData", package = "bibliographica"))

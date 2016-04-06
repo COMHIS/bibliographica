@@ -98,15 +98,15 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Automated summaries done.")
 
-  # Author pseudonymes
+  message("Author pseudonymes")
   tab <- df.preprocessed %>% filter(author_pseudonyme) %>% select(author_name)
   tmp <- write_xtable(tab, paste(output.folder, "author_pseudonymes.csv", sep = ""), count = TRUE)
 
-  # Authors with missing life years
+  message("Authors with missing life years")
   tab <- df.preprocessed %>% filter(!is.na(author_name) & (is.na(author_birth) | is.na(author_death))) %>% select(author_name, author_birth, author_death)
   tmp <- write_xtable(tab, paste(output.folder, "authors_missing_lifeyears.csv", sep = ""))
  
-  # Ambiguous authors with many birth years
+  message("Ambiguous authors with many birth years")
   births <- split(df.preprocessed$author_birth, df.preprocessed$author_name)
   births <- births[sapply(births, length) > 0]
   many.births <- lapply(births[names(which(sapply(births, function (x) {length(unique(na.omit(x)))}) > 1))], function (x) {sort(unique(na.omit(x)))})
@@ -115,13 +115,14 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   dfs <- dfs %>% arrange(author_name, author_birth, author_death)
   write.table(dfs, paste(output.folder, "author_life_ambiguous.csv", sep = ""), quote = F, sep = "\t", row.names = FALSE)
 
-  # Undefined language
+  message("Undefined language")
   tmp <- write_xtable(as.character(df.orig$language[df.preprocessed$language.undetermined]), filename = "output.tables/language_unidentified.csv")
 
-  # No country mapping - output the harmonized names 
+  message("No country mapping - output the harmonized names")
   tab <- as.character(df.preprocessed$publication_place)[is.na(df.preprocessed$country)]
   tmp <- write_xtable(tab, filename = "output.tables/publication_place_missingcountry.csv")
 
+  message("Page counts")
   use.fields <- intersect(c("pagecount", "volnumber", "volcount"), names(df.preprocessed))
   tab <- cbind(original = df.orig$physical_extent, df.preprocessed[, use.fields])
   tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_extent.csv")
@@ -170,6 +171,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tab <- tab[tab$synonyme %in% names(s),]
   tab <- tab[order(tab$synonyme),]
   write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
+
+  message("All summary tables generated.")
 
   return(NULL)
 }

@@ -29,7 +29,8 @@ get_country <- function (x, map = NULL) {
   }
   
   # Map each region in x to a country
-  country <- map$country[match(x, map$region)]
+  # use lowercase
+  country <- map$country[match(tolower(x), tolower(map$region))]
 
   # If multiple possible countries listed; use the first one (most likely)
   country <- str_trim(sapply(strsplit(as.character(country), "\\|"), function (x) {ifelse(length(x) > 0, x[[1]], NA)}))

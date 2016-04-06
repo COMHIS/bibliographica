@@ -24,6 +24,8 @@ generate_summaryfiles <- function (df, author = "Author TBA", output.folder = "o
        output = paste(id, ".md", sep = "")) # envir = globalenv()
   }
 
+  message("All markdown summaries generated.")
+
   outputs
 
 }
