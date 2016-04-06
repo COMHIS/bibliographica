@@ -16,11 +16,10 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.
   if (is.null(fields)) {
     message("List raw data fields to be preprocessed")
     fields <- names(df.orig) # Update all
+    message("Entry identifier to match back to the originals")
+    df.preprocessed <- data.frame(original_row = df.orig$original_row)
   }
   
-  message("Entry identifier to match back to the originals")
-  df.preprocessed <- data.frame(original_row = df.orig$original_row)
-
   # List how raw data fields will be converted into
   # preprocessed data fields
   conversions <- list()

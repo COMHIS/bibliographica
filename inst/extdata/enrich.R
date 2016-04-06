@@ -179,7 +179,6 @@ df.preprocessed$publisher <- tmp$publisher
 print("Calculate average page counts based on available data")
 # TODO make a function that quickly returns this. No need to precalculate it.
 print("Average pagecounts")
-library(estc)
 dftmp <- df.preprocessed
 if (!"volcount" %in% names(dftmp)) {dftmp$volcount <- 1}
 if (!"volnumber" %in% names(dftmp)) {dftmp$volnumber <- 1}
@@ -187,6 +186,7 @@ mean.pagecounts.multivol <- mean_pagecounts_multivol(dftmp)
 mean.pagecounts.univol <- mean_pagecounts_univol(dftmp) 
 mean.pagecounts.issue <- mean_pagecounts_issue(dftmp) 
 
+print("..join..")
 mean.pagecounts <- full_join(mean.pagecounts.univol, mean.pagecounts.multivol, by = "doc.dimension")
 mean.pagecounts <- full_join(mean.pagecounts, mean.pagecounts.issue, by = "doc.dimension")
 mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension,
