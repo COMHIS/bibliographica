@@ -20,7 +20,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   df.orig <- df.orig[df.preprocessed$original_row,]
 
   message("Write summaries of field entries and count stats for all fields")
-  for (field in setdiff(names(df.preprocessed), c(names(df.preprocessed)[grep("language", names(df.preprocessed))], "row.index", "paper.consumption.km2", "publication_decade", "publication_year", "pagecount", "obl", "obl.original", "original_row", "dissertation", "synodal", "original", "unity", "author_birth", "author_death", "gatherings.original", "width.original", "height.original", "longitude", "latitude", "page", "item", "publisher.printedfor", "publisher", "country", "author_pseudonyme"))) {
+  for (field in setdiff(names(df.preprocessed), c(names(df.preprocessed)[grep("language", names(df.preprocessed))], "row.index", "paper.consumption.km2", "publication_decade", "publication_year", "pagecount", "obl", "obl.original", "original_row", "dissertation", "synodal", "original", "unity", "author_birth", "author_death", "gatherings.original", "width.original", "height.original", "longitude", "latitude", "page", "item", "publisher.printedfor", "publisher", "country", "author_pseudonyme", "publication_place"))) {
 
     message(field)
 
@@ -44,7 +44,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       #tab <- tab[!tab[, "original"] == tab[, "polished"], ]
       tab <- tab[!tolower(tab[, "original"]) == tolower(tab[, "polished"]), ]
       
-      tmp <- write_xtable(tab, paste(output.folder, field, "_conversions_nontrivial.csv", sep = ""), count = TRUE)
+      tmp <- write_xtable(tab, paste(output.folder, field, "_conversion_nontrivial.csv", sep = ""), count = TRUE)
     }
   }
 
@@ -98,14 +98,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Automated summaries done.")
 
-  nam <- "country"
-  o <- as.character(df.preprocessed[[originals[[nam]]]])
-  x <- as.character(df.preprocessed[[nam]])
-  inds <- which(is.na(x))
-  tmp <- write_xtable(o[inds],
-    paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
-    count = TRUE)
-
   # Author pseudonymes
   tab <- df.preprocessed %>% filter(author_pseudonyme) %>% select(author_name)
   tmp <- write_xtable(tab, paste(output.folder, "author_pseudonymes.csv", sep = ""), count = TRUE)
@@ -126,8 +118,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # Undefined language
   tmp <- write_xtable(as.character(df.orig$language[df.preprocessed$language.undetermined]), filename = "output.tables/language_unidentified.csv")
 
-  # No country mapping - use harmonized names here
-  tab <- as.character(polish_place(df.preprocessed$publication_place)[is.na(df.preprocessed$country)])
+  # No country mapping - output the harmonized names 
+  tab <- as.character(df.preprocessed$publication_place)[is.na(df.preprocessed$country)]
   tmp <- write_xtable(tab, filename = "output.tables/publication_place_missingcountry.csv")
 
   use.fields <- intersect(c("pagecount", "volnumber", "volcount"), names(df.preprocessed))

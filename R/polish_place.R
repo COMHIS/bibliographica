@@ -28,7 +28,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
     f <- system.file("extdata/replace_special_chars.csv",
 		package = "bibliographica")
     spechars <- read.csv(f, sep = ";", stringsAsFactors = FALSE)
-    spechars$synonyme <- tolower(spechars$synonyme)
     spechars <- spechars[!duplicated(spechars),]
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
     
@@ -98,7 +97,8 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (harmonize) {
 
     if (verbose) { message("Harmonize the synonymous names") }
-    # First replace some special characters
+    # First replace some special characters 
+
     x <- as.character(harmonize_names(x, spechars,
        		remove.unknown = FALSE,
 		include.lowercase = TRUE,	
@@ -111,6 +111,9 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 		include.lowercase = TRUE,	
 		check.synonymes = F,
 		mode = "exact.match"))
+
+    # Capitalize all names 
+    x <- capitalize(x)
 
   }
 

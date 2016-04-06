@@ -9,7 +9,7 @@ output: markdown_document
 
 [Accepted publication countries](output.tables/country_accepted.csv)
 
-[Publication country not identified](output.tables/country_discarded.csv)
+[Publication country not identified](output.tables/publication_place_missingcountry.csv)
 
 [Accepted publication places](output.tables/publication_place_accepted.csv)
 
