@@ -1,6 +1,16 @@
 ##
 ## CALCULATE AVERAGE DOC SIZES FROM THE ORIGINAL ENTRIES
 ##
+if (!exists("enrich.fields")) {enrich.fields <- c("geo", "dimensions", "years", "rest")}
+
+if ("geo" %in% enrich.fields) {
+
+  source(system.file("extdata/enrich_geo.R", package = "bibliographica"))
+
+}
+
+
+if ("dimensions" %in% enrich.fields) {
 
 print("Estimate missing dimension info")
 # Estimate missing dimension info
@@ -91,22 +101,28 @@ if (any(names(dim.estimated) %in% names(df.preprocessed))) {
 # Merge
 df.preprocessed <- cbind(df.preprocessed, dim.estimated)  
 
-# -----------------------------------------------------------
-
-print("Publication times")
-# Use from field; if from year not available, then use till year
-df.preprocessed$publication_year <- df.preprocessed$publication_year_from
-inds <- which(is.na(df.preprocessed$publication_year))
-df.preprocessed$publication_year[inds] <- df.preprocessed$publication_year_till[inds]
-
-# publication_decade
-df.preprocessed$publication_decade <- floor(df.preprocessed$publication_year/10) * 10 # 1790: 1790-1799
+}
 
 # -----------------------------------------------------------
 
-source(system.file("extdata/enrich_geo.R", package = "bibliographica"))
 
-# ------------------------------------------------------------------
+
+if ("years" %in% enrich.fields) {
+
+  print("Add publication year")
+  # Use from field; if from year not available, then use till year
+  df.preprocessed$publication_year <- df.preprocessed$publication_year_from
+  inds <- which(is.na(df.preprocessed$publication_year))
+  df.preprocessed$publication_year[inds] <- df.preprocessed$publication_year_till[inds]
+
+  print("Add publication decade")
+  df.preprocessed$publication_decade <- floor(df.preprocessed$publication_year/10) * 10 # 1790: 1790-1799
+
+}
+
+# -----------------------------------------------------------
+
+if ("rest" %in% enrich.fields) {
 
 print("Add estimated paper consumption")
 # One m2 is 100 * 100 cm2 = 1e4 cm2
@@ -248,6 +264,5 @@ df.preprocessed[inds, "pagecount"] <- 1 * pages.per.vol
 # Näin ollen kaikki merkinnät joissa >2 sivua voisi siirtää 2fo kategoriaan.
 df.preprocessed[which(df.preprocessed$gatherings == "1to" & df.preprocessed$pagecount > 2), "gatherings"] <- "2fo"
 
-
-
+}
 
