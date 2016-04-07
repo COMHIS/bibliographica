@@ -2,7 +2,7 @@
 % Please edit documentation in R/mark_languages.R
 \name{mark_languages}
 \alias{mark_languages}
-\title{mark_languages}
+\title{Mark languages}
 \usage{
 mark_languages(x)
 }
