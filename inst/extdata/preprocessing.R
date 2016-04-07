@@ -1,23 +1,30 @@
 # If update fields is provided, then look for preprocessed file
 if (exists("update.fields") && ("df0.Rds" %in% dir())) {
-  df <- readRDS("df0.Rds")
+  df.orig <- df.orig # readRDS("df.raw.Rds")
+  df.preprocessed <- readRDS("df0.Rds")  
   conversions <- readRDS("conversions.Rds")
 } else {
-  df <- df.orig
+  df.orig <- df.orig
   conversions <- list()
+  update.fields <- NULL
 }
 
-# Preprocess fields 
-res <- polish_all(df, fields = update.fields,
+# Preprocess selected original fields 
+res <- polish_all(df.orig, fields = update.fields,
           file = "df.preprocessed.RData", mc.cores = mc.cores,
 	  conversions = conversions)
-df.preprocessed <- df.preprocessed0 <- res$df.preprocessed
+
+# Apply updates
 conversions <- res$conversions
 preprocessing.times <- res$preprocessing.times
+upf <- unlist(conversions[[update.fields]])
+if (length(upf) > 0) {
+  df.preprocessed[, upf] <- res$df.preprocessed[, upf]
+}
 
 # -----------------------------------------------
 
-saveRDS(df.preprocessed0, "df0.Rds", compress = TRUE)
+saveRDS(df.preprocessed, "df0.Rds", compress = TRUE)
 saveRDS(conversions, "conversions.Rds", compress = TRUE)
 
 sessioninfo <- sessionInfo()

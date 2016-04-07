@@ -20,6 +20,7 @@ df.preprocessed <- cbind(df.preprocessed, geoc)
 
 print("Add publication country")
 df.preprocessed$country <- get_country(df.preprocessed$publication_place)$country
+
 # We could standardize country names but problem is that e.g. England, Scotland
 # etc are not mapped (as UK). But is potentially useful later.
 #devtools::install_github("dsself/standardizecountries")

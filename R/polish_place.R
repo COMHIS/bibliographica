@@ -98,7 +98,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
     if (verbose) { message("Harmonize the synonymous names") }
     # First replace some special characters 
-
     x <- as.character(harmonize_names(x, spechars,
        		remove.unknown = FALSE,
 		include.lowercase = TRUE,	

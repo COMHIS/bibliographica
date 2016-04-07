@@ -15,6 +15,8 @@ output: markdown_document
 
 [Ambiguous publication places](output.tables/publication_place_ambiguous.csv)
 
+[Ambiguous region-country mappings](output.tables/publication_country_ambiguous.csv)
+
 [Discarded publication places](output.tables/publication_place_discarded.csv) (add to [synonyme list](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/PublicationPlaceSynonymes.csv) to accept)
 
 [Publication place conversions](output.tables/publication_place_conversion_nontrivial.csv)

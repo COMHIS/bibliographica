@@ -56,7 +56,8 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.
     preprocessing.times[[field]] <- difftime(stop.time, start.time, units = "mins")
     
     if (!is.null(file)) {
-      save(df.preprocessed, conversions, file = file, compress = TRUE)
+      check <- field    
+      save(df.preprocessed, conversions, check, file = file, compress = TRUE)
       save(preprocessing.times, file = "preprocessing.times.RData")         
     }
 

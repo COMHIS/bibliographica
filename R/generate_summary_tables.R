@@ -48,9 +48,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     }
   }
 
-
   # Discarded publication place
-  nam = "publication_place"
+  nam <- "publication_place"
   o <- as.character(df.orig[[nam]])
   x <- as.character(df.preprocessed[[nam]])
   inds <- which(is.na(x))
@@ -169,8 +168,16 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   s <- split(as.character(tab$name), as.character(tab$synonyme))
   s <- s[sapply(s, function(x) {length(unique(x))}) > 1]
   tab <- tab[tab$synonyme %in% names(s),]
-  tab <- tab[order(tab$synonyme),]
-  write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
+  tabf <- tab[order(tab$synonyme),]
+  write.table(tabf, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
+
+  tab <- read.csv(system.file("extdata/reg2country.csv", package = "bibliographica"), sep = ";")
+  s <- split(as.character(tab$country), as.character(tab$region))
+  inds <- which((sapply(s, function(x) {length(unique(x))}) > 1) | (s == "Ambiguous"))
+  s <- s[inds]
+  tab <- tab[tab$region %in% names(s),]
+  tab <- tab[order(tab$region),]
+  write.table(tab, file = paste(output.folder, "publication_country_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
 
   message("All summary tables generated.")
 
