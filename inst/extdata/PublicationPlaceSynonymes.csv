@@ -4283,8 +4283,8 @@ Wilkes-Barre PA;wilkes barre pa;
 Williamsburg VA;williamsburg;
 Williamsburg VA;williamsburgh va;
 Williamsburg VA;williamsburg va;
-Wilmington;wilmington;
-Wilmington;wilmington de;
+Wilmington (DE or NC);wilmington;Ambiguous
+Wilmington DE;wilmington de;
 Wilmington DE;wilmington de;
 Wilmington DE;wilmington del;
 Wilmington DE;wilmington delaware;
