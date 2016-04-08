@@ -174,6 +174,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tab <- read.csv(system.file("extdata/reg2country.csv", package = "bibliographica"), sep = ";")
   s <- split(as.character(tab$country), as.character(tab$region))
   inds <- which((sapply(s, function(x) {length(unique(x))}) > 1) | (s == "Ambiguous"))
+  inds <- unique(c(inds, grep("Ambiguous", tab$country), grep("Ambiguous", tab$region), grep("Ambiguous", tab$comment)))
   s <- s[inds]
   tab <- tab[tab$region %in% names(s),]
   tab <- tab[order(tab$region),]
