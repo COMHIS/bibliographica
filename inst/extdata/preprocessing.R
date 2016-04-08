@@ -1,5 +1,5 @@
 # If update fields is provided, then look for preprocessed file
-if (exists("update.fields") && ("df0.Rds" %in% dir())) {
+if (exists("update.fields") && !is.null(update.fields) && ("df0.Rds" %in% dir())) {
   df.orig <- df.orig # readRDS("df.raw.Rds")
   df.preprocessed <- readRDS("df0.Rds")  
   conversions <- readRDS("conversions.Rds")
@@ -14,12 +14,15 @@ res <- polish_all(df.orig, fields = update.fields,
           file = "df.preprocessed.RData", mc.cores = mc.cores,
 	  conversions = conversions)
 
-# Apply updates
+# Apply updates (if any)
 conversions <- res$conversions
 preprocessing.times <- res$preprocessing.times
-upf <- unlist(conversions[[update.fields]])
-if (length(upf) > 0) {
+if (!is.null(update.fields)) {
+  upf <- unlist(conversions[[update.fields]])
   df.preprocessed[, upf] <- res$df.preprocessed[, upf]
+} else {
+  # All fields updated by default
+  df.preprocessed <- res$df.preprocessed
 }
 
 # -----------------------------------------------
