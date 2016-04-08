@@ -158,12 +158,16 @@ save(o, inds, file = "~/tmp/tmp.RData")
 			      levels = levels(mean.pagecounts.univol$doc.dimension))
   write.table(mean.pagecounts, file = paste(output.folder, "mean_page_counts.csv", sep = ""), quote = F, row.names = F, sep = ",")
 
+
+
   message("Write places with missing geolocation to file")
   tab <- rev(sort(table(df.preprocessed$publication_place[is.na(df.preprocessed$latitude) | is.na(df.preprocessed$longitude)])))
   tab <- tab[tab > 0]
   tab <- cbind(names(tab), tab)
   colnames(tab) <- c("name", "count")
   write.table(tab, file = paste(output.folder, "absentgeocoordinates.csv", sep = ""), quote = F, row.names = F, sep = "\t")
+
+
 
   message("Ambiguous publication place harmonization")  
   tab = read.csv(system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica"), sep = ";")
