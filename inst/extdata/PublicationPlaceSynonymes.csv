@@ -204,8 +204,8 @@ Athlone;athlone;
 Augsburg;augsburg;
 Augsburg;Augustae vindel friburgi brisg;
 Augsburg;Augustae vind friburg brisg;
-Augsburg or Augusta GA;augusta;Ambiguous
-Augsburg or Augusta GA;augustae;Ambiguous
+Augusta;augusta;Augsburg/Augusta GA/Augusta Me
+Augusta;augustae;Augsburg/Augusta GA/Augusta Me
 Augsburg;augustae vindel augsburg;
 Augsburg;vind augsburg;
 Augusta GA;augusta ga;
@@ -565,8 +565,6 @@ Cambridge;cantanbrigiae;
 Cambridge;cantebrig;
 Cambridge;cantebrigiae;
 Cambridge;catabrigiae;
-Cambridge;excusum cantabrigiae;
-Cambridge;ex praeclara cantabrigia;
 Cambridge;iohn legat;
 Cambridge;kantabrigia;
 Cambridge Ma;cambridge ma;
@@ -1069,7 +1067,7 @@ Edinburgh;stockbridge;
 Edinburgh;the savoy edinburgh;
 Egham;egham;
 Elbingen;elbingen;
-Elbing;elbing;Should this be Elbingen
+Elbingen;elbing;
 Elblag;elbl g;
 Elblag;Elbl_g;
 Elgin;elgin;
@@ -1704,7 +1702,7 @@ Jelgava;mitau und leipzig;
 Jena;i.e na;
 Jena;jena;
 Jena;jenae;
-Jersey (St Helier or Jersey City NJ);jersey;Ambiguous: St Helier or Jersey City NJ
+Jersey (Ambiguous);jersey;Ambiguous: St Helier/Jersey City NJ 
 Jerusalem;jerusalem;
 Jerusalem;jeurslem;
 Joensuu;joensuu;
@@ -3130,7 +3128,7 @@ Port-of-Spain;puerto de espana;
 Port-of-Spain;tabago;
 Porto;oporto;
 Porto;porto;
-Portsmouth GB;portsmouth england;
+Portsmouth England;portsmouth england;
 Portsmouth NH;porstmouth nh;
 Portsmouth NH;portmouth nh;
 Portsmouth NH;portsmouth in new hampshire;
@@ -3451,7 +3449,6 @@ Sienna;sienna;
 Simola;simola;
 Simsbury Ct;simsbury conn;
 Simsbury Ct;simsbury ct;
-Sint Eustatius;sint eustatius;Should it be St Eustatius ?
 Sipoo;sibbo;
 Sipoo;sipoo;
 Skara;scarae;
@@ -3529,6 +3526,7 @@ Sterling;strling;
 St Eustatius;saint eustatius;
 St Eustatius;saint eustatius netherlands antilles;
 St Eustatius;st eustatius;
+St Eustatius;sint eustatius;
 St George;bermuda;
 St George;fort royal grenade;
 St George;fort st george;
@@ -3755,12 +3753,12 @@ St Petersburg;v' sanktpeterburgě;
 St Petersburg;v' sanktpeterburge_;
 St Petersburg;v' sanktpeterburge;
 St Petersburg;v sanktpeterburgı︠e︡;
-St Pierre Martinique;la trinité martinique;
-St Pierre Martinique;martinique;
-St Pierre Martinique;saint pierre;
-St Pierre Martinique;saint pierre martinique;
-St Pierre Martinique;st pierre martinique;
-St Pierre Martinique;st pierre martinique;
+St Pierre;la trinité martinique;
+St Pierre;martinique;
+St Pierre;saint pierre;
+St Pierre;saint pierre martinique;
+St Pierre;st pierre martinique;
+St Pierre;st pierre martinique;
 St Pierre;st pierre;Or is this St Pierre Martinique?
 Strabane;strabane;
 Strabane;strabane ireland;
@@ -4290,7 +4288,7 @@ Whitehall Pa;white hall pa;
 Whitehall Pa;whitehall pa;
 Whitehall Pa;whitehall penn;
 Ambiguous;white hall;Whitehall PA/London
-Whitehaven GB;whitehaven england;
+Whitehaven;whitehaven england;
 Whitehaven;whitehaven;
 Whitesboro NY;whitesboro ny;
 Whitesboro NY;whitesborough ny;
@@ -4313,8 +4311,8 @@ Wilmington De;wilmingtonii del;
 Wilmington De;wilmingtoni wilmington del;
 Wilmington NC;wilmington nc;
 Wilmington NC;wilmington north carolina;
-Winchester GB;winchester england;
-Winchester GB;winchester or oxford;
+Winchester (England);winchester england;
+Winchester (England);winchester or oxford;
 Winchester Va;winchester va;
 Winchester;wincherter;
 Winchester;winchester;

@@ -63,6 +63,7 @@ Astoria OR;USA;
 Atherstone;England;
 Athlone;Ireland;
 Augsburg;Germany;
+Augusta;Ambiguous;Augsburg/Augusta GA/Augusta Me
 Augusta GA;USA;
 Augusta Me;USA;
 Avignon;France;
@@ -214,6 +215,8 @@ Campbeltown;Scotland;
 Canaan NY;USA;
 Canandaigua NY;USA;
 Canterbury;Ambiguous;England/USA
+Canterbury NH;USA;
+Canterbury England;England;
 Cape Town;South Africa;
 Cap Haitien;Haiti;
 Cardiff;England;
@@ -296,7 +299,7 @@ Congleton;England;
 Constance;Germany;
 Cooperstown NY;USA;
 Copenhagen;Denmark;
-Cork;England;
+Cork;Ireland;
 Coventry;England;
 Cowbridge;England;
 Coxheath;England;
@@ -642,6 +645,7 @@ Jedburgh;Scotland;
 Jelgava;Latvia;
 Jena;Germany;
 Jersey City NJ;USA;
+Jersey;Ambiguous;
 Jerusalem;Israel;
 Joensuu;Finland;
 Johnstown NY;USA;
@@ -1084,6 +1088,7 @@ Port-of-Spain;Trinidad and Tobago;
 Porto;Portugal;
 Portsea;Australia;
 Portsmouth;England|USA;Ambiguous
+Portsmouth England;England
 Portsmouth NH;USA;
 Porvoo;Finland;
 Potsdam;Germany;
@@ -1277,7 +1282,7 @@ Stow;England;
 Stowmarket;England;
 St Peter Port;Guernsey;
 St Petersburg;Russia;
-St Pierre Martinique;Martinique;
+St Pierre;Martinique;
 Strabane;Northern Ireland;
 Strahane;England;
 Stralsund;Germany;
@@ -1454,6 +1459,7 @@ Williamsburg Va;USA;
 Wilmington De;USA;
 Wilmington NC;USA;
 Wilmington;USA;
+Winchester (England);England;
 Winchester;England|USA;Ambiguous
 Winchester Va;USA;
 Windham Ct;USA;
