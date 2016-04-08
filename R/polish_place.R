@@ -173,7 +173,7 @@ polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
       inds <- which(!is.na(match(spl, s)))
       if (length(inds) > 0) {
       	# Keep all occurrences that are on synonyme list
-        x <- paste(spl[inds], collapse = " ")
+        x <- paste(unique(spl[inds]), collapse = " ")
 	# Keep only first term
         #x <- spl[[min(inds)]]	
       }

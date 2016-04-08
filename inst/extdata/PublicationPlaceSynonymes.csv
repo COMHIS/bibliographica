@@ -210,8 +210,8 @@ Augsburg;augustae vindel augsburg;
 Augsburg;Augustae vindel friburgi brisg;
 Augsburg;Augustae vind friburg brisg;
 Augsburg;vind augsburg;
-Augusta;augusta;Augsburg/Augusta GA/Augusta Me
-Augusta;augustae;Augsburg/Augusta GA/Augusta Me
+Augusta (Ambiguous);augusta;Augsburg/Augusta GA/Augusta Me
+Augusta (Ambiguous);augustae;Augsburg/Augusta GA/Augusta Me
 Augusta GA;augusta ga;
 Augusta GA;georgia;
 Augusta Me;augusta district maine;
@@ -581,11 +581,11 @@ Campbeltown;campbeltown;
 Canaan NY;canaan ny;
 Canaan NY;canaan state;
 Canandaigua NY;canandaigua ny;
-Canterbury;canterbury;Ambiguous
-Canterbury;cantorbery;Ambiguous
-Canterbury;cantorbury;Ambiguous
-Canterbury;cantuari;Ambiguous
-Canterbury;caterbury;Ambiguous
+Canterbury (Ambiguous);canterbury;Ambiguous
+Canterbury (Ambiguous);cantorbery;Ambiguous
+Canterbury (Ambiguous);cantorbury;Ambiguous
+Canterbury (Ambiguous);cantuari;Ambiguous
+Canterbury (Ambiguous);caterbury;Ambiguous
 Canterbury England;canterbury england;
 Canterbury NH;canterbury new hampshire;
 Canterbury NH;canterbury nh;

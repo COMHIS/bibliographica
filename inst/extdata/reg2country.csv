@@ -65,7 +65,7 @@ Astoria Or;USA;
 Atherstone;England;
 Athlone;Ireland;
 Augsburg;Germany;
-Augusta;Ambiguous;Augsburg/Augusta GA/Augusta Me
+Augusta (Ambiguous);Ambiguous;Augsburg/Augusta GA/Augusta Me
 Augusta GA;USA;
 Augusta Me;USA;
 Avignon;France;
@@ -217,7 +217,7 @@ Cambridge Ma;USA;
 Campbeltown;Scotland;
 Canaan NY;USA;
 Canandaigua NY;USA;
-Canterbury;Ambiguous;England|USA
+Canterbury (Ambiguous);Ambiguous;England|USA
 Canterbury NH;USA;
 Canterbury England;England;
 Cape Town;South Africa;
