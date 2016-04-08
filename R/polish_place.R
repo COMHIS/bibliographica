@@ -73,27 +73,41 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (verbose) {message(paste("Polishing ", length(xuniq), " unique place names", sep = ""))}
   x <- remove_persons(x)
 
+  if (verbose) {message("Remove print statements")}
   x <- remove_print_statements(x, remove.letters = FALSE)
   x <- condense_spaces(x)
+
+  if (verbose) {message("Remove stopwords")}
   x <- remove_stopwords(x, terms = stopwords, remove.letters = FALSE)
+
+  if (verbose) {message("Harmonize ie")}
   x <- harmonize_ie(x)
   s <- synonymes$synonyme
 
+  if (length(x) == 0) {return(rep(NA, length(xorig)))}
+
   # Back to original indices, then unique again; reduces number of unique cases further
+  if (verbose) {message("Match to original")}  
   x <- x[match(xorig, xuniq)]
   xorig <- x
   xuniq <- sort(unique(x))
   x <- xuniq
 
+  if (verbose) {message("Detailed polishing")}  
   x <- unname(sapply(x, function (x) {polish_place_help(unlist(x, use.names = FALSE), s, stopwords = stopwords, verbose = verbose)}))
 
-  # Back to original indices, then unique again; reduces number of unique cases further
+  if (length(x) == 0) {return(rep(NA, length(xorig)))}
+
+  # Back to original indices, then unique again; reduces
+  # number of unique cases further
+  if (verbose) {message("Match to original")}    
   x <- x[match(xorig, xuniq)]
   xorig <- x
   xuniq <- sort(unique(x))
   x <- xuniq
 
-  # Harmonize
+  if (length(x) == 0) {return(rep(NA, length(xorig)))}
+
   if (harmonize) {
 
     if (verbose) { message("Harmonize the synonymous names") }
@@ -114,14 +128,15 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   }
 
-  # Capitalize all names 
+  if (length(x) == 0) {return(rep(NA, length(xorig)))}
+  
+  if (verbose) {message("Capitalize all names")}    
   x <- capitalize(x)
 
-  # Mark NAs
   if (verbose) {message("Replace special cases")}
   x[x == c("", "na")] <- NA
 
-  # Convert back to original indices and return
+  if (verbose) {message("Convert back to original indices and return")}
   x[match(xorig, xuniq)]
 
 }

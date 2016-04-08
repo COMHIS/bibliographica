@@ -34,8 +34,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       tmp <- write_xtable(original, paste(output.folder, field, "_discarded.csv", sep = ""), count = TRUE)
     }
 
-    message("Successful nontrivial conversions")
+    message("Nontrivial conversions")
     if (field %in% names(df.preprocessed) && (field %in% names(df.orig)) && !field == "dimension") {
+      print(field)
       inds <- which(!is.na(df.preprocessed[[field]]))
       original <- as.character(df.orig[[field]][inds])
       polished <- as.character(df.preprocessed[[field]][inds])
@@ -48,11 +49,12 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     }
   }
 
-  # Discarded publication place
+  message("Discarded publication place")
   nam <- "publication_place"
   o <- as.character(df.orig[[nam]])
   x <- as.character(df.preprocessed[[nam]])
   inds <- which(is.na(x))
+save(o, inds, file = "~/tmp/tmp.RData")  
   tmp <- write_xtable(polish_place(o[inds], harmonize = FALSE),
       paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
       count = TRUE)
