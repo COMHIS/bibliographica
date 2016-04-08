@@ -51,7 +51,7 @@ validate_names <- function (namelist, database, verbose = TRUE) {
     if (verbose) { message("Map to the original indices") }
     validated <- validated[match(xorig, xuniq)]
 
-    return(list(valid = validated, invalid.first = unique(nametab$first[!valid[["first"]]]), invalid.last = unique(nametab$last[!valid[["last"]]])))
+    return(list(valid = validated, invalid.first = names(rev(table(nametab$first[!valid[["first"]]]))), invalid.last = names(rev(table(nametab$last[!valid[["last"]]])))))
      
   }
 
