@@ -84,7 +84,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (verbose) {message("Harmonize ie")}
   x <- harmonize_ie(x)
-  s <- synonymes$synonyme
 
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
 
@@ -95,7 +94,8 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   xuniq <- sort(unique(x))
   x <- xuniq
 
-  if (verbose) {message("Detailed polishing")}  
+  if (verbose) {message("Detailed polishing")}
+  s <- synonymes$synonyme  
   x <- unname(sapply(x, function (x) {polish_place_help(unlist(x, use.names = FALSE), s, stopwords = stopwords, verbose = verbose)}))
 
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
@@ -162,19 +162,23 @@ polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
 
   }
 
+  # NOTE: this step may loose info on original country
   # london re/now edinburgh -> london
   spl <- unlist(strsplit(x, " [re|now] "), use.names = FALSE)
   if (length(spl)>0) {x <- spl[[1]]}
-
   if (!is.na(x) && !is.na(s) && !any(x == s)) {
 
       # then take the first term that is
       spl <- unlist(strsplit(x, " "), use.names = FALSE)
       inds <- which(!is.na(match(spl, s)))
       if (length(inds) > 0) {
-        x <- spl[[min(inds)]]
+      	# Keep all occurrences that are on synonyme list
+        x <- paste(spl[inds], collapse = " ")
+	# Keep only first term
+        #x <- spl[[min(inds)]]	
       }
-  }
+   }
 
-    x
+   x
+   
 }
