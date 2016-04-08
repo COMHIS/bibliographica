@@ -170,9 +170,13 @@ save(o, inds, file = "~/tmp/tmp.RData")
   s <- split(as.character(tab$name), as.character(tab$synonyme))
   s <- s[sapply(s, function(x) {length(unique(x))}) > 1]
   tab <- tab[tab$synonyme %in% names(s),]
-  tabf <- tab[order(tab$synonyme),]
-  write.table(tabf, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
+  tab <- tab[order(tab$synonyme),]
+  # Only include those that we have in our data
+  tab <- tab[as.character(tab$name) %in% as.character(df.preprocessed$publication_place),]  
+  write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
 
+
+  message("Ambiguous countries listing")    
   tab <- read.csv(system.file("extdata/reg2country.csv", package = "bibliographica"), sep = ";")
   s <- split(as.character(tab$country), as.character(tab$region))
   inds1 <- which((sapply(s, function(x) {length(unique(x))}) > 1) | (s == "Ambiguous"))
@@ -185,6 +189,8 @@ save(o, inds, file = "~/tmp/tmp.RData")
   amb <- unique(c(amb1, amb2))
   tab <- tab[tab$region %in% amb,]
   tab <- tab[order(tab$region),]
+  # Only include those that we have in our data
+  tab <- tab[as.character(tab$region) %in% as.character(df.preprocessed$publication_place),]    
   write.table(tab, file = paste(output.folder, "publication_country_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
 
   message("All summary tables generated.")
