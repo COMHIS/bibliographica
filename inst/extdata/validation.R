@@ -31,10 +31,18 @@ if ("years" %in% validate.fields) {
   }
 }
 
-# Rather time-consuming
+# Author name validation is rather time-consuming
 if ("names" %in% validate.fields) {
   print("Validate author names. Set non-valid names to NA")
   v <- validate_names(df.preprocessed$author_name, "full")
-  df.preprocessed$author_name[!v$valid] <- NA
+  discard.inds <- !v$valid
+  
+  # Save discarded names for later analysis
+  discarded.author.table <- rev(sort(table(as.character(df.preprocessed$author[discard.inds]))))
+  discarded.author.firstnames <- v$invalid.first
+  discarded.author.lastnames <- v$invalid.last  
+
+  # Remove discarded names from the list
+  df.preprocessed$author_name[discard.inds] <- NA
 }
 

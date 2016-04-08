@@ -3,6 +3,9 @@
 #' @param df.preprocessed Preprocessed data.frame to be summarized
 #' @param df.orig Original data.frame for comparisons
 #' @param output.folder Output folder path
+#' @param discarded.author.table discarded.author.table
+#' @param discarded.author.firstnames discarded.author.firstnames
+#' @param discarded.author.lastnames discarded.author.lastnames
 #' @return NULL
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
@@ -10,7 +13,7 @@
 #' @export
 #' @examples # generate_summary_tables(df)
 #' @keywords utilities
-generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "output.tables") {
+generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "output.tables", discarded.author.table = discarded.author.table, discarded.author.firstnames = discarded.author.firstnames, discarded.author.lastnames = discarded.author.lastnames) {
 
   # Circumvent build warnings			
   author_name <- author_birth <- author_death <- author_pseudonyme <- NULL
@@ -87,7 +90,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   }
 
   message("Discard summaries")
-  for (nam in setdiff(names(originals), c("country", "publication_place"))) {
+  for (nam in setdiff(names(originals), c("country", "publication_place", "author"))) {
     o <- as.character(df.orig[[originals[[nam]]]])
     x <- as.character(df.preprocessed[[nam]])
     inds <- which(is.na(x))
@@ -95,6 +98,16 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
       count = TRUE)
   }
+
+  message("Discarded first names")
+  write.table(discarded.author.firstnames, file = paste(output.folder, "author_firstnames_discarded.csv", sep = ""), quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)
+  write.table(discarded.author.lastnames, file = paste(output.folder, "author_lastnames_discarded.csv", sep = ""), quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)  
+
+  message("Discarded author")
+  tab <- cbind(name = names(discarded.author.table), count = unname(discarded.author.table))
+  suppressWarnings(tab <- rbind(c("Total count:", sum(as.numeric(tab[, "count"]))), tab))
+  write.table(tab, file = paste(output.folder, "author_discarded.csv", sep = ""), quote = FALSE, sep = "\t", row.names = FALSE)
+
 
   message("Automated summaries done.")
 

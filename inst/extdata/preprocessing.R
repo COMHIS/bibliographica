@@ -18,7 +18,7 @@ res <- polish_all(df.orig, fields = update.fields,
 conversions <- res$conversions
 preprocessing.times <- res$preprocessing.times
 if (!is.null(update.fields)) {
-  upf <- unlist(conversions[[update.fields]])
+  upf <- unlist(conversions[update.fields])
   df.preprocessed[, upf] <- res$df.preprocessed[, upf]
 } else {
   # All fields updated by default
