@@ -8,7 +8,7 @@ output: markdown_document
 
 ### Publication year
 
-[Publication year conversions](output.tables/publication_year_conversion_nontrivial.csv)
+[Publication year conversions](output.tables/publication_year_conversion.csv)
 
 [Publication year discarded](output.tables/publication_year_discarded.csv)
 

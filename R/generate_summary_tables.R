@@ -3,9 +3,6 @@
 #' @param df.preprocessed Preprocessed data.frame to be summarized
 #' @param df.orig Original data.frame for comparisons
 #' @param output.folder Output folder path
-#' @param discarded.author.table discarded.author.table
-#' @param discarded.author.firstnames discarded.author.firstnames
-#' @param discarded.author.lastnames discarded.author.lastnames
 #' @return NULL
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
@@ -13,7 +10,7 @@
 #' @export
 #' @examples # generate_summary_tables(df)
 #' @keywords utilities
-generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "output.tables", discarded.author.table = discarded.author.table, discarded.author.firstnames = discarded.author.firstnames, discarded.author.lastnames = discarded.author.lastnames) {
+generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "output.tables") {
 
   # Circumvent build warnings			
   author_name <- author_birth <- author_death <- author_pseudonyme <- NULL
@@ -63,10 +60,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   
   message("Conversion summaries")
   originals <- c(publisher = "publisher",
-	       pagecount = "physical_extent",
+	       #pagecount = "physical_extent",
 	       publication_place = "publication_place",
 	       country = "publication_place",
-	       publication_year = "publication_time",
 	       author = "author_name",
 	       author_gender = "author_name"
 	       #title = "title"	# Very large summaries
@@ -76,7 +72,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     x <- as.character(df.preprocessed[[nam]])
     inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
     tmp <- write_xtable(cbind(original = o[inds],
-      	 		    polished = x[inds]),
+      	 		      polished = x[inds]),
       paste(output.folder, paste(nam, "conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
   }
@@ -90,7 +86,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   }
 
   message("Discard summaries")
-  for (nam in setdiff(names(originals), c("country", "publication_place", "author"))) {
+  for (nam in setdiff(names(originals), c("country", "publication_place"))) {
     o <- as.character(df.orig[[originals[[nam]]]])
     x <- as.character(df.preprocessed[[nam]])
     inds <- which(is.na(x))
@@ -99,15 +95,45 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       count = TRUE)
   }
 
-  message("Discarded first names")
-  write.table(discarded.author.firstnames, file = paste(output.folder, "author_firstnames_discarded.csv", sep = ""), quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)
-  write.table(discarded.author.lastnames, file = paste(output.folder, "author_lastnames_discarded.csv", sep = ""), quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)  
+  # --------------------------------------------
 
-  message("Discarded author")
-  tab <- cbind(name = names(discarded.author.table), count = unname(discarded.author.table))
-  suppressWarnings(tab <- rbind(c("Total count:", sum(as.numeric(tab[, "count"]))), tab))
-  write.table(tab, file = paste(output.folder, "author_discarded.csv", sep = ""), quote = FALSE, sep = "\t", row.names = FALSE)
+  # Pagecount
 
+  o <- as.character(df.orig[["physical_extent"]])
+  g <- as.character(df.preprocessed$gatherings)
+  x <- as.character(df.preprocessed[["pagecount"]])
+  inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
+  tmp <- write_xtable(cbind(gatherings = g[inds],
+      	                    original_extent = o[inds],  
+      	 		    final_pagecount = x[inds]),
+    paste(output.folder, "pagecount_conversion_nontrivial.csv", sep = ""), count = TRUE)
+  
+  message("Discard summaries")
+  inds <- which(is.na(x))
+  tmp <- write_xtable(o[inds],
+      paste(output.folder, "pagecount_discarded.csv", sep = ""),
+      count = TRUE)
+
+  # --------------------------------------------
+
+  # Publication year
+  o <- as.character(df.orig[["publication_time"]])
+  x <- df.preprocessed[, c("publication_year", "publication_year_from", "publication_year_till")]
+  tab <- cbind(original = o, x)
+  tab <- tab[!is.na(tab$publication_year),]
+  tmp <- write_xtable(tab,
+      paste(output.folder, "publication_year_conversion.csv",
+      sep = ""), count = TRUE)
+  
+  message("Discard summaries")
+    o <- as.character(df.orig[["publication_time"]])
+    x <- as.character(df.preprocessed[["publication_year"]])
+    inds <- which(is.na(x))
+    tmp <- write_xtable(o[inds],
+      paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
+      count = TRUE)
+  
+  # --------------------------------------------
 
   message("Automated summaries done.")
 
@@ -127,6 +153,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   dfs <- unique(dfs)
   dfs <- dfs %>% arrange(author_name, author_birth, author_death)
   write.table(dfs, paste(output.folder, "author_life_ambiguous.csv", sep = ""), quote = F, sep = "\t", row.names = FALSE)
+
+  # -------------------------------------------------------
 
   message("Undefined language")
   tmp <- write_xtable(as.character(df.orig$language[df.preprocessed$language.undetermined]), filename = "output.tables/language_unidentified.csv")

@@ -17,19 +17,6 @@ if ("years" %in% enrich.fields) {
 
 # -----------------------------------------------------------
 
-if ("paper" %in% enrich.fields) {
-
-  print("Add estimated paper consumption")
-  # One m2 is 100 * 100 cm2 = 1e4 cm2
-  # One km2 is 1000 * 1000 m2 = 1e6 m2 = 1e10 cm2
-  # Estimated average print run per document: 1000
-  printrun <- 1000
-  df.preprocessed <- mutate(df.preprocessed, paper.consumption.km2 = width * height * pagecount/2 * (1/1e10) * printrun)
-
-}
-
-# -------------------------------------------------------------------
-
 if ("author" %in% enrich.fields) {
 
   source(system.file("extdata/enrich_author.R", package = "bibliographica"))
@@ -73,7 +60,7 @@ df.preprocessed$pagecount.orig <- df.preprocessed$pagecount
 
 # Gatherings 1to-4to (any number of vols) or >8to (with >10 vols)
 # with missing page information are assumed to be 'issues'
-# and we apply different estimated page count for them
+# and hence different estimated page counts are applied 
 inds <- which(is.na(df.preprocessed$pagecount) & ((df.preprocessed$gatherings %in% c("1to", "2small", "2to", "2long", "4small", "4to", "4long")) | (!df.preprocessed$gatherings %in% c("1to", "2small", "2to", "2long", "4small", "4to", "4long") & df.preprocessed$volcount > 10)))
 g <- df.preprocessed$gatherings[inds]
 v <- df.preprocessed$volcount[inds] # number of vols
@@ -146,5 +133,28 @@ df.preprocessed[inds, "pagecount"] <- 1 * pages.per.vol
 # Näin ollen kaikki merkinnät joissa >2 sivua voisi siirtää 2fo kategoriaan.
 df.preprocessed[which(df.preprocessed$gatherings == "1to" & df.preprocessed$pagecount > 2), "gatherings"] <- "2fo"
 
+
+# Enrich language
+dfl <- select(df.preprocessed, starts_with("language"))
+l <- capitalize(gsub("language\\.", "", names(dfl))); # Language names
+df.preprocessed$language <- factor(apply(dfl, 1, function (x) { paste(l[x], collapse = ";")  })) # List languages
+
 }
+
+# -------------------------------------------------------------------
+
+if ("paper" %in% enrich.fields) {
+
+  print("Add estimated paper consumption")
+  # One m2 is 100 * 100 cm2 = 1e4 cm2
+  # One km2 is 1000 * 1000 m2 = 1e6 m2 = 1e10 cm2
+  # Estimated average print run per document: 1000
+  printrun <- 1000
+  df.preprocessed <- mutate(df.preprocessed, paper.consumption.km2 = width * height * pagecount/2 * (1/1e10) * printrun)
+
+}
+
+# -------------------------------------------------------------------
+
+
 

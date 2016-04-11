@@ -1,3 +1,19 @@
+  message("Discarded first names")
+  write.table(discarded.author.firstnames, file = paste(output.folder, "author_firstnames_discarded.csv", sep = ""), quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)
+  write.table(discarded.author.lastnames, file = paste(output.folder, "author_lastnames_discarded.csv", sep = ""), quote = FALSE, sep = "\t", row.names = FALSE, col.names = FALSE)  
+
+  message("Discarded author")
+  tab <- cbind(name = names(discarded.author.table), count = unname(discarded.author.table))
+  suppressWarnings(tab <- rbind(c("Total count:", sum(as.numeric(tab[, "count"]))), tab))
+  write.table(tab, file = paste(output.folder, "author_discarded.csv", sep = ""), quote = FALSE, sep = "\t", row.names = FALSE)
+
+
+[Discarded author last names](output.tables/author_lastnames_discarded.csv) The most common ones are listed first. Pseudonymes from here can be added to the list of [known pseudonymes](https://github.com/rOpenGov/bibliographica/tree/master/inst/extdata/names/pseudonymes). Otherwise, those last names that should be accepted can be added to the [custom list](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/names/lastnames/custom.csv)
+
+[Discarded author first names](output.tables/author_firstnames_discarded.csv). The most common ones are listed first. Pseudonymes from here can be added to the list of [known pseudonymes](https://github.com/rOpenGov/bibliographica/tree/master/inst/extdata/names/pseudonymes). Otherwise, those first names that should be accepted can be added to the [custom list](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/names/firstnames/custom.csv)
+
+
+
 Paper consumption
 
 ```{r summaryTop10publisherstimelinepaper, fig.height=30, fig.width=10, echo=FALSE, warning=FALSE}

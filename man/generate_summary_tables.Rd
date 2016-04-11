@@ -5,10 +5,7 @@
 \title{Generate summary tables}
 \usage{
 generate_summary_tables(df.preprocessed, df.orig,
-  output.folder = "output.tables",
-  discarded.author.table = discarded.author.table,
-  discarded.author.firstnames = discarded.author.firstnames,
-  discarded.author.lastnames = discarded.author.lastnames)
+  output.folder = "output.tables")
 }
 \arguments{
 \item{df.preprocessed}{Preprocessed data.frame to be summarized}
@@ -16,12 +13,6 @@ generate_summary_tables(df.preprocessed, df.orig,
 \item{df.orig}{Original data.frame for comparisons}
 
 \item{output.folder}{Output folder path}
-
-\item{discarded.author.table}{discarded.author.table}
-
-\item{discarded.author.firstnames}{discarded.author.firstnames}
-
-\item{discarded.author.lastnames}{discarded.author.lastnames}
 }
 \description{
 Generate summary tables from the preprocessed data frame.

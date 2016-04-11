@@ -17,11 +17,11 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
 
     f <- system.file("extdata/stopwords.csv", package = "bibliographica")
     stopwords.general <- as.character(read.csv(f, sep = "\t")[,1])
-
     stopwords.general <- c(stopwords.general, stopwords(kind = "en"))
+    
     f <- system.file("extdata/stopwords_for_names.csv", package = "bibliographica")
-
     stopwords.names <- as.character(read.csv(f, sep = "\t")[,1])
+    
     f <- system.file("extdata/stopwords_titles.csv", package = "bibliographica")
     stopwords.titles <- as.character(read.csv(f, sep = "\t")[,1])
     stopwords <- unique(c(stopwords.general, stopwords.names, stopwords.titles))
@@ -66,6 +66,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   if (verbose) { message("Trim names") }
   # TODO O. K. Humble, Verner -> First: Verner O K Last: Humble
   nametab <- as.data.frame(nametab)
+
   nametab$last  <- gsub("^-", "", trim_names(nametab$last,  stopwords, remove.letters = FALSE))
   nametab$first <- gsub("^-", "", trim_names(nametab$first, stopwords, remove.letters = FALSE))
 
