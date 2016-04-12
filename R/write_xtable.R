@@ -3,13 +3,14 @@
 #' @param x a vector or matrix
 #' @param filename output file
 #' @param count Add total count of cases in the beginning
+#' @param sort.by Column used for sorting. The Count is the default.
 #' @return Table indicating the count for each unique entry in the input  vector or matrix. The function writes the statistics in the file.
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{tab <- write_xtable(x, "tmp.tab")}
 #' @keywords utilities
-write_xtable <- function (x, filename, count = FALSE) {
+write_xtable <- function (x, filename, count = FALSE, sort.by = "Count") {
 
   message(paste("Writing", filename))
 
@@ -45,7 +46,6 @@ write_xtable <- function (x, filename, count = FALSE) {
     idn <- ido[match(id, names(ido))]
     
     tab <- cbind(x, Count = idn)
-    tab <- tab[rev(order(as.numeric(tab[, "Count"]))),]
     tab <- tab[!duplicated(tab),]
 
     if (length(tab) > 0) {
@@ -64,8 +64,30 @@ write_xtable <- function (x, filename, count = FALSE) {
       tab <- apply(tab, 2, as.character)
     }
     n <- sum(as.numeric(tab[,"Count"]), na.rm = TRUE)
-    suppressWarnings(tab <- rbind(c("Total count: ", paste("n=", n, " (", round(100*n/length(x), 2), "% non-NA values)", collapse = "")), tab))
+    if (is.matrix(tab)) {
+      suppressWarnings(tab <- rbind(rep("", ncol(tab)), tab))
+      tab[1, 1] <- "Total count: "
+      tab[1, 2] <- n
+      if (ncol(tab)>2) {
+        tab[1, 3:ncol(tab)] <- rep("", ncol(tab) - 2)
+      }
+    } else {
+      tab <- c(paste("Total count:", n), tab)
+    }
+    
   }
+
+    # Arrange
+    s <- tab[, sort.by]
+    n <- as.numeric(s)
+    if (all(!is.na(n[!is.na(s)]))) {
+      # If all !NAs are numeric
+      o <- rev(order(n))
+    } else {
+      # Consider as char
+      o <- order(s)
+    }
+    tab <- tab[o,]
 
   write.table(tab, file = filename, quote = FALSE, sep = "\t", row.names = FALSE)
 

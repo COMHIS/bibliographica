@@ -200,19 +200,20 @@ print(p)
 
 
 
-Only cases with `r nmin` documents are listed here:
+Only the most frequently occurring gatherings are listed here:
 
 ```{r summaryavedims, echo=FALSE, message=FALSE, warning=FALSE}
 df2 <- filter(df, !is.na(gatherings.original) & (!is.na(height.original) | !is.na(width.original))) %>%
        filter(gatherings.original %in% top.gatherings) %>%
        group_by(gatherings.original) %>% 
-       summarize(mean.height = mean(height.original, na.rm = T),
-	    median.height = mean(height.original, na.rm = T),
+       summarize(
     	    mean.width = mean(width.original, na.rm = T), 
-	    median.width = mean(width.original, na.rm = T), 
+	    median.width = mean(width.original, na.rm = T),        
+            mean.height = mean(height.original, na.rm = T),
+	    median.height = mean(height.original, na.rm = T),
 	    n = n())
 
 mean.dimensions <- as.data.frame(df2)
-kable(mean.dimensions, caption = "Average document dimensions")
+kable(mean.dimensions, caption = "Average document dimensions", digits = 2)
 ```
 

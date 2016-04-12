@@ -1,5 +1,5 @@
-#' @title harmonize_ie
-#' @description Harmonize ie statement
+#' @title Harmonize ie
+#' @description Harmonize ie statements.
 #' @param x A vector
 #' @return A vector polished
 #' @export
@@ -9,32 +9,32 @@
 #' @keywords utilities
 harmonize_ie <- function (x) {
 
-  x <- as.character(x)
+  # Harmonized form
+  h <- " i.e "
+
+  x <- tolower(as.character(x))
   x <- condense_spaces(x)
   x <- gsub("--", "-", x)
+  x <- gsub(" ie ", " i.e ", x)
+  x <- gsub("\\[ie ", "[i.e ", x)
+  x <- gsub("\\[i\\. *e\\.* ", "[i.e ", x)
+  x <- gsub("\\[i *e\\.* ", "[i.e ", x)
+  x <- gsub("\\[i\\.e\\.* ", "[i.e ", x)      
+  x <- gsub("^ie ", "i.e ", x)    
 
-  # FIXME use file and vectorization
-  for (ie in c("i\\. e\\.", "i\\.e\\.", "i\\.e ", "ie\\.", "i e", "ie", "p\\. i\\.e")) {
+  x <- gsub("\\,* +i\\.* *e+ *[\\.|\\,]*", h, x)
 
-    x <- gsub(paste(" ", ie, " ", sep = ""), " i.e ", x)
-    x <- gsub(paste(" ", ie, "", sep = ""), " i.e ", x)
-    x <- gsub(paste(" ", ie, ",", sep = ""), " i.e ", x)
-    x <- gsub(paste(" ", ie, " ,", sep = ""), " i.e ", x)
+  x <- gsub("\\[* +i\\.* *e+ *[\\.|\\,]*", h, x)
 
-    x <- gsub(paste("^", ie, " ", sep = ""), " i.e ", x)
-    x <- gsub(paste("^", ie, "", sep = ""), " i.e ", x)
-    x <- gsub(paste("^", ie, ",", sep = ""), " i.e ", x)
-    x <- gsub(paste("^", ie, " ,", sep = ""), " i.e ", x)        
+  x <- gsub("^\\,* *i\\.* *e+ *[\\.|\\,]*", h, x)
 
-    x <- gsub(paste("\\,", ie, "", sep = ""), " i.e ", x)
-    x <- gsub(paste("\\, ", ie, "", sep = ""), " i.e ", x) 
-    x <- gsub(paste("\\[", ie, "", sep = ""), " [i.e ", x)
-    x <- gsub(paste("\\[ ", ie, "", sep = ""), " i.e ", x)    
-    x <- condense_spaces(x)
-    
-  }
+  x <- gsub(" +i\\.* *e+ *[\\.|\\,]*", h, x)
 
-  x <- gsub("\\[ i.e", "\\[i.e", x)
+  x <- gsub("p\\. i\\.* *e+ *[\\.|\\,]*", h, x) 
+  x <- gsub("^p\\. i\\.* *e+ *[\\.|\\,]*", h, x)
+  x <- gsub("\\[ *", "\\[", x)
+  x <- gsub("^\\. *", "", x)
+
   x <- condense_spaces(x)
 
   x

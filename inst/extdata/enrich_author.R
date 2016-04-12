@@ -6,9 +6,8 @@ print("Enrich author info")
   life.info <- read.csv(system.file("extdata/author_info.csv", package = "bibliographica"), stringsAsFactors = FALSE, sep = "\t")
 
   f <- system.file("extdata/ambiguous-authors.csv", package = "bibliographica")
-  ambiguous.authors <- read_synonymes(f, mode = "list", sep = ";")
-  #ambiguous.authors <- bibliographica::ambiguous_authors_table(f)
-
+  ambiguous.authors <- read_synonymes(f, mode = "list", sep = ";", include.original = FALSE, include.lowercase = FALSE)
+  
   # Combine synonymous authors; augment author life years where missing etc.
   aa <- augment_author(df.preprocessed, life.info, ambiguous.authors)
   df.preprocessed <- aa

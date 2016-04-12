@@ -19,11 +19,23 @@ handle_ie <- function (x, harmonize = TRUE) {
   if (harmonize) {
     y <- x <- harmonize_ie(y)
   }
+  x <- condense_spaces(x)
 
   if (is.na(x) || x == "i.e") {return(x)}
 
-  # z [x i.e y] -> z [y]
-  if (length(grep("\\[[0-9|a-z]* i\\.e [0-9|a-z]*\\]", x))>0) {
+  # z [i.e y] -> y
+  if (length(grep("[0-9|a-z]*\\.* \\[i\\.e [0-9|a-z]*\\]", x))>0) {
+    x <- gsub("^[0-9|a-z]*\\.* \\[i\\.e", "", x)
+    x <- gsub("\\]$", "", x)
+  }
+
+  if (length(grep("-", x))>0 && length(grep("i\\.e", x))>0) {
+    # [1658]-1659 [i.e. 1660] -> 1658-1660
+    spl <- unlist(strsplit(x, "-"))
+    u <- unname(sapply(spl, function (s) {handle_ie(s)}))
+    x <- paste(u, collapse = "-")
+  } else if (length(grep("\\[[0-9|a-z]* *i\\.e [0-9|a-z]*\\]", x))>0) {
+    # z [x i.e y] -> z [y]  
     x <- unlist(strsplit(x, "\\["), use.names = FALSE)
     inds <- grep("i\\.e", x)
     x[inds] <- unlist(strsplit(x[inds], "i\\.e"), use.names = FALSE)[[2]]
@@ -41,8 +53,9 @@ handle_ie <- function (x, harmonize = TRUE) {
     x[inds] <- handle_ie(x[inds])
     x <- paste(x, collapse = "[")
   }
-
+  
   x <- gsub("\\[ ", "[", x)
+  x <- gsub("^\\.*", "", x)  
   x <- str_trim(x)
 
   x

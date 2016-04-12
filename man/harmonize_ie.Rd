@@ -2,7 +2,7 @@
 % Please edit documentation in R/harmonize_ie.R
 \name{harmonize_ie}
 \alias{harmonize_ie}
-\title{harmonize_ie}
+\title{Harmonize ie}
 \usage{
 harmonize_ie(x)
 }
@@ -13,7 +13,7 @@ harmonize_ie(x)
 A vector polished
 }
 \description{
-Harmonize ie statement
+Harmonize ie statements.
 }
 \examples{
 \dontrun{x2 <- harmonize_ie("i.e.")}

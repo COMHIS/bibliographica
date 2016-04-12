@@ -2,17 +2,19 @@
 harmonize_pages <- function (s, synonyms, harm, sheetharm, harm.pi) {
 
   # FIXME move to main? pages
-  s <- as.character(harmonize_names(s, harm, mode = "recursive", check.synonymes = FALSE, include.lowercase = FALSE))
+
+  s <- as.character(harmonize_names(s, harm, mode = "recursive"))
 
   # FIXME move to main? page info
-  s <- as.character(harmonize_names(s, harm.pi, mode = "recursive", check.synonymes = FALSE, include.lowercase = FALSE))
+  s <- as.character(harmonize_names(s, harm.pi, mode = "recursive"))
 
   if (length(grep("i\\.e", s)) > 0) {
     s <- unlist(strsplit(s, ","), use.names = FALSE)
+
     s <- sapply(s, function (si) {x <- unlist(strsplit(si, "-"), use.names = FALSE); paste(sapply(x, function (x) handle_ie(x, harmonize = FALSE)), collapse = "-")})
     s <- paste(s, collapse = ",")
   }
-  
+
   # Remove endings
   s <- gsub("[ |\\.|\\,|\\;|\\:]+$", "", s)
 

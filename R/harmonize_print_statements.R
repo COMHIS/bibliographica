@@ -20,11 +20,11 @@ harmonize_print_statements <- function (x, lowercase = FALSE) {
 
   for (lang in c("finnish", "french", "german", "swedish", "english")) {
     f <- system.file(paste0("extdata/printterms_", lang, ".csv"), package = "bibliographica")
-    terms <- read.csv(f, sep = "|")
+    terms <- read_synonymes(f, sep = "|", mode = "table")
     x <- tolower(x)
 
     # Harmonize the terms
-    x <- as.character(harmonize_names(x, terms, mode = "recursive", check.synonymes = FALSE))
+    x <- as.character(harmonize_names(x, terms, mode = "recursive"))
     x <- condense_spaces(x)
 
   }

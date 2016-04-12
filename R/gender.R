@@ -36,12 +36,12 @@ get_gender <- function (x) {
 
   # Gender name synonymes
   fn <- system.file("extdata/harmonize_gender.csv", package = "bibliographica")
-  sn <- read.csv(fn, sep = ";")
+  sn <- read_synonymes(fn, sep = ";", mode = "table")
 
   # name lists 
   f <- firstnames()
   gen <- f$gender
-  gen <- as.character(suppressWarnings(harmonize_names(gen, synonymes = sn, check.synonymes = FALSE)))
+  gen <- as.character(suppressWarnings(harmonize_names(gen, synonymes = sn)))
   names(gen) <- tolower(f$name)
   g2 <- gen
 

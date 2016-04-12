@@ -28,7 +28,7 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
 
   if (is.null(synonyms)) {
     f <- system.file("extdata/harmonize_dimensions.csv", package = "bibliographica")
-    synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
+    synonyms <- read_synonymes(f, sep = "\t", mode = "table")
   } 
 
   if (verbose) { message("Initial harmonization..") }
@@ -42,7 +42,8 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   s <- gsub(",", ".", s) 
 
   # Harmonize the terms
-  s <- harmonize_names(s, synonyms, mode = "recursive", check.synonymes = FALSE, include.lowercase = F)
+  s <- harmonize_names(s, synonyms, mode = "recursive")
+  
   # Remove brackets
   s <- gsub("\\(", " ", gsub("\\)", " ", s)) 
   s <- gsub("\\[", " ", gsub("\\]", " ", s))
@@ -65,7 +66,7 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   }
 
   s <- harmonize_dimension(s, synonyms) 
-  s <- harmonize_names(s, synonyms, mode = "recursive", check.synonymes = FALSE, include.lowercase = F)  
+  s <- harmonize_names(s, synonyms, mode = "recursive")  
 
   # Make it unique here: after the initial harmonization
   # This helps to further reduce the number of unique cases 

@@ -20,7 +20,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   df.orig <- df.orig[df.preprocessed$original_row,]
 
   message("Write summaries of field entries and count stats for all fields")
-  for (field in setdiff(names(df.preprocessed), c(names(df.preprocessed)[grep("language", names(df.preprocessed))], "row.index", "paper.consumption.km2", "publication_decade", "publication_year", "pagecount", "obl", "obl.original", "original_row", "dissertation", "synodal", "original", "unity", "author_birth", "author_death", "gatherings.original", "width.original", "height.original", "longitude", "latitude", "page", "item", "publisher.printedfor", "publisher", "country", "author_pseudonyme", "publication_place"))) {
+  for (field in setdiff(names(df.preprocessed), c(names(df.preprocessed)[grep("language", names(df.preprocessed))], "row.index", "paper.consumption.km2", "publication_decade", "publication_year", "publication_year_from", "publication_year_till", "pagecount", "obl", "obl.original", "original_row", "dissertation", "synodal", "original", "unity", "author_birth", "author_death", "gatherings.original", "width.original", "height.original", "longitude", "latitude", "page", "item", "publisher.printedfor", "publisher", "country", "author_pseudonyme", "publication_place", "control_number"))) {
 
     message(field)
 
@@ -36,7 +36,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
     message("Nontrivial conversions")
     if (field %in% names(df.preprocessed) && (field %in% names(df.orig)) && !field == "dimension") {
-      print(field)
+      message(field)
       inds <- which(!is.na(df.preprocessed[[field]]))
       original <- as.character(df.orig[[field]][inds])
       polished <- as.character(df.preprocessed[[field]][inds])
@@ -60,7 +60,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   
   message("Conversion summaries")
   originals <- c(publisher = "publisher",
-	       #pagecount = "physical_extent",
 	       publication_place = "publication_place",
 	       country = "publication_place",
 	       author = "author_name",
@@ -78,12 +77,17 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   }
 
   message("Accept summaries")
-  for (nam in names(originals)) {
+  for (nam in setdiff(names(originals), "publication_place")) {
     x <- as.character(df.preprocessed[[nam]])
     tmp <- write_xtable(x,
       paste(output.folder, paste(nam, "accepted.csv", sep = "_"), sep = ""),
       count = TRUE)
   }
+  message("publication_place")
+  tmp <- write_xtable(df.preprocessed[, c("publication_place", "country")],
+      filename = paste(output.folder, "publication_place_accepted.csv", sep = ""),
+      count = TRUE, sort.by = "publication_place")
+
 
   message("Discard summaries")
   for (nam in setdiff(names(originals), c("country", "publication_place"))) {
@@ -110,7 +114,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   
   message("Discard summaries")
   inds <- which(is.na(x))
-  tmp <- write_xtable(o[inds],
+  tmp <- write_xtable(cbind(gatherings = g[inds], physical_extent = o[inds]),
       paste(output.folder, "pagecount_discarded.csv", sep = ""),
       count = TRUE)
 
@@ -126,11 +130,11 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       sep = ""), count = TRUE)
   
   message("Discard summaries")
-    o <- as.character(df.orig[["publication_time"]])
-    x <- as.character(df.preprocessed[["publication_year"]])
-    inds <- which(is.na(x))
-    tmp <- write_xtable(o[inds],
-      paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
+  o <- as.character(df.orig[["publication_time"]])
+  x <- as.character(df.preprocessed[["publication_year"]])
+  inds <- which(is.na(x))
+  tmp <- write_xtable(o[inds],
+      paste(output.folder, "publication_year_discarded.csv", sep = ""),
       count = TRUE)
   
   # --------------------------------------------
@@ -168,7 +172,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tab <- cbind(original = df.orig$physical_extent, df.preprocessed[, use.fields])
   tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_extent.csv")
 
-  print("Physical dimension info")
+  message("Physical dimension info")
   tab <- cbind(original = df.orig$physical_dimension, df.preprocessed[, c("gatherings.original", "width.original", "height.original", "obl.original", "gatherings", "width", "height", "obl", "area")])
   tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_dimension.csv")
 
@@ -210,8 +214,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
 
   message("Ambiguous publication place harmonization")  
-  tab = read.csv(system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica"), sep = ";")
-  s <- split(as.character(tab$name), as.character(tab$synonyme))
+  tab <- read.csv(system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica"), sep = ";")
+  s <- split(as.character(tab$name), tolower(as.character(tab$synonyme)))
   s <- s[sapply(s, function(x) {length(unique(x))}) > 1]
   tab <- tab[tab$synonyme %in% names(s),]
   tab <- tab[order(tab$synonyme),]

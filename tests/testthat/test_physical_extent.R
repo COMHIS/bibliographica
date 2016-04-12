@@ -1,4 +1,4 @@
-context("Physical extent field")
+context("Physical extent")
 
 test_that("Page count is correct", {
 

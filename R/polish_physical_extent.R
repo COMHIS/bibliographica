@@ -54,8 +54,8 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
   # In Finnish texts s. is used instead of p.		
   f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
-  page.synonyms <- read.csv(f, sep = ";")
-  s <- harmonize_names(s, page.synonyms, mode="match", include.lowercase = FALSE, check.synonymes = F)
+  page.synonyms <- read_synonymes(f, sep = ";", mode = "table")
+  s <- harmonize_names(s, page.synonyms, mode="match")
 
   # Back to original indices and new unique reduction 
   s <- s[match(sorig, suniq)]
@@ -67,15 +67,15 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
   if (verbose) {message("Read the mapping table for pages")}
   f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
-  page.harmonize <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
+  page.harmonize <- read_synonymes(f, sep = "\t", mode = "table")
 
   # Pp. -> p etc.
   f <- system.file("extdata/harmonize_page_info.csv", package = "bibliographica")
-  harm.pi <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))  
+  harm.pi <- read_synonymes(f, sep = "\t", mode = "table", remove.ambiguous = FALSE)
 
   if (verbose) {message("Read the mapping table for sheets")}  
   f <- system.file("extdata/harmonize_sheets.csv", package = "bibliographica")
-  sheet.harmonize <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
+  sheet.harmonize <- read_synonymes(f, sep = "\t", mode = "table")
   s <- harmonize_sheets(s, sheet.harmonize)
 
   # Back to original indices and new unique reduction 
@@ -86,14 +86,13 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
   if (verbose) {message("Read the mapping table for romans")}  
   f <- system.file("extdata/harmonize_romans.csv", package = "bibliographica")
-  romans.harm <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
-  # Romans
-  s <- harmonize_names(s, romans.harm, mode = "recursive", include.lowercase = FALSE, check.synonymes = F)
+  romans.harm <- read_synonymes(f, sep = "\t", mode = "table")
+  s <- harmonize_names(s, romans.harm, mode = "recursive")
 
   if (verbose) {message("Page harmonization part 2")}  
   f <- system.file("extdata/harmonize_pages2.csv", package = "bibliographica")
-  harm2 <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE))
-  s <- as.character(harmonize_names(s, harm2, mode = "recursive", check.synonymes = FALSE, include.lowercase = FALSE))
+  harm2 <- read_synonymes(f, sep = "\t", mode = "table")
+  s <- harmonize_names(s, harm2, mode = "recursive")
 
   if (verbose) {message("Polish unique pages separately for each volume")}  
 
@@ -163,6 +162,7 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
 
   # Pagecount
   spl <- unlist(strsplit(s, ";"), use.names = FALSE)
+
   x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)})))
   if (class(x) == "try-error") {
     x <- NA

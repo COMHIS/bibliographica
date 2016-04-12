@@ -21,10 +21,9 @@ polish_university <- function(x, synonyms=NULL) {
   
   if (is.null(synonyms)) {
     f <- system.file("extdata/fi_end_years.csv", package = "bibliographica")
-    synonyms <- as.data.frame(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8"))
+    synonyms <- read_synonymes(f, sep = "\t", include.lowercase = TRUE, mode = "table")
   }
-  
-  x <- harmonize_names(x, synonyms, check.synonymes = F, include.lowercase = TRUE, include.original = FALSE)
+  x <- harmonize_names(x, synonyms)
 
   # TODO conversion file
   # Check these are already in Fennica conversions?

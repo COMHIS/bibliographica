@@ -2,8 +2,6 @@ context("Harmonize place names")
 
 test_that("Places are harmonized correctly", {
 
-  expect_equal(polish_place(c("[Newport, R.I.", "London")), c("Newport RI", "London"))
-  
   expect_equal(polish_place("Printed by His Majesties command at Oxford"), "Oxford")
   expect_equal(polish_place("London printed"), "London")
 

@@ -15,7 +15,7 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
   
   # Remove stopwords
   f <- system.file("extdata/stopwords_for_names.csv", package = "bibliographica")
-  terms <- read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8", header = TRUE)$Term
+  terms <- as.character(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8", header = TRUE)$Term)
 
   # Initial hamornization
   x <- tolower(x)
@@ -48,10 +48,10 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
  
   if (is.null(synonyms)) {
     f <- system.file("extdata/publisher.csv", package = "bibliographica")
-    synonyms <- as.data.frame(read.csv(f, sep = ";", stringsAsFactors = FALSE, fileEncoding = "UTF-8", header = TRUE))
+    synonyms <- read_synonymes(f, sep = ";", mode = "table")
   }
-  
-  x <- as.character(harmonize_names(x, synonyms, mode = "exact.match", check.synonymes = F))
+
+  x <- harmonize_names(x, synonyms, mode = "exact.match")
 
   # Project unique cases back to the original list
   x2 <- as.character(x[match(xorig, xuniq)])

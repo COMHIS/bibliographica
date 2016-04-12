@@ -40,7 +40,7 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
 
   message("Harmonize ambiguous authors")
   if (!is.null(ambiguous_authors)) {	  	    
-    df$author <- harmonize_names(df$author, ambiguous_authors, include.original = FALSE, check.synonymes = FALSE, include.lowercase = FALSE)
+    df$author <- harmonize_names(df$author, ambiguous_authors)
   }
   df$author[grep("^NA, NA", df$author)] <- NA  
 

@@ -19,18 +19,14 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   
   if (is.null(synonymes)) {
     # Harmonize places with synonyme table
-    f <- system.file("extdata/PublicationPlaceSynonymes.csv",
-		package = "bibliographica")
-    synonymes <- read.csv(f, sep = ";", stringsAsFactors = FALSE)
-    synonymes$synonyme <- tolower(synonymes$synonyme)
-    synonymes <- synonymes[!duplicated(synonymes),]
+    f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
+    synonymes <- read_synonymes(f, include.lowercase = T, self.match = F, ignore.empty = FALSE, mode = "table")
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
 
     # Harmonize places with synonyme table
     f <- system.file("extdata/replace_special_chars.csv",
 		package = "bibliographica")
-    spechars <- read.csv(f, sep = ";", stringsAsFactors = FALSE)
-    spechars <- spechars[!duplicated(spechars),]
+    spechars <- read_synonymes(f, sep = ";", mode = "table", include.lowercase = TRUE)
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
     
   }
@@ -95,10 +91,10 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- xuniq
 
   if (verbose) {message("Detailed polishing")}
-  s <- synonymes$synonyme  
+  s <- synonymes$synonyme
   x <- unname(sapply(x, function (x) {polish_place_help(unlist(x, use.names = FALSE), s, stopwords = stopwords, verbose = verbose)}))
 
-  if (length(x) == 0) {return(rep(NA, length(xorig)))}
+  if (length(x) == 0) { return(rep(NA, length(xorig))) }
 
   # Back to original indices, then unique again; reduces
   # number of unique cases further
@@ -115,18 +111,12 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
     if (verbose) { message("Harmonize the synonymous names") }
     # First replace some special characters 
     x <- as.character(harmonize_names(x, spechars,
-       		remove.unknown = FALSE,
-		include.lowercase = TRUE,	
-		check.synonymes = F,
 		mode = "recursive"))
 
     # Then match place names to synonymes		
     x <- as.character(harmonize_names(x, synonymes,
        		remove.unknown = remove.unknown,
-		include.lowercase = TRUE,	
-		check.synonymes = F,
 		mode = "exact.match"))
-
 
   }
 
@@ -146,13 +136,13 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
 polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
 
-  # if (verbose) {message(x)}
-
   # London i.e. The Hague ->  The Hague
   # In the Yorke at London -> London
   for (ss in c(" i.e ", " at ", " At ")) {
-     spl <- strsplit(x, ss)
-     if (length(spl) > 0 ) {x <- spl[[length(spl)]]}
+    if (length(grep(ss, x))>0) {
+      spl <- unlist(strsplit(x, ss))
+      x <- spl[[length(spl)]]
+    }
   }  
 
   # New York N Y -> New York NY
@@ -164,21 +154,21 @@ polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
 
   # NOTE: this step may loose info on original country
   # london re/now edinburgh -> london
-  spl <- unlist(strsplit(x, " [re|now] "), use.names = FALSE)
-  if (length(spl)>0) {x <- spl[[1]]}
-  if (!is.na(x) && !is.na(s) && !any(x == s)) {
+  if (length(grep(" [re|now] ", x)) > 0) {
+    spl <- unlist(strsplit(x, " [re|now] "), use.names = FALSE)
+    #if (length(spl)>0) {x <- spl[[1]]}
+    x <- spl[[1]]
+  }
 
-      # then take the first term that is
-      spl <- unlist(strsplit(x, " "), use.names = FALSE)
-      inds <- which(!is.na(match(spl, s)))
-      if (length(inds) > 0) {
-      	# Keep all occurrences that are on synonyme list
-        x <- paste(unique(spl[inds]), collapse = " ")
-	# Keep only first term
-        #x <- spl[[min(inds)]]	
-      }
-   }
+  if (!is.na(x) && any(!is.na(s)) && !(x %in% na.omit(s))) {
+    spl <- unlist(strsplit(x, " "), use.names = FALSE)
+    inds <- which(!is.na(match(spl, s)))
+    if (length(inds) > 0) {
+      # Keep all occurrences that are on synonyme list
+      x <- paste(unique(spl[inds]), collapse = " ")
+    }
+  }
 
-   x
+  x
    
 }

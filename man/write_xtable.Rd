@@ -4,7 +4,7 @@
 \alias{write_xtable}
 \title{write_xtable}
 \usage{
-write_xtable(x, filename, count = FALSE)
+write_xtable(x, filename, count = FALSE, sort.by = "Count")
 }
 \arguments{
 \item{x}{a vector or matrix}
@@ -12,6 +12,8 @@ write_xtable(x, filename, count = FALSE)
 \item{filename}{output file}
 
 \item{count}{Add total count of cases in the beginning}
+
+\item{sort.by}{Column used for sorting. The Count is the default.}
 }
 \value{
 Table indicating the count for each unique entry in the input  vector or matrix. The function writes the statistics in the file.

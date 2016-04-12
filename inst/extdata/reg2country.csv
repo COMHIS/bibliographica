@@ -1074,7 +1074,8 @@ Pisa;Italy;
 Pistoia;Finland;
 Pittsburgh Pa;USA;
 Pittsfield Ma;USA;
-Plymouth;England;
+Plymouth;England;Potentially ambiguous
+Plymouth Ma;USA;
 Pointe-A-Pitre;Guadaloupe;
 Pompton Plains NJ;USA;
 Pondicherry;India;

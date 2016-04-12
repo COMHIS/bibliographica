@@ -5,7 +5,7 @@ harmonize_sheets <- function (s, harm) {
   }
 
   # Harmonize
-  s <- as.character(harmonize_names(s, harm, mode = "recursive", check.synonymes = FALSE))
+  s <- as.character(harmonize_names(s, harm, mode = "recursive"))
 
   # Harmonize '* sheets'
   spl <- strsplit(s, ",")
