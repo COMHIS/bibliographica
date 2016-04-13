@@ -33,7 +33,11 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   f <- system.file("extdata/stopwords.csv", package = "bibliographica")
   message(paste("Reading stopwords from file ", f))
-  stopwords <- as.character(read.csv(f)[,1])
+  stopwords1 <- as.character(read.csv(f)[,1])
+  f <- system.file("extdata/stopwords_for_place.csv", package = "bibliographica")
+  message(paste("Reading stopwords from file ", f))
+  stopwords2 <- as.character(read.csv(f)[,1])
+  stopwords <- unique(c(stopwords1, stopwords2))
 
   # Unique
   xorig <- x
@@ -57,10 +61,11 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- gsub("^and ", "", x)
   x <- gsub("^from ", "", x)            
   x <- gsub("['|-]", "", x)
-  x <- gsub("parliament ", "", x)
   x <- gsub("^s$", "", x)    
   x <- gsub("^re ", "", x)
-  x <- gsub("_", " ", x)  
+  x <- gsub("_", " ", x)
+  x <- gsub("^[a-z] [a-z]$", " ", x)
+  x <- gsub("^[a-z]\\.[a-z]$", " ", x)  
 
   # Back to original indices, then unique again; reduces number of unique cases further
   x <- x[match(xorig, xuniq)]
@@ -77,7 +82,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (verbose) {message("Remove stopwords")}
   x <- remove_stopwords(x, terms = stopwords, remove.letters = FALSE)
-
+print(x)
   if (verbose) {message("Harmonize ie")}
   x <- harmonize_ie(x)
 
