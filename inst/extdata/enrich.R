@@ -1,7 +1,9 @@
 ##
 ## CALCULATE AVERAGE DOC SIZES FROM THE ORIGINAL ENTRIES
 ##
-if (!exists("enrich.fields")) {enrich.fields <- c("geo", "dimensions", "years", "paper", "author", "rest")}
+if (!exists("enrich.fields")) {
+  enrich.fields <- c("geo", "dimensions", "years", "paper", "author", "rest")
+}
 
 if ("geo" %in% enrich.fields) {
   source(system.file("extdata/enrich_geo.R", package = "bibliographica"))
@@ -15,12 +17,8 @@ if ("years" %in% enrich.fields) {
   source(system.file("extdata/enrich_years.R", package = "bibliographica"))
 }
 
-# -----------------------------------------------------------
-
 if ("author" %in% enrich.fields) {
-
   source(system.file("extdata/enrich_author.R", package = "bibliographica"))
-
 }
 
 

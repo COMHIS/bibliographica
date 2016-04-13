@@ -31,10 +31,10 @@ if ("years" %in% validate.fields) {
   }
 }
 
+# -----------------------------------------------------------------
 
-# Author name validation is rather time-consuming
-# Hence skip it entirely for now.
-#if ("names" %in% validate.fields) {
-#  source(system.file("extdata/validate_names.R", package = "bibliographica"))  
-#}
+if ("names" %in% validate.fields) {
+  source(system.file("extdata/validate_names.R", package = "bibliographica"))  
+}
+
 

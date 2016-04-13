@@ -81,7 +81,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     x <- as.character(df.preprocessed[[nam]])
     tmp <- write_xtable(x,
       paste(output.folder, paste(nam, "accepted.csv", sep = "_"), sep = ""),
-      count = TRUE)
+      count = TRUE, sort.by = "Name")
   }
   message("publication_place")
   tmp <- write_xtable(df.preprocessed[, c("publication_place", "country")],

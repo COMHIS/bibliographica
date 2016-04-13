@@ -25,8 +25,11 @@ author_unique <- function (df, format = "last, first", initialize.first = FALSE)
   author_unique <- rep(NA, nrow(dfa.uniq))
 
   first <- pick_firstname(dfa.uniq$author_name, format = format)
-  last <- pick_lastname(dfa.uniq$author_name, format = format)  
-  
+  last <- pick_lastname(dfa.uniq$author_name, format = format)
+  # Where the name did not match the assumed format, use the complete form as the last name
+  inds <- which(is.na(first) & is.na(last))
+  last[inds] <- dfa.uniq$author_name[inds]
+
   # Cut the full first names into initials
   if (initialize.first) {
     first <- name_initials(first)

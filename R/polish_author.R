@@ -45,7 +45,13 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   s <- gsub("[0-9]", " ", s) 
 
   # Remove brackets and ending commas / periods
-  s <- gsub("[\\[|\\]|\\(|\\)]", "", s)
+  # Cannot be merged into one regexp ?
+  s <- gsub("\\[", " ", s)
+  s <- gsub("\\]", " ", s)
+  s <- gsub("\\(", " ", s)
+  s <- gsub("\\)", " ", s)
+  s <- gsub("\\?", " ", s)
+  s <- gsub("-+", "-", s)      
   s <- str_trim(s)
   s <- gsub("[\\.|\\,]$", "", s)
 
