@@ -104,7 +104,6 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   nametab$last[nchar(nametab$last) == 1] <- NA   
 
   # OK, now we have polished first and last names
-
   # To speed up, discard names where both first and last are not accepted
   valid <- list()
   #invalid <- list()
