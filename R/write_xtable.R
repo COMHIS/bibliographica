@@ -57,20 +57,25 @@ write_xtable <- function (x, filename, count = FALSE, sort.by = "Count") {
       tab <- NULL
     }
 
-    # Arrange
-    s <- tab[, sort.by]
-    n <- as.numeric(s)
-    if (all(!is.na(n[!is.na(s)]))) {
-      # If all !NAs are numeric
-      o <- rev(order(n))
-    } else {
-      # Consider as char
-      o <- order(s)
-    }
-    tab <- tab[o,]
-
   }
 
+  # Arrange
+  if (!sort.by %in% c("Count", colnames(x))) {
+    warning("Sorting by name")
+    sort.by <- "Name"
+  }
+  s <- as.character(tab[, sort.by])
+  n <- as.numeric(s)
+  if (all(!is.na(n[!is.na(s)]))) {
+    # If all !NAs are numeric
+    o <- rev(order(n))
+  } else {
+    # Consider as char
+    o <- order(s)
+  }
+  tab <- tab[o,]
+
+  
   if (count) {
     if (is.null(dim(tab)) && !is.null(tab)) {
       tab <- t(as.matrix(tab, nrow = 1))

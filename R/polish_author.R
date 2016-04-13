@@ -18,7 +18,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
     f <- system.file("extdata/stopwords.csv", package = "bibliographica")
     stopwords.general <- as.character(read.csv(f, sep = "\t")[,1])
     stopwords.general <- c(stopwords.general, stopwords(kind = "en"))
-    
+
     f <- system.file("extdata/stopwords_for_names.csv", package = "bibliographica")
     stopwords.names <- as.character(read.csv(f, sep = "\t")[,1])
     
@@ -27,8 +27,12 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
     stopwords <- unique(c(stopwords.general, stopwords.names, stopwords.titles))
   }
 
-  # Exclude some names from assumed stopwords
-  stopwords <- setdiff(stopwords, c("humble", "about", "most"))
+  # Also remove some stopwords (ie accept these in names)
+  # Exclude some names and pseudonyms from assumed stopwords
+  # TODO make a separate acceptance list and also
+  # exclude known pseudonyms and names automatically
+  # from the stopwords
+  stopwords <- setdiff(stopwords, c("humble", "about", "most", "more", "day", "country", "gentleman", "how", "towne", "charity"))
 
   s <- tolower(as.character(s))
 
