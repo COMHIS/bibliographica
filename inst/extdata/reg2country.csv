@@ -1,5 +1,6 @@
 region;country;comment
 Ambiguous;Ambiguous;
+Europe;Ambiguous;
 Aabenraa;Denmark;
 Aachen;Germany;
 Aalborg;Denmark;
@@ -924,7 +925,7 @@ Netherlands;Netherlands;
 Neuchatel;Switzerland;
 Neuruppin;Germany;
 Neustadt an der Weinstraße;Germany;
-Newark (Ambiguous);England|USA;Ambiguous
+Newark (Ambiguous);Ambiguous;England|USA;
 Newark England;England;
 Newark NJ;USA;
 New Bedford Ma;USA;
