@@ -1,7 +1,4 @@
-# TODO sync with update.fields
-if (!exists("validate.fields")) {validate.fields <- c("years", "names")}
-
-if ("years" %in% validate.fields) {
+if ("publication_time" %in% update.fields) {
 
   print("Fix publication years")
   # Remove apparent errors: no future publications or publications before historical times
@@ -11,6 +8,11 @@ if ("years" %in% validate.fields) {
   df.preprocessed$publication_year_from[which(df.preprocessed$publication_year_from < min.year)] <- NA
   df.preprocessed$publication_year_till[which(df.preprocessed$publication_year_till > max.year)] <- NA
   df.preprocessed$publication_year_till[which(df.preprocessed$publication_year_till < min.year)] <- NA
+
+}
+
+
+if ("author_date" %in% update.fields) {
 
   # Author life years cannot exceed the present year
   # If they do, set to NA
@@ -33,7 +35,7 @@ if ("years" %in% validate.fields) {
 
 # -----------------------------------------------------------------
 
-if ("names" %in% validate.fields) {
+if ("author_name" %in% update.fields) {
   source(system.file("extdata/validate_names.R", package = "bibliographica"))  
 }
 

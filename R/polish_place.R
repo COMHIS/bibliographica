@@ -38,13 +38,9 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   }
 
-  f <- system.file("extdata/stopwords.csv", package = "bibliographica")
-  message(paste("Reading stopwords from file ", f))
-  stopwords1 <- as.character(read.csv(f)[,1])
   f <- system.file("extdata/stopwords_for_place.csv", package = "bibliographica")
   message(paste("Reading stopwords from file ", f))
-  stopwords2 <- as.character(read.csv(f)[,1])
-  stopwords <- unique(c(stopwords1, stopwords2))
+  stopwords <- as.character(read.csv(f)[,1])
 
   # Unique
   xorig <- x
@@ -124,7 +120,11 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 		mode = "recursive"))
 
   # Once more remove stopwords
-  x <- remove_stopwords(x, terms = stopwords, remove.letters = FALSE)
+  # Warning: the names discarded here wont be visible in
+  # summary lists of discarded names !
+  # For validation purposes might be good to comment this out
+  # for initial runs.
+  x <- remove_stopwords(x, terms = tolower(stopwords), remove.letters = FALSE)
 
   if (harmonize) {
 

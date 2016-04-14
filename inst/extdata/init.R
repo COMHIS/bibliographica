@@ -28,6 +28,23 @@ if (reload.data) {
 }
 
 
+# If update fields is provided, then look for preprocessed file
+if (exists("update.fields") && !is.null(update.fields) && ("df0.Rds" %in% dir())) {
+  df.orig <- df.orig # readRDS("df.raw.Rds")
+  df.preprocessed <- readRDS("df0.Rds")  
+  conversions <- readRDS("conversions.Rds")
+} else {
+  df.orig <- df.orig
+  conversions <- list()
+  update.fields <- names(df.orig) # Update all fields
+  m <- paste(setdiff(names(df.orig), c("control_number", "original_row", "language", "title", "publisher", "subject_topic", "publication_topic", "author_name", "author_date", "publication_time", "physical_extent", "physical_dimension", "publication_place", "publication_geography", "title_uniform", "title_uniform2")), sep = ";")
+  message(paste("Updates not defined for the following input fields:", m))
+
+}
+
+
+
+
 
 
 

@@ -21,18 +21,29 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
 
     f <- system.file("extdata/stopwords_for_names.csv", package = "bibliographica")
     stopwords.names <- as.character(read.csv(f, sep = "\t")[,1])
+
+    f <- system.file("extdata/organizations.csv", package = "bibliographica")
+    stopwords.organizations <- as.character(read.csv(f, sep = "\t")[,1])
     
     f <- system.file("extdata/stopwords_titles.csv", package = "bibliographica")
     stopwords.titles <- as.character(read.csv(f, sep = "\t")[,1])
-    stopwords <- unique(c(stopwords.general, stopwords.names, stopwords.titles))
+    stopwords <- unique(c(stopwords.general, stopwords.organizations, stopwords.names, stopwords.titles))
   }
 
-  # Also remove some stopwords (ie accept these in names)
+  f <- system.file("extdata/stopwords_pseudonymes.csv", package = "bibliographica")
+  pseudonymes <- as.character(read.csv(f, sep = "\t")[,1])
+
+  # Accept some names that may be on the stopword lists
+  # TODO add here all known names
+  f <- system.file("extdata/author_accepted.csv", package = "bibliographica")
+  author.accepted <- as.character(read.csv(f, sep = "\t")[,1])  
+  accept.names <- c(pseudonymes, author.accepted)
+
+  # Then remove those in stopwords (ie accept these in names)
   # Exclude some names and pseudonyms from assumed stopwords
-  # TODO make a separate acceptance list and also
-  # exclude known pseudonyms and names automatically
-  # from the stopwords
-  stopwords <- setdiff(stopwords, c("humble", "about", "most", "more", "day", "country", "gentleman", "how", "towne", "charity", "commons", "common"))
+  stopwords <- setdiff(stopwords, accept.names)
+
+  # -------------------------------------------------------------
 
   s <- tolower(as.character(s))
 

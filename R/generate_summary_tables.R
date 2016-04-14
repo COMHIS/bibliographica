@@ -54,7 +54,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   o <- as.character(df.orig[[nam]])
   x <- as.character(df.preprocessed[[nam]])
   inds <- which(is.na(x))
-  tmp <- write_xtable(polish_place(o[inds], harmonize = FALSE),
+  tmp <- write_xtable(tolower(polish_place(o[inds], harmonize = FALSE)),
       paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
       count = TRUE)
   
