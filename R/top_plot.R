@@ -12,6 +12,10 @@
 #' @keywords utilities
 top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL) {
 
+  if (nrow(x) == 0 | length(x) == 0) {
+    return(ggplot())
+  }
+
   # Circumvent warnings in build
   color <- NULL
 

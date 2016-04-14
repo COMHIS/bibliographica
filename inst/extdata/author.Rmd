@@ -26,7 +26,10 @@ p <- top_plot(df, "author", ntop) +
 		  ylab("Documents")
 print(p)
 
-p <- top_plot(df[is.na(df$author), ] %>% select(author_name), "author_name", ntop) + ggtitle("Top discarded authors")
+dff = df %>%
+      filter(is.na(author) & !is.na(author_name)) %>%
+      select(author_name)
+p <- top_plot(dff,  "author_name", ntop) + ggtitle("Top discarded authors")
 print(p)
 ```
 
