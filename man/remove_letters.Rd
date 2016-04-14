@@ -18,7 +18,7 @@ remove_letters(x, ignore.start = c("S", "s", "N", "n", "E", "e", "W", "w"),
 Polished vector
 }
 \description{
-Remove specific single letters from the start and/or end of the input string(s) x
+Remove specific single letters from the start and/or end of the input string(s).
 }
 \examples{
 \dontrun{remove_letters(x)}

@@ -1,5 +1,5 @@
 #' @title Remove letters
-#' @description Remove specific single letters from the start and/or end of the input string(s) x
+#' @description Remove specific single letters from the start and/or end of the input string(s).
 #' @param x A vector
 #' @param ignore.start Vector of letter not to exclude from the start of x
 #' @param ignore.end Vector of letter not to exclude from the end of x

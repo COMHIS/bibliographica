@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_stopwords.R
 \name{remove_stopwords}
 \alias{remove_stopwords}
-\title{remove_stopwords}
+\title{Remove stopwords}
 \usage{
 remove_stopwords(x, terms = NULL, remove.letters = TRUE)
 }

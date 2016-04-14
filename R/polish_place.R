@@ -118,12 +118,15 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
 
-  if (harmonize) {
-
-    if (verbose) { message("Harmonize the synonymous names") }
-    # First replace some special characters 
-    x <- as.character(harmonize_names(x, synonymes.spec,
+  if (verbose) { message("Harmonize the synonymous names") }
+  # First replace some special characters 
+  x <- as.character(harmonize_names(x, synonymes.spec,
 		mode = "recursive"))
+
+  # Once more remove stopwords
+  x <- remove_stopwords(x, terms = stopwords, remove.letters = FALSE)
+
+  if (harmonize) {
 
     # Then match place names to synonymes		
     x <- as.character(harmonize_names(x, synonymes,
@@ -141,13 +144,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   
   if (verbose) {message("Capitalize all names")}    
   x <- capitalize(x)
-
-  # Also capitalize certain endings
-  #x <- gsub(" ma$", " Ma", x)
-  #x <- gsub(" mi$", " Mi", x)
-  #x <- gsub(" ny$", " NY", x)
-  #x <- gsub(" pa$", " Pa", x)
-  #x <- gsub(" pe$", " Pe", x)      
 
   if (verbose) {message("Replace special cases")}
   x[x == c("", "na")] <- NA

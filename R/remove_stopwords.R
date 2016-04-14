@@ -1,4 +1,4 @@
-#' @title remove_stopwords
+#' @title Remove stopwords
 #' @description Remove stopwords from input vector
 #' @param x A vector
 #' @param terms Stopwords
