@@ -29,7 +29,7 @@ if ("publisher" %in% update.fields) {
 
 if ("language" %in% update.fields) {
  
-  # Enrich language
+  message("Enrich language")
   dfl <- select(df.preprocessed, starts_with("language"))
   l <- capitalize(gsub("language\\.", "", names(dfl))); # Language names
   df.preprocessed$language <- factor(apply(dfl, 1, function (x) { paste(l[x], collapse = ";")  })) # List languages
@@ -40,9 +40,9 @@ if ("language" %in% update.fields) {
 
 if (c("physical_extent", "physical_dimension") %in% update.fields) {
 
-  source(system.file("extdata/enrich_pagecount.R", package = "bibliographica"))
-
   source(system.file("extdata/enrich_dimensions.R", package = "bibliographica"))
+
+  source(system.file("extdata/enrich_pagecount.R", package = "bibliographica"))
 
   print("Add estimated paper consumption")
   # One m2 is 100 * 100 cm2 = 1e4 cm2

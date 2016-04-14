@@ -164,7 +164,14 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tmp <- write_xtable(as.character(df.orig$language[df.preprocessed$language.undetermined]), filename = "output.tables/language_unidentified.csv")
 
   message("No country mapping - output the harmonized names")
+
+  f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
+  misc <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")  
+  rms <- as.character(misc$synonyme[is.na(as.character(misc$name))])
   tab <- as.character(df.preprocessed$publication_place)[is.na(df.preprocessed$country)]
+  # First remove places that have already been explicitly set to unknown
+  tab <- setdiff(tab, rms)
+  # Then print the rest
   tmp <- write_xtable(tab, filename = "output.tables/publication_place_missingcountry.csv")
 
   message("Page counts")

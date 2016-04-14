@@ -146,7 +146,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- capitalize(x)
 
   if (verbose) {message("Replace special cases")}
-  x[x == c("", "na")] <- NA
+  x[x %in% c("", " ", "na")] <- NA
 
   if (verbose) {message("Convert back to original indices and return")}
   x[match(xorig, xuniq)]

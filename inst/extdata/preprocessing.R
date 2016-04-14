@@ -1,19 +1,18 @@
-
 # Preprocess selected original fields 
 res <- polish_all(df.orig, fields = update.fields,
           file = "df.preprocessed.RData", mc.cores = mc.cores,
 	  conversions = conversions)
 
+if (!exists("df.preprocessed")) {
+  df.preprocessed <- res$df.preprocessed
+}
+
 # Replace old versions with the updated ones (if any)
 conversions <- res$conversions
 preprocessing.times <- res$preprocessing.times
-if (!is.null(update.fields)) {
-  upf <- unlist(conversions[update.fields])
-  df.preprocessed[, upf] <- res$df.preprocessed[, upf]
-} else {
-  # All fields updated by default
-  df.preprocessed <- res$df.preprocessed
-}
+
+upf <- unlist(conversions[update.fields])
+df.preprocessed[, upf] <- res$df.preprocessed[, upf]
 
 # -----------------------------------------------
 
