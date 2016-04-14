@@ -2,6 +2,7 @@
 #' @description Harmonize ie statements.
 #' @param x A vector
 #' @param separator The separator string (i.e by default)
+
 #' @return A vector polished
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}

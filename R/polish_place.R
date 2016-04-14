@@ -20,7 +20,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (is.null(synonymes)) {
     # Harmonize places with synonyme table
     f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-    synonymes <- read_synonymes(f, include.lowercase = T, self.match = F, ignore.empty = FALSE, mode = "table")
+    synonymes <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
 
     # Harmonize places with synonyme table
@@ -62,20 +62,20 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   # TODO should go to synonyme list?
   # Remove numerics
   x <- gsub("[0-9]", " ", x) 
-  #x <- gsub("s\\:t ", "st ", x)
-  #x <- gsub("n\\.w", "new", x)
-
-  x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\.", ":$"), niter = 1)
+  x <- remove_special_chars(x, chars = c("\\(", "\\)", "\\[", "\\]", "\\="), niter = 1)
+  x <- gsub("[_|:|;|,|\\?|\\&|\\.| ]+", " ", x)
+  x <- gsub("-+", " ", x)
+  x <- gsub("'", " ", x)  
+  x <- condense_spaces(x)
+  x <- gsub(" sic ", " ", x)
   x <- gsub("^and ", "", x)
   x <- gsub("^from ", "", x)            
-  x <- gsub("['|-]", "", x)
-  x <- gsub("^s$", "", x)    
   x <- gsub("^re ", "", x)
-  x <- gsub("_", " ", x)
   x <- gsub("^[a-z]{1,2}$", " ", x)  
-  x <- gsub("^[a-z] [a-z]$", " ", x)
+  x <- gsub("^[a-z] +[a-z]$", " ", x)
   x <- gsub("^[a-z]\\. [a-z]$", " ", x)  
-  
+  x <- condense_spaces(x)
+
   # Back to original indices, then unique again; reduces number of unique cases further
   x <- x[match(xorig, xuniq)]
   xorig <- x
@@ -84,7 +84,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (verbose) {message(paste("Polishing ", length(xuniq), " unique place names", sep = ""))}
   x <- remove_persons(x)
-
   if (verbose) {message("Remove print statements")}
   x <- remove_print_statements(x, remove.letters = FALSE)
   x <- condense_spaces(x)
@@ -94,7 +93,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (verbose) {message("Harmonize ie")}
   x <- harmonize_ie(x)
-
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
 
   # Back to original indices, then unique again; reduces number of unique cases further
@@ -144,6 +142,11 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (verbose) {message("Capitalize all names")}    
   x <- capitalize(x)
 
+  # Also capitalize certain endings
+  x <- gsub(" ma$", " Ma", x)
+  x <- gsub(" mi$", " Mi", x)
+  x <- gsub(" ny$", " NY", x)    
+
   if (verbose) {message("Replace special cases")}
   x[x == c("", "na")] <- NA
 
@@ -164,7 +167,8 @@ polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
   # NOTE: this step may loose info on original country
   # london re/now edinburgh -> london
   x <- splitpick(x, " re ", 1)
-  # x <- splitpick(x, " now ", 1) # Should we pick latter here instead ?  
+  # This may loose country info so do not include
+  #x <- splitpick(x, " now ", 1) # Should we pick latter here instead ?  
 
   # New York N Y -> New York NY
   if (length(grep(" [a-z] [a-z]$", x))>0) {
@@ -173,6 +177,7 @@ polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
   }
 
   # Remove - may loose considerable information ?
+  # However looks very useful in practice
   if (!is.na(x) && any(!is.na(s)) && !(x %in% na.omit(s))) {
     spl <- unlist(strsplit(x, " "), use.names = FALSE)
     inds <- which(!is.na(match(spl, s)))

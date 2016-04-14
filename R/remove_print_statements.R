@@ -24,7 +24,6 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
     terms.multi <- terms[nchar(terms) > 1]
 
     x <- remove_terms(x, terms.multi, where = "all", polish = FALSE, include.lowercase = FALSE)
-
     x <- condense_spaces(x)
 
     # Individual characters not removed from the end

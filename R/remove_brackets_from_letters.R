@@ -1,4 +1,4 @@
-#' @title remove_brackets_from_letters
+#' @title Remove brackets from letters
 #' @description Remove brackets surrounding letters
 #' @param x A vector
 #' @param myletters Letters to remove

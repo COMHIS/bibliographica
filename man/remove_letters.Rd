@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_letters.R
 \name{remove_letters}
 \alias{remove_letters}
-\title{remove_letters}
+\title{Remove letters}
 \usage{
 remove_letters(x, ignore.start = c("S", "s", "N", "n", "E", "e", "W", "w"),
   ignore.end = c())

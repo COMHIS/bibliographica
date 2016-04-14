@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_brackets_from_letters.R
 \name{remove_brackets_from_letters}
 \alias{remove_brackets_from_letters}
-\title{remove_brackets_from_letters}
+\title{Remove brackets from letters}
 \usage{
 remove_brackets_from_letters(x, myletters = NULL)
 }
