@@ -29,6 +29,7 @@ Aberdeen;aeerdene;
 Aberdeen;abredeis aberdeen;
 Aberhonddu;brecknock;
 Aberhonddu;brecon;
+Bethania NC;bethania nc;
 Abermaw;barmouth;
 Adpar;trefhedyn;
 Aix-en-Provence;aix;
@@ -53,10 +54,8 @@ Altenburg;altenbourg;
 Altenburg;altenburgh;
 Altenstein;alten stetin;
 Altenstein;alten stettin;
-Ambiguous;elizabeth town;Elizabeth NJ|Elizabethtown MD
-Ambiguous;mass;Mass/Boston Ma
-Ambiguous;white hall;Whitehall PA/London
-Ambiguous;wilmington;Wilmington DE/Wilmington NC
+Boston Ma;mass;
+London;white hall;
 America;americae;
 Amherst NH;amherst;
 Amherst NH;amherst new hampshire;
@@ -190,7 +189,7 @@ Ayr;air scotland;
 Ballston Spa NY;ballston ny;
 Ballston Spa NY;ballston saratoga county ballston spa ny;
 Ballston Spa NY;ballston saratoga county ny;
-Baltimore Ma;baltimore maryland;Is this also Md (not Ma)?
+Baltimore Md;baltimore maryland;
 Baltimore Md;baltimore;
 Baltimore Md;baltimore town;
 Baltimore Md;baltimori;
@@ -255,8 +254,6 @@ Berwick-upon-Tweed;berwick england;
 Berwick-upon-Tweed;berwick;
 Berwick-upon-Tweed;berwick on tweed;
 Berwick-upon-Tweed;berwick upon tweed;
-Besancon;besanc on;
-Besancon;besanc on;
 Besançon;besanc̜on;
 Bethlehem Pa;bey bethlehem pa fork dellawar;
 Birmingham;birm ingham;
@@ -384,7 +381,7 @@ Brussels;bruxellis;
 Budapest;buda;
 Budapest;pest;
 Budapest;pesten;
-Burlington NJ;burlington;
+Burlington (Ambiguous);burlington;
 Burlington NJ;burlington in new jersey;
 Burlington NJ;burlington new jersey;
 Burlington Vt;burlington state of vermont;
@@ -419,14 +416,15 @@ Calicut;calicute;
 Calumet Mi;calumet;
 Calumet Mi;calumet mich;
 Calumet Mi;calumet michigan;
-Cambridge (Ambiguous);Est haec oratiucula;
+Cambridge (Ambiguous);cambridge b c legge vniversitie cambridge;
+Cambridge (Ambiguous);est haec oratiũcula cantabrigiae
 Cambridge (Ambiguous);apud praedaram cantabrigiam;
 Cambridge (Ambiguous);apud preclarem cantabrigiam;
 Cambridge (Ambiguous);caergrawnt;
 Cambridge (Ambiguous);cambridg;
-Cambridge (Ambiguous);cambridge;
 Cambridge (Ambiguous);cambridge cambridgeshire;
 Cambridge (Ambiguous);cambrige;
+Cambridge (Ambiguous);cambridge;
 Cambridge (Ambiguous);cambrigi;
 Cambridge (Ambiguous);camrbridge;
 Cambridge (Ambiguous);camridge;
@@ -454,13 +452,14 @@ Cambridge England;cambridge and london;
 Cambridge England;cambridge england mass;
 Cambridge England;cambridge london;
 Cambridge England;cambridg england;
+Cambridge England;cambridge eng;
 Cambridge Ma;Cantabrigiae nov angl;
 Cambridge Ma;Cantabrigiae nov angliae;
 Cambridge Ma;cambridge mass;
 Cambridge Ma;cambridg mass;
 Cambridge Ma;cantabrigiae cambridge mass;
 Cambridge Ma;cantabrigia nov anglia;
-Cambridge;Cantabrigiae cambridgeshire
+Cambridge (Ambiguous);Cantabrigiae cambridgeshire
 Canaan NY;canaan state;
 Canterbury (Ambiguous);canterbury;Ambiguous
 Canterbury (Ambiguous);cantorbery;Ambiguous
@@ -476,7 +475,7 @@ Cap-Haitien;cape françois;
 Cap-Haitien;cap francois haiti;
 Cap-Haitien;cap françois haiti;
 Cap-Haitien;cap haitien;
-Carlisle;carlisle england;
+Carlisle England;carlisle england;
 Carlisle Pa;pennsylvania carlisle;
 Carlisle Pa;carlisle pennsylvania;
 Carlow;garlow;
@@ -493,7 +492,7 @@ Castine Me;castine maine;
 Catskill NY;catskill;
 Catskill NY;catskill landing ny;
 Chambersburg Pa;chambersburg penn;
-Charleston SC;charleston;Is Charleston SC same as Charlestown SC?
+Charleston SC;charleston;
 Charleston SC;charleston south carolina;
 Charleston SC;charles town;
 Charleston SC;charlestown;
@@ -506,17 +505,17 @@ Charleston SC;charlottetown;
 Charleston SC;charlston sc;
 Charleston SC;south carolina;
 Charleston SC;south carolina charlestown;
-Charleston SC;south carolina charles town;Is Charleston SC same as Charlestown SC?
+Charleston SC;south carolina charles town;
 Charleston SC;south carolina charles town sc;
 Charlestown Ma;massachusetts charlestown;
 Charlottetown;charlotte town island saint john;
-Charlottetown Pe;charlotte town;
-Chelmsford;chelmsford england;
+Charlottetown;charlotte town;
+Chelmsford England;chelmsford england;
 Chelmsford Ma;chelmsford mass;
 Chelmsford Ma;chelmsford mass england;
 Chennai;vepery;
 Cheshire Ct;cheshire conneticut;
-Chesire Ct;cheshire conn;
+Cheshire Ct;cheshire conn;
 Chester;caerlleon chester england;
 Chester;chester england;
 Chester;chester york;
@@ -656,7 +655,7 @@ Douglas;douglas isle mann;
 Douglas;douglass isle mann;
 Douglas;isle man;
 Douglas;isle mann;
-Dresden;dresden vt;
+Dresden Vt;dresden vt;
 Dresden Me;pownalborough me;
 Drogheda;drogheda ireland;
 Dublin;ata so ar na chur gclo mbaile atha cliath;
@@ -824,8 +823,6 @@ Edinburgh;exactly correctit newly edinbrugh;
 Edinburgh;holy rood house;
 Edinburgh;holy rood house edinburgh;
 Edinburgh;inlondon at edinburgh;
-Edinburgh;leith;
-Edinburgh;leith scotland;
 Edinburgh;london at edinburgh;
 Edinburgh;london at leith;
 Edinburgh;na de copy van schotland;
@@ -843,6 +840,7 @@ Elizabeth NJ;elizabeth town new jersey;
 Elizabeth NJ;elizabeth town nj;
 Elizabeth NJ;elizabethtown nj;
 Elizabethtown Md;elizabethtown maryland;
+Elizabethtown Md;elizabeth town;
 Ely Mi;ely minn;
 Emden;embdae;
 Ennis;ennis ireland;
@@ -966,7 +964,7 @@ Germantown Pa;germantaun;
 Germantown Pa;germanton;
 Germantown Pa;germantown;
 Germantown Pa;germantown pe;
-Germantown Pe;germantown pennsylvania;Should this also be Pa (not Pe)?
+Germantown Pa;germantown pennsylvania;
 Ghent;att gant;
 Ghent;gandavi;
 Ghent;gant;
@@ -1157,8 +1155,8 @@ Härnösand;trukketum hernösandesne;
 Harrisburgh;harrisburg;
 Harrisburgh;harrisburgh;
 Harrisburgh Pa;härrisburg pa;
-Harrisburgh Pe;harrisburgh pennsylvania;Should this also be Pa (not Pe)?
-Harrisburgh Pe;harrisburgh pe;
+Harrisburgh Pa;harrisburgh pennsylvania;
+Harrisburgh Pa;harrisburgh pe;
 Hartford Ct;hartford;
 Hartford Ct;hartford conn;
 Hartford Ct;hartford connecticut;
@@ -1291,7 +1289,7 @@ Jelgava;mitau und leipzig;
 Jena;i\\.e na;
 Jena;jenae;
 Jena;jena leipzig;
-Jersey (Ambiguous);jersey;Ambiguous: St Helier/Jersey City NJ 
+St Helier;jersey;
 Jerusalem;jeurslem;
 Joensuu;joensuussa;
 Johnstown NY;johnstown;
@@ -1328,8 +1326,8 @@ Kelso;kelso scotland;
 Kelso;keslo;
 Kemi;kemissä;
 Kendal;kendal england;
-Kentucky (Ambiguous);kentucky;Ambiguous Washington Ky/Frankfort Ky
-Kentucky (Ambiguous);ky;Ambiguous Washington Ky/Frankfort Ky
+Frankfort Ky;;kentucky;Ambiguous Washington Ky/Frankfort Ky
+Frankfort Ky;Ambiguous Washington Ky/Frankfort Ky
 Kharkiv;har'kov';
 Kharkiv;harkov;
 Kidderminster;kidderminister;
@@ -2058,9 +2056,9 @@ New Brunswick NJ;new brunswick;
 New Brunswick NJ;new brunswick new jersey;
 Newburgh NY;newburgh orange county ny;
 Newburgh NY;newburgh ulster county ny;
-Newbury Ma;newbury mass;Is this Newburyport Ma
+Newburyport Ma;newbury mass;
 Newburyport Ma;newbury newburyport mass;
-Newbury Ma;newbury mass england;Is this Newburyport Ma - USA / England?
+Newburyport Ma;newbury mass england;
 Newburyport Ma;newbury port;
 Newburyport Ma;newburyport;
 Newburyport Ma;newbury port mass;
@@ -2489,8 +2487,8 @@ Raahe;brahestads;
 Ramsgate;ramsgatae;
 Rauma;raumalla;
 Rauma;raumo;
-Reading (Ambiguous);reading;
-Reading (Ambiguous);readingi;
+Reading;reading;Ambiguous England/USA
+Reading;readingi;Ambiguous England/USA
 Reading England;reading berks england;
 Red Jacket Mi;red jacket mich;
 Red Lodge MT;red lodge mont;
@@ -3267,7 +3265,7 @@ Vyborg;wijbor;
 Vyborg;wijborg;
 Vyborg;wjburgi;
 Vyborg;wyburg;
-Walpole Ma;walpole;Why not Walpole NH?
+Walpole NH;walpole;
 Walpole NH;walpole newhamphire;
 Walpole NH;walpole new hampshire;
 Walpole NH;walpole newhampshire;
@@ -3326,6 +3324,7 @@ Wilkes-Barre Pa;wilkesbarre pa;
 Williamsburg Va;williamsburg;
 Williamsburg Va;williamsburgh va;
 Williamsburg Va;williamsburg annapolis;
+Wilmington De;wilmington;
 Wilmington De;wilmington del;
 Wilmington De;wilmington delaware;
 Wilmington De;wilmingtonii del;

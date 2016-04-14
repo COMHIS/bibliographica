@@ -62,7 +62,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   # TODO should go to synonyme list?
   # Remove numerics
   x <- gsub("[0-9]", " ", x) 
-  x <- remove_special_chars(x, chars = c("\\(", "\\)", "\\[", "\\]", "\\="), niter = 1)
+  x <- remove_special_chars(x, chars = c("\\(", "\\)", "\\[", "\\]", "\\{", "\\}", "\\="), niter = 1)
   x <- gsub("[_|:|;|,|\\?|\\&|\\.| ]+", " ", x)
   x <- gsub("-+", " ", x)
   x <- gsub("'", " ", x)  

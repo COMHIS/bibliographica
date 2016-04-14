@@ -214,11 +214,13 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
 
   message("Ambiguous publication place harmonization")  
-  tab <- read.csv(system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica"), sep = ";")
+  f = system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
+  tab <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")  
   s <- split(as.character(tab$name), tolower(as.character(tab$synonyme)))
   s <- s[sapply(s, function(x) {length(unique(x))}) > 1]
   tab <- tab[tab$synonyme %in% names(s),]
   tab <- tab[order(tab$synonyme),]
+  
   # Only include those that we have in our data
   tab <- tab[as.character(tab$name) %in% as.character(df.preprocessed$publication_place),]  
   write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)

@@ -16,7 +16,8 @@ estimate_pages <- function (x) {
     return(suppressWarnings(as.numeric(as.roman(x))))
   } else if (length(grep("^\\[[0-9]+ {0,1}[p|s]{0,1}\\]$", x)>0)) {
     # "[3]" or [3 p]
-    return(as.numeric(remove.squarebrackets(gsub(" [p|s]", "", x))))    
+    #return(as.numeric(remove.squarebrackets(gsub(" [p|s]", "", x))))
+    return(as.numeric(str_trim(gsub("\\[", "", gsub("\\]", "", gsub(" [p|s]", "", x))))))
   } else if (length(grep("^[0-9]+ sheets$", x)) == 1) {
     # "2 sheets"
     if (x == "sheet") {x <- "1 sheet"}
@@ -24,7 +25,7 @@ estimate_pages <- function (x) {
     return(2 * as.numeric(as.roman(str_trim(unlist(strsplit(x, "sheet"), use.names = FALSE)[[1]])))) 
   } else if (length(grep("\\[{0,1}[0-9]* \\]{0,1} leaves", x)) > 0) {
     # "[50 ] leaves" 
-    x <- gsub("\\[", "", gsub("\\]", "", x))    
+    x <- str_trim(gsub("\\[", "", gsub("\\]", "", x)))
   } else if (length(grep("[0-9]+ \\+ [0-9]+", x))>0) {
     # 9 + 15
     return(sum(as.numeric(str_trim(unlist(strsplit(x, "\\+"), use.names = FALSE)))))

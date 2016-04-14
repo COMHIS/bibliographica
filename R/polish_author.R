@@ -32,7 +32,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   # TODO make a separate acceptance list and also
   # exclude known pseudonyms and names automatically
   # from the stopwords
-  stopwords <- setdiff(stopwords, c("humble", "about", "most", "more", "day", "country", "gentleman", "how", "towne", "charity"))
+  stopwords <- setdiff(stopwords, c("humble", "about", "most", "more", "day", "country", "gentleman", "how", "towne", "charity", "commons", "common"))
 
   s <- tolower(as.character(s))
 

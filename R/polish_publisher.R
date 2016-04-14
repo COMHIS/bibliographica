@@ -19,8 +19,10 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
 
   # Initial hamornization
   x <- tolower(x)
-  x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "\\.", "-"), niter = 2)
-
+  #x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "\\.", "-"), niter = 2)
+  x <- gsub("[,|;|:|\\?|-|\\&|\\.]+", "", x) 
+  x <- str_trim(gsub("\\(+", "", gsub("\\)+", "", x)))
+  
   xorig <- x
   xuniq <- unique(x)
   x <- xuniq
@@ -34,13 +36,12 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
   
   x <- remove_terms(x, terms, where = "begin")
 
-  x <- remove.squarebrackets(x, mc.cores = mc.cores)
+  x <- str_trim(gsub("\\[", "", gsub("\\]", "", x)))
 
   x <- remove_print_statements(x)
 
   # Remove numerics
   x <- gsub("[0-9]", " ", x)
-
   x <- condense_spaces(x)
 
   # Remove strings that are single letters
