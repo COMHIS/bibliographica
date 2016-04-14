@@ -4,12 +4,14 @@
 \alias{handle_ie}
 \title{Handle ie}
 \usage{
-handle_ie(x, harmonize = TRUE)
+handle_ie(x, harmonize = TRUE, separator = "i.e")
 }
 \arguments{
 \item{x}{A vector}
 
 \item{harmonize}{Logical. Harmonize ie statements efore interpretation?}
+
+\item{separator}{The separator string (i.e by default)}
 }
 \value{
 A vector polished

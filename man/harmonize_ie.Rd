@@ -4,10 +4,12 @@
 \alias{harmonize_ie}
 \title{Harmonize ie}
 \usage{
-harmonize_ie(x)
+harmonize_ie(x, separator = "i.e")
 }
 \arguments{
 \item{x}{A vector}
+
+\item{separator}{The separator string (i.e by default)}
 }
 \value{
 A vector polished

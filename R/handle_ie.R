@@ -2,13 +2,14 @@
 #' @description Handle ie statement
 #' @param x A vector
 #' @param harmonize Logical. Harmonize ie statements efore interpretation?
+#' @param separator The separator string (i.e by default)
 #' @return A vector polished
 #' @importFrom stringr str_sub
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{x2 <- handle_ie("i.e.")}
 #' @keywords utilities
-handle_ie <- function (x, harmonize = TRUE) {
+handle_ie <- function (x, harmonize = TRUE, separator = "i.e") {
 
   # 183 i.e 297 -> 297	  
   # 183-285 i.e 297 -> 183-297	  
@@ -17,11 +18,11 @@ handle_ie <- function (x, harmonize = TRUE) {
   y <- x
 
   if (harmonize) {
-    y <- x <- harmonize_ie(y)
+    y <- x <- harmonize_ie(y, separator = separator )
   }
   x <- condense_spaces(x)
 
-  if (is.na(x) || x == "i.e") {return(x)}
+  if (is.na(x) || x == separator) {return(x)}
 
   # z [i.e y] -> y
   if (length(grep("[0-9|a-z]*\\.* \\[i\\.e [0-9|a-z]*\\]", x))>0) {

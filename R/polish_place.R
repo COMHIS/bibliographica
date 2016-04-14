@@ -28,7 +28,14 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 		package = "bibliographica")
     spechars <- read_synonymes(f, sep = ";", mode = "table", include.lowercase = TRUE)
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
-    
+
+    f <- system.file("extdata/harmonize_place.csv",
+		package = "bibliographica")
+    speccases <- read_synonymes(f, sep = ";", mode = "table", include.lowercase = TRUE)
+    if (verbose) { message(paste("Reading publication place synonyme table", f)) }
+
+    synonymes.spec <- rbind(spechars, speccases)
+
   }
 
   f <- system.file("extdata/stopwords.csv", package = "bibliographica")
@@ -52,10 +59,11 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- remove_brackets_from_letters(x)
 
   # Some trivial trimming to speed up
+  # TODO should go to synonyme list?
   # Remove numerics
   x <- gsub("[0-9]", " ", x) 
-  x <- gsub("s\\:t ", "st ", x)
-  x <- gsub("n\\.w", "new", x)
+  #x <- gsub("s\\:t ", "st ", x)
+  #x <- gsub("n\\.w", "new", x)
 
   x <- remove_special_chars(x, chars = c(",", ";", ":", "\\(", "\\)", "\\?", "--", "\\&", "-", "\\-", " :;", "; ", " ;;","; ", ",", "\\[", "\\]", " sic ", "\\=", "\\.", ":$"), niter = 1)
   x <- gsub("^and ", "", x)
@@ -64,9 +72,10 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- gsub("^s$", "", x)    
   x <- gsub("^re ", "", x)
   x <- gsub("_", " ", x)
+  x <- gsub("^[a-z]{1,2}$", " ", x)  
   x <- gsub("^[a-z] [a-z]$", " ", x)
-  x <- gsub("^[a-z]\\.[a-z]$", " ", x)  
-
+  x <- gsub("^[a-z]\\. [a-z]$", " ", x)  
+  
   # Back to original indices, then unique again; reduces number of unique cases further
   x <- x[match(xorig, xuniq)]
   xorig <- x
@@ -82,7 +91,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (verbose) {message("Remove stopwords")}
   x <- remove_stopwords(x, terms = stopwords, remove.letters = FALSE)
-print(x)
+
   if (verbose) {message("Harmonize ie")}
   x <- harmonize_ie(x)
 
@@ -115,7 +124,7 @@ print(x)
 
     if (verbose) { message("Harmonize the synonymous names") }
     # First replace some special characters 
-    x <- as.character(harmonize_names(x, spechars,
+    x <- as.character(harmonize_names(x, synonymes.spec,
 		mode = "recursive"))
 
     # Then match place names to synonymes		
@@ -124,6 +133,11 @@ print(x)
 		mode = "exact.match"))
 
   }
+
+  # Remove too short names with just two letters
+  x <- gsub("^[a-z]{1,2}$", " ", x)  
+  x <- gsub("^[a-z] [a-z]$", " ", x)
+  x <- gsub("^[a-z]\\.[a-z]$", " ", x)  
 
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
   
@@ -143,33 +157,27 @@ polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
 
   # London i.e. The Hague ->  The Hague
   # In the Yorke at London -> London
-  for (ss in c(" i.e ", " at ", " At ")) {
-    if (length(grep(ss, x))>0) {
-      spl <- unlist(strsplit(x, ss))
-      x <- spl[[length(spl)]]
-    }
-  }  
+  # TODO use handle_ie function here or make an improved version
+  x <- splitpick(x, " i.e ", 2)
+  x <- splitpick(x, " at ", 2)  
+
+  # NOTE: this step may loose info on original country
+  # london re/now edinburgh -> london
+  x <- splitpick(x, " re ", 1)
+  # x <- splitpick(x, " now ", 1) # Should we pick latter here instead ?  
 
   # New York N Y -> New York NY
   if (length(grep(" [a-z] [a-z]$", x))>0) {
     n <- nchar(x)
     x <- paste(substr(x, 1, n-2), substr(x, n, n), sep = "")
-
   }
 
-  # NOTE: this step may loose info on original country
-  # london re/now edinburgh -> london
-  if (length(grep(" [re|now] ", x)) > 0) {
-    spl <- unlist(strsplit(x, " [re|now] "), use.names = FALSE)
-    #if (length(spl)>0) {x <- spl[[1]]}
-    x <- spl[[1]]
-  }
-
+  # Remove - may loose considerable information ?
   if (!is.na(x) && any(!is.na(s)) && !(x %in% na.omit(s))) {
     spl <- unlist(strsplit(x, " "), use.names = FALSE)
     inds <- which(!is.na(match(spl, s)))
     if (length(inds) > 0) {
-      # Keep all occurrences that are on synonyme list
+      # Keep only those terms that are on synonyme list
       x <- paste(unique(spl[inds]), collapse = " ")
     }
   }
