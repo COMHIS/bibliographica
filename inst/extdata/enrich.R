@@ -6,9 +6,10 @@ if (c("publication_place", "publication_geography") %in% update.fields) {
   source(system.file("extdata/enrich_geo.R", package = "bibliographica"))
 }
 
-if ("publication_time" %in% update.fields) {
+# Always do. This is fast.
+#if ("publication_time" %in% update.fields) {
   source(system.file("extdata/enrich_years.R", package = "bibliographica"))
-}
+#}
 
 if (c("author_name", "author_date") %in% update.fields) {
   source(system.file("extdata/enrich_author.R", package = "bibliographica"))
@@ -38,6 +39,8 @@ if ("language" %in% update.fields) {
 
 # -------------------------------------------------------------------
 
+# For now, always enrich.
+# TODO: check in generate_summary_tables if these are updated or not
 if (c("physical_extent", "physical_dimension") %in% update.fields) {
 
   source(system.file("extdata/enrich_dimensions.R", package = "bibliographica"))

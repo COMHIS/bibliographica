@@ -29,8 +29,10 @@ if (reload.data) {
 
 # If update fields is provided, then look for previously preprocessed file
 if (exists("update.fields") && !is.null(update.fields) && ("df0.Rds" %in% dir())) {
+
   df.preprocessed <- readRDS("df0.Rds")  
   conversions <- readRDS("conversions.Rds")
+  
 } else {
   conversions <- list()
   update.fields <- names(df.orig) # Update all fields

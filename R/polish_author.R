@@ -30,14 +30,12 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
     stopwords <- unique(c(stopwords.general, stopwords.organizations, stopwords.names, stopwords.titles))
   }
 
-  f <- system.file("extdata/stopwords_pseudonymes.csv", package = "bibliographica")
-  pseudonymes <- as.character(read.csv(f, sep = "\t")[,1])
-
   # Accept some names that may be on the stopword lists
   # TODO add here all known names
   f <- system.file("extdata/author_accepted.csv", package = "bibliographica")
-  author.accepted <- as.character(read.csv(f, sep = "\t")[,1])  
-  accept.names <- c(pseudonymes, author.accepted)
+  author.accepted <- as.character(read.csv(f, sep = "\t")[,1])
+  pseudo <- get_pseudonymes()  
+  accept.names <- c(pseudo, author.accepted)
 
   # Then remove those in stopwords (ie accept these in names)
   # Exclude some names and pseudonyms from assumed stopwords
@@ -131,30 +129,28 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   nametab[(!valid[["first"]] | !valid[["last"]]), ] <- NA
   nametab$last[is.na(nametab$first)] <- NA
   nametab$first[is.na(nametab$last)] <- NA
-
-
-  # FIXME this could go to enrich / qualitycheck
-  ### VALIDATING THE NAMES
-  valid <- list()
-  #invalid <- list()
-
-  if (verbose) { message("Validate names with known name lists") }
-  if (validate) {  
-    for (db in c("first", "last")) {
-      if (verbose) { message(db) }
-      namelist <- nametab[[db]]
-      v <- validate_names(namelist, db)
-      valid[[db]] <- v$validated
-      #invalid[[db]] <- v$invalid
-    }
-    if (verbose) { message("Remove names that do not have both valid first and last names") }
-    nametab[(!valid[["first"]] | !valid[["last"]]), ] <- NA
-    nametab$last[is.na(nametab$first)] <- NA
-    nametab$first[is.na(nametab$last)] <- NA
-  }
+ 
+#  # FIXME this could go to enrich / qualitycheck
+#  ### VALIDATING THE NAMES
+#  valid <- list()
+#  #invalid <- list()
+#  if (verbose) { message("Validate names with known name lists") }
+#  if (validate) {  
+#    for (db in c("first", "last")) {
+#      if (verbose) { message(db) }
+#      namelist <- nametab[[db]]
+#      v <- validate_names(namelist, db)
+#      valid[[db]] <- v$validated
+#      #invalid[[db]] <- v$invalid
+#    }
+#    if (verbose) { message("Remove names that do not have both valid first and last names") }
+#    nametab[(!valid[["first"]] | !valid[["last"]]), ] <- NA
+#    nametab$last[is.na(nametab$first)] <- NA
+#    nametab$first[is.na(nametab$last)] <- NA
+#  }
 
   if (verbose) { message("Capitalize names")}
-  nametab$last <- capitalize(nametab$last, "all.words")
+  nametab$last  <- capitalize(nametab$last, "all.words")
   nametab$first <- capitalize(nametab$first, "all.words")  
 
   if (verbose) { message("Collapse accepted names to the form: Last, First") }
@@ -168,7 +164,6 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   nametab <- nametab[match(sorig, suniq), ]
   nametab$original <- sorig
 
-  #list(names = nametab, invalid = invalid)
   list(names = nametab)  
 
 }

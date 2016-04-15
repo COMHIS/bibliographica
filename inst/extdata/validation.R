@@ -1,9 +1,11 @@
+min.year <- (-2000)
+max.year <- as.numeric(format(Sys.time(), "%Y")) # this.year
+
+
 if ("publication_time" %in% update.fields) {
 
   print("Fix publication years")
   # Remove apparent errors: no future publications or publications before historical times
-  min.year <- (-2000)
-  max.year <- as.numeric(format(Sys.time(), "%Y")) # this.year
   df.preprocessed$publication_year_from[which(df.preprocessed$publication_year_from > max.year)] <- NA
   df.preprocessed$publication_year_from[which(df.preprocessed$publication_year_from < min.year)] <- NA
   df.preprocessed$publication_year_till[which(df.preprocessed$publication_year_till > max.year)] <- NA
