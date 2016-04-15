@@ -1,5 +1,5 @@
-#' @title Mean pagecounts univol
-#' @description Calculate mean page counts for multi-volume documents
+#' @title Mean pagecounts for single volume documents
+#' @description Calculate mean page counts for single volume documents.
 #' @param df data frame
 #' @return Average page count information
 #' @export
@@ -11,13 +11,12 @@ mean_pagecounts_univol <- function (df) {
 
   items <- volnumber <- parts <- volcount <- gatherings <- pagecount <- NULL
   if (!"volcount" %in% names(df))  {df$volcount <- rep(1, nrow(df))}
-  if (!"volnumber" %in% names(df)) {df$volnumber <- rep(1, nrow(df))}  
+  if (!"volnumber" %in% names(df)) {df$volnumber <- rep(NA, nrow(df))}  
 
   # Ensure that
   # Include only docs that have a single volume in one part
   # (multi-volume books tend to have more pages)
-  pagecounts <- filter(df, 
-		!is.na(volnumber)) %>% 
+  pagecounts <- dplyr::filter(df, !is.na(volcount)) %>% 
 		group_by(gatherings) %>% 
 		summarize(
 	mean.pages.per.vol = mean(na.omit(pagecount)), 

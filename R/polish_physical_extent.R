@@ -31,7 +31,6 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   f <- system.file("extdata/remove_dimension.csv", package = "bibliographica")
   terms <- as.character(read.csv(f)[,1])
   s <- remove_dimension(s, terms)
-  #s <- as.character(s)
   s[grep("^[ |;|:|!|?]*$", s)] <- NA 
 
   # Back to original indices and new unique reduction 
@@ -110,8 +109,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   pages <- t(sapply(pages, identity))
 
   if (verbose) {message("Make data frame")}  
-  ret <- data.frame(pages)
-  #for (k in 1:ncol(ret)) {ret[, k] <- unlist(ret[, k], use.names = FALSE)}
+  ret <- as_data_frame(pages)
   names(ret) <- c("pagecount", "volnumber", "volcount")
 
   # Assume single volume when number not given

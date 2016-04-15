@@ -1,6 +1,6 @@
 # Preprocess selected original fields 
 res <- polish_all(df.orig, fields = update.fields,
-          file = "df.preprocessed.RData", mc.cores = mc.cores,
+          # file = "df.preprocessed.RData", mc.cores = mc.cores,
 	  conversions = conversions)
 
 if (!exists("df.preprocessed")) {
@@ -18,9 +18,6 @@ df.preprocessed[, upf] <- res$df.preprocessed[, upf]
 
 saveRDS(df.preprocessed, "df0.Rds", compress = TRUE)
 saveRDS(conversions, "conversions.Rds", compress = TRUE)
-
-sessioninfo <- sessionInfo()
-saveRDS(sessioninfo, "sessioninfo.Rds", compress = TRUE)
 
 # -----------------------------------------------
 

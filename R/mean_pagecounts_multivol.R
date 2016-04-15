@@ -11,7 +11,7 @@ mean_pagecounts_multivol <- function (df) {
 
   items <- volnumber <- parts <- volcount <- gatherings <- pagecount <- NULL
   if (!"volcount" %in% names(df)) {df$volcount <- rep(1, nrow(df))}
-  if (!"volnumber" %in% names(df)) {df$volnumber <- rep(1, nrow(df))}  
+  if (!"volnumber" %in% names(df)) {df$volnumber <- rep(NA, nrow(df))}  
 
   # Include only those items that have multiple volumes
   #    (multi-volume books tend to have more pages)
