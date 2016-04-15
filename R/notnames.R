@@ -10,8 +10,7 @@
 notnames <- function (...) {
 
   generic <- as.character(read.csv(system.file("extdata/names/notnames/generic.csv", package = "bibliographica"), sep = "\t")[,1])
-  organization <- as.character(read.csv(system.file("extdata/names/notnames/organization.csv", package = "bibliographica"), sep = "\t")[,1])
-
+  organization <- as.character(read.csv(system.file("extdata/organization.csv", package = "bibliographica"), sep = "\t")[,1])
 
   union(generic, organization)
 

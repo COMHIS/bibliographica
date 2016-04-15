@@ -83,7 +83,18 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, paste(nam, "accepted.csv", sep = "_"), sep = ""),
       count = TRUE, sort.by = "Name")
   }
-  message("publication_place")
+  message("...author")
+  # Separate tables for real names and pseudonymes
+  tab <- df.preprocessed %>% filter(!author_pseudonyme) %>% select(author_name)
+  tmp <- write_xtable(tab,
+      paste(output.folder, paste("author_accepted.csv", sep = "_"), sep = ""),
+      count = TRUE, sort.by = "Name")
+  message("...pseudonyme")
+  tab <- df.preprocessed %>% filter(author_pseudonyme) %>% select(author_name)
+  tmp <- write_xtable(tab, paste(output.folder, "pseudonyme_accepted.csv", sep = ""), count = TRUE)
+
+
+  message("...publication_place")
   tmp <- write_xtable(df.preprocessed[, c("publication_place", "country")],
       filename = paste(output.folder, "publication_place_accepted.csv", sep = ""),
       count = TRUE, sort.by = "publication_place")
@@ -140,10 +151,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # --------------------------------------------
 
   message("Automated summaries done.")
-
-  message("Author pseudonymes")
-  tab <- df.preprocessed %>% filter(author_pseudonyme) %>% select(author_name)
-  tmp <- write_xtable(tab, paste(output.folder, "author_pseudonymes.csv", sep = ""), count = TRUE)
 
   message("Authors with missing life years")
   tab <- df.preprocessed %>% filter(!is.na(author_name) & (is.na(author_birth) | is.na(author_death))) %>% select(author_name, author_birth, author_death)

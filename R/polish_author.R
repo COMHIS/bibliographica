@@ -15,6 +15,8 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   if (is.null(stopwords)) {
     message("No stopwords provided for authors. Using ready-made stopword lists")
 
+    # TODO Use instead the notnames function here ?
+    
     f <- system.file("extdata/stopwords.csv", package = "bibliographica")
     stopwords.general <- as.character(read.csv(f, sep = "\t")[,1])
     stopwords.general <- c(stopwords.general, stopwords(kind = "en"))

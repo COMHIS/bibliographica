@@ -28,14 +28,21 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
     df$author_death <- add_missing_entries(df, life_info, id = "author_name", field = "author_death") 
   }
 
-  message("Add pseudonyme indicator field")
+  message("Add pseudonyme field")
   pseudo <- get_pseudonymes()
   df$author_pseudonyme <- tolower(df$author_name) %in% pseudo
+  # Polish pseudonymes
+  pse <- df$author_name[df$author_pseudonyme]
+  pse <- gsub("\\,+", " ", pse)
+  pse <- gsub("\\.+", "", pse)
+  pse <- gsub("\\-+", " ", pse)    
+  pse <- condense_spaces(pse)
+  df$author_name[df$author_pseudonyme] <- pse
 
   message("Unique author identifier by combining name, birth and death years")
   df$author <- author_unique(df, initialize.first = FALSE)
 
-  message("Harmonize ambiguous authors")
+  message("Harmonize ambiguous authors, including pseudonymes")
   if (!is.null(ambiguous_authors)) {	  	    
     df$author <- harmonize_names(df$author, ambiguous_authors)
   }
