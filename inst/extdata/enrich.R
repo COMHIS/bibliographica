@@ -33,7 +33,7 @@ if ("language" %in% update.fields) {
   message("Enrich language")
   dfl <- select(df.preprocessed, starts_with("language"))
   l <- capitalize(gsub("language\\.", "", names(dfl))); # Language names
-  df.preprocessed$language <- factor(apply(dfl, 1, function (x) { paste(l[x], collapse = ";")  })) # List languages
+  df.preprocessed$language <- factor(apply(dfl, 1, function (x) { paste(l[unname(unlist(x))], collapse = ";")  })) # List languages
 
 }
 
