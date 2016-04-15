@@ -191,7 +191,37 @@ polish_physext_help2 <- function (x, page.synonyms, page.harmonize, sheet.harmon
   x <- as.character(harmonize_names(x, page.harmonize, mode = "recursive"))
   x <- as.character(harmonize_names(x, harm.pi, mode = "recursive"))
 
-  x <- harmonize_pages(x, page.synonyms, sheet.harmonize) 
+  if (length(grep("i\\.e", x)) > 0) {
+    x <- unlist(strsplit(x, ","), use.names = FALSE)
+
+    x <- sapply(x, function (si) {x <- unlist(strsplit(si, "-"), use.names = FALSE); paste(sapply(x, function (x) handle_ie(x, harmonize = FALSE)), collapse = "-")})
+    x <- paste(x, collapse = ",")
+  }
+
+  # Remove endings
+  x <- gsub("[ |\\.|\\,|\\;|\\:]+$", "", x)
+
+  # Remove spaces around dashes
+  x <- gsub(" {0,1}- {0,1}", "-", x)
+
+  # Remove parentheses
+  x <- gsub("[\\(|\\)]", " ", x)
+  x <- gsub("[\\{|\\}]", " ", x)  
+  x <- condense_spaces(x)
+
+  # p3 -> 3
+  if (length(grep("^p[0-9]+", x))>0) {
+    x <- gsub("^p", "", x)
+  }
+
+  # Add commas
+  # "[2] 4 p." -> "[2], 4 p."
+  inds <- setdiff(1:length(x), grep("\\[i", x))
+  x[inds] <- gsub(" \\[", "\\,[", x[inds])
+  for (n in 0:9) {
+     x <- gsub(paste("] ", n, sep = ""), paste("], ", n, sep = ""), x)
+  }
+  x <- str_trim(gsub("\\]$", "", x))  
 
   x <- estimate_pages(x)
 
