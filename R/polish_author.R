@@ -126,6 +126,11 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   nametab$last  <- capitalize(nametab$last, "all.words")
   nametab$first <- capitalize(nametab$first, "all.words")  
 
+  # Remove too short names with just two letters
+  #x <- gsub("^[a-z]{1,2}$", " ", x)  
+  #x <- gsub("^[a-z] [a-z]$", " ", x)
+  #x <- gsub("^[a-z]\\.[a-z]$", " ", x)  
+
   if (verbose) { message("Collapse accepted names to the form: Last, First") }
   full.name <- apply(nametab, 1, function (x) { paste(x, collapse = ", ") })
   full.name[full.name == "NA, NA"] <- NA

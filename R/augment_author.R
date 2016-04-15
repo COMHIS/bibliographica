@@ -46,8 +46,8 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
   dfa.uniq <- unique(dfa.orig)
   
   # Entry IDs
-  id.orig <- apply(dfa.orig, 1, function (x) {paste(as.character(x), collapse = "")})
-  id.uniq <- apply(dfa.uniq, 1, function (x) {paste(as.character(x), collapse = "")})
+  id.orig <- apply(dfa.orig, 1, function (x) { paste(as.character(x), collapse = "") })
+  id.uniq <- apply(dfa.uniq, 1, function (x) { paste(as.character(x), collapse = "") })
   match.inds <- match(id.orig, id.uniq)
   rm(id.orig)  
 
