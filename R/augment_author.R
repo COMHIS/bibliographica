@@ -40,8 +40,12 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
   df$author_name[df$author_pseudonyme] <- pse
 
   message("Unique author identifier by combining name, birth and death years")
-  df$author <- author_unique(df, initialize.first = FALSE)
-
+  author <- df$author_name
+  # Add years only for real persons, not for pseudonymes  
+  author[!df$author_pseudonyme] <- author_unique(df[!df$author_pseudonyme,], initialize.first = FALSE)
+  df$author <- author
+  rm(author)
+  
   message("Harmonize ambiguous authors, including pseudonymes")
   if (!is.null(ambiguous_authors)) {	  	    
     df$author <- harmonize_names(df$author, ambiguous_authors)
