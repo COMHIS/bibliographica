@@ -186,7 +186,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # Accepted / Discarded dimension info
   inds <- which(is.na(df.preprocessed[["area"]]))
   tmp <- write_xtable(
-    cbind(original = as.character(df.orig[df.preprocessed$original_row]$physical_dimension)[inds], df.preprocessed[inds, c("gatherings", "width", "height", "obl")]),
+    cbind(original = as.character(df.orig[df.preprocessed$original_row, ]$physical_dimension)[inds], df.preprocessed[inds, c("gatherings", "width", "height", "obl")]),
     paste(output.folder, paste("physical_dimension_incomplete.csv", sep = "_"), sep = ""),
     count = TRUE)
 
