@@ -28,6 +28,7 @@
 #' @importFrom sorvi quickdf
 #' @importFrom sorvi read_synonymes
 #' @importFrom stringr str_trim
+#' @importFrom tibble as_data_frame
 #' @importFrom tm stopwords
 .onAttach <- function(lib, pkg)
 {

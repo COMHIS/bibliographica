@@ -1,5 +1,5 @@
-#' @title capitalize
-#' @description Capitalize the first letter
+#' @title Capitalize strings
+#' @description Capitalize the first letter.
 #' @param x a character vector to capitalize
 #' @param format Capitalization format: "first.letter" (first letter
 #'   capitalized) or "all.words" (all words capitalized)
@@ -11,6 +11,11 @@
 #' @keywords utilities
 capitalize <- function (x, format = "first.letter") {
 
+  # Speed up by considering unique instances only
+  xorig = x
+  xuniq = unique(xorig)
+  x = xuniq
+
   if (format == "first.letter") {
     for (a in letters) {
       x <- gsub(paste0("^", a), toupper(a), x)
@@ -19,5 +24,6 @@ capitalize <- function (x, format = "first.letter") {
     x <- sapply(strsplit(x, " "), function (x) {paste(capitalize(x, format = "first.letter"), collapse = " ")})
   }
 
-  x
+  x[match(xorig, xuniq)]
+  
 }

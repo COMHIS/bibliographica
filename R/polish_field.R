@@ -27,7 +27,8 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1) {
 		      publication_frequency = "publication_frequency",
 		      publication_interval = "publication_interval",
 		      row.index = "row.index",
-		      original_row = "original_row"
+		      original_row = "original_row",
+		      estc_control_number = "estc_control_number"
   	      	 		     )
 
   # No preprocessing implemented for these fields
@@ -40,7 +41,8 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1) {
 		 "publication_frequency",
 		 "row_index",
 		 "original_row",
-		 "publication_interval"
+		 "publication_interval",
+		 "estc_control_number"		 
 		 )) {
     df.tmp <- data.frame(df[[field]])
     names(df.tmp) <- conversions[[field]]

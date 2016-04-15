@@ -70,7 +70,7 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   s <- gsub("\\?", " ", s)
   s <- gsub("-+", "-", s)      
   s <- str_trim(s)
-  s <- gsub("[\\.|\\,]$", "", s)
+  s <- gsub("[\\.|\\,]+$", "", s)
 
   # Map back to original indices, then make unique again. Helps to further reduce cases.
   s <- s[match(sorig, suniq)]
@@ -80,77 +80,47 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
 
   if (verbose) { message("Separating names") }
   # Assume names are of format Last, First
-  nametab <- t(sapply(strsplit(s, ","), function (x) {
-    name <- c(last = x[[1]], first = NA);
-    if (length(x)>1) {name[["first"]] <- paste(x[-1], collapse = " ")};
-    return(name)
-  }))
-
-  if (verbose) { message("Trim names") }
   # TODO O. K. Humble, Verner -> First: Verner O K Last: Humble
-  nametab <- as.data.frame(nametab)
-  nametab$last  <- gsub("^-", "", trim_names(nametab$last,  stopwords, remove.letters = FALSE))
-  nametab$first <- gsub("^-", "", trim_names(nametab$first, stopwords, remove.letters = FALSE))
+  first <- pick_firstname(s)
+  last  <-  pick_lastname(s)
+  # Where the name did not match the assumed format, use the complete form as the last name
+  inds <- which(is.na(first) & is.na(last))
+  if (length(inds) > 0) {
+    last[inds] <- as.character(s[inds])
+  }
 
   if (verbose) { message("Formatting names") }
   # Some additional formatting
   # eg. "Wellesley, Richard Wellesley" -> "Wellesley, Richard"
-  firsts <- c()
-  for (i in 1:nrow(nametab)) {
-    x <- nametab[i,]
-    first <- unlist(strsplit(nametab[i, "first"], " "), use.names = FALSE)
-    last <- unlist(strsplit(nametab[i, "last"], " "), use.names = FALSE)
-    if (length(first) == 0) {first <- NA}
-    if (length(last) == 0) {last <- NA}    
-    if (!is.na(first) && !is.na(last)) {
-      if (last == first[[length(first)]]) {
-        first <- first[-length(first)]
+  inds = which(!is.na(first) | !is.na(last))
+  for (i in inds) {
+
+    fi <- first[[i]]
+    if (!is.na(fi)) {
+      fi <- unlist(strsplit(fi, " "), use.names = FALSE)
+    }
+
+    la <- last[[i]]    
+    if (!is.na(la)) {    
+      la <- unlist(strsplit(la, " "), use.names = FALSE)
+    }
+
+    if (length(fi) == 0) {fi <- NA}
+    if (length(la) == 0) {la <- NA}    
+    if (!is.na(fi) && !is.na(la)) {
+      if (la == fi[[length(fi)]]) {
+        fi <- fi[-length(fi)]
       }
     }
-    firsts[[i]] <- paste(first, collapse = " ")
+    first[[i]] <- paste(fi, collapse = " ")
+    last[[i]] <- paste(la, collapse = " ")    
   }
-  nametab$first <- firsts
+
+  # Form table for the names
+  nametab <- as_data_frame(list(last = last, first = first))
 
   # Remove single letter last names
-  # nametab$first[nchar(nametab$first) == 1] <- NA
   nametab$last[nchar(nametab$last) == 1] <- NA   
-
-  # OK, now we have polished first and last names
-  # To speed up, discard names where both first and last are not accepted
-  valid <- list()
-  #invalid <- list()
-  for (db in c("first", "last")) {
-
-    namelist <- nametab[[db]]
-    v <- list()
-    v$validated <- !is.na(namelist)
-    v$invalid <- suniq[is.na(namelist)]
-    valid[[db]] <- v$validated
-    #invalid[[db]] <- v$invalid
-
-  }
-  nametab[(!valid[["first"]] | !valid[["last"]]), ] <- NA
-  nametab$last[is.na(nametab$first)] <- NA
-  nametab$first[is.na(nametab$last)] <- NA
- 
-#  # FIXME this could go to enrich / qualitycheck
-#  ### VALIDATING THE NAMES
-#  valid <- list()
-#  #invalid <- list()
-#  if (verbose) { message("Validate names with known name lists") }
-#  if (validate) {  
-#    for (db in c("first", "last")) {
-#      if (verbose) { message(db) }
-#      namelist <- nametab[[db]]
-#      v <- validate_names(namelist, db)
-#      valid[[db]] <- v$validated
-#      #invalid[[db]] <- v$invalid
-#    }
-#    if (verbose) { message("Remove names that do not have both valid first and last names") }
-#    nametab[(!valid[["first"]] | !valid[["last"]]), ] <- NA
-#    nametab$last[is.na(nametab$first)] <- NA
-#    nametab$first[is.na(nametab$last)] <- NA
-#  }
 
   if (verbose) { message("Capitalize names")}
   nametab$last  <- capitalize(nametab$last, "all.words")

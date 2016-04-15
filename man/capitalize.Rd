@@ -2,7 +2,7 @@
 % Please edit documentation in R/capitalize.R
 \name{capitalize}
 \alias{capitalize}
-\title{capitalize}
+\title{Capitalize strings}
 \usage{
 capitalize(x, format = "first.letter")
 }
@@ -16,7 +16,7 @@ capitalized) or "all.words" (all words capitalized)}
 Capitalized character vector
 }
 \description{
-Capitalize the first letter
+Capitalize the first letter.
 }
 \examples{
 capitalize("print")
