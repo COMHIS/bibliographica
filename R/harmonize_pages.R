@@ -1,12 +1,11 @@
 #' @importFrom sorvi harmonize_names
-harmonize_pages <- function (s, synonyms, harm, sheetharm, harm.pi) {
+harmonize_pages <- function (s, synonyms, sheetharm) {
 
   # FIXME move to main? pages
-
-  s <- as.character(harmonize_names(s, harm, mode = "recursive"))
+  # s <- as.character(harmonize_names(s, harm, mode = "recursive"))
 
   # FIXME move to main? page info
-  s <- as.character(harmonize_names(s, harm.pi, mode = "recursive"))
+  # s <- as.character(harmonize_names(s, harm.pi, mode = "recursive"))
 
   if (length(grep("i\\.e", s)) > 0) {
     s <- unlist(strsplit(s, ","), use.names = FALSE)

@@ -187,7 +187,11 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
 #' @keywords internal
 polish_physext_help2 <- function (x, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) {
 
-  x <- harmonize_pages(x, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) 
+  # TODO: can we speed up by moving these up ?		     
+  x <- as.character(harmonize_names(x, page.harmonize, mode = "recursive"))
+  x <- as.character(harmonize_names(x, harm.pi, mode = "recursive"))
+
+  x <- harmonize_pages(x, page.synonyms, sheet.harmonize) 
 
   x <- estimate_pages(x)
 
