@@ -2,7 +2,7 @@
 % Please edit documentation in R/mean_pagecounts_univol.R
 \name{mean_pagecounts_univol}
 \alias{mean_pagecounts_univol}
-\title{Mean pagecounts univol}
+\title{Mean pagecounts for single volume documents}
 \usage{
 mean_pagecounts_univol(df)
 }
@@ -13,7 +13,7 @@ mean_pagecounts_univol(df)
 Average page count information
 }
 \description{
-Calculate mean page counts for multi-volume documents
+Calculate mean page counts for single volume documents.
 }
 \examples{
 # m <- mean_pagecounts_univol(df)
