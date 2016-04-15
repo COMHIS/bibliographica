@@ -35,7 +35,11 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   f <- system.file("extdata/author_accepted.csv", package = "bibliographica")
   author.accepted <- as.character(read.csv(f, sep = "\t")[,1])
   pseudo <- get_pseudonymes()  
-  accept.names <- c(pseudo, author.accepted)
+  accept.names <- unique(c(pseudo, author.accepted))
+  # Also add individual terms in these names on the list
+  accept.names <- c(accept.names, unique(unlist(strsplit(accept.names, " "))))
+  # Remove special chars and make lowercase to harmonize
+  accept.names <- unique(condense_spaces(gsub("\\,", " ", gsub("\\.", "", tolower(accept.names)))))
 
   # Then remove those in stopwords (ie accept these in names)
   # Exclude some names and pseudonyms from assumed stopwords
@@ -85,7 +89,6 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   if (verbose) { message("Trim names") }
   # TODO O. K. Humble, Verner -> First: Verner O K Last: Humble
   nametab <- as.data.frame(nametab)
-
   nametab$last  <- gsub("^-", "", trim_names(nametab$last,  stopwords, remove.letters = FALSE))
   nametab$first <- gsub("^-", "", trim_names(nametab$first, stopwords, remove.letters = FALSE))
 
