@@ -16,7 +16,7 @@ mark_languages <- function(x) {
   # Unique entries only to speed up
   xorig <- x
   xuniq <- unique(xorig)
-  x <- xorig
+  x <- xuniq
 
   # Convert to polished language names
   f <- system.file("extdata/language_abbreviations.csv", package = "bibliographica")
@@ -25,7 +25,6 @@ mark_languages <- function(x) {
   inds <- grep(";", x)
   if (length(inds)>0) {
     for (i in inds) {
-    print(i)
       x[[i]] <- paste(sapply(unlist(strsplit(x[[i]], ";")), function (xx) {as.character(harmonize_names(xx, abrv, remove.unknown = FALSE, mode = "exact.match"))}), collapse = ";")
     }
   }
