@@ -53,8 +53,7 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
 
   message("Unique author identifier by combining name, birth and death years")
   author <- dfa.uniq$author_name
-  # Add years only for real persons, not for pseudonymes
-
+  # Add years only for real persons, but not for pseudonymes
   author[which(!dfa.uniq$author_pseudonyme)] <- author_unique(dfa.uniq[which(!dfa.uniq$author_pseudonyme),], initialize.first = FALSE)
   dfa.uniq$author <- author
   rm(author)
@@ -76,9 +75,18 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
   rm(len);rm(a)
   
   message(".. splitting the years ..")
-  years <- as.character(sapply(years, function (x) {if (length(grep("-", unlist(strsplit(x, "")))) == 1) {return(strsplit(x, "-"))} else {return(strsplit(x, " "))}}))
-  dfa.uniq$author_birth <- as.numeric(gsub("-$", "", sapply(years, function (x) {x[[1]]})))
-  dfa.uniq$author_death <- as.numeric(sapply(years, function (x) {if (length(x) > 1) x[[2]] else NA}))
+  years2 <- polish_years(years)
+  spl <- strsplit(years, "-")
+  len <- sapply(spl, length)
+  inds <- which(len >= 3)
+  # 1300-1400-1500 case separately
+  # take the range
+  years2[inds,] <-  matrix(sapply(spl[inds], function (x) {range(na.omit(as.numeric(x)))}), ncol = 2)
+  # Then if birth = death, remove death
+  years2[which(years2$from == years2$till), "till"] <- NA
+
+  dfa.uniq$author_birth <- years2$from
+  dfa.uniq$author_death <- years2$till
 
   # Replace the original entries with the updated ones
   df[, colnames(dfa.uniq)] <- dfa.uniq[match.inds,]
@@ -86,3 +94,4 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
   df
 
 }
+

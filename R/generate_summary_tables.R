@@ -84,12 +84,17 @@ c(names(df.preprocessed)[grep("language", names(df.preprocessed))],
       sep = ""), count = TRUE)
   }
   message("..author conversion")
-  o <- gsub("\\]", "", gsub("\\[", "", gsub("\\.+$", "", as.character(df.orig[["author_name"]]))))
-  x <- as.character(df.preprocessed[["author_name"]])
+  o <- gsub("\\]", "", gsub("\\[", "", gsub("\\.+$", "", as.character(df.orig$author_name))))
+  x <- as.character(df.orig$author_date)
   inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
-  tmp <- write_xtable(cbind(original = o[inds],
-      	 		      polished = x[inds]),
-      paste(output.folder, paste("author_name_conversion_nontrivial.csv", sep = "_"),
+  tmp <- write_xtable(cbind(
+    original_name = o[inds],
+    original_date = x[inds],
+    final_author_id = as.character(df.preprocessed[inds, "author"]),
+    final_author_birth = as.character(df.preprocessed[inds, "author_birth"]),
+    final_author_death = as.character(df.preprocessed[inds, "author_death"])
+			  ),
+      paste(output.folder, paste("author_conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
 
 
@@ -105,10 +110,10 @@ c(names(df.preprocessed)[grep("language", names(df.preprocessed))],
   tab <- df.preprocessed %>% filter(!author_pseudonyme) %>% select(author)
   tmp <- write_xtable(tab,
       paste(output.folder, paste("author_accepted.csv", sep = "_"), sep = ""),
-      count = TRUE, sort.by = "author_name")
+      count = TRUE, sort.by = "author")
   message("...pseudonyme")
-  tab <- df.preprocessed %>% filter(author_pseudonyme) %>% select(author_name)
-  tmp <- write_xtable(tab, paste(output.folder, "pseudonyme_accepted.csv", sep = ""), count = TRUE, sort.by = "author_name")
+  tab <- df.preprocessed %>% filter(author_pseudonyme) %>% select(author)
+  tmp <- write_xtable(tab, paste(output.folder, "pseudonyme_accepted.csv", sep = ""), count = TRUE, sort.by = "author")
 
 
   message("...publication_place")
