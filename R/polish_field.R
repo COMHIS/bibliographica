@@ -119,7 +119,12 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1) {
               		 publication_year_till = tmp$till
         )
 
+  } else if (field == "control_number") {
+  
+    NULL
+
   } else {
+
 
     warning(paste("No info on how to preprocess field: ", field))
     #df.tmp <- NULL

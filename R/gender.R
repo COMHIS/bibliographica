@@ -8,7 +8,6 @@
 #' @examples get_gender("julius")
 #' @keywords utilities
 #' @importFrom gender gender
-#' @importFrom sorvi quickdf
 #' @import genderdata
 get_gender <- function (x) {
 

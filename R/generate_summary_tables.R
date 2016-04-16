@@ -13,7 +13,7 @@
 generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "output.tables") {
 
   # Circumvent build warnings			
-  author_name <- author_birth <- author_death <- author_pseudonyme <- NULL
+  author <- author_name <- author_birth <- author_death <- author_pseudonyme <- NULL
   mean_pagecounts_multivol <- mean_pagecounts_univol <- mean_pagecounts_issue <- NULL
 
   # Ensure compatibility			

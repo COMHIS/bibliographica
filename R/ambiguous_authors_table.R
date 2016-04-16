@@ -3,7 +3,6 @@
 #' @param file Input file
 #' @return Author synonyme data frame with fields 'name' and 'synonyme' 
 #' @export
-#' @importFrom sorvi read_synonymes
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @details Each row of the input file corresponds to a unique author with potentially multiple name variants, separated by semicolon. The first column gives the accepted version of the name, the other columns list synonymes that will be mapped to the accepted version.

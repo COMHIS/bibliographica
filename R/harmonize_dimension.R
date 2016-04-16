@@ -5,7 +5,6 @@
 #' @return The character vector with dimension information harmonized
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @importFrom sorvi condense_spaces
 #' @examples \dontrun{harmonize_dimension("fol.")}
 #' @keywords internal
 harmonize_dimension <- function (x, synonyms = NULL) {

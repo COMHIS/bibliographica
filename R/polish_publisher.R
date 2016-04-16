@@ -6,7 +6,6 @@
 #' @param mc.cores Number of cores for parallelization
 #' @return polished publisher field (a vector)
 #' @export
-#' @importFrom sorvi condense_spaces
 #' @author Niko Ilomaki \email{niko.ilomaki@@helsinki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{v <- polish_publisher(c("Oxford University Press","tryckt hos Cambridge University Press"))}

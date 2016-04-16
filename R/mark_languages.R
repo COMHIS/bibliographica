@@ -33,7 +33,7 @@ mark_languages <- function(x) {
   x[inds] <- as.character(harmonize_names(x[inds], abrv, remove.unknown = FALSE, mode = "exact.match"))
 
   # List all unique languages in the data  	    
-  xu <- unique(unname(unlist(strsplit(unique(x), ";"))))
+  xu <- na.omit(unique(unname(unlist(strsplit(unique(x), ";")))))
 
   # Provide logical vectors for the language hits for each language
   subroutine <- function(abbrv){grepl(abbrv, x, ignore.case = T)}
@@ -44,9 +44,9 @@ mark_languages <- function(x) {
   u <- "mul"
   li[[u]] <- subroutine(u) | (sapply(strsplit(x, ";"), function (x) {length(unique(x))}) > 1)
 
-  df <- as_data_frame(li)
-  df$language <- x
+  dff <- as_data_frame(li)
+  dff$language <- as.factor(x)
   
-  df[match(xorig, xuniq),]
+  dff[match(xorig, xuniq),]
   
 }

@@ -4,7 +4,6 @@
 #' @param values corresponding values with potentially missing information (NAs)
 #' @return A vector with augmented values
 #' @examples \dontrun{guess_missing_entries(id = c("Tom", "Tom", "Pete", "Pete", "Pete"), values = c(1, NA, 2, 3, NA))}
-#' @importFrom sorvi quickdf 
 #' @export
 #' @details For instance, we may have authors and author life years (birth and death).
 #' The life years may be available for a given author in some entries and missing in others.
