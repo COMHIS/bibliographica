@@ -18,9 +18,12 @@ mark_languages <- function(x) {
   xuniq <- unique(xorig)
   x <- xuniq
 
-  # Convert to polished language names
+  # Convert to polished language names as in
+  # http://www.loc.gov/marc/languages/language_code.html
+  # TODO: XML version available, read directly in R:
+  # see http://www.loc.gov/marc/languages/
   f <- system.file("extdata/language_abbreviations.csv", package = "bibliographica")
-  abrv <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")
+  abrv <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table", sep = "\t")
 
   inds <- grep(";", x)
   if (length(inds)>0) {
