@@ -41,7 +41,7 @@ author_unique <- function (df, format = "last, first", initialize.first = FALSE)
   author_unique <- gsub(" \\(NA-NA\\)", "", author_unique)
   author_unique <- gsub("NA \\(NA-NA\\)", NA, author_unique)
   
-  as.factor(unname(author_unique))[match.inds]
+  as.character(unname(author_unique))[match.inds]
 
 }
 

@@ -14,67 +14,75 @@
 #' @keywords utilities
 augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
 
-  author <- NULL
+  author <- starts_with <- NULL
+
+  # Consider only unique entries to speed up
+  dfa <- df %>% select(starts_with("author"))
+  dfa.uniq <- unique(as_data_frame(dfa))
+  dfa.uniq$author_name <- as.character(dfa.uniq$author_name)
+
+  message("..entry IDs for unique entries")
+  dfa$id <- apply(dfa, 1, function (x) {paste(as.character(x), collapse = "")})
+  dfa.uniq$id <- apply(dfa.uniq, 1, function (x) {paste(as.character(x), collapse = "")})  
+  # Form match indices and remove unnecessary vars to speed up
+  match.inds <- match(dfa$id, dfa.uniq$id)
+  rm(dfa); dfa.uniq$id <- NULL
 
   message("Augment author life years")	       
   # For authors with a unique birth, use this birth year also when
   # birth year not given in the raw data
-  df$author_birth <- guess_missing_entries(id = df$author_name, values = df$author_birth)$values
-  df$author_death <- guess_missing_entries(id = df$author_name, values = df$author_death)$values
+  dfa.uniq$author_birth <- guess_missing_entries(id = dfa.uniq$author_name, values = dfa.uniq$author_birth)$values
+  dfa.uniq$author_death <- guess_missing_entries(id = dfa.uniq$author_name, values = dfa.uniq$author_death)$values
 
   # print("Add missing author life years from the predefined table")
   if (!is.null(life_info)) {  
-    df$author_birth <- add_missing_entries(df, life_info, id = "author_name", field = "author_birth")
-    df$author_death <- add_missing_entries(df, life_info, id = "author_name", field = "author_death") 
+    dfa.uniq$author_birth <- add_missing_entries(dfa.uniq, life_info, id = "author_name", field = "author_birth")
+    dfa.uniq$author_death <- add_missing_entries(dfa.uniq, life_info, id = "author_name", field = "author_death") 
   }
 
   message("Add pseudonyme field")
   pseudo <- get_pseudonymes()
-  df$author_pseudonyme <- tolower(df$author_name) %in% pseudo
+  dfa.uniq$author_pseudonyme <- tolower(dfa.uniq$author_name) %in% pseudo
   # Polish pseudonymes
-  pse <- df$author_name[df$author_pseudonyme]
+  pse <- dfa.uniq$author_name[dfa.uniq$author_pseudonyme]
   pse <- gsub("\\,+", " ", pse)
   pse <- gsub("\\.+", "", pse)
   pse <- gsub("\\-+", " ", pse)    
   pse <- condense_spaces(pse)
-  df$author_name[df$author_pseudonyme] <- pse
+  dfa.uniq$author_name[dfa.uniq$author_pseudonyme] <- pse
 
   message("Unique author identifier by combining name, birth and death years")
-  author <- df$author_name
-  # Add years only for real persons, not for pseudonymes  
-  author[!df$author_pseudonyme] <- author_unique(df[!df$author_pseudonyme,], initialize.first = FALSE)
-  df$author <- author
+  author <- dfa.uniq$author_name
+  # Add years only for real persons, not for pseudonymes
+
+  author[which(!dfa.uniq$author_pseudonyme)] <- author_unique(dfa.uniq[which(!dfa.uniq$author_pseudonyme),], initialize.first = FALSE)
+  dfa.uniq$author <- author
   rm(author)
   
   message("Harmonize ambiguous authors, including pseudonymes")
   if (!is.null(ambiguous_authors)) {	  	    
-    df$author <- harmonize_names(df$author, ambiguous_authors)
+    dfa.uniq$author <- harmonize_names(dfa.uniq$author, ambiguous_authors)
   }
-  df$author[grep("^NA, NA", df$author)] <- NA  
+  dfa.uniq$author[grep("^NA, NA", dfa.uniq$author)] <- NA  
 
   message("Fix author life years using the ones from the final harmonized version")
-  dfa.orig <- df
-  dfa.uniq <- unique(dfa.orig)
-  
-  # Entry IDs
-  id.orig <- apply(dfa.orig, 1, function (x) { paste(as.character(x), collapse = "") })
-  id.uniq <- apply(dfa.uniq, 1, function (x) { paste(as.character(x), collapse = "") })
-  match.inds <- match(id.orig, id.uniq)
-  rm(id.orig)  
-
-  inds <- which(!is.na(dfa.uniq$author))
-  dfa.uniqs <- dfa.uniq[inds,] 
-  dfa.uniqs <- select(dfa.uniqs, author)
-  dfa.uniqs <- dfa.uniqs %>% separate(col = author, sep = c("\\("), into = c("name", "years"))
-  years <- gsub("\\)", "", dfa.uniqs$years)
-
   message(".. retrieving the years ..")
-  years <- sapply(years, function (x) {if (length(grep("-", unlist(strsplit(x, "")))) == 1) {return(strsplit(x, "-"))} else {return(strsplit(x, " "))}})
-  birth <- as.numeric(gsub("-$", "", sapply(years, function (x) {x[[1]]})))
-  death <- as.numeric(sapply(years, function (x) {if (length(x) > 1) x[[2]] else NA}))
-  dfa.uniq$author_birth[inds] <- as.numeric(as.character(birth))
-  dfa.uniq$author_death[inds] <- as.numeric(as.character(death))
+  a <- dfa.uniq$author
+  a <- strsplit(a, "\\(")
+  len <- sapply(a, length)
+  a[len < 2] <- NA
+  a[which(len == 2)] <- sapply(a[which(len == 2)], function (x) {x[[2]]})
+  years <- gsub("\\)", "", a)
+  rm(len);rm(a)
+  
+  message(".. splitting the years ..")
+  years <- as.character(sapply(years, function (x) {if (length(grep("-", unlist(strsplit(x, "")))) == 1) {return(strsplit(x, "-"))} else {return(strsplit(x, " "))}}))
+  dfa.uniq$author_birth <- as.numeric(gsub("-$", "", sapply(years, function (x) {x[[1]]})))
+  dfa.uniq$author_death <- as.numeric(sapply(years, function (x) {if (length(x) > 1) x[[2]] else NA}))
 
-  dfa.uniq[match.inds,]
+  # Replace the original entries with the updated ones
+  df[, colnames(dfa.uniq)] <- dfa.uniq[match.inds,]
+
+  df
 
 }

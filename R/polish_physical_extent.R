@@ -161,7 +161,7 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
   # Pagecount
   spl <- unlist(strsplit(s, ";"), use.names = FALSE)
 
-  x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)})))
+  x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, page.harmonize, harm.pi)})))
   if (class(x) == "try-error") {
     x <- NA
   } 
@@ -185,7 +185,7 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
 #' @references See citation("bibliographica")
 #' @examples # TBA
 #' @keywords internal
-polish_physext_help2 <- function (x, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) {
+polish_physext_help2 <- function (x, page.harmonize, harm.pi) {
 
   # TODO: can we speed up by moving these up ?		     
   x <- as.character(harmonize_names(x, page.harmonize, mode = "recursive"))

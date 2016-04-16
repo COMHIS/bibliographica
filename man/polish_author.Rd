@@ -4,14 +4,12 @@
 \alias{polish_author}
 \title{Polish author}
 \usage{
-polish_author(s, stopwords = NULL, validate = FALSE, verbose = FALSE)
+polish_author(s, stopwords = NULL, verbose = FALSE)
 }
 \arguments{
 \item{s}{Vector of author names}
 
 \item{stopwords}{Stopwords}
-
-\item{validate}{Validate the names based on existing first/last name lists}
 
 \item{verbose}{verbose}
 }

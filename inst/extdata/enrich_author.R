@@ -1,15 +1,15 @@
 message("Enriching author fields..")
 
-print("Enrich author info")
-  # Life years + author_unique field
-
+  # Custom table toaAugmen missing life years
   life.info <- read.csv(system.file("extdata/author_info.csv", package = "bibliographica"), stringsAsFactors = FALSE, sep = "\t")
 
+  # Custom table to harmonize multiple author name variants
   f <- system.file("extdata/ambiguous-authors.csv", package = "bibliographica")
   ambiguous.authors <- read_synonymes(f, mode = "list", sep = ";", self.match = FALSE, include.lowercase = FALSE)
   
   # Combine synonymous authors; augment author life years where missing etc.
   aa <- augment_author(df.preprocessed, life.info, ambiguous.authors)
+
   df.preprocessed <- aa
   rm(aa)
 

@@ -2,7 +2,6 @@
 #' @description Polish author.
 #' @param s Vector of author names
 #' @param stopwords Stopwords
-#' @param validate Validate the names based on existing first/last name lists
 #' @param verbose verbose 
 #' @return Polished vector
 #' @export
@@ -10,7 +9,7 @@
 #' @references See citation("bibliographica")
 #' @examples s2 <- polish_author("Smith, William")
 #' @keywords utilities
-polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALSE) {
+polish_author <- function (s, stopwords = NULL, verbose = FALSE) {
 
   if (is.null(stopwords)) {
     message("No stopwords provided for authors. Using ready-made stopword lists")
@@ -133,17 +132,23 @@ polish_author <- function (s, stopwords = NULL, validate = FALSE, verbose = FALS
   #x <- gsub("^[a-z] [a-z]$", " ", x)
   #x <- gsub("^[a-z]\\.[a-z]$", " ", x)  
 
+  # TODO perhaps unnecessary to return also first and last names as
+  #  separate columns
+  
   if (verbose) { message("Collapse accepted names to the form: Last, First") }
   full.name <- apply(nametab, 1, function (x) { paste(x, collapse = ", ") })
   full.name[full.name == "NA, NA"] <- NA
   full.name <- gsub(", NA$", "", full.name) # "Tolonen, NA" -> "Tolonen"
   full.name <- gsub("^NA, ", "", full.name) # "NA, Mikael" -> "Mikael"  
   nametab$full <- full.name
+  nametab$first <- NULL
+  nametab$last <- NULL  
 
   if (verbose) { message("Map to the original indices") }
   nametab <- nametab[match(sorig, suniq), ]
   nametab$original <- sorig
 
+  # TODO do not make this a list. Unnecessary
   list(names = nametab)  
 
 }
