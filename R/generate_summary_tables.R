@@ -102,7 +102,7 @@ c(names(df.preprocessed)[grep("language", names(df.preprocessed))],
   }
   message("...author")
   # Separate tables for real names and pseudonymes
-  tab <- df.preprocessed %>% filter(!author_pseudonyme) %>% select(author_name)
+  tab <- df.preprocessed %>% filter(!author_pseudonyme) %>% select(author)
   tmp <- write_xtable(tab,
       paste(output.folder, paste("author_accepted.csv", sep = "_"), sep = ""),
       count = TRUE, sort.by = "author_name")
