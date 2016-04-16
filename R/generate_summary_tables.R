@@ -17,7 +17,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   mean_pagecounts_multivol <- mean_pagecounts_univol <- mean_pagecounts_issue <- NULL
 
   # Ensure compatibility			
-  df.orig <- df.orig[match(df.orig$original_row, df.preprocessed$original_row),]
+  df.orig <- df.orig[match(df.preprocessed$original_row, df.orig$original_row),]
 
   message("Write summaries of field entries and count stats for all fields")
   for (field in setdiff(names(df.preprocessed),
@@ -44,7 +44,7 @@ c(names(df.preprocessed)[grep("language", names(df.preprocessed))],
     }
 
     message("Nontrivial conversions")
-    if (field %in% names(df.preprocessed) && (field %in% names(df.orig)) && !field == "dimension") {
+    if (field %in% names(df.preprocessed) && (field %in% names(df.orig)) && !field %in% c("dimension", "title")) {
       message(field)
       inds <- which(!is.na(df.preprocessed[[field]]))
       original <- as.character(df.orig[[field]][inds])
@@ -137,7 +137,6 @@ c(names(df.preprocessed)[grep("language", names(df.preprocessed))],
   # --------------------------------------------
 
   # Pagecount
-
   o <- as.character(df.orig[["physical_extent"]])
   g <- as.character(df.preprocessed$gatherings)
   x <- as.character(df.preprocessed[["pagecount"]])
