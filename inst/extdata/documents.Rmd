@@ -44,15 +44,19 @@ print(p)
 
 ## Language
 
+
 Title count for the `r ncol(df %>% select(starts_with("language.")))-1` unique languages. Some documents may have more than one language listed.
+
+[Accepted languages](output.tables/language_accepted.csv)
+
+[Discarded languages](output.tables/language_discarded.csv)
+
+[Language conversions](output.tables/language_conversion_nontrivial.csv)  
 
 [Unrecognized language entries](output.tables/language_unidentified.csv)  
 
 ```{r summarylang, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=6}
-dfs <- select(df, starts_with("language.")) %>% gather() %>% filter(value) %>% group_by(key) #%>% tally() %>% arrange(n)
-dfs$key <- gsub("language\\.", "", dfs$key)
-
-p <- top_plot(dfs, "key", nrow(dfs)) +
+p <- top_plot(df, "language", nrow(dfs)) +
   ggtitle(paste("Languages")) +
   scale_y_log10() +
   ylab("Documents") +

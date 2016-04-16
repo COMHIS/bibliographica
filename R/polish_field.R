@@ -52,7 +52,7 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1) {
   
   if (field == "language") {
 
-    df.tmp <- data.frame(language = mark_languages(df[[field]]))
+    df.tmp <- mark_languages(df[[field]])
 
   } else if (field == "title") {
 

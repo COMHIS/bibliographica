@@ -26,17 +26,6 @@ if ("publisher" %in% update.fields) {
 
 }
 
-
-
-if ("language" %in% update.fields) {
- 
-  message("Enrich language")
-  dfl <- select(df.preprocessed, starts_with("language"))
-  l <- capitalize(gsub("language\\.", "", names(dfl))); # Language names
-  df.preprocessed$language <- factor(apply(dfl, 1, function (x) { paste(l[which(unlist( dfl[1,]) == 1)], collapse = ";")  })) # List languages
-
-}
-
 # -------------------------------------------------------------------
 
 # For now, always enrich.
@@ -61,6 +50,11 @@ if (c("title", "subject_topic", "publication_topic") %in% update.fields) {
   NULL
 }
 
+if ("language" %in% update.fields) {
+ 
+  NULL
+  
+}
 
 
 

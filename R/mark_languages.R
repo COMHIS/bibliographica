@@ -13,33 +13,40 @@ mark_languages <- function(x) {
   x <- gsub("^;","",x)
   x <- gsub(";$","",x)
 
-	subroutine <- function(abbrv){grepl(abbrv, x, ignore.case = T)}
-	
-	fin <- subroutine("fin")
-	swe <- subroutine("swe")
-	lat <- subroutine("lat")
-	ger <- subroutine("ger")
-	eng <- subroutine("eng")
-	fre <- subroutine("fre")
-	rus <- subroutine("rus")
-	grc <- subroutine("grc")
-	dan <- subroutine("dan")
-	ita <- subroutine("ita")
-	heb <- subroutine("heb")
-	dut <- subroutine("dut")
-	spa <- subroutine("spa")
-	smi <- subroutine("smi")
-	gre <- subroutine("gre")
-	ice <- subroutine("ice")
-	ara <- subroutine("ara")
-	por <- subroutine("por")
-	fiu <- subroutine("fiu")
-	und <- subroutine("und")	
-	mul <- subroutine("mul") | (sapply(strsplit(x, ";"), function (x) {length(unique(x))}) > 1)
-	
-	df = data.frame(list(finnish = fin, swedish = swe, latin = lat, german = ger, english = eng, french = fre, russian = rus, greek = grc, danish = dan, italian = ita, hebrew = heb,
-	dutch = dut, spanish = spa, sami = smi, modern_greek = gre, icelandic = ice, arabic = ara, portuguese = por, finnougrian = fiu, multiple = mul, undetermined = und))
+  # Unique entries only to speed up
+  xorig <- x
+  xuniq <- unique(xorig)
+  x <- xorig
 
-  df
+  # Convert to polished language names
+  f <- system.file("extdata/language_abbreviations.csv", package = "bibliographica")
+  abrv <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")
+
+  inds <- grep(";", x)
+  if (length(inds)>0) {
+    for (i in inds) {
+    print(i)
+      x[[i]] <- paste(sapply(unlist(strsplit(x[[i]], ";")), function (xx) {as.character(harmonize_names(xx, abrv, remove.unknown = FALSE, mode = "exact.match"))}), collapse = ";")
+    }
+  }
+  inds <- setdiff(1:length(x), grep(";", x))
+  x[inds] <- as.character(harmonize_names(x[inds], abrv, remove.unknown = FALSE, mode = "exact.match"))
+
+  # List all unique languages in the data  	    
+  xu <- unique(unname(unlist(strsplit(unique(x), ";"))))
+
+  # Provide logical vectors for the language hits for each language
+  subroutine <- function(abbrv){grepl(abbrv, x, ignore.case = T)}
+  li <- list()
+  for (u in setdiff(xu, "mul")) {
+    li[[u]] <- subroutine(u)
+  }
+  u <- "mul"
+  li[[u]] <- subroutine(u) | (sapply(strsplit(x, ";"), function (x) {length(unique(x))}) > 1)
+
+  df <- as_data_frame(li)
+  df$language <- x
+  
+  df[match(xorig, xuniq),]
   
 }
