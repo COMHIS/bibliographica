@@ -1,4 +1,10 @@
 name;synonyme;comment
+Helsinki;gel singfors;
+Helsinki;gel singfors гельсингфорсъ;
+Helsinki;gel singfrs;
+Helsinki;gel zingfors;
+Helsinki;p gel singfors;
+Stockholm;stokgol m;
 NA;hall;
 NA;copy van schotland;
 Columbia;columbia worcester massachusetts;
@@ -48,6 +54,7 @@ Alexandria Va;alexandria;
 Alexandria Va;alexandriava;
 Alexandria Va;alexandria virginia;
 Alfend;alfeld leine;
+Alfend;alfend;
 Almena Wi;almena;
 Almena Wi;almena wis;
 Almena Wi;almena wisconsin;
@@ -160,6 +167,7 @@ Antwerp;nuers;
 Antwerp;this andwerp;
 Appelby-in-Westmorland;appelby westmorland;
 Appelby-in-Westmorland;appleby;
+Archangelsk;Arhangel sk;
 Archangelsk;arhangel'sk';
 Archangelsk;arhangel'sk'';
 Archangelsk;arhangelsk;
@@ -1345,6 +1353,7 @@ Kendal;kendal england;
 Frankfort Ky;;kentucky;Ambiguous Washington Ky/Frankfort Ky
 Frankfort Ky;Ambiguous Washington Ky/Frankfort Ky
 Kharkiv;har'kov';
+Kharkiv;Har kov;
 Kharkiv;harkov;
 Kidderminster;kidderminister;
 Kidderminster;kiddermister;
@@ -1923,6 +1932,7 @@ Lund;lond scanorum;
 Lund;lundae;
 Lund;lundini goth;
 Lustleigh;lustleigh devon;
+Lviv;l vìv;
 Lviv;l'vi v;
 Lviv;l'vìv;
 Lviv;lvi v;
