@@ -23,21 +23,29 @@ mark_languages <- function(x) {
   # TODO: XML version available, read directly in R:
   # see http://www.loc.gov/marc/languages/
   f <- system.file("extdata/language_abbreviations.csv", package = "bibliographica")
-  abrv <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table", sep = "\t")
+  abrv <- read_synonymes(f, include.lowercase = F, self.match = F, ignore.empty = FALSE, mode = "table", sep = "\t")
 
-  inds <- grep(";", x)
-  if (length(inds)>0) {
-    for (i in inds) {
-      x[[i]] <- paste(sapply(unlist(strsplit(x[[i]], ";")), function (xx) {as.character(harmonize_names(xx, abrv, remove.unknown = FALSE, mode = "exact.match"))}), collapse = ";")
-    }
+  # TODO Vectorize to speed up ?
+  for (i in 1:length(x)) {
+    
+      lll <- sapply(unlist(strsplit(x[[i]], ";")), function (xx) {as.character(harmonize_names(xx, abrv, remove.unknown = FALSE, mode = "exact.match"))})
+
+      lll <- as.character(lll)
+
+      x[[i]] <- paste(lll, collapse = ";")
+
   }
-  inds <- setdiff(1:length(x), grep(";", x))
-  x[inds] <- as.character(harmonize_names(x[inds], abrv, remove.unknown = FALSE, mode = "exact.match"))
+  
 
   # List all unique languages in the data  	    
   xu <- na.omit(unique(unname(unlist(strsplit(unique(x), ";")))))
 
-  # Provide logical vectors for the language hits for each language
+  # Only accept the official / custom abbreviations
+  # (more can be added on custom list if needed)
+  xu <- intersect(xu, abrv$name)
+
+  # Provide logical vectors for the language hits for
+  # each accepted language
   subroutine <- function(abbrv){grepl(abbrv, x, ignore.case = T)}
   li <- list()
   for (u in setdiff(xu, "mul")) {
