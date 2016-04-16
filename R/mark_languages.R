@@ -47,6 +47,8 @@ mark_languages <- function(x) {
   li[[u]] <- subroutine(u) | (sapply(strsplit(x, ";"), function (x) {length(unique(x))}) > 1)
 
   dff <- as_data_frame(li)
+  names(dff) <- paste("language.", names(dff), sep = "")
+  
   dff$language <- as.factor(x)
   
   dff[match(xorig, xuniq),]

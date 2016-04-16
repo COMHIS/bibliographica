@@ -9,7 +9,7 @@ afa	Afroasiatic (Other)
 afh	Afrihili (Artificial language)
 afr	Afrikaans
 ain	Ainu
-ajm	Aljamía	discontinued code
+ajm	Aljamía
 aka	Akan
 akk	Akkadian
 alb	Albanian
@@ -69,7 +69,7 @@ bur	Burmese
 byn	Bilin
 cad	Caddo
 cai	Central American Indian (Other)
-cam	Khmer	discontinued code
+cam	Khmer
 car	Carib
 cat	Catalan
 cau	Caucasian (Other)
@@ -126,15 +126,15 @@ elx	Elamite
 eng	English
 enm	English, Middle (1100-1500)
 epo	Esperanto
-esk	Eskimo languages	discontinued code
-esp	Esperanto		discontinued code
+esk	Eskimo languages
+esp	Esperanto	
 est	Estonian
-eth	Ethiopic	discontinued code
+eth	Ethiopic
 ewe	Ewe
 ewo	Ewondo
 fan	Fang
 fao	Faroese
-far	Faroese	discontinued code
+far	Faroese
 fat	Fanti
 fij	Fijian
 fil	Filipino
@@ -142,7 +142,7 @@ fin	Finnish
 fiu	Finno-Ugrian (Other)
 fon	Fon
 fre	French
-fri	Frisian	discontinued code
+fri	Frisian
 frm	French, Middle (ca. 1300-1600)
 fro	French, Old (ca. 842-1300)
 frr	North Frisian
@@ -151,9 +151,9 @@ fry	Frisian
 ful	Fula
 fur	Friulian
 gaa	Gã
-gae	Scottish Gaelix	discontinued code
-gag	Galician discontinued code
-gal	Oromo	 discontinued code
+gae	Scottish Gaelix
+gag	Galician
+gal	Oromo
 gay	Gayo
 gba	Gbaya
 gem	Germanic (Other)
@@ -175,7 +175,7 @@ grc	Greek, Ancient (to 1453)
 gre	Greek, Modern (1453-)
 grn	Guarani
 gsw	Swiss German
-gua	Guarani	discontinued code
+gua	Guarani
 guj	Gujarati
 gwi	Gwich'in
 hai	Haida
@@ -208,10 +208,10 @@ inc	Indic (Other)
 ind	Indonesian
 ine	Indo-European (Other)
 inh	Ingush
-int	Interlingua (International Auxiliary Language Association)	discontinued code
+int	Interlingua (International Auxiliary Language Association)
 ipk	Inupiaq
 ira	Iranian (Other)
-iri	Irish	discontinued code
+iri	Irish
 iro	Iroquoian (Other)
 ita	Italian
 jav	Javanese
@@ -252,14 +252,14 @@ kru	Kurukh
 kua	Kuanyama
 kum	Kumyk
 kur	Kurdish
-kus	Kusaie	discontinued code
+kus	Kusaie
 kut	Kootenai
 lad	Ladino
 lah	Lahndā
 lam	Lamba (Zambia and Congo)
-lan	Occitan (post 1500)	discontinued code
+lan	Occitan (post 1500)
 lao	Lao
-lap	Sami	discontinued code
+lap	Sami
 lat	Latin
 lav	Latvian
 lez	Lezgian
@@ -288,7 +288,7 @@ mao	Maori
 map	Austronesian (Other)
 mar	Marathi
 mas	Maasai
-max	Manx	discontinued code
+max	Manx
 may	Malay
 mdf	Moksha
 mdr	Mandar
@@ -298,14 +298,14 @@ mic	Micmac
 min	Minangkabau
 mis	Miscellaneous languages
 mkh	Mon-Khmer (Other)
-mla	Malagasy  discontinued code
+mla	Malagasy
 mlg	Malagasy
 mlt	Maltese
 mnc	Manchu
 mni	Manipuri
 mno	Manobo languages
 moh	Mohawk
-mol	Moldavian	discontinued code
+mol	Moldavian
 mon	Mongolian
 mos	Mooré
 mul	Multiple languages
@@ -387,19 +387,19 @@ sai	South American Indian (Other)
 sal	Salishan languages
 sam	Samaritan Aramaic
 san	Sanskrit
-sao	Samoan	discontinued code
+sao	Samoan
 sas	Sasak
 sat	Santali
-scc	Serbian	discontinued code
+scc	Serbian
 scn	Sicilian Italian
 sco	Scots
-scr	Croatian	discontinued code
+scr	Croatian
 sel	Selkup
 sem	Semitic (Other)
 sga	Irish, Old (to 1100)
 sgn	Sign languages
 shn	Shan
-sho	Shona	discontinued code
+sho	Shona
 sid	Sidamo
 sin	Sinhalese
 sio	Siouan (Other)
@@ -428,7 +428,7 @@ srn	Sranan
 srp	Serbian
 srr	Serer
 ssa	Nilo-Saharan (Other)
-sso	Sotho	     discontinued code
+sso	Sotho
 ssw	Swazi
 suk	Sukuma
 sun	Sundanese
@@ -436,15 +436,15 @@ sus	Susu
 sux	Sumerian
 swa	Swahili
 swe	Swedish
-swz	Swazi	discontinued code
+swz	Swazi
 syc	Syriac
 syr	Syriac, Modern
-tag	Tagalog	discontinued code
+tag	Tagalog
 tah	Tahitian
 tai	Tai (Other)
-taj	Tajik	discontinued code
+taj	Tajik
 tam	Tamil
-tar	Tatar	discontinued code
+tar	Tatar
 tat	Tatar
 tel	Telugu
 tem	Temne
@@ -464,11 +464,11 @@ tmh	Tamashek
 tog	Tonga (Nyasa)
 ton	Tongan
 tpi	Tok Pisin
-tru	Truk	discontinued code
+tru	Truk
 tsi	Tsimshian
 tsn	Tswana
 tso	Tsonga
-tsw	Tswana	discontinued code
+tsw	Tswana
 tuk	Turkmen
 tum	Tumbuka
 tup	Tupi languages
@@ -514,4 +514,5 @@ zul	Zulu
 zun	Zuni
 zxx	No linguistic content
 zza	Zaza
-n/a     Undetermined	Custom term added by LL
+n/a	Undetermined
+
