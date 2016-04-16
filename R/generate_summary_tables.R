@@ -17,10 +17,10 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   mean_pagecounts_multivol <- mean_pagecounts_univol <- mean_pagecounts_issue <- NULL
 
   # Ensure compatibility			
-  df.orig <- df.orig[df.preprocessed$original_row,]
+  df.orig <- df.orig[match(df.orig$original_row, df.preprocessed$original_row),]
 
   message("Write summaries of field entries and count stats for all fields")
-  for (field in setdiff(names(df.preprocessed), c(names(df.preprocessed)[grep("language", names(df.preprocessed))], "row.index", "paper.consumption.km2", "publication_decade", "publication_year", "publication_year_from", "publication_year_till", "pagecount", "obl", "obl.original", "original_row", "dissertation", "synodal", "original", "unity", "author_birth", "author_death", "gatherings.original", "width.original", "height.original", "longitude", "latitude", "page", "item", "publisher.printedfor", "publisher", "country", "author_pseudonyme", "publication_place", "control_number"))) {
+  for (field in setdiff(names(df.preprocessed), c(names(df.preprocessed)[grep("language", names(df.preprocessed))], "row.index", "paper.consumption.km2", "publication_decade", "publication_year", "publication_year_from", "publication_year_till", "pagecount", "obl", "obl.original", "original_row", "dissertation", "synodal", "original", "unity", "author_birth", "author_death", "gatherings.original", "width.original", "height.original", "longitude", "latitude", "page", "item", "publisher.printedfor", "publisher", "country", "author_pseudonyme", "publication_place", "control_number", "author_name", "author"))) {
 
     message(field)
 
@@ -62,7 +62,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   originals <- c(publisher = "publisher",
 	       publication_place = "publication_place",
 	       country = "publication_place",
-	       author = "author_name",
 	       author_gender = "author_name"
 	       #title = "title"	# Very large summaries
 	       )
@@ -75,6 +74,15 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, paste(nam, "conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
   }
+  message("..author conversion")
+  o <- gsub("\\]", "", gsub("\\[", "", gsub("\\.+$", "", as.character(df.orig[["author_name"]]))))
+  x <- as.character(df.preprocessed[["author_name"]])
+  inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
+  tmp <- write_xtable(cbind(original = o[inds],
+      	 		      polished = x[inds]),
+      paste(output.folder, paste("author_name_conversion_nontrivial.csv", sep = "_"),
+      sep = ""), count = TRUE)
+
 
   message("Accept summaries")
   for (nam in setdiff(names(originals), "publication_place")) {
@@ -109,6 +117,13 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
       count = TRUE)
   }
+  message("..author")
+  o <- as.character(df.orig[["author_name"]])
+  x <- as.character(df.preprocessed[["author"]])
+  inds <- which(is.na(x))
+  tmp <- write_xtable(o[inds],
+      paste(output.folder, paste("author_discarded.csv", sep = "_"), sep = ""),
+      count = TRUE)
 
   # --------------------------------------------
 

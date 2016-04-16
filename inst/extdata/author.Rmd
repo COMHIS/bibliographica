@@ -15,7 +15,7 @@ output: markdown_document
   * [Stopwords for names](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/stopwords_for_names.csv)
   * [Stopwords for titles](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/stopwords_titles.csv)
 
-
+[Author name conversions](output.tables/author_name_conversion_nontrivial.csv) Non-trivial conversions from the original to final names
 
 Top-`r ntop` uniquely identified authors and their productivity (title count). In total, there are `r length(unique(df$author))` unique authors and `r sum(!is.na(df$author))` documents with unambiguous author information (`r round(100*mean(!is.na(df$author_name)))`%).
 
