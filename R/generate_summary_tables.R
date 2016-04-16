@@ -20,7 +20,16 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   df.orig <- df.orig[match(df.orig$original_row, df.preprocessed$original_row),]
 
   message("Write summaries of field entries and count stats for all fields")
-  for (field in setdiff(names(df.preprocessed), c(names(df.preprocessed)[grep("language", names(df.preprocessed))], "row.index", "paper.consumption.km2", "publication_decade", "publication_year", "publication_year_from", "publication_year_till", "pagecount", "obl", "obl.original", "original_row", "dissertation", "synodal", "original", "unity", "author_birth", "author_death", "gatherings.original", "width.original", "height.original", "longitude", "latitude", "page", "item", "publisher.printedfor", "publisher", "country", "author_pseudonyme", "publication_place", "control_number", "author_name", "author"))) {
+  for (field in setdiff(names(df.preprocessed),
+c(names(df.preprocessed)[grep("language", names(df.preprocessed))],
+"row.index", "paper.consumption.km2", "publication_decade",
+"publication_year", "publication_year_from", "publication_year_till",
+"pagecount", "obl", "obl.original", "original_row", "dissertation",
+"synodal", "original", "unity", "author_birth", "author_death",
+"gatherings.original", "width.original", "height.original",
+"longitude", "latitude", "page", "item", "publisher.printedfor",
+"publisher", "country", "author_pseudonyme", "publication_place",
+"control_number", "author_name", "author", "area", "width", "height"))) {
 
     message(field)
 
