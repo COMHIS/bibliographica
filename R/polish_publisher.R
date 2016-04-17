@@ -20,7 +20,7 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
     message(paste("Polishing publisher:", length(xuniq), "unique cases"))
   }
 
-  if (verbose) { message(paste("..reading tables", f)) }  
+  if (verbose) { message("..reading tables") }  
   f <- system.file("extdata/stopwords_for_names.csv", package = "bibliographica")
   terms <- as.character(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8", header = TRUE)$Term)
 
@@ -39,8 +39,11 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
   x <- gsub("[0-9]", " ", x) # Remove numerics
   x <- condense_spaces(x)
 
+  # Back to original indices, then unique again; reduces
+  # number of unique cases further
+  x <- x[match(xorig, xuniq)]
   xorig <- x
-  xuniq <- unique(x)
+  xuniq <- sort(unique(x))
   x <- xuniq
 
   if (verbose) {
@@ -49,14 +52,6 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
 
   if (verbose) { message("..converting special characters") }
   x <- as.character(harmonize_names(x, spechars, mode = "recursive"))
-
-  xorig <- x
-  xuniq <- unique(x)
-  x <- xuniq
-
-  if (verbose) {
-    message(paste("..", length(xuniq), "unique cases"))
-  }
 
   # Remove print statements
   x <- remove_print_statements(x)
@@ -76,3 +71,4 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
   x2
 
 }
+
