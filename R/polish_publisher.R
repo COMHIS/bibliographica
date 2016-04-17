@@ -11,14 +11,19 @@
 #' @examples \dontrun{v <- polish_publisher(c("Oxford University Press","tryckt hos Cambridge University Press"))}
 #' @keywords utilities
 polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
-  
-  # Remove stopwords
+
+  xorig <- x
+  xuniq <- unique(x)
+  x <- xuniq
+
+  if (verbose) {
+    message(paste("Polishing publisher:", length(xuniq), "unique cases"))
+  }
+
+  if (verbose) { message(paste("..reading tables", f)) }  
   f <- system.file("extdata/stopwords_for_names.csv", package = "bibliographica")
   terms <- as.character(read.csv(f, sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-8", header = TRUE)$Term)
 
-
-  if (verbose) { message(paste("Reading special char table", f)) }
-  # Harmonize places with synonyme table
   f <- system.file("extdata/replace_special_chars.csv",
 		package = "bibliographica")
   spechars <- read_synonymes(f, sep = ";", mode = "table", include.lowercase = TRUE)
@@ -28,11 +33,6 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
   x <- tolower(x)
   x <- gsub("[,|;|:|\\?|-|\\&|\\.]+", "", x) 
   x <- str_trim(gsub("\\(+", "", gsub("\\)+", "", x)))
-
-  xorig <- x
-  xuniq <- unique(x)
-  x <- xuniq
-
   x <- gsub("w ja g", "weilin goos", x) # TODO: Move this to fennica
   x <- remove_terms(x, terms, where = "begin")
   x <- str_trim(gsub("\\[", "", gsub("\\]", "", x)))
@@ -43,7 +43,11 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
   xuniq <- unique(x)
   x <- xuniq
 
-  if (verbose) { message("Convert special characters") }
+  if (verbose) {
+    message(paste("..", length(xuniq), "unique cases"))
+  }
+
+  if (verbose) { message("..converting special characters") }
   x <- as.character(harmonize_names(x, spechars, mode = "recursive"))
 
   xorig <- x
@@ -51,7 +55,7 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
   x <- xuniq
 
   if (verbose) {
-    message(paste("Polishing publisher:", length(xuniq), "unique cases"))
+    message(paste("..", length(xuniq), "unique cases"))
   }
 
   # Remove print statements
