@@ -6,7 +6,7 @@
 \usage{
 read_synonymes(file, mode = "list", sep = ";", self.match = FALSE,
   include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE,
-  verbose = FALSE, remove.ambiguous = TRUE)
+  verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE)
 }
 \arguments{
 \item{file}{Input file}
@@ -26,6 +26,8 @@ read_synonymes(file, mode = "list", sep = ";", self.match = FALSE,
 \item{verbose}{verbose}
 
 \item{remove.ambiguous}{Remove ambiguous terms.}
+
+\item{lowercase}{All synonymes considered in lowercase only}
 }
 \value{
 Synonyme data frame with the fields 'name' (the selected term) and 'synonyme' (the alternative terms).

@@ -18,7 +18,7 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
   for (lang in c("finnish", "french", "german", "swedish", "english")) {
 
     f <- system.file(paste0("extdata/printstop_", lang, ".csv"), package = "bibliographica")
-    terms <- read.csv(f, stringsAsFactors = FALSE)[,1]
+    terms <- unique(tolower(read.csv(f, stringsAsFactors = FALSE)[,1]))
 
     # Harmonize the terms 
     terms.multi <- terms[nchar(terms) > 1]
