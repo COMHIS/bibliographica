@@ -49,10 +49,10 @@ mark_languages <- function(x) {
   # each accepted language
   subroutine <- function(abbrv){grepl(abbrv, x, ignore.case = T)}
   li <- list()
-  for (u in setdiff(xu, "mul")) {
+  for (u in setdiff(xu, "Multiple languages")) {
     li[[u]] <- subroutine(u)
   }
-  u <- "mul"
+  u <- "Multiple languages"
   li[[u]] <- subroutine(u) | (sapply(strsplit(x, ";"), function (x) {length(unique(x))}) > 1)
   
 

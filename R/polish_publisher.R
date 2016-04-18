@@ -12,8 +12,10 @@
 #' @keywords utilities
 polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
 
-  xorig <- x
-  xuniq <- unique(x)
+  xorig <- tolower(x)
+  xuniq <- unique(xorig)
+
+  # Start polishing
   x <- xuniq
 
   if (verbose) {
@@ -30,7 +32,6 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
    
 
   # Initial harmonization
-  x <- tolower(x)
   x <- gsub("[,|;|:|\\?|-|\\&|\\.]+", "", x) 
   x <- str_trim(gsub("\\(+", "", gsub("\\)+", "", x)))
   x <- gsub("w ja g", "weilin goos", x) # TODO: Move this to fennica

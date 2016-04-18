@@ -197,7 +197,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Undefined language")
   tmp <- write_xtable(
-                as.character(df.orig$language[df.preprocessed$language.Undetermined | is.na(df.preprocessed$language)]),
+                as.character(df.orig$language[which(is.na(df.preprocessed$language))]),
 		filename = paste(output.folder, "language_discarded.csv", sep = ""))
 
   message("No country mapping - output the harmonized names")

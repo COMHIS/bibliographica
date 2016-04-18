@@ -14,6 +14,9 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
   x <- xorig <- as.character(x)
   x <- tolower(x)
 
+  terms.single = c()
+  terms.multi = c()  
+
   ### Get printing terms from tables in various languages
   for (lang in c("finnish", "french", "german", "swedish", "english")) {
 
@@ -21,19 +24,19 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
     terms <- unique(tolower(read.csv(f, stringsAsFactors = FALSE)[,1]))
 
     # Harmonize the terms 
-    terms.multi <- terms[nchar(terms) > 1]
-
-    x <- remove_terms(x, terms.multi, where = "all", polish = FALSE, include.lowercase = FALSE)
-    x <- condense_spaces(x)
-
-    # Individual characters not removed from the end
-    terms.single <- terms[nchar(terms) == 1]    
-    x <- remove_terms(x, terms.single, where = "begin", polish = FALSE, include.lowercase = FALSE)
-    x <- remove_terms(x, terms.single, where = "middle", polish = FALSE, include.lowercase = FALSE)
-    x <- condense_spaces(x)
+    terms.multi <- c(terms.multi, terms[nchar(terms) > 1])
+    terms.single <- c(terms.single, terms[nchar(terms) == 1])
 
   }
 
+  terms.multi = unique(terms.multi)
+  terms.single = unique(terms.single)  
+
+  x <- remove_terms(x, terms.multi, where = "all", polish = FALSE, include.lowercase = FALSE)
+  x <- condense_spaces(x)
+  # Individual characters not removed from the end
+  x <- remove_terms(x, terms.single, where = "begin", polish = FALSE, include.lowercase = FALSE)
+  x <- remove_terms(x, terms.single, where = "middle", polish = FALSE, include.lowercase = FALSE)
   x <- condense_spaces(x)
   x <- remove_trailing_periods(x)
 
