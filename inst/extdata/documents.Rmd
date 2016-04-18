@@ -48,9 +48,9 @@ Statistics:
 
  * `r ncol(df %>% select(starts_with("language.")))-1` unique languages
  * `r length(union(grep(";", df$language), which(df$language == "Multiple languages")))` docs with multiple languages
- * `r sum(is.na(df$language))` docs (`r round(100*mean(is.na(df$language)),2)`) with no recognized language 
+ * `r sum(is.na(df$language))` docs (`r round(100*mean(is.na(df$language)),2)`%) with no recognized language 
  
-[Language conversions](output.tables/language_conversion.csv) Language codes as in [marc database](http://www.loc.gov/marc/languages/language_code.html); new custom abbreviations can be added in [this table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/language_abbreviations.csv)
+[Language conversions](output.tables/language_conversions.csv) Language codes as in [marc database](http://www.loc.gov/marc/languages/language_code.html); new custom abbreviations can be added in [this table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/language_abbreviations.csv)
 
 [Discarded languages](output.tables/language_discarded.csv)
 

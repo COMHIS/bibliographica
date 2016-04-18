@@ -60,6 +60,13 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
   # Remove strings that are single letters
   x[x %in% letters] <- NA
 
+  # Back to original indices, then unique again; reduces
+  # number of unique cases further
+  x <- x[match(xorig, xuniq)]
+  xorig <- x
+  xuniq <- sort(unique(x))
+  x <- xuniq
+
   if (is.null(synonyms)) {
     f <- system.file("extdata/publisher.csv", package = "bibliographica")
     synonyms <- read_synonymes(f, sep = ";", mode = "table", lowercase = TRUE)    

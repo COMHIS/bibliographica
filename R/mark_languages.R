@@ -36,9 +36,8 @@ mark_languages <- function(x) {
 
   }
   
-
   # List all unique languages in the data
-  x[x == "Undetermined"] = NA
+  x[x %in% c("NA", "Undetermined")] = NA
   xu <- na.omit(unique(unname(unlist(strsplit(unique(x), ";")))))
 
   # Only accept the official / custom abbreviations

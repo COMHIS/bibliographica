@@ -46,7 +46,7 @@ read_synonymes <- function (file, mode = "list", sep = ";", self.match = FALSE, 
 
   # Polish the synonyme table
   aa <- check_synonymes(aa, include.lowercase = include.lowercase, verbose = verbose, sort = sort, self = self.match, ignore.empty = ignore.empty, remove.ambiguous = remove.ambiguous)
-  
+
   aa 
 
 }

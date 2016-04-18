@@ -71,7 +71,10 @@ check_synonymes <- function (synonymes, include.lowercase = TRUE, verbose = FALS
   if (sort) {
     synonymes <- synonymes[order(as.character(synonymes$name)),]
   }
-  
+
+  # Unique entries
+  synonymes = unique(synonymes)  
+
   synonymes
  
 }
