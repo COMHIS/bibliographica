@@ -37,7 +37,8 @@ mark_languages <- function(x) {
   }
   
 
-  # List all unique languages in the data  	    
+  # List all unique languages in the data
+  x[x == "Undetermined"] = NA
   xu <- na.omit(unique(unname(unlist(strsplit(unique(x), ";")))))
 
   # Only accept the official / custom abbreviations
@@ -53,6 +54,7 @@ mark_languages <- function(x) {
   }
   u <- "mul"
   li[[u]] <- subroutine(u) | (sapply(strsplit(x, ";"), function (x) {length(unique(x))}) > 1)
+  
 
   dff <- as_data_frame(li)
   names(dff) <- paste("language.", names(dff), sep = "")

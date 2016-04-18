@@ -44,16 +44,17 @@ print(p)
 
 ## Language
 
+Statistics:
 
-Title count for the `r ncol(df %>% select(starts_with("language.")))-1` unique languages. Some documents may have more than one language listed.
-
-[Accepted languages](output.tables/language_accepted.csv)
+ * `r ncol(df %>% select(starts_with("language.")))-1` unique languages
+ * `r length(union(grep(";", df$language), which(df$language == "Multiple languages")))` docs with multiple languages
+ * `r sum(is.na(df$language))` docs (`r round(100*mean(is.na(df$language)),2)`) with no recognized language 
+ 
+[Language conversions](output.tables/language_conversion.csv) Language codes as in [marc database](http://www.loc.gov/marc/languages/language_code.html); new custom abbreviations can be added in [this table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/language_abbreviations.csv)
 
 [Discarded languages](output.tables/language_discarded.csv)
 
-[Language conversions](output.tables/language_conversion_nontrivial.csv)  
-
-[Unrecognized language entries](output.tables/language_unidentified.csv)  
+Title count per language:
 
 ```{r summarylang, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=6}
 p <- top_plot(df, "language", nrow(dfs)) +

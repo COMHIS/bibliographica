@@ -21,15 +21,15 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Write summaries of field entries and count stats for all fields")
   for (field in setdiff(names(df.preprocessed),
-c(names(df.preprocessed)[grep("language\\.", names(df.preprocessed))],
-"row.index", "paper.consumption.km2", "publication_decade",
-"publication_year", "publication_year_from", "publication_year_till",
-"pagecount", "obl", "obl.original", "original_row", "dissertation",
-"synodal", "original", "unity", "author_birth", "author_death",
-"gatherings.original", "width.original", "height.original",
-"longitude", "latitude", "page", "item", "publisher.printedfor",
-"publisher", "country", "author_pseudonyme", "publication_place",
-"control_number", "author_name", "author", "area", "width", "height"))) {
+    c(names(df.preprocessed)[grep("language", names(df.preprocessed))] , 
+    "row.index", "paper.consumption.km2", "publication_decade",
+    "publication_year", "publication_year_from", "publication_year_till",
+    "pagecount", "obl", "obl.original", "original_row", "dissertation",
+    "synodal", "original", "unity", "author_birth", "author_death",
+    "gatherings.original", "width.original", "height.original",
+    "longitude", "latitude", "page", "item", "publisher.printedfor",
+    "publisher", "country", "author_pseudonyme", "publication_place",
+    "control_number", "author_name", "author", "area", "width", "height"))) {
 
     message(field)
 
@@ -196,9 +196,20 @@ c(names(df.preprocessed)[grep("language\\.", names(df.preprocessed))],
   # -------------------------------------------------------
 
   message("Undefined language")
-  tmp <- write_xtable(as.character(df.orig$language[df.preprocessed$language.undetermined]), filename = "output.tables/language_unidentified.csv")
+  tmp <- write_xtable(
+                as.character(df.orig$language[df.preprocessed$language.Undetermined | is.na(df.preprocessed$language)]),
+		filename = paste(output.folder, "language_discarded.csv", sep = ""))
 
   message("No country mapping - output the harmonized names")
+
+  message("Language conversions")
+  field = "language"
+  original <- as.character(df.orig[[field]])
+  polished <- as.character(df.preprocessed[[field]])
+  tab <- cbind(original = original, polished = polished)
+  tmp <- write_xtable(tab, paste(output.folder, field, "_conversions.csv", sep = ""), count = TRUE)
+
+  # ---------------------------------------------------------
 
   f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
   misc <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")  
