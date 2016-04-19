@@ -33,16 +33,6 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   s <- remove_dimension(s, terms)
   s[grep("^[ |;|:|!|?]*$", s)] <- NA 
 
-  # Back to original indices and new unique reduction 
-  s <- s[match(sorig, suniq)]
-  sorig <- s
-  suniq <- unique(sorig)
-  s <- suniq
-
-  if (verbose) {
-    message(paste("Polishing physical extent field 2:", length(suniq), "unique cases"))
-  }
-
   if (verbose) {message("Harmonize volume info")}
   inds <- setdiff(1:length(s), setdiff(grep("v\\.$", s), grep("^v\\.$", s)))
   if (length(inds)>0) {
@@ -62,6 +52,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   suniq <- unique(sorig)
   s <- suniq
 
+  if (verbose) {message("Harmonize ie")}
   s <- harmonize_ie(s)
 
   if (verbose) {message("Read the mapping table for pages")}
@@ -95,6 +86,9 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   s <- harmonize_names(s, harm2, mode = "recursive")
   rm(harm2)
 
+  # Trimming
+  s = condense_spaces(s)
+
   if (verbose) {message("Polish unique pages separately for each volume")}  
 
   # Back to original indices and new unique reduction 
@@ -102,27 +96,17 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   sorig <- s
   suniq <- unique(sorig)
 
-  if (verbose) {
-    message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))
-  }
-
-  # Return NA if conversion fails
-  ret <- parallel::mclapply(str_trim(suniq), function (s) { a <- try(polish_physext_help(s, page.harmonize, harm.pi)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
+  if (verbose) {message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))}
+  ret <- parallel::mclapply(suniq, function (s) { a <- try(polish_physext_help(s, page.harmonize, harm.pi)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
 
   if (verbose) {message("Make data frame")}  
   ret <- as_data_frame(t(sapply(ret, identity)))
   names(ret) <- c("pagecount", "volnumber", "volcount")
 
-  # Assume single volume when number not given
-  # FIXME perhaps this better goes to enrichnment functions?
-  # NOTE: voln (volume number must be NA as well, otherwise we have 
-  # one part of a multi-volume document
-  ret$volcount[is.na(ret$volcount) & is.na(ret$volnumber)] <- 1 
+  if (verbose) {message("Set zero page counts to NA")}    
+  ret$pagecount[ret$pagecount == 0] <- NA 
 
-  # Set zero page counts to NA  
-  ret$pagecount[is.na(ret$pagecount) | ret$pagecount == 0] <- NA 
-
-  if (verbose) { message("Project unique entries back to the original list") }
+  if (verbose) { message("Project to original list") }
   ret[match(sorig, suniq), ]
 
 }
@@ -138,6 +122,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 #' @keywords internal
 polish_physext_help <- function (s, page.harmonize, harm.pi) {
 
+  # Return NA if conversion fails
   if (is.na(s) || s == "s") { return(rep(NA, 3)) } 
 
   # Shortcut for easy cases: "24p."
@@ -167,6 +152,7 @@ polish_physext_help <- function (s, page.harmonize, harm.pi) {
 
   x[x == ""] <- NA
   x[x == "NA"] <- NA  
+  x = as.numeric(x)
 
   # Return
   c(sum(x, na.rm = TRUE), voln, vols)  

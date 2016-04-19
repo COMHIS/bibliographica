@@ -4,13 +4,10 @@
 \alias{polish_physext_help}
 \title{Polish physical_extent help field}
 \usage{
-polish_physext_help(s, verbose, page.synonyms, page.harmonize, sheet.harmonize,
-  harm.pi)
+polish_physext_help(s, page.harmonize, harm.pi)
 }
 \arguments{
 \item{s}{Input char}
-
-\item{verbose}{Print progress info}
 }
 \value{
 Internal

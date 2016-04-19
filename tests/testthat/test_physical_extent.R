@@ -233,7 +233,7 @@ test_that("Page count is correct", {
 
 test_that("volume count is correct", {
   expect_equal(polish_physical_extent("v.7-9,plates")$volcount, 3)
-  expect_equal(polish_physical_extent("v")$volcount, 1)
+  expect_true(is.na(polish_physical_extent("v")$volcount))
   expect_equal(polish_physical_extent("2 v")$volcount, 2)
   expect_equal(polish_physical_extent("2v")$volcount, 2)
   expect_equal(polish_physical_extent("5v.")$volcount, 5)
@@ -241,13 +241,13 @@ test_that("volume count is correct", {
   expect_equal(polish_physical_extent("73 vol ")$volcount, 73)
   expect_equal(polish_physical_extent("73 v ")$volcount, 73)
   expect_equal(polish_physical_extent("73 v")$volcount, 73)
-  expect_equal(polish_physical_extent("73 parts, 2 pages")$volcount, 1)
-  expect_equal(polish_physical_extent("73 pts,2 pages")$volcount, 1) # Part is not volume
-  expect_equal(polish_physical_extent("73 pts.,2 pages")$volcount, 1)
+  expect_true(is.na(polish_physical_extent("73 parts, 2 pages")$volcount))
+  expect_true(is.na(polish_physical_extent("73 pts,2 pages")$volcount)) 
+  expect_true(is.na(polish_physical_extent("73 pts.,2 pages")$volcount))
   expect_equal(polish_physical_extent("1atlas")$volcount, 1)
-  expect_equal(polish_physical_extent("v, 5")$volcount, 1) # 5 + 5 pages, 1 volume
-  expect_equal(polish_physical_extent("v")$volcount, 1)
-  expect_equal(polish_physical_extent("v ;")$volcount, 1)
+  expect_true(is.na(polish_physical_extent("v, 5")$volcount)) # 5 + 5 pages, 1 volume
+  expect_true(is.na(polish_physical_extent("v")$volcount))  
+  expect_true(is.na(polish_physical_extent("v ;")$volcount))
   #} else if (x == "v.1-3, 5 ;") {
   #    nvol <- 4
   #  vtext <- "v.1-3,5"

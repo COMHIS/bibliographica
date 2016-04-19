@@ -8,8 +8,6 @@ polish_physext_help2(x, page.harmonize, harm.pi)
 }
 \arguments{
 \item{x}{Input char}
-
-\item{page.synonyms}{page.synonyms}
 }
 \value{
 Internal
