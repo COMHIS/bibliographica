@@ -28,8 +28,6 @@ if ("publisher" %in% update.fields) {
 
 # -------------------------------------------------------------------
 
-# For now, always enrich.
-# TODO: check in generate_summary_tables if these are updated or not
 if (c("physical_extent", "physical_dimension") %in% update.fields) {
 
   source(system.file("extdata/enrich_dimensions.R", package = "bibliographica"))
