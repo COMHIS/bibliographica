@@ -13,9 +13,10 @@ is.multivol <- function (df) {
 
   # All multi-volume docs	    
   inds0 <- (df$volcount > 1)
-  # Also include docs with a given volnumber but no volcount
-  # as the ones with volnumber should be multi-volume docs anyway
-  inds1 <- (is.na(df$volcount) & !is.na(df$volnumber))
+  
+  # Also include docs with a volnumber:
+  # those should be multi-volume docs anyway
+  inds1 <- !is.na(df$volnumber)
 
   # Default multi-vol docs are now:
   inds <- inds0 | inds1
@@ -24,12 +25,12 @@ is.multivol <- function (df) {
   inds <- inds & !is.na(df$gatherings)
 
   # Exclude large documents 
-  selected.gatherings <- c("1to", "2small", "2to", "2long", "4small", "4to", "4long")
-  inds <- inds & (!df$gatherings %in% selected.gatherings)
+  rm.gatherings <- c("1to", "2small", "2to", "2long", "4small", "4to", "4long")
+  inds <- inds & (!df$gatherings %in% rm.gatherings)
 
   # Only include docs with <=10 volumes since
   # docs with more volumes are likely not
-  # following average volume-wise page counts anyway
+  # following average volume-wise page counts
   inds <- inds & (df$volcount <= 10)
 
   # Mark NAs as FALSE

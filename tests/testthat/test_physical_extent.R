@@ -2,6 +2,12 @@ context("Physical extent")
 
 test_that("Page count is correct", {
 
+  expect_equal(polish_physical_extent("1to")$pagecount, 2)
+  expect_equal(polish_physical_extent("1 leaf")$pagecount, 2)  
+  expect_equal(polish_physical_extent("sheet")$pagecount, 2)
+  expect_equal(polish_physical_extent("broadside")$pagecount, 2)
+  expect_equal(polish_physical_extent("broadsheet")$pagecount, 2)  
+  
   expect_equal(polish_physical_extent("plates (many folded or double leaved)")$pagecount, 4)
   expect_equal(polish_physical_extent("[50+] leaves")$pagecount, 100)
   expect_equal(polish_physical_extent("6p., leaf, 60, 40, 42, 64, 30, 24p., 2 leaves., 57p")$pagecount, 72)

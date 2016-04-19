@@ -39,7 +39,7 @@ remove_volume_info <- function (x) {
   # "v. (183,[2]) -> (183,[2])"
   s <- gsub("^v\\.", " ", s)
 
-  #vol.synonymes <- c("vol", "part")
+  # vol.synonymes <- c("vol", "part")
   s <- gsub(paste("^[0-9]{1,3} {0,1}vol[\\.| ]", sep = ""), " ", s)
   s <- gsub(paste("^[0-9]{1,3} {0,1}vol$", sep = ""), " ", s)
 

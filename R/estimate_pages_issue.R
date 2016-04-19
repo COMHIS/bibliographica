@@ -1,7 +1,7 @@
 #' @title Page estimation for issues
 #' @description Estimate pages for issues.
 #' @param df data.frame of documents x variables
-#' @param Page count estimates to be used
+#' @param mean.pagecounts.issue Page count estimates to be used
 #' @return Page count estimates
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")

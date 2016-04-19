@@ -8,7 +8,7 @@
 #' @export
 #' @examples \dontrun{p <- estimate_pages_multivol(df)}
 #' @keywords utilities
-estimate_pages_multivol <- function (df) {
+estimate_pages_multivol <- function (df, mean.pagecounts.multivol) {
 
   # Pick gatherings, volume, and page info for multi-vol docs with missing page info
   g <- df$gatherings
