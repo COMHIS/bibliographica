@@ -44,8 +44,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   }
 
   if (verbose) {message("Harmonize volume info")}
-  inds <- 1:length(s)  
-  inds <- setdiff(inds, setdiff(grep("v\\.$", s), grep("^v\\.$", s)))
+  inds <- setdiff(1:length(s), setdiff(grep("v\\.$", s), grep("^v\\.$", s)))
   if (length(inds)>0) {
     s[inds] <- remove_trailing_periods(s[inds])
   }
@@ -55,6 +54,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
   page.synonyms <- read_synonymes(f, sep = ";", mode = "table")
   s <- harmonize_names(s, page.synonyms, mode="match")
+  rm(page.synonyms)
 
   # Back to original indices and new unique reduction 
   s <- s[match(sorig, suniq)]
@@ -76,6 +76,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   f <- system.file("extdata/harmonize_sheets.csv", package = "bibliographica")
   sheet.harmonize <- read_synonymes(f, sep = "\t", mode = "table")
   s <- harmonize_sheets(s, sheet.harmonize)
+  rm(sheet.harmonize)
 
   # Back to original indices and new unique reduction 
   s <- s[match(sorig, suniq)]
@@ -92,6 +93,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   f <- system.file("extdata/harmonize_pages2.csv", package = "bibliographica")
   harm2 <- read_synonymes(f, sep = "\t", mode = "table")
   s <- harmonize_names(s, harm2, mode = "recursive")
+  rm(harm2)
 
   if (verbose) {message("Polish unique pages separately for each volume")}  
 
@@ -105,11 +107,10 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   }
 
   # Return NA if conversion fails
-  pages <- parallel::mclapply(str_trim(suniq), function (s) { a <- try(polish_physext_help(s, verbose = verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
-  pages <- t(sapply(pages, identity))
+  ret <- parallel::mclapply(str_trim(suniq), function (s) { a <- try(polish_physext_help(s, page.harmonize, harm.pi)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
 
   if (verbose) {message("Make data frame")}  
-  ret <- as_data_frame(pages)
+  ret <- as_data_frame(t(sapply(ret, identity)))
   names(ret) <- c("pagecount", "volnumber", "volcount")
 
   # Assume single volume when number not given
@@ -130,15 +131,13 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 #' @title Polish physical_extent help field
 #' @description Internal
 #' @param s Input char
-#' @param verbose Print progress info
 #' @return Internal
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples # TBA
 #' @keywords internal
-polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, sheet.harmonize, harm.pi) {
+polish_physext_help <- function (s, page.harmonize, harm.pi) {
 
-  # if (verbose) { message(s) }
   if (is.na(s) || s == "s") { return(rep(NA, 3)) } 
 
   # Shortcut for easy cases: "24p."
@@ -158,7 +157,7 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
   # Estimate pages for each document separately via a for loop
   # Vectorization would be faster but we prefer simplicity and modularity here
 
-  # Pagecount
+  # Pagecount per semicolon separated unit
   spl <- unlist(strsplit(s, ";"), use.names = FALSE)
 
   x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, page.harmonize, harm.pi)})))
@@ -179,7 +178,6 @@ polish_physext_help <- function (s, verbose, page.synonyms, page.harmonize, shee
 #' @title Polish physical_extent help field 2
 #' @description Internal
 #' @param x Input char
-#' @param page.synonyms page.synonyms
 #' @return Internal
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
@@ -193,7 +191,6 @@ polish_physext_help2 <- function (x, page.harmonize, harm.pi) {
 
   if (length(grep("i\\.e", x)) > 0) {
     x <- unlist(strsplit(x, ","), use.names = FALSE)
-
     x <- sapply(x, function (si) {x <- unlist(strsplit(si, "-"), use.names = FALSE); paste(sapply(x, function (x) handle_ie(x, harmonize = FALSE)), collapse = "-")})
     x <- paste(x, collapse = ",")
   }

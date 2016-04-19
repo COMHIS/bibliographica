@@ -35,15 +35,15 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.
     # Starting time
     start.time <- Sys.time()
 
+    # Remove the fields to be updated
+    inds <- which(names(df.preprocessed) %in% unlist(conversions[[field]]))
+    if (length(inds) > 0) { df.preprocessed <- df.preprocessed[, -inds]}
+
     # Polish the given field
     df.tmp <- polish_field(df.orig, field, verbose = FALSE, mc.cores = mc.cores)
 
     # List the output fields for this input field
     conversions[[field]] <- names(df.tmp)
-
-    # Remove fields to be updated
-    inds <- which(names(df.preprocessed) %in% unlist(conversions[[field]]))
-    if (length(inds) > 0) { df.preprocessed <- df.preprocessed[, -inds]}
 
     # Add the newly preprocessed field
     df.preprocessed <- cbind(df.preprocessed, df.tmp)
