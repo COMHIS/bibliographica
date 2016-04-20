@@ -45,5 +45,5 @@ print(p)
 
 ```{r summaryplace3, echo=FALSE, results='asis'}
 pubc <- top(df, "country", output = "data.frame")
-kable(head(pubc), caption = "Top publication country counts")
+kable(head(pubc), caption = "Top publication country counts", digits = 2)
 ```
