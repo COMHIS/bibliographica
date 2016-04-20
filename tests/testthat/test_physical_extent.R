@@ -224,13 +224,6 @@ test_that("Page count is correct", {
 })
 
 
-#test_that("Page harmonization is correct", {
-#  # expect_equal(polish_pages("v.7-9,plates"), 4)
-#  expect_true(is.na(harmonize_pages("2⁰")))
-#  expect_true(is.na(harmonize_pages(".")))
-#})
-
-
 test_that("volume count is correct", {
   expect_equal(polish_physical_extent("v.7-9,plates")$volcount, 3)
   expect_true(is.na(polish_physical_extent("v")$volcount))
@@ -248,15 +241,6 @@ test_that("volume count is correct", {
   expect_true(is.na(polish_physical_extent("v, 5")$volcount)) # 5 + 5 pages, 1 volume
   expect_true(is.na(polish_physical_extent("v")$volcount))  
   expect_true(is.na(polish_physical_extent("v ;")$volcount))
-  #} else if (x == "v.1-3, 5 ;") {
-  #    nvol <- 4
-  #  vtext <- "v.1-3,5"
-  #} else if (x == "v.1,4-7 ;") {
-  #  nvol <- 5
-  #  vtext <- "v.1,4-7"
-  #} else if (x == "Vols.6-7,9-12,plates :") {
-  #  nvol <- 6
-  #  vtext <- "v.6-7,9-12"
 
 })
 
