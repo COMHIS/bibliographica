@@ -114,8 +114,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   message("...pseudonyme")
   tab <- df.preprocessed %>% filter(author_pseudonyme) %>% select(author)
   tmp <- write_xtable(tab, paste(output.folder, "pseudonyme_accepted.csv", sep = ""), count = TRUE, sort.by = "author")
-
-
   message("...publication_place")
   tmp <- write_xtable(df.preprocessed[, c("publication_place", "country")],
       filename = paste(output.folder, "publication_place_accepted.csv", sep = ""),

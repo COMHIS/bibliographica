@@ -1,6 +1,5 @@
 # Preprocess selected original fields 
 res <- polish_all(df.orig, fields = update.fields,
-          # file = "df.preprocessed.RData",
 	  mc.cores = mc.cores,
 	  conversions = conversions)
 
