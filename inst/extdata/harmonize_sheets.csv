@@ -1,4 +1,5 @@
 synonyme;name
+leavse;leaves
 ^folding$;plates
 platess;plates
 leafs;leaves
@@ -9,6 +10,9 @@ leaf; leaf
 fold\.;folded
 folding;folded
 leaves folded;leaf
+doubld;double
+leaves\.;leaves
+bl\.;leaves 
 one folded;
 some folded;
 many folded;
@@ -80,5 +84,6 @@ map8⁰;map
 map; 1p
 \[1 blank\];[1]
 folded;
+ff\.;ff.,
 \(\);
 

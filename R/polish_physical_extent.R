@@ -85,7 +85,13 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   rm(harm2)
 
   # Trimming
+  # p3 -> p 3
+  inds = grep("p[0-9]+", s)
+  if (length(inds)>0) {
+    s[inds] <- gsub("p", "p ", s[inds])
+  }  
   s <- condense_spaces(s)
+  s[s == "s"] = NA
 
   if (verbose) {message("Polish unique pages separately for each volume")}  
 
@@ -121,7 +127,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 polish_physext_help <- function (s, page.harmonize) {
 
   # Return NA if conversion fails
-  if (is.na(s) || s == "s") { return(rep(NA, 3)) } 
+  if (is.na(s)) { return(rep(NA, 3)) } 
 
   # Shortcut for easy cases: "24p."
   if (length(grep("^[0-9]+ {0,1}p\\.{0,1}$",s))>0) {
@@ -185,23 +191,32 @@ polish_physext_help2 <- function (x, page.harmonize) {
   x <- gsub(" {0,1}- {0,1}", "-", x)
 
   # Remove parentheses
-  x <- gsub("[\\(|\\)]", " ", x)
-  x <- gsub("[\\{|\\}]", " ", x)  
-  x <- condense_spaces(x)
+  x <- gsub("\\(", " ", x)
+  x <- gsub("\\)", " ", x)
+  x <- condense_spaces(x)  
+  x = condense_spaces(gsub(" p p ", " p ", x))
 
-  # p3 -> 3
-  if (length(grep("^p[0-9]+", x))>0) {
-    x <- gsub("^p", "", x)
+  # 2 p [1] = 2, [1]
+  if (length(grep("^[0-9]+ p \\[[0-9]+\\]$", x))>0) {
+    x = condense_spaces(gsub("\\[", ",[", gsub("p", "", x)))
   }
 
-  # Add commas
-  # "[2] 4 p." -> "[2], 4 p."
-  inds <- setdiff(1:length(x), grep("\\[i", x))
-  x[inds] <- gsub(" \\[", "\\,[", x[inds])
-  for (n in 0:9) {
-     x <- gsub(paste("] ", n, sep = ""), paste("], ", n, sep = ""), x)
+  # [4] p [4] = [4], [4]
+  if (length(grep("^\\[[0-9]+\\] p \\[[0-9]+\\]$", x))>0) {
+    x = unlist(strsplit(x, "p"))[[1]]
   }
-  x <- str_trim(gsub("\\]$", "", x))  
+
+  # "[2] 4 p." -> "[2], 4"
+  if (length(grep("\\[[0-9]+\\] [0-9]+", x))>0) {
+    x = gsub(" ", ",", x)
+  }
+
+  if (length(grep("[0-9]+p",x))>0) {
+    x = condense_spaces(gsub("p", " p", x))
+  }
+
+  x = gsub("p\\.*$", "", x)
+  x = condense_spaces(x)
 
   x <- estimate_pages(x)
 
