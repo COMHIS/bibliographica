@@ -34,7 +34,6 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
   # Initial harmonization
   x <- gsub("[,|;|:|\\?|-|\\&|\\.]+", "", x) 
   x <- str_trim(gsub("\\(+", "", gsub("\\)+", "", x)))
-  x <- gsub("w ja g", "weilin goos", x) # TODO: Move this to fennica
   x <- remove_terms(x, terms, where = "begin")
   x <- str_trim(gsub("\\[", "", gsub("\\]", "", x)))
   x <- gsub("[0-9]", " ", x) # Remove numerics
@@ -71,7 +70,7 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
     f <- system.file("extdata/publisher.csv", package = "bibliographica")
     synonyms <- read_synonymes(f, sep = ";", mode = "table", lowercase = TRUE)    
   }
-  x <- harmonize_names(x, synonyms, mode = "exact.match")
+  x <- harmonize_names(x, synonyms, mode = "exact.match")  
 
   # Project unique cases back to the original list
   x2 <- as.character(x[match(xorig, xuniq)])
