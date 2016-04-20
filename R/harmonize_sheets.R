@@ -30,7 +30,14 @@ harmonize_sheets <- function (s, harm) {
 
   }
 
-  s <- gsub("1 sheets", "1 sheet", s)
+  s <- condense_spaces(s)
+
+  # Move into sheet synonyme table (had some problems hence here for now) ?
+  s <- gsub("^1 sheets$", "1 sheet", s)
+  s <- gsub("^sheet$", "1 sheet", s)
+  s <- gsub("^sheets$", "2 sheets", s)
+  s <- gsub("1 leaf \\(\\[2\\]p\\.\\)", "1 sheet", s)
+  s <- gsub("1 leaf", "1 sheet", s)  
 
   s 
 

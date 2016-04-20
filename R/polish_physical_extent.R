@@ -33,18 +33,20 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   s <- remove_dimension(s, terms)
   s[grep("^[ |;|:|!|?]*$", s)] <- NA 
 
-  if (verbose) {message("Harmonize volume info")}
-  inds <- setdiff(1:length(s), setdiff(grep("v\\.$", s), grep("^v\\.$", s)))
-  if (length(inds)>0) {
-    s[inds] <- remove_trailing_periods(s[inds])
-  }
-  s <- unname(harmonize_volume(s))
-
   # In Finnish texts s. is used instead of p.		
   f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
   page.synonyms <- read_synonymes(f, sep = ";", mode = "table")
   s <- harmonize_names(s, page.synonyms, mode="match")
   rm(page.synonyms)
+
+  if (verbose) {message("Harmonize volume info")}
+  inds <- setdiff(1:length(s), setdiff(grep("v\\.$", s), grep("^v\\.$", s)))
+  if (length(inds)>0) {
+    s[inds] <- remove_trailing_periods(s[inds])
+  }
+
+
+  s <- unname(harmonize_volume(s))
 
   # Back to original indices and new unique reduction 
   s <- s[match(sorig, suniq)]
@@ -59,13 +61,9 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
   page.harmonize <- read_synonymes(f, sep = "\t", mode = "table")
 
-  # Pp. -> p etc.
-  f <- system.file("extdata/harmonize_page_info.csv", package = "bibliographica")
-  harm.pi <- read_synonymes(f, sep = "\t", mode = "table", remove.ambiguous = FALSE)
-
   if (verbose) {message("Read the mapping table for sheets")}  
   f <- system.file("extdata/harmonize_sheets.csv", package = "bibliographica")
-  sheet.harmonize <- read_synonymes(f, sep = "\t", mode = "table")
+  sheet.harmonize <- read_synonymes(f, sep = ";", mode = "table")
   s <- harmonize_sheets(s, sheet.harmonize)
   rm(sheet.harmonize)
 
@@ -87,7 +85,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   rm(harm2)
 
   # Trimming
-  s = condense_spaces(s)
+  s <- condense_spaces(s)
 
   if (verbose) {message("Polish unique pages separately for each volume")}  
 
@@ -97,10 +95,10 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   suniq <- unique(sorig)
 
   if (verbose) {message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))}
-  ret <- parallel::mclapply(suniq, function (s) { a <- try(polish_physext_help(s, page.harmonize, harm.pi)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
+  ret <- parallel::mclapply(suniq, function (s) { a <- try(polish_physext_help(s, page.harmonize)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
 
-  if (verbose) {message("Make data frame")}  
-  ret <- as_data_frame(t(sapply(ret, identity)))
+  if (verbose) {message("Make data frame")}
+  ret <- as_data_frame(as.data.frame(t(sapply(ret, identity))))
   names(ret) <- c("pagecount", "volnumber", "volcount")
 
   if (verbose) {message("Set zero page counts to NA")}    
@@ -120,7 +118,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 #' @references See citation("bibliographica")
 #' @examples # TBA
 #' @keywords internal
-polish_physext_help <- function (s, page.harmonize, harm.pi) {
+polish_physext_help <- function (s, page.harmonize) {
 
   # Return NA if conversion fails
   if (is.na(s) || s == "s") { return(rep(NA, 3)) } 
@@ -145,7 +143,7 @@ polish_physext_help <- function (s, page.harmonize, harm.pi) {
   # Pagecount per semicolon separated unit
   spl <- unlist(strsplit(s, ";"), use.names = FALSE)
 
-  x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, page.harmonize, harm.pi)})))
+  x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, page.harmonize)})))
   if (class(x) == "try-error") {
     x <- NA
   } 
@@ -169,11 +167,10 @@ polish_physext_help <- function (s, page.harmonize, harm.pi) {
 #' @references See citation("bibliographica")
 #' @examples # TBA
 #' @keywords internal
-polish_physext_help2 <- function (x, page.harmonize, harm.pi) {
+polish_physext_help2 <- function (x, page.harmonize) {
 
   # TODO: can we speed up by moving these up ?		     
   x <- as.character(harmonize_names(x, page.harmonize, mode = "recursive"))
-  x <- as.character(harmonize_names(x, harm.pi, mode = "recursive"))
 
   if (length(grep("i\\.e", x)) > 0) {
     x <- unlist(strsplit(x, ","), use.names = FALSE)

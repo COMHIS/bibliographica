@@ -1,4 +1,3 @@
-
 mean.pagecounts.multivol <- mean_pagecounts_multivol(df.preprocessed) 
 mean.pagecounts.univol <- mean_pagecounts_univol(df.preprocessed) 
 mean.pagecounts.issue <- mean_pagecounts_issue(df.preprocessed) 

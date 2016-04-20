@@ -4,7 +4,7 @@
 \alias{polish_physext_help}
 \title{Polish physical_extent help field}
 \usage{
-polish_physext_help(s, page.harmonize, harm.pi)
+polish_physext_help(s, page.harmonize)
 }
 \arguments{
 \item{s}{Input char}

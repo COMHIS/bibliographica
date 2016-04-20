@@ -1,5 +1,10 @@
-harmonize_volume <- function (x, verbose = FALSE) {
+harmonize_volume <- function (x, verbose = FALSE, vol.synonyms = NULL) {
 
+  if (is.null(vol.synonyms)) {
+    f <- system.file("extdata/harmonize_volume.csv", package = "bibliographica")
+    vol.synonyms <- read_synonymes(f, sep = ";", mode = "table")  
+  }
+  
   if (verbose) {message("Initial harmonization")}
   s <- condense_spaces(x)
   s[grep("^v {0,1}[:|;]$", s)] <- "v"  
@@ -7,15 +12,7 @@ harmonize_volume <- function (x, verbose = FALSE) {
 
   # FIXME list in separate file
   if (verbose) {message("Synonymous terms")}
-  s <- gsub("atlas", " vol", s)
-  s <- gsub("vol", " vol", s)
-  s <- gsub("vols", " vol", s)
-  s <- gsub("osaa", " vol", s)
-  s <- gsub("nid\\.", " vol", s)
-  s <- gsub("vihkoa", " vol", s)
-  s <- gsub("parts", " pts", s)
-  s <- gsub("part ", " pts", s)
-  s <- gsub("part$", " pts", s)  
+  s <- harmonize_names(s, vol.synonyms, mode = "match")
 
   if (verbose) {message("Volume terms")}
   s <- gsub("^vol\\.", "v. ", s)
