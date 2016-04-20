@@ -206,7 +206,7 @@ polish_physext_help2 <- function (x, page.harmonize) {
     x = unlist(strsplit(x, "p"))[[1]]
   }
 
-  # "[2] 4 p." -> "[2], 4"
+  # "[2] 4" -> "[2], 4"
   if (length(grep("\\[[0-9]+\\] [0-9]+", x))>0) {
     x = gsub(" ", ",", x)
   }
