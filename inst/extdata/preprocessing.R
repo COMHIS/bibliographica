@@ -3,16 +3,22 @@ res <- polish_all(df.orig, fields = update.fields,
 	  mc.cores = mc.cores,
 	  conversions = conversions)
 
-if (!exists("df.preprocessed")) {
-  df.preprocessed <- res$df.preprocessed
-}
-
 # Replace old versions with the updated ones (if any)
 conversions <- res$conversions
 preprocessing.times <- res$preprocessing.times
 
-upf <- unlist(conversions[update.fields])
-df.preprocessed[, upf] <- res$df.preprocessed[, upf]
+if (!exists("df.preprocessed")) {
+
+  df.preprocessed <- res$df.preprocessed
+
+} else {
+
+  upf <- unlist(conversions[update.fields])
+  if (!all(upf) %in% names(df.preprocessed)) {
+    stop("Check bug.")
+  }
+  df.preprocessed[, upf] <- res$df.preprocessed[, upf]
+}
 
 # -----------------------------------------------
 
