@@ -1,4 +1,35 @@
 name;synonyme;comment
+Madrid;madrid
+Venice;venice
+Paris;paris 
+Sevilla;sevilla
+Valencia;valencia
+The Hague;la haie 
+Liege;li\x8fge
+Liege;lie\?ge
+Lausanne;lausanne
+Lausanne;lausanne geneve 
+Paris;Lo paris
+Brussels;bruselas
+Madrid;madrid madrid 
+The Hague;haya
+Delft;delft 
+Valencia;valencia valencia 
+Copenhagen;kio\?benhavn 
+Amsterdan;amsterdam
+Leipzig;leipsique
+Frankfurt;frankfurt leipzig 
+Madrid;dadrid por de la cuesta casa de f de robles 
+Madrid;madr
+Madrid;madrid real costa de m de la bastida
+Königsberg;ko\?nigsberg 
+The Hague;haia
+The Hague;haye
+Sevilla;seuilla
+Brussels;brucelas
+Brussels;brusselas 
+Brussels;brvselas
+Sevilla;seuilla 
 Helsinki;gel singfors;
 Helsinki;gel singfors гельсингфорсъ;
 Helsinki;gel singfrs;
@@ -2569,6 +2600,8 @@ Rostock;rostochij;
 Rotterdam;roterdame;
 Rotterdam;roterodami;
 Rotterdam;rotterodami;
+Rouen;Roven 
+Rouen;Rouen paris 
 Rouen;celeberrima vrbe rothomagensi;
 Rouen;diligenter emendata ac rothomagi;
 Rouen;english secret press;
@@ -2774,7 +2807,7 @@ Stockholm;holmi as;
 Stockholm;holmías;
 Stockholm;holmis;
 Stockholm;meime a stockholm;
-Stockholm;meime a  stockholm;
+Stockholm;meime astockholm;
 Stockholm;mutta nytt toisen kerran wastwdest stockholmin;
 Stockholm;på nytt medh egen bekostnadt vplagd och stockholm;
 Stockholm;socholm;
@@ -2907,11 +2940,11 @@ St Petersburg;s peterburg';
 St Petersburg;s peterburg'';
 St Petersburg;s peterburg a e vineke;
 St Petersburg;s peterburg a è vineke;
-St Petersburg;s peterburg' a e  vineke;
+St Petersburg;s peterburg' a evineke;
 St Petersburg;s peterburg' a è vineke;
 St Petersburg;s peterburg b gosudarstvennaa tipografi a;
 St Petersburg;s peterburg b gosudarstvennaâ tipografìâ;
-St Petersburg;s peterburg' b gosudarstvennaa  tipografi a;
+St Petersburg;s peterburg' b gosudarstvennaatipografi a;
 St Petersburg;s peterburg' b gosudarstvennaâ tipografìâ;
 St Petersburg;s peterburg è vineke;
 St Petersburg;s peterburg m merkušev;
@@ -3103,7 +3136,7 @@ Turku;abo a turku;
 Turku;abo a turku;
 Turku;abóa turku;
 Turku;aboa turku;
-Turku;aboa  turku;
+Turku;aboaturku;
 Turku;aboâ turku;
 Turku;abodiae;
 Turku;abo e;
@@ -3130,9 +3163,9 @@ Turku;åbo;
 Turku;abo;
 Turku;aboae;
 Turku;åbo;
-Turku;meime a  åbo;
+Turku;meime aåbo;
 Turku;meime aboae;
-Turku;meimeime  a abo;
+Turku;meimea abo;
 Turku;perno;
 Turku;prunkkala;
 Turku;recusa aboae;
