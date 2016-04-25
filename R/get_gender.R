@@ -20,9 +20,8 @@ get_gender <- function (x) {
     return(author.gender$gender)
   }
 
-  tmp <- strsplit(str_trim(sapply(x, function (x) {if (length(x) < 2) {x} else {x[[2]]}})), " ")
-  tmp[sapply(tmp, length) == 0] <- NA
-  first.names <- sapply(tmp, function (x) {x[[1]]})
+  # Pick first names
+  first.names <- pick_firstname(x)
   first.names.unique <- unique(na.omit(first.names))
 
   # gender package
@@ -68,6 +67,7 @@ get_gender <- function (x) {
 
   # Custom gender mappings for known ambiguous cases
   g[names(custom), "gender"] <- custom
+
 
   # Final mapping
   author.gender <- g[first.names, "gender"]

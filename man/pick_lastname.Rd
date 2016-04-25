@@ -4,12 +4,17 @@
 \alias{pick_lastname}
 \title{pick_lastname}
 \usage{
-pick_lastname(x, format = "last, first")
+pick_lastname(x, format = "last, first", keep.single = TRUE)
 }
 \arguments{
 \item{x}{a vector of full names}
 
 \item{format}{name format}
+
+\item{keep.single}{If the name is without comma ('Shakespeare,
+William' versus 'William'), interpret the name as first name.
+Note that in this case also 'Shakespeare' will be interpreted as first name.
+In the current implementation keep.single is always TRUE.}
 }
 \value{
 a vector of last names

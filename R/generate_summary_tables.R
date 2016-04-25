@@ -13,7 +13,7 @@
 generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "output.tables") {
 
   # Circumvent build warnings			
-  author <- author_name <- author_birth <- author_death <- author_pseudonyme <- NULL
+  author <- author_name <- author_birth <- author_death <- author_pseudonyme <- author_gender <- NULL
   mean_pagecounts_multivol <- mean_pagecounts_univol <- mean_pagecounts_issue <- NULL
 
   # Ensure compatibility			
@@ -107,7 +107,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   }
   message("...author")
   # Separate tables for real names and pseudonymes
-  tab <- df.preprocessed %>% filter(!author_pseudonyme) %>% select(author)
+  tab <- df.preprocessed %>% filter(!author_pseudonyme) %>% select(author, author_gender)
   tmp <- write_xtable(tab,
       paste(output.folder, paste("author_accepted.csv", sep = "_"), sep = ""),
       count = TRUE, sort.by = "author")
@@ -235,7 +235,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     count = TRUE)
 
   message("Write the mapped author genders in tables")
-  tab <- data.frame(list(name = df.preprocessed$author, gender = df.preprocessed$author_gender))
+  tab <- data.frame(list(name = pick_firstname(df.preprocessed$author), gender = df.preprocessed$author_gender))
   tab <- tab[!is.na(tab$gender), ] # Remove NA gender
 
   write_xtable(subset(tab, gender == "male")[,-2], paste(output.folder, "gender_male.csv", sep = ""))
