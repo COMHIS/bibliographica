@@ -18,7 +18,9 @@ Language codes are from [MARC](http://www.loc.gov/marc/languages/language_code.h
 Title count per language (including multi-language documents):
 
 ```{r summarylang, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=10}
-dfs <- gather(select(df, starts_with("language."))) %>% filter(value)
+dfs <- select(df, starts_with("language."))
+dfs <- gather(dfs)
+dfs <- dfs %>% filter(value)
 dfs$key <- gsub("language\\.", "", dfs$key)
 dfs$key <- factor(dfs$key, levels = (dfs %>% group_by(key) %>% tally() %>% arrange(n))$key)
 p <- ggplot(dfs, aes(x = key)) +

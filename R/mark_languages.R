@@ -28,16 +28,17 @@ mark_languages <- function(x) {
   # TODO Vectorize to speed up ?
   for (i in 1:length(x)) {
     
-      lll <- sapply(unlist(strsplit(x[[i]], ";")), function (xx) {as.character(harmonize_names(xx, abrv, remove.unknown = FALSE, mode = "exact.match"))})
+      lll <- sapply(unlist(strsplit(x[[i]], ";")), function (xx) {as.character(harmonize_names(xx, abrv, remove.unknown = TRUE, mode = "exact.match"))})
 
-      lll <- as.character(lll)
+      lll <- na.omit(as.character(unname(lll)))
+      if (length(lll) == 0) {lll <- NA}
 
       x[[i]] <- paste(lll, collapse = ";")
 
   }
   
   # List all unique languages in the data
-  x[x %in% c("NA", "Undetermined")] = NA
+  x[x %in% c("NA", "Undetermined", "und")] = NA
   xu <- na.omit(unique(unname(unlist(strsplit(unique(x), ";")))))
 
   # Only accept the official / custom abbreviations
@@ -46,15 +47,18 @@ mark_languages <- function(x) {
 
   # Provide logical vectors for the language hits for
   # each accepted language
-  subroutine <- function(abbrv){grepl(abbrv, x, ignore.case = T)}
+  subroutine <- function(abbrv, x){
+     grepl(paste("^", abbrv, "$", sep = ""), x, ignore.case = T) |
+     grepl(paste(";", abbrv, sep = ""), x, ignore.case = T) |
+     grepl(paste(";", abbrv, "$", sep = ""), x, ignore.case = T) 
+  }
   li <- list()
   for (u in setdiff(xu, "Multiple languages")) {
-    li[[u]] <- subroutine(u)
+    li[[u]] <- subroutine(u, x)
   }
   u <- "Multiple languages"
-  li[[u]] <- subroutine(u) | (sapply(strsplit(x, ";"), function (x) {length(unique(x))}) > 1)
+  li[[u]] <- subroutine(u, x) | grepl(";", x)
   
-
   dff <- as_data_frame(li)
   names(dff) <- paste("language.", names(dff), sep = "")
   

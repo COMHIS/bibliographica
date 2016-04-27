@@ -28,9 +28,8 @@ harmonize_names <- function (x, synonymes, remove.unknown = FALSE, mode = "exact
 
     # Only check those cases that overlap
     inds <- which(xuniq %in% synonymes$synonyme)
-
+    
     for (i in inds) {
-
       xh <- unique(as.character(synonymes$name[which(synonymes$synonyme == xuniq[[i]])]))
       if (length(xh) == 1) {
         xx[[i]] <- xh
@@ -40,9 +39,12 @@ harmonize_names <- function (x, synonymes, remove.unknown = FALSE, mode = "exact
       } else if (length(xh) == 0 && remove.unknown)  {
         xx[[i]] <- NA
       }
-      
     }
-  
+
+    if (remove.unknown && length(inds) == 0) {
+      xx <- rep(NA, length(xx))
+    }
+    
     xx2 <- xx[match(xorig, xuniq)]
 
   } else if (mode == "match") {

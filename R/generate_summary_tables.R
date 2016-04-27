@@ -72,7 +72,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 	       publication_place = "publication_place",
 	       country = "publication_place",
 	       author_gender = "author_name"
-	       #title = "title"	# Very large summaries
 	       )
   for (nam in names(originals)) {
     o <- as.character(df.orig[[originals[[nam]]]])
@@ -157,6 +156,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   # --------------------------------------------
 
+  message("Conversion: publication year")
   # Publication year
   o <- as.character(df.orig[["publication_time"]])
   x <- df.preprocessed[, c("publication_year", "publication_year_from", "publication_year_till")]
@@ -166,7 +166,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, "publication_year_conversion.csv",
       sep = ""), count = TRUE)
   
-  message("Discard summaries")
+  message("Discarded publication year")
   o <- as.character(df.orig[["publication_time"]])
   x <- as.character(df.preprocessed[["publication_year"]])
   inds <- which(is.na(x))
@@ -175,8 +175,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       count = TRUE)
   
   # --------------------------------------------
-
-  message("Automated summaries done.")
 
   message("Authors with missing life years")
   tab <- df.preprocessed %>% filter(!is.na(author_name) & (is.na(author_birth) | is.na(author_death))) %>% select(author_name, author_birth, author_death)
@@ -194,11 +192,15 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # -------------------------------------------------------
 
   message("Undefined language")
-  tmp <- write_xtable(
-                as.character(df.orig$language[which(is.na(df.preprocessed$language))]),
-		filename = paste(output.folder, "language_discarded.csv", sep = ""))
-
-  message("No country mapping - output the harmonized names")
+  # Remove "und" from the list ("Undetermined")
+  f <- system.file("extdata/language_abbreviations.csv", package = "bibliographica")
+  abrv <- read_synonymes(f, include.lowercase = F, self.match = F, ignore.empty = FALSE, mode = "table", sep = "\t")
+  # List unique languages that occur in the data
+  lang <- unlist(strsplit(df.orig$language, ";"))
+  # Remove the known ones (und is Undetermined)
+  unknown.lang <- setdiff(lang, c(abrv$synonyme, "und"))
+  tmp <- write_xtable(unknown.lang,
+	   filename = paste(output.folder, "language_discarded.csv", sep = ""))
 
   message("Language conversions")
   field = "language"
@@ -261,8 +263,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tab <- cbind(names(tab), tab)
   colnames(tab) <- c("name", "count")
   write.table(tab, file = paste(output.folder, "absentgeocoordinates.csv", sep = ""), quote = F, row.names = F, sep = "\t")
-
-
 
   message("Ambiguous publication place harmonization")  
   f = system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
