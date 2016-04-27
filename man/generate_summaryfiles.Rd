@@ -7,7 +7,7 @@
 generate_summaryfiles(df, author = "Author TBA",
   output.folder = "output.tables/", ntop = 20, summaries = c("overview",
   "author", "publicationplace", "publisher", "documents", "size", "gender",
-  "topic"))
+  "topic", "language", "title", "publicationyear"))
 }
 \arguments{
 \item{df}{data.frame to be summarized}

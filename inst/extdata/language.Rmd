@@ -1,0 +1,31 @@
+---
+title: "Language summaries"
+author: "Leo Lahti"
+date: "`r Sys.Date()`"
+output: markdown_document
+---
+
+## Language
+
+ * `r ncol(df %>% select(starts_with("language.")))-1` unique languages
+ * The languages may come in [combinations](output.tables/language_conversions.csv)
+ * `r length(union(grep(";", df$language), which(df$language == "Multiple languages")))` docs (`r round(100*length(union(grep(";", df$language), which(df$language == "Multiple languages")))/nrow(df), 2)`%) with multiple languages
+ * `r sum(is.na(df$language))` docs (`r round(100*mean(is.na(df$language)),2)`%) with no recognized language 
+ * [Discarded languages](output.tables/language_discarded.csv)
+
+Language codes are from [MARC](http://www.loc.gov/marc/languages/language_code.html); new custom abbreviations can be added in [this table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/language_abbreviations.csv).
+
+Title count per language (including multi-language documents):
+
+```{r summarylang, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=10}
+dfs <- gather(select(df, starts_with("language."))) %>% filter(value)
+dfs$key <- gsub("language\\.", "", dfs$key)
+dfs$key <- factor(dfs$key, levels = (dfs %>% group_by(key) %>% tally() %>% arrange(n))$key)
+p <- ggplot(dfs, aes(x = key)) +
+       geom_bar() +
+       coord_flip() +
+       scale_y_log10() +
+       xlab("") + ylab("Count")
+print(p)
+```
+

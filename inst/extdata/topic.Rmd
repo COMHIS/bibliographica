@@ -17,8 +17,9 @@ tab <- tab[!names(tab) == "NA"]
 tab <- rev(sort(tab)) 
 ```
 
-  * `r length(unique(df$subject_topic))` unique subject topics
-  * `r sum(!is.na(df$subject_topic))` documents assigned to at least one subject topic (`r round(100*mean(!is.na(df$subject_topic)))`)
+  * `r length(unique(df$subject_topic))` [unique accepted subject topics](output.tables/subject_topic_accepted.csv)
+  * [List of discarded subject topics](output.tables/subject_topic_discarded.csv)
+  * `r sum(!is.na(df$subject_topic))` documents (`r round(100*mean(!is.na(df$subject_topic)))`%) are assigned a subject topic 
 
 Top-`r ntop` subject topics and number of documents for each.
 

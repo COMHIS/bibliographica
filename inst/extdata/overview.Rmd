@@ -13,10 +13,11 @@ output: markdown_document
   * [Gender info](gender.md)
   * [Publisher info](publisher.md)
   * [Publication geography](publicationplace.md)
-  * [Generic document info](documents.md)
+  * [Publication year info](publicationyear.md)
+  * [Titles](title.md)  
   * [Document sizes](size.md)
   * [Document topics](topic.md)
-
+  * [Languages](language.md)
 
 ## Field conversions
 

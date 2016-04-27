@@ -1,0 +1,25 @@
+---
+title: "Title summaries"
+author: "Leo Lahti"
+date: "`r Sys.Date()`"
+output: markdown_document
+---
+
+
+### Titles
+
+ * `r length(unique(df$title))` [unique titles](output.tables/title_accepted.csv)
+ * `r sum(!is.na(df$title))` documents (`r round(100*mean(!is.na(df$title)))`%) have a title
+ * [Discarded titles](output.tables/title_discarded.csv)
+ * [Title harmonization table](output.tables/title_conversion_nontrivial.csv)
+
+Top-`r ntop` titles are shown together with the number of documents.
+
+```{r summarytitle, echo=FALSE, message=FALSE, warning=FALSE, fig.width=16, fig.height=10}
+p <- top_plot(df, "title", ntop = ntop) +
+  ggtitle(paste("Top titles")) +
+  scale_y_log10() +
+  ylab("Documents")
+print(p)
+```
+

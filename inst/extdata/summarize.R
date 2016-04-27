@@ -1,4 +1,6 @@
 
+stop("should we get here ever")
+
 df.preprocessed <- df
 df.orig <- df.orig[df.preprocessed$original_row,]
 
