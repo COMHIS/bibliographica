@@ -20,12 +20,14 @@ Amsterdan;amsterdam
 Leipzig;leipsique
 Frankfurt;frankfurt leipzig 
 Madrid;dadrid por de la cuesta casa de f de robles 
+Chatham;chatham;
 Madrid;madr
 Madrid;madrid real costa de m de la bastida
 The Hague;haia
 The Hague;haye
 Sevilla;seuilla
 Brussels;brucelas
+Crewkerne;Crewekerne;
 Brussels;brusselas 
 Brussels;brvselas
 Sevilla;seuilla 
@@ -35,7 +37,6 @@ Helsinki;gel singfrs;
 Helsinki;gel zingfors;
 Helsinki;p gel singfors;
 Stockholm;stokgol m;
-NA;hall;
 NA;copy van schotland;
 Columbia;columbia worcester massachusetts;
 Columbia;columbia;
@@ -213,8 +214,8 @@ Augsburg;augustae vindel augsburg;
 Augsburg;augustae vindel friburgi brisg;
 Augsburg;augustae vind friburg brisg;
 Augsburg;vind augsburg;
-Augusta (Ambiguous);augusta;Augsburg/Augusta GA/Augusta Me
-Augusta (Ambiguous);augustae;Augsburg/Augusta GA/Augusta Me
+Augusta;augusta;
+Augusta;augustae;
 Augusta GA;georgia;
 Augusta Me;augusta district maine;
 Augusta Me;augusta kennebeck;
@@ -264,8 +265,8 @@ Basseterre Saint Kitts;st kitts nevis;
 Basseterre Saint Kitts;st christophers;
 Bastia (Corsica);bastia corsica;
 Bath;bath\;
-Bath England;bath england;
 Bath;bathoniae;
+Bath England;bath england;
 Bath NY;bath county of steuben state of new york;
 Bath NY;bath county steuben state new york;
 Bedford Ma;bedford mass;
@@ -307,7 +308,9 @@ Bishop's Castle;bishops castle;
 Bishopstone;bishopstone sussex;
 Bishopstone;sussex;
 Blackwell;blackwell grange;
-Blandford (Ambiguous);blandford;Ambiguous with Blandford Forum/Blandford Va
+Blandford;blandford;Blandford Forum/Blandford Va
+Blandford Forum;blandford forum;
+Blandford Va;blandford va;
 Bodedern;bodedern or bala;
 Bödingen;buedingen;
 Bologna;bononiae;
@@ -321,7 +324,7 @@ Boston;bosto n;
 Boston;boston;
 Boston;bostoniae;
 Boston;bostonut;
-Boston;england boston;
+Boston Ma;england boston;
 Boston Ma;america boston;
 Boston Ma;america ie boston;
 Boston Ma;bay state boston;
@@ -425,7 +428,7 @@ Brussels;bruxellis;
 Budapest;buda;
 Budapest;pest;
 Budapest;pesten;
-Burlington (Ambiguous);burlington;
+Burlington;burlington;
 Burlington NJ;burlington in new jersey;
 Burlington NJ;burlington new jersey;
 Burlington Vt;burlington state of vermont;
@@ -460,40 +463,40 @@ Calicut;calicute;
 Calumet Mi;calumet;
 Calumet Mi;calumet mich;
 Calumet Mi;calumet michigan;
-Cambridge (Ambiguous);cambridge b c legge vniversitie cambridge;
-Cambridge (Ambiguous);est haec oratiũcula cantabrigiae
-Cambridge (Ambiguous);apud praedaram cantabrigiam;
-Cambridge (Ambiguous);apud preclarem cantabrigiam;
-Cambridge (Ambiguous);caergrawnt;
-Cambridge (Ambiguous);cambridg;
-Cambridge (Ambiguous);cambridge cambridgeshire;
-Cambridge (Ambiguous);cambrige;
-Cambridge (Ambiguous);cambridge;
-Cambridge (Ambiguous);cambrigi;
-Cambridge (Ambiguous);camrbridge;
-Cambridge (Ambiguous);camridge;
-Cambridge (Ambiguous);cantabriae;
-Cambridge (Ambiguous);cantabridgiae;
-Cambridge (Ambiguous);cantabrigae;
-Cambridge (Ambiguous);cantabrigae;
-Cambridge (Ambiguous);cantabrige;
-Cambridge (Ambiguous);cantabrigi;
-Cambridge (Ambiguous);cantabrigia;
-Cambridge England;Cantabrigiae nov ang;
-Cambridge (Ambiguous);cantabrigiae;
-Cambridge (Ambiguous);cantabrigiae;
-Cambridge (Ambiguous);cantabrigriae;
-Cambridge (Ambiguous);cantanbrigiae;
-Cambridge (Ambiguous);cantebrig;
-Cambridge (Ambiguous);cantebrigiae;
-Cambridge (Ambiguous);catabrigiae;
-Cambridge (Ambiguous);iohn legat;
-Cambridge (Ambiguous);kantabrigia;
-Cambridge (Ambiguous);tou kantabrigia;
-Cambridge (Ambiguous);speciall cambridge;
+Cambridge;cambridge b c legge vniversitie cambridge;
+Cambridge;est haec oratiũcula cantabrigiae
+Cambridge;apud praedaram cantabrigiam;
+Cambridge;apud preclarem cantabrigiam;
+Cambridge;caergrawnt;
+Cambridge;cambridg;
+Cambridge;cambridge cambridgeshire;
+Cambridge;cambrige;
+Cambridge;cambridge;
+Cambridge;cambrigi;
+Cambridge;camrbridge;
+Cambridge;camridge;
+Cambridge;cantabriae;
+Cambridge;cantabridgiae;
+Cambridge;cantabrigae;
+Cambridge;cantabrigae;
+Cambridge;cantabrige;
+Cambridge;cantabrigi;
+Cambridge;cantabrigia;
+Cambridge Ma;Cantabrigiae nov ang;
+Cambridge;cantabrigiae;
+Cambridge;cantabrigiae;
+Cambridge;cantabrigriae;
+Cambridge;cantanbrigiae;
+Cambridge;cantebrig;
+Cambridge;cantebrigiae;
+Cambridge;catabrigiae;
+Cambridge;iohn legat;
+Cambridge;kantabrigia;
+Cambridge;tou kantabrigia;
+Cambridge;speciall cambridge;
 Cambridge Ma;Cantabrigiae nov anglorum;
 Cambridge England;cambridge and london;
-Cambridge England;cambridge england mass;
+Cambridge;cambridge england mass;
 Cambridge England;cambridge london;
 Cambridge England;cambridg england;
 Cambridge England;cambridge eng;
@@ -503,13 +506,13 @@ Cambridge Ma;cambridge mass;
 Cambridge Ma;cambridg mass;
 Cambridge Ma;cantabrigiae cambridge mass;
 Cambridge Ma;cantabrigia nov anglia;
-Cambridge (Ambiguous);Cantabrigiae cambridgeshire
+Cambridge;Cantabrigiae cambridgeshire
 Canaan NY;canaan state;
-Canterbury (Ambiguous);canterbury;Ambiguous
-Canterbury (Ambiguous);cantorbery;Ambiguous
-Canterbury (Ambiguous);cantorbury;Ambiguous
-Canterbury (Ambiguous);cantuari;Ambiguous
-Canterbury (Ambiguous);caterbury;Ambiguous
+Canterbury;canterbury;
+Canterbury;cantorbery;
+Canterbury;cantorbury;
+Canterbury;cantuari;
+Canterbury;caterbury;
 Canterbury NH;canterbury new hampshire;
 Cape Town;cape town south africa;
 Cap-Haitien;au cap francais;
@@ -528,7 +531,7 @@ Carmarthen;caer ferddin;
 Carmarthen;caerfyrddin;
 Carmarthen;caerfyrddin carmarthen wales;
 Carmarthen;carmarthen wales;
-Carrick (Ambiguous);carrick;Ambigous: Carrickfergus/Carrick-on-Suir
+Carrick;carrick;Carrickfergus|Carrick-on-Suir
 Carrick-on-Suir;carrick on suir;
 Carron;broomedgehall near carron;
 Cashel;cashel ireland;
@@ -555,7 +558,7 @@ Charleston SC;south carolina charles town sc;
 Charlestown Ma;massachusetts charlestown;
 Charlottetown;charlotte town island saint john;
 Charlottetown;charlotte town;
-Chelmsford England;chelmsford england;
+Chelmsford;chelmsford england;
 Chelmsford Ma;chelmsford mass;
 Chelmsford Ma;chelmsford mass england;
 Chennai;vepery;
@@ -1060,7 +1063,7 @@ Glasgow;glosgovv;
 Glasgow;glsgow;
 Glasgow;glasgow edinburgh; 
 Gloucester;glocester;
-Gloucester England;gloucester england;
+Gloucester;gloucester england;
 Gloucester Ma;glocester ma;
 Gloucester Ma;glocester mass;
 Gloucester Ma;gloucester mass;
@@ -1380,8 +1383,7 @@ Kelso;kelso scotland;
 Kelso;keslo;
 Kemi;kemissä;
 Kendal;kendal england;
-Frankfort Ky;;kentucky;Ambiguous Washington Ky/Frankfort Ky
-Frankfort Ky;Ambiguous Washington Ky/Frankfort Ky
+Frankfort Ky;kentucky;Washington Ky/Frankfort Ky
 Kharkiv;har'kov';
 Kharkiv;Har kov;
 Kharkiv;harkov;
@@ -2095,7 +2097,7 @@ Natchez Ms;natchez miss;
 Neuchatel;neuchâtel;
 Neuruppin;neu ruppin;
 Neustadt an der Weinstraße;neostadii;
-Newark (Ambiguous);newark;
+Newark;newark;
 Newark NJ;newark new jersey;
 Newark NJ;new jersey;
 New Bedford Ma;n bedford massa;
@@ -2443,8 +2445,8 @@ Piikkiö;piikkis;
 Pittsburgh Pa;pittsburg;
 Pittsburgh Pa;pittsburgh;
 Pittsburgh Pa;pittsburg pa;
-Plymouth;plym dock;Ambiguous
-Plymouth;plymounth;Ambiguous
+Plymouth;plym dock;
+Plymouth;plymounth;
 Plymouth;plymouth dock;
 Plymouth Ma;plymouth mass;
 Plymouth Ma;plymouth massachusetts;
@@ -2547,8 +2549,8 @@ Raahe;brahestads;
 Ramsgate;ramsgatae;
 Rauma;raumalla;
 Rauma;raumo;
-Reading;reading;Ambiguous England/USA
-Reading;readingi;Ambiguous England/USA
+Reading;reading;
+Reading;readingi;
 Reading England;reading berks england;
 Red Jacket Mi;red jacket mich;
 Red Lodge MT;red lodge mont;
@@ -2649,7 +2651,7 @@ Saint-Malo;saint malo;
 Saint-Malo;s malo;
 Saint-Marie;saint mare;
 Saint-Marie;saint marie;
-Salem England;salem england;
+Salem;salem england;
 Salem Ma;salem mass;
 Salem Ma;salem state of new york;
 Salem Ma;salem massachusetts;
@@ -3370,7 +3372,7 @@ Watertown Ma;watertown mass england;
 Watford;watton;
 Watton Mi;watton mich;
 Weimar;weimar verlage des industrie comptoirs;
-Westminster (Ambiguous);westmynstre;Ambiguous
+London;westmynstre;
 Westport Ct;westport;
 West Springfield Ma;west springfield mass;
 Wexford;wexford ireland;
@@ -3394,8 +3396,8 @@ Wilmington De;wilmingtonii del;
 Wilmington De;wilmingtoni wilmington del;
 Wilmington NC;wilmington north carolina;
 Winchester;wincherter;
-Winchester (England);winchester england;
-Winchester (England);winchester or oxford;
+Winchester England;winchester england;
+Winchester England;winchester or oxford;
 Windham Ct;windham conn;
 Windsor;windsor england;
 Windsor Ct;windsor connecticut;
@@ -3448,14 +3450,14 @@ Wurzburg;würzburg;
 Y Bont-faen;pont y fon;
 Y Bont-faen;y bont faen;
 Yeovil;yeovil england;
-York (Ambiguous);eboraci;Ambiguous
-York (Ambiguous);ebor um;Ambiguous
-York (Ambiguous);yorck;Ambiguous
-York (Ambiguous);yor k;Ambiguous
-York (Ambiguous);york;Ambiguous
-York (Ambiguous);york by;Ambiguous
-York (Ambiguous);yorke;Ambiguous
-York (Ambiguous);yorr;Ambiguous
+York;eboraci;
+York;ebor um;
+York;yorck;
+York;yor k;
+York;york;
+York;york by;
+York;yorke;
+York;yorr;
 York England;yorke now london;
 York England;yorke london;
 York Pa;york town pa;
@@ -3523,7 +3525,6 @@ Dover De;Dover del;
 Germantown PA;Germantown Pe;
 Baltimore Md;Baltimore Ma;
 The Hague;Hagae comitis;
-NA;Hall;
 Great Yarnmouth;Great yarmouth;
 Kings Lynn;Lynn england;
 Aberdeen;Ad exemplar abredoniae;
@@ -3552,7 +3553,6 @@ London;Utopia london;
 Waltham Saint Lawrence;Waltham saint lawrence;
 Wesel;Wesel elsas;
 Wittenberg;Wyttenberge london;
-NA;alfend;
 NA;v telči;
 NA;chicago york;
 NA;jetzo auffs newe zu stade;

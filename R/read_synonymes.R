@@ -19,10 +19,10 @@
 #' @keywords utilities
 read_synonymes <- function (file, mode = "list", sep = ";", self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE, verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE) {
 
-  rf <- readLines(file)
-
   if (mode == "list") {
-  
+
+    rf <- readLines(file)
+
     aa <- lapply(rf, function (x) {unique(unlist(strsplit(x, sep)))})
     names(aa) <- sapply(rf, function (x) {unlist(strsplit(x, sep))[[1]]})
   
@@ -37,7 +37,7 @@ read_synonymes <- function (file, mode = "list", sep = ";", self.match = FALSE, 
     aa <- aa[!duplicated(aa),]
 
   } else if (mode == "table") {
-    aa <- read.csv(file, sep = sep, stringsAsFactors = FALSE, fileEncoding = "UTF-8") 
+    aa <- read.csv(file, sep = sep, stringsAsFactors = FALSE, fileEncoding = "UTF-8")
   }
 
   if (lowercase) {
