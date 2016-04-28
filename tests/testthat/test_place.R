@@ -42,7 +42,7 @@ test_that("Places are harmonized correctly", {
   # New
   expect_equal(polish_place("Printed at London, and re-printed at Edinburgh"), "London")
   expect_equal(polish_place("Providence, in New-England"), "Providence RI")
-  expect_equal(polish_place("Printed by his Majesties speciall command at Cambridge"), "Cambridge (Ambiguous)")
+  expect_equal(polish_place("Printed by his Majesties speciall command at Cambridge"), "Cambridge")
   expect_equal(polish_place("St. John's in Antigua"), "St Johns Antiqua")
   expect_equal(polish_place("St. Ives in Huntingdonshire [England]"), "St Ives")
   expect_equal(polish_place("Printed at Oxford, and reprinted at Shrewsbury"), "Oxford")
@@ -104,7 +104,7 @@ test_that("Places are harmonized correctly", {
   expect_equal(polish_place("Hamburg and London]"), "Hamburg")
   expect_equal(polish_place("Glasgow] London printed, and re-printed at Glasgow"), "Glasgow")
   expect_equal(polish_place("Enpre[n]tyd in the Duchye of Braband in the towne of Andewarpe"), "Antwerp")
-  expect_equal(polish_place("Emprynted at westmynstre"), "Westminster (Ambiguous)")
+  expect_equal(polish_place("Emprynted at westmynstre"), "London")
   expect_equal(polish_place("Emprented in ye famous cite of Andwarpe"), "Antwerp")
   expect_equal(polish_place("Edinburgh] Re-printed at Edinburgh"), "Edinburgh")
   expect_equal(polish_place("Edinburgh] Printed at Dublin, and re-printed at Edinburgh"), "Edinburgh")
@@ -129,7 +129,7 @@ test_that("Places are harmonized correctly", {
   expect_equal(polish_place("Boston"), "Boston")
   expect_equal(polish_place("[Impr]inted at Lon[don"), "London")
   expect_equal(polish_place("Imprinted at Lo[n]don"), "London")  
-  expect_equal(polish_place("Imprynted at Ca[n]terbury"), "Canterbury (Ambiguous)")
+  expect_equal(polish_place("Imprynted at Ca[n]terbury"), "Canterbury")
 
   expect_equal(polish_place("Helsinki"), "Helsinki")
   expect_equal(polish_place("Ånyo tryckt i Stockholm"), "Stockholm")
