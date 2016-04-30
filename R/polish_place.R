@@ -21,7 +21,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
     f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
     synonymes <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")
 
-
     if (verbose) { message(paste("Reading special char table", f)) }
     # Harmonize places with synonyme table
     f <- system.file("extdata/replace_special_chars.csv",
@@ -32,8 +31,8 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
     f <- system.file("extdata/harmonize_place.csv",
 		package = "bibliographica")
     speccases <- read_synonymes(f, sep = ";", mode = "table", include.lowercase = TRUE)
+    
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
-
     synonymes.spec <- rbind(spechars, speccases)
 
   }
@@ -80,12 +79,14 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (verbose) {message(paste("Polishing ", length(xuniq), " unique place names", sep = ""))}
   x <- remove_persons(x)
+  
   if (verbose) {message("Remove print statements")}
   x <- remove_print_statements(x, remove.letters = FALSE)
   x <- condense_spaces(x)
 
   if (verbose) {message("Remove stopwords")}
   x <- remove_stopwords(x, terms = stopwords, remove.letters = FALSE)
+
 
   if (verbose) {message("Harmonize ie")}
   x <- harmonize_ie(x)
@@ -126,6 +127,10 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   # for initial runs.
   x <- remove_stopwords(x, terms = tolower(stopwords), remove.letters = FALSE)
 
+  # TEMP
+  save(x, file = "~/tmp/places.RData", compress = T)
+  # print(x)
+
   if (harmonize) {
 
     # Then match place names to synonymes		
@@ -139,6 +144,12 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- gsub("^[a-z]{1,2}$", " ", x)  
   x <- gsub("^[a-z] [a-z]$", " ", x)
   x <- gsub("^[a-z]\\.[a-z]$", " ", x)  
+
+  # Remove "england" but not "new england"
+  #inds1 <- c/grep(" england", x), grep("england ", x))
+  #inds2 <- grep("new england", x)  
+  #inds <- unique(setdiff(inds, inds2))
+  #x <- condense_spaces(gsub("england", " ", x))
 
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
   
