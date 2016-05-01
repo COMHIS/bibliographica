@@ -25,7 +25,9 @@ get_country <- function (x, map = NULL) {
   x <- xorig.unique
 
   if (is.null(map)) {
-    map <- place2country()
+    f <- system.file("extdata/reg2country.csv", package = "bibliographica")
+    message(paste("Reading region-country mappings from file ", f))
+    map <- read_synonymes(f, mode = "table", sep = ";", sort = TRUE, self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, remove.ambiguous = TRUE, lowercase = FALSE, from = "region", to = "country") 
   }
   
   # Map each region in x to a country

@@ -58,13 +58,12 @@ check_synonymes <- function (synonymes, include.lowercase = TRUE, verbose = FALS
   # Remove ambiguous names that map to many higher-level names
   spl <- split(as.character(synonymes$name), as.character(synonymes$synonyme))  
   ambiguous <- names(which(sapply(spl, length) > 1))
-  if (length(ambiguous) > 0) {
-    warning(paste("Removing ambiguous terms from synonyme list (no unique mapping): ", paste(ambiguous, collapse = ",")))
-  }
-  
   # synonymes.ambiguous <- subset(synonymes, synonyme %in% ambiguous)
   if (remove.ambiguous) {
+    if (length(ambiguous) > 0) {
+    warning(paste("Removing ambiguous terms from synonyme list (no unique mapping): ", paste(ambiguous, collapse = ",")))
     synonymes <- subset(synonymes, !synonyme %in% ambiguous)
+    }
   }
   
   # Order alphabetically
@@ -73,7 +72,7 @@ check_synonymes <- function (synonymes, include.lowercase = TRUE, verbose = FALS
   }
 
   # Unique entries
-  synonymes = unique(synonymes)  
+  synonymes <- unique(synonymes)  
 
   synonymes
  

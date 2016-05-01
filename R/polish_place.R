@@ -28,13 +28,10 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
     spechars <- read_synonymes(f, sep = ";", mode = "table", include.lowercase = TRUE)
     
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
-    f <- system.file("extdata/harmonize_place.csv",
-		package = "bibliographica")
-    speccases <- read_synonymes(f, sep = ";", mode = "table", include.lowercase = TRUE)
-    
+    f <- system.file("extdata/harmonize_place.csv", package = "bibliographica")
+    synonymes.spec <- read_synonymes(f, sep = ";", mode = "table", include.lowercase = TRUE)
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
-    synonymes.spec <- rbind(spechars, speccases)
-
+    
   }
 
   f <- system.file("extdata/stopwords_for_place.csv", package = "bibliographica")
@@ -49,6 +46,9 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   # Prepare
   if (verbose) { message("Convert to lowercase character") }
   x <- tolower(as.character(x))
+
+  if (verbose) { message("Replace special characters") }
+  x <- as.character(harmonize_names(x, spechars, mode = "recursive"))
 
   # Lo[n]don -> London
   x <- remove_brackets_from_letters(x)
@@ -115,9 +115,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
 
   if (verbose) { message("Harmonize the synonymous names") }
-  # First replace some special characters 
-  x <- as.character(harmonize_names(x, synonymes.spec,
-		mode = "recursive"))
+  x <- as.character(harmonize_names(x, synonymes.spec, mode = "recursive"))
 
   # Once more remove stopwords
   # Warning: the names discarded here wont be visible in
