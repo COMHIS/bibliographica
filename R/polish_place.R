@@ -87,7 +87,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (verbose) {message("Remove stopwords")}
   x <- remove_stopwords(x, terms = stopwords, remove.letters = FALSE)
 
-
   if (verbose) {message("Harmonize ie")}
   x <- harmonize_ie(x)
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
@@ -128,8 +127,8 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- remove_stopwords(x, terms = tolower(stopwords), remove.letters = FALSE)
 
   # TEMP
-  save(x, file = "~/tmp/places.RData", compress = T)
-  # print(x)
+  save(x, file = paste("~/tmp/places", rnorm(1), ".RData", sep = ""), compress = T)
+  #print(x)
 
   if (harmonize) {
 
@@ -144,12 +143,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- gsub("^[a-z]{1,2}$", " ", x)  
   x <- gsub("^[a-z] [a-z]$", " ", x)
   x <- gsub("^[a-z]\\.[a-z]$", " ", x)  
-
-  # Remove "england" but not "new england"
-  #inds1 <- c/grep(" england", x), grep("england ", x))
-  #inds2 <- grep("new england", x)  
-  #inds <- unique(setdiff(inds, inds2))
-  #x <- condense_spaces(gsub("england", " ", x))
 
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
   

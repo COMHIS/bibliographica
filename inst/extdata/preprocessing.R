@@ -14,7 +14,7 @@ if (!exists("df.preprocessed")) {
 } else {
 
   upf <- unlist(conversions[update.fields])
-  if (!all(upf) %in% names(df.preprocessed)) {
+  if (!all(upf %in% names(df.preprocessed))) {
     stop("Check bug.")
   }
   df.preprocessed[, upf] <- res$df.preprocessed[, upf]

@@ -13,7 +13,7 @@
 generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "output.tables") {
 
   # Circumvent build warnings			
-  author <- author_name <- author_birth <- author_death <- author_pseudonyme <- author_gender <- NULL
+  author <- author_name <- author_birth <- author_death <- author_pseudonyme <- author_gender <- name <- NULL
   mean_pagecounts_multivol <- mean_pagecounts_univol <- mean_pagecounts_issue <- NULL
 
   # Ensure compatibility			
@@ -58,18 +58,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     }
   }
 
-  message("Discarded publication place")
-  nam <- "publication_place"
-  o <- as.character(df.orig[[nam]])
-  x <- as.character(df.preprocessed[[nam]])
-  inds <- which(is.na(x))
-  tmp <- write_xtable(tolower(polish_place(o[inds], harmonize = FALSE)),
-      paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
-      count = TRUE)
-  
+
   message("Conversion summaries")
   originals <- c(publisher = "publisher",
-	       publication_place = "publication_place",
 	       country = "publication_place",
 	       author_gender = "author_name"
 	       )
@@ -96,14 +87,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, paste("author_conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
 
-
-  message("Accept summaries")
-  for (nam in setdiff(names(originals), "publication_place")) {
-    x <- as.character(df.preprocessed[[nam]])
-    tmp <- write_xtable(x,
-      paste(output.folder, paste(nam, "accepted.csv", sep = "_"), sep = ""),
-      count = TRUE, sort.by = "Name")
-  }
   message("...author")
   # Separate tables for real names and pseudonymes
   tab <- df.preprocessed %>% filter(!author_pseudonyme) %>% select(author, author_gender)
@@ -112,12 +95,12 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       count = TRUE, sort.by = "author")
   message("...pseudonyme")
   tab <- df.preprocessed %>% filter(author_pseudonyme) %>% select(author)
-  tmp <- write_xtable(tab, paste(output.folder, "pseudonyme_accepted.csv", sep = ""), count = TRUE, sort.by = "author")
+  tmp <- write_xtable(tab, paste(output.folder, "pseudonyme_accepted.csv", sep = ""),
+      	 		   count = TRUE, sort.by = "author")
   message("...publication_place")
   tmp <- write_xtable(df.preprocessed[, c("publication_place", "country")],
       filename = paste(output.folder, "publication_place_accepted.csv", sep = ""),
       count = TRUE, sort.by = "publication_place")
-
 
   message("Discard summaries")
   for (nam in setdiff(names(originals), c("country", "publication_place"))) {
@@ -211,14 +194,77 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   # ---------------------------------------------------------
 
+  message("Publication place conversions")
+  nam <- "publication_place"
+  o <- as.character(df.orig[[nam]])
+  x <- as.character(df.preprocessed[[nam]])
+  
+  inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
+  tmp <- write_xtable(cbind(original = o[inds],
+      	 		      polished = x[inds]),
+    paste(output.folder, paste("publication_place_conversion_nontrivial.csv", sep = "_"),
+    sep = ""), count = TRUE)
+  
+  message("Publication place discarded")
+  inds <- which(is.na(x))
+  # Remove places that were already handled in the synonyme table
+  # (this could be made optional - useful when actively cleaning up the tables but
+  # with new runs it could be beneficial to show everything that is discarded and hence comment this out)
   f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-  misc <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")  
-  rms <- as.character(misc$synonyme[is.na(as.character(misc$name))])
+  syn <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")
+  pl <- tolower(polish_place(o[inds], harmonize = FALSE))
+  pl <- setdiff(pl, syn$synonyme)
+  
+  tmp <- write_xtable(pl,
+      paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
+      count = TRUE)
+  
+  message("Accept summaries")
+  for (nam in setdiff(names(originals), "publication_place")) {
+    x <- as.character(df.preprocessed[[nam]])
+    tmp <- write_xtable(x,
+      paste(output.folder, paste(nam, "accepted.csv", sep = "_"), sep = ""),
+      count = TRUE, sort.by = "Name")
+  }
+  rms <- as.character(syn$synonyme[is.na(as.character(syn$name))])
   tab <- as.character(df.preprocessed$publication_place)[is.na(df.preprocessed$country)]
   # First remove places that have already been explicitly set to unknown
   tab <- setdiff(tab, rms)
   # Then print the rest
   tmp <- write_xtable(tab, filename = "output.tables/publication_place_missingcountry.csv")
+
+  message("Ambiguous publication place harmonization")  
+  f = system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
+  tab <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE,
+                           mode = "table", remove.ambiguous = FALSE)
+  # Only consider terms that are present in our data
+  tab <- subset(tab, name %in% df.preprocessed$publication_place)
+  s <- split(as.character(tab$name), tolower(as.character(tab$synonyme)))
+  s <- s[sapply(s, function(x) {length(unique(x))}) > 1]
+  tab <- tab[tab$synonyme %in% names(s),]
+  tab <- tab[order(tab$synonyme),]  
+  # Only include those that we have in our data
+  tab <- tab[as.character(tab$name) %in% as.character(df.preprocessed$publication_place),]  
+  write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
+
+  message("Ambiguous countries listing")    
+  tab <- read.csv(system.file("extdata/reg2country.csv", package = "bibliographica"), sep = ";")
+  s <- split(as.character(tab$country), as.character(tab$region))
+  inds1 <- which((sapply(s, function(x) {length(unique(x))}) > 1) | (x == "Ambiguous"))
+  amb1 = names(s[inds1])
+  
+  inds2 = c(grep("Ambiguous", tab$country),
+       	   grep("Ambiguous", tab$region),
+	   grep("Ambiguous", tab$comment))
+  amb2 = tab[inds2,"region"]
+  amb <- unique(c(amb1, amb2))
+  tab <- tab[tab$region %in% amb,]
+  tab <- tab[order(tab$region),]
+  # Only include those that we have in our data
+  tab <- tab[as.character(tab$region) %in% as.character(df.preprocessed$publication_place),]    
+  write.table(tab, file = paste(output.folder, "publication_country_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
+
+  # --------------------------------------------------------
 
   message("Page counts")
   use.fields <- intersect(c("pagecount", "volnumber", "volcount"), names(df.preprocessed))
@@ -236,7 +282,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     paste(output.folder, paste("physical_dimension_incomplete.csv", sep = "_"), sep = ""),
     count = TRUE)
 
-  message("Write the mapped author genders in tables")
+  #-----------------------------------------------------------------------
+
+  message("Author gender tables")
   tab <- data.frame(list(name = pick_firstname(df.preprocessed$author), gender = df.preprocessed$author_gender))
   tab <- tab[!is.na(tab$gender), ] # Remove NA gender
 
@@ -255,44 +303,12 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 			      levels = levels(mean.pagecounts.univol$doc.dimension))
   write.table(mean.pagecounts, file = paste(output.folder, "mean_page_counts.csv", sep = ""), quote = F, row.names = F, sep = ",")
 
-
-
   message("Write places with missing geolocation to file")
   tab <- rev(sort(table(df.preprocessed$publication_place[is.na(df.preprocessed$latitude) | is.na(df.preprocessed$longitude)])))
   tab <- tab[tab > 0]
   tab <- cbind(names(tab), tab)
   colnames(tab) <- c("name", "count")
   write.table(tab, file = paste(output.folder, "absentgeocoordinates.csv", sep = ""), quote = F, row.names = F, sep = "\t")
-
-  message("Ambiguous publication place harmonization")  
-  f = system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-  tab <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")  
-  s <- split(as.character(tab$name), tolower(as.character(tab$synonyme)))
-  s <- s[sapply(s, function(x) {length(unique(x))}) > 1]
-  tab <- tab[tab$synonyme %in% names(s),]
-  tab <- tab[order(tab$synonyme),]
-  
-  # Only include those that we have in our data
-  tab <- tab[as.character(tab$name) %in% as.character(df.preprocessed$publication_place),]  
-  write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
-
-
-  message("Ambiguous countries listing")    
-  tab <- read.csv(system.file("extdata/reg2country.csv", package = "bibliographica"), sep = ";")
-  s <- split(as.character(tab$country), as.character(tab$region))
-  inds1 <- which((sapply(s, function(x) {length(unique(x))}) > 1) | (s == "Ambiguous"))
-  amb1 = names(s[inds1])
-  
-  inds2 = c(grep("Ambiguous", tab$country),
-       	   grep("Ambiguous", tab$region),
-	   grep("Ambiguous", tab$comment))
-  amb2 = tab[inds2,"region"]
-  amb <- unique(c(amb1, amb2))
-  tab <- tab[tab$region %in% amb,]
-  tab <- tab[order(tab$region),]
-  # Only include those that we have in our data
-  tab <- tab[as.character(tab$region) %in% as.character(df.preprocessed$publication_place),]    
-  write.table(tab, file = paste(output.folder, "publication_country_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
 
   message("All summary tables generated.")
 
