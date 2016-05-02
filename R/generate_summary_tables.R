@@ -238,7 +238,15 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tab <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE,
                            mode = "table", remove.ambiguous = FALSE)
   # Only consider terms that are present in our data
-  tab <- subset(tab, name %in% df.preprocessed$publication_place)
+  tab1 <- subset(tab, name %in% df.preprocessed$publication_place)
+  # Then also take conversions from our data. This may contain
+  # terms that were directly accepted as such as they are not on
+  # the synonyme table:
+  tab2 <- cbind(name = df.preprocessed$publication_place,
+    synonyme = tolower(polish_place(df.orig$publication_place, harmonize = FALSE)))
+  # Combine the data from both tables
+  tab <- unique(rbind(tab1, tab2))
+  # Identify ambiguous mappings
   s <- split(as.character(tab$name), tolower(as.character(tab$synonyme)))
   s <- s[sapply(s, function(x) {length(unique(x))}) > 1]
   tab <- tab[tab$synonyme %in% names(s),]
@@ -247,20 +255,28 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tab <- tab[as.character(tab$name) %in% as.character(df.preprocessed$publication_place),]  
   write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
 
+
+
   message("Ambiguous countries listing")    
   tab <- read.csv(system.file("extdata/reg2country.csv", package = "bibliographica"), sep = ";")
+  # Cases with multiple conflicting mappings
   s <- split(as.character(tab$country), as.character(tab$region))
-  inds1 <- which((sapply(s, function(x) {length(unique(x))}) > 1) | (x == "Ambiguous"))
+  inds1 <- which((sapply(s, function(x) {length(unique(x))}) > 1))
   amb1 = names(s[inds1])
-  
-  inds2 = c(grep("Ambiguous", tab$country),
+  # Cases with explicit mention of ambiguity
+  inds2 <- c(grep("Ambiguous", tab$country),
        	   grep("Ambiguous", tab$region),
 	   grep("Ambiguous", tab$comment))
-  amb2 = tab[inds2,"region"]
-  amb <- unique(c(amb1, amb2))
+  amb2 <- tab[inds2,"region"]
+  # Cases with multiple names listed
+  inds3 <- grep("|", tab$country)
+  amb3 <- tab[inds3,"region"]
+  # Combine regions with ambiguous country
+  amb <- unique(c(amb1, amb2, amb3))
+  # Pick the table with ambiguous countrues
   tab <- tab[tab$region %in% amb,]
   tab <- tab[order(tab$region),]
-  # Only include those that we have in our data
+  # For brewity, only include the places that we have in our data
   tab <- tab[as.character(tab$region) %in% as.character(df.preprocessed$publication_place),]    
   write.table(tab, file = paste(output.folder, "publication_country_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
 
