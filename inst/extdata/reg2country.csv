@@ -1,4 +1,5 @@
 region;country;comment
+Lancester Pa;USA;
 Bristol NY;USA;
 Dover De;USA;
 Great Yarnmouth;England;
@@ -29,6 +30,7 @@ Akureyri;Iceland;
 Alatornio;Finland;
 Albany NY;USA;
 Alcester;England;
+Toronto;Canada;
 Aldermanbury;England;
 Aldershot;England;
 Alexandria Va;USA;
@@ -527,7 +529,7 @@ Halifax NC;USA;
 Halifax NS;USA;
 Halle;Germany;
 Hallowell Ma;USA;
-Hall;NA;
+Hall England;England;
 Hallowell Me;USA;
 Hamburg;Germany;
 Hämeenkyrö;Finland;
