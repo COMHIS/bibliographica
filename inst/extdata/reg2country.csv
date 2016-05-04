@@ -1,4 +1,6 @@
 region;country;comment
+Kingston upon Thames;England;
+Helsingor;Denmark;
 Lancester Pa;USA;
 Bristol NY;USA;
 Dover De;USA;
@@ -525,7 +527,7 @@ Halberstadt;Germany;
 Halesworth;England;
 Halifax;England|USA|Canada;
 Halifax NC;USA;
-Halifax NS;USA;
+Halifax NS;Canada;
 Halle;Germany;
 Hallowell Ma;USA;
 Hall England;England;
@@ -1120,7 +1122,7 @@ Red Lodge MT;USA;
 Redruth;England;
 Regensburg;Germany;
 Reigate;England;
-Reims;France|Belgium|Netherlands;
+Reims;France;
 Rennes;France;
 Retford;England;
 Reykjavik;Iceland;
