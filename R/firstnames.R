@@ -1,78 +1,243 @@
-#' @title firstnames
+#' @title First names
 #' @description First name list
-#' @param ... Arguments to be passed
+#' @param languages Vector of languages whose first name will be used.
 #' @return Vector of first names
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{x <- firstnames()}
 #' @keywords utilities
-firstnames <- function (...) {
+firstnames <- function (languages = NULL) {
 
-  # Validate using publicly available name databases of English names:
-  # First names (also gender info): http://www.ssa.gov/oact/babynames/names.zip USA Social Security Administration website; names 1880-2013. In 2013 file we have 33072 names and gender info. Source: http://www.ssa.gov/oact/babynames/limits.html
-  first.english <- read.csv(system.file("extdata/names/firstnames/English/yob2013.txt", package = "bibliographica"), header = FALSE)[, 1:2]
-  names(first.english) <- c("name", "gender")
-  first.english <- data.frame(first.english)
-  first.english$dictionary <- "English"
+  if (is.null(languages)) {
+    languages <- c("French", "German", "English", "Finnish", "Custom", "Pseudonyme")
+  }		
 
-  # Same for German names
-  # http://www.albertmartin.de/vornamen/frauen/
-  first.german.male <- read.csv(system.file("extdata/names/firstnames/German/vornamenMale.csv", package = "bibliographica"), header = FALSE, sep = ";")
-  first.german.female <- read.csv(system.file("extdata/names/firstnames/German/vornamenFemale.csv", package = "bibliographica"), header = FALSE, sep = ";")
-  first.german <- rbind(first.german.male, first.german.female)
-  first.german$V2 <- gsub("mannlich", "M", first.german$V2)
-  first.german$V2 <- gsub("weiblich", "F", first.german$V2)
-  first.german$V2 <- gsub("unspezifisch", "A", first.german$V2) # Ambiguous
-  names(first.german) <- c("name", "gender")
-  first.german <- data.frame(first.german)
-  first.german$dictionary <- "German"
+  first <- list()
+
+  for (lang in languages) {
+  
+    if ("French" %in% languages) {
+      first[[lang]] <- firstnames_french()
+    }
+
+    if ("German" %in% languages) {
+      first[[lang]] <- firstnames_german()
+    }
+
+    if ("English" %in% languages) {
+      first[[lang]] <- firstnames_english()
+    }
+
+    if ("Finnish" %in% languages) {
+      first[[lang]] <- firstnames_finnish()
+    }
+
+    if ("Custom" %in% languages) {
+      first[[lang]] <- firstnames_english()
+    }
+
+    if ("Pseudonyme" %in% languages) {
+      first[[lang]] <- firstnames_pseudo()
+    }
+    
+  }
+
+  # Combine the tables
+  first <- rbind_all(first)
+  first <- unique(first)
+
+  first$gender <- factor(first$gender)
+  
+  first
+
+}
+
+
+
+#' @title Finnish First Names
+#' @description Finnish first name table, including gender info.
+#' @param ... Arguments to be passed
+#' @return Table with first name and gender info.
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' @examples \dontrun{x <- firstnames_finnish()}
+#' @details Finnish first names (including gender info) from Vaestorekisterikeskus VRK (see sorvi::get_gender_fi) for details.
+#' @import babynames
+#' @seealso sorvi::get_gender_fi
+#' @keywords utilities
+firstnames_finnish <- function (...) {
+
+  first <- get_gender_fi()[, c("name", "gender")]
+  first$dictionary <- "Finnish"
+    
+  first
+
+}
+
+
+
+#' @title English First Names
+#' @description English first name table, including gender info.
+#' @param ... Arguments to be passed
+#' @return Table with first name and gender info.
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' @examples \dontrun{x <- firstnames_english()}
+#' @details English first names (including gender info): For each year from 1880 to 2013, the number of children of each sex given each name. All names with more than 5 uses are given. Source: \url{http://www.ssa.gov/oact/babynames/limits.html}. These are available via the \pkg{babynames} R package.
+#' @import babynames
+#' @seealso The babynames data is also available in R babynames package. Can combine with that later.
+#' @keywords utilities
+firstnames_english <- function (...) {
+
+  # English first names (including gender info): For each year from
+  # 1880 to 2013, the number of children of each sex given each
+  # name. All names with more than 5 uses are given. (Source:
+  # \url{http://www.ssa.gov/oact/babynames/limits.html}). Here we use
+  # the implementation from the babynames R package.
+  first <- unique(babynames[, c("name", "sex")])
+  colnames(first) <- c("name", "gender")
+  first$dictionary <- "English"
+
+  # Genderizer API queries are limited to 1000 names/day
+  # so not useful here on the fly. Can be tested after all other names have been genderized.
+  # devtools::install_github("kalimu/genderizeR")
+  #library(genderizeR)
+  # givenNames = findGivenNames(x, progress = FALSE)  
+  #g <- genderize(x, genderDB = givenNames, progress = FALSE)
+  #g
+    
+  first
+
+}
+
+
+
+
+
+
+#' @title French first names
+#' @description French first names table, including gender info.
+#' @param ... Arguments to be passed
+#' @return Table with first name and gender info.
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' @examples \dontrun{x <- firstnames_french()}
+#' @details The French first name lists are collected from the multilingual \url{http://www.lexique.org/public/prenoms.php} (Prenoms.txt) and French \url{http://www.excel-downloads.com/forum/86934-liste-des-prenoms.htmlhttp://http://www.excel-downloads.com/forum/86934-liste-des-prenoms.html}.
+#' @keywords utilities
+firstnames_french <- function (...) {
 
   # French lists (multilingual)
   # http://www.lexique.org/public/prenoms.php
-  first.french <- read.csv(system.file("extdata/names/firstnames/French/Prenoms.txt", package = "bibliographica"), header = TRUE, sep = "\t")[, 1:3]
-  names(first.french) <- c("name", "gender", "dictionary")
-  first.french$gender <- gsub("^m,f$", "A", first.french$gender)
-  first.french$gender <- gsub("^f,m$", "A", first.french$gender)
-  first.french$gender[first.french$gender == ""] <- "A"
-  first.french$gender <- gsub("^$", "A", first.french$gender)
-  first.french$gender <- gsub("^m$", "M", first.french$gender)
-  first.french$gender <- gsub("^f$", "F", first.french$gender)
+  first <- read.csv(system.file("extdata/names/firstnames/French/Prenoms.txt", package = "bibliographica"), header = TRUE, sep = "\t")[, 1:3]
+  names(first) <- c("name", "gender", "dictionary")
+  first$gender <- gsub("^m,f$", "A", first$gender)
+  first$gender <- gsub("^f,m$", "A", first$gender)
+  first$gender[first$gender == ""] <- "A"
+  first$gender <- gsub("^$", "A", first$gender)
+  first$gender <- gsub("^m$", "M", first$gender)
+  first$gender <- gsub("^f$", "F", first$gender)
 
   # French2 
   #http://www.excel-downloads.com/forum/86934-liste-des-prenoms.htmlhttp://http://www.excel-downloads.com/forum/86934-liste-des-prenoms.html
-  first.french2 <- read.csv(system.file("extdata/names/firstnames/French/Prenoms.csv", package = "bibliographica"), header = FALSE)
-  first.french2	<- data.frame(list(name = tolower(first.french2[,1])))
-  first.french2$gender <- NA
-  first.french2$dictionary <- "French"
-
-  # Custom first names added manually
-  first.custom <- read.csv(system.file("extdata/names/firstnames/custom.csv", package = "bibliographica"), header = FALSE)
-  first.custom	<- data.frame(list(name = tolower(first.custom[,1])))
-  first.custom$gender <- NA
-  first.custom$dictionary <- "Custom_Firstnames"  
-
-  # Add custom last names
-  # since in many cases the original catalogue has erroneous notation
-  # mixing first and last names and we do not want to filter out valid names if they
-  # happen to be in wrong field last/first
-  #last.custom <- as.character(read.csv(system.file("extdata/names/lastnames/custom.csv", package = "bibliographica"), sep = "\t")[,1])
-  #last.custom	<- data.frame(list(name = tolower(last.custom)))
-  #last.custom$gender <- NA
-  #last.custom$dictionary <- "Custom_Lastnames"  
-
-  # Also accept pseudonymes
-  # TODO later perhaps separate real and pseudonyme name lists
-  pseudo <- as.character(read.csv(system.file("extdata/names/pseudonymes/first.csv", package = "bibliographica"), sep = "\t")[,1])
-  pseudo <- data.frame(list(name = tolower(pseudo)))
-  pseudo$gender <- NA
-  pseudo$dictionary <- "Custom_Pseudonymes_Firstname"  
+  first2 <- read.csv(system.file("extdata/names/firstnames/French/Prenoms.csv", package = "bibliographica"), header = FALSE)
+  first2	<- data.frame(list(name = tolower(first2[,1])))
+  first2$gender <- NA
+  first2$dictionary <- "French"
 
   # Combine the lists
-  first <- data.frame(rbind(first.english, first.german, first.french, first.french2, first.custom, pseudo))
+  first <- data.frame(rbind(first, first2))
   
-  first$gender <- factor(first$gender)
+  first
+
+}
+
+
+
+
+
+#' @title German first names
+#' @description German first name table, including gender info.
+#' @param ... Arguments to be passed
+#' @return Table with first name and gender info.
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' @examples \dontrun{x <- firstnames_german()}
+#' @details The information was collected from \url{http://www.albertmartin.de/vornamen/}.
+#' @keywords utilities
+firstnames_german <- function (...) {
+
+  # German names
+  # http://www.albertmartin.de/vornamen/frauen/
+  first.male <- read.csv(system.file("extdata/names/firstnames/German/vornamenMale.csv", package = "bibliographica"), header = FALSE, sep = ";")
+  first.female <- read.csv(system.file("extdata/names/firstnames/German/vornamenFemale.csv", package = "bibliographica"), header = FALSE, sep = ";")
+  first <- rbind(first.male, first.female)
+  first$V2 <- gsub("mannlich", "M", first$V2)
+  first$V2 <- gsub("weiblich", "F", first$V2)
+  first$V2 <- gsub("unspezifisch", "A", first$V2) # Ambiguous
+  names(first) <- c("name", "gender")
+  first <- data.frame(first)
+  first$dictionary <- "German"
 
   first
+
 }
+
+
+
+
+
+
+#' @title Custom First Names
+#' @description Custom first name table, including gender info.
+#' @param ... Arguments to be passed
+#' @return Table with first name and gender info.
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' @examples \dontrun{x <- firstnames_custom()}
+#' @keywords utilities
+firstnames_custom <- function (...) {
+
+  # Custom first names added manually
+  first <- read.csv(system.file("extdata/names/firstnames/custom.csv", package = "bibliographica"), header = FALSE)
+  first	<- data.frame(list(name = tolower(first[,1])))
+  first$gender <- NA
+  first$dictionary <- "Custom_Firstnames"  
+
+  first
+
+}
+
+
+
+
+
+
+#' @title Pseudonyme Information
+#' @description Pseudonyme first names, including gender info.
+#' @param ... Arguments to be passed
+#' @return Table with first name (pseudonyme) and gender info.
+#' @export
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' @examples \dontrun{x <- firstnames_pseudo()}
+#' @keywords utilities
+firstnames_pseudo <- function (...) {
+
+  pseudo <- as.character(read.csv(system.file("extdata/names/pseudonymes/custom_pseudonymes.csv", package = "bibliographica"), sep = "\t")[,1])
+  pseudo <- data.frame(list(name = unique(tolower(pseudo))))
+  pseudo$gender <- NA
+  pseudo$dictionary <- "Custom_Pseudonymes"  
+
+  pseudo
+
+}
+
+
+
+
+
+
+
+
 
