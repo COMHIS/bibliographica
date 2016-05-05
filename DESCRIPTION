@@ -17,6 +17,8 @@ URL: http://github.com/ropengov/bibliographica
 Depends:
     R (>= 3.0.2)
 Imports:
+    babynames,
+    fennica,
     dplyr,
     ggplot2,
     genderdata,

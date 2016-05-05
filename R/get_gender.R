@@ -32,21 +32,17 @@ get_gender <- function (x) {
   names(gen) <- g$name
   g1 <- gen
 
-  # Gender name synonymes
-  fn <- system.file("extdata/harmonize_gender.csv", package = "bibliographica")
-  sn <- read_synonymes(fn, sep = ";", mode = "table")
-
-  # name lists 
+  # Other name-gender mappings
   f <- firstnames()
   gen <- f$gender
-  gen <- as.character(suppressWarnings(harmonize_names(gen, synonymes = sn)))
   names(gen) <- tolower(f$name)
   g2 <- gen
 
-  # Custom gender mappings for ambiguous cases
+  # Custom gender mappings to resolve ambiguous cases
   custom <- read.csv(system.file("extdata/names/firstnames/gender.csv", 
   	    			package = "bibliographica"), sep = "\t")
-  # Also add NA gender for individual letters
+
+  # Add NA gender for individual letters
   custom <- rbind(custom, cbind(Name = letters, Gender = NA))
   g3 <- custom$Gender
   names(g3) <- custom$Name
@@ -67,7 +63,6 @@ get_gender <- function (x) {
 
   # Custom gender mappings for known ambiguous cases
   g[names(custom), "gender"] <- custom
-
 
   # Final mapping
   author.gender <- g[first.names, "gender"]

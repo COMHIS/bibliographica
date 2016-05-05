@@ -7,8 +7,6 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @export
-#' @importFrom dplyr select
-#' @importFrom tidyr separate 
 #' @examples # augment_author_life(df)
 #' @details Augments author life years (author_birth and author_death) based on information from other entries of the same author where the info is available. Also supports manually provided information tables. Adds author_unique field which combines full author name and life years to provide a unique author identifier. Finally harmonizes ambiguous author names based on synonyme table.
 #' @keywords utilities

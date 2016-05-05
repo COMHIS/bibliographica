@@ -18,7 +18,7 @@ message("Enriching author fields..")
 
 # TODO improve: many names are missing gender;
 # and time variation in name-gender mappings not counted
-print("Estimate author genders")
+message("Add estimated author genders")
 # Assumes that the author name is in the form "Last, First".
 df.preprocessed$author_gender <- get_gender(pick_firstname(df.preprocessed$author_name, format = "last, first"))
 
