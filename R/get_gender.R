@@ -19,6 +19,16 @@ get_gender <- function (x, gendermap) {
   first.names <- first.names.orig <- tolower(as.character(x))
   first.names.uniq <- unique(na.omit(first.names))
 
+  # Only keep the names that are in our present data. Speeding up
+  mynames <- unique(c(first.names.uniq, tolower(unlist(strsplit(first.names.uniq, " ")))))
+  gendermap <- gendermap[gendermap$name %in% mynames,]
+
+  # None of our names are in the gender map
+  # return NA for all
+  if (nrow(gendermap) == 0) {
+    return(rep(NA, length(x)))
+  }
+
   # Split by space
   spl <- strsplit(first.names.uniq, " ")
   len <- sapply(spl, length)
@@ -28,8 +38,8 @@ get_gender <- function (x, gendermap) {
 
   # First check cases with a unique name
   inds <- which(len == 1)
-  gender[inds] <- harmonize_names(first.names.uniq[inds], gendermap, from = "name", to = "gender")
-
+  gender[inds] <- harmonize_names(first.names.uniq[inds], gendermap, from = "name", to = "gender", remove.unknown = TRUE)
+print(gender)
   # Then cases with multiple names split by spaces
   # if different names give different genders, then set to NA
   inds <- which(len > 1)
