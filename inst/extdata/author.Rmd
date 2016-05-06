@@ -7,17 +7,17 @@ output: markdown_document
 
 ## Authors
 
-[Accepted unique authors](output.tables/author_accepted.csv) These are the final accepted author names, merging all name variants from the custom [author synonyme table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/ambiguous-authors.csv) and excluding known pseudonymes. If multiple names for the same author are still being observed, the should be added on the author synonyme table.
-
-[Accepted pseudonymes](output.tables/pseudonyme_accepted.csv) Recognized based on custom pseudonyme lists ([first](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/names/pseudonymes/first.csv), [last](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/names/pseudonymes/last.csv), [misc](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/pseudonymes.csv))
-
-[Discarded author names](output.tables/author_discarded.csv) These should not contain valid authors or pseudonymes. The following stopword lists are considered when discarding names:
+ * `r length(unique(df$author))` [unique authors](output.tables/author_accepted.csv) These final names capture all name variants from the custom [author synonyme table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/ambiguous-authors.csv), and exclude known pseudonymes (see below). If multiple names for the same author are still observed on this list, they should be added on the [author synonyme table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/ambiguous-authors.csv).
+ * `r sum(!is.na(df$author))` documents have unambiguous author information (`r round(100*mean(!is.na(df$author_name)))`%). 
+ * `r length(unique(subset(df.preprocessed, author_pseudonyme)$author))` [unique pseudonymes](output.tables/pseudonyme_accepted.csv) are recognized based on [custom pseudonyme lists](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/names/pseudonymes/custom_pseudonymes.csv).
+ * [Discarded author names](output.tables/author_discarded.csv) This list should not include any real authors (if it does, please send a note). The following stopword lists are considered when discarding names:
   * [Stopwords for names](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/stopwords_for_names.csv)
   * [Stopwords for titles](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/stopwords_titles.csv)
 
 [Author name conversions](output.tables/author_conversion_nontrivial.csv) Non-trivial conversions from the original to final names
 
-Top-`r ntop` uniquely identified authors and their productivity (title count). In total, there are `r length(unique(df$author))` unique authors and `r sum(!is.na(df$author))` documents with unambiguous author information (`r round(100*mean(!is.na(df$author_name)))`%).
+
+Top-`r ntop` uniquely identified authors and their productivity (title count).
 
 ```{r summaryauthors, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=10, out.width='430px', fig.show='hold'}
 p <- NULL
@@ -78,7 +78,6 @@ grid.arrange(res2$plot, res1$plot, nrow = 1)
 #kable(res1$table)
 ```
 
-Publication timeline for top authors
 
 ```{r summaryTop10authorstimeline, fig.height=10, fig.width=20, echo=FALSE}
 theme_set(theme_bw(20))
