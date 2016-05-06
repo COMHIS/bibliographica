@@ -17,7 +17,7 @@
 harmonize_names <- function (x, synonymes, remove.unknown = FALSE, mode = "exact.match", verbose = FALSE, from = "synonyme", to = "name") {
 
   x <- as.character(x)
-  
+
   # Map synonymes to selected names: NA if mapping not available
   xorig <- x
   xuniq <- unique(x)
@@ -40,9 +40,10 @@ harmonize_names <- function (x, synonymes, remove.unknown = FALSE, mode = "exact
       xx[-inds] <- NA
     }
 
-    
     for (i in inds) {
-        xh <- unique(as.character(synonymes$name[which(synonymes$synonyme == xuniq[[i]])]))
+
+        inds2 <- which(synonymes$synonyme == xuniq[[i]])
+        xh <- unique(as.character(synonymes$name[inds2]))
 
         if (length(xh) == 1) {
           xx[[i]] <- xh
@@ -54,7 +55,6 @@ harmonize_names <- function (x, synonymes, remove.unknown = FALSE, mode = "exact
         }
     }
 
-    
     xx2 <- xx[match(xorig, xuniq)]
 
   } else if (mode == "match") {

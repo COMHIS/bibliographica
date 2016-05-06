@@ -16,7 +16,7 @@
 #' @import genderdata
 get_gender <- function (x, gendermap) {
 
-  first.names <- first.names.orig <- as.character(x)
+  first.names <- first.names.orig <- tolower(as.character(x))
   first.names.uniq <- unique(na.omit(first.names))
 
   # Split by space
@@ -29,7 +29,7 @@ get_gender <- function (x, gendermap) {
   # First check cases with a unique name
   inds <- which(len == 1)
   gender[inds] <- harmonize_names(first.names.uniq[inds], gendermap, from = "name", to = "gender")
-  
+
   # Then cases with multiple names split by spaces
   # if different names give different genders, then set to NA
   inds <- which(len > 1)
@@ -37,11 +37,13 @@ get_gender <- function (x, gendermap) {
   # Handle ambiguous cases 
   gtmp[sapply(gtmp, length) == 0] <- NA
   gtmp[sapply(gtmp, length) > 1] <- "ambiguous"
-  # Set the identified genders   		     
-  gender[inds] <- sapply(gtmp, identity)
+  # Set the identified genders
+  gtmp <- sapply(gtmp, identity)
+  gender[inds] <- gtmp
+  gender <- sapply(gender, identity)
 
   # Project unique names back to the original domain
-  sapply(gender[match(first.names.orig, first.names.uniq)], identity)
+  gender[match(first.names.orig, first.names.uniq)]
   
 }
 
