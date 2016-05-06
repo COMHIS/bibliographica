@@ -5,7 +5,7 @@
 \title{Harmonize names}
 \usage{
 harmonize_names(x, synonymes, remove.unknown = FALSE, mode = "exact.match",
-  verbose = FALSE)
+  verbose = FALSE, from = "synonyme", to = "name")
 }
 \arguments{
 \item{x}{A character vector}
@@ -17,6 +17,10 @@ harmonize_names(x, synonymes, remove.unknown = FALSE, mode = "exact.match",
 \item{mode}{'exact.match' replaces the terms based on the synonyme list if an exact match is  found; 'match' replaces the parts that match synonymes; 'recursive' replaces all (sub)strings recursively in the same order as in the synonyme table}
 
 \item{verbose}{verbose}
+
+\item{from}{field that will be replaced}
+
+\item{to}{field that contains the final names}
 }
 \value{
 Vector of harmonized terms

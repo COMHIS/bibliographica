@@ -24,7 +24,10 @@ validate_names <- function (namelist, database, verbose = TRUE) {
     accepted_names <- tolower(as.character(lastnames()))
     not_names <- tolower(as.character(notnames()))
   } else if (database == "first") {
-    accepted_names <- as.character(firstnames()$name)
+
+    stop("TODO")
+    # accepted_names <- as.character(firstnames()$name)
+
     # Also accept individual letters for first names
     accepted_names <- tolower(unique(c(accepted_names, letters)))
     not_names <- tolower(as.character(notnames()))

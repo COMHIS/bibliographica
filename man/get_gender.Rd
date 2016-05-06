@@ -4,10 +4,12 @@
 \alias{get_gender}
 \title{Get gender}
 \usage{
-get_gender(x)
+get_gender(x, gendermap)
 }
 \arguments{
 \item{x}{Vector of first names}
+
+\item{gendermap}{Table with name-gender mappings}
 }
 \value{
 Author gender information
@@ -16,7 +18,10 @@ Author gender information
 Pick gender based on first names.
 }
 \examples{
-get_gender("julius")
+  \dontrun{
+    data(gendermap)
+    get_gender(c("armi", "julius"), gendermap)
+}
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

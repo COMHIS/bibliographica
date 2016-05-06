@@ -4,7 +4,7 @@
 \alias{read_synonymes}
 \title{Read synonyme table}
 \usage{
-read_synonymes(file, mode = "list", sep = ";", self.match = FALSE,
+read_synonymes(file, mode = "table", sep = ";", self.match = FALSE,
   include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE,
   verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE,
   from = "synonyme", to = "name")

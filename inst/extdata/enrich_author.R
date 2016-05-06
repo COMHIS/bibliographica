@@ -20,7 +20,13 @@ message("Enriching author fields..")
 # and time variation in name-gender mappings not counted
 message("Add estimated author genders")
 # Assumes that the author name is in the form "Last, First".
-df.preprocessed$author_gender <- get_gender(pick_firstname(df.preprocessed$author_name, format = "last, first"))
+
+# Filter out names that are not in our input data
+# (this may speed up a bit)
+first.names <- pick_firstname(df.preprocessed$author_name, format = "last, first")
+gendermap <- gender_map() 
+gendermap <- gendermap %>% filter(name %in% unique(unlist(strsplit(first.names, " "))))
+df.preprocessed$author_gender <- get_gender(first.names, gendermap)
 
 # -------------------------------------------------------------------
 

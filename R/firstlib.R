@@ -1,8 +1,10 @@
 #' @import babynames
+#' @import genderdata
 #' @importFrom dplyr count
 #' @importFrom dplyr group_by
 #' @importFrom dplyr n
 #' @importFrom dplyr rbind_all
+#' @importFrom dplyr rename
 #' @importFrom dplyr select
 #' @importFrom tidyr separate 
 #' @importFrom dplyr summarize

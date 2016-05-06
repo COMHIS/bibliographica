@@ -19,7 +19,7 @@
 #' @details If mode = "list", each row of the input file corresponds to a unique entry with potentially multiple name variants, separated by semicolon. The first element gives the selected version of the name, the subsequent elements list synonymes that will be mapped to the selected version. If mode = "table", the file has two columns where each row corresponds to a unique entry and has the selected name and a single alternative name.
 #' @examples \dontrun{syn <- read_synonymes(file)}
 #' @keywords utilities
-read_synonymes <- function (file, mode = "list", sep = ";", self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE, verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE, from = "synonyme", to = "name") {
+read_synonymes <- function (file, mode = "table", sep = ";", self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE, verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE, from = "synonyme", to = "name") {
 
   # TODO sort by desired field
 
@@ -45,8 +45,8 @@ read_synonymes <- function (file, mode = "list", sep = ";", self.match = FALSE, 
     aa <- read.csv(file, sep = sep, stringsAsFactors = FALSE, fileEncoding = "UTF-8")
     # Temporarily name columns as name and synonyme
     # (needed in check_synonymes)
-    colnames(aa) <- gsub(to, "name", colnames(aa))
-    colnames(aa) <- gsub(from, "synonyme", colnames(aa))    
+    aa <- aa[, c(from, to)]
+    colnames(aa) <- c("synonyme", "name")
   }
 
   if (lowercase) {
