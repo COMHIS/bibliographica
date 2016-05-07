@@ -24,6 +24,7 @@ message("Add estimated author genders")
 # Filter out names that are not in our input data
 # (this may speed up a bit)
 first.names <- pick_firstname(df.preprocessed$author_name, format = "last, first")
+
 data(gendermap)
 df.preprocessed$author_gender <- get_gender(first.names, gendermap)
 

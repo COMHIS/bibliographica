@@ -1,7 +1,3 @@
-
-
-
-
 #' @title Gender Table for First Names
 #' @description Combines first name - gender mappings from various sources in French, German, English, Finnish, and Custom lists, including pseudonymes.
 #' @param dictionaries Vector of language catalogues to include.
@@ -28,9 +24,9 @@ gender_map <- function (dictionaries = NULL) {
 
   # Custom gender mappings to resolve ambiguous cases
   # bibliographica::"extdata/names/firstnames/gender.csv",   
-  custom <- firstnames_custom() 
+  custom <- gender_custom() 
 
-  # Handle custom list as primary  
+  # Consider the custom list as primary  
   # ie override other matchings with it
   first[match(custom$name, first$name), "gender"] <- custom$gender
 
@@ -64,30 +60,7 @@ firstnames_finnish <- function (...) {
 
 
 
-#' @title Custom First Names
-#' @description Custom first name table, including gender info.
-#' @param ... Arguments to be passed
-#' @return Table with first name and gender info.
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("bibliographica")
-#' @export
-#' @examples \dontrun{x <- firstnames_custom()}
-#' @keywords utilities
-firstnames_custom <- function (...) {
 
-  # Custom first names added manually
-  first <- read_synonymes(system.file("extdata/names/firstnames/custom_gender.csv", package = "bibliographica"), sep = "\t", from = "name", to = "gender", mode = "table")
-  dic <- "custom_firstnames"
-  first$dictionary <- dic
-
-  # Set NA gender for individual letters
-  first <- rbind(first, cbind(name = letters, gender = NA, dictionary = dic))
-
-  first <- unique(first)
-
-  first
-
-}
 
 
 #' @title Gender Table for First Names

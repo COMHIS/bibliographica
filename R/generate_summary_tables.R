@@ -118,6 +118,12 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tmp <- write_xtable(o[inds],
       paste(output.folder, paste("author_discarded.csv", sep = "_"), sep = ""),
       count = TRUE)
+  # --------------------------------------------
+
+  # Author gender
+
+  
+
 
   # --------------------------------------------
 

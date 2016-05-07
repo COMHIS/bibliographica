@@ -20,13 +20,31 @@ get_gender <- function (x, gendermap) {
   first.names.uniq <- unique(na.omit(first.names))
   gendermap$name <- tolower(gendermap$name)  
 
+  # polish up
+  first.names.uniq <- condense_spaces(gsub("\\.", " ", first.names.uniq))
+
   # Only keep the names that are in our present data. Speeding up
   mynames <- unique(c(first.names.uniq, tolower(unlist(strsplit(first.names.uniq, " ")))))
   gendermap <- gendermap[gendermap$name %in% mynames,]
 
+  # Custom gender mappings to resolve ambiguous cases
+  # bibliographica::"extdata/names/firstnames/gender.csv",   
+  # Consider the custom table as primary  
+  # ie override other matchings with it
+  custom <- gender_custom()
+  if (any(custom$name %in% gendermap$name)) {
+    inds <- match(custom$name, gendermap$name)
+    inds2 <- which(!is.na(inds))
+    gendermap[inds[inds2], "gender"] <- custom$gender[inds2]
+  }
+  
+  # Also add new custom names to get the final table
+  map <- rbind(gendermap, custom[!custom$name %in% gendermap$name,1:2])
+  map <- unique(map)
+
   # None of our names are in the gender map
   # return NA for all
-  if (nrow(gendermap) == 0) {
+  if (nrow(map) == 0) {
     return(rep(NA, length(x)))
   }
 
@@ -39,12 +57,12 @@ get_gender <- function (x, gendermap) {
 
   # First check cases with a unique name
   inds <- which(len == 1)
-  gender[inds] <- harmonize_names(first.names.uniq[inds], gendermap, from = "name", to = "gender", remove.unknown = TRUE)
+  gender[inds] <- harmonize_names(first.names.uniq[inds], map, from = "name", to = "gender", remove.unknown = TRUE)
 
   # Then cases with multiple names split by spaces
   # if different names give different genders, then set to NA
   inds <- which(len > 1)
-  gtmp <- lapply(spl[inds], function (x) {unique(na.omit(harmonize_names(x, gendermap, from = "name", to = "gender", remove.unknown = TRUE)))})
+  gtmp <- lapply(spl[inds], function (x) {unique(na.omit(harmonize_names(x, map, from = "name", to = "gender", remove.unknown = TRUE)))})
   # Handle ambiguous cases 
   gtmp[sapply(gtmp, length) == 0] <- NA
   gtmp[sapply(gtmp, length) > 1] <- "ambiguous"
