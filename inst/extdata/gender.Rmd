@@ -13,8 +13,13 @@ output: markdown_document
 
 [Authors with missing gender](output.tables/gender_unknown.csv)
 
+[Discarded gender](author_gender_discarded.csv)
 
-```{r summary-authorgenders, fig.height=7, fig.width=8, echo=FALSE, warning=FALSE, fig.show='hold', out.width='280px'}
+[Accepted gender](author_gender_accepted.csv)
+
+[Conversions](author_gender_conversion_nontrivial.csv)
+
+```{r summary-authorgenders, fig.height=7, fig.width=8, echo=FALSE, warning=FALSE, fig.show='hold', out.width='200px'}
 gen <- df %>% select(author, author_gender)
 dfs <- gen %>% group_by(author, author_gender) # %>% summarize(n = n())
 dfs$author_gender <- as.character(dfs$author_gender)
@@ -26,21 +31,25 @@ for (id in unique(dfs$author_gender)) {
 ```
 
 
-
 Author gender distribution in the complete data:
 
 ```{r summarygender0, echo=FALSE, message=FALSE, warning=FALSE}
-kable(df %>% group_by(author_gender) %>% summarize(docs = n(), fraction = round(100*n()/nrow(df), 2)))
+dfs <- df %>% group_by(author_gender) %>%
+              summarize(docs = n(), fraction = round(100*n()/nrow(df), 2))
+names(dfs) <- c("Gender", "Documents (n)", "Fraction (%)")	      
+kable(dfs, digit = 2)
 ```
 
-Author gender distribution over time. Note that the name-gender mappings change over time. This has not been taken into account yet.
+Author gender distribution over time. Note that the name-gender mappings change over time and geography but this has not been taken into account here.
 
 
 ```{r summarygendertime, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=5}
 tab <- table(df$author_gender)
 dfd <- df %>% group_by(publication_decade) %>% summarize(n.male = sum(author_gender == "male", na.rm = T), n.female = sum(author_gender == "female", na.rm = T), n.total = n()) %>% mutate(p.male = 100*n.male/n.total, p.female = 100*n.female/n.total) %>% filter(n.total > 25 & publication_decade > 1470) 
 dfy <- df %>% group_by(publication_year) %>% summarize(n.male = sum(author_gender == "male", na.rm = T), n.female = sum(author_gender == "female", na.rm = T), n.total = n()) %>% mutate(p.male = 100*n.male/n.total, p.female = 100*n.female/n.total) %>% filter(n.total > 25)
-p <- regression_plot(p.female ~ publication_decade, dfd, main = "Female authors proportion")
+library(microbiome)
+p <- NULL # Avoid confusion if the plot gives error
+p <- microbiome::plot_regression(p.female ~ publication_decade, dfd, main = "Female authors proportion")
 p <- p + ylab("Female authors (%)")
 print(p)
 ```
