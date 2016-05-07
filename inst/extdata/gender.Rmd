@@ -7,19 +7,17 @@ output: markdown_document
 
 ### Gender
 
-[Female authors](output.tables/gender_female.csv)
+[First names classified as female](output.tables/gender_female.csv)
 
-[Male authors](output.tables/gender_male.csv)
+[First names classified as male](output.tables/gender_male.csv)
 
-[Authors with missing gender](output.tables/gender_unknown.csv)
+[First names with unresolved gender](output.tables/gender_unknown.csv)
 
-[Discarded gender](author_gender_discarded.csv)
+[Authors with unresolved gender](output.tables/author_gender_discarded.csv)
 
-[Accepted gender](author_gender_accepted.csv)
+[Author-gender mappings](output.tables/author_gender_conversion_nontrivial.csv) in the complete data
 
-[Conversions](author_gender_conversion_nontrivial.csv)
-
-```{r summary-authorgenders, fig.height=7, fig.width=8, echo=FALSE, warning=FALSE, fig.show='hold', out.width='200px'}
+```{r summary-authorgenders, fig.height=7, fig.width=8, echo=FALSE, warning=FALSE, fig.show='hold', out.width='400px'}
 gen <- df %>% select(author, author_gender)
 dfs <- gen %>% group_by(author, author_gender) # %>% summarize(n = n())
 dfs$author_gender <- as.character(dfs$author_gender)
