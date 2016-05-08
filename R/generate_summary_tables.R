@@ -135,8 +135,12 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Discarded gender")
   inds <- which(is.na(df.preprocessed[["author_gender"]]))
-  original <- condense_spaces(gsub("\\.", " ", tolower(as.vector(na.omit(as.character(df.preprocessed$author[inds]))))))
-  tmp <- write_xtable(original,
+  dg <- condense_spaces(gsub("\\.", " ", tolower(as.vector(na.omit(as.character(df.preprocessed$author[inds]))))))
+  inds <- grep("^[a-z] [a-z]-[a-z]$", dg)  
+  if (length(inds)>0) {
+    dg <- dg[-inds]
+  }
+  tmp <- write_xtable(dg,
         paste(output.folder, "author_gender_discarded.csv", sep = ""),
 	count = TRUE)
  

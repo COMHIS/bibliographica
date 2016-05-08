@@ -79,7 +79,7 @@ print(p)
 
 ### Data sources
 
-The name-gender mappings are collected from the following sources:
+The [name-gender mappings](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/gendermap.csv) were collected from the following sources using [this script](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/data.gender.R):
 
   * U.S. Social Security Administration baby name data as implemented in the babynames and gender R packages. For each year from 1880 to 2013, the number of children of each sex given each name. All names with more than 5 uses are given.  
   * The U.S. Census data in the Integrated Public Use Microdata Series as implemented in the genderdata R package  

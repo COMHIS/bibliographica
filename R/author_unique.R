@@ -23,24 +23,21 @@ author_unique <- function (df, format = "last, first", initialize.first = FALSE)
   rm(id.orig)  
 
   author_unique <- rep(NA, nrow(dfa.uniq))
-  first <- pick_firstname(dfa.uniq$author_name, format = format)
-  last  <- pick_lastname(dfa.uniq$author_name, format = format)
-  # Where the name did not match the assumed format, use the complete form as the last name
-  inds <- which(is.na(first) & is.na(last))
-  if (length(inds) > 0) {
-    last[inds] <- as.character(dfa.uniq$author_name[inds])
-  }
+  first <- pick_firstname(dfa.uniq$author_name, format = format, keep.single = FALSE)
+  first[is.na(first) | first == "NA"] <- ""
+
+  last  <- pick_lastname(dfa.uniq$author_name, format = format, keep.single = TRUE)
 
   # Cut the full first names into initials
-  if (initialize.first) {
-    first <- name_initials(first)
-  }
+  #if (initialize.first) {
+  #  first <- name_initials(first)
+  #}
 
   author_unique <- apply(cbind(last, first, dfa.uniq$author_birth, dfa.uniq$author_death), 1, function (x) {paste(x[[1]], ", ", x[[2]], " (", x[[3]], "-", x[[4]], ")", sep = "")})  
   author_unique[is.na(dfa.uniq$author_name)] <- NA
   author_unique <- gsub(" \\(NA-NA\\)", "", author_unique)
   author_unique <- gsub("NA \\(NA-NA\\)", NA, author_unique)
-  author_unique <- gsub("\\, NA$", "", author_unique)  
+  author_unique <- gsub("\\, NA$", "", author_unique)
 
   as.character(unname(author_unique))[match.inds]
 
