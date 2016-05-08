@@ -1,4 +1,4 @@
-#' @title Harmonize print statements
+#' @title Harmonize Print Statements
 #' @description Harmonize print statements.
 #' @param x a vector
 #' @param lowercase Set all in lowercase
@@ -24,7 +24,7 @@ harmonize_print_statements <- function (x, lowercase = FALSE) {
     x <- tolower(x)
 
     # Harmonize the terms
-    x <- as.character(harmonize_names(x, terms, mode = "recursive"))
+    x <- as.character(map(x, terms, mode = "recursive"))
     x <- condense_spaces(x)
 
   }

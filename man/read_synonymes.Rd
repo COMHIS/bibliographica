@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_synonymes.R
 \name{read_synonymes}
 \alias{read_synonymes}
-\title{Read synonyme table}
+\title{Read Synonyme Table}
 \usage{
 read_synonymes(file, mode = "table", sep = ";", self.match = FALSE,
   include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE,

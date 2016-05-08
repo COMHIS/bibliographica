@@ -1,4 +1,4 @@
-#' @title Polish university
+#' @title Polish University
 #' @description Polish university names
 #' @param x university field (a vector)
 #' @param synonyms Synonyme table
@@ -23,7 +23,7 @@ polish_university <- function(x, synonyms=NULL) {
     f <- system.file("extdata/fi_end_years.csv", package = "bibliographica")
     synonyms <- read_synonymes(f, sep = "\t", include.lowercase = TRUE, mode = "table")
   }
-  x <- harmonize_names(x, synonyms)
+  x <- map(x, synonyms)
 
   # TODO conversion file
   # Check these are already in Fennica conversions?

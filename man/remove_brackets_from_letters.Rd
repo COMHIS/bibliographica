@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_brackets_from_letters.R
 \name{remove_brackets_from_letters}
 \alias{remove_brackets_from_letters}
-\title{Remove brackets from letters}
+\title{Remove Brackets from Letters}
 \usage{
 remove_brackets_from_letters(x, myletters = NULL)
 }
@@ -15,7 +15,7 @@ remove_brackets_from_letters(x, myletters = NULL)
 A polished vector
 }
 \description{
-Remove brackets surrounding letters
+Remove brackets surrounding letters.
 }
 \examples{
 x2 <- remove_brackets_from_letters("[p]")

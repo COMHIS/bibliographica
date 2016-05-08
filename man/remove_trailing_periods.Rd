@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_trailing_periods.R
 \name{remove_trailing_periods}
 \alias{remove_trailing_periods}
-\title{Remove trailing periods}
+\title{Remove Trailing Periods}
 \usage{
 remove_trailing_periods(x)
 }
@@ -13,7 +13,7 @@ remove_trailing_periods(x)
 A polished vector
 }
 \description{
-Remove trailing periods
+Remove trailing periods.
 }
 \examples{
 \dontrun{x2 <- remove_trailing_periods(x)}

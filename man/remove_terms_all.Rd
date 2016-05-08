@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_terms_all.R
 \name{remove_terms_all}
 \alias{remove_terms_all}
-\title{remove terms completely}
+\title{Remove Terms Completely}
 \usage{
 remove_terms_all(x, terms, include.lowercase = FALSE, polish = TRUE,
   recursive = FALSE)
@@ -22,7 +22,7 @@ remove_terms_all(x, terms, include.lowercase = FALSE, polish = TRUE,
 Vector with terms removed
 }
 \description{
-Fully Remove the given terms from the strings
+Fully Remove the given terms from the strings.
 }
 \details{
 After removing the numerics, beginning, double and ending 

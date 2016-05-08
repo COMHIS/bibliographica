@@ -1,5 +1,5 @@
-#' @title Identify Self published documents
-#' @description Identify Self published documents
+#' @title Identify Self Published Documents
+#' @description Identify Self published documents.
 #' @param df data.frame that includes the given field
 #' @return Output of the polished field
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
@@ -15,7 +15,6 @@ self_published <- function (df) {
   author[author == "NA"] <- NA
 
   #print("Self-published docs where author is known but publisher not")
-  #inds <- which(tolower(publisher) == "author" & !is.na(author))
   inds <- which(tolower(publisher) == "author" & !is.na(author))
   if (length(inds)>0) {
     publisher[inds] <- author[inds]
@@ -30,7 +29,6 @@ self_published <- function (df) {
   }
   
   selfpub <- as.logical((publisher %in% "Self-published (unknown author)") | (author == publisher))
-  #selfpub[is.na(selfpub)] <- FALSE
 
   data.frame(publisher = publisher, self_published = selfpub)
 

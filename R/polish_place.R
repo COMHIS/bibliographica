@@ -1,4 +1,4 @@
-#' @title Polish place
+#' @title Polish Place
 #' @description Polish place names.
 #' @param x A vector of place names
 #' @param synonymes Synonyme table for place names
@@ -48,7 +48,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- tolower(as.character(x))
 
   if (verbose) { message("Replace special characters") }
-  x <- as.character(harmonize_names(x, spechars, mode = "recursive"))
+  x <- as.character(map(x, spechars, mode = "recursive"))
 
   # Lo[n]don -> London
   x <- remove_brackets_from_letters(x)
@@ -115,7 +115,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
 
   if (verbose) { message("Harmonize the synonymous names") }
-  x <- as.character(harmonize_names(x, synonymes.spec, mode = "recursive"))
+  x <- as.character(map(x, synonymes.spec, mode = "recursive"))
 
   # Once more remove stopwords
   # Warning: the names discarded here wont be visible in
@@ -131,7 +131,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (harmonize) {
 
     # Then match place names to synonymes		
-    x <- as.character(harmonize_names(x, synonymes,
+    x <- as.character(map(x, synonymes,
        		remove.unknown = remove.unknown,
 		mode = "exact.match"))
 

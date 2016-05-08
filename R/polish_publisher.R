@@ -1,5 +1,5 @@
-#' @title Polish publisher
-#' @description Polish publishing house names
+#' @title Polish Publisher
+#' @description Polish publishing house names.
 #' @param x publisher field (a vector)
 #' @param synonyms Synonyme table
 #' @param verbose verbose
@@ -51,7 +51,7 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
   }
 
   if (verbose) { message("..converting special characters") }
-  x <- as.character(harmonize_names(x, spechars, mode = "recursive"))
+  x <- as.character(map(x, spechars, mode = "recursive"))
 
   # Remove print statements
   x <- remove_print_statements(x)
@@ -70,7 +70,7 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
     f <- system.file("extdata/publisher.csv", package = "bibliographica")
     synonyms <- read_synonymes(f, sep = ";", mode = "table", lowercase = TRUE)    
   }
-  x <- harmonize_names(x, synonyms, mode = "exact.match")  
+  x <- map(x, synonyms, mode = "exact.match")  
 
   # Project unique cases back to the original list
   x2 <- as.character(x[match(xorig, xuniq)])

@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_dimensions.R
 \name{polish_dimensions}
 \alias{polish_dimensions}
-\title{Polish dimensions}
+\title{Polish Dimensions}
 \usage{
 polish_dimensions(x, fill = TRUE, dimtab = NULL, verbose = FALSE,
   synonyms = NULL, sheet.dimension.table = NULL)

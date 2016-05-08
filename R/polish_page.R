@@ -1,4 +1,4 @@
-#' @title Polish page
+#' @title Polish Page
 #' @description Clean up page numbers for a single document.
 #' @param x Page number field. Vector or factor of strings.
 #' @return Cleaned up version of page number field.

@@ -1,5 +1,5 @@
-#' @title remove_special_chars
-#' @description Remove special characters
+#' @title Remove Special Chars
+#' @description Remove special characters.
 #' @param x Character vector
 #' @param chars Characters to be removed
 #' @param niter Number of iterations 

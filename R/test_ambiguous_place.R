@@ -1,4 +1,4 @@
-#' @title Identify ambiguous place mappings
+#' @title Identify Ambiguous Place Mappings
 #' @description Identify ambiguous place mappings in the region-counry mapping table.
 #' @param f Input file
 #' @return List of ambiguous place mappings

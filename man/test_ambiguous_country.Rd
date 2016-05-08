@@ -2,7 +2,7 @@
 % Please edit documentation in R/test_ambiguous_country.R
 \name{test_ambiguous_country}
 \alias{test_ambiguous_country}
-\title{Identify ambiguous country mappings}
+\title{Identify Ambiguous Country Mappings}
 \usage{
 test_ambiguous_country(f = system.file("extdata/reg2country.csv", package =
   "bibliographica"))

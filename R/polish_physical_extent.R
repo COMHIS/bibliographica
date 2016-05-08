@@ -36,7 +36,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   # In Finnish texts s. is used instead of p.		
   f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
   page.synonyms <- read_synonymes(f, sep = ";", mode = "table")
-  s <- harmonize_names(s, page.synonyms, mode="match")
+  s <- map(s, page.synonyms, mode="match")
   rm(page.synonyms)
 
   if (verbose) {message("Harmonize volume info")}
@@ -76,12 +76,12 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   if (verbose) {message("Read the mapping table for romans")}  
   f <- system.file("extdata/harmonize_romans.csv", package = "bibliographica")
   romans.harm <- read_synonymes(f, sep = "\t", mode = "table")
-  s <- harmonize_names(s, romans.harm, mode = "recursive")
+  s <- map(s, romans.harm, mode = "recursive")
 
   if (verbose) {message("Page harmonization part 2")}  
   f <- system.file("extdata/harmonize_pages2.csv", package = "bibliographica")
   harm2 <- read_synonymes(f, sep = "\t", mode = "table")
-  s <- harmonize_names(s, harm2, mode = "recursive")
+  s <- map(s, harm2, mode = "recursive")
   rm(harm2)
 
   # Trimming
@@ -176,7 +176,7 @@ polish_physext_help <- function (s, page.harmonize) {
 polish_physext_help2 <- function (x, page.harmonize) {
 
   # TODO: can we speed up by moving these up ?		     
-  x <- as.character(harmonize_names(x, page.harmonize, mode = "recursive"))
+  x <- as.character(map(x, page.harmonize, mode = "recursive"))
 
   if (length(grep("i\\.e", x)) > 0) {
     x <- unlist(strsplit(x, ","), use.names = FALSE)
@@ -194,7 +194,7 @@ polish_physext_help2 <- function (x, page.harmonize) {
   x <- gsub("\\(", " ", x)
   x <- gsub("\\)", " ", x)
   x <- condense_spaces(x)  
-  x = condense_spaces(gsub(" p p ", " p ", x))
+  x <- condense_spaces(gsub(" p p ", " p ", x))
 
   # 2 p [1] = 2, [1]
   if (length(grep("^[0-9]+ p \\[[0-9]+\\]$", x))>0) {

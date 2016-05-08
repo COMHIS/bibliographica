@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_publisher.R
 \name{polish_publisher}
 \alias{polish_publisher}
-\title{Polish publisher}
+\title{Polish Publisher}
 \usage{
 polish_publisher(x, synonyms = NULL, verbose = TRUE, mc.cores = 1)
 }
@@ -19,7 +19,7 @@ polish_publisher(x, synonyms = NULL, verbose = TRUE, mc.cores = 1)
 polished publisher field (a vector)
 }
 \description{
-Polish publishing house names
+Polish publishing house names.
 }
 \examples{
 \dontrun{v <- polish_publisher(c("Oxford University Press","tryckt hos Cambridge University Press"))}

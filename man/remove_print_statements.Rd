@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_print_statements.R
 \name{remove_print_statements}
 \alias{remove_print_statements}
-\title{Remove print statements}
+\title{Remove Print Statements}
 \usage{
 remove_print_statements(x, remove.letters = FALSE, n.iter = 1)
 }

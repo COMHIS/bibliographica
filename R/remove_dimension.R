@@ -1,5 +1,5 @@
-#' @title Remove dimension data
-#' @description Remove dimension data
+#' @title Remove Dimension Data
+#' @description Remove dimension data.
 #' @param x A character vector that may contain dimension information
 #' @return The character vector with dimension information removed
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/titlecount_timeline.R
 \name{titlecount_timeline}
 \alias{titlecount_timeline}
-\title{Title count timeline}
+\title{Title Count Timeline}
 \usage{
 titlecount_timeline(x, field, nmin = 0)
 }
@@ -21,7 +21,7 @@ List:
 }
 }
 \description{
-Compare title (document) count among selected groups
+Compare title (document) count among selected groups.
 }
 \examples{
 \dontrun{titlecount_timeline(df, "gatherings")}

@@ -1,4 +1,4 @@
-#' @title Polish years
+#' @title Polish Years
 #' @description Pick and polish the year interval (start and end years) from a time field which is of the form 1800 or 1823-1845 etc.
 #' @param x year field (a vector) 
 #' @param start_synonyms Synonyme table for start year
@@ -289,7 +289,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   }
 
   # Proceed to more complex cases
-  start <- harmonize_names(x, start_synonyms)
+  start <- map(x, start_synonyms)
   start <- as.character(start)
 
   if (length(grep("-", x))>0) {
@@ -344,7 +344,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   start <- christian2numeric(start) 
   start_year <- as.numeric(start)
 
-  end <- harmonize_names(end, end_synonyms)
+  end <- map(end, end_synonyms)
   end <- as.character(end)
 
   end <- christian2numeric(end)   

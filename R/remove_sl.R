@@ -1,4 +1,5 @@
-#' Remove s.l etc. clauses 
+#' @title Remove s.l etc. clauses
+#' @description Remove s.l etc. clauses 
 #' @param x A character vector
 #' @param terms Terms to be removed (a character vector). Optional
 #' @return Polished vector

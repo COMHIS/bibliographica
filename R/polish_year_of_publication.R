@@ -1,5 +1,5 @@
-#' @title polish_year_of_publication
-#' @description Pick and polish year(s) of publication
+#' @title Polish Publication Year
+#' @description Pick and polish year(s) of publication.
 #' @param x publication time field (a vector)
 #' @return data.frame for separate fields for books (year) and magazines (start, end)
 #' @importFrom tau fixEncoding

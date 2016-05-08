@@ -78,7 +78,7 @@ Astoria Or;USA;
 Atherstone;England;
 Athlone;Ireland;
 Augsburg;Germany;
-Augusta;USA;Augsburg/Augusta GA/Augusta Me
+Augusta;USA;
 Augusta GA;USA;
 Augusta Me;USA;
 Avignon;France;
@@ -204,7 +204,7 @@ Bungay;England;
 Bunny;England;
 Burlington NJ;USA;
 Burlington Vt;USA;
-Burlington;USA;Burlington NJ/Burlington Vt
+Burlington;USA;
 Burnley;England;
 Burslem;England;
 Burton;England;
@@ -227,12 +227,12 @@ Cambridge Ma;USA;
 Campbeltown;Scotland;
 Canaan NY;USA;
 Canandaigua NY;USA;
-Canterbury;England|USA
+Canterbury;England|USA;
 Canterbury NH;USA;
 Cape Town;South Africa;
 Cap-Haitien;Haiti;
 Cardiff;England;
-Carlisle;England|USA
+Carlisle;England|USA;
 Carlisle Pa;USA;
 Carlow;Ireland;
 Carlstad;Sweden;
@@ -490,7 +490,7 @@ Gilmanton NH;USA;
 Glasgow;Scotland;
 Glastonbury;England;
 Glocester Ma;USA;
-Gloucester;England|USA
+Gloucester;England|USA;
 Gloucester Ma;USA;
 Goa;India;
 Godby;Finland;
@@ -759,7 +759,7 @@ Lansingburgh NY;USA;
 Lappeenranta;Finland;
 Lapua;Finland;
 La Rochelle;France;
-Launceston;England;Potentially ambigous, Australia also mentioned
+Launceston;England;Potentially ambigous, Australia also mentioned;
 Lausanne;Switzerland;
 Lebanon Pa;USA;
 Leeds;England;

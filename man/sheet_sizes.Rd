@@ -2,7 +2,7 @@
 % Please edit documentation in R/sheet_sizes.R
 \name{sheet_sizes}
 \alias{sheet_sizes}
-\title{sheet_sizes}
+\title{Sheet Sizes}
 \usage{
 sheet_sizes(...)
 }
@@ -13,7 +13,7 @@ sheet_sizes(...)
 Sheet size table
 }
 \description{
-Read sheet size table
+Read sheet size table.
 }
 \examples{
 sheetsizes <- sheet_sizes()

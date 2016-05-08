@@ -1,5 +1,5 @@
-#' @title remove_persons
-#' @description Remove persons
+#' @title Remove Persons
+#' @description Remove persons.
 #' @param x A vector
 #' @param who names to be removed
 #' @return Polished vector

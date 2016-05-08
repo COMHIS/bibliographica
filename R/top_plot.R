@@ -1,5 +1,5 @@
-#' @title Plot top entries
-#' @description Plot the top entries for a given field in a data frame
+#' @title Plot Top Entries
+#' @description Plot the top entries for a given field in a data frame.
 #' @param x Data frame, vector or factor
 #' @param field Field to show
 #' @param ntop Number of top entries to show

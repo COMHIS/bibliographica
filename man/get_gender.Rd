@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_gender.R
 \name{get_gender}
 \alias{get_gender}
-\title{Get gender}
+\title{Get Gender}
 \usage{
 get_gender(x, gendermap)
 }

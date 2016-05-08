@@ -1,5 +1,5 @@
-#' @title remove terms completely
-#' @description Fully Remove the given terms from the strings
+#' @title Remove Terms Completely
+#' @description Fully Remove the given terms from the strings.
 #' @param x A vector
 #' @param terms Terms to be removed
 #' @param include.lowercase Include also lowercase versions of the terms

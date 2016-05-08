@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_field.R
 \name{polish_field}
 \alias{polish_field}
-\title{Polish field}
+\title{Polish Field}
 \usage{
 polish_field(df, field, verbose = TRUE, mc.cores = 1)
 }

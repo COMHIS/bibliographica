@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_volume_info.R
 \name{remove_volume_info}
 \alias{remove_volume_info}
-\title{Remove volume info}
+\title{Remove Volume Info}
 \usage{
 remove_volume_info(x)
 }

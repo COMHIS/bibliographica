@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_years.R
 \name{polish_years}
 \alias{polish_years}
-\title{Polish years}
+\title{Polish Years}
 \usage{
 polish_years(x, start_synonyms = NULL, end_synonyms = NULL,
   verbose = TRUE, check = FALSE)

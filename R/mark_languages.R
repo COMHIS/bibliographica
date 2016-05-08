@@ -1,4 +1,4 @@
-#' @title Mark languages
+#' @title Mark Languages
 #' @description Construct binary matrix of languages for each entry
 #' @param x language field (a vector)
 #' @return data.frame with separate fields for different languages
@@ -28,7 +28,7 @@ mark_languages <- function(x) {
   # TODO Vectorize to speed up ?
   for (i in 1:length(x)) {
     
-      lll <- sapply(unlist(strsplit(x[[i]], ";")), function (xx) {as.character(harmonize_names(xx, abrv, remove.unknown = TRUE, mode = "exact.match"))})
+      lll <- sapply(unlist(strsplit(x[[i]], ";")), function (xx) {as.character(map(xx, abrv, remove.unknown = TRUE, mode = "exact.match"))})
 
       lll <- na.omit(as.character(unname(lll)))
       if (length(lll) == 0) {lll <- NA}

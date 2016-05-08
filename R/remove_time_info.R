@@ -1,5 +1,5 @@
-#' @title remove_time_info
-#' @description Remove time information
+#' @title Remove Time Info
+#' @description Remove time information.
 #' @param x Vector (time field)
 #' @param verbose verbose
 #' @param months months to remove

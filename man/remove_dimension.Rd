@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_dimension.R
 \name{remove_dimension}
 \alias{remove_dimension}
-\title{Remove dimension data}
+\title{Remove Dimension Data}
 \usage{
 remove_dimension(x, terms)
 }
@@ -13,7 +13,7 @@ remove_dimension(x, terms)
 The character vector with dimension information removed
 }
 \description{
-Remove dimension data
+Remove dimension data.
 }
 \examples{
 # remove_dimension("4to 40cm", sheet_sizes())

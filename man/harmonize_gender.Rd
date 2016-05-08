@@ -2,7 +2,7 @@
 % Please edit documentation in R/harmonize_gender.R
 \name{harmonize_gender}
 \alias{harmonize_gender}
-\title{Harmonize gender}
+\title{Harmonize Gender}
 \usage{
 harmonize_gender(x)
 }

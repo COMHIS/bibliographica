@@ -1,4 +1,4 @@
-#' @title Remove terms
+#' @title Remove Terms
 #' @description Remove the given terms from the strings.
 #' @param x A vector
 #' @param terms Terms to be removed

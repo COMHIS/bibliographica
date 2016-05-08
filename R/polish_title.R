@@ -1,5 +1,5 @@
-#' @title Polish title
-#' @description Polish title field
+#' @title Polish Title
+#' @description Polish the title field.
 #' @param x Vector of titles
 #' @return Vector of titles polished
 #' @export

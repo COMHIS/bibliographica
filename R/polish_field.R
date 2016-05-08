@@ -1,4 +1,4 @@
-#' @title Polish field
+#' @title Polish Field
 #' @description Polish a specified library catalogue field.
 #' @param df data.frame that includes the given field
 #' @param field Field to be preprocessed.

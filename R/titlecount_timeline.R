@@ -1,5 +1,5 @@
-#' @title Title count timeline
-#' @description Compare title (document) count among selected groups
+#' @title Title Count Timeline
+#' @description Compare title (document) count among selected groups.
 #' @param x data frame
 #' @param field Field indicating the groups to compare
 #' @param nmin Include only entries with at least nmin occurrences

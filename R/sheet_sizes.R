@@ -1,5 +1,5 @@
-#' @title sheet_sizes
-#' @description Read sheet size table
+#' @title Sheet Sizes
+#' @description Read sheet size table.
 #' @param ... Arguments to be passed
 #' @return Sheet size table
 #' @export

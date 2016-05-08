@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_stopwords.R
 \name{remove_stopwords}
 \alias{remove_stopwords}
-\title{Remove stopwords}
+\title{Remove Stopwords}
 \usage{
 remove_stopwords(x, terms = NULL, remove.letters = TRUE)
 }
@@ -17,7 +17,7 @@ remove_stopwords(x, terms = NULL, remove.letters = TRUE)
 A vector polished
 }
 \description{
-Remove stopwords from input vector
+Remove stopwords from input vector.
 }
 \examples{
 # x2 <- remove_stopwords(c("a", "well", "james"), "well", remove.letters = TRUE)

@@ -1,5 +1,6 @@
 #' @import babynames
 #' @import genderdata
+#' @importFrom data.table fread
 #' @importFrom dplyr count
 #' @importFrom dplyr group_by
 #' @importFrom dplyr n

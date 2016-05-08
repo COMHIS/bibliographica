@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_special_chars.R
 \name{remove_special_chars}
 \alias{remove_special_chars}
-\title{remove_special_chars}
+\title{Remove Special Chars}
 \usage{
 remove_special_chars(x, chars = c(",", ";", ":", "\\\\(", "\\\\)", "\\\\?",
   "--", "\\\\&"), niter = 5)
@@ -18,7 +18,7 @@ remove_special_chars(x, chars = c(",", ";", ":", "\\\\(", "\\\\)", "\\\\?",
 Polished vector
 }
 \description{
-Remove special characters
+Remove special characters.
 }
 \examples{
 x2 <- remove_special_chars("test;")

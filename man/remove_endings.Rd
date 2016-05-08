@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_endings.R
 \name{remove_endings}
 \alias{remove_endings}
-\title{remove_endings}
+\title{Remove Endings}
 \usage{
 remove_endings(x, endings, random_order = FALSE)
 }
@@ -17,7 +17,7 @@ remove_endings(x, endings, random_order = FALSE)
 polished vector
 }
 \description{
-Remove specified endings of strings
+Remove specified endings of strings.
 }
 \examples{
 \dontrun{x2 <- remove_endings(x, endings)}

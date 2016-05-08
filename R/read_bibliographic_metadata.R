@@ -1,4 +1,4 @@
-#' @title Read bibliographic metadata
+#' @title Read Bibliographic Metadata
 #' @description Read metadata parsed from XML.
 #' @param file Parsed raw data file/s
 #' @param ignore.fields Fields to ignore

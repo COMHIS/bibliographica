@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_terms.R
 \name{remove_terms}
 \alias{remove_terms}
-\title{Remove terms}
+\title{Remove Terms}
 \usage{
 remove_terms(x, terms, where = "all", include.lowercase = FALSE,
   polish = TRUE, recursive = FALSE)

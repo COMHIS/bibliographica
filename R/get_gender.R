@@ -1,4 +1,4 @@
-#' @title Get gender
+#' @title Get Gender
 #' @description Pick gender based on first names.
 #' @param x Vector of first names
 #' @param gendermap Table with name-gender mappings
@@ -44,13 +44,13 @@ get_gender <- function (x, gendermap) {
 
   # First check cases with a unique name
   inds <- which(len == 1)
-  gender[inds] <- harmonize_names(first.names[inds], map, from = "name", to = "gender", remove.unknown = TRUE)
+  gender[inds] <- map(first.names[inds], map, from = "name", to = "gender", remove.unknown = TRUE)
 
   # Then cases with multiple names split by spaces
   # if different names give different genders, then set to NA
   inds <- which(len > 1)
 
-  gtmp <- lapply(spl[inds], function (x) {unique(na.omit(harmonize_names(x, map, from = "name", to = "gender", remove.unknown = TRUE)))})
+  gtmp <- lapply(spl[inds], function (x) {unique(na.omit(map(x, map, from = "name", to = "gender", remove.unknown = TRUE)))})
   # Handle ambiguous cases 
   gtmp[sapply(gtmp, length) == 0] <- NA
   gtmp[sapply(gtmp, length) > 1] <- "ambiguous"

@@ -1,4 +1,4 @@
-#' @title Pick substring indicated by separator
+#' @title Pick Substring Indicated by Separator
 #' @description Split the string by separator and pick the former or latter part.
 #' @param x Input string
 #' @param sep Separator string

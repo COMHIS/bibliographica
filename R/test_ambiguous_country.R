@@ -1,4 +1,4 @@
-#' @title Identify ambiguous country mappings
+#' @title Identify Ambiguous Country Mappings
 #' @description Identify ambiguous country mappings in the region-counry mapping table.
 #' @param f Input file
 #' @return List of ambiguous country mappings

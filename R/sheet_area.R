@@ -1,5 +1,5 @@
-#' @title Sheet area
-#' @description Sheet area in cm2
+#' @title Sheet Area
+#' @description Sheet area in cm2.
 #' @param x Sheet size 
 #' @param sheet.dimension.table Table to estimate sheet area. 
 #' 	  If not given, the table given by sheet_sizes() is used by default.

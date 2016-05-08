@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_place.R
 \name{polish_place}
 \alias{polish_place}
-\title{Polish place}
+\title{Polish Place}
 \usage{
 polish_place(x, synonymes = NULL, remove.unknown = FALSE, verbose = FALSE,
   harmonize = TRUE)

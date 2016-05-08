@@ -1,5 +1,5 @@
-#' @title trimming
-#' @description Trim strings
+#' @title Trimming
+#' @description Trim strings.
 #' @param x vector
 #' @param n iterations
 #' @return Polished vector

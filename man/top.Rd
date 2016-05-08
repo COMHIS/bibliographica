@@ -2,7 +2,7 @@
 % Please edit documentation in R/top.R
 \name{top}
 \alias{top}
-\title{Identify top entries}
+\title{Identify Top Entries}
 \usage{
 top(x, field = NULL, n = NULL, output = "vector")
 }
@@ -19,7 +19,7 @@ top(x, field = NULL, n = NULL, output = "vector")
 Vector of top counts, named by the corresponding entries
 }
 \description{
-Identify the top entries in a vector or for a given field in a data frame
+Identify the top entries in a vector or for a given field in a data frame.
 }
 \examples{
 \dontrun{p <- top(df, field, 10)}

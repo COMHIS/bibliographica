@@ -1,5 +1,5 @@
-#' @title Augment author info
-#' @description Estimate missing entries in author info
+#' @title Augment Author Info
+#' @description Estimate missing entries in author info.
 #' @param df data.frame with author_birth, author_death and author_name
 #' @param life_info Additional author life years info table
 #' @param ambiguous_authors Author synonyme table
@@ -58,7 +58,7 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
   
   message("Harmonize ambiguous authors, including pseudonymes")
   if (!is.null(ambiguous_authors)) {	  	    
-    dfa.uniq$author <- harmonize_names(dfa.uniq$author, ambiguous_authors)
+    dfa.uniq$author <- map(dfa.uniq$author, ambiguous_authors)
   }
   dfa.uniq$author[grep("^NA, NA", dfa.uniq$author)] <- NA  
 

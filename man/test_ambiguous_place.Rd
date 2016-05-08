@@ -2,7 +2,7 @@
 % Please edit documentation in R/test_ambiguous_place.R
 \name{test_ambiguous_place}
 \alias{test_ambiguous_place}
-\title{Identify ambiguous place mappings}
+\title{Identify Ambiguous Place Mappings}
 \usage{
 test_ambiguous_place(f = system.file("extdata/PublicationPlaceSynonymes.csv",
   package = "bibliographica"))

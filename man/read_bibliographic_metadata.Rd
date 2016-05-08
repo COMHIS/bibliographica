@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_bibliographic_metadata.R
 \name{read_bibliographic_metadata}
 \alias{read_bibliographic_metadata}
-\title{Read bibliographic metadata}
+\title{Read Bibliographic Metadata}
 \usage{
 read_bibliographic_metadata(file, ignore.fields = NULL, verbose = FALSE)
 }

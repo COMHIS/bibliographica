@@ -1,4 +1,4 @@
-#' @title Remove volume info
+#' @title Remove Volume Info
 #' @description Remove volume info from the string start.
 #' @param x Page number field. Vector or factor of strings.
 #' @return Page numbers without volume information

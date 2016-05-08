@@ -1,4 +1,4 @@
-#' @title Polish dimensions
+#' @title Polish Dimensions
 #' @description Polish dimension field for many documents at once.
 #' @param x A vector of dimension notes
 #' @param fill Logical. Estimate and fill in the missing information: TRUE/FALSE
@@ -42,7 +42,7 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   s <- gsub(",", ".", s) 
 
   # Harmonize the terms
-  s <- harmonize_names(s, synonyms, mode = "recursive")
+  s <- map(s, synonyms, mode = "recursive")
   
   # Remove brackets
   s <- gsub("\\(", " ", gsub("\\)", " ", s)) 
@@ -66,7 +66,7 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   }
 
   s <- harmonize_dimension(s, synonyms) 
-  s <- harmonize_names(s, synonyms, mode = "recursive")  
+  s <- map(s, synonyms, mode = "recursive")  
 
   # Make it unique here: after the initial harmonization
   # This helps to further reduce the number of unique cases 

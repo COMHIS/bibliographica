@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_time_info.R
 \name{remove_time_info}
 \alias{remove_time_info}
-\title{remove_time_info}
+\title{Remove Time Info}
 \usage{
 remove_time_info(x, verbose = FALSE, months = NULL)
 }
@@ -17,7 +17,7 @@ remove_time_info(x, verbose = FALSE, months = NULL)
 Polished vector
 }
 \description{
-Remove time information
+Remove time information.
 }
 \details{
 Remove months, year terms and numerics

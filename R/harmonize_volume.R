@@ -12,7 +12,7 @@ harmonize_volume <- function (x, verbose = FALSE, vol.synonyms = NULL) {
 
   # FIXME list in separate file
   if (verbose) {message("Synonymous terms")}
-  s <- harmonize_names(s, vol.synonyms, mode = "match")
+  s <- map(s, vol.synonyms, mode = "match")
 
   if (verbose) {message("Volume terms")}
   s <- gsub("^vol\\.", "v. ", s)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_dimension_info.R
 \name{remove_dimension_info}
 \alias{remove_dimension_info}
-\title{Remove dimension info}
+\title{Remove Dimension Info}
 \usage{
 remove_dimension_info(x, harmonize = TRUE)
 }
@@ -13,7 +13,7 @@ remove_dimension_info(x, harmonize = TRUE)
 The character vector with dimension information removed
 }
 \description{
-Remove dimension information from a single document
+Remove dimension information from a single document.
 }
 \examples{
 \dontrun{remove_dimension_info("4to 40cm")}

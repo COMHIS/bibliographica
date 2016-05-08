@@ -2,7 +2,7 @@
 % Please edit documentation in R/trim_names.R
 \name{trim_names}
 \alias{trim_names}
-\title{trim_names}
+\title{Trim names}
 \usage{
 trim_names(s, stopwords, remove.letters = FALSE)
 }

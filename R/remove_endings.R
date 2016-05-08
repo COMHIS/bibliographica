@@ -1,5 +1,5 @@
-#' @title remove_endings
-#' @description Remove specified endings of strings
+#' @title Remove Endings
+#' @description Remove specified endings of strings.
 #' @param x vector
 #' @param endings endings to remove
 #' @param random_order Order the endings randomly before removal. TRUE/FALSE

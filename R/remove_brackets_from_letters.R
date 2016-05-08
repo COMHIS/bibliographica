@@ -1,5 +1,5 @@
-#' @title Remove brackets from letters
-#' @description Remove brackets surrounding letters
+#' @title Remove Brackets from Letters
+#' @description Remove brackets surrounding letters.
 #' @param x A vector
 #' @param myletters Letters to remove
 #' @return A polished vector 

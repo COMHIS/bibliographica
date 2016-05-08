@@ -2,7 +2,7 @@
 % Please edit documentation in R/trimming.R
 \name{trimming}
 \alias{trimming}
-\title{trimming}
+\title{Trimming}
 \usage{
 trimming(x, n = 1)
 }
@@ -15,7 +15,7 @@ trimming(x, n = 1)
 Polished vector
 }
 \description{
-Trim strings
+Trim strings.
 }
 \examples{
 \dontrun{x2 <- trimming(x, n = 1)}

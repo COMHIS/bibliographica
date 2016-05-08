@@ -39,7 +39,7 @@ gendermap$gender[inds] <- g[inds]
 
 # Add author genders from the generic author info custom table
 tab <- read.csv(system.file("inst/extdata/author_info.csv", package = "bibliographica"), sep = "\t")
-g <- harmonize_names(df.preprocessed$author_name, tab, from = "author_name", to = "author_gender", remove.unknown = TRUE)
+g <- map(df.preprocessed$author_name, tab, from = "author_name", to = "author_gender", remove.unknown = TRUE)
 inds <- which(!is.na(g))
 df.preprocessed$author_gender[inds] <- g[inds]
 

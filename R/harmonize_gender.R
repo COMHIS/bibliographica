@@ -1,4 +1,4 @@
-#' @title Harmonize gender
+#' @title Harmonize Gender
 #' @description Harmonize commonly used gender terms
 #' @param x A vector of gender codes
 #' @return Harmonized vector
@@ -10,6 +10,5 @@
 harmonize_gender <- function (x) {
   fn <- system.file("extdata/harmonize_gender.csv", package = "bibliographica")
   sn <- read_synonymes(fn, sep = ";", mode = "table")
-  g <- as.character(suppressWarnings(harmonize_names(x, synonymes = sn)))
-  g
+  as.character(suppressWarnings(map(x, synonymes = sn)))
 }

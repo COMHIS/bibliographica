@@ -2,7 +2,7 @@
 % Please edit documentation in R/top_plot.R
 \name{top_plot}
 \alias{top_plot}
-\title{Plot top entries}
+\title{Plot Top Entries}
 \usage{
 top_plot(x, field = NULL, ntop = NULL, highlight = NULL)
 }
@@ -19,7 +19,7 @@ top_plot(x, field = NULL, ntop = NULL, highlight = NULL)
 ggplot object
 }
 \description{
-Plot the top entries for a given field in a data frame
+Plot the top entries for a given field in a data frame.
 }
 \examples{
 \dontrun{p <- top_plot(x, field, 50)}

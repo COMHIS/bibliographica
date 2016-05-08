@@ -1,4 +1,4 @@
-#' @title Remove print statements
+#' @title Remove Print Statements
 #' @description Remove print statements.
 #' @param x a vector
 #' @param remove.letters Remove individual letters TRUE/FALSE

@@ -1,5 +1,5 @@
-#' @title Remove trailing periods
-#' @description Remove trailing periods
+#' @title Remove Trailing Periods
+#' @description Remove trailing periods.
 #' @param x A vector
 #' @return A polished vector
 #' @export

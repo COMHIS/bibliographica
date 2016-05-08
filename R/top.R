@@ -1,5 +1,5 @@
-#' @title Identify top entries
-#' @description Identify the top entries in a vector or for a given field in a data frame
+#' @title Identify Top Entries
+#' @description Identify the top entries in a vector or for a given field in a data frame.
 #' @param x data.frame, matrix, or vector 
 #' @param field Field or column to check for a data.frame or matrix
 #' @param n Number of top entries to show

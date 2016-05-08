@@ -1,5 +1,5 @@
-#' @title Remove stopwords
-#' @description Remove stopwords from input vector
+#' @title Remove Stopwords
+#' @description Remove stopwords from input vector.
 #' @param x A vector
 #' @param terms Stopwords
 #' @param remove.letters Logical. Also remove single letters (TRUE by default)

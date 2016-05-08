@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_persons.R
 \name{remove_persons}
 \alias{remove_persons}
-\title{remove_persons}
+\title{Remove Persons}
 \usage{
 remove_persons(x, who = NULL)
 }
@@ -15,7 +15,7 @@ remove_persons(x, who = NULL)
 Polished vector
 }
 \description{
-Remove persons
+Remove persons.
 }
 \examples{
 \dontrun{x2 <- remove_persons(x)}

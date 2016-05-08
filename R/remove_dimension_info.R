@@ -1,5 +1,5 @@
-#' @title Remove dimension info
-#' @description Remove dimension information from a single document
+#' @title Remove Dimension Info
+#' @description Remove dimension information from a single document.
 #' @param x A character vector that may contain dimension information
 #' @return The character vector with dimension information removed
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}

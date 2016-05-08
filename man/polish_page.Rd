@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_page.R
 \name{polish_page}
 \alias{polish_page}
-\title{Polish page}
+\title{Polish Page}
 \usage{
 polish_page(x)
 }

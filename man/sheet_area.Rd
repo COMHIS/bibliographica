@@ -2,7 +2,7 @@
 % Please edit documentation in R/sheet_area.R
 \name{sheet_area}
 \alias{sheet_area}
-\title{Sheet area}
+\title{Sheet Area}
 \usage{
 sheet_area(x = NULL, sheet.dimension.table = NULL, verbose = FALSE)
 }
@@ -18,7 +18,7 @@ If not given, the table given by sheet_sizes() is used by default.}
 Sheet area (cm2)
 }
 \description{
-Sheet area in cm2
+Sheet area in cm2.
 }
 \details{
 Sheet size is calculated according to the table given as output 

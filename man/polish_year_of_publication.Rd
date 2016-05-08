@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_year_of_publication.R
 \name{polish_year_of_publication}
 \alias{polish_year_of_publication}
-\title{polish_year_of_publication}
+\title{Polish Publication Year}
 \usage{
 polish_year_of_publication(x)
 }
@@ -13,7 +13,7 @@ polish_year_of_publication(x)
 data.frame for separate fields for books (year) and magazines (start, end)
 }
 \description{
-Pick and polish year(s) of publication
+Pick and polish year(s) of publication.
 }
 \examples{
 \dontrun{df <- polish_year_of_publication(c("1776","1803-1806"))}

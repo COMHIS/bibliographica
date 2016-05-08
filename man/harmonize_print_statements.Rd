@@ -2,7 +2,7 @@
 % Please edit documentation in R/harmonize_print_statements.R
 \name{harmonize_print_statements}
 \alias{harmonize_print_statements}
-\title{Harmonize print statements}
+\title{Harmonize Print Statements}
 \usage{
 harmonize_print_statements(x, lowercase = FALSE)
 }

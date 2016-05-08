@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_title.R
 \name{polish_title}
 \alias{polish_title}
-\title{Polish title}
+\title{Polish Title}
 \usage{
 polish_title(x)
 }
@@ -13,7 +13,7 @@ polish_title(x)
 Vector of titles polished
 }
 \description{
-Polish title field
+Polish the title field.
 }
 \details{
 Remove ending commas, periods, spaces and parentheses, 

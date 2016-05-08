@@ -1,4 +1,4 @@
-#' @title Read synonyme table
+#' @title Read Synonyme Table
 #' @description Read synonyme table.
 #' @param file Input file
 #' @param mode The input file type: "list" or "table"; see details.
@@ -20,6 +20,8 @@
 #' @examples \dontrun{syn <- read_synonymes(file)}
 #' @keywords utilities
 read_synonymes <- function (file, mode = "table", sep = ";", self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE, verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE, from = "synonyme", to = "name") {
+
+  .Deprecated("read_mapping")
 
   # TODO sort by desired field
 
@@ -43,6 +45,7 @@ read_synonymes <- function (file, mode = "table", sep = ";", self.match = FALSE,
 
   } else if (mode == "table") {
     aa <- read.csv(file, sep = sep, stringsAsFactors = FALSE, fileEncoding = "UTF-8")
+    # aa <- fread(file, sep = sep, header = TRUE)    
     # Temporarily name columns as name and synonyme
     # (needed in check_synonymes)
     aa <- aa[, c(from, to)]

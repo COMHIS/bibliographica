@@ -2,7 +2,7 @@
 % Please edit documentation in R/splitpick.R
 \name{splitpick}
 \alias{splitpick}
-\title{Pick substring indicated by separator}
+\title{Pick Substring Indicated by Separator}
 \usage{
 splitpick(x, sep, which)
 }

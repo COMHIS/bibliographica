@@ -2,7 +2,7 @@
 % Please edit documentation in R/self_published.R
 \name{self_published}
 \alias{self_published}
-\title{Identify Self published documents}
+\title{Identify Self Published Documents}
 \usage{
 self_published(df)
 }
@@ -13,7 +13,7 @@ self_published(df)
 Output of the polished field
 }
 \description{
-Identify Self published documents
+Identify Self published documents.
 }
 \details{
 The function considers self published documents those that have 'author' (or similar) in the publisher field, and those where the publisher is unknown.
