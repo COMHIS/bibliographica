@@ -29,7 +29,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     "gatherings.original", "width.original", "height.original",
     "longitude", "latitude", "page", "item", "publisher.printedfor",
     "publisher", "country", "author_pseudonyme", "publication_place",
-    "control_number", "author_name", "author", "area", "width", "height"))) {
+    "control_number", "author_name", "author", "area", "width", "height", "gender"))) {
 
     message(field)
 
@@ -61,8 +61,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Conversion summaries")
   originals <- c(publisher = "publisher",
-	       country = "publication_place",
-	       author_gender = "author_name"
+	       country = "publication_place"
 	       )
   for (nam in names(originals)) {
     o <- as.character(df.orig[[originals[[nam]]]])
@@ -73,6 +72,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, paste(nam, "conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
   }
+  
   message("..author conversion")
   o <- gsub("\\]", "", gsub("\\[", "", gsub("\\.+$", "", as.character(df.orig$author_name))))
   x <- as.character(df.orig$author_date)
@@ -122,7 +122,65 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   # Author gender
 
-  
+  message("Accepted entries in the preprocessed data")
+  s <- write_xtable(df.preprocessed[["author_gender"]],
+         paste(output.folder, "author_gender_accepted.csv", sep = ""),
+	 count = TRUE)
+
+  message("Discarded gender")
+    if (("author_gender" %in% names(df.preprocessed)) &&
+         ("author_gender" %in% names(df.orig))) {
+      inds <- which(is.na(df.preprocessed[["author_gender"]]))
+      original <- condense_spaces(gsub("\\.", " ", tolower(as.vector(na.omit(as.character(df.preprocessed$author[inds]))))))
+      tmp <- write_xtable(original,
+        paste(output.folder, "author_gender_discarded.csv", sep = ""),
+	count = TRUE)
+    }
+
+  message("Author gender tables realized in the final data")
+  tab <- data.frame(list(name = pick_firstname(df.preprocessed$author),
+                         gender = df.preprocessed$author_gender))
+  tab <- tab[!is.na(tab$gender), ] # Remove NA gender
+
+  write_xtable(subset(tab, gender == "male")[,-2],
+                 paste(output.folder, "gender_male.csv", sep = ""))
+  write_xtable(subset(tab, gender == "female")[,-2],
+                 paste(output.folder, "gender_female.csv", sep = ""))
+
+  # Unknown gender
+  tmp <- unname(pick_firstname(df.preprocessed$author_name)[is.na(df.preprocessed$author_gender)])
+  tmp <- condense_spaces(gsub("\\.", " ", tolower(tmp)))
+  inds <- c(nchar(tmp) > 1,
+            grep("^[a-z] [a-z]$", tmp),
+       	    grep("^[a-z] [a-z] [a-z]$", tmp))
+  if (length(inds) > 0) { tmp <- tmp[-inds] }
+  tmpg <- write_xtable(tmp, paste(output.folder, "gender_unknown.csv", sep = ""))
+
+  # Unresolved (ambiguous) gender
+  tmp <- unname(pick_firstname(df.preprocessed$author_name)[df.preprocessed$author_gender == "ambiguous"])
+  tmp <- condense_spaces(gsub("\\.", " ", tolower(tmp)))
+  inds <- c(nchar(tmp) > 1,
+            grep("^[a-z] [a-z]$", tmp),
+       	    grep("^[a-z] [a-z] [a-z]$", tmp))
+  if (length(inds) > 0) { tmp <- tmp[-inds] }
+  tmpg <- write_xtable(tmp, paste(output.folder, "gender_ambiguous.csv", sep = ""))
+
+  #-------------------------------------------------
+
+
+  message("Conversion summaries")
+  originals <- c(publisher = "publisher",
+	       country = "publication_place"
+	       )
+  for (nam in names(originals)) {
+    o <- as.character(df.orig[[originals[[nam]]]])
+    x <- as.character(df.preprocessed[[nam]])
+    inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
+    tmp <- write_xtable(cbind(original = o[inds],
+      	 		      polished = x[inds]),
+      paste(output.folder, paste(nam, "conversion_nontrivial.csv", sep = "_"),
+      sep = ""), count = TRUE)
+  }  
 
 
   # --------------------------------------------
@@ -301,14 +359,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     count = TRUE)
 
   #-----------------------------------------------------------------------
-
-  message("Author gender tables")
-  tab <- data.frame(list(name = pick_firstname(df.preprocessed$author), gender = df.preprocessed$author_gender))
-  tab <- tab[!is.na(tab$gender), ] # Remove NA gender
-
-  write_xtable(subset(tab, gender == "male")[,-2], paste(output.folder, "gender_male.csv", sep = ""))
-  write_xtable(subset(tab, gender == "female")[,-2], paste(output.folder, "gender_female.csv", sep = ""))
-  write_xtable(unname(pick_firstname(df.preprocessed$author_name)[is.na(df.preprocessed$author_gender)]), paste(output.folder, "gender_unknown.csv", sep = ""))
 
   # Mean page counts
   # TODO make this more generic; otherwise move completely to ESTC

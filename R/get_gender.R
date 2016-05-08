@@ -16,15 +16,16 @@
 #' @import genderdata
 get_gender <- function (x, gendermap) {
 
-  first.names <- first.names.orig <- tolower(as.character(x))
-  first.names.uniq <- unique(na.omit(first.names))
+  # polish up
+  x <- tolower(condense_spaces(gsub("\\.", " ", as.character(x))))
+
+  first.names.orig <- x
+  first.names.uniq <- unique(na.omit(first.names.orig))
+  first.names <- first.names.uniq
   gendermap$name <- tolower(gendermap$name)  
 
-  # polish up
-  first.names.uniq <- condense_spaces(gsub("\\.", " ", first.names.uniq))
-
   # Only keep the names that are in our present data. Speeding up
-  mynames <- unique(c(first.names.uniq, tolower(unlist(strsplit(first.names.uniq, " ")))))
+  mynames <- unique(c(first.names, tolower(unlist(strsplit(first.names, " ")))))
   gendermap <- gendermap[gendermap$name %in% mynames,]
 
   # Custom gender mappings to resolve ambiguous cases
@@ -49,15 +50,15 @@ get_gender <- function (x, gendermap) {
   }
 
   # Split by space
-  spl <- strsplit(first.names.uniq, " ")
+  spl <- strsplit(first.names, " ")
   len <- sapply(spl, length)
 
   # Match unique names to genders
-  gender <- rep(NA, length(first.names.uniq))
+  gender <- rep(NA, length(first.names))
 
   # First check cases with a unique name
   inds <- which(len == 1)
-  gender[inds] <- harmonize_names(first.names.uniq[inds], map, from = "name", to = "gender", remove.unknown = TRUE)
+  gender[inds] <- harmonize_names(first.names[inds], map, from = "name", to = "gender", remove.unknown = TRUE)
 
   # Then cases with multiple names split by spaces
   # if different names give different genders, then set to NA

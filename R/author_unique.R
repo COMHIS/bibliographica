@@ -40,6 +40,9 @@ author_unique <- function (df, format = "last, first", initialize.first = FALSE)
   author_unique[is.na(dfa.uniq$author_name)] <- NA
   author_unique <- gsub(" \\(NA-NA\\)", "", author_unique)
   author_unique <- gsub("NA \\(NA-NA\\)", NA, author_unique)
+
+  # Larin-kyosti, NA -> Larin-kyosti
+  author_unique <- gsub("\\, NA$", "", author_unique)  
   
   as.character(unname(author_unique))[match.inds]
 

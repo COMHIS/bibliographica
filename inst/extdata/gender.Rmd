@@ -7,15 +7,27 @@ output: markdown_document
 
 ### Gender
 
-[First names classified as female](output.tables/gender_female.csv)
+ * `r length(unique(subset(df.preprocessed, author_gender == "male")$author))` unique male authors
+ 
+ * `r length(unique(subset(df.preprocessed, author_gender == "female")$author))` unique female authors
+ 
+ * `r nrow(subset(df.preprocessed, author_gender == "male"))` documents (`r round(100*nrow(subset(df.preprocessed, author_gender == "male"))/nrow(df.preprocessed), 1)`) with a male author
+ 
+ * `r nrow(subset(df.preprocessed, author_gender == "female"))` documents (`r round(100*nrow(subset(df.preprocessed, author_gender == "female"))/nrow(df.preprocessed), 1)`) with a female author
+ 
+ * `r nrow(subset(df.preprocessed, author_gender == "ambiguous" | is.na(author_gender)))` documents (`r round(100*nrow(subset(df.preprocessed, author_gender == "ambiguous"))/nrow(df.preprocessed), 1)`) with [unresolved gender](output.tables/author_gender_discarded.csv)
 
-[First names classified as male](output.tables/gender_male.csv)
+ * [First names identified as female](output.tables/gender_female.csv) 
 
-[First names with unresolved gender](output.tables/gender_unknown.csv)
+ * [First names identified as male](output.tables/gender_male.csv)
 
-[Authors with unresolved gender](output.tables/author_gender_discarded.csv)
+ * [First names with ambiguous gender](output.tables/gender_ambiguous.csv) (both male and female listed in the gender mapping tables)
 
-[Author-gender mappings](output.tables/author_gender_conversion_nontrivial.csv) in the complete data
+ * [First names with unknown gender](output.tables/gender_unknown.csv) (no gender mapping info available)
+
+
+
+ * [Author-gender mappings](output.tables/author_accepted.csv) in the final data
 
 ```{r summary-authorgenders, fig.height=7, fig.width=8, echo=FALSE, warning=FALSE, fig.show='hold', out.width='400px'}
 gen <- df %>% select(author, author_gender)
