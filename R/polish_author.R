@@ -117,17 +117,20 @@ polish_author <- function (s, stopwords = NULL, verbose = FALSE) {
     last[[i]] <- paste(la, collapse = " ")    
   }
 
-  # Form table for the names
-  nametab <- as.data.frame(list(last = last, first = first), stringsAsFactors = FALSE)
+  message("Name table")
+  nametab <- data.frame(last = unname(last),
+  	     		first = unname(first),
+			stringsAsFactors = FALSE)
+  rownames(nametab) <- NULL
 
-  # Remove single letter last names
+  message("Remove single letter last names")
   nametab$last[nchar(as.character(nametab$last)) == 1] <- NA   
 
   if (verbose) { message("Capitalize names")}
   nametab$last  <- capitalize(nametab$last, "all.words")
   nametab$first <- capitalize(nametab$first, "all.words")
   
-  # Remove periods
+  message("Remove periods")
   nametab$first <- condense_spaces(gsub("\\.", " ", nametab$first))
   nametab$last  <- condense_spaces(gsub("\\.", " ", nametab$last))  
 

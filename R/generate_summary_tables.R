@@ -87,13 +87,19 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, paste("author_conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
 
-  message("...author")
+  # -----------------------------------------------------
+
+  message("Author")
   # Separate tables for real names and pseudonymes
-  tab <- df.preprocessed %>% filter(!author_pseudonyme) %>% select(author, author_gender)
+  tab <- df.preprocessed %>% filter(!author_pseudonyme) %>%
+      	 		     select(author, author_gender)
   tmp <- write_xtable(tab,
       paste(output.folder, paste("author_accepted.csv", sep = "_"), sep = ""),
       count = TRUE, sort.by = "author")
-  message("...pseudonyme")
+
+  # -------------------------------------------------      
+
+  message("Pseudonyme")
   tab <- df.preprocessed %>% filter(author_pseudonyme) %>% select(author)
   tmp <- write_xtable(tab, paste(output.folder, "pseudonyme_accepted.csv", sep = ""),
       	 		   count = TRUE, sort.by = "author")

@@ -8,7 +8,7 @@
 #' @references See citation("bibliographica")
 #' @examples
 #'   \dontrun{
-#'     data(gendermap)
+#'     gendermap <- read_synonymes(system.file("inst/extdata/gendermap.csv", package = "bibliographica"), sep = "\t", from = "name", to = "gender")
 #'     get_gender(c("armi", "julius"), gendermap)
 #' }
 #' @keywords utilities
@@ -25,23 +25,9 @@ get_gender <- function (x, gendermap) {
   gendermap$name <- tolower(gendermap$name)  
 
   # Only keep the names that are in our present data. Speeding up
-  mynames <- unique(c(first.names, tolower(unlist(strsplit(first.names, " ")))))
+  mynames <- unique(c(first.names, unlist(strsplit(first.names, " "))))
   gendermap <- gendermap[gendermap$name %in% mynames,]
-
-  # Custom gender mappings to resolve ambiguous cases
-  # bibliographica::"extdata/names/firstnames/gender.csv",   
-  # Consider the custom table as primary  
-  # ie override other matchings with it
-  custom <- gender_custom()
-  if (any(custom$name %in% gendermap$name)) {
-    inds <- match(custom$name, gendermap$name)
-    inds2 <- which(!is.na(inds))
-    gendermap[inds[inds2], "gender"] <- custom$gender[inds2]
-  }
-  
-  # Also add new custom names to get the final table
-  map <- rbind(gendermap, custom[!custom$name %in% gendermap$name,1:2])
-  map <- unique(map)
+  map <- gendermap
 
   # None of our names are in the gender map
   # return NA for all
@@ -63,6 +49,7 @@ get_gender <- function (x, gendermap) {
   # Then cases with multiple names split by spaces
   # if different names give different genders, then set to NA
   inds <- which(len > 1)
+
   gtmp <- lapply(spl[inds], function (x) {unique(na.omit(harmonize_names(x, map, from = "name", to = "gender", remove.unknown = TRUE)))})
   # Handle ambiguous cases 
   gtmp[sapply(gtmp, length) == 0] <- NA
@@ -70,7 +57,7 @@ get_gender <- function (x, gendermap) {
   # Set the identified genders
   gtmp <- sapply(gtmp, identity)
   gender[inds] <- gtmp
-  gender <- sapply(gender, identity)
+  gender <- unname(sapply(gender, identity))
 
   # Project unique names back to the original domain
   gender[match(first.names.orig, first.names.uniq)]

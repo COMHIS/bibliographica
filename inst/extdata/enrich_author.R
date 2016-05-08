@@ -23,10 +23,26 @@ message("Add estimated author genders")
 
 # Filter out names that are not in our input data
 # (this may speed up a bit)
-first.names <- pick_firstname(df.preprocessed$author_name, format = "last, first")
+first.names <- pick_firstname(df.preprocessed$author_name, format = "last, first", keep.single = TRUE)
 
-data(gendermap)
+# First use gender mappings from the ready-made table
+gendermap <- read_synonymes(system.file("inst/extdata/gendermap.csv", package = "bibliographica"), sep = "\t", from = "name", to = "gender")
 df.preprocessed$author_gender <- get_gender(first.names, gendermap)
+
+# Custom name-gender mappings to resolve ambiguous cases
+# Consider the custom table as primary  
+# ie override other matchings with it
+custom <- gender_custom()
+g <- get_gender(first.names, custom)
+inds <- which(!is.na(g))
+gendermap$gender[inds] <- g[inds]
+
+# Add author genders from the generic author info custom table
+tab <- read.csv(system.file("inst/extdata/author_info.csv", package = "bibliographica"), sep = "\t")
+g <- harmonize_names(df.preprocessed$author_name, tab, from = "author_name", to = "author_gender", remove.unknown = TRUE)
+inds <- which(!is.na(g))
+df.preprocessed$author_gender[inds] <- g[inds]
+
 
 # -------------------------------------------------------------------
 

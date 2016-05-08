@@ -20,17 +20,109 @@ gender_map <- function (dictionaries = NULL) {
 
   # Name-gender mappings table; pooled from various sources
   firstnames <- NULL
-  first <- unique(firstnames(dictionaries = dictionaries)[, c("name", "gender")])
+  first <- firstnames(dictionaries = dictionaries)
+  first$name <- iconv(first$name, from = "latin1", to = "UTF-8")
 
-  # Custom gender mappings to resolve ambiguous cases
-  # bibliographica::"extdata/names/firstnames/gender.csv",   
-  custom <- gender_custom() 
+  inds <- c(which(first$name %in% c("paul\n1920 1 18671301 97 05 54 47 370 2 536 5360 1 1 97 05 1 1866 1 100 21 2100 21 2100 21 2100 0 1 1 10 tucker")))
+  if (length(inds) > 0) {
+    first <- first[-inds, ]
+  }
 
-  # Consider the custom list as primary  
-  # ie override other matchings with it
-  first[match(custom$name, first$name), "gender"] <- custom$gender
+  first %>% arrange(name)
 
   first
+
+}
+
+
+
+
+#' @title Gender Table for First Names
+#' @description Combines first name - gender mappings from various sources in French, German, English, Finnish, and Custom lists
+#' @param dictionaries Vector of language catalogues to include.
+#' @return Vector of first names
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' @examples \dontrun{x <- firstnames()}
+#' @keywords utilities
+firstnames <- function (dictionaries = NULL) {
+
+  require(gender)
+  require(genderdata)
+
+  name <- NULL
+
+  if (is.null(dictionaries)) {
+    dictionaries <- c("Multilingual", "French", "German", "English", "Finnish", "Custom", "ssa_state", "ssa_national", "napp", "kantrowitz", "ipums")
+  }		
+
+  first <- list()
+
+  for (lang in dictionaries) {
+
+    message(lang)
+
+    if (lang == "Multilingual") {
+      f <- firstnames_multilingual()
+    } else if (lang == "French") {
+      f <- firstnames_french()
+    } else if (lang == "German") {
+      f <- firstnames_german()
+    } else if (lang == "English") {
+      f <- firstnames_english()
+    } else if (lang == "Finnish") {
+      f <- firstnames_finnish()
+    } else if (lang == "Custom") {
+      f <- firstnames_english()
+    } else if (lang == "ssa_state") {
+      f <- firstnames_genderdata_ssa_state()
+    } else if (lang == "ssa_national") {
+      f <- firstnames_genderdata_ssa_national()    
+    } else if (lang == "kantrowitz") {
+      f <- firstnames_genderdata_kantrowitz()    
+    } else if (lang == "ipums") {
+      f <- firstnames_genderdata_ipums()    
+    } else if (lang == "napp") {
+      f <- firstnames_genderdata_napp()    
+    }
+
+    first[[lang]] <- f
+    
+  }
+
+  message("Combine the tables")
+  first <- rbind_all(first)
+  
+  message("Harmonize")
+  first$name <- condense_spaces(gsub("\\.", " ", first$name))
+  first$name <- condense_spaces(gsub("\\,", " ", first$name))
+  first$name <- condense_spaces(gsub("\\?", " ", first$name))
+  first$name <- condense_spaces(gsub("^-+", "", first$name))
+  first$name <- condense_spaces(gsub("^[0-9]+$", "", first$name))  
+  first <- first[nchar(first$name) > 1,]
+  first$gender <- harmonize_gender(first$gender)
+  first$dictionary <- tolower(first$dictionary)  
+
+  # Mark ambiguous genders from the combined tables
+  fu <- unique(first[, c("name", "gender")])
+  duplicated.names <- unique(fu$name[duplicated(fu$name)])  
+  fs <- subset(fu, name %in% duplicated.names)
+  spl <- split(fs$gender, fs$name)
+  amb <- names(which(sapply(spl, function (x) {length(unique(na.omit(x)))}) > 1))
+  first[first$name %in% amb, "gender"] <- "ambiguous"
+
+  # Remove duplicates, entries from some dictionaries may be lost
+  # but that should not matter for analysis
+  first <- first[!duplicated(first[, c("name", "gender")]),]
+
+  # Now remove cases with NA gender
+  # This way we keep all available gender info and
+  # get rid of duplicate names like faride -> male / NA
+  # which retrieves a unique mapping faride -> male
+  first <- dplyr::filter(first, !is.na(gender)) %>% select(name, gender)
+
+  # Clean up and return
+  unique(first)
 
 }
 
@@ -56,96 +148,6 @@ firstnames_finnish <- function (...) {
   first
 
 }
-
-
-
-
-
-
-
-#' @title Gender Table for First Names
-#' @description Combines first name - gender mappings from various sources in French, German, English, Finnish, and Custom lists, including pseudonymes.
-#' @param dictionaries Vector of language catalogues to include.
-#' @return Vector of first names
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("bibliographica")
-#' @examples \dontrun{x <- firstnames()}
-#' @keywords utilities
-firstnames <- function (dictionaries = NULL) {
-
-  require(gender)
-  require(genderdata)
-
-  name <- NULL
-
-  if (is.null(dictionaries)) {
-    dictionaries <- c("Multilingual", "French", "German", "English", "Finnish", "Custom", "Pseudonyme", "ssa_state", "ssa_national", "napp", "kantrowitz", "ipums")
-  }		
-
-  first <- list()
-
-  for (lang in dictionaries) {
-
-    message(lang)
-
-    if (lang == "Multilingual") {
-      f <- firstnames_multilingual()
-    } else if (lang == "French") {
-      f <- firstnames_french()
-    } else if (lang == "German") {
-      f <- firstnames_german()
-    } else if (lang == "English") {
-      f <- firstnames_english()
-    } else if (lang == "Finnish") {
-      f <- firstnames_finnish()
-    } else if (lang == "Custom") {
-      f <- firstnames_english()
-    } else if (lang == "Pseudonyme") {
-      f <- firstnames_pseudo()
-    } else if (lang == "ssa_state") {
-      f <- firstnames_genderdata_ssa_state()
-    } else if (lang == "ssa_national") {
-      f <- firstnames_genderdata_ssa_national()    
-    } else if (lang == "kantrowitz") {
-      f <- firstnames_genderdata_kantrowitz()    
-    } else if (lang == "ipums") {
-      f <- firstnames_genderdata_ipums()    
-    } else if (lang == "napp") {
-      f <- firstnames_genderdata_napp()    
-    }
-
-    first[[lang]] <- f
-    
-  }
-
-  # Combine the tables
-  first <- rbind_all(first)
-  first$dictionary <- NULL 
-  first <- unique(first)
-  #first$dictionary <- tolower(first$dictionary)
-
-  # Harmonize
-  first$name <- tolower(first$name)
-  first$gender <- harmonize_gender(first$gender)
-
-  # Mark ambiguous genders from the combined tables
-  duplicated.names <- unique(first$name[duplicated(first$name)])  
-  fs <- subset(first, name %in% duplicated.names)
-  spl <- split(fs$gender, fs$name)
-  amb <- names(which(sapply(spl, function (x) {length(unique(na.omit(x)))}) > 1))
-  first[first$name %in% amb, "gender"] <- "ambiguous"
-
-  # Now remove cases with NA gender
-  # This way we keep all available gender info and
-  # get rid of duplicate names like faride -> male / NA
-  # which retrieves a unique mapping faride -> male
-  first <- dplyr::filter(first, !is.na(gender))
-
-  # Clean up and return
-  unique(first)
-
-}
-
 
 
 
@@ -279,26 +281,6 @@ firstnames_german <- function (...) {
 
 
 
-#' @title Pseudonyme Information
-#' @description Pseudonyme first names, including gender info.
-#' @param ... Arguments to be passed
-#' @return Table with first name (pseudonyme) and gender info.
-#' @export
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @references See citation("bibliographica")
-#' @examples \dontrun{x <- firstnames_pseudo()}
-#' @keywords utilities
-firstnames_pseudo <- function (...) {
-
-  pseudo <- as.character(read.csv(system.file("extdata/names/pseudonymes/custom_pseudonymes.csv", package = "bibliographica"), sep = "\t")[,1])
-  pseudo <- data.frame(list(name = unique(tolower(pseudo))))
-  pseudo$gender <- NA
-  pseudo$dictionary <- "custom_pseudonymes"  
-
-  pseudo
-
-}
-
 
 
 firstnames_genderdata_napp <- function (...) {
@@ -336,6 +318,7 @@ firstnames_genderdata_ipums <- function (...) {
   tab <- tab[, c("name", "gender")]
   tab$dictionary <- "usa"
   tab <- unique(tab)
+  tab$name <- gsub("\"", "", tab$name)
 
   tab
 

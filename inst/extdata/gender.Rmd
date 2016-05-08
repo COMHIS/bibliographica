@@ -23,10 +23,22 @@ output: markdown_document
 
  * [First names identified as male](output.tables/gender_male.csv) in the preprocessed data (including pseudonymes)
 
- * [First names with ambiguous gender](output.tables/gender_ambiguous.csv) (both male and female listed in the gender mapping tables) in the preprocessed data (including pseudonymes)
+ * [First names with ambiguous
+   gender](output.tables/gender_ambiguous.csv) (both male and female
+   listed in the gender mapping tables) in the preprocessed data
+   (including pseudonymes). To override and resolve amiguous mappings,
+   gender info can be added to the [custom name-gender
+   mappings](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/names/firstnames/custom_gender.csv)
+   or the [custom author information
+   table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/author_info.csv)
 
- * [First names with unknown gender](output.tables/gender_unknown.csv) (no gender mapping info available) in the preprocessed data (including pseudonymes)
-
+ * [First names with unknown gender](output.tables/gender_unknown.csv)
+   (no gender mapping info available) in the preprocessed data
+   (including pseudonymes). The missing info can be added to the
+   [custom name-gender
+   mappings](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/names/firstnames/custom_gender.csv)
+   or the [custom author information
+   table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/author_info.csv)
 
 ```{r summary-authorgenders, fig.height=7, fig.width=8, echo=FALSE, warning=FALSE, fig.show='hold', out.width='400px'}
 gen <- df %>% select(author, author_gender)
@@ -62,5 +74,36 @@ p <- microbiome::plot_regression(p.female ~ publication_decade, dfd, main = "Fem
 p <- p + ylab("Female authors (%)")
 print(p)
 ```
+
+
+
+### Data sources
+
+The name-gender mappings are collected from the following sources:
+
+  * U.S. Social Security Administration baby name data as implemented in the babynames and gender R packages. For each year from 1880 to 2013, the number of children of each sex given each name. All names with more than 5 uses are given.  
+  * The U.S. Census data in the Integrated Public Use Microdata Series as implemented in the genderdata R package  
+  * The Kantrowitz corpus of male and female names as implemented in the genderdata R package 
+  * The genderdata R package mappings for Canada, UK, Germany, Iceland, Norway, and Sweden. 
+ * [Multilingual database](http://www.lexique.org/public/prenoms.php} (Prenoms.txt) 
+ * [French first names](http://www.excel-downloads.com/forum/86934-liste-des-prenoms.htmlhttp://http://www.excel-downloads.com/forum/86934-liste-des-prenoms.html)
+ * [German first names](http://www.albertmartin.de/vornamen/)
+ * [Finnish population register](https://www.avoindata.fi/data/fi/dataset/none) (Vaestorekisterikeskus; VRK). First names for living Finnish citizens that live in Finland and abroad in 2016. Only names with frequency n>10 are included. Source: avoindata.fi service and Vaestorekisterikeskus (VRK). Version: 3/2016. Data license CC-BY 4.0.
+ * Pseudonyme Provided by the authors of the bibliographica R package.
+
+ * [Custom name-gender mappings](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/names/firstnames/custom_gender.csv) constructed manually by the authors of this R package
+ * [Custom author information](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/author_info.csv) constructed manually by the authors of this R package 
+
+
+The name-gender mappings from different years and regions are
+combined. When the sources give conflicting gender mappings, the
+gender is marked to be ambiguous.  Afterwards, our [custom name-gender
+mappings](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/names/firstnames/custom_gender.csv)
+and [custom author
+information](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/author_info.csv)
+tables are used to augment this information. The genderizeR R package
+could also be useful but the genderizer.io API has a limit of 1000
+queries a day, hence omitted for now.
+
 
 
