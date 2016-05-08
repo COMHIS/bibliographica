@@ -118,38 +118,28 @@ polish_author <- function (s, stopwords = NULL, verbose = FALSE) {
   }
 
   # Form table for the names
-  nametab <- as_data_frame(list(last = last, first = first))
+  nametab <- as.data.frame(list(last = last, first = first), stringsAsFactors = FALSE)
 
   # Remove single letter last names
-  nametab$last[nchar(nametab$last) == 1] <- NA   
+  nametab$last[nchar(as.character(nametab$last)) == 1] <- NA   
 
   if (verbose) { message("Capitalize names")}
   nametab$last  <- capitalize(nametab$last, "all.words")
-  nametab$first <- capitalize(nametab$first, "all.words")  
-
-  # Remove too short names with just two letters
-  #x <- gsub("^[a-z]{1,2}$", " ", x)  
-  #x <- gsub("^[a-z] [a-z]$", " ", x)
-  #x <- gsub("^[a-z]\\.[a-z]$", " ", x)  
-
-  # TODO perhaps unnecessary to return also first and last names as
-  #  separate columns
+  nametab$first <- capitalize(nametab$first, "all.words")
   
+  # Remove periods
+  nametab$first <- condense_spaces(gsub("\\.", " ", nametab$first))
+  nametab$last  <- condense_spaces(gsub("\\.", " ", nametab$last))  
+
   if (verbose) { message("Collapse accepted names to the form: Last, First") }
   full.name <- apply(nametab, 1, function (x) { paste(x, collapse = ", ") })
+  full.name <- unname(full.name)
   full.name[full.name == "NA, NA"] <- NA
-  full.name <- gsub(", NA$", "", full.name) # "Tolonen, NA" -> "Tolonen"
-  full.name <- gsub("^NA, ", "", full.name) # "NA, Mikael" -> "Mikael"  
-  nametab$full <- full.name
-  nametab$first <- NULL
-  nametab$last <- NULL  
+  full.name <- gsub("\\, NA$", "", full.name) # "Tolonen, NA" -> "Tolonen"
+  full.name <- gsub("^NA, ", "", full.name) # "NA, Mikael" -> "Mikael"
 
   if (verbose) { message("Map to the original indices") }
-  nametab <- nametab[match(sorig, suniq), ]
-  nametab$original <- sorig
-
-  # TODO do not make this a list. Unnecessary
-  list(names = nametab)  
+  full.name[match(sorig, suniq)]   
 
 }
 

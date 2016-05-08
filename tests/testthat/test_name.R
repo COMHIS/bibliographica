@@ -19,7 +19,7 @@ test_that("First name picking ok", {
 
 
 test_that("Generic testing", {
-  expect_equal(polish_author(" Candid Lover Of Truth.]")$names$full, "Candid Lover Of Truth")
+  expect_equal(polish_author(" Candid Lover Of Truth.]"), "Candid Lover Of Truth")
 })
 
 test_that("Capitalization ok", {

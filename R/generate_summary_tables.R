@@ -128,17 +128,14 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 	 count = TRUE)
 
   message("Discarded gender")
-    if (("author_gender" %in% names(df.preprocessed)) &&
-         ("author_gender" %in% names(df.orig))) {
-      inds <- which(is.na(df.preprocessed[["author_gender"]]))
-      original <- condense_spaces(gsub("\\.", " ", tolower(as.vector(na.omit(as.character(df.preprocessed$author[inds]))))))
-      tmp <- write_xtable(original,
+  inds <- which(is.na(df.preprocessed[["author_gender"]]))
+  original <- condense_spaces(gsub("\\.", " ", tolower(as.vector(na.omit(as.character(df.preprocessed$author[inds]))))))
+  tmp <- write_xtable(original,
         paste(output.folder, "author_gender_discarded.csv", sep = ""),
 	count = TRUE)
-    }
-
+ 
   message("Author gender tables realized in the final data")
-  tab <- data.frame(list(name = pick_firstname(df.preprocessed$author),
+  tab <- data.frame(list(name = pick_firstname(df.preprocessed$author_name),
                          gender = df.preprocessed$author_gender))
   tab <- tab[!is.na(tab$gender), ] # Remove NA gender
 
@@ -150,17 +147,22 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # Unknown gender
   tmp <- unname(pick_firstname(df.preprocessed$author_name)[is.na(df.preprocessed$author_gender)])
   tmp <- condense_spaces(gsub("\\.", " ", tolower(tmp)))
-  inds <- c(nchar(tmp) > 1,
-            grep("^[a-z] [a-z]$", tmp),
-       	    grep("^[a-z] [a-z] [a-z]$", tmp))
+  inds <- unique(
+            c(which(nchar(tmp) == 1),
+            grep("^[a-z] [a-z] von$", tmp),
+            grep("^[a-z]{1,2} [a-z]{1,2}$", tmp),
+       	    grep("^[a-z] [a-z] [a-z]$", tmp)))
   if (length(inds) > 0) { tmp <- tmp[-inds] }
   tmpg <- write_xtable(tmp, paste(output.folder, "gender_unknown.csv", sep = ""))
 
   # Unresolved (ambiguous) gender
   tmp <- unname(pick_firstname(df.preprocessed$author_name)[df.preprocessed$author_gender == "ambiguous"])
   tmp <- condense_spaces(gsub("\\.", " ", tolower(tmp)))
-  inds <- c(nchar(tmp) > 1,
-            grep("^[a-z] [a-z]$", tmp),
+  inds <- c(which(nchar(tmp) == 1),
+            grep("^[a-z]{1,2} [a-z]{1,2}$", tmp),
+            grep("^[a-z]{1,2} [a-z]{1,2} von$", tmp),
+	    grep("^von$", tmp),	    
+            grep("^[a-z] von$", tmp),	    
        	    grep("^[a-z] [a-z] [a-z]$", tmp))
   if (length(inds) > 0) { tmp <- tmp[-inds] }
   tmpg <- write_xtable(tmp, paste(output.folder, "gender_ambiguous.csv", sep = ""))

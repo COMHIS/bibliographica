@@ -70,7 +70,7 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1) {
 
     # Full author name (Last, First) 
     author <- polish_author(df[[field]], verbose = verbose)
-    df.tmp <- data.frame(author_name = author$names$full)
+    df.tmp <- data.frame(author_name = author)
 
   } else if (field == "publication_place") {
 
