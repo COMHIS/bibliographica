@@ -40,6 +40,7 @@ print(p)
 ```{r summaryplace3, echo=FALSE, results='asis'}
 pubc <- top(df, "country", output = "data.frame")
 colnames(pubc) <- c("Country", "Documents (n)", "Fraction (%)")
-kable(head(pubc), digits = 2)
+pubc[,3] = round(pubc[,3], 1)
+kable(head(pubc))
 ```
 

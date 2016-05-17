@@ -85,12 +85,11 @@ The [name-gender mappings](https://github.com/rOpenGov/bibliographica/blob/maste
   * The U.S. Census data in the Integrated Public Use Microdata Series as implemented in the genderdata R package  
   * The Kantrowitz corpus of male and female names as implemented in the genderdata R package 
   * The genderdata R package mappings for Canada, UK, Germany, Iceland, Norway, and Sweden. 
- * [Multilingual database](http://www.lexique.org/public/prenoms.php} (Prenoms.txt) 
+ * [Multilingual database](http://www.lexique.org/public/prenoms.php) (Prenoms.txt) 
  * [French first names](http://www.excel-downloads.com/forum/86934-liste-des-prenoms.htmlhttp://http://www.excel-downloads.com/forum/86934-liste-des-prenoms.html)
  * [German first names](http://www.albertmartin.de/vornamen/)
  * [Finnish population register](https://www.avoindata.fi/data/fi/dataset/none) (Vaestorekisterikeskus; VRK). First names for living Finnish citizens that live in Finland and abroad in 2016. Only names with frequency n>10 are included. Source: avoindata.fi service and Vaestorekisterikeskus (VRK). Version: 3/2016. Data license CC-BY 4.0.
- * Pseudonyme Provided by the authors of the bibliographica R package.
-
+ * [Pseudonymes](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/names/pseudonymes/custom_pseudonymes.csv) provided by the authors of the bibliographica R package.
  * [Custom name-gender mappings](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/names/firstnames/custom_gender.csv) constructed manually by the authors of this R package
  * [Custom author information](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/author_info.csv) constructed manually by the authors of this R package 
 
