@@ -13,7 +13,6 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{x2 <- map(x, synonymes)}
-#' @aliases harmonize_names
 #' @keywords utilities
 map <- function (x, synonymes, remove.unknown = FALSE, mode = "exact.match", verbose = FALSE, from = "synonyme", to = "name") {
 

@@ -11,7 +11,6 @@
 #' @importFrom dplyr summarize
 #' @importFrom dplyr tbl_df
 #' @importFrom dplyr %>%
-#' @importFrom fennica get_gender_fi
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 coord_flip
 #' @importFrom ggplot2 geom_bar
