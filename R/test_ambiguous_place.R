@@ -9,7 +9,7 @@
 #' @keywords utilities
 test_ambiguous_place <- function (f = system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")) {
 
-  map <- read_synonymes(f, mode = "table", sep = ";", sort = TRUE, self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, remove.ambiguous = FALSE, lowercase = TRUE)
+  map <- read_mapping(f, mode = "table", sep = ";", sort = TRUE, self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, remove.ambiguous = FALSE, lowercase = TRUE)
   spl <- split(map$name, map$synonyme);
   spl <- spl[sapply(spl, length) > 1]
   

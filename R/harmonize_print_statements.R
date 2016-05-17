@@ -20,7 +20,7 @@ harmonize_print_statements <- function (x, lowercase = FALSE) {
 
   for (lang in c("finnish", "french", "german", "swedish", "english")) {
     f <- system.file(paste0("extdata/printterms_", lang, ".csv"), package = "bibliographica")
-    terms <- read_synonymes(f, sep = "|", mode = "table")
+    terms <- read_mapping(f, sep = "|", mode = "table")
     x <- tolower(x)
 
     # Harmonize the terms

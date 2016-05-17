@@ -1,4 +1,4 @@
-#' @title Ambiguous authors table
+#' @title Ambiguous Authors Table
 #' @description Read table of ambiguous author name synonymes
 #' @param file Input file
 #' @return Author synonyme data frame with fields 'name' and 'synonyme' 
@@ -15,7 +15,7 @@ ambiguous_authors_table <- function (file = NULL) {
     file <- system.file("extdata/ambiguous-authors.csv", package = "bibliographica")
   }
 
-  aa <- read_synonymes(file, mode = "list", sep = ";") 
+  aa <- read_mapping(file, mode = "list", sep = ";") 
 
   aa 
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_country.R
 \name{get_country}
 \alias{get_country}
-\title{Get country}
+\title{Get Country}
 \usage{
 get_country(x, map = NULL)
 }

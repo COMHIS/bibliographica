@@ -21,7 +21,7 @@ polish_university <- function(x, synonyms=NULL) {
   
   if (is.null(synonyms)) {
     f <- system.file("extdata/fi_end_years.csv", package = "bibliographica")
-    synonyms <- read_synonymes(f, sep = "\t", include.lowercase = TRUE, mode = "table")
+    synonyms <- read_mapping(f, sep = "\t", include.lowercase = TRUE, mode = "table")
   }
   x <- map(x, synonyms)
 

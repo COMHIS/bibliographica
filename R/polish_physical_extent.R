@@ -35,7 +35,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
   # In Finnish texts s. is used instead of p.		
   f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
-  page.synonyms <- read_synonymes(f, sep = ";", mode = "table")
+  page.synonyms <- read_mapping(f, sep = ";", mode = "table", fast = TRUE)
   s <- map(s, page.synonyms, mode="match")
   rm(page.synonyms)
 
@@ -45,7 +45,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
     s[inds] <- remove_trailing_periods(s[inds])
   }
 
-
+  # Harmonize volume info
   s <- unname(harmonize_volume(s))
 
   # Back to original indices and new unique reduction 
@@ -59,11 +59,11 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
   if (verbose) {message("Read the mapping table for pages")}
   f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
-  page.harmonize <- read_synonymes(f, sep = "\t", mode = "table")
+  page.harmonize <- read_mapping(f, sep = "\t", mode = "table", fast = FALSE)
 
   if (verbose) {message("Read the mapping table for sheets")}  
   f <- system.file("extdata/harmonize_sheets.csv", package = "bibliographica")
-  sheet.harmonize <- read_synonymes(f, sep = ";", mode = "table")
+  sheet.harmonize <- read_mapping(f, sep = ";", mode = "table", fast = TRUE)
   s <- harmonize_sheets(s, sheet.harmonize)
   rm(sheet.harmonize)
 
@@ -75,12 +75,12 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
   if (verbose) {message("Read the mapping table for romans")}  
   f <- system.file("extdata/harmonize_romans.csv", package = "bibliographica")
-  romans.harm <- read_synonymes(f, sep = "\t", mode = "table")
+  romans.harm <- read_mapping(f, sep = "\t", mode = "table", fast = TRUE)
   s <- map(s, romans.harm, mode = "recursive")
 
   if (verbose) {message("Page harmonization part 2")}  
   f <- system.file("extdata/harmonize_pages2.csv", package = "bibliographica")
-  harm2 <- read_synonymes(f, sep = "\t", mode = "table")
+  harm2 <- read_mapping(f, sep = "|", mode = "table", fast = TRUE)
   s <- map(s, harm2, mode = "recursive")
   rm(harm2)
 
@@ -91,7 +91,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
     s[inds] <- gsub("p", "p ", s[inds])
   }  
   s <- condense_spaces(s)
-  s[s == "s"] = NA
+  s[s == "s"] <- NA
 
   if (verbose) {message("Polish unique pages separately for each volume")}  
 
@@ -156,7 +156,7 @@ polish_physext_help <- function (s, page.harmonize) {
 
   x[x == ""] <- NA
   x[x == "NA"] <- NA  
-  x = as.numeric(x)
+  x <- as.numeric(x)
 
   # Return
   c(sum(x, na.rm = TRUE), voln, vols)  

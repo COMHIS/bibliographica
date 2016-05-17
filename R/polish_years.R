@@ -15,12 +15,12 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 
   if (is.null(start_synonyms)) {
     f <- system.file("extdata/fi_start_years.csv", package = "bibliographica")
-    start_synonyms <- read_synonymes(f, sep = "\t", mode = "table")
+    start_synonyms <- read_mapping(f, sep = "\t", mode = "table")
   }
 
   if (is.null(end_synonyms)) {
     f <- system.file("extdata/fi_end_years.csv", package = "bibliographica")
-    end_synonyms <- read_synonymes(f, sep = "\t", mode = "table")
+    end_synonyms <- read_mapping(f, sep = "\t", mode = "table")
   }
 
   f <- system.file("extdata/months.csv", package = "bibliographica")

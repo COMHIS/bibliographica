@@ -23,7 +23,7 @@ mark_languages <- function(x) {
   # TODO: XML version available, read directly in R:
   # see http://www.loc.gov/marc/languages/
   f <- system.file("extdata/language_abbreviations.csv", package = "bibliographica")
-  abrv <- read_synonymes(f, include.lowercase = F, self.match = F, ignore.empty = FALSE, mode = "table", sep = "\t")
+  abrv <- read_mapping(f, include.lowercase = F, self.match = F, ignore.empty = FALSE, mode = "table", sep = "\t")
 
   # TODO Vectorize to speed up ?
   for (i in 1:length(x)) {

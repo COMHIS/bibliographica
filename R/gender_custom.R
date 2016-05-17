@@ -1,4 +1,4 @@
-#' @title Custom name-gender mapping
+#' @title Custom Name-Gender Mappings
 #' @description Custom first name table, including gender info.
 #' @param ... Arguments to be passed
 #' @return Table with first name and gender info.
@@ -10,7 +10,7 @@
 gender_custom <- function (...) {
 
   # Read custom table
-  first <- read_synonymes(system.file("extdata/names/firstnames/custom_gender.csv", package = "bibliographica"), sep = "\t", from = "name", to = "gender", mode = "table")
+  first <- read_mapping(system.file("extdata/names/firstnames/custom_gender.csv", package = "bibliographica"), sep = "\t", from = "name", to = "gender", mode = "table")
   dic <- "custom_firstnames"
   first$dictionary <- dic
 

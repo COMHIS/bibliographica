@@ -28,7 +28,7 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
 
   f <- system.file("extdata/replace_special_chars.csv",
 		package = "bibliographica")
-  spechars <- read_synonymes(f, sep = ";", mode = "table", include.lowercase = TRUE)
+  spechars <- read_mapping(f, sep = ";", mode = "table", include.lowercase = TRUE)
    
 
   # Initial harmonization
@@ -68,7 +68,7 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
 
   if (is.null(synonyms)) {
     f <- system.file("extdata/publisher.csv", package = "bibliographica")
-    synonyms <- read_synonymes(f, sep = ";", mode = "table", lowercase = TRUE)    
+    synonyms <- read_mapping(f, sep = ";", mode = "table", lowercase = TRUE)    
   }
   x <- map(x, synonyms, mode = "exact.match")  
 

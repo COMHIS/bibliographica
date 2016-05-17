@@ -2,7 +2,7 @@
 % Please edit documentation in R/gender_custom.R
 \name{gender_custom}
 \alias{gender_custom}
-\title{Custom name-gender mapping}
+\title{Custom Name-Gender Mappings}
 \usage{
 gender_custom(...)
 }

@@ -2,7 +2,7 @@ harmonize_volume <- function (x, verbose = FALSE, vol.synonyms = NULL) {
 
   if (is.null(vol.synonyms)) {
     f <- system.file("extdata/harmonize_volume.csv", package = "bibliographica")
-    vol.synonyms <- read_synonymes(f, sep = ";", mode = "table")  
+    vol.synonyms <- read_mapping(f, sep = ";", mode = "table")  
   }
   
   if (verbose) {message("Initial harmonization")}

@@ -2,12 +2,12 @@
 % Please edit documentation in R/read_mapping.R
 \name{read_mapping}
 \alias{read_mapping}
-\title{Read Mappings}
+\title{Read Mapping}
 \usage{
 read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
   include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE,
   verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE,
-  from = "synonyme", to = "name")
+  from = "synonyme", to = "name", fast = FALSE)
 }
 \arguments{
 \item{file}{Input file}
@@ -33,6 +33,8 @@ read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
 \item{from}{field that will be replaced}
 
 \item{to}{field that contains the final names}
+
+\item{fast}{Use the fast method fread (sensitive to problems in table format)}
 }
 \value{
 Synonyme data frame with the fields 'name' (the selected term) and 'synonyme' (the alternative terms).

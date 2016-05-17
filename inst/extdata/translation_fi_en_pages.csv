@@ -1,25 +1,25 @@
 synonyme;name
 vihkoa;vol
-osaa;vol
+ osaa; vol
 nid\.;vol
 kartta;sheet
 arkkia;sheets
 arkki;sheet
 karttaa;sheets
-kuval\.;plates
-kuval;plates
 kuvalehdet;plates
 kuvalehtiä;plates
+kuval\\.;plates
+kuval;plates
 lehti;plate
 lehdet;plates
 lehteä;plates
 taitettuna;folded
-poikittaip\.;obl.
+poikittaip\\.;obl.
 pienempi;small
-\.urempi;long
+\\.urempi;long
 verso tyhjä;verso blanko
 tyhjä;blanko
-s\.$;pages
+s\\.$;pages
 kuvalehteä;plates
 kuvaliitettä;plates
 kuvasivua;plates

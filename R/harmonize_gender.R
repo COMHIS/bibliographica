@@ -9,6 +9,6 @@
 #' @keywords utilities
 harmonize_gender <- function (x) {
   fn <- system.file("extdata/harmonize_gender.csv", package = "bibliographica")
-  sn <- read_synonymes(fn, sep = ";", mode = "table")
+  sn <- read_mapping(fn, sep = ";", mode = "table")
   as.character(suppressWarnings(map(x, synonymes = sn)))
 }

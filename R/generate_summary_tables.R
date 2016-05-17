@@ -1,4 +1,4 @@
-#' @title Generate summary tables
+#' @title Generate Summary Tables
 #' @description Generate summary tables from the preprocessed data frame.
 #' @param df.preprocessed Preprocessed data.frame to be summarized
 #' @param df.orig Original data.frame for comparisons
@@ -198,6 +198,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # --------------------------------------------
 
   # Pagecount
+  
   o <- as.character(df.orig[["physical_extent"]])
   g <- as.character(df.preprocessed$gatherings)
   x <- as.character(df.preprocessed[["pagecount"]])
@@ -253,7 +254,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   message("Undefined language")
   # Remove "und" from the list ("Undetermined")
   f <- system.file("extdata/language_abbreviations.csv", package = "bibliographica")
-  abrv <- read_synonymes(f, include.lowercase = F, self.match = F, ignore.empty = FALSE, mode = "table", sep = "\t")
+  abrv <- read_mapping(f, include.lowercase = F, self.match = F, ignore.empty = FALSE, mode = "table", sep = "\t")
   # List unique languages that occur in the data
   lang <- unlist(strsplit(df.orig$language, ";"))
   # Remove the known ones (und is Undetermined)
@@ -287,7 +288,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # (this could be made optional - useful when actively cleaning up the tables but
   # with new runs it could be beneficial to show everything that is discarded and hence comment this out)
   f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-  syn <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")
+  syn <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")
   pl <- tolower(polish_place(o[inds], harmonize = FALSE))
   pl <- setdiff(pl, syn$synonyme)
   
@@ -311,7 +312,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Ambiguous publication place harmonization")  
   f = system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-  tab <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE,
+  tab <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE,
                            mode = "table", remove.ambiguous = FALSE)
   # Only consider terms that are present in our data
   tab1 <- subset(tab, name %in% as.character(df.preprocessed$publication_place))

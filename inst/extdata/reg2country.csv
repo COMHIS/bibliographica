@@ -1,4 +1,4 @@
-region;country;comment
+region;country;
 Kingston upon Thames;England;
 Helsingor;Denmark;
 Lancester Pa;USA;
@@ -11,7 +11,7 @@ North Yarmouth Me;USA;
 Waltham Saint Lawrence;England;
 York Canada;Canada;
 Ambiguous;Ambiguous;
-Holmias;NA
+Holmias;NA;
 Europe;Ambiguous;
 Aabenraa;Denmark;
 Aachen;Germany;
@@ -759,7 +759,7 @@ Lansingburgh NY;USA;
 Lappeenranta;Finland;
 Lapua;Finland;
 La Rochelle;France;
-Launceston;England;Potentially ambigous, Australia also mentioned;
+Launceston;England;
 Lausanne;Switzerland;
 Lebanon Pa;USA;
 Leeds;England;
@@ -942,7 +942,7 @@ New London Ct;USA;
 Newmarket;England;
 New Milford Ct;USA;
 New Orleans La;USA;
-Newport;England|USA
+Newport;England|USA;
 Newport Pagnell;England;
 Newport RI;USA;
 Newry;Ireland;
@@ -1469,7 +1469,7 @@ Wokingham;England;
 Wolston;England;
 Wolverhampton;England;
 Woodbridge NJ;USA;
-Worcester;England|USA
+Worcester;England|USA;
 Worcester Ma;USA;
 Workington;England;
 Worms;Germany;

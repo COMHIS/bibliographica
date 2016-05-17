@@ -1,4 +1,4 @@
-#' @title Get country
+#' @title Get Country
 #' @description Map geographic places to country names
 #' @param x A vector of region names (cities or municipalities etc.)
 #' @param map data.frame with region to country mappings (fields 'region' and 'country')
@@ -27,7 +27,7 @@ get_country <- function (x, map = NULL) {
   if (is.null(map)) {
     f <- system.file("extdata/reg2country.csv", package = "bibliographica")
     message(paste("Reading region-country mappings from file ", f))
-    map <- read_synonymes(f, mode = "table", sep = ";", sort = TRUE, self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, remove.ambiguous = TRUE, lowercase = FALSE, from = "region", to = "country") 
+    map <- read_mapping(f, mode = "table", sep = ";", sort = TRUE, self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, remove.ambiguous = TRUE, lowercase = FALSE, from = "region", to = "country") 
   }
   
   # Map each region in x to a country

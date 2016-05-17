@@ -19,17 +19,17 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (is.null(synonymes)) {
     # Harmonize places with synonyme table
     f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-    synonymes <- read_synonymes(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")
+    synonymes <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")
 
     if (verbose) { message(paste("Reading special char table", f)) }
     # Harmonize places with synonyme table
     f <- system.file("extdata/replace_special_chars.csv",
 		package = "bibliographica")
-    spechars <- read_synonymes(f, sep = ";", mode = "table", include.lowercase = TRUE)
+    spechars <- read_mapping(f, sep = ";", mode = "table", include.lowercase = TRUE)
     
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
     f <- system.file("extdata/harmonize_place.csv", package = "bibliographica")
-    synonymes.spec <- read_synonymes(f, sep = ";", mode = "table", include.lowercase = TRUE)
+    synonymes.spec <- read_mapping(f, sep = ";", mode = "table", include.lowercase = TRUE)
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
     
   }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ambiguous_authors_table.R
 \name{ambiguous_authors_table}
 \alias{ambiguous_authors_table}
-\title{Ambiguous authors table}
+\title{Ambiguous Authors Table}
 \usage{
 ambiguous_authors_table(file = NULL)
 }
