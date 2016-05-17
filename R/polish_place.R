@@ -125,7 +125,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- remove_stopwords(x, terms = tolower(stopwords), remove.letters = FALSE)
 
   # TEMP
-  save(x, file = paste("~/tmp/places", rnorm(1), ".RData", sep = ""), compress = T)
+  # save(x, file = paste("~/tmp/places", rnorm(1), ".RData", sep = ""), compress = T)
   #print(x)
 
   if (harmonize) {
