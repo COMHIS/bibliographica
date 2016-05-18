@@ -31,7 +31,12 @@ test_that("Page count is correct", {
   expect_equal(polish_physical_extent("[3]")$pagecount, 3)
   expect_equal(polish_physical_extent("iii")$pagecount, 3)
   expect_equal(polish_physical_extent("lxxiip.")$pagecount, 72)
-  expect_equal(polish_physical_extent("8,[28],37-88p.")$pagecount, 116) # or 88? 
+  expect_equal(polish_physical_extent("8,[28],37-88p.")$pagecount, 116) # or 88?
+
+
+  expect_equal(polish_physical_extent("[1-3] 4-11 [12] s.")$pagecount, 12) 
+
+
   expect_equal(polish_physical_extent("[2],1107-1217,[1]p.")$pagecount, 114)
   expect_equal(polish_physical_extent("505-508")$pagecount, 4)
   expect_equal(polish_physical_extent("1 sheet")$pagecount, 2)

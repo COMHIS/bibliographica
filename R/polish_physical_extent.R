@@ -103,6 +103,8 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   if (verbose) {message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))}
   ret <- parallel::mclapply(suniq, function (s) { a <- try(polish_physext_help(s, page.harmonize)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
 
+
+
   if (verbose) {message("Make data frame")}
   ret <- as_data_frame(as.data.frame(t(sapply(ret, identity))))
   names(ret) <- c("pagecount", "volnumber", "volcount")
@@ -179,9 +181,13 @@ polish_physext_help2 <- function (x, page.harmonize) {
   x <- as.character(map(x, page.harmonize, mode = "recursive"))
 
   if (length(grep("i\\.e", x)) > 0) {
+  
     x <- unlist(strsplit(x, ","), use.names = FALSE)
-    x <- sapply(x, function (si) {x <- unlist(strsplit(si, "-"), use.names = FALSE); paste(sapply(x, function (x) handle_ie(x, harmonize = FALSE)), collapse = "-")})
+
+    x <- sapply(x, function (x) {handle_ie(x, harmonize = FALSE)})
+    
     x <- paste(x, collapse = ",")
+    
   }
 
   # Remove endings
@@ -198,25 +204,25 @@ polish_physext_help2 <- function (x, page.harmonize) {
 
   # 2 p [1] = 2, [1]
   if (length(grep("^[0-9]+ p \\[[0-9]+\\]$", x))>0) {
-    x = condense_spaces(gsub("\\[", ",[", gsub("p", "", x)))
+    x <- condense_spaces(gsub("\\[", ",[", gsub("p", "", x)))
   }
 
   # [4] p [4] = [4], [4]
   if (length(grep("^\\[[0-9]+\\] p \\[[0-9]+\\]$", x))>0) {
-    x = unlist(strsplit(x, "p"))[[1]]
+    x <- unlist(strsplit(x, "p"))[[1]]
   }
 
   # "[2] 4" -> "[2], 4"
   if (length(grep("\\[[0-9]+\\] [0-9]+", x))>0) {
-    x = gsub(" ", ",", x)
+    x <- gsub(" ", ",", x)
   }
 
   if (length(grep("[0-9]+p",x))>0) {
-    x = condense_spaces(gsub("p", " p", x))
+    x <- condense_spaces(gsub("p", " p", x))
   }
 
-  x = gsub("p\\.*$", "", x)
-  x = condense_spaces(x)
+  x <- gsub("p\\.*$", "", x)
+  x <- condense_spaces(x)
 
   x <- estimate_pages(x)
 

@@ -12,11 +12,10 @@ seqtype <- function (z) {
     # Recognize increasing sequence
     increasing <- is.increasing(z)
 
-    # Recognize series (ie. sequences with dashes)
-    series <- length(grep("-", z))>0 
+    # Recognize series (ie. two-number sequences with dashes)
+    series <- length(grep("^[0-9]+-[0-9]+$", z))>0 
 
     # Recognize single number
-
     single.number <- length(z) == 1 && is.numeric(suppressWarnings(as.numeric(z[[1]])) )
 
     # sequence has numbers without dashes

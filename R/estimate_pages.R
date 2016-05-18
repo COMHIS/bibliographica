@@ -75,11 +75,11 @@ estimate_pages <- function (x) {
   sqb  <- pagecount.attributes["squarebracket", ]
   inds <- which(dash & sqb)
   pagecount.attributes["arabic", inds] <- TRUE
-  
-  # Now page count can't be roman and arabic at the same time.
-  # Otherwise pages will calculated double
-  pagecount.attributes["roman", pagecount.attributes["arabic", ]] <- FALSE
   pagecount.attributes["squarebracket", inds] <- FALSE
+  
+  # Page count can't be roman and arabic at the same time.
+  # or pages will double
+  pagecount.attributes["roman", pagecount.attributes["arabic", ]] <- FALSE
 
   # -----------------------------------------------------
 

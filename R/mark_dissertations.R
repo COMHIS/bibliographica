@@ -8,6 +8,7 @@
 #' @examples \dontrun{df <- mark_dissertations(c("Diss.","Diss. synod"))}
 #' @keywords utilities
 mark_dissertations <- function(x) {
+
 	dis <- x
 	dis[dis=="Diss"] <- TRUE
 	dis[dis=="Diss."] <- TRUE
@@ -20,7 +21,7 @@ mark_dissertations <- function(x) {
 	syn[syn=="Diss"] <- FALSE
 	syn[syn=="Diss."] <- FALSE
 	syn[syn=="Diss. :;Diss"] <- FALSE
-	syn[syn=="Diss. synod"] <- TRUE
+	syn[syn=="Diss. synod."] <- TRUE
 	syn[is.na(syn)] <- FALSE
   	syn <- as.logical(syn)
 
