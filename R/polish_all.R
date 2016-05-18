@@ -1,4 +1,4 @@
-#' @title Polish all fields
+#' @title Generic Preprocessing for Bibliographic Metadata
 #' @description Polish all fields.
 #' @param df.orig Original data.frame 
 #' @param fields Fields to be preprocessed.
@@ -15,14 +15,14 @@
 polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.cores = 1, conversions = list()) {
 
   if (is.null(fields)) {
+  
     message("List raw data fields to be preprocessed")
     fields <- names(df.orig) # Update all
-    message("Entry identifier to match back to the originals")
-    df.preprocessed <- data.frame(original_row = df.orig$original_row)
-  } else {
-    df.preprocessed <- df.orig
   }
   
+  message("Entry identifier to match back to the originals")
+  df.preprocessed <- data.frame(original_row = df.orig$original_row)
+    
   # List how raw data fields will be converted into
   # preprocessed data fields
   preprocessing.times <- c()

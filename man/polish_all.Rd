@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_all.R
 \name{polish_all}
 \alias{polish_all}
-\title{Polish all fields}
+\title{Generic Preprocessing for Bibliographic Metadata}
 \usage{
 polish_all(df.orig, fields = NULL, verbose = TRUE, file = NULL,
   mc.cores = 1, conversions = list())
