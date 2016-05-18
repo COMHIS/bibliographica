@@ -5,12 +5,15 @@ estimate_pages <- function (x) {
     # "NA"
     return(NA)
   } else if (!is.na(suppressWarnings(as.numeric(x)))) {
+
     # "3"
     return(as.numeric(x))
   } else if ((is.roman(x) && length(unlist(strsplit(x, ","), use.names = FALSE)) == 1 && length(grep("-", x)) == 0)) {
+
     # "III" but not "ccclxxiii-ccclxxiv"
     return(suppressWarnings(as.numeric(as.roman(x))))
   } else if (length(grep("^\\[[0-9]+ {0,1}[p|s]{0,1}\\]$", x)>0)) {
+
     # "[3]" or [3 p]
     #return(as.numeric(remove.squarebrackets(gsub(" [p|s]", "", x))))
     return(as.numeric(str_trim(gsub("\\[", "", gsub("\\]", "", gsub(" [p|s]", "", x))))))
@@ -18,7 +21,7 @@ estimate_pages <- function (x) {
     # "1 sheet is 2 pages"
     return(2 * as.numeric(as.roman(str_trim(unlist(strsplit(x, "sheet"), use.names = FALSE)[[1]])))) 
   } else if (length(grep("\\[{0,1}[0-9]* \\]{0,1} leaves", x)) > 0) {
-    # "[50 ] leaves" 
+    # "[50 ] leaves"    
     x <- str_trim(gsub("\\[", "", gsub("\\]", "", x)))
   } else if (length(grep("[0-9]+ \\+ [0-9]+", x))>0) {
     # 9 + 15
@@ -33,9 +36,13 @@ estimate_pages <- function (x) {
     } else if (length(grep("^p", x)) > 0 && length(grep("-", x)) > 0) {
       # p5-8 -> 5-8
       x <- gsub("^p", "", x)
-    }
-    
+    }    
   }
+  #else if (length(grep("^[0-9]+ *\\, *[0-9]+$", x))>0) {
+  #  # 9, 15
+  #  return(sum(as.numeric(str_trim(unlist(strsplit(x, "\\,"), use.names = FALSE)))))  
+  #}
+  
 
   # --------------------------------------------
 

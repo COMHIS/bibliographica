@@ -76,7 +76,6 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   sorig <- s
   s <- suniq <- unique(sorig)
 
-
   if (verbose) {
     message(paste("Estimating dimensions:", length(suniq), "unique cases"))    
   }

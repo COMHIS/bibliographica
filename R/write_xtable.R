@@ -1,4 +1,4 @@
-#' @title write_xtable
+#' @title Write Summary Table
 #' @description Write xtable in a file
 #' @param x a vector or matrix
 #' @param filename output file
@@ -10,9 +10,7 @@
 #' @references See citation("bibliographica")
 #' @examples \dontrun{tab <- write_xtable(x, "tmp.tab")}
 #' @keywords utilities
-write_xtable <- function (x, filename, count = FALSE, sort.by = "Count") {
-
-  message(paste("Writing", filename))
+write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") {
 
   if (is.factor(x)) {
     x <- as.character(x)
@@ -25,7 +23,7 @@ write_xtable <- function (x, filename, count = FALSE, sort.by = "Count") {
     # Remove NAs
     x <- x[!is.na(x)]
 
-    if (length(x) == 0) {
+    if (length(x) == 0 && !is.null(filename)) {
       write("The input list is empty.", file = filename)
       return(NULL)
     }
@@ -34,6 +32,8 @@ write_xtable <- function (x, filename, count = FALSE, sort.by = "Count") {
     x[is.na(x)] <- "N/A"
     counts <- rev(sort(table(x)))
     tab <- data.frame(list(Name = names(counts), Count = as.vector(counts)))
+
+    if (is.null(filename)) {return(tab)}
 
   } else if (is.matrix(x) || is.data.frame(x)) {
 
@@ -48,22 +48,30 @@ write_xtable <- function (x, filename, count = FALSE, sort.by = "Count") {
     tab <- cbind(x, Count = idn)
     tab <- tab[!duplicated(tab),]
 
+    if (is.null(filename)) {
+      tab = tab[rev(order(tab$Count)),]
+      rownames(tab) = NULL
+      return(tab)
+    }
+
     if (length(tab) > 0) {
       tab <- as.matrix(tab, nrow = nrow(x))
-      if (ncol(tab) == 1) {tab <- t(tab)}
+      if (ncol(tab) == 1) { tab <- t(tab) }
       colnames(tab) <- c(colnames(x), "Count")
       rownames(tab) <- NULL
     } else {
       tab <- NULL
     }
-
+    
   }
+
 
   # Arrange
   if (!sort.by %in% c("Count", colnames(x))) {
-    warning("Sorting by name")
+    #warning("Sorting by name")
     sort.by <- "Name"
   }
+
   s <- as.character(tab[, sort.by])
   n <- as.numeric(s)
   if (all(!is.na(n[!is.na(s)]))) {
@@ -83,7 +91,7 @@ write_xtable <- function (x, filename, count = FALSE, sort.by = "Count") {
     if (!is.null(tab) && nrow(tab) > 1) {
       tab <- apply(tab, 2, as.character)
     }
-    n <- sum(as.numeric(tab[,"Count"]), na.rm = TRUE)
+    n <- sum(as.numeric(tab[, "Count"]), na.rm = TRUE)
     if (is.matrix(tab)) {
       suppressWarnings(tab <- rbind(rep("", ncol(tab)), tab))
       tab[1, 1] <- "Total count: "
@@ -97,9 +105,11 @@ write_xtable <- function (x, filename, count = FALSE, sort.by = "Count") {
     
   }
 
-
-  write.table(tab, file = filename, quote = FALSE, sep = "\t", row.names = FALSE)
-
+  if (!is.null(filename)) {
+    message(paste("Writing", filename))
+    write.table(tab, file = filename, quote = FALSE, sep = "\t", row.names = FALSE)
+  }
+  
   tab
 
 }

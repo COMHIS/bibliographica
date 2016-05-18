@@ -102,12 +102,11 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x[inds] <- str_trim(x[inds])
 
   # Convert romans
-  num <- as.numeric(as.roman(gsub(" ", "", x)))
+  num <- suppressWarnings(as.numeric(as.roman(gsub(" ", "", x))))
   inds <- which(!is.na(num))
   if (length(inds) > 0) {
     x[inds] <- num[inds]
   }
-  #x <- unique(na.omit(x))
 
   # Map back to original indices and make unique again. To speedup further.
   x <- x[match(xorig, xuniq)]

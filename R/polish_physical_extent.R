@@ -103,8 +103,6 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   if (verbose) {message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))}
   ret <- parallel::mclapply(suniq, function (s) { a <- try(polish_physext_help(s, page.harmonize)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
 
-
-
   if (verbose) {message("Make data frame")}
   ret <- as_data_frame(as.data.frame(t(sapply(ret, identity))))
   names(ret) <- c("pagecount", "volnumber", "volcount")

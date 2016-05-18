@@ -1,4 +1,4 @@
-#' @title Check synonymes
+#' @title Check Synonymes
 #' @description Check synonyme table. Remove ambiguous mappings.
 #' @param synonymes synonymes data.frame with the self-explanatory fields 'name' and 'synonyme'.
 #' @param include.lowercase Include lowercase versions of the synonymes
@@ -61,7 +61,7 @@ check_synonymes <- function (synonymes, include.lowercase = TRUE, verbose = FALS
   # synonymes.ambiguous <- subset(synonymes, synonyme %in% ambiguous)
   if (remove.ambiguous) {
     if (length(ambiguous) > 0) {
-    warning(paste("Removing ambiguous terms from synonyme list (no unique mapping): ", paste(ambiguous, collapse = ",")))
+    #warning(paste("Removing ambiguous terms from synonyme list (no unique mapping): ", paste(ambiguous, collapse = ",")))
     synonymes <- subset(synonymes, !synonyme %in% ambiguous)
     }
   }

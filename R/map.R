@@ -1,5 +1,5 @@
-#' @title Harmonize names
-#' @description Harmonize names
+#' @title Map Terms
+#' @description Map between two sets of terms; used to harmonize data.
 #' @details Map the input vector to harmonized versions based on the synonyme table.
 #' @param x A character vector 
 #' @param synonymes synonyme table with the fields 'synonyme' and 'name'
@@ -14,9 +14,7 @@
 #' @references See citation("bibliographica")
 #' @examples \dontrun{x2 <- map(x, synonymes)}
 #' @keywords utilities
-harmonize_names <- function (x, synonymes, remove.unknown = FALSE, mode = "exact.match", verbose = FALSE, from = "synonyme", to = "name") {
-
-  .Deprecated(map, msg = "Use the map function instead.")
+map <- function (x, synonymes, remove.unknown = FALSE, mode = "exact.match", verbose = FALSE, from = "synonyme", to = "name") {
 
   x <- as.character(x)
 
@@ -49,7 +47,7 @@ harmonize_names <- function (x, synonymes, remove.unknown = FALSE, mode = "exact
         if (length(xh) == 1) {
           xx[[i]] <- xh
         } else if (length(xh) > 1)  {
-          # warning(paste("No unique synonyme mapping available for", xuniq[[i]]))
+          #warning(paste("No unique synonyme mapping available for", xuniq[[i]]))
           xx[[i]] <- NA
         } else if (length(xh) == 0 && remove.unknown)  {
           xx[[i]] <- NA

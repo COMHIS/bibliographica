@@ -126,7 +126,7 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1) {
   } else {
 
 
-    warning(paste("No info on how to preprocess field: ", field))
+    #warning(paste("No info on how to preprocess field: ", field))
     #df.tmp <- NULL
     df.tmp <- data.frame(df[[field]])
     names(df.tmp) <- field

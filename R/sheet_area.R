@@ -40,7 +40,7 @@ sheet_area <- function (x = NULL, sheet.dimension.table = NULL, verbose = FALSE)
         message(paste("The input", x, "corresponds to", tab[ind, "sheet"], "paper with", tab[ind, "width"], "cm width and", tab[ind, "height"], "cm height and an area of", tab[ind, "area"], "cm2"))
       }
     } else {
-      warning(paste(x, "not found from the sheet size conversion table"))
+      # warning(paste(x, "not found from the sheet size conversion table"))
       return(NA)
     }
   } else {

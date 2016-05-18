@@ -17,7 +17,7 @@ top <- function (x, field = NULL, n = NULL, output = "vector") {
     N <- length(x)
   } else if (is.data.frame(x) || is.matrix(x)) {
     if (is.null(field)) {
-      warning("Indicate the selected field for the top function.")
+      #warning("Indicate the selected field for the top function.")
       return(NULL)
     }
     N <- nrow(x)

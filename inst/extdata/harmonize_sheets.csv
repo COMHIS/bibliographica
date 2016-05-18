@@ -6,6 +6,7 @@ leafs;leaves
 pate;plate
 pleave;leave
 plates plates;plates
+plats;plates
 leaf; leaf
 fold\.;folded
 folding;folded
@@ -41,12 +42,11 @@ leaf of plates;leaf
 leaf of plate;leaf
 leaves of plates;leaves
 leaves of plate;leaves
-leaves \([0-9] folded\);leaves 
+leaves \([0-9] folded\);leaves
 1 leaf;1 sheet
-[0-9][0-9] folded;
-[0-9] folded;
-col.;
+[0-9]+ folded;
 some col\.;
+col.;
 front\.;
 [0-9] fold;
 some fold;

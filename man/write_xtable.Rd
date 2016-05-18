@@ -2,9 +2,9 @@
 % Please edit documentation in R/write_xtable.R
 \name{write_xtable}
 \alias{write_xtable}
-\title{write_xtable}
+\title{Write Summary Table}
 \usage{
-write_xtable(x, filename, count = FALSE, sort.by = "Count")
+write_xtable(x, filename = NULL, count = FALSE, sort.by = "Count")
 }
 \arguments{
 \item{x}{a vector or matrix}

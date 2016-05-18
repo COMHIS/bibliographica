@@ -46,7 +46,7 @@ Read mapping table.
 If mode = "list", each row of the input file corresponds to a unique entry with potentially multiple name variants, separated by semicolon. The first element gives the selected version of the name, the subsequent elements list synonymes that will be mapped to the selected version. If mode = "table", the file has two columns where each row corresponds to a unique entry and has the selected name and a single alternative name.
 }
 \examples{
-\dontrun{syn <- read_synonymes(file)}
+\dontrun{syn <- read_mapping(file)}
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

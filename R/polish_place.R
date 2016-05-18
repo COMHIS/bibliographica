@@ -19,17 +19,17 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (is.null(synonymes)) {
     # Harmonize places with synonyme table
     f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-    synonymes <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")
+    synonymes <- suppressWarnings(read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table"))
 
     if (verbose) { message(paste("Reading special char table", f)) }
     # Harmonize places with synonyme table
     f <- system.file("extdata/replace_special_chars.csv",
 		package = "bibliographica")
-    spechars <- read_mapping(f, sep = ";", mode = "table", include.lowercase = TRUE)
+    spechars <- suppressWarnings(read_mapping(f, sep = ";", mode = "table", include.lowercase = TRUE))
     
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
     f <- system.file("extdata/harmonize_place.csv", package = "bibliographica")
-    synonymes.spec <- read_mapping(f, sep = ";", mode = "table", include.lowercase = TRUE)
+    synonymes.spec <- suppressWarnings(read_mapping(f, sep = ";", mode = "table", include.lowercase = TRUE))
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
     
   }
@@ -71,7 +71,8 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- gsub("^[a-z]\\. [a-z]$", " ", x)  
   x <- condense_spaces(x)
 
-  # Back to original indices, then unique again; reduces number of unique cases further
+  # Back to original indices, then unique again;
+  # reduces number of unique cases further
   x <- x[match(xorig, xuniq)]
   xorig <- x
   xuniq <- sort(unique(x))
@@ -91,7 +92,8 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- harmonize_ie(x)
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
 
-  # Back to original indices, then unique again; reduces number of unique cases further
+  # Back to original indices, then unique again;
+  # reduces number of unique cases further
   if (verbose) {message("Match to original")}  
   x <- x[match(xorig, xuniq)]
   xorig <- x
@@ -100,7 +102,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (verbose) {message("Detailed polishing")}
   s <- synonymes$synonyme
-  x <- unname(sapply(x, function (x) {polish_place_help(unlist(x, use.names = FALSE), s, stopwords = stopwords, verbose = verbose)}))
+  x <- suppressWarnings(unname(sapply(x, function (x) {polish_place_help(unlist(x, use.names = FALSE), s, stopwords = stopwords, verbose = verbose)})))
 
   if (length(x) == 0) { return(rep(NA, length(xorig))) }
 
@@ -115,18 +117,14 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
 
   if (verbose) { message("Harmonize the synonymous names") }
-  x <- as.character(map(x, synonymes.spec, mode = "recursive"))
+  x <- suppressWarnings(as.character(map(x, synonymes.spec, mode = "recursive")))
 
   # Once more remove stopwords
   # Warning: the names discarded here wont be visible in
   # summary lists of discarded names !
   # For validation purposes might be good to comment this out
   # for initial runs.
-  x <- remove_stopwords(x, terms = tolower(stopwords), remove.letters = FALSE)
-
-  # TEMP
-  # save(x, file = paste("~/tmp/places", rnorm(1), ".RData", sep = ""), compress = T)
-  #print(x)
+  x <- suppressWarnings(remove_stopwords(x, terms = tolower(stopwords), remove.letters = FALSE))
 
   if (harmonize) {
 

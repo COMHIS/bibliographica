@@ -33,7 +33,7 @@ fill_dimensions <- function (x, dimension.table = NULL, sheet.dimension.table = 
     obl <- x[["obl"]] 
 
     if ((!any(g == colnames(dimension.table)) && (!is.na(g)))) {
-      warning(paste("gatherings ", g, " not available in dimension.table"))
+      #warning(paste("gatherings ", g, " not available in dimension.table"))
     }
 
     e <- estimate_document_dimensions(gatherings = g, height = h, width = w, obl = obl, dimension.table, sheet.dimension.table)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/dimension_table.R
 \name{dimension_table}
 \alias{dimension_table}
-\title{dimension_table}
+\title{Dimension Table}
 \usage{
 dimension_table(...)
 }
@@ -13,7 +13,7 @@ dimension_table(...)
 Document dimension table
 }
 \description{
-Document dimension mapping table
+Document dimension mapping table.
 }
 \examples{
 dimension_table()

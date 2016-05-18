@@ -1,5 +1,5 @@
-#' @title dimension_table
-#' @description Document dimension mapping table
+#' @title Dimension Table
+#' @description Document dimension mapping table.
 #' @param ... Arguments to be passed
 #' @return Document dimension table
 #' @export

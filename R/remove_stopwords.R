@@ -19,7 +19,7 @@ remove_stopwords <- function (x, terms = NULL, remove.letters = TRUE) {
     
   # List all unique terms
   terms <- sort(unique(terms))
-  x <- remove_terms(x, terms, c("begin", "middle", "end"))
+  x <- suppressWarnings(remove_terms(x, terms, c("begin", "middle", "end")))
 
   if (remove.letters) {
     x <- remove_letters(x)
