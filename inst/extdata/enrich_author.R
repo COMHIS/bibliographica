@@ -5,7 +5,7 @@ message("Enriching author fields..")
 
   # Custom table to harmonize multiple author name variants
   f <- system.file("extdata/ambiguous-authors.csv", package = "bibliographica")
-  ambiguous.authors <- read_synonymes(f, mode = "list", sep = ";", self.match = FALSE, include.lowercase = FALSE)
+  ambiguous.authors <- read_mapping(f, mode = "list", sep = ";", self.match = FALSE, include.lowercase = FALSE, fast = TRUE)
   
   # Combine synonymous authors; augment author life years where missing etc.
   aa <- augment_author(df.preprocessed, life.info, ambiguous.authors)
@@ -26,7 +26,7 @@ message("Add estimated author genders")
 first.names <- pick_firstname(df.preprocessed$author_name, format = "last, first", keep.single = TRUE)
 
 # First use gender mappings from the ready-made table
-gendermap <- read_synonymes(system.file("inst/extdata/gendermap.csv", package = "bibliographica"), sep = "\t", from = "name", to = "gender")
+gendermap <- read_mapping(system.file("extdata/gendermap.csv", package = "bibliographica"), sep = "\t", from = "name", to = "gender")
 df.preprocessed$author_gender <- get_gender(first.names, gendermap)
 
 # Custom name-gender mappings to resolve ambiguous cases
