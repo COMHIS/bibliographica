@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_volumes.R
 \name{check_volumes}
 \alias{check_volumes}
-\title{Check volumes}
+\title{Check Volumes}
 \usage{
 check_volumes(x)
 }

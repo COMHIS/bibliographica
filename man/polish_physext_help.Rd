@@ -15,9 +15,6 @@ Internal
 \description{
 Internal
 }
-\examples{
-# TBA
-}
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
 }

@@ -1,4 +1,4 @@
-#' @title Check volumes
+#' @title Check Volumes
 #' @description Pick volume information from page number field
 #' @param x Page number field. Vector or factor of strings.
 #' @return Volume information
@@ -12,7 +12,7 @@ check_volumes <- function (x) {
   n2 <- n1 <- NULL
 
   # Handle some rare special cases manually
-  if (is.na(x)) {
+  if (all(is.na(x))) {
   
     nvol <- NA
     vtext <- NA

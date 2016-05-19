@@ -7,7 +7,7 @@
 handle_ie(x, harmonize = TRUE, separator = "i.e")
 }
 \arguments{
-\item{x}{A vector}
+\item{x}{Character vector}
 
 \item{harmonize}{Logical. Harmonize ie statements efore interpretation?}
 
@@ -17,7 +17,7 @@ handle_ie(x, harmonize = TRUE, separator = "i.e")
 A vector polished
 }
 \description{
-Handle ie statement
+Handle ie statements.
 }
 \examples{
 \dontrun{x2 <- handle_ie("i.e.")}

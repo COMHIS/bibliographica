@@ -1,4 +1,4 @@
-#' @title Polish dimension
+#' @title Polish Dimension
 #' @description Polish dimension field of a single document
 #' @param x A dimension note (a single string of one document)
 #' @param synonyms synonyms

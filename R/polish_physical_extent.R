@@ -96,15 +96,14 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   if (verbose) {message("Polish unique pages separately for each volume")}  
 
   # Back to original indices and new unique reduction 
-  s <- s[match(sorig, suniq)]
-  sorig <- s
-  suniq <- unique(sorig)
+  sorig <- s[match(sorig, suniq)]
+  s <- suniq <- unique(sorig)
 
   if (verbose) {message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))}
   ret <- parallel::mclapply(suniq, function (s) { a <- try(polish_physext_help(s, page.harmonize)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
 
   if (verbose) {message("Make data frame")}
-  ret <- as_data_frame(as.data.frame(t(sapply(ret, identity))))
+  ret <- as.data.frame(t(sapply(ret, identity)))
   names(ret) <- c("pagecount", "volnumber", "volcount")
 
   if (verbose) {message("Set zero page counts to NA")}    
@@ -122,12 +121,11 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 #' @return Internal
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @examples # TBA
 #' @keywords internal
 polish_physext_help <- function (s, page.harmonize) {
 
   # Return NA if conversion fails
-  if (is.na(s)) { return(rep(NA, 3)) } 
+  if (length(s) == 1 && is.na(s)) { return(rep(NA, 3)) } 
 
   # Shortcut for easy cases: "24p."
   if (length(grep("^[0-9]+ {0,1}p\\.{0,1}$",s))>0) {

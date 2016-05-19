@@ -72,20 +72,17 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- remove_print_statements(x)
 
   # Map back to original indices and make unique again. To speedup further.
-  x <- x[match(xorig, xuniq)]
-  xorig <- x
-  xuniq <- unique(xorig)
-  x <- xuniq
-  
-  x <- sapply(x, function (xi) {handle_ie(xi, harmonize = TRUE)})
+  xorig <- x[match(xorig, xuniq)]
+  x <- xuniq <- unique(xorig)
+
+
+  x <- sapply(x, function (xi) {handle_ie(xi, harmonize = FALSE)})
   x <- condense_spaces(gsub("\\.", " ", x))
   x <- remove_time_info(x, verbose = F, months)
 
   # Map back to original indices and make unique again. To speedup further.
-  x <- x[match(xorig, xuniq)]
-  xorig <- x
-  xuniq <- unique(xorig)
-  x <- xuniq
+  xorig <- x[match(xorig, xuniq)]
+  x <- xuniq <- unique(xorig)
 
   # Remove some other info
   x <- gsub("price [0-9] d", "", x)
@@ -244,7 +241,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   x <- gsub("[a-z]", "", x)
   x <- condense_spaces(x)
   x <- gsub("^[\\:|\\=]", "", x)
-  if (x == "" || is.na(x)) {x <- "NA"}
+  if (length(x) == 1 && (x == "" || is.na(x))) {x <- "NA"}
   if (length(x) > 1) {
     x <- na.omit(x)
   }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_dimension.R
 \name{polish_dimension}
 \alias{polish_dimension}
-\title{Polish dimension}
+\title{Polish Dimension}
 \usage{
 polish_dimension(x, synonyms)
 }

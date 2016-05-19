@@ -9,7 +9,7 @@
 #' @keywords utilities
 remove_trailing_periods <- function (x){ 
 
-  if (is.na(x)) {return(x)}
+  if (all(is.na(x))) {return(x)}
   x <- gsub("\\.+$", "", x)
   x <- gsub("^\\.+", "", x)
     
