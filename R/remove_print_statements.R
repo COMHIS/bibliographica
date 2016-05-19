@@ -1,18 +1,17 @@
 #' @title Remove Print Statements
 #' @description Remove print statements.
 #' @param x a vector
-#' @param remove.letters Remove individual letters TRUE/FALSE
-#' @param n.iter Number of iterative repetitions of this function
 #' @return Polished vector
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples x2 <- remove_print_statements("Printed in London")
 #' @keywords utilities
-remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
+remove_print_statements <- function (x) {
 
-  x <- xorig <- as.character(x)
-  x <- tolower(x)
+  xorig <- tolower(as.character(x))
+  xuniq <- unique(xorig)
+  x <- xuniq
 
   terms.single = c()
   terms.multi = c()  
@@ -34,18 +33,38 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
 
   x <- remove_terms(x, terms.multi, where = "all", polish = FALSE, include.lowercase = FALSE)
   x <- condense_spaces(x)
+
+  # Back to original indices, then unique again; reduces
+  # number of unique cases further
+  xorig <- x[match(xorig, xuniq)]
+  x <- xuniq <- unique(xorig)
+  
   # Individual characters not removed from the end
   x <- remove_terms(x, terms.single, where = "begin", polish = FALSE, include.lowercase = FALSE)
+
+  # Back to original indices, then unique again; reduces
+  # number of unique cases further
+  xorig <- x[match(xorig, xuniq)]
+  x <- xuniq <- unique(xorig)
+
   x <- remove_terms(x, terms.single, where = "middle", polish = FALSE, include.lowercase = FALSE)
   x <- condense_spaces(x)
   x <- remove_trailing_periods(x)
 
-  if (remove.letters) {
-    x <- remove_letters(x)
-  }
+  # Back to original indices, then unique again; reduces
+  # number of unique cases further
+  xorig <- x[match(xorig, xuniq)]
+  x <- xuniq <- unique(xorig)
 
   # remove sine loco
-  x <- remove_sl(x)
+  f <- system.file("extdata/sl.csv", package = "bibliographica") 
+  sineloco <- as.character(read.csv(f)[,1])
+  x <- remove_terms(x, sineloco, include.lowercase = TRUE)
+
+  # Back to original indices, then unique again; reduces
+  # number of unique cases further
+  xorig <- x[match(xorig, xuniq)]
+  x <- xuniq <- unique(xorig)
 
   # handle some odd cases manually
   # FIXME: estc-specific, move there
@@ -54,13 +73,6 @@ remove_print_statements <- function (x, remove.letters = FALSE, n.iter = 1) {
   x <- gsub("[0-9]\\. p\\.;","",x)
   x <- gsub("^(.*?);.*$","\\1",x) # nb. non-greedy match
   x[x==""] <- NA
-
-  # Repeat n.iter times
-  if (n.iter > 1) {
-    for (cnt in 1:n.iter) {
-      x <- remove_print_statements(x, remove.letters = remove.letters, n.iter = 0)
-    }
-  }
 
   x
 

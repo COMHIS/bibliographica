@@ -1,5 +1,5 @@
-#' @title Trim names
-#' @description Trim names
+#' @title Trim Names
+#' @description Trim names.
 #' @param s A vector of names
 #' @param stopwords stopwords 
 #' @param remove.letters Remove individual letters
@@ -12,7 +12,12 @@
 trim_names <- function (s, stopwords, remove.letters = FALSE) {
 
   # Remove stopwords (TODO also in tau package, check that)
-  s <- remove_stopwords(s, terms = stopwords, remove.letters = remove.letters) 
+  s <- remove_stopwords(s, terms = stopwords)
+
+  if (remove.letters) {
+    x <- remove_letters(x)
+  }
+
   s <- remove_trailing_periods(s)
   s <- condense_spaces(s)
 

@@ -34,18 +34,10 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
     
   }
 
-  f <- system.file("extdata/stopwords_for_place.csv", package = "bibliographica")
-  message(paste("Reading stopwords from file ", f))
-  stopwords <- as.character(read.csv(f)[,1])
-
-  # Unique
-  xorig <- x
-  xuniq <- sort(unique(x))
-  x <- xuniq
-
   # Prepare
-  if (verbose) { message("Convert to lowercase character") }
-  x <- tolower(as.character(x))
+  if (verbose) { message("Convert to lowercase character and make unique list") }
+  xorig <- tolower(as.character(x))
+  x <- xuniq <- unique(xorig)
 
   if (verbose) { message("Replace special characters") }
   x <- as.character(map(x, spechars, mode = "recursive"))
@@ -73,20 +65,26 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   # Back to original indices, then unique again;
   # reduces number of unique cases further
-  x <- x[match(xorig, xuniq)]
-  xorig <- x
-  xuniq <- sort(unique(x))
-  x <- xuniq
+  xorig <- x[match(xorig, xuniq)]
+  x <- xuniq <- sort(unique(xorig))
 
   if (verbose) {message(paste("Polishing ", length(xuniq), " unique place names", sep = ""))}
   x <- remove_persons(x)
   
   if (verbose) {message("Remove print statements")}
-  x <- remove_print_statements(x, remove.letters = FALSE)
+  x <- remove_print_statements(x)
   x <- condense_spaces(x)
 
+  # Back to original indices, then unique again;
+  # reduces number of unique cases further
+  xorig <- x[match(xorig, xuniq)]
+  x <- xuniq <- sort(unique(xorig))
+
   if (verbose) {message("Remove stopwords")}
-  x <- remove_stopwords(x, terms = stopwords, remove.letters = FALSE)
+  f <- system.file("extdata/stopwords_for_place.csv", package = "bibliographica")
+  message(paste("Reading stopwords from file ", f))
+  stopwords <- as.character(read.csv(f)[,1])  
+  x <- remove_stopwords(x, terms = stopwords)
 
   if (verbose) {message("Harmonize ie")}
   x <- harmonize_ie(x)
@@ -94,26 +92,22 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   # Back to original indices, then unique again;
   # reduces number of unique cases further
-  if (verbose) {message("Match to original")}  
-  x <- x[match(xorig, xuniq)]
-  xorig <- x
-  xuniq <- sort(unique(x))
-  x <- xuniq
+  if (verbose) {message("Match to original")}
+  # Back to original indices, then unique again;
+  # reduces number of unique cases further
+  xorig <- x[match(xorig, xuniq)]
+  x <- xuniq <- sort(unique(xorig))
 
   if (verbose) {message("Detailed polishing")}
   s <- synonymes$synonyme
-  x <- suppressWarnings(unname(sapply(x, function (x) {polish_place_help(unlist(x, use.names = FALSE), s, stopwords = stopwords, verbose = verbose)})))
-
+  x <- suppressWarnings(unname(sapply(x, function (x) {polish_place_help(unlist(x, use.names = FALSE), s, verbose = verbose)})))
   if (length(x) == 0) { return(rep(NA, length(xorig))) }
 
   # Back to original indices, then unique again; reduces
   # number of unique cases further
-  if (verbose) {message("Match to original")}    
-  x <- x[match(xorig, xuniq)]
-  xorig <- x
-  xuniq <- sort(unique(x))
-  x <- xuniq
-
+  if (verbose) {message("Match to original")}
+  xorig <- x[match(xorig, xuniq)]
+  x <- xuniq <- sort(unique(xorig))  
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
 
   if (verbose) { message("Harmonize the synonymous names") }
@@ -124,7 +118,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   # summary lists of discarded names !
   # For validation purposes might be good to comment this out
   # for initial runs.
-  x <- suppressWarnings(remove_stopwords(x, terms = tolower(stopwords), remove.letters = FALSE))
+  x <- suppressWarnings(remove_stopwords(x, terms = tolower(stopwords)))
 
   if (harmonize) {
 
@@ -154,7 +148,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 }
 
 
-polish_place_help <- function (x, s, stopwords, verbose = FALSE) {
+polish_place_help <- function (x, s, verbose = FALSE) {
 
   # London i.e. The Hague ->  The Hague
   # In the Yorke at London -> London

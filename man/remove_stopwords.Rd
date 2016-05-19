@@ -4,14 +4,12 @@
 \alias{remove_stopwords}
 \title{Remove Stopwords}
 \usage{
-remove_stopwords(x, terms = NULL, remove.letters = TRUE)
+remove_stopwords(x, terms = NULL)
 }
 \arguments{
 \item{x}{A vector}
 
 \item{terms}{Stopwords}
-
-\item{remove.letters}{Logical. Also remove single letters (TRUE by default)}
 }
 \value{
 A vector polished
@@ -20,7 +18,7 @@ A vector polished
 Remove stopwords from input vector.
 }
 \examples{
-# x2 <- remove_stopwords(c("a", "well", "james"), "well", remove.letters = TRUE)
+# x2 <- remove_stopwords(c("a", "well", "james"), "well")
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

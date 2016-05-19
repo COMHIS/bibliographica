@@ -34,6 +34,12 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
   # Initial harmonization
   x <- gsub("[,|;|:|\\?|-|\\&|\\.]+", "", x) 
   x <- str_trim(gsub("\\(+", "", gsub("\\)+", "", x)))
+
+  # Back to original indices, then unique again; reduces
+  # number of unique cases further
+  xorig <- x[match(xorig, xuniq)]
+  x <- xuniq <- unique(xorig)
+
   x <- remove_terms(x, terms, where = "begin")
   x <- str_trim(gsub("\\[", "", gsub("\\]", "", x)))
   x <- gsub("[0-9]", " ", x) # Remove numerics
@@ -41,10 +47,8 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
 
   # Back to original indices, then unique again; reduces
   # number of unique cases further
-  x <- x[match(xorig, xuniq)]
-  xorig <- x
-  xuniq <- sort(unique(x))
-  x <- xuniq
+  xorig <- x[match(xorig, xuniq)]
+  x <- xuniq <- unique(xorig)
 
   if (verbose) {
     message(paste("..", length(xuniq), "unique cases"))
@@ -61,10 +65,8 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
 
   # Back to original indices, then unique again; reduces
   # number of unique cases further
-  x <- x[match(xorig, xuniq)]
-  xorig <- x
-  xuniq <- sort(unique(x))
-  x <- xuniq
+  xorig <- x[match(xorig, xuniq)]
+  x <- xuniq <- unique(xorig)
 
   if (is.null(synonyms)) {
     f <- system.file("extdata/publisher.csv", package = "bibliographica")

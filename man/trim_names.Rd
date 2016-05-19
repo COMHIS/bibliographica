@@ -2,7 +2,7 @@
 % Please edit documentation in R/trim_names.R
 \name{trim_names}
 \alias{trim_names}
-\title{Trim names}
+\title{Trim Names}
 \usage{
 trim_names(s, stopwords, remove.letters = FALSE)
 }
@@ -17,7 +17,7 @@ trim_names(s, stopwords, remove.letters = FALSE)
 Polished vector
 }
 \description{
-Trim names
+Trim names.
 }
 \examples{
 s2 <- trim_names("james", "and")
