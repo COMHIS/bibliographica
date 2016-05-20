@@ -239,11 +239,15 @@ test_that("Page count is correct", {
 
 
 test_that("volume count is correct", {
+
+
   expect_equal(polish_physical_extent("v.7-9,plates")$volcount, 3)
   expect_true(is.na(polish_physical_extent("v")$volcount))
   expect_equal(polish_physical_extent("2 v")$volcount, 2)
   expect_equal(polish_physical_extent("2v")$volcount, 2)
   expect_equal(polish_physical_extent("5v.")$volcount, 5)
+  expect_equal(polish_physical_extent("12v")$volcount, 12)
+  expect_equal(polish_physical_extent("10v.")$volcount, 10)    
   expect_equal(polish_physical_extent("73 vols")$volcount, 73)
   expect_equal(polish_physical_extent("73 vol ")$volcount, 73)
   expect_equal(polish_physical_extent("73 v ")$volcount, 73)

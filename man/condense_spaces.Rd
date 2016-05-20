@@ -2,7 +2,7 @@
 % Please edit documentation in R/condense_spaces.R
 \name{condense_spaces}
 \alias{condense_spaces}
-\title{Condense spaces}
+\title{Condense Spaces}
 \usage{
 condense_spaces(x)
 }
@@ -10,7 +10,7 @@ condense_spaces(x)
 \item{x}{A vector}
 }
 \value{
-A vector with spaces removed
+A vector with extra spaces removed
 }
 \description{
 Trim and remove double spaces from the input strings.

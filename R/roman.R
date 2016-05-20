@@ -22,7 +22,7 @@ is.roman <- function (x) {
     any(isr)
   }
 
-  sapply(x, check.roman)
+  sapply(x, check.roman, USE.NAMES = FALSE)
 
 }
 
@@ -43,7 +43,7 @@ roman2arabic <- function (x) {
     xr
   }
   
-  sapply(x, function (xi) {helpf(xi)})
+  sapply(x, function (xi) {helpf(xi)}, USE.NAMES = FALSE)
 
 }
 

@@ -1,4 +1,4 @@
-#' @title name_initials
+#' @title Name Initials
 #' @description Pick name initials
 #' @param x a vector of names
 #' @param format Name format. By default interpreted as First Second Last, with the corresponding initials FSL.
@@ -13,7 +13,7 @@ name_initials <- function (x, format = NULL) {
   x <- as.character(x)
 
   if (is.null(format)) {
-    initials <- sapply(strsplit(x, " "), function (x) {paste(substr(x, 1, 1), collapse = " ")})
+    initials <- sapply(strsplit(x, " "), function (x) {paste(substr(x, 1, 1), collapse = " ")}, USE.NAMES = FALSE)
   }
 
   initials[initials == "NA"] <- NA

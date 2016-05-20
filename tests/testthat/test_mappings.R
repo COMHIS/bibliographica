@@ -1,9 +1,9 @@
 context("Mapping tables")
 
 test_that("Region to country mappings are correct", {
-  expect_equal(as.character(get_country("Berlin")$country), "Germany")
-  expect_equal(as.character(get_country("Altmore")$country), "Northern Ireland")  
-  expect_equal(as.character(get_country(c("Berlin", "Munich", "Amsterdam"))$country[[3]]), "Netherlands")  
+  expect_equal(as.character(get_country("Berlin")), "Germany")
+  expect_equal(as.character(get_country("Altmore")), "Northern Ireland")  
+  expect_equal(as.character(get_country(c("Berlin", "Munich", "Amsterdam"))[[3]]), "Netherlands")  
 })
 
 

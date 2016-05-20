@@ -10,7 +10,7 @@ sheets2pages <- function (x) {
   inds <- grep("sheet", x)
   if (length(inds) > 0) {
     # 1 sheet = 2 pages
-    pages <- sapply(x[inds], function (x) {sheets2pages.single(x)})
+    pages <- sapply(x[inds], function (x) {sheets2pages.single(x)}, USE.NAMES = FALSE)
     pages <- suppressWarnings(as.numeric(as.roman(pages)))
     x[inds] <- 2*pages
   }

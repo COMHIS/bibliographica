@@ -2,7 +2,7 @@
 % Please edit documentation in R/pick_firstname.R
 \name{pick_firstname}
 \alias{pick_firstname}
-\title{pick_firstname}
+\title{Pick First Name}
 \usage{
 pick_firstname(x, format = "last, first", keep.single = FALSE)
 }

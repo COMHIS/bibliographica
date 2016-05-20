@@ -2,7 +2,7 @@
 % Please edit documentation in R/name_initials.R
 \name{name_initials}
 \alias{name_initials}
-\title{name_initials}
+\title{Name Initials}
 \usage{
 name_initials(x, format = NULL)
 }

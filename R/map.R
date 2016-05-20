@@ -16,15 +16,15 @@
 #' @keywords utilities
 map <- function (x, synonymes, remove.unknown = FALSE, mode = "exact.match", verbose = FALSE, from = "synonyme", to = "name") {
 
-  x <- as.character(x)
-
   # Map synonymes to selected names: NA if mapping not available
-  xorig <- x
-  xuniq <- unique(x)
-  xx <- xuniq
+  xorig <- as.character(x)
+  xx <- xuniq <- unique(xorig)
     
   synonymes <- synonymes[, c(from, to)]
   colnames(synonymes) <- c("synonyme", "name")
+  for (i in 1:ncol(synonymes)) {
+    synonymes[,i] <- as.character(synonymes[,i])
+  }
 
   if (mode == "exact.match") {
 
@@ -42,12 +42,12 @@ map <- function (x, synonymes, remove.unknown = FALSE, mode = "exact.match", ver
     for (i in inds) {
 
         inds2 <- which(synonymes$synonyme == xuniq[[i]])
-        xh <- unique(as.character(synonymes$name[inds2]))
+        xh <- unique(synonymes$name[inds2])
 
         if (length(xh) == 1) {
           xx[[i]] <- xh
         } else if (length(xh) > 1)  {
-          #warning(paste("No unique synonyme mapping available for", xuniq[[i]]))
+          warning(paste("No unique mapping for", xuniq[[i]]))
           xx[[i]] <- NA
         } else if (length(xh) == 0 && remove.unknown)  {
           xx[[i]] <- NA
@@ -58,19 +58,22 @@ map <- function (x, synonymes, remove.unknown = FALSE, mode = "exact.match", ver
 
     if (mode == "match") {
       # Go through synonymes from longest to shortest
-      synonymes <- synonymes[rev(order(nchar(as.character(synonymes[, "synonyme"])))),]
+      synonymes <- synonymes[rev(order(nchar(synonymes[, "synonyme"]))),]
     }
 
     # mode: "match" and "recursive"
     for (i in 1:nrow(synonymes)) {
-      xx <- gsub(synonymes[i, "synonyme"], synonymes[i, "name"], xx)
+      inds <- grep(synonymes[i, "synonyme"], xx)
+      if (length(inds) > 0) {
+        xx[inds] <- gsub(synonymes[i, "synonyme"], synonymes[i, "name"], xx[inds])
+      }
     }
 
   }
   
 
   # Map back to original inds and return
-  as.character(xx[match(xorig, xuniq)])
+  xx[match(xorig, xuniq)]
 
 }
 

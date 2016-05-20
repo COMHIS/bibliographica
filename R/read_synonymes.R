@@ -30,7 +30,7 @@ read_synonymes <- function (file, mode = "table", sep = ";", self.match = FALSE,
     rf <- readLines(file)
 
     aa <- lapply(rf, function (x) {unique(unlist(strsplit(x, sep)))})
-    names(aa) <- sapply(rf, function (x) {unlist(strsplit(x, sep))[[1]]})
+    names(aa) <- sapply(rf, function (x) {unlist(strsplit(x, sep))[[1]]}, USE.NAMES = FALSE)
   
     map <- NULL
     for (nam in names(aa)) {

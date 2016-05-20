@@ -11,7 +11,7 @@ all2arabics <- function (x) {
   xseries <- str_trim(gsub("\\]", " ", gsub("\\[", " ", xseries)))  
 
   # Convert to arabics
-  xseries <- sapply(xseries, function (x) suppressWarnings(as.numeric(as.roman(x))))
+  xseries <- sapply(xseries, function (x) suppressWarnings(as.numeric(as.roman(x))), USE.NAMES = FALSE)
 
   xseries
   

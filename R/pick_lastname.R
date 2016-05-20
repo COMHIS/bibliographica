@@ -1,4 +1,4 @@
-#' @title pick_lastname
+#' @title Pick Last Name
 #' @description Pick last name from full name, assuming the format is known 
 #' @param x a vector of full names
 #' @param format name format
@@ -17,9 +17,9 @@ pick_lastname <- function (x, format = "last, first", keep.single = TRUE) {
   x <- as.character(x)
 
   if (format == "last, first") {
-    last <- sapply(x, function (x) {y <- unlist(strsplit(x, ", "), use.names = FALSE); if (length(y)>=1) y[[1]] else NA}) 
+    last <- sapply(x, function (x) {y <- unlist(strsplit(x, ", "), use.names = FALSE); if (length(y)>=1) y[[1]] else NA}, USE.NAMES = FALSE) 
   } else if (format == "first last") {
-    last <- sapply(x, function (x) {y <- unlist(strsplit(x, " "), use.names = FALSE); y[[length(y)]]})
+    last <- sapply(x, function (x) {y <- unlist(strsplit(x, " "), use.names = FALSE); y[[length(y)]]}, USE.NAMES = FALSE)
   } else {
     stop("Correct the unknown format in pick_lastname function.")
   }

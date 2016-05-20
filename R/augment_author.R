@@ -66,20 +66,20 @@ augment_author <- function (df, life_info = NULL, ambiguous_authors = NULL) {
   message(".. retrieving the years ..")
   a <- dfa.uniq$author
   a <- strsplit(a, "\\(")
-  len <- sapply(a, length)
+  len <- sapply(a, length, USE.NAMES = FALSE)
   a[len < 2] <- NA
-  a[which(len == 2)] <- sapply(a[which(len == 2)], function (x) {x[[2]]})
+  a[which(len == 2)] <- sapply(a[which(len == 2)], function (x) {x[[2]]}, USE.NAMES = FALSE)
   years <- gsub("\\)", "", a)
   rm(len);rm(a)
   
   message(".. splitting the years ..")
   years2 <- polish_years(years)
   spl <- strsplit(years, "-")
-  len <- sapply(spl, length)
+  len <- sapply(spl, length, USE.NAMES = FALSE)
   inds <- which(len >= 3)
   # 1300-1400-1500 case separately
   # take the range
-  years2[inds,] <-  matrix(sapply(spl[inds], function (x) {range(na.omit(as.numeric(x)))}), ncol = 2)
+  years2[inds,] <-  matrix(sapply(spl[inds], function (x) {range(na.omit(as.numeric(x)))}, USE.NAMES = FALSE), ncol = 2)
   # Then if birth = death, remove death
   years2[which(years2$from == years2$till), "till"] <- NA
 

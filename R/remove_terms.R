@@ -12,7 +12,7 @@
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @examples \dontrun{x2 <- remove_terms(x, terms, where = "all")}
+#' @examples x2 <- remove_terms("test this", c("this", "works"), where = "all")
 #' @keywords utilities
 remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, polish = TRUE, recursive = FALSE) {
 
@@ -29,13 +29,14 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
     terms <- sort(unique(terms))
 
     # Go from longest to shortest term to avoid nested effects
-    terms <- terms[rev(order(sapply(terms, nchar)))]
+    terms <- terms[rev(order(sapply(terms, nchar, USE.NAMES = FALSE)))]
     
   }
 
   # Only consider cases with matches, to speed up analysis
   x[x %in% terms] <- " "
-  tmp <- matrix(sapply(terms, function (term) grepl(term, x)), ncol = length(terms))
+  tmp <- matrix(sapply(terms, function (term) grepl(term, x), USE.NAMES = FALSE),
+                  ncol = length(terms))
   for (i in 1:length(terms)) {  
     x[tmp[, i]] <- remove_terms_help(x[tmp[, i]], terms[[i]], where)
   }

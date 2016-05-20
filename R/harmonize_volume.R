@@ -22,9 +22,9 @@ harmonize_volume <- function (x, verbose = FALSE, vol.synonyms = NULL) {
   s <- condense_spaces(s)
 
   # "2 v " -> "2v." and "2v " -> "2v."
-  s <- sapply(s, function (si) {gsub("^[0-9]* ?v ", paste0(substr(si, 1, 1), "v."), si)})
+  s <- sapply(s, function (si) {gsub("^[0-9]* ?v ", paste0(substr(si, 1, 1), "v."), si)}, USE.NAMES = FALSE)
 
-  s <- sapply(s, function (si) {gsub("^[0-9]+ ?v$", paste0(substr(si, 1, 1), "v."), si)})
+  s <- sapply(s, function (si) {gsub("^[0-9]+ ?v$", paste0(gsub("v$", "", si), "v."), si)}, USE.NAMES = FALSE)
 
   s <- gsub(" v\\. ", "v\\.", s)
 

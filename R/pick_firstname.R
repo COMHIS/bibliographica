@@ -1,4 +1,4 @@
-#' @title pick_firstname
+#' @title Pick First Name
 #' @description Pick first name from full name, assuming the format is known 
 #' @param x a vector of full names
 #' @param format name format
@@ -18,9 +18,9 @@ pick_firstname <- function (x, format = "last, first", keep.single = FALSE) {
   x <- xuniq
 
   if (format == "last, first") {
-    first <- sapply(x, function (x) {y <- unlist(strsplit(x, ", "), use.names = FALSE); if (length(y)>1) y[[2]] else if (keep.single) {y[[1]]} else {NA} })
+    first <- sapply(x, function (x) {y <- unlist(strsplit(x, ", "), use.names = FALSE); if (length(y)>1) y[[2]] else if (keep.single) {y[[1]]} else {NA} }, USE.NAMES = FALSE)
   } else if (format == "first last") {
-    first <- sapply(x, function (x) {unlist(strsplit(x, " "), use.names = FALSE)[[1]]})
+    first <- sapply(x, function (x) {unlist(strsplit(x, " "), use.names = FALSE)[[1]]}, USE.NAMES = FALSE)
   } else {
     stop("Correct the unknown format in pick_firstname function.")
   }

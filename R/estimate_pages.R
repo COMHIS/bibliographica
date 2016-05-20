@@ -15,7 +15,6 @@ estimate_pages <- function (x) {
   } else if (length(grep("^\\[[0-9]+ {0,1}[p|s]{0,1}\\]$", x)>0)) {
 
     # "[3]" or [3 p]
-    #return(as.numeric(remove.squarebrackets(gsub(" [p|s]", "", x))))
     return(as.numeric(str_trim(gsub("\\[", "", gsub("\\]", "", gsub(" [p|s]", "", x))))))
   } else if (length(grep("^[0-9]+ sheets$", x)) == 1) {
     # "1 sheet is 2 pages"
@@ -38,11 +37,6 @@ estimate_pages <- function (x) {
       x <- gsub("^p", "", x)
     }    
   }
-  #else if (length(grep("^[0-9]+ *\\, *[0-9]+$", x))>0) {
-  #  # 9, 15
-  #  return(sum(as.numeric(str_trim(unlist(strsplit(x, "\\,"), use.names = FALSE)))))  
-  #}
-  
 
   # --------------------------------------------
 
@@ -56,7 +50,7 @@ estimate_pages <- function (x) {
   spl <- unlist(strsplit(x, ","), use.names = FALSE)
 
   # Harmonize pages within each comma
-  x <- sapply(spl, function (x) { harmonize_pages_by_comma(x) })
+  x <- sapply(spl, function (x) { harmonize_pages_by_comma(x) }, USE.NAMES = FALSE)
 
   # Remove empty items
   x <- as.vector(na.omit(x))
@@ -130,7 +124,7 @@ estimate_pages <- function (x) {
   xinds <- x[inds]
   if (length(grep("sheet", xinds))>0) {
     # 1 sheet = 2 pages
-    xinds <- sapply(xinds, function (xi) {str_trim(unlist(strsplit(xi, "sheet"), use.names = FALSE)[[1]])})
+    xinds <- sapply(xinds, function (xi) {str_trim(unlist(strsplit(xi, "sheet"), use.names = FALSE)[[1]])}, USE.NAMES = FALSE)
     xx <- suppressWarnings(2 * as.numeric(as.roman(xinds)))
   } 
   pages$sheet <- sumrule(xx) 

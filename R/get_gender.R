@@ -37,7 +37,7 @@ get_gender <- function (x, gendermap) {
 
   # Split by space
   spl <- strsplit(first.names, " ")
-  len <- sapply(spl, length)
+  len <- sapply(spl, length, USE.NAMES = FALSE)
 
   # Match unique names to genders
   gender <- rep(NA, length(first.names))
@@ -51,13 +51,13 @@ get_gender <- function (x, gendermap) {
   inds <- which(len > 1)
 
   gtmp <- lapply(spl[inds], function (x) {unique(na.omit(map(x, map, from = "name", to = "gender", remove.unknown = TRUE)))})
-  # Handle ambiguous cases 
-  gtmp[sapply(gtmp, length) == 0] <- NA
-  gtmp[sapply(gtmp, length) > 1] <- "ambiguous"
+  # Handle ambiguous cases
+  len <- sapply(gtmp, length, USE.NAMES = FALSE)
+  gtmp[len == 0] <- NA
+  gtmp[len > 1] <- "ambiguous"
   # Set the identified genders
-  gtmp <- sapply(gtmp, identity)
-  gender[inds] <- gtmp
-  gender <- unname(sapply(gender, identity))
+  gender[inds] <- sapply(gtmp, identity, USE.NAMES = FALSE)
+  gender <- unname(sapply(gender, identity, USE.NAMES = FALSE))
 
   # Project unique names back to the original domain
   gender[match(first.names.orig, first.names.uniq)]

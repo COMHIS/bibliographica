@@ -1,8 +1,8 @@
-#' @title Condense spaces
+#' @title Condense Spaces
 #' @description Trim and remove double spaces from the input strings.
 #' @param x A vector
 #' @importFrom stringr str_trim
-#' @return A vector with spaces removed
+#' @return A vector with extra spaces removed
 #' @details Beginning, double and ending spaces are also removed from the strings.
 #' @export 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}

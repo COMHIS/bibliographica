@@ -29,15 +29,12 @@ remove_terms_all <- function (x, terms, include.lowercase = FALSE, polish = TRUE
     terms <- sort(unique(terms))
 
     # Go from longest to shortest term to avoid nested effects
-    terms <- terms[rev(order(sapply(terms, nchar)))]
+    terms <- terms[rev(order(sapply(terms, nchar, USE.NAMES = FALSE)))]
     
   }
 
   for (term in terms) {
-
-    #x[x == term] <- " "
     x <- gsub(term, " ", x)
-
   }
 
   if (polish) {

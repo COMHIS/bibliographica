@@ -49,10 +49,8 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   s <- unname(harmonize_volume(s))
 
   # Back to original indices and new unique reduction 
-  s <- s[match(sorig, suniq)]
-  sorig <- s
-  suniq <- unique(sorig)
-  s <- suniq
+  sorig <- s[match(sorig, suniq)]
+  s <- suniq <- unique(sorig)
 
   if (verbose) {message("Harmonize ie")}
   s <- harmonize_ie(s)
@@ -145,19 +143,23 @@ polish_physext_help <- function (s, page.harmonize) {
   # Vectorization would be faster but we prefer simplicity and modularity here
 
   # Pagecount per semicolon separated unit
-  spl <- unlist(strsplit(s, ";"), use.names = FALSE)
+  if (length(grep(";", s)) > 0) {
+    spl <- unlist(strsplit(s, ";"), use.names = FALSE)
+    s <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, page.harmonize)})))
+  } else {
+    s <- polish_physext_help2(s, page.harmonize)
+  }
 
-  x <- try(unname(sapply(spl, function (x) {polish_physext_help2(x, page.harmonize)})))
-  if (class(x) == "try-error") {
-    x <- NA
+  if (class(s) == "try-error") {
+    s <- NA
   } 
 
-  x[x == ""] <- NA
-  x[x == "NA"] <- NA  
-  x <- as.numeric(x)
+  s[s == ""] <- NA
+  s[s == "NA"] <- NA  
+  s <- as.numeric(s)
 
   # Return
-  c(sum(x, na.rm = TRUE), voln, vols)  
+  c(sum(s, na.rm = TRUE), voln, vols)  
 
 }
 
@@ -220,7 +222,7 @@ polish_physext_help2 <- function (x, page.harmonize) {
   x <- gsub("p\\.*$", "", x)
   x <- condense_spaces(x)
 
-  x <- estimate_pages(x)
+  x <- suppressWarnings(estimate_pages(x))
 
   x
   

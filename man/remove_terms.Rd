@@ -31,7 +31,7 @@ After removing the numerics, beginning, double and ending
          spaces are also removed from the strings.
 }
 \examples{
-\dontrun{x2 <- remove_terms(x, terms, where = "all")}
+x2 <- remove_terms("test this", c("this", "works"), where = "all")
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

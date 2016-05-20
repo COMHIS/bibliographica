@@ -41,7 +41,7 @@ handle_ie <- function (x, harmonize = TRUE, separator = "i.e") {
     } else {
       # [1658]-1659 [i.e. 1660] -> 1658-1660
       spl <- unlist(strsplit(x, "-"), use.names = FALSE)
-      u <- sapply(spl, function (s) {handle_ie(s)})
+      u <- sapply(spl, function (s) {handle_ie(s)}, USE.NAMES = FALSE)
       x <- paste(u, collapse = "-")
     }
     

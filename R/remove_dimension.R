@@ -9,7 +9,7 @@
 remove_dimension <- function (x, terms) {
 
   # Go from longest to shortest term to avoid nested effects
-  terms <- terms[rev(order(sapply(unique(terms), nchar)))]
+  terms <- terms[rev(order(sapply(unique(terms), nchar, USE.NAMES = FALSE)))]
 
   x[x %in% terms] <- " "
 

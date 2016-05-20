@@ -242,8 +242,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
  
   message("Ambiguous authors with many birth years")
   births <- split(df.preprocessed$author_birth, df.preprocessed$author_name)
-  births <- births[sapply(births, length) > 0]
-  many.births <- lapply(births[names(which(sapply(births, function (x) {length(unique(na.omit(x)))}) > 1))], function (x) {sort(unique(na.omit(x)))})
+  births <- births[sapply(births, length, USE.NAMES = FALSE) > 0]
+  many.births <- lapply(births[names(which(sapply(births, function (x) {length(unique(na.omit(x)))}, USE.NAMES = FALSE) > 1))], function (x) {sort(unique(na.omit(x)))})
   dfs <- df.preprocessed[df.preprocessed$author_name %in% names(many.births), c("author_name", "author_birth", "author_death")]
   dfs <- unique(dfs)
   dfs <- dfs %>% arrange(author_name, author_birth, author_death)
@@ -305,8 +305,10 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   }
   rms <- as.character(syn$synonyme[is.na(as.character(syn$name))])
   tab <- as.character(df.preprocessed$publication_place)[is.na(df.preprocessed$country)]
+  
   # First remove places that have already been explicitly set to unknown
   tab <- setdiff(tab, rms)
+  
   # Then print the rest
   tmp <- write_xtable(tab, filename = "output.tables/publication_place_missingcountry.csv")
 
@@ -321,21 +323,24 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # the synonyme table:
   tab2 <- cbind(name = as.character(df.preprocessed$publication_place),
     synonyme = as.character(tolower(polish_place(df.orig$publication_place, harmonize = FALSE))))
+    
   # Combine the data from both tables
   tab <- unique(rbind(tab1, tab2))
+  
   # Identify ambiguous mappings
   s <- split(as.character(tab$name), tolower(as.character(tab$synonyme)))
-  s <- s[sapply(s, function(x) {length(unique(x))}) > 1]
+  s <- s[sapply(s, function(x) {length(unique(x))}, USE.NAMES = FALSE) > 1]
   tab <- tab[tab$synonyme %in% names(s),]
-  tab <- tab[order(tab$synonyme),]  
+  tab <- tab[order(tab$synonyme),]
+  
   # Only include those that we have in our data
   tab <- tab[as.character(tab$name) %in% as.character(df.preprocessed$publication_place),]  
   write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
 
 
-
   message("Ambiguous countries listing")    
   tab <- read.csv(system.file("extdata/reg2country.csv", package = "bibliographica"), sep = ";")
+  
   # Cases with explicit mention of ambiguity
   inds2 <- c(grep("Ambiguous", tab$country),
        	   grep("Ambiguous", tab$region),

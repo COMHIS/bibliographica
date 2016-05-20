@@ -12,16 +12,15 @@
 capitalize <- function (x, format = "first.letter") {
 
   # Speed up by considering unique instances only
-  xorig = x
-  xuniq = unique(xorig)
-  x = xuniq
+  xorig <- x
+  x <- xuniq <- unique(xorig)
 
   if (format == "first.letter") {
     for (a in letters) {
       x <- gsub(paste0("^", a), toupper(a), x)
     }
   } else if (format == "all.words") {
-    x <- sapply(strsplit(x, " "), function (x) {paste(capitalize(x, format = "first.letter"), collapse = " ")})
+    x <- sapply(strsplit(x, " "), function (x) {paste(capitalize(x, format = "first.letter"), collapse = " ")}, USE.NAMES = FALSE)
   }
 
   x[match(xorig, xuniq)]
