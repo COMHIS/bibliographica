@@ -36,8 +36,9 @@ plates2pages <- function (s) {
     }
 
     # multiply the numbers xi by 2 (4 leaves = 8 pages)
-    s <- 2 * s
+    s <- 2 * as.numeric(s)
     s <- paste(s, "pages calculated from plates")
+
   }
 
   s

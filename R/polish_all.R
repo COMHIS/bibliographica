@@ -15,7 +15,6 @@
 polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.cores = 1, conversions = list()) {
 
   if (is.null(fields)) {
-  
     message("List raw data fields to be preprocessed")
     fields <- names(df.orig) # Update all
   }
