@@ -97,7 +97,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   sorig <- s[match(sorig, suniq)]
   s <- suniq <- unique(sorig)
 
-  save(s, file = "~/tmp/tmp.RData")
+  #save(s, file = "~/tmp/tmp.RData")
   if (verbose) {message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))}
   ret <- parallel::mclapply(suniq, function (s) { a <- try(polish_physext_help(s, page.harmonize)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
 
@@ -123,7 +123,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 #' @keywords internal
 polish_physext_help <- function (s, page.harmonize) {
 
-  print(s)
+  #print(s)
 
   # Return NA if conversion fails
   if (length(s) == 1 && is.na(s)) { return(rep(NA, 3)) } 
