@@ -2,7 +2,7 @@
 % Please edit documentation in R/cleanup_table.R
 \name{cleanup_synonyme_table}
 \alias{cleanup_synonyme_table}
-\title{cleanup_synonyme_table}
+\title{Clean synonyme table}
 \usage{
 cleanup_synonyme_table(f, sep = ";", write = FALSE)
 }

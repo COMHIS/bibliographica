@@ -3,14 +3,13 @@
 #' @details This function is used only to estimate pagecounts for documents with missing page count information.
 #' Therefore no page count is considered in assessing the issue status.
 #' @param df data.frame of documents x variables
-#' @param na.pagecount Logical. Include only documents with missing page count.
 #' @return Logical vector indicating the single-volume docs
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @export
 #' @examples \dontrun{issue <- is.singlevol(df)}
 #' @keywords utilities
-is.singlevol <- function (df, na.pagecount = TRUE) {
+is.singlevol <- function (df) {
 
   # Default single-vol docs:
   # those with a single volcount, or missing volcount
@@ -25,11 +24,6 @@ is.singlevol <- function (df, na.pagecount = TRUE) {
 
   # Exclude large sizes
   inds <- inds & !df$gatherings %in% c("1to", "2small", "2to", "2long")
-
-  # Include only documents with missing page count
-  if (na.pagecount) {
-    inds <- inds & is.na(df$pagecount)
-  }
 
   # Set NAs to FALSE
   inds[is.na(inds)] <- FALSE

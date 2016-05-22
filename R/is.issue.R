@@ -16,8 +16,8 @@ is.issue <- function (df, na.pagecount = TRUE) {
   selected.gatherings <- c("1to", "2small", "2to", "2long", "4small", "4to", "4long")
   inds1 <- (df$gatherings %in% selected.gatherings) 
   
-  # Any gatherings with >10 vols
-  inds2 <- df$volcount > 10 
+  # All docs with >30 vols
+  inds2 <- df$volcount > 30 
 
   # Large gatherings and docs with many volumes are considered issues
   inds <- inds1 | inds2

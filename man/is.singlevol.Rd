@@ -4,12 +4,10 @@
 \alias{is.singlevol}
 \title{Identify single volume docs}
 \usage{
-is.singlevol(df, na.pagecount = TRUE)
+is.singlevol(df)
 }
 \arguments{
 \item{df}{data.frame of documents x variables}
-
-\item{na.pagecount}{Logical. Include only documents with missing page count.}
 }
 \value{
 Logical vector indicating the single-volume docs

@@ -1,4 +1,4 @@
-#' @title cleanup_synonyme_table
+#' @title Clean synonyme table
 #' @description Clean up the synonyme table.
 #'
 #' @param f File name

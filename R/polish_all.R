@@ -65,7 +65,9 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.
     
   }
 
-  list(df.preprocessed = df.preprocessed, conversions = conversions, preprocessing.times = preprocessing.times)
+  list(df.preprocessed = df.preprocessed,
+       conversions = conversions,
+       preprocessing.times = preprocessing.times)
 
 }
 
