@@ -31,9 +31,8 @@ inds2 <- inds
 df.preprocessed[inds, "pagecount"] <- estimate_pages_multivol(df.preprocessed[inds,], mean.pagecounts.multivol)
 
 # Single-vol docs missing pagecount
-inds <- is.singlevol(df.preprocessed, na.pagecount = TRUE) 
-inds3 <- inds
-df.preprocessed[inds, "pagecount"] <- estimate_pages_univol(df.preprocessed[inds,], mean.pagecounts.univol)
+inds3 <- is.singlevol(df.preprocessed) & is.na(df.preprocessed$pagecount)
+df.preprocessed[inds3, "pagecount"] <- estimate_pages_univol(df.preprocessed[inds,], mean.pagecounts.univol)
 
 # Store information on cases where pages were estimated
 estimated.pagecount <- cbind(id = df.preprocessed$original_row,
