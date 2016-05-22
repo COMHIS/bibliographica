@@ -18,9 +18,8 @@ source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
 
 # Identify issues that are missing pagecount
 # and add page count estimates
-inds <- is.issue(df.preprocessed, na.pagecount = TRUE)
-inds1 <- inds
-df.preprocessed[inds, "pagecount"] <- estimate_pages_issue(df.preprocessed[inds,], mean.pagecounts.issue)
+inds1 <- is.issue(df.preprocessed) & is.na(df.preprocessed$pagecount)
+df.preprocessed[inds1, "pagecount"] <- estimate_pages_issue(df.preprocessed[inds,], mean.pagecounts.issue)
 
 # Identify multi-vol docs
 # .. and then take only those without page count
