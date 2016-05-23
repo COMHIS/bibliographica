@@ -19,10 +19,10 @@ is.issue <- function (df, na.pagecount = TRUE) {
   # All docs with >30 vols
   inds2 <- df$volcount > 30 
 
-  # All multivols (>=2) that have publication frequency
-  inds3 <- (df$volcount >= 2) & !is.na(df$publication_frequency)
+  # All documents that have publication frequency
+  inds3 <- !is.na(df$publication_frequency)
 
-  # All multivols that have publication period of >= 3 years
+  # All multivols (>=2) that have publication period of >= 3 years
   inds4 <- (df$volcount >= 2) &
   	     (df$publication_year_till - df$publication_year_from) >= 3
 
