@@ -156,6 +156,10 @@ test_that("Page count is correct", {
   expect_equal(polish_physical_extent("v.8([6],338,[204]),plates")$pagecount, 552)  
   expect_equal(polish_physical_extent("2-3 i.e 5")$pagecount, 4) # 2 - 5
   expect_equal(polish_physical_extent("2-3 [ie. 5]")$pagecount, 4) # 2 - 5
+
+  # po. is the same than ie. (Finnish)
+  expect_equal(polish_physical_extent("[2], 16 [po. 14] s.")$pagecount, 16) 
+
   expect_equal(polish_physical_extent("2-3 [ie 5]")$pagecount, 4) # 2 - 5
   expect_equal(polish_physical_extent("2-3 [ ie 5]")$pagecount, 4) # 2 - 5
   expect_equal(polish_physical_extent("2-3 [i.e 5]")$pagecount, 4) # 2 - 5

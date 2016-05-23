@@ -23,4 +23,23 @@ p <- ggplot(df2, aes(publication_decade)) +
 print(p)
 ```
 
+### Publication frequency
 
+Publication frequency is available for `r sum(!is.na(df$publication_frequency))` documents (`r round(100*mean(!is.na(df$publication_frequency)))`%). 
+
+[Publication frequency accepted](output.tables/publication_frequency_discarded.csv)
+
+[Publication frequency conversions](output.tables/publication_frequency_conversion.csv)
+
+[Publication frequency discarded](output.tables/publication_frequency_discarded.csv)
+
+
+### Publication interval
+
+Publication interval is available for `r sum(!is.na(df$publication_interval))` documents (`r round(100*mean(!is.na(df$publication_interval)))`%). 
+
+[Publication interval accepted](output.tables/publication_interval_discarded.csv)
+
+[Publication interval conversions](output.tables/publication_interval_conversion.csv)
+
+[Publication interval discarded](output.tables/publication_interval_discarded.csv)
