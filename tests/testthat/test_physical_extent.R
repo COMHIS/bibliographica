@@ -2,7 +2,8 @@ context("Physical extent")
 
 test_that("Page count is correct", {
 
-
+  expect_true(is.na(polish_physical_extent("1 atlas")$pagecount))
+  expect_true(is.na(polish_physical_extent("381cards in box")$pagecount))  
 
   expect_equal(polish_physical_extent("1to")$pagecount, 2)
   expect_equal(polish_physical_extent("1 leaf")$pagecount, 2)  
