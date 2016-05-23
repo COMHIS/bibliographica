@@ -16,10 +16,10 @@ source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
 
 # --------------------------------------------------------------------------
 
-# Identify issues that are missing pagecount
+print("Identify issues that are missing pagecount")
 # and add page count estimates
 inds1 <- is.issue(df.preprocessed) & is.na(df.preprocessed$pagecount)
-df.preprocessed[inds1, "pagecount"] <- estimate_pages_issue(df.preprocessed[inds,], mean.pagecounts.issue)
+df.preprocessed[inds1, "pagecount"] <- estimate_pages_issue(df.preprocessed[inds1,], mean.pagecounts.issue)
 
 # Identify multi-vol docs
 # .. and then take only those without page count
@@ -32,7 +32,7 @@ df.preprocessed[inds, "pagecount"] <- estimate_pages_multivol(df.preprocessed[in
 
 # Single-vol docs missing pagecount
 inds3 <- is.singlevol(df.preprocessed) & is.na(df.preprocessed$pagecount)
-df.preprocessed[inds3, "pagecount"] <- estimate_pages_univol(df.preprocessed[inds,], mean.pagecounts.univol)
+df.preprocessed[inds3, "pagecount"] <- estimate_pages_univol(df.preprocessed[inds3,], mean.pagecounts.univol)
 
 # Store information on cases where pages were estimated
 estimated.pagecount <- cbind(id = df.preprocessed$original_row,
