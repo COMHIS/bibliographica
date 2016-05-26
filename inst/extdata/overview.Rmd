@@ -16,7 +16,7 @@ output: markdown_document
   * [Publication year info](publicationyear.md)
   * [Titles](title.md)  
   * [Document sizes](size.md)
-  * [Document topics](topic.md)
+  * [Document and subject topics](topic.md)
   * [Languages](language.md)
 
 ## Field conversions

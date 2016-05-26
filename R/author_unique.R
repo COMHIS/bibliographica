@@ -28,11 +28,6 @@ author_unique <- function (df, format = "last, first", initialize.first = FALSE)
 
   last  <- pick_lastname(dfa.uniq$author_name, format = format, keep.single = TRUE)
 
-  # Cut the full first names into initials
-  #if (initialize.first) {
-  #  first <- name_initials(first)
-  #}
-
   author_unique <- apply(cbind(last, first, dfa.uniq$author_birth, dfa.uniq$author_death), 1, function (x) {paste(x[[1]], ", ", x[[2]], " (", x[[3]], "-", x[[4]], ")", sep = "")})  
   author_unique[is.na(dfa.uniq$author_name)] <- NA
   author_unique <- gsub(" \\(NA-NA\\)", "", author_unique)

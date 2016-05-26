@@ -8,3 +8,7 @@ message("Enriching publication years..")
 
   print("Add publication decade")
   df.preprocessed$publication_decade <- floor(df.preprocessed$publication_year/10) * 10 # 1790: 1790-1799
+
+  print("Mark potential first editions")
+  df.preprocessed$first_edition <- is_first_edition(df.preprocessed)
+

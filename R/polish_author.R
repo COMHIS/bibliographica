@@ -74,21 +74,41 @@ polish_author <- function (s, stopwords = NULL, verbose = FALSE) {
   s <- gsub("[\\.|\\,]+$", "", s)
 
   # Map back to original indices, then make unique again. Helps to further reduce cases.
-  s <- s[match(sorig, suniq)]
-  sorig <- s
-  suniq <- unique(s)
-  s <- suniq
+  sorig <- s[match(sorig, suniq)]
+  s <- suniq <- unique(sorig)
+
+  # ----------------------------------------------------------------
 
   if (verbose) { message("Separating names") }
   # Assume names are of format Last, First
   # TODO O. K. Humble, Verner -> First: Verner O K Last: Humble
-  first <- pick_firstname(s)
-  last  <-  pick_lastname(s)
-  # Where the name did not match the assumed format, use the complete form as the last name
-  inds <- which(is.na(first) & is.na(last))
+  # pseudonymes are taken as such
+  first <- last <- rep(NA, length(s))
+  pseudo.inds <- which(s %in% pseudo)
+  inds <- inds1 <- setdiff(grep(",", s), pseudo.inds)
+  if (length(inds) > 0) {
+    first[inds] <- pick_firstname(s[inds], format = "last, first")
+    last[inds]  <-  pick_lastname(s[inds], format = "last, first")
+  }
+  inds <- inds2 <- setdiff(setdiff(grep(" ", s), inds1), pseudo.inds)
+  if (length(inds) > 0) {
+    first[inds] <- pick_firstname(s[inds], format = "first last")
+    last[inds]  <-  pick_lastname(s[inds], format = "first last")
+  }
+  # Where the name did not match the assumed formats, use the complete form as
+  # the last name
+  inds <- inds3 <- setdiff(which(is.na(first) & is.na(last)), pseudo.inds)
   if (length(inds) > 0) {
     last[inds] <- as.character(s[inds])
   }
+  # Mark pseudonymes as first names
+  inds <- inds4 <- pseudo.inds
+  if (length(pseudo.inds) > 0) {
+    first[inds] <- as.character(s[inds])
+  }  
+
+  # ------------------------------------------------------------
+
 
   if (verbose) { message("Formatting names") }
   # Some additional formatting

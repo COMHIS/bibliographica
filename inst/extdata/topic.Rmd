@@ -21,11 +21,40 @@ tab <- rev(sort(tab))
   * [List of discarded subject topics](output.tables/subject_topic_discarded.csv)
   * `r sum(!is.na(df$subject_topic))` documents (`r round(100*mean(!is.na(df$subject_topic)))`%) are assigned a subject topic 
 
+
 Top-`r ntop` subject topics and number of documents for each.
 
 ```{r summarytopics22, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=8}
 p <- top_plot(df, "subject_topic", ntop)
 p <- p + ggtitle(paste("Top subject topics"))
+p <- p + ylab("Documents")
+print(p)
+```
+
+### Publication topic
+
+We also have the publication_topic field.
+
+```{r summarytopics22334, echo=FALSE, message=FALSE, warning=FALSE}
+# List all topics
+spl <- strsplit(na.omit(as.character(df$publication_topic)), ";")
+
+# Title count per publication topic
+tab <- sort(table(unlist(spl)))
+tab <- tab[!names(tab) == "NA"]
+tab <- rev(sort(tab)) 
+```
+
+  * `r length(unique(df$publication_topic))` [unique accepted publication topics](output.tables/publication_topic_accepted.csv)
+  * [List of discarded publication topics](output.tables/publication_topic_discarded.csv)
+  * `r sum(!is.na(df$publication_topic))` documents (`r round(100*mean(!is.na(df$publication_topic)))`%) are assigned a publication topic 
+
+
+Top-`r ntop` publication topics and number of documents for each.
+
+```{r summarytopics223, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=8}
+p <- top_plot(df, "publication_topic", ntop)
+p <- p + ggtitle(paste("Top publication topics"))
 p <- p + ylab("Documents")
 print(p)
 ```

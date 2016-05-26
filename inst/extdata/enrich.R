@@ -6,14 +6,16 @@ if (c("publication_place", "publication_geography") %in% update.fields) {
   source(system.file("extdata/enrich_geo.R", package = "bibliographica"))
 }
 
+if (c("author_name", "author_date") %in% update.fields) {
+  source(system.file("extdata/enrich_author.R", package = "bibliographica"))
+}
+
 # Always do. This is fast.
+# Do after enrich_author
 #if ("publication_time" %in% update.fields) {
   source(system.file("extdata/enrich_years.R", package = "bibliographica"))
 #}
 
-if (c("author_name", "author_date") %in% update.fields) {
-  source(system.file("extdata/enrich_author.R", package = "bibliographica"))
-}
 
 if ("publisher" %in% update.fields) {
 

@@ -2,14 +2,12 @@
 % Please edit documentation in R/is.issue.R
 \name{is.issue}
 \alias{is.issue}
-\title{Identify issues}
+\title{Issue Identification}
 \usage{
-is.issue(df, na.pagecount = TRUE)
+is.issue(df)
 }
 \arguments{
 \item{df}{data.frame of documents x variables}
-
-\item{na.pagecount}{Logical. Include only documents with missing page count.}
 }
 \value{
 Logical vector indicating the issues
