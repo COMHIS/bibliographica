@@ -1,0 +1,11 @@
+synonyme	name
+sal. <nimi>	<nimi>
+sl. <nimi>	<nimi>
+<nimi> [äe]nc?ki?a	<nimi> leski
+<nimi>, [[:lower:]]+.*	<nimi>
+<nimi> lesken.*	<nimi> leski
+<nimi> wainaja.*	<nimi> vainaja
+[Vv]idua <nimi>	<nimi> leski
+[Kk][.] [Bb][.] <nimi>	<nimi>
+<nimi> regi?s? typogr.*	<nimi>
+typis <nimi>	<nimi>
