@@ -1,11 +1,15 @@
 synonyme	name
-sal. <nimi>	<nimi>
-sl. <nimi>	<nimi>
-<nimi> [äe]nc?ki?a	<nimi> leski
-<nimi>, [[:lower:]]+.*	<nimi>
-<nimi> lesken.*	<nimi> leski
-<nimi> wainaja.*	<nimi> vainaja
-[Vv]idua <nimi>	<nimi> leski
-[Kk][.] [Bb][.] <nimi>	<nimi>
-<nimi> regi?s? typogr.*	<nimi>
-typis <nimi>	<nimi>
+sah?l[.] <name> [äe]nc?ki?a	<name> leski
+ sah?l <name>	 <name> vainaja
+sah?l[.] <name>	<name> vainaja
+sl[.] <name>	<name> vainaja
+sah?lig <name>	<name> vainaja
+<name> [äe]nc?ki?a	<name> leski
+<name>, [[:lower:]]+.*	<name>
+<name> lesken.*	<name> leski
+<name> wainaja.*	<name> vainaja
+[Vv]idua <name>	<name> leski
+[Kk][.] [Bb][.] <name>	<name>
+<name> regi?s? typogr.*	<name>
+typis <name>	<name>
+.*, hos <name>	<name>

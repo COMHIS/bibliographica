@@ -157,15 +157,15 @@ s? ?[Ff]örlagsa[.]-b[.]
 ^[Tt]r[.] hos 	
 (s )?[Tt]r[.]	
 s? tr$	
-(s )?[Bb]oktr[.]?	
-[Bb]oktryckeriet	
-[Bb]oktryckeri	
-[Oo]ffsettryckeriet	
-[Oo]ffsettryckeri	
+(s )?[Bb]oktr[.]?$	
+[Bb]oktryckeriet$	
+[Bb]oktryckeri$	
+[Oo]ffsettryckeriet$	
+[Oo]ffsettryckeri$	
 [Oo]ffsettr[.]?	
-[Tt]ryckeriet	
+[Tt]ryckeriet$	
 [Tt]ryckeri-ab
-[Tt]ryckeri	
+[Tt]ryckeri$	
  i [0-9]+ (numr[.] )?ex[.]	
 [Pp]ublishing House	
 [Pp]ubl[.] House	
@@ -209,6 +209,12 @@ Frk[.]	fröken
 stud[.]	student
 rör[.]	rörelse
 Reg[.]	regis
-Regis 	regis
+[Rr]egis 	regis 
 Königl[.]	königlische
 Kungliga	kungliga
+Buchdr	buchdr
+ [ÄäEe]nc?ki?a 	 leski 
+ [ÄäEe]nc?ki?a$	 leski
+[Tt]ryckt hoo?s sal[.]	
+[Tt]ryckt hoo?s	
+[Ii]mprimebat	
