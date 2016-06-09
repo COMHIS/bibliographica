@@ -1,7 +1,13 @@
 #' @import babynames
 #' @import genderdata
+#' @importFrom stats median
+#' @importFrom stats na.omit
+#' @importFrom utils as.roman
+#' @importFrom utils read.csv
+#' @importFrom utils write.table
 #' @importFrom data.table fread
 #' @importFrom dplyr count
+#' @importFrom dplyr filter
 #' @importFrom dplyr group_by
 #' @importFrom dplyr n
 #' @importFrom dplyr rbind_all
