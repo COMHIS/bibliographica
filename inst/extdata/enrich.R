@@ -2,6 +2,8 @@
 ## CALCULATE AVERAGE DOC SIZES FROM THE ORIGINAL ENTRIES
 ##
 
+check <- "enrich"
+
 if (c("publication_place", "publication_geography") %in% update.fields) {
   source(system.file("extdata/enrich_geo.R", package = "bibliographica"))
 }

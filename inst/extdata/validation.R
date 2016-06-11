@@ -1,3 +1,6 @@
+check <- "validation"
+
+
 min.year <- (-2000)
 max.year <- as.numeric(format(Sys.time(), "%Y")) # this.year
 
