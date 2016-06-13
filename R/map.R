@@ -31,7 +31,10 @@ map <- function (x, synonymes, remove.unknown = FALSE, mode = "exact.match", ver
     # By default each term maps to itself
     # TODO to speed up remove first those that match directly
     # Only check those cases that overlap
-    inds <- which(xuniq %in% synonymes$synonyme)
+    #inds <- which(xuniq %in% synonymes$synonyme)
+    # Hack due some odd R bug that renders the previous line unfunctional
+    terms <- intersect(synonymes$synonyme, xuniq)
+    inds = which(xuniq %in% terms)
 
     if (remove.unknown && length(inds) == 0) {
       xx <- rep(NA, length(xx))
