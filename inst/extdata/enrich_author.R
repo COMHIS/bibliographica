@@ -26,7 +26,7 @@ message("Add estimated author genders")
 first.names <- pick_firstname(df.preprocessed$author_name, format = "last, first", keep.single = TRUE)
 
 # First use gender mappings from the ready-made table
-if (is.null(gendermap.file)) {
+if (!exists("gendermap.file") || is.null(gendermap.file)) {
   gendermap.file = system.file("extdata/gendermap.csv", package = "bibliographica")
 }
 gendermap <- read_mapping(gendermap.file, sep = "\t", from = "name", to = "gender")
