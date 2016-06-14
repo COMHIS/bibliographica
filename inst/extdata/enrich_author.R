@@ -19,8 +19,6 @@ message("Enriching author fields..")
 # TODO improve: many names are missing gender;
 # and time variation in name-gender mappings not counted
 message("Add estimated author genders")
-# Assumes that the author name is in the form "Last, First".
-
 # Filter out names that are not in our input data
 # (this may speed up a bit)
 first.names <- pick_firstname(df.preprocessed$author_name, format = "last, first", keep.single = TRUE)
@@ -32,15 +30,15 @@ if (!exists("gendermap.file") || is.null(gendermap.file)) {
 gendermap <- read_mapping(gendermap.file, sep = "\t", from = "name", to = "gender")
 df.preprocessed$author_gender <- get_gender(first.names, gendermap)
 
-# Custom name-gender mappings to resolve ambiguous cases
+print("Custom name-gender mappings to resolve ambiguous cases")
 # Consider the custom table as primary  
 # ie override other matchings with it
 custom <- gender_custom()
 g <- get_gender(first.names, custom)
 inds <- which(!is.na(g))
-gendermap$gender[inds] <- g[inds]
+df.preprocessed$author_gender[inds] <- g[inds]
 
-# Add author genders from the generic author info custom table
+print("Add genders from the generic author info custom table")
 tab <- read.csv(system.file("extdata/author_info.csv", package = "bibliographica"), sep = "\t")
 g <- map(df.preprocessed$author_name, tab, from = "author_name", to = "author_gender", remove.unknown = TRUE)
 inds <- which(!is.na(g))
