@@ -12,6 +12,12 @@
 #' @keywords utilities
 write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") {
 
+  if (length(tab) == 0) {  
+    message("The input to write_table is empty.")
+      write("The input list is empty.", file = filename)    
+    return(NULL)
+  }
+
   if (is.factor(x)) {
     x <- as.character(x)
   }
@@ -44,8 +50,9 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") 
     id <- apply(x, 1, function (x) {paste(x, collapse = "-")})
     ido <- rev(sort(table(id)))
     idn <- ido[match(id, names(ido))]
-    
-    tab <- cbind(x, Count = idn)
+
+    tab = x
+    tab$Count = idn
     tab <- tab[!duplicated(tab),]
 
     if (is.null(filename)) {
@@ -57,10 +64,7 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") 
     if (length(tab) > 0) {
       tab <- as.matrix(tab, nrow = nrow(x))
       if (ncol(tab) == 1) { tab <- t(tab) }
-      colnames(tab) <- c(colnames(x), "Count.id", "Count")
-      tab = as.data.frame(tab[, -3])
-      # tab$Count.id = NULL
-      # colnames(tab) <- c(colnames(x), "Count")      
+      colnames(tab) <- c(colnames(x), "Count")
       rownames(tab) <- NULL
     } else {
       tab <- NULL

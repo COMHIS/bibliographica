@@ -179,7 +179,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   #-------------------------------------------------
 
-
   message("Conversion summaries")
   originals <- c(publisher = "publisher",
 	       country = "publication_place"
