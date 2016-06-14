@@ -120,7 +120,6 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   # For validation purposes might be good to comment this out
   # for initial runs.
   x <- suppressWarnings(remove_stopwords(x, terms = tolower(stopwords)))
-  x0 = x
   if (harmonize) {
 
     # Then match place names to synonymes		
