@@ -36,6 +36,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   # Prepare
   if (verbose) { message("Convert to lowercase character and make unique list") }
+  x0 = x
   xorig <- tolower(as.character(x))
   x <- xuniq <- unique(xorig)
 
@@ -66,7 +67,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   # Back to original indices, then unique again;
   # reduces number of unique cases further
   xorig <- x[match(xorig, xuniq)]
-  x <- xuniq <- sort(unique(xorig))
+  x <- xuniq <- unique(xorig)
 
   if (verbose) {message(paste("Polishing ", length(xuniq), " unique place names", sep = ""))}
   x <- remove_persons(x)
@@ -78,7 +79,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   # Back to original indices, then unique again;
   # reduces number of unique cases further
   xorig <- x[match(xorig, xuniq)]
-  x <- xuniq <- sort(unique(xorig))
+  x <- xuniq <- unique(xorig)
 
   if (verbose) {message("Remove stopwords")}
   f <- system.file("extdata/stopwords_for_place.csv", package = "bibliographica")
@@ -96,7 +97,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   # Back to original indices, then unique again;
   # reduces number of unique cases further
   xorig <- x[match(xorig, xuniq)]
-  x <- xuniq <- sort(unique(xorig))
+  x <- xuniq <- unique(xorig)
 
   if (verbose) {message("Detailed polishing")}
   s <- synonymes$synonyme
@@ -107,7 +108,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   # number of unique cases further
   if (verbose) {message("Match to original")}
   xorig <- x[match(xorig, xuniq)]
-  x <- xuniq <- sort(unique(xorig))  
+  x <- xuniq <- unique(xorig)
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
 
   if (verbose) { message("Harmonize the synonymous names") }
@@ -119,7 +120,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   # For validation purposes might be good to comment this out
   # for initial runs.
   x <- suppressWarnings(remove_stopwords(x, terms = tolower(stopwords)))
-
+  x0 = x
   if (harmonize) {
 
     # Then match place names to synonymes		

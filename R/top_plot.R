@@ -30,7 +30,7 @@ top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL) {
   tab <- rev(sort(table(x)))
   tab <- tab[tab > 0]
   
-  dfs <- data.frame(list(names = names(tab), count = tab))
+  dfs <- data.frame(names = names(tab), count = as.numeric(tab))
 
   # Show all cases if ntop not specified
   if (is.null(ntop)) {
