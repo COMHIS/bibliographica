@@ -8,7 +8,7 @@
 #' @references See citation("bibliographica")
 #' @examples
 #'   \dontrun{
-#'     gendermap <- read_mapping(system.file("inst/extdata/gendermap.csv", package = "bibliographica"), sep = "\t", from = "name", to = "gender")
+#'     gendermap <- read_mapping(system.file("extdata/gendermap.csv", package = "bibliographica"), sep = "\t", from = "name", to = "gender")
 #'     get_gender(c("armi", "julius"), gendermap)
 #' }
 #' @keywords utilities

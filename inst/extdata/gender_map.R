@@ -28,6 +28,9 @@ gender_map <- function (dictionaries = NULL) {
     first <- first[-inds, ]
   }
 
+  first$name = tolower(first$name)
+  first = unique(first)
+
   first %>% arrange(name)
 
   first
