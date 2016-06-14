@@ -14,7 +14,7 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") 
 
   if (length(x) == 0) {  
     message("The input to write_table is empty.")
-      write("The input list is empty.", file = filename)    
+    write("The input list is empty.", file = filename)    
     return(NULL)
   }
 
@@ -51,11 +51,15 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") 
     ido <- rev(sort(table(id)))
     idn <- ido[match(id, names(ido))]
 
-    tab = x
+    tab = as.data.frame(x)
     tab$Count = idn
-
-
     tab <- tab[!duplicated(tab),]
+
+    #if (length(tab) == 0) {  
+    #  message("The input to write_table is empty.")
+    #  write("The input list is empty.", file = filename)    
+    #  return(NULL)
+    #}
 
     if (is.null(filename)) {
       tab = tab[rev(order(tab$Count)),]
@@ -73,8 +77,7 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") 
     }
     
   }
-
-
+  
   # Arrange
   if (!sort.by %in% c("Count", colnames(x))) {
     #warning("Sorting by name")
