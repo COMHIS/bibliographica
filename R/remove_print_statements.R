@@ -9,7 +9,7 @@
 #' @keywords utilities
 remove_print_statements <- function (x) {
 
-  xorig <- tolower(as.character(x))
+  x0 = xorig <- tolower(as.character(x))
   xuniq <- unique(xorig)
   x <- xuniq
 
@@ -38,7 +38,7 @@ remove_print_statements <- function (x) {
   # number of unique cases further
   xorig <- x[match(xorig, xuniq)]
   x <- xuniq <- unique(xorig)
-  
+
   # Individual characters not removed from the end
   x <- remove_terms(x, terms.single, where = "begin", polish = FALSE, include.lowercase = FALSE)
 
@@ -74,6 +74,7 @@ remove_print_statements <- function (x) {
   x <- gsub("^(.*?);.*$","\\1",x) # nb. non-greedy match
   x[x==""] <- NA
 
+  x = x[match(xorig, xuniq)]
+  
   x
-
 }

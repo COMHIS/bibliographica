@@ -29,6 +29,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   # Handle from longest to shortest to avoid problems
   months <- months[rev(order(nchar(months)))]
 
+  x0 = x
   xorig <- x <- tolower(as.character(x))
   xuniq <- unique(xorig)
   x <- xuniq
@@ -61,14 +62,11 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   }
 
   # Map back to original indices and make unique again. To speedup further.
-  x <- x[match(xorig, xuniq)]
-  xorig <- x
-  xuniq <- unique(xorig)
-  x <- xuniq
+  xorig <- x[match(xorig, xuniq)]
+  x = xuniq <- unique(xorig)
 
   x <- harmonize_ie(x)
-
-  x <- gsub("-a", "- a", x) # -approximately 
+  x <- gsub("-a", "- a", x) # -approximately
   x <- remove_print_statements(x)
 
   # Map back to original indices and make unique again. To speedup further.
@@ -124,6 +122,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
       end_year[inds] <- NA      
     }
   }
+
 
   df <- data.frame(from = start_year, till = end_year)
   # Match the unique cases to the original indices
