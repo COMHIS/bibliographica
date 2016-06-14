@@ -57,7 +57,10 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") 
     if (length(tab) > 0) {
       tab <- as.matrix(tab, nrow = nrow(x))
       if (ncol(tab) == 1) { tab <- t(tab) }
-      colnames(tab) <- c(colnames(x), "Count")
+      colnames(tab) <- c(colnames(x), "Count.id", "Count")
+      tab = as.data.frame(tab[, -3])
+      # tab$Count.id = NULL
+      # colnames(tab) <- c(colnames(x), "Count")      
       rownames(tab) <- NULL
     } else {
       tab <- NULL

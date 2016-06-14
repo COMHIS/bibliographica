@@ -95,7 +95,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       	 		     select(author, author_gender)
   tmp <- write_xtable(tab,
       paste(output.folder, paste("author_accepted.csv", sep = "_"), sep = ""),
-      count = TRUE, sort.by = "author")
+      count = FALSE, sort.by = "author")
 
   # -------------------------------------------------      
 
