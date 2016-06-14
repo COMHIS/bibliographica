@@ -12,7 +12,7 @@
 #' @keywords utilities
 write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") {
 
-  if (length(tab) == 0) {  
+  if (length(x) == 0) {  
     message("The input to write_table is empty.")
       write("The input list is empty.", file = filename)    
     return(NULL)
@@ -53,6 +53,8 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") 
 
     tab = x
     tab$Count = idn
+
+
     tab <- tab[!duplicated(tab),]
 
     if (is.null(filename)) {
