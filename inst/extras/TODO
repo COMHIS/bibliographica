@@ -1,0 +1,85 @@
+* Technical
+
+Lisää README-fileihin tai summarymarkdowneihin viitteet nimi- ja
+gendertietokannosita.
+
+read_mapping -> Use the fast = TRUE more - at least for slower
+polishing function
+
+* Author names
+
+kaikkiin aineistoihin se VIAF auktorifile pitää selvittää. iso
+auktoritietokanta ja linkittää aika monesta paikkaa. Onko meillä
+mahiksia yrittää yhdistää tätä toimintoihin liittyen sekä auktoreihin
+että julkaisijoihin? Tuo on marc-pohjainen systeemi. Eetu on noita
+käyttänyt, se vois varmaan tässä kohtaa jeesata jos on tarvis.
+
+Test and validate place / person name clusterings. Could greatly
+facilitate analysis with new names but validation and error estimates
+are needed. Now we have gathered good ground truth lists so should be
+possible.
+
+Sukunimet ?
+http://en.wikipedia.org/wiki/Wikipedia:Persondata (From the XML dump)
+wikipediasta voisi periaatteessa ottaa yhdestä datadumpista kaikki henkilödatan joka pitää kaiketi sisällään kaikki wikipedian henkilöt? Ideaalitilanne jokaisesta henkilöstä voitaisiin vetää linkki wikipediaan ja vastavuoroisesti sieltä meidän systeemeihin. kun lopulta syntyvää kirjastojärjestelmää käytetään hyväksi muuhun kuin tilastollisiin juttuihin. Toinen lähde on VIAF Author file.
+
+
+* Geographical info
+
+The opencage R package
+https://cran.r-project.org/web/packages/opencage/vignettes/opencage.html
+https://github.com/ropenscilabs/opencage
+can be added to get more place-geocode mappings
+
+Consider adding country acronyme in the end of all place names.
+
+Recognize potentially ambiguous placename-country mapping
+automatically for instance with geoname data or another similar
+source/s. Then manually decide which country to use by default in each
+case. Also identify potential ambiguous places (for instance those
+that have common first part which may sometimes occur alone).
+
+Saako kaupunki-maa mäppäykset tietokannoista. Optioita:
+
+1) open geocode database
+   http://www.opengeocode.org/download.php#cities Cities of the World
+   näyttää tosi kattavalta, laajempi kuin se aikaisemmin lähettämäni
+   ja on puhtaasti open source. Lisäksi noita muita sovelluksia on mukavasti.
+
+2) map towns to gis coordinates, then gis to country
+
+3) geonames: Geonamesista löysin seuraavan aika hyvin asettuvan johon
+   listattuna aika kattavan oloisesti kaikki paikat joissa yli 15k
+   asukasta. Tämä voisi olla aika hyvä? Samalla sieltä löytyisi
+   kaikenlaista lisätietoa paikkoihin liittyen, maakoodit standardeina
+   jne. Eli varmaan sitten myöhemmin jos tehdään myös karttoja joissa
+   eri elementtejä niin tästä voisi olla hyötyä?
+
+Muita Usein mainittuja mäppäysresursseja:
+- Open Street Map
+- Yahoo's GeoPlanet provides a dataset of all named places on earth,
+  including oceans, countries, cities and villages. You can download
+  it at http://developer.yahoo.com/geo/geoplanet/data/
+- World Cities Database https://www.maxmind.com/en/worldcities
+  Includes city, region, country, latitude and longitude and
+  Population. A listing of all the cities in the world. This database
+  contains duplicate and incorrect entries. It is provided as-is, and
+  we are unable to provide support for it. For a cleaner database, try
+  GeoNames, but they may lack some cities included in our data.
+- GeoDataSource http://www.geodatasource.com/world-cities-database/free
+
+
+* Utilities
+
+Example data sets to be used with our tools
+
+Testaa networkD3-visuja, tosi hyviä ja varmaan relevantteja:
+http://christophergandrud.github.io/networkD3/
+
+* Subject classes
+
+- Melvil Decimal System_ http://www.librarything.com/mds/0
+- Dewey Decimal System: promised for us as a dump
+- Library of Congress Catalogue
+
+
