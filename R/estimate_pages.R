@@ -54,6 +54,7 @@ estimate_pages <- function (x) {
 
   # Remove empty items
   x <- as.vector(na.omit(x))
+  if (length(x) == 0) {x <- ""}
 
   page.count.multiplier <- 1
   if (length(grep("^ff", x[[1]]))==1) {

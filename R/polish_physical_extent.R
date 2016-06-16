@@ -123,8 +123,6 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 #' @keywords internal
 polish_physext_help <- function (s, page.harmonize) {
 
-  #print(s)
-
   # Return NA if conversion fails
   if (length(s) == 1 && is.na(s)) { return(rep(NA, 3)) } 
 

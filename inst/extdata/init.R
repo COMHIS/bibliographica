@@ -7,6 +7,10 @@ library(sorvi)
 # Create the output directory if not yet exists
 dir.create(output.folder)
 
+if (!exists("mc.cores")) {
+  mc.cores <- 1
+}
+
 # --------------------
 
 print("Read raw data")
