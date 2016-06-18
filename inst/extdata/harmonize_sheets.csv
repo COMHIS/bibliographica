@@ -32,6 +32,8 @@ table :;table
 \[1\] l\.;leaf
 \,l\.;,leaves
  l\.;leaves
+blank leaves;leaves
+blank leaf;leaf
 the last [0-9] p. blank;
 versos blank;
 woodcut;

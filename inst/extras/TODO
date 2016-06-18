@@ -6,13 +6,18 @@ gendertietokannosita.
 read_mapping -> Use the fast = TRUE more - at least for slower
 polishing function
 
+test_physical_extent:
+expect_equal(polish_physical_extent("17, 5 p.")$pagecount, 22)
+expect_equal(polish_physical_extent("20, 2 p.")$pagecount, 22)  
+
+
 * Author names
 
-kaikkiin aineistoihin se VIAF auktorifile pitää selvittää. iso
-auktoritietokanta ja linkittää aika monesta paikkaa. Onko meillä
-mahiksia yrittää yhdistää tätä toimintoihin liittyen sekä auktoreihin
-että julkaisijoihin? Tuo on marc-pohjainen systeemi. Eetu on noita
-käyttänyt, se vois varmaan tässä kohtaa jeesata jos on tarvis.
+kaikkiin aineistoihin VIAF auktorifile pitää selvittää. iso
+auktoritietokanta ja linkittää monesta paikkaa. Onko mahiksia yrittää
+yhdistää tätä liittyen sekä auktoreihin että julkaisijoihin?
+MARC-pohjainen systeemi. E noita käyttänyt, vois varmaan tässä kohtaa
+jeesata jos tarvis.
 
 Test and validate place / person name clusterings. Could greatly
 facilitate analysis with new names but validation and error estimates

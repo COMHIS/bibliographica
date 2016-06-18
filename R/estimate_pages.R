@@ -46,6 +46,9 @@ estimate_pages <- function (x) {
   # Remove plus now
   x <- gsub("\\+", "", x)
 
+  # "[52] plates between [58] blank sheets"
+  x <- gsub("plates between ", "plates, ", x)
+
   # Handle comma-separated elements separately
   spl <- unlist(strsplit(x, ","), use.names = FALSE)
 

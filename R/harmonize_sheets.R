@@ -8,27 +8,8 @@ harmonize_sheets <- function (s, harm) {
   s <- as.character(map(s, harm, mode = "recursive"))
 
   # Harmonize '* sheets'
-  spl <- strsplit(s, ",")
-
-  sheet.inds <- grep("sheet", spl)
-
-  for (i in sheet.inds) {
-  
-    if (length(grep("^[0-9] sheet", s[[i]])) > 0) {
-      xxx <- unlist(strsplit(spl[[i]], "sheet"), use.names = FALSE)
-      n <- as.numeric(str_trim(xxx[[1]]))
-      spl[[i]] <- paste(n, "sheets", sep = " ")
-    }
-
-    if (length(grep("\\[^[0-9]|[a-z]\\] sheets", s[[i]])) > 0) {
-      xxx <- unlist(strsplit(spl[[i]], "sheet"), use.names = FALSE)
-      n <- as.numeric(as.roman(str_trim(gsub("\\[", "", gsub("\\]", "", xxx[[1]])))))
-      spl[[i]] <- paste(n, "sheets", sep = " ")
-    }
-
-    s[[i]] <- paste(spl[[i]], collapse = ",")
-
-  }
+  sheet.inds <- grep("sheet", s)
+  s[sheet.inds] <- sapply(s[sheet.inds], function (si) {harmonize_sheets_help(si)})
 
   # Move into sheet synonyme table (had some problems hence here for now) ?
   s <- gsub("leaf", "sheet", s)
@@ -46,3 +27,29 @@ harmonize_sheets <- function (s, harm) {
 }
 
 
+
+harmonize_sheets_help <- function (s) {
+
+  spl <- unlist(strsplit(s, ","))
+
+  for (i in 1:length(spl)) {
+
+    if (length(grep("^[0-9] sheet", spl[[i]])) > 0) {
+      xxx <- unlist(strsplit(spl[[i]], "sheet"), use.names = FALSE)
+      n <- as.numeric(str_trim(xxx[[1]]))
+      spl[[i]] <- paste(n, "sheets", sep = " ")
+    }
+
+    if (length(grep("\\[^[0-9]|[a-z]\\] sheets", spl[[i]])) > 0) {
+      xxx <- unlist(strsplit(spl[[i]], "sheet"), use.names = FALSE)
+      n <- as.numeric(as.roman(str_trim(gsub("\\[", "", gsub("\\]", "", xxx[[1]])))))
+      spl[[i]] <- paste(n, "sheets", sep = " ")
+    }
+
+  }
+
+    # Combine again
+    s <- paste(spl, collapse = ",")
+
+  s
+}

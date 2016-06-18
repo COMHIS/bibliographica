@@ -99,6 +99,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
   #save(s, file = "~/tmp/tmp.RData")
   if (verbose) {message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))}
+
   ret <- parallel::mclapply(suniq, function (s) { a <- try(polish_physext_help(s, page.harmonize)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
 
   if (verbose) {message("Make data frame")}
@@ -194,11 +195,20 @@ polish_physext_help2 <- function (x, page.harmonize) {
 
   # Remove spaces around dashes
   x <- gsub(" {0,1}- {0,1}", "-", x)
+  x <- condense_spaces(x)  
+
+  # "[4] p. (p. [3] blank)" -> 4 p.
+  if (length(grep("\\[[0-9]+\\] p \\(p \\[[0-9]+\\] blank\\)", x)) > 0) {
+    x <- gsub(" \\(p \\[[0-9]+\\] blank\\)", "", x)            
+  } else if (length(grep("^1 score \\([0-9]+ p\\)", x))>0) {
+    # "1 score (144 p.)" -> 144p
+    x <- gsub("1 score", "", x)
+  }
 
   # Remove parentheses
   x <- gsub("\\(", " ", x)
   x <- gsub("\\)", " ", x)
-  x <- condense_spaces(x)  
+  x <- condense_spaces(x)   
   x <- condense_spaces(gsub(" p p ", " p ", x))
 
   # 2 p [1] = 2, [1]
