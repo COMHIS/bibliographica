@@ -8,19 +8,19 @@ output: markdown_document
 
 ## Page counts
 
-[Page conversions from raw data to final page count estimates](https://github.com/rOpenGov/fennica/blob/master/inst/examples/output.tables/pagecount_conversion_nontrivial.csv)
+[Page conversions from raw data to final page count estimates](output.tables/pagecount_conversion_nontrivial.csv)
 
-<!--[Page conversions from raw data to final page count estimates with volume info](https://raw.githubusercontent.com/rOpenGov/estc/master/inst/examples/output.tables/page_conversion_table_full.csv)-->
+<!--[Page conversions from raw data to final page count estimates with volume info](output.tables/page_conversion_table_full.csv)-->
 
-[Discarded pagecount info](https://raw.githubusercontent.com/rOpenGov/estc/master/inst/examples/output.tables/pagecount_discarded.csv)
+[Discarded pagecount info](output.tables/pagecount_discarded.csv)
 
 
 
 ## Document size comparisons
 
-[Incomplete dimension info - document surface are could not be estimated](https://raw.githubusercontent.com/rOpenGov/estc/master/inst/examples/output.tables/physical_dimension_incomplete.csv)
+[Incomplete dimension info - document surface are could not be estimated](output.tables/physical_dimension_incomplete.csv)
 
-[Dimension conversion table](https://raw.githubusercontent.com/rOpenGov/estc/master/inst/examples/output.tables/conversions_physical_dimension.csv)
+[Dimension conversion table](output.tables/conversions_physical_dimension.csv)
 
 
 These include estimates that are based on auxiliary information sheets:
@@ -33,7 +33,7 @@ These include estimates that are based on auxiliary information sheets:
 
 
   
-<!--[Discarded dimension info](https://raw.githubusercontent.com/rOpenGov/estc/master/inst/examples/output.tables/dimensions_discarded.csv)-->
+<!--[Discarded dimension info](output.tables/dimensions_discarded.csv)-->
 
 Document size (area) info in area is available for `r sum(!is.na(df$area))` documents (`r round(100*mean(!is.na(df$area)))`%). Estimates of document size (area) info in gatherings system are available for `r sum(!is.na(df$gatherings))` documents (`r round(100*mean(!is.na(df$gatherings)))`%). 
 
