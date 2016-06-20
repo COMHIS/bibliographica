@@ -1,11 +1,16 @@
 synonyme;name
+=evangeliska sällskapets skrifter;
+evangeliska sällskapets skrifter; 
+kartor;sheets
+& omsl;
+kartbl;plates
+portr;plates
 taitettuina;folded
 taitettuna;folded
 taitettua;folded
 vihkoa;vol
  osaa; parts
 nid\.;vol
-kartor;maps
 tab\.;tables
 taulukkol\.;tables
 nuotteja;plates
@@ -26,6 +31,7 @@ kuval;plates
 lehti;plate
 lehdet;plates
 useina numerointijaksoina;in various pagings
+med var. pag;in various pagings
 lehteä;plates
 taitettuna;folded
 poikittaip.;obl.
@@ -47,7 +53,6 @@ pl$;plates
 blad;plates
 irtokuvalehteä;plates
 irtokuval;plates
-kartor;plates
 valokuvaa;plates
 liitelehteä;plates
 numeroimatonta lehteä;plates
@@ -64,3 +69,6 @@ lomaketta;plates
 vyblad;plates
 kuvataulua;plates
 kuvapiirrosta;plates
+och;+
+sammanfattning;
+inkl. ann.; 

@@ -11,7 +11,7 @@ output: markdown_document
  * `r length(unique(df$title))` [unique titles](output.tables/title_accepted.csv)
  * `r sum(!is.na(df$title))` documents (`r round(100*mean(!is.na(df$title)))`%) have a title
  * [Discarded titles](output.tables/title_discarded.csv)
- * [Title harmonization table](output.tables/title_conversion_nontrivial.csv)
+ <!--* [Title harmonization table](output.tables/title_conversion_nontrivial.csv)-->
 
 Top-`r ntop` titles are shown together with the number of documents.
 
