@@ -33,7 +33,7 @@ print(p)
 
 ### Publication topic
 
-We also have the publication_topic field.
+We also have the publication_topic field. The links are invalid if the lists are empty.
 
 ```{r summarytopics22334, echo=FALSE, message=FALSE, warning=FALSE}
 # List all topics

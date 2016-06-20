@@ -64,20 +64,25 @@ for (field in numeric.fields) {
 }
 ```
 
+
 ## Histograms of the top entries for factor variables
 
-```{r summary-bars, echo=FALSE, message=FALSE, warning=FALSE, fig.width=5, fig.height=4, fig.show='hold', out.width="200px"}
+Non-trivial factors with at least 2 levels are shown.
+
+```{r summary-bars, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5, fig.show='hold', out.width="430px"}
 fac <- c(); for (field in names(df)) {fac[[field]] <- is.factor(df[[field]])}
 factor.fields <- names(which(fac))
 for (field in factor.fields) {
   #df$fieldtoplot <- df[[field]]
   n <- min(length(unique(df[[field]])), ntop)
   #p <- top_plot(df, "fieldtoplot", n)
-  p <- top_plot(df, field, n)  
-  p <- p + ggtitle(paste("Top ", field))
-  p <- p + scale_y_log10()
-  p <- p + ylab("Documents (Log10)")
-  print(p)
+  if (length(n) > 1) {
+    p <- top_plot(df, field, n)  
+    p <- p + ggtitle(paste("Top ", field))
+    p <- p + scale_y_log10()
+    p <- p + ylab("Documents (Log10)")
+    print(p)
+  }
 }
 ```
 

@@ -29,7 +29,7 @@ top <- function (x, field = NULL, n = NULL, output = "vector") {
   }
 
   if (output == "data.frame") {
-    s <- data.frame(name = names(s), n = unname(s), fraction = 100*unname(s)/N)
+    s <- data.frame(cbind(name = names(s), n = unname(s), fraction = 100*unname(s)/N))
   }
   
   s

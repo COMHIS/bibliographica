@@ -25,7 +25,7 @@ print(p)
 
 ### Publication frequency
 
-Publication frequency is available for `r sum(!is.na(df$publication_frequency))` documents (`r round(100*mean(!is.na(df$publication_frequency)))`%). 
+Publication frequency is available for `r sum(!is.na(df$publication_frequency))` documents (`r round(100*mean(!is.na(df$publication_frequency)))`%). The links are invalid if the lists are empty.
 
 [Publication frequency accepted](output.tables/publication_frequency_discarded.csv)
 
@@ -54,7 +54,7 @@ are multiple instances from the same earliest year, they are all
 marked as potential first editions. Later need to check if this
 information is readily available in MARC.
 
-In this data we have `r length(unique(df[, c("title", "author")]))`
+In this data we have `r nrow(unique(df[, c("title", "author")]))`
 unique documents with an identical title and author. Out of these,
 `r length(which(write_xtable(df[, c("title", "author")])$Count > 1))`
 have multiple occurrences, sometimes with different publication years.

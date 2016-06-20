@@ -33,7 +33,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
     message(field)
 
-    message("Accepted entries in the preprocessed data")
+   message("Accepted entries in the preprocessed data")
     s <- write_xtable(df.preprocessed[[field]], paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
 
     message("Discarded entries")
