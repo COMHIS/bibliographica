@@ -51,7 +51,7 @@ estimate_pages <- function (x) {
 
   # Handle comma-separated elements separately
   spl <- unlist(strsplit(x, ","), use.names = FALSE)
-
+  
   # Harmonize pages within each comma
   x <- sapply(spl, function (x) { harmonize_pages_by_comma(x) }, USE.NAMES = FALSE)
 
@@ -65,8 +65,6 @@ estimate_pages <- function (x) {
     page.count.multiplier <- 2
   }
 
-  # -----------------------------------------------------
-
   # Identify (potentially overlapping) attribute positions for
   # "arabic", "roman", "squarebracket", "dash", "sheet", "plate"
   # attributes x positions table 0/1
@@ -74,34 +72,34 @@ estimate_pages <- function (x) {
   pagecount.attributes <- attribute_table(x)
 
   # If dashes are associated with square brackets, 
-  # consider and convert them to arabic  
+  # consider and convert them to arabic. Otherwise not.
   # ie. [3]-5 becomes 3-5 
   dash <- pagecount.attributes["dash", ]
   sqb  <- pagecount.attributes["squarebracket", ]
   inds <- which(dash & sqb)
   pagecount.attributes["arabic", inds] <- TRUE
   pagecount.attributes["squarebracket", inds] <- FALSE
-  
+
   # Page count can't be roman and arabic at the same time.
   # or pages will double
   pagecount.attributes["roman", pagecount.attributes["arabic", ]] <- FALSE
-
-  # -----------------------------------------------------
 
   # Remove square brackets
   x <- gsub("\\[", "", x)
   x <- gsub("\\]", "", x)
 
-  # -----------------------------------------------------
-
   # Convert romans to arabics (entries separated by spaces possibly)
   # also 3-iv -> 3-4 
   inds <- pagecount.attributes["roman", ] | pagecount.attributes["arabic", ]
-  x[inds] <- roman2arabic(x[inds])
-
+  if (any(inds)) {
+    x[inds] <- roman2arabic(x[inds])
+  }
+  
   # Convert plates to arabics
   inds <- pagecount.attributes["plate", ]
-  x[inds] <- as.numeric(str_trim(gsub("pages calculated from plates", "", x[inds])))
+  if (any(inds)) {  
+    x[inds] <- as.numeric(str_trim(gsub("pages calculated from plates", "", x[inds])))
+  }
 
   # ----------------------------------------------
 

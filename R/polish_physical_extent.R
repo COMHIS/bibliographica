@@ -31,8 +31,12 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   f <- system.file("extdata/remove_dimension.csv", package = "bibliographica")
   terms <- as.character(read.csv(f)[,1])
   s <- remove_dimension(s, terms)
+  s = gsub("^na ", "", s)
   s[grep("^[ |;|:|!|?]*$", s)] <- NA 
 
+  # Remove dimension info
+  s = gsub("^[0-9]+.o ", "", s) 
+ 
   # In Finnish texts s. is used instead of p.		
   f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
   page.synonyms <- read_mapping(f, sep = ";", mode = "table", fast = TRUE)
@@ -97,17 +101,22 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   sorig <- s[match(sorig, suniq)]
   s <- suniq <- unique(sorig)
 
-  #save(s, file = "~/tmp/tmp.RData")
   if (verbose) {message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))}
 
   ret <- parallel::mclapply(suniq, function (s) { a <- try(polish_physext_help(s, page.harmonize)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
 
   if (verbose) {message("Make data frame")}
   ret <- as.data.frame(t(sapply(ret, identity)))
-  names(ret) <- c("pagecount", "volnumber", "volcount")
+  names(ret) <- c("pagecount", "volnumber", "volcount", "parts")
 
   if (verbose) {message("Set zero page counts to NA")}    
   ret$pagecount[ret$pagecount == 0] <- NA 
+
+  # When volcount not given but parts is given, interpret parts as volumes
+  # and remove parts info (to avoid confusion)
+  #inds = is.na(ret$volcount) & !is.na(ret$parts)
+  #ret[inds, "volcount"] = ret[inds, "parts"]
+  #ret[inds, "parts"] = NULL
 
   if (verbose) { message("Project to original list") }
   ret[match(sorig, suniq), ]
@@ -125,11 +134,11 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 polish_physext_help <- function (s, page.harmonize) {
 
   # Return NA if conversion fails
-  if (length(s) == 1 && is.na(s)) { return(rep(NA, 3)) } 
+  if (length(s) == 1 && is.na(s)) { return(rep(NA, 4)) } 
 
   # Shortcut for easy cases: "24p."
   if (length(grep("^[0-9]+ {0,1}p\\.{0,1}$",s))>0) {
-    return(c(as.numeric(str_trim(gsub(" {0,1}p\\.{0,1}$", "", s))), NA, NA))
+    return(c(as.numeric(str_trim(gsub(" {0,1}p\\.{0,1}$", "", s))), NA, NA, NA))
   }
 
   # Pick volume number
@@ -137,6 +146,14 @@ polish_physext_help <- function (s, page.harmonize) {
 
   # Volume count
   vols <- pick_multivolume(s)
+
+  # Parts count
+  parts <- pick_parts(s)
+
+  # "2 pts (96, 110 s.)" = 96 + 110s
+  if (length(grep("[0-9]+ pts (*)", s)) > 0 && length(grep(";", s)) == 0) {
+    s = gsub(",", ";", s)
+  }
 
   # Now remove volume info
   s <- suppressWarnings(remove_volume_info(s))
@@ -161,7 +178,7 @@ polish_physext_help <- function (s, page.harmonize) {
   s <- as.numeric(s)
 
   # Return
-  c(sum(s, na.rm = TRUE), voln, vols)  
+  c(sum(s, na.rm = TRUE), voln, vols, parts)  
 
 }
 

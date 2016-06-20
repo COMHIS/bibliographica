@@ -23,6 +23,9 @@ test_that("dimension polish works correctly", {
   # escaped unicode character
   # \u00b0 = astemerkki ⁰
 
+  expect_equal(as.character(polish_dimensions("23 x 31.3 cm. plate 25 x 33.6 cm.")$width), "23")
+  expect_equal(as.character(polish_dimensions("23 x 31.3 cm. plate 25 x 33.6 cm.")$height), "31.3")  
+
   expect_equal(as.character(polish_dimensions("2\u00b0(3?)")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("2fo(3?).")$gatherings), "2fo")
 

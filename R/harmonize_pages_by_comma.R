@@ -19,6 +19,17 @@ harmonize_pages_by_comma <- function (s) {
 
   # Handle some odd cases
   s <- condense_spaces(s)
+  
+ # if (length(grep("^p [0-9]+-[0-9]+ [0-9]+", s)) > 0) {
+ #     # "p 273-288 289" INTO p 273-289
+ #     s <- gsub("^p ", "", s)
+ #     spl <- unlist(strsplit(s, "-"))
+ #     xmin <- spl[[1]]
+ #     xmax <- max(as.numeric(unlist(strsplit(spl[[2]], " "))))
+ #     s = paste(xmin, xmax, sep = "-")
+ # }    
+
+  s <- condense_spaces(s)
   s[s == ""] <- NA
 
   s

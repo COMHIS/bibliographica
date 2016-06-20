@@ -10,12 +10,17 @@ pick_multivolume <- function (x) {
 
   vols <- NA
 
+  if (length(grep("^[0-9]+ pts in [0-9]+v\\.", x))>0) {
+    # 2 pts in 1v. INTO 1v.
+    x <- gsub("^[0-9]+ pts in ", "", x)
+  }
+
   if (length(grep("^[0-9]* {0,1}v\\.{0,1}$", x))>0) {
     # 73 v. -> 73
     vols <- as.numeric(str_trim(gsub("v\\.{0,1}", "", x)))
   } else if (length(grep("^v\\.", x))>0) {
     # v.1-3 -> 3
-    vols <- check_volumes(x)$n
+    vols <- check_volumes(x)$n    
   } else if (length(grep("v\\.", x))>0) {
     # v.1 -> 1
     # FIXME: SPLITMEHERE used as a quick fix as v\\. was unrecognized char and

@@ -60,7 +60,6 @@ foldplate;plate
 1sheet;1 sheet
 \[1\] sheet;1 sheet
 1/[0-9] sheet;1 sheet
-1 sheet \(.{0,}\)$;1 sheet
 genealogical;
 foldedtables;tables
 table;plate

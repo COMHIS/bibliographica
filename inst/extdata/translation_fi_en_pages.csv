@@ -1,26 +1,41 @@
 synonyme;name
+taitettuina;folded
+taitettuna;folded
+taitettua;folded
 vihkoa;vol
- osaa; vol
+ osaa; parts
 nid\.;vol
+kartor;maps
+tab\.;tables
+taulukkol\.;tables
+nuotteja;plates
+karttalehteä;sheets
+karttalehti;sheet
 kartta;sheet
+kartasto;sheet
+karta;sheet
 arkkia;sheets
 arkki;sheet
 karttaa;sheets
 kuvalehdet;plates
-kuvalehtiä;plates
-kuval\\.;plates
+kuvalehtiä;pla
+musikbilaga;plates
+kuvas.;plates
+kuval.;plates
 kuval;plates
 lehti;plate
 lehdet;plates
+useina numerointijaksoina;in various pagings
 lehteä;plates
 taitettuna;folded
-poikittaip\\.;obl.
+poikittaip.;obl.
 pienempi;small
 \\.urempi;long
 verso tyhjä;verso blanko
 tyhjä;blanko
 s\\.$;pages
 kuvalehteä;plates
+kuvalehti;plates
 kuvaliitettä;plates
 kuvasivua;plates
 malliliitettä;plates
@@ -30,8 +45,8 @@ blad;plates
 muotokuvalehteä;plates
 pl$;plates
 blad;plates
-irtokuval;plates
 irtokuvalehteä;plates
+irtokuval;plates
 kartor;plates
 valokuvaa;plates
 liitelehteä;plates
@@ -48,3 +63,4 @@ hopvikta kartongskifvor;plates
 lomaketta;plates
 vyblad;plates
 kuvataulua;plates
+kuvapiirrosta;plates
