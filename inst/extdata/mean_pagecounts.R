@@ -1,6 +1,6 @@
-mean.pagecounts.multivol <- mean_pagecounts_multivol(df.preprocessed) 
-mean.pagecounts.singlevol <- mean_pagecounts_singlevol(df.preprocessed) 
-mean.pagecounts.issue <- mean_pagecounts_issue(df.preprocessed) 
+mean.pagecounts.multivol <- mean_pagecounts(filter(df.preprocessed, multivol))
+mean.pagecounts.singlevol <- mean_pagecounts(filter(df.preprocessed, singlevol)) 
+mean.pagecounts.issue <- mean_pagecounts(filter(df.preprocessed, issue)) 
 
 print("..join..")
 mean.pagecounts <- full_join(mean.pagecounts.singlevol, mean.pagecounts.multivol, by = "doc.dimension")

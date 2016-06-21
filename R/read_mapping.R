@@ -13,6 +13,7 @@
 #' @param from field that will be replaced
 #' @param to field that contains the final names
 #' @param fast Use the fast method fread (sensitive to problems in table format)
+#' @param encoding Optional encoding of the input file (see help(readLines))
 #' @return Synonyme data frame with the fields 'name' (the selected term) and 'synonyme' (the alternative terms).
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}

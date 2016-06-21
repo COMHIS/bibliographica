@@ -7,7 +7,7 @@
 read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
   include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE,
   verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE,
-  from = "synonyme", to = "name", fast = FALSE)
+  from = "synonyme", to = "name", fast = FALSE, encoding = "UTF-8")
 }
 \arguments{
 \item{file}{Input file}
