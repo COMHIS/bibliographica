@@ -4,6 +4,7 @@
 #' @param field Field to be preprocessed.
 #' @param verbose verbose
 #' @param mc.cores Number of cores for parallelization
+#' @param catalog Catalog (fennica, kungliga, estc ...)
 #' @return Output of the polished field
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
@@ -11,7 +12,7 @@
 #' @examples \dontrun{a <- polish_field(df, "title")}
 #' @export
 #' @keywords utilities
-polish_field <- function (df, field, verbose = TRUE, mc.cores = 1) {
+polish_field <- function (df, field, verbose = TRUE, mc.cores = 1, catalog=NULL) {
 
   from <- till <- NULL
 
@@ -91,8 +92,9 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1) {
 
   } else if (field == "publisher") {
 
-    tab <- polish_publisher(df[[field]], verbose = verbose, mc.cores = mc.cores)
-    df.tmp <- data.frame(publisher = tab)
+    #tab <- polish_publisher(df[[field]], verbose = verbose, mc.cores = mc.cores)
+    tab <- harmonize_publisher_main(datasource=catalog, df.orig=df)
+    df.tmp <- data.frame(publisher = tab$mod)
 
   } else if (field == "corporate") {
 
