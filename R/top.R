@@ -31,9 +31,9 @@ top <- function (x, field = NULL, n = NULL, output = "vector", round = NULL) {
 
   if (output == "data.frame") {
     s <- data_frame(name = names(s), n = unname(s), fraction = 100*unname(s)/N)
-    colnames(s) <- c(field, "Entries (N)", "Fraction (%)")
+    names(s) <- c(field, "Entries (N)", "Fraction (%)")
     if (!is.null(round)) {
-      pubc[,3] = round(pubc[,3], round)
+      s[,3] = round(s[,3], round)
     }
  
   }

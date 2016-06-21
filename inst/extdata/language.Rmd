@@ -35,8 +35,8 @@ print(p)
 ### Top languages
 
 ```{r summarylang2, echo=FALSE, results='asis'}
-tab <- top(dfs, "language", output = "data.frame", round = 1)
+tab <- top(dfs, "key", output = "data.frame", round = 1)
 colnames(tab) <- c("Language", "Documents (n)", "Fraction (%)")
-kable(head(pubc))
+kable(head(tab))
 ```
 
