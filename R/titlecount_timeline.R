@@ -36,15 +36,15 @@ titlecount_timeline <- function (x, group_by, nmin = 0, mode = "n") {
 
   # Combine counts and percentages
   dfs = dplyr::full_join(df2, df3)
-  dfs$y = dfs[[mode]]
+  dfs$mode = dfs[[mode]]
 
   p <- ggplot(dfs, aes(y = mode, x = publication_decade, shape = group_by, linetype = group_by)) +
      geom_point(size = 4) +
      geom_line(aes(color = group_by), size = 1) +          
      ggtitle(paste("Title count in time by ", group_by)) +
-     xlab("Year") + ylab("Title count (n)") +
+     xlab("Year") + ylab(paste("Frequency (", mode, ")", sep = "")) +
      guides(linetype = guide_legend(keywidth = 5), shape = guide_legend(keywidth = 5)) +
-     ggtitle("Title count") 
+     ggtitle("Title count timeline") 
      #scale_y_log10()
    list(plot = p, table = dfs)
 }

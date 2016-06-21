@@ -45,7 +45,7 @@ p <- ggplot(dft, aes(x = Field, y = Time)) +
      ylab("Time (Minutes)") +
      coord_flip() +
      ggtitle("Processing times")
-print(p)
+# print(p)
 pdf("processingtimes.png")
 print(p)
 dev.off()
