@@ -133,18 +133,14 @@ res <- titlecount_timeline(dfs, "gatherings", nmin = 15)
 print(res$plot)
 ```
 
-## Average page counts 
+<!--
+
+## Average page counts (only works in CERL now)
 
 Multi-volume documents average page counts are given per volume.
 
 ```{r summarypagecountsmulti, echo=FALSE, message=FALSE, warning=FALSE}
-mean.pagecounts.multivol <- mean_pagecounts_multivol(df) 
-mean.pagecounts.univol <- mean_pagecounts_univol(df) 
-mean.pagecounts.issue <- mean_pagecounts_issue(df) 
-mean.pagecounts <- full_join(mean.pagecounts.univol, mean.pagecounts.multivol, by = "doc.dimension")
-mean.pagecounts <- full_join(mean.pagecounts, mean.pagecounts.issue, by = "doc.dimension")
-mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension, levels = levels(mean.pagecounts.univol$doc.dimension))
-mean.pagecounts$doc.dimension <- order_gatherings(mean.pagecounts$doc.dimension)
+source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
 kable(mean.pagecounts, caption = "Average page counts", digits = 2)
 ```
 
@@ -215,3 +211,4 @@ mean.dimensions <- as.data.frame(df2)
 kable(mean.dimensions, caption = "Average document dimensions", digits = 2)
 ```
 
+-->

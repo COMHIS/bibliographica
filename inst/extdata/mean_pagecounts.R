@@ -15,3 +15,4 @@ mean.pagecounts <- full_join(mean.pagecounts, mean.pagecounts.issue, by = "doc.d
 mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension,
 			      levels = levels(mean.pagecounts.singlevol$doc.dimension))
 			      
+mean.pagecounts$doc.dimension <- order_gatherings(mean.pagecounts$doc.dimension)
