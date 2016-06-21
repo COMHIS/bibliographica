@@ -8,6 +8,13 @@ if (!"volnumber" %in% names(df.preprocessed)) { df.preprocessed$volnumber <- rep
 print("Estimate total pages for the docs where it is missing")
 df.preprocessed$pagecount.orig <- df.preprocessed$pagecount
 
+# ----------------------------------------------------------------------------
+
+# Recognize categories
+df.preprocessed$singlevol = is.singlevol(df.preprocessed)
+df.preprocessed$multivol = is.multivol(df.preprocessed)
+df.preprocessed$issue = is.issue(df.preprocessed)
+
 # --------------------------------------------------------------------------
 
 print("Calculate average page counts based on available data")
@@ -15,11 +22,6 @@ print("Calculate average page counts based on available data")
 source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
 
 # --------------------------------------------------------------------------
-
-# Recognize categories
-df.preprocessed$singlevol = is.singlevol(df.preprocessed)
-df.preprocessed$multivol = is.multivol(df.preprocessed)
-df.preprocessed$issue = is.issue(df.preprocessed)
 
 print("Identify issues that are missing pagecount")
 # and add page count estimates

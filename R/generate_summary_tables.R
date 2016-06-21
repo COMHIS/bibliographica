@@ -379,21 +379,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   # Mean page counts
   # TODO make this more generic; otherwise move completely to ESTC
-  
-  mean.pagecounts.multivol <- mean_pagecounts(filter(df.preprocessed, multivol))
-  colnames(pagecounts) <- paste(colnames(pagecounts), "multivol", sep = ".")
-
-  mean.pagecounts.singlevol <- mean_pagecounts(filter(df.preprocessed, singlevol))
-  colnames(pagecounts) <- paste(colnames(pagecounts), "singlevol", sep = ".")
-
-  mean.pagecounts.issue <- mean_pagecounts(filter(df.preprocessed, issue))
-  colnames(pagecounts) <- paste(colnames(pagecounts), "issue", sep = ".")
-
-
-  mean.pagecounts <- full_join(mean.pagecounts.singlevol, mean.pagecounts.multivol, by = "doc.dimension")
-  mean.pagecounts <- full_join(mean.pagecounts, mean.pagecounts.issue, by = "doc.dimension")
-  mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension,
-			      levels = levels(mean.pagecounts.singlevol$doc.dimension))
+  mean.pagecounts = NULL
+  source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
   write.table(mean.pagecounts, file = paste(output.folder, "mean_page_counts.csv", sep = ""), quote = F, row.names = F, sep = ",")
 
   message("Write places with missing geolocation to file")
