@@ -127,11 +127,16 @@ print(p)
 
 ### Gatherings timelines
 
-```{r papercompbyformat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7}
+```{r papercompbyformat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7, fig.show="hold", out.width="430px"}
 dfs <- df %>% filter(!gatherings == "NA")
-res <- titlecount_timeline(dfs, "gatherings", nmin = 15) 
+res <- titlecount_timeline(dfs, "gatherings", nmin = 15, mode = "n") 
+print(res$plot)
+
+res <- titlecount_timeline(dfs, "gatherings", nmin = 15, mode = "percentage") 
 print(res$plot)
 ```
+
+
 
 <!--
 

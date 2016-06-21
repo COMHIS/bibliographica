@@ -13,7 +13,6 @@
 #' @importFrom dplyr rbind_all
 #' @importFrom dplyr rename
 #' @importFrom dplyr select
-#' @importFrom tidyr separate 
 #' @importFrom dplyr summarize
 #' @importFrom dplyr tbl_df
 #' @importFrom dplyr %>%
@@ -40,6 +39,9 @@
 #' @importFrom stringr str_trim
 #' @importFrom tibble as_data_frame
 #' @importFrom tibble data_frame
+#' @importFrom tidyr gather
+#' @importFrom tidyr separate
+#' @importFrom tidyr spread
 #' @importFrom tm stopwords
 .onAttach <- function(lib, pkg)
 {
