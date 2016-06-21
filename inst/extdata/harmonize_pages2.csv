@@ -24,8 +24,11 @@ bis|
 :*b{0,1}ill\.*| 
 ca\.|
 ca |
+ca$|
 sid.|
 bl\.|plates
+tab\.|sheets
+tab$|sheets
 bl$|plates
 \+\}|\]
 \[\?\]| 

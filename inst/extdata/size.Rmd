@@ -178,7 +178,7 @@ Here we use the original data only:
 nmin <- 2000
 top.gatherings <- setdiff(names(which(table(df$gatherings.original) > nmin)), "NA")
 
-df2 <- filter(df, !is.na(gatherings.original) & (!is.na(height.original) | !is.na(width.original))) %>%
+df2 <- filter(df, !gatherings.original == "NA" & (!is.na(height.original) | !is.na(width.original))) %>%
        filter(gatherings.original %in% top.gatherings) %>%
        select(publication_decade, gatherings.original, height.original, width.original)
        

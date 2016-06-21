@@ -32,6 +32,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   terms <- as.character(read.csv(f)[,1])
   s <- remove_dimension(s, terms)
   s = gsub("^na ", "", s)
+  s = gsub("&", ",", s)  
   s[grep("^[ |;|:|!|?]*$", s)] <- NA 
 
   # Remove dimension info

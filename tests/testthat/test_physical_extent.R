@@ -100,15 +100,10 @@ test_that("Page count is correct", {
   expect_equal(polish_physical_extent("1 sheet ([1]) p.")$pagecount, 2)
   expect_equal(polish_physical_extent("1 sheet ([2] p.)")$pagecount, 2)
   expect_equal(polish_physical_extent("152,151-573,[1]p.,plates")$pagecount, 578)
-  expect_equal(polish_physical_extent("v.3 (558,[2]p.),plates")$pagecount, 564)
-  expect_equal(polish_physical_extent("v.8 (551,[1]p.),plates")$pagecount, 556)
-  expect_equal(polish_physical_extent("v.2(viii,502p.)")$pagecount, 510)
   expect_equal(polish_physical_extent("p. 209-[210]")$pagecount, 2)
   expect_equal(polish_physical_extent("[2],iii,[1],25,[26],50-69,[1];213,[67]p.,plates")$pagecount, 386)
   expect_equal(polish_physical_extent("[44], 136, 177-296, 313-400, 409-488 p.")$pagecount, 532)
   expect_equal(polish_physical_extent("39, 42-49, [1] p.")$pagecount, 50)
-  expect_equal(polish_physical_extent("v.3 (558,[2]p.),plates")$pagecount, 564)
-  expect_equal(polish_physical_extent("v.8 (551,[1]p.),plates")$pagecount, 556)
   expect_equal(polish_physical_extent("[2],xxi,[9],191,194-205,[5]p.,plate")$pagecount, 244)
   expect_equal(polish_physical_extent("v.2(viii,502p.)")$pagecount, 510)
   expect_equal(polish_physical_extent("2v.([2],lx,viii,1650,[50]p.),plates")$pagecount, 1766)
@@ -122,7 +117,6 @@ test_that("Page count is correct", {
   expect_equal(polish_physical_extent("[10],42,45-88p.")$pagecount, 98)
   expect_equal(polish_physical_extent("[21],vi-xlviii,248,[20]p.,plate,table")$pagecount, 336)
   expect_equal(polish_physical_extent("2v.([4],x,741,[25],iii,[4],744-853,[1]p.)")$pagecount, 897)
-  expect_equal(polish_physical_extent("v.12 (460,vii,[1],civ p.),plates")$pagecount, 569)  
   expect_equal(polish_physical_extent("[4],vii-xii,[4],222p.,plates")$pagecount, 240)
   expect_equal(polish_physical_extent("[14],356,361-408;76,79-216,[14]p.,plates")$pagecount, 656)
   expect_equal(polish_physical_extent("48,59-66p.")$pagecount, 66)
@@ -242,8 +236,8 @@ test_that("Page count is correct", {
   expect_equal(polish_physical_extent("2 osaa (429 s. useina numerointijaksoina, [23] kuvalehteä, [1] karttalehti ; 498")$pagecount, 975)
   expect_equal(polish_physical_extent("2 osaa (346 s, 29 kuvapiirrosta, 109 s. ; 20 kuvapiirrosta)")$pagecount, 444)
   expect_equal(polish_physical_extent("2 pts in 1 v. (viii, 332, 5, [1] p.)")$pagecount, 346)
-  expect_equal(polish_physical_extent("13 s., [2] taitettua karttalehteä")$pagecount, 13)
-  expect_equal(polish_physical_extent("12 s., [2] taitettua karttalehteä")$pagecount, 12)
+  expect_equal(polish_physical_extent("13 s., [2] taitettua karttalehteä")$pagecount, 15)
+  expect_equal(polish_physical_extent("12 s., [2] taitettua karttalehteä")$pagecount, 14)
   expect_equal(polish_physical_extent("150 s., 3 taulukkol.")$pagecount, 150)
   expect_equal(polish_physical_extent("8vo [1] s., s. 273-288")$pagecount, 289)
   expect_equal(polish_physical_extent("4to [2], [1] 2-22 s.")$pagecount, 24)
@@ -257,7 +251,6 @@ test_that("Page count is correct", {
   expect_equal(polish_physical_extent("16 s. (=Evangeliska sällskapets skrifter")$pagecount, 16)
   expect_equal(polish_physical_extent("08 s. (=Evangeliska sällskapets skrifter")$pagecount, 8)
   expect_equal(polish_physical_extent("Sid. 65-96.")$pagecount, 32)
-  expect_equal(polish_physical_extent("[12] s. & omsl.")$pagecount, 12)
   expect_equal(polish_physical_extent("133 s. med var. pag.")$pagecount, 133)  
   expect_equal(polish_physical_extent("Ca 40 s.")$pagecount, 40)
   expect_equal(polish_physical_extent("6 bl.")$pagecount, 12)
@@ -284,42 +277,54 @@ test_that("Page count is correct", {
   expect_equal(polish_physical_extent("[32] s. =(s. 31/32 blank).")$pagecount, 32)
   expect_equal(polish_physical_extent("[04] s. =(s. 3/4 blank)")$pagecount, 4)
   expect_equal(polish_physical_extent("112 s. =(s. 111/12 blank).")$pagecount, 112)
+  expect_equal(polish_physical_extent("11 s., 1 karta")$pagecount, 13) 
+  expect_equal(polish_physical_extent("[4], 87 s., 8 karttalehteä")$pagecount, 107) 
+
+  expect_true(is.na(polish_physical_extent("5 vol. i 6")$pagecount))
+  expect_true(is.na(polish_physical_extent("6 vol. i 7")$pagecount))
+  expect_true(is.na(polish_physical_extent("5 delar 2")$pagecount))
+
+  expect_equal(polish_physical_extent("121 s., 6 kartor och 2 tab.")$pagecount, 137) 
+  expect_equal(polish_physical_extent("12 s., 1 kuval., och musikbilaga")$pagecount, 16) 
+  expect_equal(polish_physical_extent("17 s., [33] kuvas., [8] kuvalehteä taitettuna")$pagecount, 99) 
+  expect_equal(polish_physical_extent("58 s. & omsl.")$pagecount, 60)  
+  expect_equal(polish_physical_extent("46,(2)s.,2 kartor på omsl.")$pagecount, 50) # OK ?
+  expect_equal(polish_physical_extent("10s.,1 tab.")$pagecount, 12)  
+  expect_equal(polish_physical_extent("[52] plates between [58] blank leaves")$pagecount, 220)
+  expect_equal(polish_physical_extent("[12] s. & omsl.")$pagecount, 14)
+
+  # Warnings
+  expect_equal(polish_physical_extent("v.3 (558,[2]p.),plates")$pagecount, 564)
+  expect_equal(polish_physical_extent("v.8 (551,[1]p.),plates")$pagecount, 556)
+  expect_equal(polish_physical_extent("v.2(viii,502p.)")$pagecount, 510)
+  expect_equal(polish_physical_extent("v.3 (558,[2]p.),plates")$pagecount, 564)
+  expect_equal(polish_physical_extent("v.8 (551,[1]p.),plates")$pagecount, 556)
+  expect_equal(polish_physical_extent("v.12 (460,vii,[1],civ p.),plates")$pagecount, 569)  
 
 
 # TODO
-#  expect_equal(polish_physical_extent("121 s., 6 kartor och 2 tab.")$pagecount, 121)
-#  expect_equal(polish_physical_extent("11 s., 1 karta")$pagecount, 11)  
-#  expect_equal(polish_physical_extent("12 s., 1 kuval., och musikbilaga")$pagecount, 12)
-#  expect_equal(polish_physical_extent("17 s., [33] kuvas., [8] kuvalehteä taitettuna")$pagecount, 33)
-#  expect_equal(polish_physical_extent("[2] s., s. 65-82, IV kuvalehteä")$pagecount, 28)
-#  expect_equal(polish_physical_extent("[4], 87 s., 8 karttalehteä")$pagecount, 91)
-
-#  expect_equal(polish_physical_extent("5 vol. i 6     2          4 = EI MUKAAN
-#  expect_equal(polish_physical_extent("6 vol. i 7     2          4 = EI MUKAAN
-#  expect_equal(polish_physical_extent("5 delar 2          3 = EI MUKAAN
-
-#  expect_equal(polish_physical_extent("58 s. & omsl.")$pagecount, 2)  
 #  expect_equal(polish_physical_extent("1 kartasto ([166] s.)")$pagecount, 166)
 #  expect_equal(polish_physical_extent("1 sheet (2, [2] p.)")$pagecount, 2) # = 1 sheet
-#  expect_equal(polish_physical_extent("[2] s., s. 129-143 [144-146]")$pagecount, 20)
-#  expect_equal(polish_physical_extent("VII s., s. 259-459")$pagecount, 208)
 #  expect_equal(polish_physical_extent("S. 14-28 ; s. 28-48")$pagecount, 35)
 #  expect_equal(polish_physical_extent("[4], [1] 2-23 [24] s.")$pagecount, 28)
 #  expect_equal(polish_physical_extent("[4], [1] 2-27 [28] s. (s. [28] tyhjä)")$pagecount, 32)
 #  expect_equal(polish_physical_extent("[4], [1] 2-30 32 [po. 31] [32] s.")$pagecount, 34)
-#  expect_equal(polish_physical_extent("[2] s., s. 161-176, [1] kuvalehti taitettuna")$pagecount, 20)  
-#  expect_equal(polish_physical_extent("[2], 198 s. (s. 198 blank)     2          1 = 200
-#  expect_equal(polish_physical_extent("46,(2)s.,2 kartor på omsl.     46         3 = 48
-#  expect_equal(polish_physical_extent("10s.,1 tab.    10         2 = 12
+#  expect_equal(polish_physical_extent("[2], 198 s. (s. 198 blank)     2          1 = 200    
 #  expect_equal(polish_physical_extent("(4),44 bl.")$pagecount, 48)
-#  expect_equal(polish_physical_extent("38 uppsatser med särskild pag. (951)s.,1 portr.,19 pl.       38         1 = 991
+#  expect_equal(polish_physical_extent("38 uppsatser med särskild pag. (951)s.,1 portr.,19 pl.")$pagecount, 991)
 #  expect_equal(polish_physical_extent("(1)s.,s.53-552 552        1 = 501
 #  expect_equal(polish_physical_extent("[3] s., s. 497-740     743        1 = 247
-#  expect_equal(polish_physical_extent("3 vol.;(258, 308, 269 s.)      308        1 = 835
-#  expect_equal(polish_physical_extent("35[1] s.       2          3  = 36
-#  expect_equal(polish_physical_extent("[52] plates between [58] blank leaves")$pagecount, 220)
+#  expect_equal(polish_physical_extent("3 vol.;(258, 308, 269 s.)")$pagecount, 835)
+#  expect_equal(polish_physical_extent("35[1] s.")$pagecount, 36)
 
 # Not urgent
+  # jos helposti 65-82 sivuvalikirjauksena, niin menisi oikein. Jos vaikea, niin odottamaan. 
+  # expect_equal(polish_physical_extent("[2] s., s. 65-82, IV kuvalehteä")$pagecount, 36)
+  #  expect_equal(polish_physical_extent("[2] s., s. 129-143 [144-146]")$pagecount, 20)
+  #  expect_equal(polish_physical_extent("VII s., s. 259-459")$pagecount, 208)
+  #  expect_equal(polish_physical_extent("[2] s., s. 161-176, [1] kuvalehti taitettuna")$pagecount, 20)  
+  
+
 #  expect_equal(polish_physical_extent("494 s., Psaltarin kanssa 619 s.")$pagecount, 619)
 #  expect_equal(polish_physical_extent("[15] s. neljässä jaksossa")$pagecount, 15)
 #  expect_equal(polish_physical_extent("N. 500 s useina jaksoina")$pagecount, 500)
@@ -334,8 +339,6 @@ test_that("Page count is correct", {
 #  expect_equal(polish_physical_extent("H. 1-3 i en vol.       2          1
 #  expect_equal(polish_physical_extent("17, 5 p.")$pagecount, 22)
 #  expect_equal(polish_physical_extent("20, 2 p.")$pagecount, 22)  
-
-
 
 })
 

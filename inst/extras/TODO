@@ -1,15 +1,12 @@
 * Technical
 
+test_physical_extent TODOs
+
 Lisää README-fileihin tai summarymarkdowneihin viitteet nimi- ja
 gendertietokannosita.
 
 read_mapping -> Use the fast = TRUE more - at least for slower
 polishing function
-
-test_physical_extent:
-expect_equal(polish_physical_extent("17, 5 p.")$pagecount, 22)
-expect_equal(polish_physical_extent("20, 2 p.")$pagecount, 22)  
-
 
 * Author names
 
@@ -24,9 +21,15 @@ facilitate analysis with new names but validation and error estimates
 are needed. Now we have gathered good ground truth lists so should be
 possible.
 
-Sukunimet ?
-http://en.wikipedia.org/wiki/Wikipedia:Persondata (From the XML dump)
-wikipediasta voisi periaatteessa ottaa yhdestä datadumpista kaikki henkilödatan joka pitää kaiketi sisällään kaikki wikipedian henkilöt? Ideaalitilanne jokaisesta henkilöstä voitaisiin vetää linkki wikipediaan ja vastavuoroisesti sieltä meidän systeemeihin. kun lopulta syntyvää kirjastojärjestelmää käytetään hyväksi muuhun kuin tilastollisiin juttuihin. Toinen lähde on VIAF Author file.
+
+Sukunimet ?  http://en.wikipedia.org/wiki/Wikipedia:Persondata (From
+the XML dump) wikipediasta voisi periaatteessa ottaa yhdestä
+datadumpista kaikki henkilödatan joka pitää kaiketi sisällään kaikki
+wikipedian henkilöt? Ideaalitilanne jokaisesta henkilöstä voitaisiin
+vetää linkki wikipediaan ja vastavuoroisesti sieltä meidän
+systeemeihin. kun lopulta syntyvää kirjastojärjestelmää käytetään
+hyväksi muuhun kuin tilastollisiin juttuihin.
+
 
 
 * Geographical info

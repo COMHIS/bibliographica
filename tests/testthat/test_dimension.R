@@ -20,11 +20,13 @@ test_that("dimension tables are valid", {
 
 test_that("dimension polish works correctly", {
 
-  # escaped unicode character
-  # \u00b0 = astemerkki ⁰
-
+  # Warnings		     
   expect_equal(as.character(polish_dimensions("23 x 31.3 cm. plate 25 x 33.6 cm.")$width), "23")
   expect_equal(as.character(polish_dimensions("23 x 31.3 cm. plate 25 x 33.6 cm.")$height), "31.3")  
+
+
+  # escaped unicode character
+  # \u00b0 = astemerkki ⁰
 
   expect_equal(as.character(polish_dimensions("2\u00b0(3?)")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("2fo(3?).")$gatherings), "2fo")
@@ -33,7 +35,7 @@ test_that("dimension polish works correctly", {
   expect_equal(as.character(polish_dimensions("6:o")$gatherings), "6to")
   
   expect_equal(as.character(polish_dimensions("46 cm(2\u00b0)")$gatherings), "2fo")
-  expect_equal(as.character(polish_dimensions("29-40 cm. (4\u00b0; 2\u00b0)")$gatherings), "NA")
+
   expect_equal(as.character(polish_dimensions("4\u00b0. '")$gatherings), "4to")
   expect_equal(as.character(polish_dimensions("2\u00b0 (2 half-sheets)")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("1/2\u00b0; 2\u00b0.")$gatherings), "2fo")
@@ -49,17 +51,18 @@ test_that("dimension polish works correctly", {
   expect_equal(as.character(polish_dimensions("42 cm.(2\u00b0)")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("20 cm. (4to?)")$gatherings), "4to")
 
-  expect_equal(as.character(polish_dimensions("NA", fill = FALSE, dimtab = NULL)$gatherings), "NA")
   expect_equal(as.character(polish_dimensions("2fo.;2fo.")$gatherings), "2fo")
-  expect_equal(as.character(polish_dimensions("2fo")$gatherings), "2fo")
-  expect_equal(as.character(polish_dimensions("4to;2fo")$gatherings), "NA")
-  expect_equal(as.character(polish_dimensions("2fo;1to")$gatherings), "NA")
-  expect_equal(as.character(polish_dimensions("4to-2fo")$gatherings), "NA")
+  expect_equal(as.character(polish_dimensions("2fo")$gatherings), "2fo")  
   expect_equal(as.character(polish_dimensions("cm.4to")$gatherings), "4to")
   expect_equal(as.character(polish_dimensions("12mo.f")$gatherings), "12mo")
   expect_equal(as.character(polish_dimensions("4to.;4to")$gatherings), "4to")
   expect_equal(as.character(polish_dimensions("4to-4to")$gatherings), "4to")
-  
+
+  expect_equal(as.character(polish_dimensions("29-40 cm. (4\u00b0; 2\u00b0)")$gatherings), "NA")
+  expect_equal(as.character(polish_dimensions("NA", fill = FALSE, dimtab = NULL)$gatherings), "NA")
+  expect_equal(as.character(polish_dimensions("4to;2fo")$gatherings), "NA")
+  expect_equal(as.character(polish_dimensions("2fo;1to")$gatherings), "NA")
+  expect_equal(as.character(polish_dimensions("4to-2fo")$gatherings), "NA")
   expect_equal(as.character(polish_dimensions("4\u00b0, 2\u00b0 and 1\u00b0.")$gatherings), "NA")
   expect_equal(as.character(polish_dimensions("31-44 cm (4\u00b0; 2\u00b0)")$gatherings), "NA")
   expect_equal(as.character(polish_dimensions("4\u00b0 and 8\u00b0.")$gatherings), "NA")
@@ -70,22 +73,22 @@ test_that("dimension polish works correctly", {
   expect_equal(as.character(polish_dimensions("2\u00b0; 4\u00b0.")$gatherings), "NA")
   expect_equal(as.character(polish_dimensions("2\u00b0; later, 1\u00b0.")$gatherings), "NA")
   expect_equal(as.character(polish_dimensions("44-55 cm (2\u00b0;1\u00b0)")$gatherings), "NA")
-
   expect_equal(as.character(polish_dimensions("4\u00b0; 43 cm (2\u00b0)")$gatherings), "NA")
+  expect_equal(as.character(polish_dimensions("12\u00b0 & 8\u00b0")$gatherings), "NA")
+  expect_equal(as.character(polish_dimensions("21 cm. (4to and 8vo)")$gatherings), "NA")
+  expect_equal(as.character(polish_dimensions("(4to and 8vo)")$gatherings), "NA")
+  expect_equal(as.character(polish_dimensions("20 cm. (4to & 8vo)")$gatherings), "NA")
+  
   expect_equal(as.character(polish_dimensions("1/2.")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("1/2")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("8")$gatherings), "8vo")
   expect_equal(as.character(polish_dimensions("8\u00b0 in 4's.")$gatherings), "8vo")
   expect_equal(as.character(polish_dimensions("16\u00b0 in 8's.")$gatherings), "16mo")
   expect_equal(as.character(polish_dimensions("4\u00b0 in 8's.")$gatherings), "4to")
-  expect_equal(as.character(polish_dimensions("12\u00b0 & 8\u00b0")$gatherings), "NA")
-  expect_equal(as.character(polish_dimensions("21 cm. (4to and 8vo)")$gatherings), "NA")
-  expect_equal(as.character(polish_dimensions("(4to and 8vo)")$gatherings), "NA")
   expect_equal(as.character(polish_dimensions("(fol)")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("2\u00b0; 32 x 20 cm.")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("Broadside. 35 x 24 cm.")$gatherings), "1to")
   expect_equal(as.character(polish_dimensions("32 cm. (fol))")$gatherings), "2fo")
-  expect_equal(as.character(polish_dimensions("20 cm. (4to & 8vo)")$gatherings), "NA")
 
   expect_equal(as.character(polish_dimensions("1 /2⁰.")$gatherings), "2fo")
   expect_equal(as.character(polish_dimensions("8⁸.")$gatherings), "8vo")

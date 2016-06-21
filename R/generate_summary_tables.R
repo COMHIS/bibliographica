@@ -14,7 +14,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   # Circumvent build warnings			
   author <- author_name <- author_birth <- author_death <- author_pseudonyme <- author_gender <- name <- NULL
-  mean_pagecounts_multivol <- mean_pagecounts_univol <- mean_pagecounts_issue <- NULL
+  mean_pagecounts_multivol <- mean_pagecounts_singlevol <- mean_pagecounts_issue <- NULL
 
   # Ensure compatibility			
   df.orig <- df.orig[match(df.preprocessed$original_row, df.orig$original_row),]
@@ -379,13 +379,21 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   # Mean page counts
   # TODO make this more generic; otherwise move completely to ESTC
-  mean.pagecounts.multivol <- mean_pagecounts_multivol(df.preprocessed) 
-  mean.pagecounts.univol <- mean_pagecounts_univol(df.preprocessed) 
-  mean.pagecounts.issue <- mean_pagecounts_issue(df.preprocessed) 
-  mean.pagecounts <- full_join(mean.pagecounts.univol, mean.pagecounts.multivol, by = "doc.dimension")
+  
+  mean.pagecounts.multivol <- mean_pagecounts(filter(df.preprocessed, multivol))
+  colnames(pagecounts) <- paste(colnames(pagecounts), "multivol", sep = ".")
+
+  mean.pagecounts.singlevol <- mean_pagecounts(filter(df.preprocessed, singlevol))
+  colnames(pagecounts) <- paste(colnames(pagecounts), "singlevol", sep = ".")
+
+  mean.pagecounts.issue <- mean_pagecounts(filter(df.preprocessed, issue))
+  colnames(pagecounts) <- paste(colnames(pagecounts), "issue", sep = ".")
+
+
+  mean.pagecounts <- full_join(mean.pagecounts.singlevol, mean.pagecounts.multivol, by = "doc.dimension")
   mean.pagecounts <- full_join(mean.pagecounts, mean.pagecounts.issue, by = "doc.dimension")
   mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension,
-			      levels = levels(mean.pagecounts.univol$doc.dimension))
+			      levels = levels(mean.pagecounts.singlevol$doc.dimension))
   write.table(mean.pagecounts, file = paste(output.folder, "mean_page_counts.csv", sep = ""), quote = F, row.names = F, sep = ",")
 
   message("Write places with missing geolocation to file")
