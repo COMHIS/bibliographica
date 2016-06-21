@@ -4,7 +4,7 @@
 \alias{top}
 \title{Identify Top Entries}
 \usage{
-top(x, field = NULL, n = NULL, output = "vector")
+top(x, field = NULL, n = NULL, output = "vector", round = NULL)
 }
 \arguments{
 \item{x}{data.frame, matrix, or vector}
@@ -14,6 +14,8 @@ top(x, field = NULL, n = NULL, output = "vector")
 \item{n}{Number of top entries to show}
 
 \item{output}{Output format: vector or data.frame}
+
+\item{round}{Optional rounding}
 }
 \value{
 Vector of top counts, named by the corresponding entries
