@@ -53,7 +53,7 @@ Below, you will find simple examples on the package functionality. In real studi
 Estimate the total page count for two documents:
 
 ```{r pages, message=FALSE, eval=TRUE}
-# unlist(polish_pages(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
+# unlist(polish_physical_extent(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
 ```
 
 
@@ -77,7 +77,7 @@ knitr::kable(res)
 Estimate the total page count:
 
 ```{r pages2, message=FALSE, warning=FALSE, eval=TRUE}
-unlist(polish_pages(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
+unlist(polish_physical_extent(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
 ```
 
 Estimation of the missing information (gatherings, width, and/or height) is based on a ready-made [dimension mapping table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/documentdimensions.csv). This table can be changed by the user if necessary (see function arguments). The default table can be retrieved in R with:
@@ -103,14 +103,14 @@ Pick information on the volume numbers:
 
 ```{r voln, message=FALSE, warning=FALSE, eval=TRUE}
 # Volume number 3 from multi-volume document
-unname(polish_volumenumber("v.3, 50 p"))
+unname(polish_physical_extent("v.3, 50 p"))
 ```
 
 Pick information on the total volume count:
 
 ```{r volc, message=FALSE, warning=FALSE, eval=TRUE}
 # Document with 4 volumes and missing page information
-unlist(polish_volumecount("4v.")) 
+unlist(polish_physical_extent("4v.")) 
 ```
 
 ### Dimension information
@@ -158,7 +158,7 @@ Removing [stopwords](http://en.wikipedia.org/wiki/Stop_words) is often necessary
 The following example removes the term "well" and individual letters from the input vector:
 
 ```{r stopw, message=FALSE, warning=FALSE, eval=TRUE}
-remove_stopwords(c("a", "well", "james", "30 year war"), terms = "well", remove.letters = TRUE)
+remove_stopwords(c("a", "well", "james", "30 year war"), terms = "well")
 ```
 
 For a full list of stopword and related functions, see the [function documentation](https://github.com/rOpenGov/bibliographica/blob/master/man/). We also provide some [ready-made stopword lists](https://github.com/rOpenGov/bibliographica/tree/master/inst/extdata) that can be easily downloaded in R with the 'read.csv' function. 
