@@ -73,7 +73,7 @@ Amsterdam;amsterdam netherlands;
 Amsterdam;amsterledam;
 Amsterdam;amsterodam;
 Amsterdam;amsterodami;
-Amsterdam;anno dni amsterdam;
+Amsterdam;amsterdam;
 Amsterdam;holland;
 Amsterdam;low countries;
 Amsterdam;netherlands;
@@ -1472,7 +1472,7 @@ Livorno;livourne;
 Llanymddyfri;llandovery;
 Llwydlo;poughnill;
 Lohja;lojo;
-London;anno aux blackefriers;
+London;blackefriers;
 London;bermondsey;
 London;blackfriars;
 London;burtons coffee house london;
@@ -2104,7 +2104,7 @@ Northampton Ma;northampton massachusetts;
 Northumberland Pa;northumberland;
 Northumberland Pa;northumberland town pa;
 North Yarmouth Me;north yarmouth;
-Norwich;anno gheprint tot nordwitz;
+Norwich;nordwitz;
 Norwich;noorwitz;
 Norwich;norich;
 Norwich;norvicensis;
@@ -2204,8 +2204,8 @@ Oxford;the theater in oxford;
 Padua;patavii;
 Pännäinen;bennäs;
 Parainen;pargas;
-Paris;anno alma parisio rum;
-Paris;anno parisio rum;
+Paris;parisio rum;
+Paris;parisio rum;
 Paris;be nevvly parys;
 Paris;be newly parys;
 Paris;bpairis;
@@ -2213,7 +2213,7 @@ Paris;celeberrima vrbe parisiensi;
 Paris;est hoc orarium parisijs;
 Paris;exarata sane parisijs;
 Paris;france;
-Paris;iam nuperrime alma parisiorum;
+Paris;parisiorum;
 Paris;lo paris;
 Paris;lutetiae;
 Paris;lutetiae britannorum;
@@ -2265,7 +2265,7 @@ Paris;paryisiorum;
 Paris;parys;
 Paris;parys xx day mowneth may;
 Paris;passy;
-Paris;uniuersitate parisien;
+Paris;parisien;
 Paris KY;paris bourbon county ky;
 Parma;parmae;
 Pärnu;pernaviae;
@@ -2440,7 +2440,7 @@ Reims;rheins;
 Reims;rhemes;
 Reykjavik;reikjavik;
 Reykjavik;reykjavi k;
-Reykjavik;reykjavík;
+Reykjavik;reykjavik;
 Rhaglan;raglan;
 Richmond;richmond surrey;
 Richmond Va;richmond virginia;
@@ -2456,7 +2456,7 @@ Riga;riika;
 Riga;rijasa;
 Riga;ver rigae livonum;
 Riga;verteutscht und riga;
-Riga;zu riga;
+Riga;riga;
 Rochester;rochester chatham;
 Rock Island IL;rock island;
 Rock Island IL;rock island ill;
@@ -2672,9 +2672,9 @@ St Louis Kaunti Mi;st louis mi;
 St Mary's Md;st mary s md;
 Stockbridge Ma;stockbridge mass;
 Stockbridge Ma;stockbridge massachusetts;
-Stockholm;ånyo stockholm;
+Stockholm;stockholm;
 Stockholm;astockholm;
-Stockholm;a stockholm;
+Stockholm;stockholm;
 Stockholm;auctoritate regia privilegialis holmiae;
 Stockholm;holmiae;
 Stockholm;holmiae recusa;
@@ -3003,10 +3003,10 @@ Turku;åpo;
 Turku;athenis auräicis;
 Turku;azo bo;
 Turku;azu bo;
-Turku;enthlímmenon aboe;
+Turku;enthlimmenon aboe;
 Turku;enthlimmenon aboe;
 Turku;enthli mmenon en abo e;
-Turku;enthlímmenon en aboe;
+Turku;enthlimmenon en aboe;
 Turku;giöthebörisa ruotzin kielen eric stackbergildä mutta palkan edestä suomexi turusa;
 Turku;perno;
 Turku;prunkkala;
@@ -3779,7 +3779,7 @@ Stockholm;Stockholm wien
 Stockholm;Stockho m		    
 Stockholm;Stockhoplm  
 Stockholm;Stocolme   
-Stockholm;Stokgolʹm 
+Stockholm;Stokgolm 
 Stockholm;Stokkholm 
 St Petersburg;St petersb		    
 St Petersburg;St petersbourg  
@@ -3822,7 +3822,7 @@ Tribsees;Tribsees
 Trier;Trier		    
 Gävle;Tr i gefle		    
 Troyes;Troyes		    
-Malmö;Tryet udi malmo     
+Malmö;malmo     
 Stockholm;Ttockholm    
 Turku;Tukusa 
 Turin;Turin		    

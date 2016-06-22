@@ -15,7 +15,7 @@
 polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose = FALSE, harmonize = TRUE) {
 
   if (all(is.na(x))) {return(x)}
-  
+
   if (is.null(synonymes)) {
     # Harmonize places with synonyme table
     f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
@@ -26,7 +26,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
     f <- system.file("extdata/replace_special_chars.csv",
 		package = "bibliographica")
     spechars <- suppressWarnings(read_mapping(f, sep = ";", mode = "table", include.lowercase = TRUE))
-    
+
     if (verbose) { message(paste("Reading publication place synonyme table", f)) }
     f <- system.file("extdata/harmonize_place.csv", package = "bibliographica")
     synonymes.spec <- suppressWarnings(read_mapping(f, sep = ";", mode = "table", include.lowercase = TRUE))
@@ -71,7 +71,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (verbose) {message(paste("Polishing ", length(xuniq), " unique place names", sep = ""))}
   x <- remove_persons(x)
-  
+
   if (verbose) {message("Remove print statements")}
   x <- remove_print_statements(x)
   x <- condense_spaces(x)
@@ -120,6 +120,10 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   # For validation purposes might be good to comment this out
   # for initial runs.
   x <- suppressWarnings(remove_stopwords(x, terms = tolower(stopwords)))
+
+  # Remove roman numerals
+  x = sapply(strsplit(x, " "), function (xi) {paste(xi[!is.roman(as.roman(xi))], collapse = " ")})
+
   if (harmonize) {
 
     # Then match place names to synonymes		
@@ -173,9 +177,10 @@ polish_place_help <- function (x, s, verbose = FALSE) {
   # However looks very useful in practice
   if (!is.na(x) && any(!is.na(s)) && !(x %in% na.omit(s))) {
     spl <- unlist(strsplit(x, " "), use.names = FALSE)
-    inds <- which(!is.na(match(spl, s)))
+    inds <- which(!is.na(match(spl, c(s, "new"))))
     if (length(inds) > 0) {
       # Keep only those terms that are on synonyme list
+      # and exception terms "new"
       x <- paste(unique(spl[inds]), collapse = " ")
     }
   }
