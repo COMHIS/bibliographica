@@ -38,7 +38,7 @@ print(p)
 ### Top publication countries	
 
 ```{r summaryplace3, echo=FALSE, results='asis'}
-tab <- top(dfs, "country", output = "data.frame", round = 1)
+tab <- top(df, "country", output = "data.frame", round = 1)
 colnames(tab) <- c("Country", "Documents (n)", "Fraction (%)")
 kable(head(tab))
 ```
