@@ -1666,6 +1666,7 @@ London;london llundain;
 London;london london;
 London;london london kingston;
 London;london londres;
+London;londres tours;
 London;london lothbery;
 London;london lothbury;
 London;london norwich;
@@ -3402,8 +3403,6 @@ Karlstad;Carlstad e höijer
 Karlstad;Carlstad e wallencro		    
 Karlstad;Carlstad l horrn		    
 Karlstad;Carlstad wallencro		   
-Caroli		    
-Carolsadii caroli 
 Cassel;Cassel 
 Catania;Catania		     
 Berlin;Charlottenburg		    
@@ -3451,20 +3450,13 @@ Frankfurt;Franekerae
 Frankfurt;Franeqverae    
 Frankfurt;Frankenthal		    
 Franzburg;Franzburg		    
-Frederikshald		    
 Halden;Fredrikshald		   
 Halden;Fredrikshall		    
 Fredrikstad;Fredrikstad		    
-FFredrikstad;redrikstad fredrikshall		    
-Freudenstadt;Freudenstatt 
-Freyberg  
-Freybergk  
-Freystadt		    
 Freiburg;Friburgi brisgoiae		    
 Friedrichstadt;Friederichsstadt		    
 Gävle;Gävle		  
 Danzig;Gedani		    
-Gävle;Gefle	Sweden	   
 Gävle;Gefle 
 Geneve;Genes		    
 nyköping;nyköping		    
@@ -3510,7 +3502,6 @@ Leipzig;lipsiae
 Halle;Halae magdebvrgicae 
 Halle;Halae svevor		    
 Halmstad;Halmstad		   
-Hambourg stockholm		    
 Hamburg;Hamburg	Germany	   
 Hamburg;Hamburg franckfurt leipzig		    
 Hamburg;Hamburg holmiae		    
@@ -3820,7 +3811,6 @@ Stuttgart;Stuttgardt
 Sulzbach;Sulzbach		    
 Tampere;Tamrereella		    
 Tanger;Tangeri		    
-The Hague	Netherlands	   
 Linköping;linköpings   
 Toruń;Thorn 
 Tønder;Tondern		    
@@ -3911,6 +3901,5 @@ Zamość;W zamosciu
 Zamość;Zamosci		    
 Zeitz;Zeitz		    
 Zerbst;Zerbst		   
-Zürich	Germany	    
 Zweibrücken;Zweybruecken 	    
 Mariefred;mariefred		 

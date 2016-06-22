@@ -7,7 +7,6 @@ test_that("Region to country mappings are correct", {
 })
 
 
-
 test_that("Country mappings are not ambiguous", {
   expect_equal(length(test_ambiguous_country()), 0)
   expect_equal(length(test_ambiguous_place()), 0)    
