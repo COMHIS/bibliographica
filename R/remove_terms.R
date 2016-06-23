@@ -55,6 +55,12 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
 
 remove_terms_help <- function (x, term, where) {
 
+    # remove elements that are identical with the term		   
+    x[x == term] = ""
+
+    # Speedup: return if all handled already
+    if (all(x == "")) {return(x)}
+    
     # Here no spaces around the term needed, elsewhere yes
     if ("all" %in% where) {
 
