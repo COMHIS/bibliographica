@@ -5,6 +5,7 @@ Version: 0.2.23
 Date: 2016-06-23
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
+    person("Roivainen", "Hege" , role = "aut"),
     person("Ilomaki", "Niko" , role = "aut"),
     person("Tolonen", "Mikko", role = "aut"))
 Maintainer: Leo Lahti <leo.lahti@iki.fi>
