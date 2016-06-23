@@ -53,7 +53,7 @@ Below, you will find simple examples on the package functionality. In real studi
 Estimate the total page count for two documents:
 
 ```{r pages, message=FALSE, eval=TRUE}
-# unlist(polish_pages(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
+# unlist(polish_physical_extent(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
 ```
 
 
@@ -77,7 +77,7 @@ knitr::kable(res)
 Estimate the total page count:
 
 ```{r pages2, message=FALSE, warning=FALSE, eval=TRUE}
-unlist(polish_pages(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
+unlist(polish_physical_extent(c("50 p.", "[6],viii,386p. ;"))$estimated.pages)
 ```
 
 Estimation of the missing information (gatherings, width, and/or height) is based on a ready-made [dimension mapping table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/documentdimensions.csv). This table can be changed by the user if necessary (see function arguments). The default table can be retrieved in R with:

@@ -31,6 +31,8 @@ test_that("dimension polish works correctly", {
     if (is.na(synonymes$expected[i]) || (synonymes$expected[i] == "equal")) {
       expect_equal(as.character(polish_dimensions(test_clause)[[test_field]]), test_result)
     }
+    # Missing from csv:
+    # expect_equal(as.character(polish_dimensions("NA", fill = FALSE, dimtab = NULL)$gatherings), "NA")
   }
 
 

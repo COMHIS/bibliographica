@@ -32,6 +32,9 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   terms <- as.character(read.csv(f)[,1])
   s <- remove_dimension(s, terms)
   s = gsub("^na ", "", s)
+  s = gsub("\\.s$", " s", s)
+  s = gsub("\\. s", " s", s)    
+  s = gsub("&", ",", s)  
   s[grep("^[ |;|:|!|?]*$", s)] <- NA 
 
   # Remove dimension info
@@ -176,7 +179,8 @@ polish_physext_help <- function (s, page.harmonize) {
   s[s == ""] <- NA
   s[s == "NA"] <- NA  
   s <- as.numeric(s)
-
+  s[is.infinite(s)] = NA
+  
   # Return
   c(sum(s, na.rm = TRUE), voln, vols, parts)  
 
@@ -255,7 +259,3 @@ polish_physext_help2 <- function (x, page.harmonize) {
   x
   
 }
-
-
-
-
