@@ -37,7 +37,7 @@ read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
 
 \item{fast}{Use the fast method fread (sensitive to problems in table format)}
 
-\item{encoding}{Optional encoding of the input file (see help(readLines))}
+\item{encoding}{Character encoding (needed in Windows environment)}
 
 \item{trim}{trim empty spaces from the beginning and end of the strings}
 }

@@ -5,6 +5,7 @@
 #' @param places.geonames places.geonames
 #' @return data.frame with latitude and longitude
 #' @export
+#' @importFrom sorvi quickdf
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{x2 <- get_geocoordinates("Berlin")}
@@ -184,6 +185,7 @@ get_geocoordinates <- function (x, geonames, places.geonames) {
   }
 
   tmpdf <- quickdf(list(latitude = latitude, longitude = longitude))
+  #tmpdf <- data.frame(latitude = latitude, longitude = longitude, stringsAsFactors = FALSE)
 
   # Map back to the original domain
   return(tmpdf[match(pubplace.orig, pubplace.uniq),])

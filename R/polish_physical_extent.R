@@ -259,7 +259,3 @@ polish_physext_help2 <- function (x, page.harmonize) {
   x
   
 }
-
-
-
-

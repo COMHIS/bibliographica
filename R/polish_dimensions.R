@@ -28,7 +28,7 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
 
   if (is.null(synonyms)) {
     f <- system.file("extdata/harmonize_dimensions.csv", package = "bibliographica")
-    synonyms <- read_mapping(f, sep = "\t", mode = "table")
+    synonyms <- read_mapping(f, sep = "\t", mode = "table",encoding = "UTF-8")
   } 
 
   if (verbose) { message("Initial harmonization..") }

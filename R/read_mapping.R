@@ -13,7 +13,7 @@
 #' @param from field that will be replaced
 #' @param to field that contains the final names
 #' @param fast Use the fast method fread (sensitive to problems in table format)
-#' @param encoding Optional encoding of the input file (see help(readLines))
+#' @param encoding Character encoding (needed in Windows environment)
 #' @param trim trim empty spaces from the beginning and end of the strings
 #' @return Synonyme data frame with the fields 'name' (the selected term) and 'synonyme' (the alternative terms).
 #' @export
@@ -22,7 +22,7 @@
 #' @details If mode = "list", each row of the input file corresponds to a unique entry with potentially multiple name variants, separated by semicolon. The first element gives the selected version of the name, the subsequent elements list synonymes that will be mapped to the selected version. If mode = "table", the file has two columns where each row corresponds to a unique entry and has the selected name and a single alternative name.
 #' @examples \dontrun{syn <- read_mapping(file)}
 #' @keywords utilities
-read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE, verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE, from = "synonyme", to = "name", fast = FALSE, encoding="UTF-8", trim = FALSE) {
+read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE, verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE, from = "synonyme", to = "name", fast = FALSE, encoding="UTF-8", trim=FALSE) {
   
   # TODO sort by desired field
   
@@ -73,6 +73,12 @@ read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, i
   colnames(aa) <- gsub("name", to, colnames(aa))
   colnames(aa) <- gsub("synonyme", from, colnames(aa))    
 
+  # Trim empty spaces from the end
+  if (trim) {
+    aa$synonyme = str_trim(aa$synonyme)
+    aa$name = str_trim(aa$name)    
+  }
+  
   # Trim empty spaces from the end
   if (trim) {
     aa$synonyme = str_trim(aa$synonyme)

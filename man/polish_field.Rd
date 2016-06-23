@@ -4,7 +4,7 @@
 \alias{polish_field}
 \title{Polish Field}
 \usage{
-polish_field(df, field, verbose = TRUE, mc.cores = 1)
+polish_field(df, field, verbose = TRUE, mc.cores = 1, catalog = NULL)
 }
 \arguments{
 \item{df}{data.frame that includes the given field}
@@ -14,6 +14,8 @@ polish_field(df, field, verbose = TRUE, mc.cores = 1)
 \item{verbose}{verbose}
 
 \item{mc.cores}{Number of cores for parallelization}
+
+\item{catalog}{Catalog (fennica, kungliga, estc ...)}
 }
 \value{
 Output of the polished field

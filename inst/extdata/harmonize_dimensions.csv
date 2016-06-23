@@ -20,7 +20,6 @@ horizontal chain lines
 °\.	°
 ⁹	°
 \.̊	°
-\?	°
 ^\°to$
 '	°
 1/
@@ -111,6 +110,7 @@ vo[s|p|\?|\.]	vo
 to[s|p|\?|\.]	to
 mo[s|p|\?|\.]f{0,1}	mo
 fo[s|p|\?|\.]	fo
+\?	°
 :[o|0]	to
 2fo-obl\. 2fo	2fo
 \(\?\)

@@ -1,10 +1,5 @@
 #' @import babynames
 #' @import genderdata
-#' @importFrom stats median
-#' @importFrom stats na.omit
-#' @importFrom utils as.roman
-#' @importFrom utils read.csv
-#' @importFrom utils write.table
 #' @importFrom data.table fread
 #' @importFrom dplyr count
 #' @importFrom dplyr filter
@@ -35,13 +30,20 @@
 #' @importFrom ggplot2 xlab
 #' @importFrom ggplot2 ylab
 #' @importFrom parallel mclapply
-#' @importFrom sorvi quickdf
+#' @importFrom stats median
+#' @importFrom stats na.omit
+#' @importFrom utils as.roman
+#' @importFrom utils read.csv
+#' @importFrom utils write.table
 #' @importFrom stringr str_trim
 #' @importFrom tibble as_data_frame
 #' @importFrom tibble data_frame
 #' @importFrom tidyr gather
 #' @importFrom tidyr separate
 #' @importFrom tidyr spread
+#' @importFrom tidyr separate
+#' @importFrom tidyr gather
+#' @importFrom tidyr spread 
 #' @importFrom tm stopwords
 .onAttach <- function(lib, pkg)
 {

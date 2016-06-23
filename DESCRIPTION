@@ -1,7 +1,7 @@
 Package: bibliographica
 Type: Package
 Title: Bibliographic Data Analysis
-Version: 0.2.22
+Version: 0.2.23
 Date: 2016-06-23
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
@@ -26,14 +26,17 @@ Imports:
     knitr,
     magrittr,
     sorvi,
+    stringdist,
     stringr,
     tau,
     tibble,
     tidyr,
-    tm
+    tm,
+	XML
 Suggests:
     rmarkdown,
     testthat
-Additional_repositories: http://packages.ropensci.org
+Additional_repositories:
+    http://packages.ropensci.org
 LazyLoad: yes
 RoxygenNote: 5.0.1
