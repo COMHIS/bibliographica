@@ -1,16 +1,11 @@
-harmonize_publisher_main <- function (datasource, df.orig=NULL, testing_max=NULL, output.file=NULL) {
+harmonize_publisher_main <- function (datasource, df.orig, testing_max=NULL) {
   
   enrich <- FALSE
 
-  if (is.null(df.orig)) {
-    df.orig <- read_bibliographic_metadata(source.data.file)
-  }
-  
   # TODO: Get necessary function names, tables etc. from a single csv-file!
   additional_harmonizing_function <- NA
   
   if (datasource == "fennica") {
-    source.data.file <- "data/fennica.csv"
     languages <- c("finnish", "latin", "swedish")
     enrich <- TRUE
     enrichment_function <- "harmonize_publisher_fennica"
@@ -25,15 +20,12 @@ harmonize_publisher_main <- function (datasource, df.orig=NULL, testing_max=NULL
     
   } else if (datasource == "kungliga") {
     languages <- c("swedish")
-    source.data.file <- "data/kungliga.csv"
     enrich <- FALSE
     inds <- integer(length(0))
     publication_year <- polish_year_of_publication(df.orig$publication_time)
     raw_publishers <- df.orig$publisher
     raw_publishers[which(is.na(raw_publishers))] <- df.orig$corporate[which(is.na(raw_publishers))]
   }
-  
-  output.folder <- "Output/"
   
   # FOR TESTING PURPOSES ONLY
   # THE WHOLE PROCESS IS SLOW, SO TESTING WITH PARTIAL MATERIAL IS NECESSARY
@@ -66,12 +58,8 @@ harmonize_publisher_main <- function (datasource, df.orig=NULL, testing_max=NULL
   enriched_inds <- which(enriched_pubs$alt!="")
   #processed_inds <- union(inds, enriched_inds)
   
-
-
   # Check if this is valid
   pubs$alt[enriched_inds] <- enriched_pubs$alt[enriched_inds]
-  
-  
   
   # CHECK THE contents of pubs$alt[1:10] !!!!
   # The combination of enriched part & the unprocessed part
@@ -82,9 +70,5 @@ harmonize_publisher_main <- function (datasource, df.orig=NULL, testing_max=NULL
     combined_pubs <- harmonize_publisher(combined_pubs, publication_year, languages=languages)
   }
   
-  
-  if (!is.null(output.file)) {
-    write_xtable(combined_pubs, paste0(output.folder, output.file), count = FALSE)
-  }
   return (combined_pubs)
 }

@@ -20,7 +20,8 @@ cheat_publishers <- function() {
   
   
   # Determine the number of known labels
-  tree <- xmlTreeParse("cn-skos.rdf", useInternalNodes = TRUE)
+  f <- system.file("extdata/cn-skos.rdf", package = "bibliographica")
+  tree <- xmlTreeParse(f, useInternalNodes = TRUE)
   node_count <- length(xpathApply(tree, path="//rdac:C10005//skos:altLabel | //rdac:C10005//skos:prefLabel", xmlValue))
   
   # Prepare variables

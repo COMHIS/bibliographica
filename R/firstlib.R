@@ -45,6 +45,7 @@
 #' @importFrom tidyr gather
 #' @importFrom tidyr spread 
 #' @importFrom tm stopwords
+#' @importFrom XML xmlTreeParse
 .onAttach <- function(lib, pkg)
 {
 
