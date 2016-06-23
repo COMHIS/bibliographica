@@ -33,12 +33,13 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
     
   }
 
-  # Only consider cases with matches, to speed up analysis
-  x[x %in% terms] <- " "
   tmp <- matrix(sapply(terms, function (term) grepl(term, x), USE.NAMES = FALSE),
                   ncol = length(terms))
-  for (i in 1:length(terms)) {  
-    x[tmp[, i]] <- remove_terms_help(x[tmp[, i]], terms[[i]], where)
+
+  for (i in 1:length(terms)) {
+    if (any(tmp[, i])) {
+      x[tmp[, i]] <- remove_terms_help(x[tmp[, i]], terms[[i]], where)
+    }
   }
   
   if (polish) {
@@ -55,7 +56,7 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
 remove_terms_help <- function (x, term, where) {
 
     # Here no spaces around the term needed, elsewhere yes
-    if (where == "all") {
+    if ("all" %in% where) {
 
       # begin
       rms <- paste("^", term, "[ |\\.|\\,]", sep = "")
@@ -64,28 +65,36 @@ remove_terms_help <- function (x, term, where) {
       # middle
       x <- gsub(paste(" ", term, "[ |\\.|\\,]", sep = ""), " ", x)
 
-      # all
+      # end
       rms <- paste(" ", term, "$", sep = "")
       x <- gsub(rms, " ", x)
+    }
 
-    } else if (where == "full") {
+
+    if ("full" %in% where) {
     
       x <- gsub(term, " ", x)
-      
-    } else if (where == "begin") {
+
+    }
+
+    if ("begin" %in% where) {
     
       rms <- paste("^", term, "[ |\\.|\\,]", sep = "")
       x <- gsub(rms, " ", x)
-      
-    } else if (where == "middle") {
+
+    }
+
+    if ("middle" %in% where) {
     
       x <- gsub(paste(" ", term, "[ |\\.|\\,]", sep = ""), " ", x)
-      
-    } else if (where == "end") {
-    
+
+    }
+
+    if ("end" %in% where) {
+
       rms <- paste(" ", term, "$", sep = "")
       x <- gsub(rms, " ", x)
-      
+
     }
     
     x

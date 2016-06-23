@@ -292,7 +292,7 @@ test_that("Places are harmonized correctly", {
   expect_equal(polish_place("New York (NY)"), "New York NY")
   expect_equal(polish_place("Minneapolis (MN)"), "Minneapolis Mn")
   expect_equal(polish_place("Minneapolis (Minn.)"), "Minneapolis Mn")
-  expect_equal(polish_place("Luulaja"), "Luleå")
+  expect_equal(polish_place("Luulaja"), "Lulea")
   expect_equal(polish_place("Lubecae"), "Lybeck")
   expect_equal(polish_place("Linköpingisä"), "Linköping")
   expect_equal(polish_place("Leipsic"), "Leipzig")

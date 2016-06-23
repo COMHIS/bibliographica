@@ -90,6 +90,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       sep = ""), count = TRUE)
 
 
+
+
+
   # -----------------------------------------------------
 
    message("subject_topic")
@@ -139,6 +142,18 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tmp <- write_xtable(df.preprocessed[, c("publication_place", "country")],
       filename = paste(output.folder, "publication_place_accepted.csv", sep = ""),
       count = TRUE, sort.by = "publication_place")
+
+
+  f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
+  synonymes <- suppressWarnings(read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table", trim = TRUE))
+  pl = polish_place(df.orig$publication_place, remove.unknown = FALSE);
+  #tmp <- write_xtable(tolower(setdiff(tolower(pl), tolower(synonymes$name))),
+  #    filename = paste(output.folder, "publication_place_todo.csv", sep = ""),
+  #    count = TRUE, sort.by = "Name")
+  tmp <- write.table(sort(tolower(setdiff(tolower(pl), tolower(synonymes$name)))),
+      file = paste(output.folder, "publication_place_todo.csv", sep = ""),
+      	   quote = FALSE, row.names = FALSE, col.names = FALSE)
+
 
   message("Discard summaries")
   for (nam in setdiff(names(originals), c("country", "publication_place"))) {

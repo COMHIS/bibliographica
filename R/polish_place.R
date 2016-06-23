@@ -51,7 +51,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   # Remove numerics
   x <- gsub("[0-9]", " ", x) 
   x <- remove_special_chars(x, chars = c("\\(", "\\)", "\\[", "\\]", "\\{", "\\}", "\\="), niter = 1)
-  x <- gsub("[_|:|;|,|\\?|\\&|\\.| ]+", " ", x)
+  x <- gsub("[_|:|;|,|\\?|\\&|\\.|/|>|<|\"| ]+", " ", x)
   x <- gsub("-+", " ", x)
   x <- gsub("'", " ", x)  
   x <- condense_spaces(x)
@@ -59,9 +59,9 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- gsub("^and ", "", x)
   x <- gsub("^from ", "", x)            
   x <- gsub("^re ", "", x)
-  x <- gsub("^[a-z]{1,2}$", " ", x)  
   x <- gsub("^[a-z] +[a-z]$", " ", x)
-  x <- gsub("^[a-z]\\. [a-z]$", " ", x)  
+  x <- gsub("^[a-z]\\. [a-z]$", " ", x)
+  x[nchar(gsub(" ", "", x)) <= 2] = NA  
   x <- condense_spaces(x)
 
   # Back to original indices, then unique again;
@@ -84,9 +84,8 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (verbose) {message("Remove stopwords")}
   f <- system.file("extdata/stopwords_for_place.csv", package = "bibliographica")
   message(paste("Reading stopwords from file ", f))
-  stopwords <- as.character(read.csv(f)[,1])  
-  x <- suppressWarnings(remove_terms(x, stopwords, c("begin", "middle", "end")))
-
+  stopwords <- unique(tolower(str_trim(as.character(read.csv(f)[,1]))))
+  x <- suppressWarnings(remove_terms(x, stopwords, c("begin", "middle", "end"), recursive = TRUE))
 
   if (verbose) {message("Harmonize ie")}
   x <- harmonize_ie(x)
@@ -101,8 +100,9 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- xuniq <- unique(xorig)
 
   if (verbose) {message("Detailed polishing")}
-  s <- synonymes$synonyme
-  x <- suppressWarnings(unname(sapply(x, function (x) {polish_place_help(unlist(x, use.names = FALSE), s, verbose = verbose)}, USE.NAMES = FALSE)))
+  #s <- synonymes$synonyme
+
+  x <- suppressWarnings(unname(sapply(x, function (x) {polish_place_help(unlist(x, use.names = FALSE), synonymes$synonyme, verbose = verbose)}, USE.NAMES = FALSE)))
   if (length(x) == 0) { return(rep(NA, length(xorig))) }
 
   # Back to original indices, then unique again; reduces
@@ -120,21 +120,34 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   # summary lists of discarded names !
   # For validation purposes might be good to comment this out
   # for initial runs.
-  x <- suppressWarnings(remove_stopwords(x, terms = tolower(stopwords)))
+  x <- suppressWarnings(remove_terms(x, stopwords, c("begin", "middle", "end"), recursive = TRUE))
 
   # Remove roman numerals
-  x = sapply(strsplit(x, " "), function (xi) {paste(xi[!is.roman(as.roman(xi))], collapse = " ")})
+  x = sapply(strsplit(x, " "), function (xi) {paste(xi[!is.roman(as.roman(xi))], collapse = " ")}, USE.NAMES = FALSE)
 
   if (harmonize) {
 
-    # If the term is not on synonyme list but all its subterms are,
-    # then select the first term
-    # ie "zurich cologne" becomes "zurich"
-    inds = which(!x %in% synonymes$synonyme)
-    inds = inds[sapply(strsplit(x[inds], " "), function (xi) { all(xi %in% synonymes$synonyme) && length(xi) > 0})]
-    if (length(inds) > 0) {
-      x[inds] = sapply(strsplit(x[inds], " "), function (xi) { xi[[1]] })
+    # If the term is not on synonyme or name list but
+    # all subterms are, select the first subterm
+    ss = unique(tolower(c(synonymes$synonyme, synonymes$name)))
+    inds = which(!x %in% ss)
+    if (length(inds)>0) {
+      spl = strsplit(x[inds], " ")
+      inds2 = which(sapply(spl, function (xi) {all(xi %in% ss) && length(xi) > 0}, USE.NAMES = FALSE))
+      if (length(inds2)>0) {
+        x[inds[inds2]] = sapply(spl[inds2], function (xi) {xi[[1]]}, USE.NAMES = FALSE)
+      }
     }
+
+    # abo abo abo = abo
+    x = sapply(strsplit(x, " "), function (xi) {paste(unique(xi), collapse = " ")})
+
+    # stock holm = stockholm
+    #inds = which((!x %in% synonymes$synonyme) & sapply(strsplit(x, " "), function (xi) {!any(xi %in% ss)}) & (gsub(" ", "", x) %in% synonymes$synonyme))
+    #if (!length(inds) == 0) {
+    #  print(inds)
+    #  x = gsub(" ", "", x)
+    #}
 
     # Then match place names to synonymes		
     x <- as.character(map(x, synonymes,
@@ -150,11 +163,11 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (length(x) == 0) {return(rep(NA, length(xorig)))}
   
-  if (verbose) {message("Capitalize all names")}    
-  x <- capitalize(x)
-
   if (verbose) {message("Replace special cases")}
   x[x %in% c("", " ", "na")] <- NA
+
+  if (verbose) {message("Capitalize all names")}    
+  x <- capitalize(x)
 
   if (verbose) {message("Convert back to original indices and return")}
   x[match(xorig, xuniq)]
@@ -185,9 +198,13 @@ polish_place_help <- function (x, s, verbose = FALSE) {
 
   # Remove - may loose considerable information ?
   # However looks very useful in practice
+    # If the term is not on synonyme list but all its subterms are,
+    # then select the first term
+    # ie "zurich cologne" becomes "zurich"  
   if (!is.na(x) && any(!is.na(s)) && !(x %in% na.omit(s))) {
     spl <- unlist(strsplit(x, " "), use.names = FALSE)
     inds <- which(!is.na(match(spl, c(s, "new"))))
+
     if (length(inds) > 0) {
       # Keep only those terms that are on synonyme list
       # and exception terms "new"
