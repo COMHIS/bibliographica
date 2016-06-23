@@ -5,7 +5,7 @@
 \title{Generic Preprocessing for Bibliographic Metadata}
 \usage{
 polish_all(df.orig, fields = NULL, verbose = TRUE, file = NULL,
-  mc.cores = 1, conversions = list())
+  mc.cores = 1, conversions = list(), catalog = NULL)
 }
 \arguments{
 \item{df.orig}{Original data.frame}
@@ -19,6 +19,8 @@ polish_all(df.orig, fields = NULL, verbose = TRUE, file = NULL,
 \item{mc.cores}{Number of cores for parallelization}
 
 \item{conversions}{Field conversion list}
+
+\item{catalog}{Customization if the bibliographic catalog is specified. Currently support for : "Fennica" "Kungliga", "CERL", "ESTC"}
 }
 \value{
 Preprocessed data.frame and field conversion list.
