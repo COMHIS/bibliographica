@@ -6,7 +6,7 @@
 #' @param file Temporary results saved into a file 
 #' @param mc.cores Number of cores for parallelization
 #' @param conversions Field conversion list
-#' @param catalog Customization if the bibliographic catalog is specified. Currently support for : "Fennica" "Kungliga", "CERL", "ESTC"
+#' @param catalog Customization if the bibliographic catalog is specified. Currently support for : "fennica" "kungliga", "cerl", "estc"
 #' @return Preprocessed data.frame and field conversion list.
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")

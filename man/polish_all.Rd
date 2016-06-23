@@ -20,7 +20,7 @@ polish_all(df.orig, fields = NULL, verbose = TRUE, file = NULL,
 
 \item{conversions}{Field conversion list}
 
-\item{catalog}{Customization if the bibliographic catalog is specified. Currently support for : "Fennica" "Kungliga", "CERL", "ESTC"}
+\item{catalog}{Customization if the bibliographic catalog is specified. Currently support for : "fennica" "kungliga", "cerl", "estc"}
 }
 \value{
 Preprocessed data.frame and field conversion list.
