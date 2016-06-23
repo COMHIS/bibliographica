@@ -45,13 +45,16 @@ estimate_pages <- function (x) {
 
   # Remove plus now
   x <- gsub("\\+", "", x)
+  #x <- gsub("\\+", ",", x)
 
   # "[52] plates between [58] blank sheets"
   x <- gsub("plates between ", "plates, ", x)
+  # 6 sheets + 2 sheets
+  x = gsub("sheets", "sheets,", x)
 
   # Handle comma-separated elements separately
   spl <- unlist(strsplit(x, ","), use.names = FALSE)
-  
+
   # Harmonize pages within each comma
   x <- sapply(spl, function (x) { harmonize_pages_by_comma(x) }, USE.NAMES = FALSE)
 
@@ -124,6 +127,8 @@ estimate_pages <- function (x) {
   inds <- pagecount.attributes["sheet",]
   xx <- NA
   xinds <- x[inds]
+  xinds = gsub("^sheet$", "1 sheet", xinds)
+
   if (length(grep("sheet", xinds))>0) {
     # 1 sheet = 2 pages
     xinds <- sapply(xinds, function (xi) {str_trim(unlist(strsplit(xi, "sheet"), use.names = FALSE)[[1]])}, USE.NAMES = FALSE)

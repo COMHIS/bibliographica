@@ -14,7 +14,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   # Circumvent build warnings			
   author <- author_name <- author_birth <- author_death <- author_pseudonyme <- author_gender <- name <- NULL
-  mean_pagecounts_multivol <- mean_pagecounts_univol <- mean_pagecounts_issue <- NULL
+  mean_pagecounts_multivol <- mean_pagecounts_singlevol <- mean_pagecounts_issue <- NULL
 
   # Ensure compatibility			
   df.orig <- df.orig[match(df.preprocessed$original_row, df.orig$original_row),]
@@ -23,7 +23,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   for (field in setdiff(names(df.preprocessed),
     c(names(df.preprocessed)[grep("language", names(df.preprocessed))] , 
     "row.index", "paper.consumption.km2", "publication_decade",
-    "publication_year", "publication_year_from", "publication_year_till",
+    "publication_year", "subject_topic", "publication_year_from", "publication_year_till",
     "pagecount", "obl", "obl.original", "original_row", "dissertation",
     "synodal", "original", "unity", "author_birth", "author_death",
     "gatherings.original", "width.original", "height.original",
@@ -58,6 +58,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     }
   }
 
+  # --------------------------------------------------------------
+
 
   message("Conversion summaries")
   originals <- c(publisher = "publisher",
@@ -87,6 +89,39 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, paste("author_conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
 
+
+
+
+
+  # -----------------------------------------------------
+
+   message("subject_topic")
+   field = "subject_topic"
+   entries = unlist(strsplit(as.character(df.preprocessed[[field]]), ";"), use.names = FALSE)
+    s <- write_xtable(entries, paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
+
+    message("Discarded entries")
+    if ((field %in% names(df.preprocessed)) && (field %in% names(df.orig))) {
+      inds <- which(is.na(df.preprocessed[[field]]))
+      original <- as.vector(na.omit(as.character(df.orig[[field]][inds])))
+      tmp <- write_xtable(original, paste(output.folder, field, "_discarded.csv", sep = ""), count = TRUE)
+    }
+
+    message("Nontrivial conversions")
+    if (field %in% names(df.preprocessed) && (field %in% names(df.orig)) && !field %in% c("dimension", "title")) {
+      message(field)
+      inds <- which(!is.na(df.preprocessed[[field]]))
+      original <- as.character(df.orig[[field]][inds])
+      polished <- as.character(df.preprocessed[[field]][inds])
+      tab <- cbind(original = original, polished = polished)
+      # Exclude trivial cases (original == polished exluding cases)
+      #tab <- tab[!tab[, "original"] == tab[, "polished"], ]
+      tab <- tab[!tolower(tab[, "original"]) == tolower(tab[, "polished"]), ]
+      
+      tmp <- write_xtable(tab, paste(output.folder, field, "_conversion_nontrivial.csv", sep = ""), count = TRUE)
+    }
+  
+
   # -----------------------------------------------------
 
   message("Author")
@@ -107,6 +142,18 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tmp <- write_xtable(df.preprocessed[, c("publication_place", "country")],
       filename = paste(output.folder, "publication_place_accepted.csv", sep = ""),
       count = TRUE, sort.by = "publication_place")
+
+
+  f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
+  synonymes <- suppressWarnings(read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table", trim = TRUE))
+  pl = polish_place(df.orig$publication_place, remove.unknown = FALSE);
+  #tmp <- write_xtable(tolower(setdiff(tolower(pl), tolower(synonymes$name))),
+  #    filename = paste(output.folder, "publication_place_todo.csv", sep = ""),
+  #    count = TRUE, sort.by = "Name")
+  tmp <- write.table(sort(tolower(setdiff(tolower(pl), tolower(synonymes$name)))),
+      file = paste(output.folder, "publication_place_todo.csv", sep = ""),
+      	   quote = FALSE, row.names = FALSE, col.names = FALSE)
+
 
   message("Discard summaries")
   for (nam in setdiff(names(originals), c("country", "publication_place"))) {
@@ -379,13 +426,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   # Mean page counts
   # TODO make this more generic; otherwise move completely to ESTC
-  mean.pagecounts.multivol <- mean_pagecounts_multivol(df.preprocessed) 
-  mean.pagecounts.univol <- mean_pagecounts_univol(df.preprocessed) 
-  mean.pagecounts.issue <- mean_pagecounts_issue(df.preprocessed) 
-  mean.pagecounts <- full_join(mean.pagecounts.univol, mean.pagecounts.multivol, by = "doc.dimension")
-  mean.pagecounts <- full_join(mean.pagecounts, mean.pagecounts.issue, by = "doc.dimension")
-  mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension,
-			      levels = levels(mean.pagecounts.univol$doc.dimension))
+  mean.pagecounts = NULL
+  source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
   write.table(mean.pagecounts, file = paste(output.folder, "mean_page_counts.csv", sep = ""), quote = F, row.names = F, sep = ",")
 
   message("Write places with missing geolocation to file")

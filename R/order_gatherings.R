@@ -17,6 +17,7 @@ order_gatherings <- function (x) {
 
   fails <- unlist(setdiff(unique(x), glevels), use.names = FALSE)
   x[x %in% fails] <- "NA"
+  # x[x == "NA"] = NA
 
   # Order the levels
   xo <- factor(x, levels = glevels)

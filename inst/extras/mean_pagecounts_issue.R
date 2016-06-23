@@ -1,22 +1,17 @@
-#' @title Mean pagecounts - issue
-#' @description Estimate page counts for issues.
+#' @title Mean pagecounts
+#' @description Estimate page counts.
 #' @param df data frame
-#' @return Average page count information
+#' @return Average page count.
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @examples # m <- mean_pagecounts_issue(df)
+#' @examples # m <- mean_pagecounts(df)
 #' @keywords utilities
-mean_pagecounts_issue <- function (df) {
+mean_pagecounts <- function (df) {
 
   items <- volnumber <- parts <- volcount <- gatherings <- pagecount <- NULL
-  if (!"volcount" %in% names(df)) {df$volcount <- rep(1, nrow(df))}
-  if (!"volnumber" %in% names(df)) {df$volnumber <- rep(NA, nrow(df))}  
 
-  pagecounts <- filter(df, 
-  	     volcount == 1 & 
-	     pagecount >= 8 & 
-	     pagecount <= 50) %>% 
+  pagecounts <- df %>% 
 	     group_by(gatherings) %>% 
 	     summarize(
 	  mean.pages.per.vol = mean(pagecount/volcount, na.rm = T), 

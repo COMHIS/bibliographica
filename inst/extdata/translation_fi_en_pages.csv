@@ -2,7 +2,8 @@ synonyme;name
 =evangeliska sällskapets skrifter;
 evangeliska sällskapets skrifter; 
 kartor;sheets
-& omsl;
+& omsl\.;sheet
+ omsl$;sheet
 kartbl;plates
 portr;plates
 taitettuina;folded
@@ -24,7 +25,7 @@ arkki;sheet
 karttaa;sheets
 kuvalehdet;plates
 kuvalehtiä;pla
-musikbilaga;plates
+musikbilaga;plate
 kuvas.;plates
 kuval.;plates
 kuval;plates

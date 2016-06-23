@@ -9,4 +9,3 @@
 #/usr/bin/R CMD check --as-cran bibliographica_0.1.22.tar.gz
 /usr/bin/R CMD check bibliographica_0.2.23.tar.gz --no-build-vignettes # --no-tests #--no-examples 
 /usr/bin/R CMD INSTALL bibliographica_0.2.23.tar.gz
-

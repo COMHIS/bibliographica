@@ -31,3 +31,12 @@ p <- ggplot(dfs, aes(x = key)) +
 print(p)
 ```
 
+
+### Top languages
+
+```{r summarylang2, echo=FALSE, results='asis'}
+tab <- top(dfs, "key", output = "data.frame", round = 1)
+colnames(tab) <- c("Language", "Documents (n)", "Fraction (%)")
+kable(head(tab))
+```
+

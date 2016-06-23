@@ -135,6 +135,9 @@ polish_dimension <- function (x, synonyms) {
     height <- dims[[2]]
   }
 
+  # NA
+  # gatherings[gatherings == "NA"] = NA
+
   # Return
   list(original = sorig, gatherings = gatherings,
        width = width, height = height, obl = obl)

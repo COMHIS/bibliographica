@@ -72,6 +72,12 @@ read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, i
   # Return original field names
   colnames(aa) <- gsub("name", to, colnames(aa))
   colnames(aa) <- gsub("synonyme", from, colnames(aa))    
+
+  # Trim empty spaces from the end
+  if (trim) {
+    aa$synonyme = str_trim(aa$synonyme)
+    aa$name = str_trim(aa$name)    
+  }
   
   # Trim empty spaces from the end
   if (trim) {

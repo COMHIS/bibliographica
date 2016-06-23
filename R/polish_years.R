@@ -73,8 +73,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   xorig <- x[match(xorig, xuniq)]
   x <- xuniq <- unique(xorig)
 
-
-  x <- sapply(x, function (xi) {handle_ie(xi, harmonize = FALSE)})
+  x <- sapply(x, function (xi) {handle_ie(xi, harmonize = FALSE)}, USE.NAMES = FALSE)
   x <- condense_spaces(gsub("\\.", " ", x))
   x <- remove_time_info(x, verbose = F, months)
 

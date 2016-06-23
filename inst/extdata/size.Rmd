@@ -127,24 +127,25 @@ print(p)
 
 ### Gatherings timelines
 
-```{r papercompbyformat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7}
+```{r papercompbyformat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7, fig.show="hold", out.width="430px"}
 dfs <- df %>% filter(!gatherings == "NA")
-res <- titlecount_timeline(dfs, "gatherings", nmin = 15) 
+res <- titlecount_timeline(dfs, "gatherings", nmin = 15, mode = "n") 
+print(res$plot)
+
+res <- titlecount_timeline(dfs, "gatherings", nmin = 15, mode = "percentage") 
 print(res$plot)
 ```
 
-## Average page counts 
+
+
+<!--
+
+## Average page counts (only works in CERL now)
 
 Multi-volume documents average page counts are given per volume.
 
 ```{r summarypagecountsmulti, echo=FALSE, message=FALSE, warning=FALSE}
-mean.pagecounts.multivol <- mean_pagecounts_multivol(df) 
-mean.pagecounts.univol <- mean_pagecounts_univol(df) 
-mean.pagecounts.issue <- mean_pagecounts_issue(df) 
-mean.pagecounts <- full_join(mean.pagecounts.univol, mean.pagecounts.multivol, by = "doc.dimension")
-mean.pagecounts <- full_join(mean.pagecounts, mean.pagecounts.issue, by = "doc.dimension")
-mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension, levels = levels(mean.pagecounts.univol$doc.dimension))
-mean.pagecounts$doc.dimension <- order_gatherings(mean.pagecounts$doc.dimension)
+source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
 kable(mean.pagecounts, caption = "Average page counts", digits = 2)
 ```
 
@@ -178,7 +179,7 @@ Here we use the original data only:
 nmin <- 2000
 top.gatherings <- setdiff(names(which(table(df$gatherings.original) > nmin)), "NA")
 
-df2 <- filter(df, !is.na(gatherings.original) & (!is.na(height.original) | !is.na(width.original))) %>%
+df2 <- filter(df, !gatherings.original == "NA" & (!is.na(height.original) | !is.na(width.original))) %>%
        filter(gatherings.original %in% top.gatherings) %>%
        select(publication_decade, gatherings.original, height.original, width.original)
        
@@ -215,3 +216,4 @@ mean.dimensions <- as.data.frame(df2)
 kable(mean.dimensions, caption = "Average document dimensions", digits = 2)
 ```
 
+-->

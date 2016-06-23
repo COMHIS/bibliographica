@@ -1,12 +1,41 @@
 name;synonyme;comment
+Aabenraa;Aabenraa
 Aachen;aix la chapelle;
-Aarhus;århus;
+Aachen;Aachen leipzig
+Aachen;Aachen stockholm
+Aarhus;arhus;
+Aarhus;Ahus
+Aarhus;ahus
 Aarhus;occidentalis arhusae;
+Aarhus;Arhusiaeq
+Aarhus;Aros
+Aarhus;Arosia arosiensis
+Aarhus;Arosiae arosiensis
+Aarhus;Arosia västeras
+Aarhus;Aarhus kobenhavn
+Aarhus;Aarhus kobenhavn oslo
+Aarhus;Aarhuus
 Abartawe;swansea;
+Altona;Altona
+San Francisco;san francisco
+Särkisalmi;särkisalmi
+San Francisco;san francisco cal
+San Francisco;san francisco calif
+Altona;Altona bey
 Aberdaugleddau;milford haven;
+Tokyo;tokio
+Tokyo;tokyo
 Aberdeen;abedreen;
 Aberdeen;ab erdeen;
+Albuquerque;Albuquerque
+Albuquerque;Albuquerque nm
 Aberdeen;aberdeen aberdeen;
+Umea;umae
+Umea;ume
+Umea;umea
+Umea;umea e lindroth
+Umea;umea nya bolaget
+Umea;umea umea umea
 Aberdeen;aberdeene;
 Aberdeen;aberdeen scotland;
 Aberdeen;aberdeis;
@@ -19,6 +48,9 @@ Aberdeen;abredaeis;
 Aberdeen;abredeis;
 Aberdeen;abredeis aberdeen;
 Aberdeen;abredoniae;
+Eskiltuna;eskilstuma
+Eskiltuna;eskiltuna
+Eskiltuna;eskistuna
 Aberdeen;ab redoniae;
 Aberdeen;abredoniae aeerdene;
 Aberdeen;abredoniis;
@@ -45,6 +77,7 @@ Almena Wi;almena wis;
 Almena Wi;almena wisconsin;
 Alnwick;alnwick england;
 Alston;alston england;
+Alkmaar;Alkmaar
 Altdorf;altdorfi;
 Altenburg;altenbourg;
 Altenburg;altenburgh;
@@ -73,7 +106,7 @@ Amsterdam;amsterdam netherlands;
 Amsterdam;amsterledam;
 Amsterdam;amsterodam;
 Amsterdam;amsterodami;
-Amsterdam;anno dni amsterdam;
+Amsterdam;amsterdam;
 Amsterdam;holland;
 Amsterdam;low countries;
 Amsterdam;netherlands;
@@ -146,8 +179,8 @@ Appelby-in-Westmorland;appelby westmorland;
 Appelby-in-Westmorland;appleby;
 Archangelsk;arhangelsk;
 Archangelsk;arhangel sk;
-Archangelsk;arhangel'sk';
-Archangelsk;arhangel'sk'';
+Archangelsk;arhangelsk';
+Archangelsk;arhangelsk'';
 Ashby-de-la-Zouch;ashby de la zouch;
 Ashtabula Oh;ashtabula;
 Ashtabula Oh;ashtabula ohio;
@@ -190,6 +223,8 @@ Basel;basil;
 Basel;basileae;
 Basel;basil paris;
 Basel;basle;
+Basseterre Saint Kitts;Basseterre st christopher kitts nevis;
+Basseterre Saint Kitts;basseterre st christopher s kitts nevis
 Basseterre Saint Kitts;basse terre guadeloupe;
 Basseterre Saint Kitts;basseterre in st christopher;
 Basseterre Saint Kitts;basseterre in st christopher s st kitts nevis;
@@ -213,6 +248,7 @@ Bath;bath\;
 Bath;bath england;
 Bath;bathoniae;
 Bath NY;bath county of steuben new york;
+Basel;basel new york
 Bath NY;bath county steuben state new york;
 Bedford Ma;bedford mass;
 Bedford Ma;bedford massachusetts;
@@ -231,6 +267,7 @@ Berkhamsted;berkhamsed;
 Berlin;berliini;
 Berlin;berlin';
 Berlin;berlin berlin;
+Berlin;berlin stettin;
 Berlin;berlin' berlin;
 Berlin;berlin charlottenburg;
 Berlin;berlin grunewald;
@@ -401,8 +438,9 @@ Calicut;calicute;
 Calumet Mi;calumet;
 Calumet Mi;calumet mich;
 Calumet Mi;calumet michigan;
-Cambridge;apud praedaram cantabrigiam;
-Cambridge;apud preclarem cantabrigiam;
+Cambridge;cambirdge
+Cambridge;cantabrigiam;
+Cambridge;cantabrigiam;
 Cambridge;caergrawnt;
 Cambridge;cambridg;
 Cambridge;cambridgem;
@@ -500,6 +538,11 @@ Chestnut Hill Pa;chesnuthill pa;
 Chestnut Hill Pa;chestnuthill pa;
 Chestnut Hill Pa;schesnuet huell pa;
 Chestnut Hill Pa;tschesnothill;
+NA;deutschland;
+Chicago IL;chicago new york
+Chicago IL;chicago new york london
+Chicago IL;chicago new york toronto
+Chicago IL;chikago
 Chicago IL;chicago;
 Chicago IL;chicago ill;
 Chicago IL;chicago illinois;
@@ -541,11 +584,26 @@ Concord Ma;concord massachusetts;
 Concord Ma;concord mass england;
 Concord NH;concord new hampshire;
 Cooperstown NY;cooperstown;
+Copenhagen;kiobenh
+Copenhagen;kiobenhabn majests bogtr
+Copenhagen;kiobenhaffn
+Copenhagen;kiöbenhaffn
+Copenhagen;kiobenhaffn peter
+Copenhagen;kiöbenhafn
+Copenhagen;kiobenhamn
 Copenhagen;christianstad;
 Copenhagen;copenhague;
 Copenhagen;coppenhagen;
 Copenhagen;hafniae;
 Copenhagen;kiobenhavn;
+Copenhagen;kobbenhavn
+Copenhagen;köbenhamn
+Copenhagen;kobenhaven
+Copenhagen;ko benhavn
+Copenhagen;kobenhvan
+Copenhagen;kobenhvn
+Copenhagen;köbh
+Copenhagen;kobvenhavn
 Copenhagen;kio\?benhavn;
 Copenhagen;kiöbenhavn;
 Copenhagen;kjobenhavn;
@@ -915,7 +973,7 @@ Friedensthal Pa;friedensthal bei bethlehem pa;
 Friedensthal Pa;friedensthal bey bethlehem pa;
 Fryeburg Me;fryeburgh me;
 Furth;fu rth;
-Furth;fürth;
+Furth;furth;
 Gainsborough;cainsbrough;
 Gainsborough;gainsborough england;
 Gainsborough;gainsbro;
@@ -928,7 +986,7 @@ Geneva;geneue;
 Geneva;genevae;
 Geneva NY;geneva york;
 Geneve;gene ve;
-Geneve;genève;
+Geneve;geneve;
 Georgetown Va;george town va;
 Georgetown Washington DC;georgetown;
 Georgetown Washington DC;george town dc;
@@ -998,12 +1056,12 @@ Gloucester;gloucester england;
 Gloucester Ma;glocester ma;
 Gloucester Ma;glocester mass;
 Gloucester Ma;gloucester mass;
-Godby;godby åland;
+Godby;godby aland;
 Görliz;görlitz;
 Gothenburg;goteborg;
 Gothenburg;göteborg;
 Gothenburg;götheborg;
-Gothenburg;götheborg åbo;
+Gothenburg;götheborg abo;
 Gothenburg;gotheburg;
 Gothenburg;gothoburgae;
 Gothenburg;gothoburgi;
@@ -1024,6 +1082,7 @@ Greifswald;greiffswald;
 Greifswald;gryfisbaldi a greifswald;
 Greifswald;gryfisbaldia greifswald;
 Greifswald;gryphiae;
+Ahmedabad;ahmedabad
 Greifswald;gryphisuualdiae;
 Greifswald;gryphiswaldae;
 Greifswald;gryphiswaldi;
@@ -1031,6 +1090,8 @@ Greifswald;gryphiswaldiae;
 Greifswald;suobaci;
 Greifswald;suobaci recusa;
 Gutersloh;gu tersloh;
+Haaparanta;haaparannalla
+Haaparanta;haaparanualla
 Haaparanta;haparanda;
 Haarlem;harlem;
 Haarlem;harlem netherlands london england;
@@ -1049,7 +1110,7 @@ Halifax;halifax england;
 Halifax;hall halifax;
 Halle;curiae regnitianae;
 Halle;hall;
-Halle;hållas;
+Halle;hallas;
 Halle;halle a d saale;
 Halle;halle a s;
 Halle;halle a/s;
@@ -1089,6 +1150,7 @@ Hamburg;hampuri;
 Hamburg;harburg;
 Hämeenlinna;hämeeenlinna;
 Hämeenlinna;hämeelinna;
+Hämeenlinna;hämenlinna;
 Hämeenlinna;hämeenlinna porvoo;
 Hämeenlinna;hämeenlinnassa;
 Hämeenlinna;hämeenlinna tampere;
@@ -1109,10 +1171,12 @@ Hancock Mi;hancock;
 Hancock Mi;hancockissa mich;
 Hancock Mi;hancock mich;
 Hancock Mi;hancock michigan;
+Hanko;hangossa
 Hanko;breidablick;
 Hanko;hangö;
 Hanko;hankoniemi;
 Hanna WY;hanna wyo;
+Hannover;hannoverae
 Hannover;hanover;
 Hannover;hanover m alister s stadt pa;
 Hannover;hanoviae;
@@ -1154,25 +1218,44 @@ Heinäjoki;heinjoki;
 Helmstadt;helmstat;
 Helmstedt;helmaestadii;
 Helmstedt;helmstadii;
-Helsinki;åggelby;
-Helsinki;ågggelby;
+Helsinki;helsinfors
+Helsinki;helsinforsiae
+Helsinki;helsingb
+Helsinki;helsingborf
+Helsinki;helsingfor
+Helsinki;helsingforg
+Helsinki;helsingforsb
+Helsinki;helsingforsb
+Helsinki;helsinggissä
+Helsinki;helsingi
+Helsinki;helsingissa
+Helsinki;helsingissö
+Helsinki;helsingki
+Helsinki;helsingors
+Helsinki;helsingsfors
+Helsinki;helsingsissä
+Helsinki;helsinkil
+Helsinki;helsinko
+Helsinki;helsningfors
+Helsinki;aggelby;
+Helsinki;agggelby;
 Helsinki;gelsingfors;
 Helsinki;gel singfors;
-Helsinki;gel'singfors;
-Helsinki;gel'singfors';
-Helsinki;gel'singfors'';
+Helsinki;gelsingfors;
+Helsinki;gelsingfors';
+Helsinki;gelsingfors'';
 Helsinki;gelʼsingfors;
 Helsinki;gelʼsingfors';
 Helsinki;gelsingfors';
 Helsinki;gel singfors гельсингфорсъ;
 Helsinki;gelsingfrs;
 Helsinki;gel singfrs;
-Helsinki;gel'singfrs';
+Helsinki;gelsingfrs';
 Helsinki;gelzingfors;
 Helsinki;gel zingfors;
-Helsinki;gel'zingfors';
+Helsinki;gelzingfors';
 Helsinki;g gelsingfors;
-Helsinki;g gel'singfors';
+Helsinki;g gelsingfors';
 Helsinki;helsigfors;
 Helsinki;helsignfors;
 Helsinki;helsingfors;
@@ -1237,7 +1320,7 @@ Inis Córthaidh;eniscorthy;
 Inishmacadurn;rutland island;
 Inkeri;inkerinmaa;
 Inkeri;inkerinmaalla;
-Inkoo;ingå;
+Inkoo;inga;
 Inkoo;ingö;
 Inverness;innoirnish;
 Ipswich;ippeswich;
@@ -1252,9 +1335,9 @@ Ipswich;suffolk;
 Ironwood Mi;ironwood;
 Ironwood Mi;ironwood mich;
 Ironwood Mi;ironwood michigan;
-Ísafjördur;isafjördur;
-Ísafjördur;i safjördur;
-Ísafjördur;safjördur;
+Isafjördur;isafjördur;
+Isafjördur;i safjördur;
+Isafjördur;safjördur;
 Ishpeming Mi;ishpeming;
 Ishpeming Mi;ishpeming mich;
 Ishpeming Mi;ishpeming michigan;
@@ -1262,7 +1345,7 @@ Isokyrö;orisberg;
 Istanbul;constantinople;
 Jacobson Mi;jacobson minn;
 Jelgava;jelgawa;
-Jelgava;jelgawâ;
+Jelgava;jelgawa;
 Jelgava;mitau;
 Jelgava;mitau und leipzig;
 Jena;i.e na;
@@ -1275,6 +1358,12 @@ Joensuu;joensuussa;
 Johnstown NY;johnstown;
 Jönnköping;jönkiöping;
 Jönnköping;jönköping;
+Jyväskylä;juväskylä
+Jyväskylä;jysväskylä
+Jyväskylä;jyvaskyla
+Jyväskylä;jyväskyla
+Jyväskylä;jyväskylääsä
+Jyväskylä;jyväskylässa
 Jyväskylä;jyvaeskylae;
 Jyväskylä;jyvaeskylaessae;
 Jyväskylä;jyväkylä;
@@ -1306,7 +1395,7 @@ Kemi;kemissä;
 Kendal;kendal england;
 Kharkiv;harkov;
 Kharkiv;har kov;
-Kharkiv;har'kov';
+Kharkiv;har'kov;
 Kidderminster;kidderminister;
 Kidderminster;kiddermister;
 Kiel;kiliae;
@@ -1432,6 +1521,7 @@ Liège;liege paris;
 Liège;liège paris;
 Liège;li\x8fge;
 Liège;lvyck;
+Liepaja;leepaja
 Liepaja;libau;
 Liepaja;liepja;
 Liepaja;liep ja;
@@ -1458,8 +1548,8 @@ Litchfield Ct;litchfield conn;
 Litchfield Ct;litchfield connecticut;
 Litchfield Ct;litchfield hartford;
 Litchfield Ct;litchfield london lichfield;
-Litoměřice;leitmeritz;
-Litoměřice;litom“¿ice;
+Litoměrice;leitmeritz;
+Litoměrice;litom“¿ice;
 Liverpool;lerpwl;
 Liverpool;leverpoole;
 Liverpool;liverpoole;
@@ -1472,7 +1562,7 @@ Livorno;livourne;
 Llanymddyfri;llandovery;
 Llwydlo;poughnill;
 Lohja;lojo;
-London;anno aux blackefriers;
+London;blackefriers;
 London;bermondsey;
 London;blackfriars;
 London;burtons coffee house london;
@@ -1666,6 +1756,7 @@ London;london llundain;
 London;london london;
 London;london london kingston;
 London;london londres;
+London;londres tours;
 London;london lothbery;
 London;london lothbury;
 London;london norwich;
@@ -1841,8 +1932,9 @@ Louvain;lovain;
 Louvain;lovanni;
 Loviisa;lovisa;
 Loviisa;loviza;
-Luleå;luleö;
-Luleå;luulaja;
+Lulea;luuleo
+Lulea;luleö;
+Lulea;luulaja;
 Lund;llunden;
 Lund;londini goth;
 Lund;londini gothorum;
@@ -1852,11 +1944,11 @@ Lund;lond scanorum;
 Lund;lundae;
 Lund;lundini goth;
 Lustleigh;lustleigh devon;
-Lviv;l vìv;
-Lviv;l'vi v;
-Lviv;l'vìv;
+Lviv;l viv;
 Lviv;lvi v;
-Lviv;lvìv;
+Lviv;lviv;
+Lviv;lvi v;
+Lviv;lviv;
 Lybeck;keyserligh frij rijkzstad lybeck;
 Lybeck;lubecae;
 Lybeck;lubeck;
@@ -1926,6 +2018,7 @@ Mikkeli;s t michel;
 Mikkeli;st michel;
 Mikkeli;st mikkeli;
 Mikkeli;st mikkelissä;
+Mikkeli;michel;
 Milan;milano;
 Milborne Port;milborneport;
 Milton;milton near thame;
@@ -1960,7 +2053,7 @@ Münster;muenster;
 Münster;munster;
 Münster;warum darum westphalie;
 Mustasaari;korsholm;
-Mustio;svartå;
+Mustio;svarta;
 Mustio;svartö;
 Nanaimo BC;nanaimo;
 Nanaimo BC;nanaimo b c;
@@ -2066,6 +2159,12 @@ Newton NJ;newton state of new jersey;
 Newtown Pa;newtown penn;
 New York Mills Mn;new york mills;
 New York Mills Mn;new york mills minn;
+New York NY;new york chicago
+New York NY;new york göteborg
+New York NY;new york london
+New York NY;new york londres
+New York NY;new york stockholm
+New York NY;new york toronto
 New York NY;america york;
 New York NY;bronx;
 New York NY;bronx new york;
@@ -2103,15 +2202,17 @@ Northampton Ma;northampton massachusetts;
 Northumberland Pa;northumberland;
 Northumberland Pa;northumberland town pa;
 North Yarmouth Me;north yarmouth;
-Norwich;anno gheprint tot nordwitz;
+Norwich;nordwitz;
 Norwich;noorwitz;
 Norwich;norich;
+Noormarkku;noormarkku
 Norwich;norvicensis;
 Norwich;norvici;
 Norwich;norwich abroad;
 Norwich;norwich england;
 Norwich;norwici;
 Norwich;norwick;
+NA;sverige
 Norwich;norwigh;
 Norwich;nowich;
 Norwich Ct;norwich conn;
@@ -2125,13 +2226,15 @@ Nottingham;nottinghamiae;
 Nottingham;nottinghm;
 Nottingham;nottingnam;
 Nottingham;notttingham;
+Nürnberg;nurnberg
 Nürnberg;noribergae;
 Nürnberg;norimbergae;
+Nürnberg;norimberga;
 Nürnberg;norimberge;
 Nürnberg;nuernberg;
 Nürnberg;nuremberg;
 Nürnberg;nu rnberg;
-Nürnberg;nürnberg;
+Nürnberg;nurnberg;
 Oakham;rutland;
 Oberwesel;excudebatur praesens opus vvesaliae;
 Octorara Pa;octoraro pa;
@@ -2149,7 +2252,7 @@ Ottawa;ottawa canada;
 Oulu;oulusa;
 Oulu;oulussa;
 Oulu;oulu turku;
-Oulu;uleåborg;
+Oulu;uleaborg;
 Oxford;academia oxonie;
 Oxford;bellositi dobunorum;
 Oxford;bellositi dobunorum oxford;
@@ -2203,8 +2306,9 @@ Oxford;the theater in oxford;
 Padua;patavii;
 Pännäinen;bennäs;
 Parainen;pargas;
-Paris;anno alma parisio rum;
-Paris;anno parisio rum;
+Paris;parisio rum;
+Paris;pariz;
+Paris;parisio rum;
 Paris;be nevvly parys;
 Paris;be newly parys;
 Paris;bpairis;
@@ -2212,7 +2316,7 @@ Paris;celeberrima vrbe parisiensi;
 Paris;est hoc orarium parisijs;
 Paris;exarata sane parisijs;
 Paris;france;
-Paris;iam nuperrime alma parisiorum;
+Paris;parisiorum;
 Paris;lo paris;
 Paris;lutetiae;
 Paris;lutetiae britannorum;
@@ -2264,7 +2368,7 @@ Paris;paryisiorum;
 Paris;parys;
 Paris;parys xx day mowneth may;
 Paris;passy;
-Paris;uniuersitate parisien;
+Paris;parisien;
 Paris KY;paris bourbon county ky;
 Parma;parmae;
 Pärnu;pernaviae;
@@ -2273,7 +2377,7 @@ Pattingham;patingham;
 Peacham Vt;peacham vermont;
 Pembroke Ma;pembroke mass;
 Pensacola Fl;pensacola;
-Pernaja;pernå;
+Pernaja;perna;
 Pernaja;pernau;
 Pernaja;pernö;
 Perth;peairt;
@@ -2377,7 +2481,15 @@ Portsmouth NH;porstmouth nh;
 Portsmouth NH;portmouth nh;
 Portsmouth NH;portsmouth in new hampshire;
 Portsmouth NH;portsmouth new hampshire;
-Porvoo;borgå;
+Porvoo;porovoossa
+Porvoo;provoo
+Porvoo;porvo
+Porvoo;porvoosa
+Porvoo;porvoosoa
+Porvoo;porvossa
+Porvoo;porvov
+Porvoo;porvovssa
+Porvoo;borga;
 Porvoo;borgo;
 Porvoo;borgosa;
 Porvoo;porvoo borgo;
@@ -2395,11 +2507,19 @@ Poughkeepsie NY;york poughkeepsie;
 Poulton-le-Fylde;poulton;
 Poznan;poznan;
 Poznan;pozna n;
+Prague;Prag
+Prague;Prage 
 Prague;praze;
+Prague;praga
+Prague;pragae
+Prague;praha;
 Preston;lancashire;
 Preston;lancs;
 Preston;preston england;
 Preston;prestoni;
+Princeton NJ;princeton new jersey
+Princeton NJ;princeton new york
+Princeton NJ;princetonn j
 Princeton NJ;princeton;
 Providence RI;america at providence r island;
 Providence RI;america providence;
@@ -2421,6 +2541,7 @@ Quebec;uabistiguiatsh;
 Quincy Ma;quincy;
 Quincy Ma;quincy mass;
 Quincy Ma;quincy massachusetts;
+Raahe;raahessa
 Raahe;brahe;
 Raahe;brahestad;
 Raahe;brahestads;
@@ -2437,9 +2558,10 @@ Regensburg;regenspurg;
 Reims;rheims;
 Reims;rheins;
 Reims;rhemes;
+Reykjavik;raykjavik
 Reykjavik;reikjavik;
 Reykjavik;reykjavi k;
-Reykjavik;reykjavík;
+Reykjavik;reykjavik;
 Rhaglan;raglan;
 Richmond;richmond surrey;
 Richmond Va;richmond virginia;
@@ -2455,7 +2577,7 @@ Riga;riika;
 Riga;rijasa;
 Riga;ver rigae livonum;
 Riga;verteutscht und riga;
-Riga;zu riga;
+Riga;riga;
 Rochester;rochester chatham;
 Rock Island IL;rock island;
 Rock Island IL;rock island ill;
@@ -2592,7 +2714,7 @@ Smithville Mn;smithville;
 Smithville Mn;smithville minn;
 Smithville Mn;smithville minnesota;
 Sortavala;serdobol;
-Sortavala;serdobol';
+Sortavala;serdobol;
 Sortavala;sordavala;
 Sortavala;sortavalassa;
 Sortavala;sortavla;
@@ -2671,9 +2793,42 @@ St Louis Kaunti Mi;st louis mi;
 St Mary's Md;st mary s md;
 Stockbridge Ma;stockbridge mass;
 Stockbridge Ma;stockbridge massachusetts;
-Stockholm;ånyo stockholm;
+NA;tyskland
+Stockholm;stovkholm
+Stockholm;tukholm
+Stockholm;tukholmssa
+Stockholm;tukkolma
+Stockholm;stochgolm
+Stockholm;stockhhlm
+Stockholm;stockhholm
+Stockholm;stockhlom
+Stockholm;stockho
+Stockholm;stockhol
+Stockholm;stockhollm
+Stockholm;stockholma
+Stockholm;stockholmab geber
+Stockholm;stockholmbfröleen
+Stockholm;stockholm london new york
+Stockholm;stockholmn
+Stockholm;stockholm new
+Stockholm;stockholm new york
+Stockholm;stockholmt
+Stockholm;stockholn
+Stockholm;stockholom
+Stockholm;stockhoml
+Stockholm;stockkolm
+Stockholm;stoclholm
+Stockholm;stocolma
+Stockholm;stokcholm
+Stockholm;stokgom
+Stockholm;stoḳholm
+Stockholm;stokholma
+Stockholm;stokholme
+Stockholm;stokkholman
+Stockholm;tokholmassa
+Stockholm;stockholm;
 Stockholm;astockholm;
-Stockholm;a stockholm;
+Stockholm;stockholm;
 Stockholm;auctoritate regia privilegialis holmiae;
 Stockholm;holmiae;
 Stockholm;holmiae recusa;
@@ -2686,8 +2841,8 @@ Stockholm;holmis;
 Stockholm;mutta nytt toisen kerran wastwdest stockholmin;
 Stockholm;socholm;
 Stockholm;sotckholm;
-Stockholm;ståkhålm;
-Stockholm;ståkkhålm;
+Stockholm;stakhalm;
+Stockholm;stakkhalm;
 Stockholm;stckholm;
 Stockholm;sthocholm;
 Stockholm;stocholm;
@@ -2700,7 +2855,7 @@ Stockholm;stockh;
 Stockholm;stockh ja turus;
 Stockholm;stockhol isa;
 Stockholm;stock holm;
-Stockholm;stockholm åbo;
+Stockholm;stockholm abo;
 Stockholm;stockholm aff georg hantsch kongl booktr;
 Stockholm;stockholman;
 Stockholm;stockholme;
@@ -2720,13 +2875,13 @@ Stockholm;stockholmjsa;
 Stockholm;stockholm kobenhavn kristiania;
 Stockholm;stockholm kristiania;
 Stockholm;stockholm leipzig;
-Stockholm;stockholm och åbo;
+Stockholm;stockholm och abo;
 Stockholm;stockholm och upsala;
 Stockholm;stockholm pö nytt;
 Stockholm;stockholm upsala;
-Stockholm;stockholm upsala åbo;
-Stockholm;stockholm upsala och åbo;
-Stockholm;stockholm upsala und åbo;
+Stockholm;stockholm upsala abo;
+Stockholm;stockholm upsala och abo;
+Stockholm;stockholm upsala und abo;
 Stockholm;stockhom;
 Stockholm;stockhomin;
 Stockholm;stockhomisa;
@@ -2794,18 +2949,18 @@ St Petersburg;sankt peterburg;
 St Petersburg;sankt peterburg';
 St Petersburg;s peterburg;
 St Petersburg;s peterburg a e vineke;
-St Petersburg;s peterburg a è vineke;
+St Petersburg;s peterburg a e vineke;
 St Petersburg;s peterburg' a evineke;
-St Petersburg;s peterburg' a è vineke;
+St Petersburg;s peterburg' a e vineke;
 St Petersburg;s peterburg b gosudarstvennaa tipografi a;
-St Petersburg;s peterburg b gosudarstvennaâ tipografìâ;
-St Petersburg;s peterburg' b gosudarstvennaâ tipografìâ;
+St Petersburg;s peterburg b gosudarstvennaa tipografia;
+St Petersburg;s peterburg' b gosudarstvennaa tipografia;
 St Petersburg;s peterburg' b gosudarstvennaatipografi a;
-St Petersburg;s peterburg è vineke;
+St Petersburg;s peterburg e vineke;
 St Petersburg;s peterburg m merkusev;
-St Petersburg;s peterburg m merkušev;
+St Petersburg;s peterburg m merkusev;
 St Petersburg;s peterburg m merkus ev;
-St Petersburg;s peterburg' m merkušev;
+St Petersburg;s peterburg' m merkusev;
 St Petersburg;s peterburg' m merkus ev;
 St Petersburg;s peterburg с петербургъ;
 St Petersburg;s petersburg;
@@ -2816,20 +2971,22 @@ St Petersburg;st peterbourg;
 St Petersburg;st peterburg;
 St Petersburg;st petersborg;
 St Petersburg;st petersbourg;
-St Petersburg;st pétersbourg;
+St Petersburg;st petersbourg;
 St Petersburg;st petersbrg;
 St Petersburg;s t petersburg;
-St Petersburg;st pétersburg;
+St Petersburg;st petersburg;
 St Petersburg;st petersburgisa;
 St Petersburg;st petterburg;
 St Petersburg;st pietarbori;
 St Petersburg;st pietarborissa;
 St Petersburg;st pietarissa;
 St Petersburg;v sanktpeterburge;
-St Petersburg;v sanktpeterburgě;
-St Petersburg;v' sanktpeterburge;
-St Petersburg;v' sanktpeterburgě;
-St Petersburg;v sanktpeterburgı︠e︡;
+St Petersburg;v sanktpeterburge;
+St Petersburg;v sanktpeterburge;
+St Petersburg;st petersbourg
+St Petersburg;stpetersburg
+St Petersburg;v sanktpeterburge;
+St Petersburg;v sanktpeterburgie;
 St Pierre;la trinité martinique;
 St Pierre;martinique;
 St Pierre;saint pierre;
@@ -2867,6 +3024,7 @@ Superior Wi;superior wisconsin;
 Szczecin;stetini;
 Szczecin;stettin;
 Tallinn;räwelisä;
+Tallinn;tallin
 Tallinn;reval;
 Tallinn;revaliae;
 Tallinn;revelis;
@@ -2885,7 +3043,7 @@ Tartu;dorpati livonorum;
 Tartu;dorpati livonorvm;
 Tartu;dorpati livonrum;
 Tartu;dorpati livonu m;
-Tartu;dorpati livonúm;
+Tartu;dorpati livonum;
 Tartu;dorpati livonvm;
 Tartu;dorpato pernaviam translatae;
 Tartu;dorpt;
@@ -2972,14 +3130,21 @@ Truru;truro;
 Tubingen;tu bingen;
 Tübingen;tuebingen;
 Turenki;turengi;
-Turku;aåbo;
+Turku;a bl
+Turku;a bo
+Turku;Aboae abo finland
+Turku;Aboae finland
+Turku;abo ekenäs
+Turku;abo finland
+Turku;abo helsingfors
+Turku;aabo;
 Turku;abae;
-Turku;åbae;
+Turku;abae;
 Turku;abo;
-Turku;åbo;
+Turku;abo;
 Turku;aboa;
 Turku;aboae;
-Turku;åboae;
+Turku;aboae;
 Turku;aboae fennorum;
 Turku;aboae finnorum;
 Turku;aboae ime;
@@ -2988,29 +3153,30 @@ Turku;aboae meime;
 Turku;aboaturku;
 Turku;abo a turku;
 Turku;aboa turku;
-Turku;aboâ turku;
+Turku;aboa turku;
 Turku;abodiae;
 Turku;aboe;
 Turku;abo e;
 Turku;abogiae;
-Turku;åbo och stockholm;
+Turku;abo och stockholm;
 Turku;abost;
-Turku;åbo stockholm;
-Turku;åco;
+Turku;abo stockholm;
+Turku;aco;
 Turku;adoae po aboae;
-Turku;åpo;
+Turku;apo;
+Turku;turusu;
 Turku;athenis auräicis;
 Turku;azo bo;
 Turku;azu bo;
-Turku;enthlímmenon aboe;
+Turku;enthlimmenon aboe;
 Turku;enthlimmenon aboe;
 Turku;enthli mmenon en abo e;
-Turku;enthlímmenon en aboe;
-Turku;giöthebörisa ruotzin kielen eric stackbergildä mutta palkan edestä suomexi turusa;
+Turku;enthlimmenon en aboe;
+Turku;giöthebörisa
 Turku;perno;
 Turku;prunkkala;
-Turku;stockholm å nyo åbo;
-Turku;stockholm och å nyo uplagd i åbo;
+Turku;stockholm a nyo abo;
+Turku;stockholm och a nyo uplagd i abo;
 Turku;suomen niemen turusa;
 Turku;turasa;
 Turku;turku helsinki;
@@ -3032,6 +3198,7 @@ Twickenham;twickenham england;
 Tyrnävä;tyrnaviae;
 Ulm;vlm;
 Ulverston;alverston;
+Uppsala;ueppsala
 Uppsala;junecopiae;
 Uppsala;junekopiae;
 Uppsala;nu pö nytt vplagdt och vpsala;
@@ -3095,15 +3262,15 @@ Valletta;malta;
 Valletta;malte;
 Valletta;melitae;
 Vantaa;tikkurila;
-Västerås;arosia;
-Västerås;arosiae;
-Västerås;arosiensis;
-Västerås;wästeråås;
-Västerås;wästeråhs;
-Västerås;wästerås;
-Västerås;westeråhs;
-Västerås;westerås;
-Västerås;westrosia;
+Västeras;arosia;
+Västeras;arosiae;
+Västeras;arosiensis;
+Västeras;wästeraas;
+Västeras;wästerahs;
+Västeras;wästeras;
+Västeras;westerahs;
+Västeras;westeras;
+Västeras;westrosia;
 Västerös;wästeröös;
 Västerös;wästerös;
 Vatican;ecclesiopoli;
@@ -3273,6 +3440,9 @@ Wrexham;gwrecsam;
 Wrexham;ngwrecsam;
 Wrexham;wreham;
 Wurzburg;wu rzburg;
+Wurzburg;Wuerzburb
+Wurzburg;Wuerzburg
+Wurzburg;Wuerzburg aumuehle
 Y Bont-faen;pont y fon;
 Y Bont-faen;y bont faen;
 Yeovil;yeovil england;
@@ -3294,14 +3464,6 @@ Youghal;youghall;
 Yr Wyddgrug;wyddgrug;
 Yverdon-les-Bains;yverdon;
 Zeiz-Bahren;zeiz;
-Zürich;switzerland;
-Zürich;tiguri;
-Zürich;tiguri zurich;
-Zürich;tigvri;
-Zürich;zuerich;
-Zürich;zurich;
-Zürich;zu rich;
-Zürich;zurych;
 Zweibrücken;zweibruecken;
 NA;copy van schotland;
 NA;agnifitiae;not a place
@@ -3340,3 +3502,1853 @@ NA;v telci;
 NA;chicago york;
 NA;ur ev;
 NA;jetzo auffs newe zu stade;
+Turku;Aàbo
+Aachen;Aachen liege
+Turku;Aboae abo
+Turku;Aboae abo
+The Hague;Aes gravenhage
+Mariehamn;aland 
+Altdorf;Altdorffii 
+Altdorf;Altdorfii
+Altefähr;Altefähr
+Amberg;Amberg 
+Amsterdam;Amsteld
+Amsterdam;Amsterdam
+Amsterdam;Amsterdam haye stockholm
+Amsterdam;Amsterdam paris
+Amsterdam;Amsterdam rotterdam
+Amsterdam;Amsterdam upsala
+Amsterdam;Amsterodami hamburgi
+Gävle;gefle
+Gävle;gefle 
+Nyköping;nyköping 
+Artern;Artern
+Wijsingzborg;wiesingsburg 
+Augsburg;Augspurg
+Genève;Aureliae allobrogum
+Barhöft;Barhöft
+Basel;Basilea 
+Nijmegen;Bataviae
+Västeras;wästers 
+Rostock;Belitz
+Berlin;Berlin greifswald
+Berlin;Berlingska et
+Berlin;Berlin stettin
+Berlin;Berlin stralsund
+Berlin;Berlin stralsund greifswald
+Berlin;Berolini
+Boizenburg;Boizenburg
+Bologna;Bologne
+Boras;Boras 
+Boras;Boras n e lundström
+Berlin;Brandenburg 
+Braunschweig;Braunschweig schulbuchhandlung
+Brest;Brest
+Brussels;Bruessel
+Brunsberg;Brunsberg
+Brunsberg;Brunsbergae
+Brussels;Brussel
+Buxtehude;Buxtehude
+Caen;Caes aug
+Kalisz;Calissii
+Kalmar;Calmara 
+Kalmar;Calmar 
+Kalmar;Calmariae
+Karlstad;Carlstad
+Karlstad;Carlstad e höijer
+Karlstad;Carlstad e wallencro
+Karlstad;Carlstad l horrn
+Karlstad;Carlstad wallencro 
+Cassel;Cassel 
+Catania;Catania 
+Berlin;Charlottenburg
+Chemnitz;Chemnitz 
+Copenhagen;Christianiae
+Koblenz;Coblentz 
+Cologne;Cölln
+Cologne;Cöln
+Conimbricae;Conimbricae
+Copenhagen;Copenhagen leipzig
+Copenhagen;Copenhague geneve
+Coswig;Coswig
+Krakow;Cracoviae 
+Copenhagen;Cristianstad
+Stockholm;Dalarö
+Dantzig;Dantisci 
+Dantzig;Danzic
+Västeras;wästers
+Tartu;Dörpath liefflandt 
+Tartu;Dorpatu
+Dresden;Dresde
+Dunkirk;Dunkerque
+Erfurt;Erffurdt
+Erfurt;Erfordiae heringii 
+Falun;Falue
+Filipstad;Filipstad
+Turku;Finland
+Firenze;Firenzi
+Flensburg;Flensburg leipzig
+Florence;Florentiae
+Stockholm; grefingska tryckeriet
+Stockholm; grefinska tryckeriet
+Stockholm; grefingska tryckeriet
+Frankfurt;Fracofurti 
+Frankfurt;Franckfourt 
+Frankfurt;Franckfurth leipzig
+Frankfurt;Franckfurt leipzig
+Frankfurt;Franckfurt leipzig königsberg
+Frankfurt;Franckfurt leipzig riga
+Frankfurt;Franckofurti
+Frankfurt;Francof
+Frankfurt;Francofurti lipsiae
+Frankfurt;Francofvrti lipsiae 
+Frankfurt;Franekerae 
+Frankfurt;Franeqverae
+Frankfurt;Frankenthal
+Franzburg;Franzburg
+Halden;Fredrikshald 
+Halden;Fredrikshall
+Fredrikstad;Fredrikstad
+Freiburg;Friburgi brisgoiae
+Friedrichstadt;Friederichsstadt
+Gävle;Gävle
+Danzig;Gedani
+Gävle;Gefle 
+Geneve;Genes
+nyköping;nyköping
+Genoa;Genova
+Genoa;Genuae
+Genoa;Genvae
+Gävle;Gevaliae
+Gothenburg;Giötebarg
+Gothenburg;Giötheborg 
+Glückstadt;Glueckstadt
+Gothenburg;Göhteborg 
+Gothenburg;Göteborg greifswald
+Gothenburg;Göteborg stockholm
+Gotha;Gothae
+Gothenburg;Gotheborg
+Gothenburg;Götheborgh 
+Gothenburg;Götheborg upsala
+Gothenburg;Gothenborg
+Gothenburg;GothenburgSweden 
+Gothenburg;Gothoburgensis
+Göttingen;Göttingae
+Göttingen;Gottingae lipsiae
+Greifswald;Greiffswald stralsund
+Greifswald;Greifswald lund
+Greiz;Greiz 
+Greifswald;Greyffswald
+Greifswald;Greyffswaldt
+Groeningen;Groeningen
+Groeningen;Groningae 
+Greifswald;Gryhiae
+Greifswald;Gryhiswaldi
+Greifswald;Gryhiswaldiae
+Greifswald;Gryphisbaldia
+Greifswald;Gryphisvaldiae
+Greifswald;Gryphisvvaldiae 
+Greifswald;Gryphisw
+Greifswald;Gryphiswaldij ferberi
+Greifswald;Gryphiswaliae 
+Greifswald;Gryphisw caroli 
+Gusum;Gusum
+Haarlem;Haerlem
+Leipzig;lipsiae
+Halle;Halae magdebvrgicae 
+Halle;Halae svevor
+Halmstad;Halmstad 
+Hamburg;HamburgGermany 
+Hamburg;Hamburg franckfurt leipzig
+Hamburg;Hamburg holmiae
+Hamburg;Hamburgi amsterodami
+Hamburg;Hamburgi holmiae
+Hamburg;Hamburg kiel
+Hamburg;Hamburg leipzig
+Hamburg;Hamburg stockholm
+Hämeenlinna;HämeenlinnaFinland
+Hamm;Hamm
+Hamm;Hammone 
+Harlem;Harlemi
+Addis Abeba;addis abeba
+Haunia;Hauniae köpenhamn
+Haunia;Havniae 
+Vienna;Heiligenstadt
+Helmstedt;Helmaestadi 
+Helmstedt;Helmestadii
+Helmstedt;Helmstädt 
+Helsingborg;Helsingborg 
+Helsinki;Helsingfors abo
+Helsingør;helsingor
+Helsingør;HelsingorDenmark
+Helsingør;Helsingo/r
+Helsingør;helsingor
+Helsingør;helsingo r
+Helsingør;helsingör
+Uppsala;upsaliensis
+Härnösand;Hernoesandiae
+Heylbronn;Heylbrunn
+Heylbronn;Heylbronn
+Hildburghausen;Hildburghausen
+Stockholm;Holmia
+Stockholm;Holmiae bruxellis
+Stockholm;Holmiae hamburgi
+Stockholm;Holmiae hanoviae
+Stockholm;Holmiae lipsiae
+Stockholm;Holmiae vbsaliae
+Stockholm;Holmiae wasae
+Stockholm;Holmii
+Hrafnsey;Hrappsey 
+Gävle;I gefle
+Jihlava;Iglau
+Copenhagen;I kiohaffn 
+Stockholm;Istockholm
+Uppsala;I vbsala
+Jönnköping;Jönekjöpjng
+Jönnköping;Jönkjöping
+Jönnköping;Jönköping norrköping
+Jüterbog;Jueterbog
+Kalmar;Kalmar
+Karlshamn;Karlshamn 
+Karlskron;Karlskro stockholm
+Copenhagen;Kaupmanhafn
+Copenhagen;Kaupmanhöfn
+Copenhagen;Kbhvn
+Copenhagen;Khvn
+Kiel;Kilonii
+Kiel;Kiloni 
+Copenhagen;Kioh
+Copenhagen;Kiohabn 
+Copenhagen;Kiöhaffn
+Copenhagen;Kiöhafn
+Copenhagen;Kiohamn
+Copenhagen;Ko/havn
+Coburg;Koburg
+Cologne;Köln stockholm
+Copenhagen;Kopenhagen 
+Anhalt;Köthen
+Copenhagen;Kristianstad
+Rostock;Laage
+The Hague;La haie 
+Leiden;Leijden
+Leipzig;Leipsick
+Leipzig;Leipzig altenburg
+Leipzig;Leipzig nuernberg
+Leipzig;Leipzig stockholm
+Leipzig;Leipzig stralsund
+Leipzig;Leipzig strengnäs
+Leipzig;Leipzig weimar
+Lviv;Leopoli
+Lichfield;Lichfield london dublin edinburgh
+Legnica;Liegnitz
+Linköping;Lijnköping 
+Linköping;Likiöping
+Limoges;Limoges
+Linköping;Lincii
+Linköping;Lincopen
+Linköping;Lincöping
+LLinköping;inkiöpingh
+Linköping;Linkiöpng
+Linköping;Linkjöping
+Linköping;Linkopiae
+Linköping;Linköpingh
+Linköping;Linköping norrköping
+Linköping;Linköping stockholm
+Linköping;Linköpng
+Linköping;Linlöping
+Linz;Linz
+Leipzig;Lipsiae dessaviae
+Leipzig;Lipsiae rostochii
+London;Londini lund
+London;London exeter york
+London;London holborn
+London;Londoni lund
+London;London lyon
+London;London stockholm
+London;Londres paris providence
+Lübeck;Luebeck leipzig
+Lübeck;Luebeck lybeck
+Lüneburg;Lueneburg
+Liège;Luettich
+Leiden;Lugd bat
+Lund;Lunda
+Lund;Lundae lund
+Lund;Lundensibus
+Lund;Lund frankfurt
+Lund;Lund hamburg
+Lund;Lund malmö
+Lund;Lund stockholm
+Leiden;Lvgd batav 
+Leiden;Lvgd batavorvm 
+Leiden;Lvgd batavorvm 
+Leiden;Lvgd bat
+Leiden;Lvgdvni lugduni
+London;Lvndini 
+Lybeck;Lybec
+Malmö;Mallmö 
+Malmö;Malmoe
+Malmö;Malmogiae
+Marburg;Marburgi 
+Mariestad;Mariaestad
+Mariefred;Mariefred
+Marburg;Marpurgi hassorum
+Meinz;Mäyntz
+Milano;Mediolani
+Metz;Metz
+Meinz;Meyntz
+Jelgava;Mietau
+Mühlhausen;Muehlhausen
+München;Muenchen
+Neuchatel;Neufchatel
+Norrköping;Norcopiae
+Nürnberg;Norembergae
+Nürnberg;Noribergae upsaliae
+Norrköping;Norrkjöping
+Norrköping;NorrköpingSweden
+Norrköping;Norrköping götheborg
+Norrköping;Norrköping hamburg stockholm
+Norrköping;Norrköping linköping
+Norrköping;Norrköping stockholm
+Norrköping;Norrköping uppsala örebro
+Nürnberg;Nueremberg
+Nürnberg;Nuernberg frankfurt leipzig
+Nyköping;Nyköping 
+Odense;Odense 
+Onoldi;Onoldi
+Oranienburg;Oranienburg
+Örebro;Orebroae
+Örebro;örebro jönköping
+Örebro;örebro stockholm 
+Örebro;örebro uppsala
+Paris;Paris anuers
+Paris;Paris stockholm
+Perth;Perth edinburgh london
+Philadelphia Pa;Philadelphia london
+Baltijsk;Pillau
+Pisa;Pisa 
+Samtens;Plueggenthin
+Pomerania;Pommern
+Poschiavo;Poschiavo
+Poznań;Posen
+Poznań;Posniae
+Poznań;Pozsony komarom
+Lund;Prelo lundensi
+Pyrmont;Pyrmont
+Ratzeburg;Ratzeburg
+Stockholm;Regia holmia
+Königsberg;Regimonti
+Königsberg;Regiomonti borussiae
+Reutlingen;Reutlingen
+Ribnitz;Ribnitz
+Rimini;Rimini
+Hannover;Rintelii literis 
+Hannover;Rinteln 
+Rädigke;Rödigke
+Rädigke;Rödigke i sachsen
+Rostock;Rostochii lipsiae
+Rostock;Rostochii rostock
+Rostock;Rostochi lipsiae
+Rostock;RostockGermany
+Rostock;Rostock leipzig
+Rostock;Rostock wismar
+Rostock;Rostokii
+Roßlau;Roszlau 
+Rudolfstadt;Rudolfstadt
+Rudolfstadt;Rudolstadt
+Saalfeld;Saalfeld
+Saarmund;Saarmund 
+St Petersburg;Sanktpeterburge
+St Petersburg;Sanktpiterburch
+St Petersburg;Sanktpiterburg
+San sebastian;San sebastian
+Skara;Scara
+Schnepfenthal;Schnepfenthal 
+Schwabach;Schwabach
+Sedini;Sedini
+The Hague;S graavenhaage
+The Hague;S gravenhage
+Skara;Skara stockholm
+Smolensk;Smolensk
+Stockholm;Sockholm 
+Sondershausen;Sondershausen
+Żary;Sorau
+Żary;Soroe 
+Berlin;Spandau
+Stockholm;Stackhalm
+Stockholm;Stakkholm
+Stockholm;Stekholm 
+Stendal;Stendal
+Szczecin;Stetin
+Szczecin;Stettini
+Stockholm;Sthlm
+Stockholm;Stochholm 
+Stockholm;Stocholm abo
+Stockholm;Stocholme
+Stockholm;Stocholmo
+Stockholm;Stocholm westeras
+Stockholm;Stockholm sweden
+Stockholm;Stockholm abo
+Stockholm;Stockholmae
+Stockholm;Stockholmb
+Stockholm;Stockholm berlin
+Stockholm;Stockholm bern
+Stockholm;Stockholm danzig
+Stockholm;Stockholm erfurt
+Stockholm;Stockholmesn trykketum
+Stockholm;Stockholm frankfurt
+Stockholm;Stockholm göteborg
+Stockholm;Stockholm greifswald
+Stockholm;Stockholm halle
+Stockholm;Stockholm hamburg
+Stockholm;Stockholm härnösand
+Stockholm;Stockholm/
+Stockholm;Stockholmiae upsal
+Stockholm;Stockholm karlskro
+Stockholm;Stockholm karlskro regensburg
+Stockholm;Stockholm kohavn
+Stockholm;Stockholm köln
+Stockholm;Stockholm linköping 
+Stockholm;Stockholm linköping lund
+Stockholm;Stockholm lyon
+Stockholm;Stockholmm
+Stockholm;Stockholm/ 
+Stockholm;Stockholm norrköping 
+Stockholm;Stockholm nuernberg
+Stockholm;Stockholm örebro
+Stockholm;Stockholm paris
+Stockholm;Stockholm peru
+Stockholm;Stockholm petersburg abo
+Stockholm;Stockholm reval
+Stockholm;Stockholm skara
+Stockholm;Stockholm stocholm
+Stockholm;Stockholm stralsund
+Stockholm;Stockholm strängnäs 
+Stockholm;Stockholm strasbourg
+Stockholm;Stockholm uppsala 
+Stockholm;Stockholm uppsala abo
+Stockholm;Stockholm uppsala greifswald
+Stockholm;Stockholm upsal 
+Stockholm;Stockholm upsala westeras
+Stockholm;Stockholm upsala westeras örebro
+Stockholm;Stockholm utrecht
+Stockholm;Stockholm västeras
+Stockholm;Stockholm vpsala
+Stockholm;Stockholm wasa 
+Stockholm;Stockholm wien
+Stockholm;Stockho m
+Stockholm;Stockhoplm
+Stockholm;Stocolme 
+Stockholm;Stokgolm 
+Stockholm;Stokkholm 
+St Petersburg;St petersb
+St Petersburg;St petersbourg
+Stralsund;Strahlsund
+Stralsund;Strahlsundt
+Stralsund;Stralsund greifswald
+Stralsund;Stralsundiae
+Stralsund;Stralsundi literis 
+Stralsund;Stralsund leipzig
+Stralsund;Stralsund örebro
+Stralsund;Stralsund rostock leipzig
+Stralsund;Stralsundt
+Strängnäs;St rängnäs
+Strängnäs;Strängnäs norrköping
+Strängnäs;Strängnäs stockholm 
+Strasbourg;Strassbourg
+Strasbourg;Strassburg basel
+Strasbourg;Straszburg
+Straubing;Straubing
+Strängnäs;Stregnäs
+Strängnäs;Stregnesii
+Strängnäs;Stregn 
+Strängnäs;Strengnääs
+Strängnäs;Strengnesi
+Strängnäs;Strengnesij
+Strömsholm;Strömsholm
+Strömstad;Strömstad
+Stuttgart;Stuttgardt
+Sulzbach;Sulzbach
+Tampere;Tamrereella
+Tanger;Tangeri
+Linköping;linköpings 
+Toruń;Thorn 
+Tønder;Tondern
+Tönning;Tönning
+Tours;Tours
+Utrecht;Trajecti rhenum
+Treuenbrietzen;Treuenbrietzen
+Tribsees;Tribsees
+Trier;Trier
+Gävle;Tr i gefle
+Troyes;Troyes
+Malmö;malmo 
+Stockholm;Ttockholm
+Turku;Tukusa 
+Turin;Turin
+Turku;Turusa abo
+Turku;Turusa pietari
+Uppsala;Ubsala
+Uppsala;Ubsaliae upsal
+Uddevalla;Uddevalla
+Malmö;Udi malmoe 
+Ulm;Ulmae
+Amsterdam;Ultrajecti
+Uppsala;Uppala
+Uppsala;Upps
+Uppsala;Uppsala sweden 
+Uppsala;Uppsala leipzig
+Uppsala;Uppsala örebro
+Uppsala;Uppsala rostock
+Uppsala;Uppsala stockholm 
+Uppsala;Uppsala stockholm skara
+Uppsala;Uppsala strängnäs stockholm
+Uppsala;Uppsala västeras
+Uppsala;Uppsaliae
+Uppsala;Upsalae upsal
+Uppsala;Upsala stockholm
+Uppsala;Upsale 
+Uppsala;Upsalia
+Uppsala;Upsaliae holmiae
+London;london edinburgh new york
+London;london edinburgh new york paris
+London;london new burlington
+London;london new york
+London;london new york sydney
+London;london new york toronto
+London;london paris new york melbourne
+London;london stockholm copenhagen berlin new york
+Uppsala;Upsaliae upsal
+Uppsala;Upsalieae
+Uppsala;Usaliae
+Valladolid;Valladolid
+Vänersborg;Vänersborg 
+Vaasa;Vasasa
+Västeras;Västeras strängnäs
+Västeras;Västeras wästeras
+Växjö;wexi
+Växjö;wexjö
+Växjö;wexjö
+Trivandrum;trivandrum
+Växjö;vexjö
+Växjö;wäxiö
+Växjö;wäxjö
+Växjö;Växjö
+Växjö;Växjö hov
+Växjö;Wexiö
+Växjö;väsjö
+Uppsala;Vbsala
+Vänersborg;Venersborg
+Västeras;Vesteras
+Växjö;Vexiö
+Vienna;Viene austriae
+Villefranche;Villefranche
+Venice;Vinegia 
+Visby;Visby 
+Moscow;V moskvě 
+Uppsala;Vpsalae
+Uppsala;Vpsala stockholm
+Uppsala;Vpsal
+Uppsala;Vpsaliae hamburg
+Uppsala;Vpsalis 
+Breslau;Vratislaviae
+St Petersburg;V sanktpeterburgě 
+Warsaw;Warszawie
+Weißenfels;Weissenfels
+Vänersborg;Wenersborg
+Vänersborg;Wennersborg
+Västeras;Westeraas
+Västeras;Westers
+Västeras;Westerars
+Wijsingzborg;Wiesingsburg
+Wijsingzborg;Wijsindzborg 
+Wijsingzborg;Wijsingzöö 
+Wijsingzborg;Wijsinzgborg
+Visby;Wisby
+Wijsingzborg;Wisingsborgh
+Wismar;Wissmar
+Wismar;Wissmar und straalsund 
+Wismar;Wiszmar
+Wittenberg;Wittebergae aerae
+Warsaw;W warszawie
+Vilna;W wilnie
+Wijsingzborg;Wysingzborg
+Zamosc;W zamosciu
+Zamosc;Zamosci
+Zeitz;Zeitz
+Zerbst;Zerbst 
+Zweibrücken;Zweybruecken 
+Mariefred;mariefred 
+Zürich;switzerland;
+Zürich;tiguri;
+Zürich;tiguri zurich;
+Zürich;tigvri;
+Zürich;zuerich;
+Zürich;zurich;
+Zürich;zu rich;
+Zürich;zurych;
+Zürich;Zuerich new york
+Zürich;Zuerich/stuttgart
+Koski.Tl;koski.tl
+Äänekoski;äänekoski
+Ähtäri;ähtäri
+Akaa;akaa
+Alajärvi;alajärvi
+Alavieska;alavieska
+Alavus;alavus
+Asikkala;asikkala
+Askola;askola
+Aura;aura
+Brändö;brändö
+Eckerö;eckerö
+Enonkoski;enonkoski
+Enontekiö;enontekiö
+Espoo;espoo
+Eura;eura
+Eurajoki;eurajoki
+Evijärvi;evijärvi
+Finström;finström
+Föglö;föglö
+Forssa;forssa
+Geta;geta
+Haapajärvi;haapajärvi
+Haapavesi;haapavesi
+Hailuoto;hailuoto
+Halsua;halsua
+Hämeenkoski;hämeenkoski
+Hämeenkyrö;hämeenkyrö
+Hämeenlinna;hämeenlinna
+Hamina;hamina
+Hammarland;hammarland
+Hankasalmi;hankasalmi
+Hanko;hanko
+Harjavalta;harjavalta
+Hartola;hartola
+Hattula;hattula
+Hausjärvi;hausjärvi
+Heinävesi;heinävesi
+Heinola;heinola
+Helsinki;helsinki
+Hirvensalmi;hirvensalmi
+Hollola;hollola
+Honkajoki;honkajoki
+Huittinen;huittinen
+Humppila;humppila
+Hyrynsalmi;hyrynsalmi
+Hyvinkää;hyvinkää
+Ii;ii
+Iisalmi;iisalmi
+Iitti;iitti
+Ikaalinen;ikaalinen
+Ilmajoki;ilmajoki
+Ilomantsi;ilomantsi
+Imatra;imatra
+Inari;inari
+Inkoo;inkoo
+Isojoki;isojoki
+Isokyrö;isokyrö
+Jalasjärvi;jalasjärvi
+Jämijärvi;jämijärvi
+Jämsä;jämsä
+Janakkala;janakkala
+Järvenpää;järvenpää
+Joensuu;joensuu
+Jokioinen;jokioinen
+Jomala;jomala
+Joroinen;joroinen
+Joutsa;joutsa
+Juankoski;juankoski
+Juuka;juuka
+Juupajoki;juupajoki
+Juva;juva
+Jyväskylä;jyväskylä
+Kaarina;kaarina
+Kaavi;kaavi
+Kajaani;kajaani
+Kalajoki;kalajoki
+Kangasala;kangasala
+Kangasniemi;kangasniemi
+Kankaanpää;kankaanpää
+Kannonkoski;kannonkoski
+Kannus;kannus
+Karijoki;karijoki
+Karkkila;karkkila
+Kärkölä;kärkölä
+Kärsämäki;kärsämäki
+Karstula;karstula
+Karvia;karvia
+Kaskinen;kaskinen
+Kauhajoki;kauhajoki
+Kauhava;kauhava
+Kauniainen;kauniainen
+Kaustinen;kaustinen
+Keitele;keitele
+Kemi;kemi
+Kemijärvi;kemijärvi
+Keminmaa;keminmaa
+Kemiönsaari;kemiönsaari
+Kempele;kempele
+Kerava;kerava
+Keuruu;keuruu
+Kihniö;kihniö
+Kinnula;kinnula
+Kirkkonummi;kirkkonummi
+Kitee;kitee
+Kittilä;kittilä
+Kiuruvesi;kiuruvesi
+Kivijärvi;kivijärvi
+Kökar;kökar
+Kokemäki;kokemäki
+Kokkola;kokkola
+Kolari;kolari
+Konnevesi;konnevesi
+Kontiolahti;kontiolahti
+Korsnäs;korsnäs
+Kotka;kotka
+Kouvola;kouvola
+Köyliö;köyliö
+Kristiinankaupunki;kristiinankaupunki
+Kruunupyy;kruunupyy
+Kuhmo;kuhmo
+Kuhmoinen;kuhmoinen
+Kumlinge;kumlinge
+Kuopio;kuopio
+Kuortane;kuortane
+Kurikka;kurikka
+Kustavi;kustavi
+Kuusamo;kuusamo
+Kyyjärvi;kyyjärvi
+Lahti;lahti
+Laihia;laihia
+Laitila;laitila
+Lapinjärvi;lapinjärvi
+Lapinlahti;lapinlahti
+Lappajärvi;lappajärvi
+Lappeenranta;lappeenranta
+Lapua;lapua
+Laukaa;laukaa
+Lavia;lavia
+Lemi;lemi
+Lemland;lemland
+Lempäälä;lempäälä
+Leppävirta;leppävirta
+Lestijärvi;lestijärvi
+Lieksa;lieksa
+Lieto;lieto
+Liminka;liminka
+Liperi;liperi
+Lohja;lohja
+Loimaa;loimaa
+Loppi;loppi
+Loviisa;loviisa
+Luhanka;luhanka
+Lumijoki;lumijoki
+Lumparland;lumparland
+Luoto;luoto
+Luumäki;luumäki
+Luvia;luvia
+Maalahti;maalahti
+Maaninka;maaninka
+Mäntsälä;mäntsälä
+Mänttä-Vilppula;mänttä-vilppula
+Mäntyharju;mäntyharju
+Marttila;marttila
+Masku;masku
+Merijärvi;merijärvi
+Merikarvia;merikarvia
+Miehikkälä;miehikkälä
+Muhos;muhos
+Multia;multia
+Muonio;muonio
+Mustasaari;mustasaari
+Muurame;muurame
+Mynämäki;mynämäki
+Myrskylä;myrskylä
+Naantali;naantali
+Nakkila;nakkila
+Närpiö;närpiö
+Nastola;nastola
+Nivala;nivala
+Nokia;nokia
+Nousiainen;nousiainen
+Nurmes;nurmes
+Nurmijärvi;nurmijärvi
+Orimattila;orimattila
+Oripää;oripää
+Orivesi;orivesi
+Oulainen;oulainen
+Oulu;oulu
+Outokumpu;outokumpu
+Padasjoki;padasjoki
+Paimio;paimio
+Pälkäne;pälkäne
+Paltamo;paltamo
+Parainen;parainen
+Parikkala;parikkala
+Parkano;parkano
+Pedersöre;pedersöre
+Pelkosenniemi;pelkosenniemi
+Pello;pello
+Perho;perho
+Pertunmaa;pertunmaa
+Petäjävesi;petäjävesi
+Pieksämäki;pieksämäki
+Pielavesi;pielavesi
+Pietarsaari;pietarsaari
+Pihtipudas;pihtipudas
+Polvijärvi;polvijärvi
+Pomarkku;pomarkku
+Pori;pori
+Pornainen;pornainen
+Porvoo;porvoo
+Posio;posio
+Pöytyä;pöytyä
+Pudasjärvi;pudasjärvi
+Pukkila;pukkila
+Punkalaidun;punkalaidun
+Puolanka;puolanka
+Puumala;puumala
+Pyhäjärvi;pyhäjärvi
+Pyhäjoki;pyhäjoki
+Pyhäntä;pyhäntä
+Pyhäranta;pyhäranta
+Pyhtää;pyhtää
+Raahe;raahe
+Rääkkylä;rääkkylä
+Raasepori;raasepori
+Raisio;raisio
+Rantasalmi;rantasalmi
+Ranua;ranua
+Rauma;rauma
+Rautalampi;rautalampi
+Rautavaara;rautavaara
+Rautjärvi;rautjärvi
+Reisjärvi;reisjärvi
+Riihimäki;riihimäki
+Ristijärvi;ristijärvi
+Rovaniemi;rovaniemi
+Ruokolahti;ruokolahti
+Ruovesi;ruovesi
+Rusko;rusko
+Saarijärvi;saarijärvi
+Säkylä;säkylä
+Salla;salla
+Salo;salo
+Saltvik;saltvik
+Sastamala;sastamala
+Sauvo;sauvo
+Savitaipale;savitaipale
+Savonlinna;savonlinna
+Savukoski;savukoski
+Seinäjoki;seinäjoki
+Sievi;sievi
+Siikainen;siikainen
+Siikajoki;siikajoki
+Siikalatva;siikalatva
+Siilinjärvi;siilinjärvi
+Simo;simo
+Sipoo;sipoo
+Siuntio;siuntio
+Sodankylä;sodankylä
+Soini;soini
+Somero;somero
+Sonkajärvi;sonkajärvi
+Sotkamo;sotkamo
+Sottunga;sottunga
+Sulkava;sulkava
+Sund;sund
+Suomussalmi;suomussalmi
+Suonenjoki;suonenjoki
+Sysmä;sysmä
+Taipalsaari;taipalsaari
+Taivalkoski;taivalkoski
+Taivassalo;taivassalo
+Tammela;tammela
+Tampere;tampere
+Tarvasjoki;tarvasjoki
+Tervo;tervo
+Tervola;tervola
+Teuva;teuva
+Tohmajärvi;tohmajärvi
+Toholampi;toholampi
+Toivakka;toivakka
+Tornio;tornio
+Turku;turku
+Tuusniemi;tuusniemi
+Tuusula;tuusula
+Tyrnävä;tyrnävä
+Ulvila;ulvila
+Urjala;urjala
+Utajärvi;utajärvi
+Utsjoki;utsjoki
+Uurainen;uurainen
+Uusikaarlepyy;uusikaarlepyy
+Uusikaupunki;uusikaupunki
+Vaala;vaala
+Vaasa;vaasa
+Valkeakoski;valkeakoski
+Valtimo;valtimo
+Vantaa;vantaa
+Vårdö;vårdö
+Varkaus;varkaus
+Vehmaa;vehmaa
+Vesanto;vesanto
+Vesilahti;vesilahti
+Veteli;veteli
+Vieremä;vieremä
+Vihti;vihti
+Viitasaari;viitasaari
+Vimpeli;vimpeli
+Virolahti;virolahti
+Virrat;virrat
+Vöyri;vöyri
+Ylitornio;ylitornio
+Ylivieska;ylivieska
+Ylöjärvi;ylöjärvi
+Ypäjä;ypäjä
+Sundsvall;sundsvall
+Valdemarsvik;valdemarsvik
+Ulricehamn;ulricehamn
+Umeå;umeå
+Tanum;tanum
+Sundbyberg;sundbyberg
+Vellinge;vellinge
+Vårgårda;vårgårda
+Visby;visby
+Sandviken;sandviken
+Sollentuna;sollentuna
+Rättvik;rättvik
+Trelleborg;trelleborg
+Stenungsund;stenungsund
+Vänersborg;vänersborg
+Ystad;ystad
+Tidaholm;tidaholm
+Tibro;tibro
+Västerås;västerås
+Täby;täby
+Svalöv;svalöv
+Ydre;ydre
+Uppsala;uppsala
+Uppvidinge;uppvidinge
+Storuman;storuman
+Sorsele;sorsele
+Oxelösund;oxelösund
+Sigtuna;sigtuna
+Sollefteå;sollefteå
+Säffle;säffle
+Skurup;skurup
+Skellefteå;skellefteå
+Staffanstorp;staffanstorp
+Uddevalla;uddevalla
+Vaxholm;vaxholm
+Vansbro;vansbro
+Vaggeryd;vaggeryd
+Strömstad;strömstad
+Vingåker;vingåker
+Töreboda;töreboda
+Tingsryd;tingsryd
+Tomelilla;tomelilla
+Vimmerby;vimmerby
+Skövde;skövde
+Pajala;pajala
+Sjöbo;sjöbo
+Sävsjö;sävsjö
+Solna;solna
+Södertälje;södertälje
+Västervik;västervik
+Vara;vara
+Trollhättan;trollhättan
+Ludvika;ludvika
+Stockholm;stockholm
+Orust;orust
+Salem;salem
+Nybro;nybro
+Perstorp;perstorp
+Ragunda;ragunda
+Örebro;örebro
+Malung;malung
+Norsjö;norsjö
+Mariestad;mariestad
+Ljusnarsberg;ljusnarsberg
+Robertsfors;robertsfors
+Simrishamn;simrishamn
+Säter;säter
+Luleå;luleå
+Lilla Edet;lilla edet
+Nordmaling;nordmaling
+Sala;sala
+Lerum;lerum
+Ockelbo;ockelbo
+Ovanåker;ovanåker
+Lessebo;lessebo
+Mölndal;mölndal
+Mönsterås;mönsterås
+Ödeshög;ödeshög
+Mark;mark
+Skara;skara
+Piteå;piteå
+Kumla;kumla
+Munkedal;munkedal
+Hudiksvall;hudiksvall
+Huddinge;huddinge
+Hallsberg;hallsberg
+Karlstad;karlstad
+Nässjö;nässjö
+Kävlinge;kävlinge
+Järfälla;järfälla
+Öckerö;öckerö
+Hultsfred;hultsfred
+Köping;köping
+Kiruna;kiruna
+Jokkmokk;jokkmokk
+Hörby;hörby
+Kalmar;kalmar
+Kinda;kinda
+Höör;höör
+Landskrona;landskrona
+Kungsbacka;kungsbacka
+Halmstad;halmstad
+Härnösand;härnösand
+Hallstahammar;hallstahammar
+Karlskoga;karlskoga
+Danderyd;danderyd
+Finspång;finspång
+Karlskrona;karlskrona
+Härjedalen;härjedalen
+Mjölby;mjölby
+Linköping;linköping
+Lidköping;lidköping
+Lidingö;lidingö
+Katrineholm;katrineholm
+Hammarö;hammarö
+Helsingborg;helsingborg
+Hofors;hofors
+Avesta;avesta
+Borgholm;borgholm
+Gällivare;gällivare
+Fagersta;fagersta
+Borlänge;borlänge
+Forshaga;forshaga
+Bollnäs;bollnäs
+Boxholm;boxholm
+Båstad;båstad
+Essunga;essunga
+Älmhult;älmhult
+Gotland;gotland
+Åsele;åsele
+Habo;habo
+Gävle;gävle
+Gagnef;gagnef
+Emmaboda;emmaboda
+Falköping;falköping
+Falkenberg;falkenberg
+Dals-Ed;dals-ed
+Flen;flen
+Borås;borås
+Eslöv;eslöv
+Eskilstuna;eskilstuna
+Åmål;åmål
+Alvesta;alvesta
+Alingsås;alingsås
+Älvdalen;älvdalen
+Bjuv;bjuv
+Åre;åre
+Ale;ale
+Knivsta;knivsta
+Lekeberg;lekeberg
+Torsby;torsby
+Växjö;växjö
+Dorotea;dorotea
+Herrljunga;herrljunga
+Örkelljunga;örkelljunga
+Sölvesborg;sölvesborg
+Upplands-Bro;upplands-bro
+Härryda;härryda
+Lindesberg;lindesberg
+Boden;boden
+Malmö;malmö
+Ljusdal;ljusdal
+Hagfors;hagfors
+Nacka;nacka
+Högsby;högsby
+Ekerö;ekerö
+Norrköping;norrköping
+Olofström;olofström
+Leksand;leksand
+Östhammar;östhammar
+Eksjö;eksjö
+Torsås;torsås
+Vännäs;vännäs
+Kungsör;kungsör
+Storfors;storfors
+Tranås;tranås
+Vindeln;vindeln
+Ronneby;ronneby
+Överkalix;överkalix
+Ljungby;ljungby
+Orsa;orsa
+Söderköping;söderköping
+Norberg;norberg
+Karlshamn;karlshamn
+Vadstena;vadstena
+Älvsbyn;älvsbyn
+Falun;falun
+Nordanstig;nordanstig
+Gullspång;gullspång
+Gnosjö;gnosjö
+Grums;grums
+Arboga;arboga
+Enköping;enköping
+Bollebygd;bollebygd
+Tjörn;tjörn
+Nynäshamn;nynäshamn
+Lund;lund
+Gislaved;gislaved
+Lycksele;lycksele
+Hällefors;hällefors
+Degerfors;degerfors
+Markaryd;markaryd
+Partille;partille
+Norrtälje;norrteje
+Norrtälje;norrtelje
+Norrtälje;norrtelje bergshamra
+Norrtälje;norrtälje
+Nora;nora
+Smedjebacken;smedjebacken
+Lysekil;lysekil
+Krokom;krokom
+Botkyrka;botkyrka
+Åtvidaberg;åtvidaberg
+Kramfors;kramfors
+Laxå;laxå
+Åstorp;åstorp
+Grästorp;grästorp
+Bjurholm;bjurholm
+Älvkarleby;älvkarleby
+Vilhelmina;vilhelmina
+Aneby;aneby
+Ängelholm;ängelholm
+Laholm;laholm
+Östra Göinge;östra göinge
+Kil;kil
+Varberg;varberg
+Årjäng;årjäng
+Strängnäs;strängnäs
+Tranemo;tranemo
+Svedala;svedala
+Värnamo;värnamo
+Tierp;tierp
+Färgelanda;färgelanda
+Götene;götene
+Berg;berg
+Burlöv;burlöv
+Bräcke;bräcke
+Arvika;arvika
+Karlsborg;karlsborg
+Lomma;lomma
+Mellerud;mellerud
+Haninge;haninge
+Oskarshamn;oskarshamn
+Hjo;hjo
+Mullsjö;mullsjö
+Osby;osby
+Hylte;hylte
+Sotenäs;sotenäs
+Hedemora;hedemora
+Motala;motala
+Blekinge;blekinge
+Dalarna;dalarna
+Gävleborg;gävleborg
+Halland;halland
+Jämtland;jämtland
+Kronoberg;kronoberg
+Norrbotten;norrbotten
+Östergötland;östergötland
+Skåne;skåne
+Södermanland;södermanland
+Värmland;värmland
+Västerbotten;västerbotten
+Västernorrland;västernorrland
+Västmanland;västmanland
+Västra Götaland;västra götaland
+Gnesta;gnesta
+Trosa;trosa
+Bengtsfors;bengtsfors
+Höganäs;höganäs
+Håbo;håbo
+Vetlanda;vetlanda
+Svenljunga;svenljunga
+Strömsund;strömsund
+Tyresö;tyresö
+Värmdö;värmdö
+Upplands-Väsby;upplands-väsby
+Timrå;timrå
+Vallentuna;vallentuna
+Mörbylånga;mörbylånga
+Övertorneå;övertorneå
+Skinnskatteberg;skinnskatteberg
+Sunne;sunne
+Hässleholm;hässleholm
+Eda;eda
+Kalix;kalix
+Kungälv;kungälv
+Mora;mora
+Örnsköldsvik;örnsköldsvik
+Arvidsjaur;arvidsjaur
+Filipstad;filipstad
+Munkfors;munkfors
+Ånge;ånge
+Nykvarn;nykvarn
+Surahammar;surahammar
+Askersund;askersund
+Österåker;österåker
+Arjeplog;arjeplog
+Klippan;klippan
+Malå;malå
+Bromölla;bromölla
+Söderhamn;söderhamn
+Heby;heby
+Aalborg;aalborg
+Albuquerque;albuquerque
+Alessandria;alessandria
+Almelo;almelo
+Amersfoort;amersfoort
+Amiens;amiens
+Ancona;ancona
+Angers;angers
+Ankara;ankara
+Ann arbor;ann arbor
+Arad;arad
+Arnhem;arnhem
+Asmara;asmara
+Assen;assen
+Asti;asti
+Athens;athen
+Athens;athena
+Athens;athenai
+Athens;athenai
+Athens;athenai
+Athens;athenais
+Athens;athenes
+Athens;athenis
+Athens;athens
+Austin;austin
+Baku;baku
+Bamberg;bamberg
+Bandung;bandung
+Bangor;bangor
+Barcelona;barcelona
+Bari;bari
+Baton rouge;baton rouge
+Bayreuth;bayreuth
+Bergamo;bergamo
+Berkeley;berkeley
+Bielefeld;bielefeld
+Bilbao;bilbao
+Bochum;bochum
+Bonn;bonn
+Bordeaux;bordeaux
+Bratislava;bratislava
+Brazzaville;brazzaville
+Brisbane;brisbane
+Brno;brno
+Brugge;brugge
+Buenos aires;buenos aires
+Buffalo;buffalo
+Cagliari;cagliari
+Campobasso;campobasso
+Canberra;canberra
+Canton;canton
+Caracas;caracas
+Charleroi;charleroi
+Chhindwara;chhindwara
+Coimbra;coimbra
+Columbus;columbus
+Como;como
+Coquimbo;coquimbo
+Cottbus;cottbus
+Covina;covina
+Cremona;cremona
+Dakar;dakar
+Darmstadt;darmstadt
+Debrecen;debrecen
+Denver;denver
+Deventer;deventer
+Dijon;dijon
+Dortmund;dortmund
+Douala;douala
+Dubrovnik;dubrovnik
+Duisburg;duisburg
+Durban;durban
+Edirne;edirne
+Eindhoven;eindhoven
+Enschede;enschede
+Esbjerg;esbjerg
+Essen;essen
+Frederiksberg;frederiksberg
+Gainesville;gainesville
+Gdynia;gdynia
+Gent;gent
+Glendale;glendale
+Granada;granada
+Graz;graz
+Grenoble;grenoble
+Groningen;groningen
+Hastings;hastings
+Heilbronn;heilbronn
+Hildesheim;hildesheim
+Honolulu;honolulu
+Indianapolis;indianapolis
+Ingolstadt;ingolstadt
+Innsbruck;innsbruck
+Iowa city;iowa city
+Johannesburg;johannesburg
+Juneau;juneau
+Kaiserslautern;kaiserslautern
+Kampala;kampala
+Kansas city;kansas city
+Kassel;kassel
+Katowice;katowice
+Kaunas;kaunas
+Kempten;kempten
+Kolding;kolding
+Konstanz;konstanz
+Kouvola;kouvola
+Kristiansand;kristiansand
+Kuala lumpur;kuala lumpur
+Lahore;lahore
+La plata;la plata
+Le mans;le mans
+Leverkusen;leverkusen
+Lille;lille
+Lima;lima
+Ljubljana;ljubljana
+Los angeles;los angeles
+Luanda;luanda
+Lucca;lucca
+Lucknow;lucknow
+Lusaka;lusaka
+Macon;macon
+Madison;madison
+Manila;manila
+Mannheim;mannheim
+Maribor;maribor
+Marseille;marseille
+Matadi;matadi
+Melbourne;melbourne
+Messina;messina
+Miskolc;miskolc
+Modena;modena
+Mons;mons
+Montevideo;montevideo
+Montpellier;montpellier
+Mulhouse;mulhouse
+Nagpur;nagpur
+Namur;namur
+Nancy;nancy
+Nice;nice
+Novara;novara
+Novi sad;novi sad
+Offenbach am main;offenbach am main
+Oklahoma city;oklahoma city
+Oldenburg;oldenburg
+Olomouc;olomouc
+Oviedo;oviedo
+Paderborn;paderborn
+Padova;padova
+Palermo;palermo
+Pavia;pavia
+Pescara;pescara
+Pforzheim;pforzheim
+Pistoia;pistoia
+Plzeň;plzeň
+Poitiers;poitiers
+Potsdam;potsdam
+Pretoria;pretoria
+Quito;quito
+Raleigh;raleigh
+Rennes;rennes
+Rieti;rieti
+Rīga;rīga
+Rovaniemi;rovaniemi
+Rovigo;rovigo
+Salamanca;salamanca
+Salem;salem
+Salo;salo
+Salzburg;salzburg
+San Fernando;san fernando
+Santiago;santiago
+Santos;santos
+Sarajevo;sarajevo
+Savona;savona
+Schwerin;schwerin
+Segovia;segovia
+Semarang;semarang
+Siena;siena
+Singapore;singapore
+Stavanger;stavanger
+Sundsvall;sundsvall
+Sydney;sydney
+Terni;terni
+Tilburg;tilburg
+Topeka;topeka
+Torino;torino
+Toulouse;toulouse
+Tourcoing;tourcoing
+Trani;trani
+Treviso;treviso
+Trieste;trieste
+Tucson;tucson
+Udine;udine
+Vancouver;vancouver
+Vejle;vejle
+Verona;verona
+Wiesbaden;wiesbaden
+Winnipeg;winnipeg
+Winterthur;winterthur
+Witten;witten
+Woodstock;woodstock
+Wrocław;wrocław
+Wuppertal;wuppertal
+Zagreb;zagreb
+Zaragoza;zaragoza
+Zwolle;zwolle
+Aakirkeby;aakirkeby
+Aalen;aalen
+Abbeville;abbeville
+Aby;aby
+Agra;agra
+Ala;ala
+Albenga;albenga
+Alby;alby
+Alencon;alencon
+Allinge;allinge
+Alstad;alstad
+Amand;amand
+Amorbach;amorbach
+Ange;ange
+Angouleme;angouleme
+Anklam;anklam
+Ansbach;ansbach
+Are;are
+Arendal;arendal
+Arnstadt;arnstadt
+Arras;arras
+Asbo;asbo
+Aschaffenburg;aschaffenburg
+Aschersleben;aschersleben
+Asen;asen
+Asker;asker
+Askov;askov
+Astorp;astorp
+Aurich;aurich
+Aurillac;aurillac
+Auxerre;auxerre
+Averbode;averbode
+Avranches;avranches
+Bacup;bacup
+Baden;baden
+Bale;bale
+Bara;bara
+Barga;barga
+Barmen;barmen
+Barth;barth
+Batavia;batavia
+Bautzen;bautzen
+Bedford;bedford
+Beirut;beirut
+Bekescsaba;bekescsaba
+Berga;berga
+Berghem;berghem
+Bergum;bergum
+Berkley;berkley
+Berling;berling
+Berndorf;berndorf
+Besancon;besancon
+Bettna;bettna
+Biel;biel
+Billinge;billinge
+Bitterfeld;bitterfeld
+Bjorkelangen;bjorkelangen
+Blindern;blindern
+Bloemendaal;bloemendaal
+Blois;blois
+Bloomsbury;bloomsbury
+Boda;boda
+Bonne;bonne
+Bordighera;bordighera
+Born;born
+Borrud;borrud
+Bourges;bourges
+Braunsberg;braunsberg
+Breme;breme
+Brixen;brixen
+Bromberg;bromberg
+Bromma;bromma
+Brookland;brookland
+Buchen;buchen
+Bunge;bunge
+Burg;burg
+Caes;caes
+Cahors;cahors
+Cairo;cairo
+Calais;calais
+Casale;casale
+Celle;celle
+Chalons;chalons
+Chambery;chambery
+Charlottenberg;charlottenberg
+Charlottenlund;charlottenlund
+Chartres;chartres
+Cherbourg;cherbourg
+Chiavari;chiavari
+Chichester;chichester
+Christiansand;christiansand
+Chudleigh;chudleigh
+Clarens;clarens
+Coblenz;coblenz
+Colmar;colmar
+Compiegne;compiegne
+Contich;contich
+Cordoba;cordoba
+Coulommiers;coulommiers
+Courtrai;courtrai
+Cracovie;cracovie
+Crefeld;crefeld
+Crookston;crookston
+Culm;culm
+Czestochowa;czestochowa
+Damas;damas
+Damme;damme
+Debreczen;debreczen
+Delmenhorst;delmenhorst
+Demmin;demmin
+Detmold;detmold
+Dingle;dingle
+Dornach;dornach
+Drammen;drammen
+Eichwalde;eichwalde
+Eisenach;eisenach
+Eisenberg;eisenberg
+Eisleben;eisleben
+Ekeberg;ekeberg
+Eklund;eklund
+Elberfeld;elberfeld
+Emsdetten;emsdetten
+Engelsberg;engelsberg
+Epinal;epinal
+Erikstad;erikstad
+Esslingen;esslingen
+Evreux;evreux
+Faaborg;faaborg
+Faenza;faenza
+Fageras;fageras
+Fagerstrand;fagerstrand
+Feldkirch;feldkirch
+Fiesole;fiesole
+Finsterwalde;finsterwalde
+Flensborg;flensborg
+Florenz;florenz
+Foix;foix
+Fontainebleau;fontainebleau
+Forli;forli
+Fors;fors
+Forsa;forsa
+Fredericia;fredericia
+Fredriksberg;fredriksberg
+Freiberg;freiberg
+Freyberg;freyberg
+Freystadt;freystadt
+Fribourg;fribourg
+Fulda;fulda
+Gand;gand
+Gap;gap
+Gardelegen;gardelegen
+Garden city;garden city
+Geldeston;geldeston
+Gembloux;gembloux
+Genthin;genthin
+Gladbach;gladbach
+Glogau;glogau
+Glostrup;glostrup
+Graasten;graasten
+Graudenz;graudenz
+Grava;grava
+Grimma;grimma
+Groitzsch;groitzsch
+Gross lichterfelde;gross lichterfelde
+Guben;guben
+Gyoma;gyoma
+Habana;habana
+Haderslev;haderslev
+Hamar;hamar
+Hamb;hamb
+Hameln;hameln
+Hammerfest;hammerfest
+Hauge;hauge
+Heide;heide
+Heidenau;heidenau
+Hellerup;hellerup
+Hellesylt;hellesylt
+Herborn;herborn
+Hersfeld;hersfeld
+Hille;hille
+Hillerod;hillerod
+Hof;hof
+Holbaek;holbaek
+Holmedal;holmedal
+Holstebro;holstebro
+Holt;holt
+Horb am neckar;horb am neckar
+Horn;horn
+Hossegor;hossegor
+Hunnestad;hunnestad
+Husby;husby
+Husum;husum
+Hyllinge;hyllinge
+Intra;intra
+Isle;isle
+Isleworth;isleworth
+Issoudun;issoudun
+Ithaca;ithaca
+Jakobsberg;jakobsberg
+Johannisberg;johannisberg
+Jun;jun
+Kaiserswerth;kaiserswerth
+Kampen;kampen
+Kanna;kanna
+Karlberg;karlberg
+Karleby;karleby
+Karlsberg;karlsberg
+Kirchhain;kirchhain
+Kjoge;kjoge
+Klinten;klinten
+Kongsberg;kongsberg
+Kongsvinger;kongsvinger
+Korsor;korsor
+Krakau;krakau
+Kreuznach;kreuznach
+Kristiansund;kristiansund
+La laguna;la laguna
+Lanciano;lanciano
+Landin;landin
+Landsberg;landsberg
+Langensalza;langensalza
+Lanna;lanna
+La porte;la porte
+Larvik;larvik
+Leamington spa;leamington spa
+Le caire;le caire
+Lehnin;lehnin
+Lemberg;lemberg
+Lemgo;lemgo
+Lemvig;lemvig
+Leobe;leobe
+Lervik;lervik
+Libros;libros
+Lierre;lierre
+Liguge;liguge
+Lillehammer;lillehammer
+Lind;lind
+Lindau;lindau
+Linghem;linghem
+Linn;linn
+Lisbonne;lisbonne
+Lisse;lisse
+Lit;lit
+Loning;loning
+Lorch;lorch
+Lorient;lorient
+Ludwigshafen;ludwigshafen
+Luton;luton
+Malax;malax
+Mamers;mamers
+Margate;margate
+Marienburg;marienburg
+Marquette;marquette
+Mayenne;mayenne
+Meaux;meaux
+Medellin;medellin
+Meiningen;meiningen
+Meissen;meissen
+Meitingen;meitingen
+Meldorf;meldorf
+Melle;melle
+Melun;melun
+Memmingen;memmingen
+Menton;menton
+Merseburg;merseburg
+Middelfart;middelfart
+Minden;minden
+Mittelwald;mittelwald
+Molde;molde
+Moline;moline
+Monaco;monaco
+Monmouth;monmouth
+Montelimar;montelimar
+Montereau;montereau
+Montevrain;montevrain
+Morpeth;morpeth
+Moss;moss
+Moulins;moulins
+Munich;munich
+Naestved;naestved
+Nakskov;nakskov
+Namsos;namsos
+Narvik;narvik
+Nas;nas
+Neubrandenburg;neubrandenburg
+Neudamm;neudamm
+Neustadt;neustadt
+Neuwied;neuwied
+Nevers;nevers
+Nimes;nimes
+Niort;niort
+Nivelles;nivelles
+Norden;norden
+Nordhausen;nordhausen
+Nordnes;nordnes
+Norstedt;norstedt
+Northfield;northfield
+Nyborg;nyborg
+Nygard;nygard
+Nykjobing;nykjobing
+Nyland;nyland
+Oliva;oliva
+Oppenheim;oppenheim
+Orleans;orleans
+Ostende;ostende
+Ousby;ousby
+Paisley;paisley
+Pallas;pallas
+Palma;palma
+Parchim;parchim
+Paryz;paryz
+Passau;passau
+Pau;pau
+Paul;paul
+Pegau;pegau
+Pekin;pekin
+Peking;peking
+Perleberg;perleberg
+Pesth;pesth
+Pfullingen;pfullingen
+Pinerolo;pinerolo
+Pirna;pirna
+Plauen;plauen
+Poissy;poissy
+Poltava;poltava
+Pontarlier;pontarlier
+Pontoise;pontoise
+Porsgrund;porsgrund
+Prenzlau;prenzlau
+Prien;prien
+Pyritz;pyritz
+Quedlinburg;quedlinburg
+Querfurt;querfurt
+Raa;raa
+Raby;raby
+Rada;rada
+Radebeul;radebeul
+Randers;randers
+Rathenow;rathenow
+Ratingen;ratingen
+Ravensburg;ravensburg
+Reichenbach;reichenbach
+Rendsburg;rendsburg
+Revel;revel
+Ribe;ribe
+Rio;rio
+Rixheim;rixheim
+Rochdale;rochdale
+Rodez;rodez
+Rom;rom
+Ronne;ronne
+Rosehill;rosehill
+Roskilde;roskilde
+Rudkjobing;rudkjobing
+Rudkobing;rudkobing
+Saarlouis;saarlouis
+Salzkotten;salzkotten
+Sarpsborg;sarpsborg
+Saumur;saumur
+Saxkjobing;saxkjobing
+Scansano;scansano
+Sceaux;sceaux
+Schaffhausen;schaffhausen
+Schellenberg;schellenberg
+Schleswig;schleswig
+Schoonhoven;schoonhoven
+Schweinitz;schweinitz
+Schweiz;schweiz
+Sclayn;sclayn
+Senlis;senlis
+Sidcup;sidcup
+Silkeborg;silkeborg
+Skive;skive
+Skjelskor;skjelskor
+Skjern;skjern
+Skra;skra
+Slagelse;slagelse
+Soest;soest
+Sontra;sontra
+Spa;spa
+Speyer;speyer
+Spoleto;spoleto
+Stade;stade
+Stassfurt;stassfurt
+Steenbrugge;steenbrugge
+Stockel;stockel
+Storvik;storvik
+Strand;strand
+Strehlen;strehlen
+Suisse;suisse
+Taastrup;taastrup
+Thisted;thisted
+Thun;thun
+Thurso;thurso
+Tiflis;tiflis
+Tingstad;tingstad
+Tivoli;tivoli
+Tofta;tofta
+Toftlund;toftlund
+Tonbridge;tonbridge
+Torgau;torgau
+Torp;torp
+Torun;torun
+Tournay;tournay
+Tranas;tranas
+Transvaal;transvaal
+Treignac;treignac
+Triest;triest
+Tuna;tuna
+Tvedestrand;tvedestrand
+Ujpest;ujpest
+Ulriksdal;ulriksdal
+Ustad;ustad
+Valparaiso;valparaiso
+Ven;ven
+Vendel;vendel
+Versailles;versailles
+Verse;verse
+Verviers;verviers
+Vesoul;vesoul
+Vienne;vienne
+Vittinge;vittinge
+Voorhout;voorhout
+Vra;vra
+Wara;wara
+Warberg;warberg
+Warnsdorf;warnsdorf
+Wedel;wedel
+Weilburg;weilburg
+Weissenburg;weissenburg
+Wernigerode;wernigerode
+Wetteren;wetteren
+Wiebelsheim;wiebelsheim
+Wloclawek;wloclawek
+Wroclaw;wroclaw
+Wurzen;wurzen
+Zeulenroda;zeulenroda
+Zielenzig;zielenzig
+Zug;zug
+Zwickau;zwickau
