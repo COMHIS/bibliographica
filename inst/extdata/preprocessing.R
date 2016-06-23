@@ -1,7 +1,7 @@
 check <- "preprocess"
 
 # Preprocess selected original fields 
-res <- polish_all(df.orig, fields = setdiff(update.fields, "publisher"),
+res <- polish_all(df.orig, fields = update.fields, # note to HR: I moved publisher skipping from here to fennica/inst/examples/main.R ignore.fields
 	  mc.cores = mc.cores,
 	  conversions = conversions, catalog = catalog)
 
