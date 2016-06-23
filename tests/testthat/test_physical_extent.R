@@ -2,6 +2,16 @@ context("Physical extent")
 
 test_that("Page count is correct", {
 
+  expect_equal(polish_physical_extent("viii, 99.s")$pagecount, 107)
+  expect_equal(polish_physical_extent("[A4-B4], [16] s.")$pagecount, 16)
+  expect_equal(polish_physical_extent("[A4-E4] ; [40] s.")$pagecount, 40)
+  expect_equal(polish_physical_extent("[32] s. ; [A2B4-C4D2]")$pagecount, 32)
+  expect_equal(polish_physical_extent("2 vol. (451. s.)")$pagecount, 451)
+  expect_true(is.na(polish_physical_extent("[A4]-C4-?")$pagecount))  
+  expect_true(is.na(polish_physical_extent("[A4]B8-K8.")$pagecount))
+  expect_true(is.na(polish_physical_extent("[A8]-B8")$pagecount))
+  expect_true(is.na(polish_physical_extent("[A]2B4-C4.")$pagecount))
+
   expect_true(is.na(polish_physical_extent("1 atlas")$pagecount))
   expect_true(is.na(polish_physical_extent("381cards in box")$pagecount))  
 
@@ -300,9 +310,12 @@ test_that("Page count is correct", {
   expect_equal(polish_physical_extent("v.3 (558,[2]p.),plates")$pagecount, 564)
   expect_equal(polish_physical_extent("v.8 (551,[1]p.),plates")$pagecount, 556)
   expect_equal(polish_physical_extent("v.12 (460,vii,[1],civ p.),plates")$pagecount, 569)  
+  expect_equal(polish_physical_extent("[a]2b4-c4d2 ; [24] s.")$pagecount, 24)
+
 
 
 # TODO
+#  expect_equal(polish_physical_extent("[4], [40] s. [(2) bl. A4-E4.]")$pagecount, ?)
 #  expect_equal(polish_physical_extent("1 kartasto ([166] s.)")$pagecount, 166)
 #  expect_equal(polish_physical_extent("1 sheet (2, [2] p.)")$pagecount, 2) # = 1 sheet
 #  expect_equal(polish_physical_extent("S. 14-28 ; s. 28-48")$pagecount, 35)
