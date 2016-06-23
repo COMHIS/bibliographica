@@ -60,21 +60,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   # --------------------------------------------------------------
 
-
-  message("Conversion summaries")
-  originals <- c(publisher = "publisher",
-	       country = "publication_place"
-	       )
-  for (nam in names(originals)) {
-    o <- as.character(df.orig[[originals[[nam]]]])
-    x <- as.character(df.preprocessed[[nam]])
-    inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
-    tmp <- write_xtable(cbind(original = o[inds],
-      	 		      polished = x[inds]),
-      paste(output.folder, paste(nam, "conversion_nontrivial.csv", sep = "_"),
-      sep = ""), count = TRUE)
-  }
-  
   message("..author conversion")
   o <- gsub("\\]", "", gsub("\\[", "", gsub("\\.+$", "", as.character(df.orig$author_name))))
   x <- as.character(df.orig$author_date)
@@ -155,15 +140,16 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       	   quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 
-  message("Discard summaries")
-  for (nam in setdiff(names(originals), c("country", "publication_place"))) {
-    o <- as.character(df.orig[[originals[[nam]]]])
-    x <- as.character(df.preprocessed[[nam]])
-    inds <- which(is.na(x))
-    tmp <- write_xtable(o[inds],
-      paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
-      count = TRUE)
-  }
+  #message("Discard summaries")
+  #for (nam in setdiff(names(originals), c("country", "publication_place"))) {
+  #  o <- as.character(df.orig[[originals[[nam]]]])
+  #  x <- as.character(df.preprocessed[[nam]])
+  #  inds <- which(is.na(x))
+  #  tmp <- write_xtable(o[inds],
+  #    paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
+  #    count = TRUE)
+  #}
+  
   message("..author")
   o <- as.character(df.orig[["author_name"]])
   x <- as.character(df.preprocessed[["author"]])
@@ -226,25 +212,45 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   #-------------------------------------------------
 
-  message("Conversion summaries")
-  originals <- c(publisher = "publisher",
-	       country = "publication_place"
-	       )
-  for (nam in names(originals)) {
-    o <- as.character(df.orig[[originals[[nam]]]])
+  ## PUBLISHER
+  
+
+  skip = T
+  # TEST THIS
+  # The result will become visible at
+  # https://github.com/rOpenGov/fennica/blob/master/inst/examples/publisher.md
+  # which is generated from
+  # inst/extdata/publisher.Rmd
+
+  if (!skip) { 
+
+   message("Accepted publishers")
+   field = "publisher"
+   s <- write_xtable(df.preprocessed[[field]], paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
+
+    message("Discarded publishers")
+  if ((field %in% names(df.preprocessed)) && (field %in% names(df.orig))) {
+      inds <- which(is.na(df.preprocessed[[field]]))
+      original <- as.vector(na.omit(as.character(df.orig[[field]][inds])))
+      tmp <- write_xtable(original, paste(output.folder, field, "_discarded.csv", sep = ""), count = TRUE)
+    }
+
+  message("publisher conversions")
+  nam <- "publisher"
+    o <- as.character(df.orig[[nam]])
     x <- as.character(df.preprocessed[[nam]])
     inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
     tmp <- write_xtable(cbind(original = o[inds],
       	 		      polished = x[inds]),
       paste(output.folder, paste(nam, "conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
-  }  
+    
+  }
 
 
   # --------------------------------------------
 
-  # Pagecount
-  
+  # Pagecount  
   o <- as.character(df.orig[["physical_extent"]])
   g <- as.character(df.preprocessed$gatherings)
   x <- as.character(df.preprocessed[["pagecount"]])
@@ -342,19 +348,18 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
       count = TRUE)
   
-  message("Accept summaries")
-  for (nam in setdiff(names(originals), "publication_place")) {
-    x <- as.character(df.preprocessed[[nam]])
-    tmp <- write_xtable(x,
-      paste(output.folder, paste(nam, "accepted.csv", sep = "_"), sep = ""),
-      count = TRUE, sort.by = "Name")
-  }
+  #message("Accept summaries")
+  #for (nam in setdiff(names(originals), "publication_place")) {
+  #  x <- as.character(df.preprocessed[[nam]])
+  #  tmp <- write_xtable(x,
+  #    paste(output.folder, paste(nam, "accepted.csv", sep = "_"), sep = ""),
+  #    count = TRUE, sort.by = "Name")
+  #}
+  
   rms <- as.character(syn$synonyme[is.na(as.character(syn$name))])
   tab <- as.character(df.preprocessed$publication_place)[is.na(df.preprocessed$country)]
-  
   # First remove places that have already been explicitly set to unknown
   tab <- setdiff(tab, rms)
-  
   # Then print the rest
   tmp <- write_xtable(tab, filename = "output.tables/publication_place_missingcountry.csv")
 

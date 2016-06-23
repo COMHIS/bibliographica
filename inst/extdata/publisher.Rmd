@@ -12,6 +12,8 @@ output: markdown_document
 
 [Publishers discarded](output.tables/publisher_discarded.csv)
 
+[Publishers discarded](output.tables/publisher_nontrivial_conversions.csv)
+
 ```{r summarypublisher, echo=FALSE, message=FALSE, warning=FALSE}
 tab <- top(df, "publisher", output = "data.frame")
 ```
