@@ -123,13 +123,51 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tab <- df.preprocessed %>% filter(author_pseudonyme) %>% select(author)
   tmp <- write_xtable(tab, paste(output.folder, "pseudonyme_accepted.csv", sep = ""),
       	 		   count = TRUE, sort.by = "author")
-  message("...publication_place")
+
+  # ----------------------------------------------------
+
+  message("publication_place accepted")
   tmp <- write_xtable(df.preprocessed[, c("publication_place", "country")],
       filename = paste(output.folder, "publication_place_accepted.csv", sep = ""),
       count = TRUE, sort.by = "publication_place")
 
 
-  # ----------------------------------------------------
+  message("Publication place conversions")
+  nam <- "publication_place"
+  o <- as.character(df.orig[[nam]])
+  x <- as.character(df.preprocessed[[nam]])
+  
+  inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
+  tmp <- write_xtable(cbind(original = o[inds],
+      	 		      polished = x[inds]),
+    paste(output.folder, paste("publication_place_conversion_nontrivial.csv", sep = "_"),
+    sep = ""), count = TRUE)
+  
+  message("Ambiguous publication place harmonization")  
+  f = system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
+  tab <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE,
+                           mode = "table", remove.ambiguous = FALSE)
+  # Only consider terms that are present in our data
+  tab1 <- subset(tab, name %in% as.character(df.preprocessed$publication_place))
+  # Then also take conversions from our data. This may contain
+  # terms that were directly accepted as such as they are not on
+  # the synonyme table:
+  tab2 <- cbind(name = as.character(df.preprocessed$publication_place),
+    synonyme = as.character(tolower(polish_place(df.orig$publication_place, harmonize = FALSE))))
+    
+  # Combine the data from both tables
+  tab <- unique(rbind(tab1, tab2))
+  
+  # Identify ambiguous mappings
+  s <- split(as.character(tab$name), tolower(as.character(tab$synonyme)))
+  s <- s[sapply(s, function(x) {length(unique(x))}, USE.NAMES = FALSE) > 1]
+  tab <- tab[tab$synonyme %in% names(s),]
+  tab <- tab[order(tab$synonyme),]
+  
+  # Only include those that we have in our data
+  tab <- tab[as.character(tab$name) %in% as.character(df.preprocessed$publication_place),]  
+  write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
+
 
   message("Publication place todo file")
   f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
@@ -139,6 +177,38 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       file = paste(output.folder, "publication_place_todo.csv", sep = ""),
       	   quote = FALSE, row.names = FALSE, col.names = FALSE)
 
+  # ------------------------------------------------------
+
+  message("Missing country")
+  f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
+  syn <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")  
+  rms <- as.character(syn$synonyme[is.na(as.character(syn$name))])
+  tab <- as.character(df.preprocessed$publication_place)[is.na(df.preprocessed$country)]
+  # First remove places that have already been explicitly set to unknown
+  tab <- setdiff(tab, rms)
+  # Then print the rest
+  tmp <- write_xtable(tab, filename = "output.tables/publication_place_missingcountry.csv")
+
+
+  message("Ambiguous countries listing")    
+  tab <- read.csv(system.file("extdata/reg2country.csv", package = "bibliographica"), sep = ";")
+  
+  # Cases with explicit mention of ambiguity
+  inds2 <- c(grep("Ambiguous", tab$country),
+       	   grep("Ambiguous", tab$region),
+	   grep("Ambiguous", tab$comment))
+  amb2 <- tab[inds2,"region"]
+  # Cases with multiple names listed
+  inds3 <- grep("\\|", tab$country)
+  amb3 <- tab[inds3,"region"]
+  # Combine regions with ambiguous country
+  amb <- unique(c(as.character(amb2), as.character(amb3)))
+  # Pick the table with ambiguous countrues
+  tab <- tab[tab$region %in% amb,]
+  tab <- tab[order(tab$region),]
+  # For brewity, only include the places that we have in our data
+  tab <- tab[as.character(tab$region) %in% as.character(df.preprocessed$publication_place),]    
+  write.table(tab, file = paste(output.folder, "publication_country_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
 
   #----------------------------------------------------
 
@@ -324,94 +394,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tmp <- write_xtable(tab, paste(output.folder, field, "_conversions.csv", sep = ""), count = TRUE)
 
   # ---------------------------------------------------------
-
-  message("Publication place conversions")
-  nam <- "publication_place"
-  o <- as.character(df.orig[[nam]])
-  x <- as.character(df.preprocessed[[nam]])
-  
-  inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
-  tmp <- write_xtable(cbind(original = o[inds],
-      	 		      polished = x[inds]),
-    paste(output.folder, paste("publication_place_conversion_nontrivial.csv", sep = "_"),
-    sep = ""), count = TRUE)
-  
-  message("Publication place discarded")
-  inds <- which(is.na(x))
-  # Remove places that were already handled in the synonyme table
-  # (this could be made optional - useful when actively cleaning up the tables but
-  # with new runs it could be beneficial to show everything that is discarded and hence comment this out)
-  f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-  syn <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")
-  pl <- tolower(polish_place(o[inds], harmonize = FALSE))
-  pl <- setdiff(pl, syn$synonyme)
-  
-  tmp <- write_xtable(pl,
-      paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
-      count = TRUE)
-  
-  #message("Accept summaries")
-  #for (nam in setdiff(names(originals), "publication_place")) {
-  #  x <- as.character(df.preprocessed[[nam]])
-  #  tmp <- write_xtable(x,
-  #    paste(output.folder, paste(nam, "accepted.csv", sep = "_"), sep = ""),
-  #    count = TRUE, sort.by = "Name")
-  #}
-  
-  rms <- as.character(syn$synonyme[is.na(as.character(syn$name))])
-  tab <- as.character(df.preprocessed$publication_place)[is.na(df.preprocessed$country)]
-  # First remove places that have already been explicitly set to unknown
-  tab <- setdiff(tab, rms)
-  # Then print the rest
-  tmp <- write_xtable(tab, filename = "output.tables/publication_place_missingcountry.csv")
-
-  message("Ambiguous publication place harmonization")  
-  f = system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-  tab <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE,
-                           mode = "table", remove.ambiguous = FALSE)
-  # Only consider terms that are present in our data
-  tab1 <- subset(tab, name %in% as.character(df.preprocessed$publication_place))
-  # Then also take conversions from our data. This may contain
-  # terms that were directly accepted as such as they are not on
-  # the synonyme table:
-  tab2 <- cbind(name = as.character(df.preprocessed$publication_place),
-    synonyme = as.character(tolower(polish_place(df.orig$publication_place, harmonize = FALSE))))
-    
-  # Combine the data from both tables
-  tab <- unique(rbind(tab1, tab2))
-  
-  # Identify ambiguous mappings
-  s <- split(as.character(tab$name), tolower(as.character(tab$synonyme)))
-  s <- s[sapply(s, function(x) {length(unique(x))}, USE.NAMES = FALSE) > 1]
-  tab <- tab[tab$synonyme %in% names(s),]
-  tab <- tab[order(tab$synonyme),]
-  
-  # Only include those that we have in our data
-  tab <- tab[as.character(tab$name) %in% as.character(df.preprocessed$publication_place),]  
-  write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
-
-
-  message("Ambiguous countries listing")    
-  tab <- read.csv(system.file("extdata/reg2country.csv", package = "bibliographica"), sep = ";")
-  
-  # Cases with explicit mention of ambiguity
-  inds2 <- c(grep("Ambiguous", tab$country),
-       	   grep("Ambiguous", tab$region),
-	   grep("Ambiguous", tab$comment))
-  amb2 <- tab[inds2,"region"]
-  # Cases with multiple names listed
-  inds3 <- grep("\\|", tab$country)
-  amb3 <- tab[inds3,"region"]
-  # Combine regions with ambiguous country
-  amb <- unique(c(as.character(amb2), as.character(amb3)))
-  # Pick the table with ambiguous countrues
-  tab <- tab[tab$region %in% amb,]
-  tab <- tab[order(tab$region),]
-  # For brewity, only include the places that we have in our data
-  tab <- tab[as.character(tab$region) %in% as.character(df.preprocessed$publication_place),]    
-  write.table(tab, file = paste(output.folder, "publication_country_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
-
-  # --------------------------------------------------------
 
   message("Page counts")
   use.fields <- intersect(c("pagecount", "volnumber", "volcount"), names(df.preprocessed))
