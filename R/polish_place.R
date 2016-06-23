@@ -19,7 +19,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   if (is.null(synonymes)) {
     # Harmonize places with synonyme table
     f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-    synonymes <- suppressWarnings(read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table"))
+    synonymes <- suppressWarnings(read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table", trim = TRUE))
 
     if (verbose) { message(paste("Reading special char table", f)) }
     # Harmonize places with synonyme table
@@ -85,7 +85,8 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   f <- system.file("extdata/stopwords_for_place.csv", package = "bibliographica")
   message(paste("Reading stopwords from file ", f))
   stopwords <- as.character(read.csv(f)[,1])  
-  x <- remove_stopwords(x, terms = stopwords)
+  x <- suppressWarnings(remove_terms(x, stopwords, c("begin", "middle", "end")))
+
 
   if (verbose) {message("Harmonize ie")}
   x <- harmonize_ie(x)
@@ -126,6 +127,15 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   if (harmonize) {
 
+    # If the term is not on synonyme list but all its subterms are,
+    # then select the first term
+    # ie "zurich cologne" becomes "zurich"
+    inds = which(!x %in% synonymes$synonyme)
+    inds = inds[sapply(strsplit(x[inds], " "), function (xi) { all(xi %in% synonymes$synonyme) && length(xi) > 0})]
+    if (length(inds) > 0) {
+      x[inds] = sapply(strsplit(x[inds], " "), function (xi) { xi[[1]] })
+    }
+
     # Then match place names to synonymes		
     x <- as.character(map(x, synonymes,
        		remove.unknown = remove.unknown,
@@ -133,8 +143,8 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   }
 
-  # Remove too short names with just two letters
-  x <- gsub("^[a-z]{1,2}$", " ", x)  
+  # Remove too short names 
+  x[nchar(gsub(" ", "", x)) <= 2] = NA
   x <- gsub("^[a-z] [a-z]$", " ", x)
   x <- gsub("^[a-z]\\.[a-z]$", " ", x)  
 

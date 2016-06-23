@@ -1,11 +1,28 @@
 name;synonyme;comment
+Aabenraa;Aabenraa
 Aachen;aix la chapelle;
-Aarhus;århus;
+Aachen;Aachen leipzig
+Aachen;Aachen stockholm
+Aarhus;arhus;
+Aarhus;Ahus
+Aarhus;åhus
 Aarhus;occidentalis arhusae;
+Aarhus;Arhusiaeq
+Aarhus;Aros
+Aarhus;Arosia arosiensis
+Aarhus;Arosiae arosiensis
+Aarhus;Arosia västeras
+Aarhus;Aarhus kobenhavn
+Aarhus;Aarhus kobenhavn oslo
+Aarhus;Aarhuus
 Abartawe;swansea;
+Altona;Altona
+Altona;Altona bey
 Aberdaugleddau;milford haven;
 Aberdeen;abedreen;
 Aberdeen;ab erdeen;
+Albuquerque;Albuquerque
+Albuquerque;Albuquerque nm
 Aberdeen;aberdeen aberdeen;
 Aberdeen;aberdeene;
 Aberdeen;aberdeen scotland;
@@ -45,6 +62,7 @@ Almena Wi;almena wis;
 Almena Wi;almena wisconsin;
 Alnwick;alnwick england;
 Alston;alston england;
+Alkmaar;Alkmaar
 Altdorf;altdorfi;
 Altenburg;altenbourg;
 Altenburg;altenburgh;
@@ -999,12 +1017,12 @@ Gloucester;gloucester england;
 Gloucester Ma;glocester ma;
 Gloucester Ma;glocester mass;
 Gloucester Ma;gloucester mass;
-Godby;godby åland;
+Godby;godby aland;
 Görliz;görlitz;
 Gothenburg;goteborg;
 Gothenburg;göteborg;
 Gothenburg;götheborg;
-Gothenburg;götheborg åbo;
+Gothenburg;götheborg abo;
 Gothenburg;gotheburg;
 Gothenburg;gothoburgae;
 Gothenburg;gothoburgi;
@@ -1050,7 +1068,7 @@ Halifax;halifax england;
 Halifax;hall halifax;
 Halle;curiae regnitianae;
 Halle;hall;
-Halle;hållas;
+Halle;hallas;
 Halle;halle a d saale;
 Halle;halle a s;
 Halle;halle a/s;
@@ -1155,8 +1173,8 @@ Heinäjoki;heinjoki;
 Helmstadt;helmstat;
 Helmstedt;helmaestadii;
 Helmstedt;helmstadii;
-Helsinki;åggelby;
-Helsinki;ågggelby;
+Helsinki;aggelby;
+Helsinki;agggelby;
 Helsinki;gelsingfors;
 Helsinki;gel singfors;
 Helsinki;gel'singfors;
@@ -1238,7 +1256,7 @@ Inis Córthaidh;eniscorthy;
 Inishmacadurn;rutland island;
 Inkeri;inkerinmaa;
 Inkeri;inkerinmaalla;
-Inkoo;ingå;
+Inkoo;inga;
 Inkoo;ingö;
 Inverness;innoirnish;
 Ipswich;ippeswich;
@@ -1843,8 +1861,8 @@ Louvain;lovain;
 Louvain;lovanni;
 Loviisa;lovisa;
 Loviisa;loviza;
-Luleå;luleö;
-Luleå;luulaja;
+Lulea;luleö;
+Lulea;luulaja;
 Lund;llunden;
 Lund;londini goth;
 Lund;londini gothorum;
@@ -1962,7 +1980,7 @@ Münster;muenster;
 Münster;munster;
 Münster;warum darum westphalie;
 Mustasaari;korsholm;
-Mustio;svartå;
+Mustio;svarta;
 Mustio;svartö;
 Nanaimo BC;nanaimo;
 Nanaimo BC;nanaimo b c;
@@ -2151,7 +2169,7 @@ Ottawa;ottawa canada;
 Oulu;oulusa;
 Oulu;oulussa;
 Oulu;oulu turku;
-Oulu;uleåborg;
+Oulu;uleaborg;
 Oxford;academia oxonie;
 Oxford;bellositi dobunorum;
 Oxford;bellositi dobunorum oxford;
@@ -2275,7 +2293,7 @@ Pattingham;patingham;
 Peacham Vt;peacham vermont;
 Pembroke Ma;pembroke mass;
 Pensacola Fl;pensacola;
-Pernaja;pernå;
+Pernaja;perna;
 Pernaja;pernau;
 Pernaja;pernö;
 Perth;peairt;
@@ -2379,7 +2397,7 @@ Portsmouth NH;porstmouth nh;
 Portsmouth NH;portmouth nh;
 Portsmouth NH;portsmouth in new hampshire;
 Portsmouth NH;portsmouth new hampshire;
-Porvoo;borgå;
+Porvoo;borga;
 Porvoo;borgo;
 Porvoo;borgosa;
 Porvoo;porvoo borgo;
@@ -2688,8 +2706,8 @@ Stockholm;holmis;
 Stockholm;mutta nytt toisen kerran wastwdest stockholmin;
 Stockholm;socholm;
 Stockholm;sotckholm;
-Stockholm;ståkhålm;
-Stockholm;ståkkhålm;
+Stockholm;stakhalm;
+Stockholm;stakkhalm;
 Stockholm;stckholm;
 Stockholm;sthocholm;
 Stockholm;stocholm;
@@ -2702,7 +2720,7 @@ Stockholm;stockh;
 Stockholm;stockh ja turus;
 Stockholm;stockhol isa;
 Stockholm;stock holm;
-Stockholm;stockholm åbo;
+Stockholm;stockholm abo;
 Stockholm;stockholm aff georg hantsch kongl booktr;
 Stockholm;stockholman;
 Stockholm;stockholme;
@@ -2722,13 +2740,13 @@ Stockholm;stockholmjsa;
 Stockholm;stockholm kobenhavn kristiania;
 Stockholm;stockholm kristiania;
 Stockholm;stockholm leipzig;
-Stockholm;stockholm och åbo;
+Stockholm;stockholm och abo;
 Stockholm;stockholm och upsala;
 Stockholm;stockholm pö nytt;
 Stockholm;stockholm upsala;
-Stockholm;stockholm upsala åbo;
-Stockholm;stockholm upsala och åbo;
-Stockholm;stockholm upsala und åbo;
+Stockholm;stockholm upsala abo;
+Stockholm;stockholm upsala och abo;
+Stockholm;stockholm upsala und abo;
 Stockholm;stockhom;
 Stockholm;stockhomin;
 Stockholm;stockhomisa;
@@ -2974,14 +2992,21 @@ Truru;truro;
 Tubingen;tu bingen;
 Tübingen;tuebingen;
 Turenki;turengi;
-Turku;aåbo;
+Turku;a bl
+Turku;a bo
+Turku;Aboae abo finland
+Turku;Aboae finland
+Turku;abo ekenäs
+Turku;abo finland
+Turku;abo helsingfors
+Turku;aabo;
 Turku;abae;
-Turku;åbae;
+Turku;abae;
 Turku;abo;
-Turku;åbo;
+Turku;abo;
 Turku;aboa;
 Turku;aboae;
-Turku;åboae;
+Turku;aboae;
 Turku;aboae fennorum;
 Turku;aboae finnorum;
 Turku;aboae ime;
@@ -2995,12 +3020,12 @@ Turku;abodiae;
 Turku;aboe;
 Turku;abo e;
 Turku;abogiae;
-Turku;åbo och stockholm;
+Turku;abo och stockholm;
 Turku;abost;
-Turku;åbo stockholm;
-Turku;åco;
+Turku;abo stockholm;
+Turku;aco;
 Turku;adoae po aboae;
-Turku;åpo;
+Turku;apo;
 Turku;athenis auräicis;
 Turku;azo bo;
 Turku;azu bo;
@@ -3011,8 +3036,8 @@ Turku;enthlimmenon en aboe;
 Turku;giöthebörisa ruotzin kielen eric stackbergildä mutta palkan edestä suomexi turusa;
 Turku;perno;
 Turku;prunkkala;
-Turku;stockholm å nyo åbo;
-Turku;stockholm och å nyo uplagd i åbo;
+Turku;stockholm a nyo abo;
+Turku;stockholm och a nyo uplagd i abo;
 Turku;suomen niemen turusa;
 Turku;turasa;
 Turku;turku helsinki;
@@ -3097,15 +3122,15 @@ Valletta;malta;
 Valletta;malte;
 Valletta;melitae;
 Vantaa;tikkurila;
-Västerås;arosia;
-Västerås;arosiae;
-Västerås;arosiensis;
-Västerås;wästeråås;
-Västerås;wästeråhs;
-Västerås;wästerås;
-Västerås;westeråhs;
-Västerås;westerås;
-Västerås;westrosia;
+Västeras;arosia;
+Västeras;arosiae;
+Västeras;arosiensis;
+Västeras;wästeraas;
+Västeras;wästerahs;
+Västeras;wästeras;
+Västeras;westerahs;
+Västeras;westeras;
+Västeras;westrosia;
 Västerös;wästeröös;
 Västerös;wästerös;
 Vatican;ecclesiopoli;
@@ -3275,6 +3300,9 @@ Wrexham;gwrecsam;
 Wrexham;ngwrecsam;
 Wrexham;wreham;
 Wurzburg;wu rzburg;
+Wurzburg;Wuerzburb
+Wurzburg;Wuerzburg
+Wurzburg;Wuerzburg aumuehle
 Y Bont-faen;pont y fon;
 Y Bont-faen;y bont faen;
 Yeovil;yeovil england;
@@ -3296,14 +3324,6 @@ Youghal;youghall;
 Yr Wyddgrug;wyddgrug;
 Yverdon-les-Bains;yverdon;
 Zeiz-Bahren;zeiz;
-Zürich;switzerland;
-Zürich;tiguri;
-Zürich;tiguri zurich;
-Zürich;tigvri;
-Zürich;zuerich;
-Zürich;zurich;
-Zürich;zu rich;
-Zürich;zurych;
 Zweibrücken;zweibruecken;
 NA;copy van schotland;
 NA;agnifitiae;not a place
@@ -3345,9 +3365,9 @@ NA;jetzo auffs newe zu stade;
 Turku;Aàbo
 Aachen;Aachen liege
 Turku;Aboae abo
-Turku;Aboae åbo
+Turku;Aboae abo
 The Hague;Aes gravenhage
-Mariehamn;åland 
+Mariehamn;aland 
 Altdorf;Altdorffii 
 Altdorf;Altdorfii
 Altefähr;Altefähr
@@ -3361,12 +3381,7 @@ Amsterdam;Amsterdam upsala
 Amsterdam;Amsterodami hamburgi
 Gävle;gefle
 Gävle;gefle 
-Arhus;Arhusiaeq
 Nyköping;nyköping 
-Århus;Aros
-Århus;Arosia arosiensis
-Århus;Arosiae arosiensis
-Århus;Arosia västerås
 Artern;Artern
 Wijsingzborg;wiesingsburg 
 Augsburg;Augspurg
@@ -3374,7 +3389,7 @@ Genève;Aureliae allobrogum
 Barhöft;Barhöft
 Basel;Basilea 
 Nijmegen;Bataviae
-Västerås;wästers 
+Västeras;wästers 
 Rostock;Belitz
 Berlin;Berlin greifswald
 Berlin;Berlingska et
@@ -3384,8 +3399,8 @@ Berlin;Berlin stralsund greifswald
 Berlin;Berolini
 Boizenburg;Boizenburg
 Bologna;Bologne
-Borås;Borås 
-Borås;Borås n e lundström
+Boras;Boras 
+Boras;Boras n e lundström
 Berlin;Brandenburg 
 Braunschweig;Braunschweig schulbuchhandlung
 Brest;Brest
@@ -3421,7 +3436,7 @@ Copenhagen;Cristianstad
 Stockholm;Dalarö
 Dantzig;Dantisci 
 Dantzig;Danzic
-Västerås;wästers
+Västeras;wästers
 Tartu;Dörpath liefflandt 
 Tartu;Dorpatu
 Dresden;Dresde
@@ -3465,7 +3480,7 @@ Genoa;Genova
 Genoa;Genuae
 Genoa;Genvae
 Gävle;Gevaliae
-Gothenburg;Giötebårg
+Gothenburg;Giötebarg
 Gothenburg;Giötheborg 
 Glückstadt;Glueckstadt
 Gothenburg;Göhteborg 
@@ -3522,7 +3537,7 @@ Helmstedt;Helmaestadi
 Helmstedt;Helmestadii
 Helmstedt;Helmstädt 
 Helsingborg;Helsingborg 
-Helsinki;Helsingfors åbo
+Helsinki;Helsingfors abo
 Helsingør;HelsingorDenmark
 Helsingør;Helsingo/r
 Uppsala;acad upsaliensis bibliopola 
@@ -3716,18 +3731,18 @@ Sondershausen;Sondershausen
 Żary;Sorau
 Żary;Soroe 
 Berlin;Spandau
-Stockholm;Ståckhålm
-Stockholm;Ståkkholm
+Stockholm;Stackhalm
+Stockholm;Stakkholm
 Stockholm;Stekholm 
 Stendal;Stendal
 Szczecin;Stetin
 Szczecin;Stettini
 Stockholm;Sthlm
 Stockholm;Stochholm 
-Stockholm;Stocholm åbo
+Stockholm;Stocholm abo
 Stockholm;Stocholme
 Stockholm;Stocholmo
-Stockholm;Stocholm westerås
+Stockholm;Stocholm westeras
 Stockholm;Stockholm sweden
 Stockholm;Stockholm abo
 Stockholm;Stockholmae
@@ -3759,7 +3774,7 @@ Stockholm;Stockholm nuernberg
 Stockholm;Stockholm örebro
 Stockholm;Stockholm paris
 Stockholm;Stockholm peru
-Stockholm;Stockholm petersburg åbo
+Stockholm;Stockholm petersburg abo
 Stockholm;Stockholm reval
 Stockholm;Stockholm skara
 Stockholm;Stockholm stocholm
@@ -3767,13 +3782,13 @@ Stockholm;Stockholm stralsund
 Stockholm;Stockholm strängnäs 
 Stockholm;Stockholm strasbourg
 Stockholm;Stockholm uppsala 
-Stockholm;Stockholm uppsala åbo
+Stockholm;Stockholm uppsala abo
 Stockholm;Stockholm uppsala greifswald
 Stockholm;Stockholm upsal 
-Stockholm;Stockholm upsala westerås
-Stockholm;Stockholm upsala westerås örebro
+Stockholm;Stockholm upsala westeras
+Stockholm;Stockholm upsala westeras örebro
 Stockholm;Stockholm utrecht
-Stockholm;Stockholm västerås
+Stockholm;Stockholm västeras
 Stockholm;Stockholm vpsala
 Stockholm;Stockholm wasa 
 Stockholm;Stockholm wien
@@ -3827,7 +3842,7 @@ Malmö;malmo
 Stockholm;Ttockholm
 Turku;Tukusa 
 Turin;Turin
-Turku;Turusa åbo
+Turku;Turusa abo
 Turku;Turusa pietari
 Uppsala;Ubsala
 Uppsala;Ubsaliae upsal
@@ -3844,7 +3859,7 @@ Uppsala;Uppsala rostock
 Uppsala;Uppsala stockholm 
 Uppsala;Uppsala stockholm skara
 Uppsala;Uppsala strängnäs stockholm
-Uppsala;Uppsala västerås
+Uppsala;Uppsala västeras
 Uppsala;Uppsaliae
 Uppsala;Upsalae upsal
 Uppsala;Upsala stockholm
@@ -3857,13 +3872,13 @@ Uppsala;Usaliae
 Valladolid;Valladolid
 Vänersborg;Vänersborg 
 Vaasa;Vasasa
-Västerås;Västerås strängnäs
-Västerås;Västerås wästerås
+Västeras;Västeras strängnäs
+Västeras;Västeras wästeras
 Växjö;Växjö
 Växjö;Växjö hov
 Uppsala;Vbsala
 Vänersborg;Venersborg
-Västerås;Vesterås
+Västeras;Vesteras
 Växjö;Vexiö
 Vienna;Viene austriae
 Villefranche;Villefranche
@@ -3881,9 +3896,9 @@ Warsaw;Warszawie
 Weißenfels;Weissenfels
 Vänersborg;Wenersborg
 Vänersborg;Wennersborg
-Västerås;Westeråås
-Västerås;Westers
-Västerås;Westerårs 
+Västeras;Westeraas
+Västeras;Westers
+Västeras;Westerars
 Växjö;Wexiö 
 Wijsingzborg;Wiesingsburg
 Wijsingzborg;Wijsindzborg 
@@ -3897,10 +3912,20 @@ Wismar;Wiszmar
 Wittenberg;Wittebergae aerae
 Warsaw;W warszawie
 Vilna;W wilnie
-Wijsingzborg;Wÿsingzborg
+Wijsingzborg;Wysingzborg
 Zamość;W zamosciu
 Zamość;Zamosci
 Zeitz;Zeitz
 Zerbst;Zerbst 
 Zweibrücken;Zweybruecken 
 Mariefred;mariefred 
+Zürich;switzerland;
+Zürich;tiguri;
+Zürich;tiguri zurich;
+Zürich;tigvri;
+Zürich;zuerich;
+Zürich;zurich;
+Zürich;zu rich;
+Zürich;zurych;
+Zürich;Zuerich new york
+Zürich;Zuerich/stuttgart

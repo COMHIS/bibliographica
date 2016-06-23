@@ -23,7 +23,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   for (field in setdiff(names(df.preprocessed),
     c(names(df.preprocessed)[grep("language", names(df.preprocessed))] , 
     "row.index", "paper.consumption.km2", "publication_decade",
-    "publication_year", "publication_year_from", "publication_year_till",
+    "publication_year", "subject_topic", "publication_year_from", "publication_year_till",
     "pagecount", "obl", "obl.original", "original_row", "dissertation",
     "synodal", "original", "unity", "author_birth", "author_death",
     "gatherings.original", "width.original", "height.original",
@@ -58,6 +58,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     }
   }
 
+  # --------------------------------------------------------------
+
 
   message("Conversion summaries")
   originals <- c(publisher = "publisher",
@@ -86,6 +88,36 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 			  ),
       paste(output.folder, paste("author_conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
+
+
+  # -----------------------------------------------------
+
+   message("subject_topic")
+   field = "subject_topic"
+   entries = unlist(strsplit(df.preprocessed[[field]], ";"), use.names = FALSE)
+    s <- write_xtable(entries, paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
+
+    message("Discarded entries")
+    if ((field %in% names(df.preprocessed)) && (field %in% names(df.orig))) {
+      inds <- which(is.na(df.preprocessed[[field]]))
+      original <- as.vector(na.omit(as.character(df.orig[[field]][inds])))
+      tmp <- write_xtable(original, paste(output.folder, field, "_discarded.csv", sep = ""), count = TRUE)
+    }
+
+    message("Nontrivial conversions")
+    if (field %in% names(df.preprocessed) && (field %in% names(df.orig)) && !field %in% c("dimension", "title")) {
+      message(field)
+      inds <- which(!is.na(df.preprocessed[[field]]))
+      original <- as.character(df.orig[[field]][inds])
+      polished <- as.character(df.preprocessed[[field]][inds])
+      tab <- cbind(original = original, polished = polished)
+      # Exclude trivial cases (original == polished exluding cases)
+      #tab <- tab[!tab[, "original"] == tab[, "polished"], ]
+      tab <- tab[!tolower(tab[, "original"]) == tolower(tab[, "polished"]), ]
+      
+      tmp <- write_xtable(tab, paste(output.folder, field, "_conversion_nontrivial.csv", sep = ""), count = TRUE)
+    }
+  
 
   # -----------------------------------------------------
 
