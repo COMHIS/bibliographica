@@ -97,7 +97,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
    message("subject_topic")
    field = "subject_topic"
-   entries = unlist(strsplit(df.preprocessed[[field]], ";"), use.names = FALSE)
+   entries = unlist(strsplit(as.character(df.preprocessed[[field]]), ";"), use.names = FALSE)
     s <- write_xtable(entries, paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
 
     message("Discarded entries")
