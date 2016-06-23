@@ -10,7 +10,7 @@ R tools for bibliographic data analysis. Functions to extract and clean up infor
 
 For installation and usage, check the [tutorial page](vignettes/tutorial.md).
 
-Authors: [Leo Lahti](https://github.com/antagomir/), [Niko Ilomaki](https://github.com/NVI/) and [Mikko Tolonen](). Part of [rOpenGov](http://ropengov.github.io/). 
+Authors: [Leo Lahti](https://github.com/antagomir/), [Hege Roivainen](), [Niko Ilomaki](https://github.com/NVI/) and [Mikko Tolonen](). Part of [rOpenGov](http://ropengov.github.io/). 
 
 You are welcome to:
   

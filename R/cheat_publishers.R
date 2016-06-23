@@ -9,8 +9,7 @@ cheat_publishers <- function() {
   
   #r <- xmlTree
   # TODO: Load from website, if local version doesn't exist
-  
-  
+    
   # 1a. Brackets: year: $in, $from, $till 
   # 1b. Brackets: kirjapaino (?)
   # 1c. Brackets: kaupunki
@@ -25,7 +24,8 @@ cheat_publishers <- function() {
   node_count <- length(xpathApply(tree, path="//rdac:C10005//skos:altLabel | //rdac:C10005//skos:prefLabel", xmlValue))
   
   # Prepare variables
-  rdf <- xmlParse("cn-skos.rdf")
+  f <- system.file("extdata/cn-skos.rdf", package = "bibliographica")    
+  rdf <- xmlParse(f)
   r <- xmlChildren(rdf)
   all_names <- cbind.data.frame(alt=character(node_count), pref=character(node_count), stringsAsFactors=FALSE)
   ind = 1
