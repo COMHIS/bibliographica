@@ -4,7 +4,6 @@
 #' @param languages A vector of languages which are used in detecting relation keywords
 #' @return Data frame: orig, initials, family, full_name, init_name, guessed, relation
 #' @export
-#' @importFrom stringr str_count
 #' @author Hege Roivainen \email{hege.roivainen@@gmail.com}
 #' @references See citation("bibliographica")
 #' @examples # extract_personal_names(x, languages=c("finnish", "swedish", "latin"))
@@ -60,8 +59,7 @@ extract_personal_names  <- function(x, languages=c("english")) {
   initials <- gsub(" ", "", initials)
   family_name <- gsub(" +", " ", family_name)
   family_name <- gsub("^ (.*) $", "\\1", family_name)
-  
-  
+    
   inds2 <- intersect(inds, which(family_name != ""))
   init_name[inds2] <- as.character(paste(initials[inds2], family_name[inds2], sep=" "))
     

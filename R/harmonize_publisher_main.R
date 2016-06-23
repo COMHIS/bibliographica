@@ -36,11 +36,11 @@ harmonize_publisher_main <- function (datasource, df.orig, testing_max=NULL) {
   }
   df <- data.frame(list(row.index = 1:nrow(df.orig)))
   
-
   # Initiate pubs
   pubs <- data.frame(alt=character(length=nrow(df.orig)), pref=character(length=nrow(df.orig)), match_method=integer(length=nrow(df.orig)), stringsAsFactors = FALSE)
   
   # Additional harmonizing: in Fennica there's stuff in $corporate -field, which doesn't match with Finto
+  # TODO: Would be very good to separate the catalog specific parts outside of bibliographica
   if (!is.na(additional_harmonizing_function)) {
     additionally_harmonized <- do.call(additional_harmonizing_function, list(df.orig$corporate[inds]))
     pubs$alt[inds] <- additionally_harmonized$orig
@@ -49,6 +49,8 @@ harmonize_publisher_main <- function (datasource, df.orig, testing_max=NULL) {
   }
   
   # The enrichment part
+  # TODO: enrichments should be in a separate function for clarity, as with the other fields in the pipeline.
+  # But this is ok an very useful for now  
   if (enrich) {
     enriched_pubs <- do.call(enrichment_function, args=list(df.orig, cheat_list=cheat_list, languages=languages))
   } else {

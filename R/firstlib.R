@@ -36,6 +36,7 @@
 #' @importFrom utils read.csv
 #' @importFrom utils write.table
 #' @importFrom stringr str_trim
+#' @importFrom stringr str_count
 #' @importFrom tibble as_data_frame
 #' @importFrom tibble data_frame
 #' @importFrom tidyr gather

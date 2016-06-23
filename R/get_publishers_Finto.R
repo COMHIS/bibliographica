@@ -1,6 +1,5 @@
 get_publishers_Finto <- function(Finto_corrected, Finto_comp, all_names, known_inds, Finto_town, unknown_town, publication_year, Finto_years) {
   
-
   match_count <- 0
   no_match_count <- 0
   exact_match_count <- 0

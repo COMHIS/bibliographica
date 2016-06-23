@@ -1,7 +1,7 @@
 check <- "preprocess"
 
 # Preprocess selected original fields 
-res <- polish_all(df.orig, fields = update.fields,
+res <- polish_all(df.orig, fields = setdiff(update.fields, "publisher"),
 	  mc.cores = mc.cores,
 	  conversions = conversions, catalog = catalog)
 

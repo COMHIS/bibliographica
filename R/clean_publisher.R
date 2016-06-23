@@ -22,8 +22,7 @@ clean_publisher <- function(x, languages=c("english")) {
   
   # remove everything in brackets or parentheses after collecting i komm., distr., exp., för ... -information
   # TBD
-  
-  
+   
   # remove naughty characters from the rear
   endings=c(" ", "\\(", "\\)", "\\[", "\\]", "\\.", ";", ":", ",", "'")
   q <- remove_endings(q, endings=endings, random_order=TRUE)
@@ -38,24 +37,23 @@ clean_publisher <- function(x, languages=c("english")) {
   for (language in languages) {
     if (language=="swedish") {
       f <- system.file("extdata/sv_publisher.csv", package="bibliographica")
-    } else if (language=="english") {
-      f <- system.file("extdata/en_publisher.csv", package="bibliographica")
+    #} else if (language=="english") {
+    # LL: I had to comment this out as en_publisher.csv is not available in git (to add)
+    #  f <- system.file("extdata/en_publisher.csv", package="bibliographica")
     } else if (language=="finnish") {
       f <- system.file("extdata/fi_publisher.csv", package="bibliographica")
     } else if (language=="latin") {
-      f <- system.file("lat_publisher.csv", package="bibliographica")
+      f <- system.file("extdata/lat_publisher.csv", package="bibliographica")
     } else {
       print (paste0("Unknown language in languages: ", language))
     }
-    
+
     synonyms <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")
+
     q <- map(q, synonyms, mode="recursive")
+
   } 
 
-  
-  
-  
-  
   # remove brackets and parentheses (Destructive phase)
   q <- gsub("^[(](.*)[)]$", "\\1", q)
   q <- gsub("^[[](.*)[]]$", "\\1", q)
@@ -72,6 +70,7 @@ clean_publisher <- function(x, languages=c("english")) {
   
   # harmonize initials
   # CWK Raivoinen -> C.W.K. Raivoinen; C. W. K. Raivoinen -> C.W.K. Raivoinen
+  # TODO: might be useful also for polishing some other fields - to make a generic function ?
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1.\\2.\\3. \\4", q)
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1.\\2. \\3", q)
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1. \\2", q)
