@@ -1,3 +1,14 @@
+#' @title Extract personal names
+#' @description Extracts personal names from
+#' @param x Vector of publisher names
+#' @param languages A vector of languages which are used in detecting relation keywords
+#' @return Data frame: orig, initials, family, full_name, init_name, guessed, relation
+#' @export
+#' @importFrom stringr str_count
+#' @author Hege Roivainen \email{hege.roivainen@@gmail.com}
+#' @references See citation("bibliographica")
+#' @examples # extract_personal_names(x, languages=c("finnish", "swedish", "latin"))
+#' @keywords utilities
 extract_personal_names  <- function(x, languages=c("english")) {
   
   orig <- x

@@ -1,5 +1,11 @@
+#' @title Cheat Publishers
+#' @description Get publisher list from an xml file
+#' @return Data frame with possible publisher form and the preferred output
+#' @export
+#' @import XML
+#' @author Hege Roivainen \email{hege.roivainen@@gmail.com}
+#' @references See citation("bibliographica")
 cheat_publishers <- function() {
-  library(XML)
   
   #r <- xmlTree
   # TODO: Load from website, if local version doesn't exist

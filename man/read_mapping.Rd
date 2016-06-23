@@ -7,7 +7,7 @@
 read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
   include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE,
   verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE,
-  from = "synonyme", to = "name", fast = FALSE)
+  from = "synonyme", to = "name", fast = FALSE, encoding = "UTF-8")
 }
 \arguments{
 \item{file}{Input file}
@@ -35,6 +35,8 @@ read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
 \item{to}{field that contains the final names}
 
 \item{fast}{Use the fast method fread (sensitive to problems in table format)}
+
+\item{encoding}{Character encoding (needed in Windows environment)}
 }
 \value{
 Synonyme data frame with the fields 'name' (the selected term) and 'synonyme' (the alternative terms).

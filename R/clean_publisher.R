@@ -1,3 +1,13 @@
+#' @title Clean publisher
+#' @description Pre-cleans publisher field
+#' @param x Vector of publisher names
+#' @param languages A vector of languages which are used in detecting relation keywords
+#' @return Vector of publisher names
+#' @export
+#' @author Hege Roivainen \email{hege.roivainen@@gmail.com}
+#' @references See citation("bibliographica")
+#' @examples # clean_publisher(x, languages=c("finnish", "swedish", "latin"))
+#' @keywords utilities
 clean_publisher <- function(x, languages=c("english")) {
 
   # Used to be located after all the language specific stuff and before the generic stuff
@@ -39,7 +49,7 @@ clean_publisher <- function(x, languages=c("english")) {
     }
     
     synonyms <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")
-    q <- harmonize_names(q, synonyms, mode="recursive")
+    q <- map(q, synonyms, mode="recursive")
   } 
 
   

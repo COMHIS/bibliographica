@@ -36,7 +36,6 @@
 #' @importFrom ggplot2 xlab
 #' @importFrom ggplot2 ylab
 #' @importFrom parallel mclapply
-#' @importFrom sorvi quickdf
 #' @importFrom stringr str_trim
 #' @importFrom tibble as_data_frame
 #' @importFrom tibble data_frame

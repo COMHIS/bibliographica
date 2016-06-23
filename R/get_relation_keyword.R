@@ -1,3 +1,15 @@
+#' @title Get relation keyword
+#' @description Get keyword that denotes that the person in question is a relative to the named person
+#' @param x A vector of publisher names
+#' @param full_name A vector of full names (from first name to last) it has been picked from publisher field
+#' @param languages A vector of languages which are used in detecting relation keywords
+#' @return Vector with relation keywords
+#' @export
+#' @author Hege Roivainen \email{hege.roivainen@@gmail.com}
+#' @importFrom stringr str_extract
+#' @references See citation("bibliographica")
+#' @examples # get_relation_keyword(x, full_name, languages=c("finnish", "swedish", "latin"))
+#' @keywords utilities
 get_relation_keyword <- function(x, full_name, languages=c("english")) {
   
   # TODO: make a table for languages & related files & purpose

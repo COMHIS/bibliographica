@@ -5,6 +5,7 @@
 #' @return A vector with augmented values
 #' @examples \dontrun{guess_missing_entries(id = c("Tom", "Tom", "Pete", "Pete", "Pete"), values = c(1, NA, 2, 3, NA))}
 #' @export
+#' @importFrom sorvi quickdf
 #' @details For instance, we may have authors and author life years (birth and death).
 #' The life years may be available for a given author in some entries and missing in others.
 #' When the information is unique, this function fills the missing entries where possible.
@@ -33,6 +34,7 @@ guess_missing_entries <- function (id, values) {
   }
 
   quickdf(list(id = id, values = values))
+  #data.frame(id = id, values = values, stringsAsFactors = FALSE)
   
 }
 

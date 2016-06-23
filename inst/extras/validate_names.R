@@ -9,6 +9,7 @@
 #'	\item invalid List of invalid name components
 #'    }
 #' @export
+#' @importFrom sorvi quickdf
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{x <- validate_names(namelist, database)}

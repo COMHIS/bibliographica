@@ -1,5 +1,16 @@
-#' @importFrom sorvi harmonize_names
-#' 
+#' @title Harmonize publisher
+#' @description Harmonizes publishers with slight misspellings
+#' @param x A vector of publisher names
+#' @param publication_year Data frame with published_in, published_from, published_till
+#' @param languages A vector of languages which are used in detecting relation keywords
+#' @return Data frame with orig, mod and comp 
+#' @export
+#' @importFrom stringdist amatch
+#' @importFrom stringr str_replace
+#' @author Hege Roivainen \email{hege.roivainen@@gmail.com}
+#' @references See citation("bibliographica")
+#' @examples # harmonize_publisher(x, publication_year, languages=c("finnish", "swedish", "latin"))
+#' @keywords utilities
 harmonize_publisher <- function(x, publication_year, languages=c("english")) {
   
   q <- x
@@ -28,7 +39,7 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
       f <- system.file("extdata/fi_publisher.csv", package = "bibliographica")  
     }
     synonyms <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")
-    q <- harmonize_names(q, synonyms, mode="recursive")
+    q <- map(q, synonyms, mode="recursive")
   }
   
   
