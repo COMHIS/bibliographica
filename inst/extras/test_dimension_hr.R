@@ -20,7 +20,7 @@ test_that("dimension tables are valid", {
 
 test_that("dimension polish works correctly", {
 
-  f <- "~/GitHub/bibliographica/tests/dimension_polish_tests.csv"
+  f <- "~/GitHub/bibliographica/tests/dimension_polish_tests.csv"  
   synonymes <- read.csv(file=f, header=TRUE, sep="\t", encoding="UTF-8")
   for (i in 1:nrow(synonymes)) {
     test_clause <- as.character(synonymes$clause[i])
