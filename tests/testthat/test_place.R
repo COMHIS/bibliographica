@@ -254,7 +254,6 @@ test_that("Places are harmonized correctly", {
   expect_equal(polish_place("Brahestad"), "Raahe")
   expect_equal(polish_place("[Tartto ]"), "Tartu")
   expect_equal(polish_place("St. Pietarborissa"), "St Petersburg")
-  expect_equal(polish_place("Sorau"), "Sorau")
   expect_equal(polish_place("Porvoo ;;Helsinki"), "Porvoo")
   expect_equal(polish_place("Port Arthur, Ontario"), "Port Arthur On")
   expect_equal(polish_place("Pargas"), "Parainen")

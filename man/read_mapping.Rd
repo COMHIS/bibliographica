@@ -7,7 +7,8 @@
 read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
   include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE,
   verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE,
-  from = "synonyme", to = "name", fast = FALSE, encoding = "UTF-8")
+  from = "synonyme", to = "name", fast = FALSE, encoding = "UTF-8",
+  trim = FALSE)
 }
 \arguments{
 \item{file}{Input file}
@@ -37,6 +38,8 @@ read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
 \item{fast}{Use the fast method fread (sensitive to problems in table format)}
 
 \item{encoding}{Optional encoding of the input file (see help(readLines))}
+
+\item{trim}{trim empty spaces from the beginning and end of the strings}
 }
 \value{
 Synonyme data frame with the fields 'name' (the selected term) and 'synonyme' (the alternative terms).
