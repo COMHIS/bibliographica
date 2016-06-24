@@ -63,17 +63,21 @@ Saako kaupunki-maa mäppäykset tietokannoista. Optioita:
    jne. Eli varmaan sitten myöhemmin jos tehdään myös karttoja joissa
    eri elementtejä niin tästä voisi olla hyötyä?
 
+4) World Cities Database https://www.maxmind.com/en/worldcities
+  Includes city, region, country, latitude and longitude and
+  Population. A listing of all the cities in the world. This database
+  contains duplicate and incorrect entries. It is provided as-is, and
+  we are unable to provide support for it. For a cleaner database, try
+  GeoNames, but they may lack some cities included in our data. This
+  could be useful for initial city-county mappings and place name
+  validation however.
+
+
 Muita Usein mainittuja mäppäysresursseja:
 - Open Street Map
 - Yahoo's GeoPlanet provides a dataset of all named places on earth,
   including oceans, countries, cities and villages. You can download
   it at http://developer.yahoo.com/geo/geoplanet/data/
-- World Cities Database https://www.maxmind.com/en/worldcities
-  Includes city, region, country, latitude and longitude and
-  Population. A listing of all the cities in the world. This database
-  contains duplicate and incorrect entries. It is provided as-is, and
-  we are unable to provide support for it. For a cleaner database, try
-  GeoNames, but they may lack some cities included in our data.
 - GeoDataSource http://www.geodatasource.com/world-cities-database/free
 
 
