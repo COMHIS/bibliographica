@@ -236,7 +236,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   x <- gsub("^\\(", "", gsub("\\)$", "", x))
   x <- gsub(" -", "-", gsub("- ", "-", x))  
   x <- gsub("^-", "NA-", gsub("-$", "-NA", x))
-  x <- gsub("[a-z]", "", x)
+  x <- gsub("[[:lower:]]", "", x)
   x <- condense_spaces(x)
   x <- gsub("^[\\:|\\=]", "", x)
   if (length(x) == 1 && (x == "" || is.na(x))) {x <- "NA"}
