@@ -169,6 +169,15 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
 
 
+  message("publication_place discarded")
+  tab <- read_mapping(f, include.lowercase = T, self.match = T,
+      	                 ignore.empty = FALSE,
+                         mode = "table", remove.ambiguous = FALSE)
+  # Only consider terms that are present in our data
+  disc <- sort(subset(tab, is.na(name))$synonyme)
+  tmp <- write.csv(disc,
+      file = paste(output.folder, "publication_place_discarded.csv", sep = ""))
+
   message("Publication place todo file")
   f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
   synonymes <- suppressWarnings(read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table", trim = TRUE))

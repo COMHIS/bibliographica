@@ -2569,8 +2569,8 @@ Kongsberg;kongsberg
 Kongsvinger;kongsvinger
 Koningsberg;ko\?nigsberg;
 Koningsberg;königsberg;
-Koningsberg;;Regimonti
-Koningsberg;;Regiomonti borussiae
+Koningsberg;regimonti
+Koningsberg;regiomonti borussiae
 Koningsberg;regiomonti borussorum;
 Koningsberg;regiomonti borvssiae;
 Konnevesi;konnevesi
@@ -3602,7 +3602,6 @@ NA;agnifitiae;not a place
 NA;albigion;
 Naantali;naantali
 NA;berttula;
-NA;Bishop s castle;
 NA;borough;
 NA;bs l;
 NA;bwten lonnen;
@@ -4146,7 +4145,6 @@ Paul;paul
 Pau;pau
 Pavia;pavia
 Peacham Vt;peacham vermont;
-pecatana moskve f gippiusa
 Pedersöre;pedersöre
 Pegau;pegau
 Peiping;peiping
@@ -5894,9 +5892,9 @@ Virserum;virserum
 Visby;visby
 Visby;Visby 
 Visby;Wisby
-Visingsborg;;wiesingsburg 
-Visingsborg;;Wiesingsburg
-Visingsborg;;Wijsindzborg 
+Visingsborg;wiesingsburg 
+Visingsborg;Wiesingsburg
+Visingsborg;Wijsindzborg 
 Visingsborg;wijsingsborg;
 Visingsborg;wijsingzborg;
 Visingsborg;;wijsingzborg rikz
@@ -5906,7 +5904,7 @@ Visingsborg;;Wisingsborgh
 Visingsborg;wisingsburgi;
 Visingsborg;wisingsbvrgi;
 Visingsborg;wisingzborg;
-Visingsborg;;Wysingzborg
+Visingsborg;Wysingzborg
 Viskafors;viskafors
 Vislanda;vislanda
 Vitsand;vitsand

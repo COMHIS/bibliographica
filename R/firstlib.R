@@ -34,6 +34,7 @@
 #' @importFrom stats na.omit
 #' @importFrom utils as.roman
 #' @importFrom utils read.csv
+#' @importFrom utils write.csv
 #' @importFrom utils write.table
 #' @importFrom stringr str_trim
 #' @importFrom stringr str_count
