@@ -49,8 +49,8 @@ if (exists("update.fields") && !is.null(update.fields) && ("df0.Rds" %in% dir())
 
 # Finally remove the specified fields
 if (exists("ignore.fields")) {
-  message("Ignoring fields")
-  message(update.fields)
+  message("Ignoring fields: ")
+  message(paste(update.fields, collapse = "; "))
   update.fields <- setdiff(update.fields, ignore.fields)
 }
 
