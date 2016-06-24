@@ -176,7 +176,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # Only consider terms that are present in our data
   disc <- sort(subset(tab, is.na(name))$synonyme)
   tmp <- write.csv(disc,
-      file = paste(output.folder, "publication_place_discarded.csv", sep = ""))
+      file = paste(output.folder, "publication_place_discarded.csv", sep = ""),
+      quote = FALSE, row.names = FALSE, col.names = FALSE)
 
   message("Publication place todo file")
   f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
