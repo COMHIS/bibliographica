@@ -14,7 +14,7 @@ output: markdown_document
 
  * [Discarded publisher entries](output.tables/publisher_discarded.csv)
 
- * [Conversions from original to final names](output.tables/publisher_nontrivial_conversions.csv) (only non-trivial conversions shown)
+ * [Conversions from original to final names](output.tables/publisher_conversion_nontrivial.csv) (only non-trivial conversions shown)
 
 
 The `r ntop` most common publishers are shown with the number of documents. 
