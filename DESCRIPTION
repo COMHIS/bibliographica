@@ -29,11 +29,10 @@ Imports:
     sorvi,
     stringdist,
     stringr,
-    tau,
     tibble,
     tidyr,
     tm,
-	XML
+    XML
 Suggests:
     rmarkdown,
     testthat

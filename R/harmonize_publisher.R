@@ -1,7 +1,7 @@
-#' @title Harmonize publisher
-#' @description Harmonizes publishers with slight misspellings
+#' @title Harmonize Publisher
+#' @description Harmonizes publishers with slight misspellings.
 #' @param x A vector of publisher names
-#' @param publication_year Data frame with published_in, published_from, published_till
+#' @param publication_year Data frame with "from" and "till" years
 #' @param languages A vector of languages which are used in detecting relation keywords
 #' @return Data frame with orig, mod and comp 
 #' @export
@@ -12,7 +12,11 @@
 #' @examples # harmonize_publisher(x, publication_year, languages=c("finnish", "swedish", "latin"))
 #' @keywords utilities
 harmonize_publisher <- function(x, publication_year, languages=c("english")) {
-  
+
+  # Only consider unique terms to speed up		
+  xorig <- as.character(x)
+  x <- xuniq <- unique(xorig)  
+
   q <- x
   
   # select the first item from the list
@@ -24,12 +28,18 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
   
   # remove everything in brackets or parentheses after collecting i komm., distr., exp., för ... -information
   # TBD
-  
-  
+    
   # remove naughty characters from the rear
   endings=c(" ", "\\(", "\\)", "\\[", "\\]", "\\.", ";", ":", ",", "'")
   q <- remove_endings(q, endings=endings, random_order=TRUE)
-  
+
+  # Back to original indices, then unique again;
+  # reduces number of unique cases further
+  # Back to original indices, then unique again;
+  # reduces number of unique cases further
+  xorig <- q[match(xorig, xuniq)]
+  q <- xuniq <- unique(xorig)
+
   for (language in languages) {
     if (language=="swedish") {
       f <- system.file("extdata/sv_publisher.csv",package = "bibliographica")
@@ -63,7 +73,10 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1.\\2.\\3. \\4", q)
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1.\\2. \\3", q)
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1. \\2", q)
-  
+
+  # Back to original indices
+  q <- q[match(xorig, xuniq)]
+
   # Backup the original form at this stage
   r <- q
   
@@ -74,14 +87,15 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
   maxdiff = 5
   maxrange = 40
   
-  idx <- which(!is.na(publication_year$published_in))
-  publication_year$published_from[idx] <- publication_year$published_in[idx]
-  publication_year$published_till[idx] <- publication_year$published_in[idx]
-  
+  idx <- which(!is.na(publication_year$from))
+  publication_year$from[idx] <- publication_year$from[idx]
+  publication_year$till[idx] <- publication_year$from[idx]
+
+  # TODO vectorization of for loops with sapply could speed up considerably
   for (pub in unique(q)) {
     
-    min_year <- min(publication_year$published_from[(which(q==pub))], na.rm=TRUE)
-    max_year <- max(publication_year$published_till[(which(q==pub))], na.rm=TRUE)
+    min_year <- min(publication_year$from[(which(q == pub))], na.rm = TRUE)
+    max_year <- max(publication_year$till[(which(q == pub))], na.rm = TRUE)
     if (is.na(pub)) {
       next
     }
@@ -99,6 +113,7 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
     ranges$max[i] <- max_year
     ranges$publisher[i] <- pub
     i = i + 1
+    
   }
   
   # Get the publisher name forms into a table
@@ -115,6 +130,7 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
 
   # Build the stop mechanism
   # NB! Hardcoded for Finnish. Language specific handling required.
+  # TODO vectorization of for loops with sapply could speed up considerably
   f <- system.file("extdata/fi_publisher_caveat.csv", package="bibliographica")
   caveats <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")
   cav <- data.frame(name1=character(nrow(caveats)*2), name2=character(nrow(caveats)*2), stringsAsFactors=FALSE)
@@ -138,13 +154,14 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
   if (language=="finnish") {
     f = system.file("extdata/fi_publisher_with_placeholders.csv", package="bibliographica")
   } else if (language=="swedish") {
-    
+    # TODO    
   } else if (language=="english") {
-    
+    # TODO
   } else {
     
   }
   synonyms <- read.csv(file=f, sep="\t", fileEncoding="UTF-8")
+  # TODO vectorization of for loops with sapply could speed up considerably  
   for (i in 1:nrow(synonyms)) {
     pattern <- str_replace(synonyms$synonyme[i], "<name>", personal_names$full_name)
     replacement <- str_replace(synonyms$name[i], "<name>", personal_names$full_name)
@@ -153,6 +170,7 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
   }
   
   i <- 1
+  # TODO vectorization of for loops with sapply could speed up considerably  
   for (publisherName in na.omit(tab[,1])) {
     
         # id was set at the same time as tab

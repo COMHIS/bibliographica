@@ -2,14 +2,14 @@
 % Please edit documentation in R/harmonize_publisher.R
 \name{harmonize_publisher}
 \alias{harmonize_publisher}
-\title{Harmonize publisher}
+\title{Harmonize Publisher}
 \usage{
 harmonize_publisher(x, publication_year, languages = c("english"))
 }
 \arguments{
 \item{x}{A vector of publisher names}
 
-\item{publication_year}{Data frame with published_in, published_from, published_till}
+\item{publication_year}{Data frame with "from" and "till" years}
 
 \item{languages}{A vector of languages which are used in detecting relation keywords}
 }
@@ -17,7 +17,7 @@ harmonize_publisher(x, publication_year, languages = c("english"))
 Data frame with orig, mod and comp
 }
 \description{
-Harmonizes publishers with slight misspellings
+Harmonizes publishers with slight misspellings.
 }
 \examples{
 # harmonize_publisher(x, publication_year, languages=c("finnish", "swedish", "latin"))

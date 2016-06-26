@@ -2,7 +2,7 @@
 % Please edit documentation in R/harmonize_publisher_fennica.R
 \name{harmonize_publisher_fennica}
 \alias{harmonize_publisher_fennica}
-\title{Harmonize publisher Fennica}
+\title{Harmonize Publisher Fennica}
 \usage{
 harmonize_publisher_fennica(df.orig, cheat_list, languages = c("english"))
 }
@@ -17,7 +17,7 @@ harmonize_publisher_fennica(df.orig, cheat_list, languages = c("english"))
 Data frame with alt, pref, match_methods
 }
 \description{
-Harmonizes publisher names and enriches them with Finto information
+Harmonizes publisher names and enriches them with Finto information.
 }
 \examples{
 # harmonize_publisher_fennica(df.orig, cheat_list, languages=c("finnish", "swedish", "latin"))

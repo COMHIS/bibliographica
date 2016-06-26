@@ -10,6 +10,10 @@
 #' @keywords utilities
 clean_publisher <- function(x, languages=c("english")) {
 
+  # Only consider unique terms to speed up		
+  xorig <- as.character(x)
+  x <- xuniq <- unique(xorig)  
+
   # Used to be located after all the language specific stuff and before the generic stuff
   q <- x  
   
@@ -32,7 +36,14 @@ clean_publisher <- function(x, languages=c("english")) {
   # I don't know what the real character should be, so I'll just select one at random
   q <- gsub(" [$]b", ".", q)
   q <- gsub(" [$]", "", q)
-  
+
+  # Back to original indices, then unique again;
+  # reduces number of unique cases further
+  # Back to original indices, then unique again;
+  # reduces number of unique cases further
+  xorig <- q[match(xorig, xuniq)]
+  q <- xuniq <- unique(xorig)
+
   # Used to the first thing to do in this function
   for (language in languages) {
     if (language=="swedish") {
@@ -74,6 +85,11 @@ clean_publisher <- function(x, languages=c("english")) {
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1.\\2.\\3. \\4", q)
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1.\\2. \\3", q)
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1. \\2", q)
-  
-  q
+
+
+  # Back to original indices
+  qret <- q[match(xorig, xuniq)]
+
+  qret
+
 }

@@ -3111,12 +3111,12 @@ Kristiinankaupunki;kristiina;
 Kristiinankaupunki;kristiinankaupunki;
 Kristiinankaupunki;kristinehamn;
 Kristiinankaupunki;kristinestad;
-Kristinehamn;christinehamn;
-Kristinehamn;christinehamn rosdahl;
-Kristinehamn;kristineh;
-Kristinehamn;kristineham;
-Kristinehamn;nässundet;
-Kristinehamn;ölme;
+Kristiinankaupunki;christinehamn;
+Kristiinankaupunki;christinehamn rosdahl;
+Kristiinankaupunki;kristineh;
+Kristiinankaupunki;kristineham;
+Kristiinankaupunki;nässundet;
+Kristiinankaupunki;ölme;
 Krokek;krokek;
 Krokom;krokom;
 Kronoberg;kronoberg;
@@ -6927,7 +6927,6 @@ Vieremä;vieremä;
 Vifstavarf;vifstavarf;
 Viggbyholm;viggbyholm;
 Vihti;vihti;
-Viipuri;wuepuri;
 Viitasaari;viitasaari;
 Vikingstad;lunnevad;
 Viksjöfors;viksjöfors;
@@ -6965,19 +6964,6 @@ Visby;visbuae;
 Visby;visvy;
 Visby;wiby;
 Visby;wisbyae;
-Visingsborg;wiesingsburg;
-Visingsborg;Wiesingsburg;
-Visingsborg;Wijsindzborg;
-Visingsborg;wijsingsborg;
-Visingsborg;wijsingzborg;
-Visingsborg;;wijsingzborg rikz
-Visingsborg;;Wijsingzöö 
-Visingsborg;;Wijsinzgborg
-Visingsborg;;Wisingsborgh
-Visingsborg;wisingsburgi;
-Visingsborg;wisingsbvrgi;
-Visingsborg;wisingzborg;
-Visingsborg;Wysingzborg;
 Visingsö;visingsö;
 Viskafors;viskafors;
 Vislanda;vislanda;
@@ -6999,6 +6985,7 @@ Vretstorp;vretstorp;
 Vretstorp;wretstorp;
 Vrigstad;vrigstad;
 Vrsovice;vrsovice;
+Vyborg;wuepuri;
 Vyborg;b viipurin läänin maatalouskomisioni;
 Vyborg;cedervaller poikineen;
 Vyborg;j cedervaller poikineen;
@@ -7112,8 +7099,21 @@ Wiebelsheim;wiebelsheim;
 Wiesbaden;wiesbaden;
 Wiesbaden;wiestaden;
 Wiesenthal;wiesenthal und malmesburg;
-Wijsingzborg;wijsingzöö;
-Wijsingzborg;wijsinzgborg;
+Visingsborg;wijsingzöö;
+Visingsborg;wijsinzgborg;
+Visingsborg;wiesingsburg;
+Visingsborg;Wiesingsburg;
+Visingsborg;Wijsindzborg;
+Visingsborg;wijsingsborg;
+Visingsborg;wijsingzborg;
+Visingsborg;;wijsingzborg rikz
+Visingsborg;;Wijsingzöö 
+Visingsborg;;Wijsinzgborg
+Visingsborg;;Wisingsborgh
+Visingsborg;wisingsburgi;
+Visingsborg;wisingsbvrgi;
+Visingsborg;wisingzborg;
+Visingsborg;Wysingzborg;
 Wilkes-Barre Pa;wilkes barre pa;
 Wilkes-Barre Pa;wilkesbarre pa;
 Williamsburg Va;williamsburg;

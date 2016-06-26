@@ -14,10 +14,10 @@ harmonize_publisher_main <- function (datasource, df.orig, testing_max=NULL) {
     additional_harmonizing_function <- "harmonize_corporate_Finto"
     combining_function <- "combine_publisher_fennica"
 
-    # FIXME : polish_year_of_publication should be replaced with the newer
+    # FIXME : polish_years should be replaced with the newer
     # and more generic function polish_years whenever time allows
     
-    publication_year <- polish_year_of_publication(df.orig$publication_time)
+    publication_year <- polish_years(df.orig$publication_time)
     town <- polish_place(df.orig$publication_place)
     cheat_list <- cheat_publishers()
     inds <- which(!is.na(df.orig$corporate))
@@ -27,7 +27,7 @@ harmonize_publisher_main <- function (datasource, df.orig, testing_max=NULL) {
     languages <- c("swedish")
     enrich <- FALSE
     inds <- integer(length(0))
-    publication_year <- polish_year_of_publication(df.orig$publication_time)
+    publication_year <- polish_years(df.orig$publication_time)
     raw_publishers <- df.orig$publisher
     raw_publishers[which(is.na(raw_publishers))] <- df.orig$corporate[which(is.na(raw_publishers))]
   }

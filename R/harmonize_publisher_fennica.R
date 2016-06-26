@@ -1,5 +1,5 @@
-#' @title Harmonize publisher Fennica
-#' @description Harmonizes publisher names and enriches them with Finto information
+#' @title Harmonize Publisher Fennica
+#' @description Harmonizes publisher names and enriches them with Finto information.
 #' @param df.orig Raw data from csv
 #' @param cheat_list Data frame of alt, pref: alternative spellings and their counterpart the preferred spelling
 #' @param languages A vector of languages which are used in detecting relation keywords
@@ -12,7 +12,7 @@
 harmonize_publisher_fennica <- function(df.orig, cheat_list, languages=c("english")) {
 
   # First: Take the publication year  
-  publication_year <- polish_year_of_publication(df.orig$publication_time)
+  publication_year <- polish_years(df.orig$publication_time)
   
   # Get Finto data from field 710a ($corporate)
   publisher <- harmonize_corporate_Finto(df.orig$corporate)

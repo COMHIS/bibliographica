@@ -9,12 +9,12 @@ get_publishers_Finto <- function(Finto_corrected, Finto_comp, all_names, known_i
   idx = 1
 
   # Unify publication year
-  inds <- which(is.na(publication_year$published_from))
-  inds <- intersect(inds, which(is.na(publication_year$published_till)))
+  inds <- which(is.na(publication_year$from))
+  inds <- intersect(inds, which(is.na(publication_year$till)))
 
-  publication_year$published_from[inds] <- publication_year$published_till[inds] <- publication_year$published_in[inds]
+  publication_year$from[inds] <- publication_year$till[inds] <- publication_year$from[inds]
 
-  all_data <- data.frame(names = all_names, pubyear.from = publication_year$published_from, pubyear.till = publication_year$published_till, town=unknown_town, ignore=FALSE)
+  all_data <- data.frame(names = all_names, pubyear.from = publication_year$from, pubyear.till = publication_year$till, town=unknown_town, ignore=FALSE)
   
   # Change NA to an empty string to avoid problems later
   all_data$names.orig[which(is.na(all_data$names.orig))] <- ""
@@ -34,8 +34,8 @@ get_publishers_Finto <- function(Finto_corrected, Finto_comp, all_names, known_i
     if (idx %% 1000 == 0) {print(paste0(idx, " ; ", all_names[idx,]))}
 
     all_names_indices <- which(all_names$orig==unique_data$names.orig[idx])
-    all_names_indices <- intersect(all_names_indices, which(publication_year$published_from==unique_data$pubyear.from[idx]))
-    all_names_indices <- intersect(all_names_indices, which(publication_year$published_till==unique_data$pubyear.till[idx]))
+    all_names_indices <- intersect(all_names_indices, which(publication_year$from==unique_data$pubyear.from[idx]))
+    all_names_indices <- intersect(all_names_indices, which(publication_year$till==unique_data$pubyear.till[idx]))
     all_names_indices <- intersect(all_names_indices, which(unknown_town==unique_data$town[idx]))
     town2 <- unique_data$town[idx]
     

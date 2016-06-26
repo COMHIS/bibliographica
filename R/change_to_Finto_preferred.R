@@ -2,15 +2,15 @@ change_to_Finto_preferred <- function (pubs, towns, years, cheat_list) {
   
     ret <- data.frame(orig=character(nrow(pubs)), mod=character(nrow(pubs)), stringsAsFactors = FALSE)
     
-    na_till <- which(is.na(years$published_till))
-    na_from <- which(is.na(years$published_from))
+    na_till <- which(is.na(years$till))
+    na_from <- which(is.na(years$from))
     pubtills <- integer(length=nrow(years))
-    pubtills[-na_till] <- years$published_till[-na_till]
-    pubtills[na_till] <- years$published_in[na_till]
+    pubtills[-na_till] <- years$till[-na_till]
+    pubtills[na_till] <- years$from[na_till]
     
     pubfroms <- integer(length=nrow(years))
-    pubfroms[-na_from] <- years$published_from[-na_from]
-    pubfroms[na_from] <- years$published_in[na_from]
+    pubfroms[-na_from] <- years$from[-na_from]
+    pubfroms[na_from] <- years$from[na_from]
     p5 <- data.frame(orig=pubs$orig, mod=pubs$mod, town=towns, pubfrom=pubfroms, pubtill=pubtills, stringsAsFactors = FALSE)
     unique_pubs <- unique(p5)
     
