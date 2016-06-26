@@ -123,7 +123,7 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
   x <- suppressWarnings(remove_terms(x, stopwords, c("begin", "middle", "end"), recursive = TRUE))
 
   # Remove roman numerals
-  x = sapply(strsplit(x, " "), function (xi) {paste(xi[!is.roman(as.roman(xi))], collapse = " ")}, USE.NAMES = FALSE)
+  x = sapply(strsplit(x, " "), function (xi) {paste(xi[!is.roman(suppressWarnings(as.roman(xi)))], collapse = " ")}, USE.NAMES = FALSE)
 
   if (harmonize) {
 
