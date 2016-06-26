@@ -20,7 +20,7 @@ test_that("dimension tables are valid", {
 
 test_that("dimension polish works correctly", {
   
-  f <- system.file("extdata/tests_dimension_polish.csv")
+  f <- system.file("extdata/tests_dimension_polish.csv", package = "bibliographica")
   synonymes <- read.csv(file=f, header=TRUE, sep="\t", encoding="UTF-8")
   for (i in 1:nrow(synonymes)) {
     test_clause <- as.character(synonymes$clause[i])
@@ -41,7 +41,7 @@ test_that("dimension polish works correctly", {
 
 test_that("fennica dimensions", {
   
-  f <- system.file("extdata/tests_dimension_polish_fennica.csv")
+  f <- system.file("extdata/tests_dimension_polish_fennica.csv", package = "bibliographica")
   synonymes <- read.csv(file=f, header=TRUE, sep="\t", encoding="UTF-8")
   for (i in 1:nrow(synonymes)) {
     test_clause <- as.character(synonymes$clause[i])

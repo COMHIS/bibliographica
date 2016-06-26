@@ -1,5 +1,7 @@
 harmonize_publisher_main <- function (datasource, df.orig, testing_max=NULL) {
-  
+
+  # TODO : one way to speed up is to only consider unique entries. 
+
   enrich <- FALSE
 
   # TODO: Get necessary function names, tables etc. from a single csv-file!
@@ -11,6 +13,9 @@ harmonize_publisher_main <- function (datasource, df.orig, testing_max=NULL) {
     enrichment_function <- "harmonize_publisher_fennica"
     additional_harmonizing_function <- "harmonize_corporate_Finto"
     combining_function <- "combine_publisher_fennica"
+
+    # FIXME : polish_year_of_publication should be replaced with the newer
+    # and more generic function polish_years whenever time allows
     
     publication_year <- polish_year_of_publication(df.orig$publication_time)
     town <- polish_place(df.orig$publication_place)

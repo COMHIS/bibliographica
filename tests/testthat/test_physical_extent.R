@@ -2,7 +2,7 @@ context("Physical extent")
 
 test_that("Page count is correct", {
   
-  f <- system.file("extdata/tests_polish_physical_extent.csv")
+  f <- system.file("extdata/tests_polish_physical_extent.csv", package = "bibliographica")
   synonymes <- read.csv(file=f, header=TRUE, sep="\t", encoding="UTF-8")
   for (i in 1:nrow(synonymes)) {
     test_clause <- as.character(synonymes$clause[i])
