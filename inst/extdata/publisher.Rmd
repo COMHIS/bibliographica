@@ -55,7 +55,7 @@ print(p)
 
 Title count versus paper consumption (top publishers):
 
-```{r publishertitlespapers, fig.height=5, fig.width=10, echo=FALSE, warning=FALSE}
+```{r publishertitlespapers, fig.height=8, fig.width=8, echo=FALSE, warning=FALSE}
 #res <- compare_title_paper(df, "publisher", selected = tops)
 tops <- names(top(df, field = "publisher", n = 10))
 res <- compare_title_paper(df, "publisher")
