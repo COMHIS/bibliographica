@@ -106,7 +106,7 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
   id <- apply(x, 1, function (x) {paste(x, collapse = "-")})
   ido <- rev(sort(table(id)))
   idn <- ido[match(id, names(ido))]
-  tab <- cbind(x, count = idn)
+  tab <- cbind(x, count = as.vector(idn))
   tab <- tab[rev(order(as.numeric(tab[, "count"]))),]
   tab <- tab[!duplicated(tab),]
   tab <- na.omit(tab)
