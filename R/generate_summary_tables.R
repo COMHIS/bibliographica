@@ -295,16 +295,10 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   #-------------------------------------------------
 
   ## PUBLISHER
-  
-
-  skip = T
-  # TEST THIS
-  # The result will become visible at
+  # The result is visible at
   # https://github.com/rOpenGov/fennica/blob/master/inst/examples/publisher.md
-  # which is generated from
+  # and that page is generated from
   # inst/extdata/publisher.Rmd
-
-  if (!skip) { 
 
    message("Accepted publishers")
    field = "publisher"
@@ -327,7 +321,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, paste(nam, "conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
     
-  }
+  
 
 
   # --------------------------------------------
