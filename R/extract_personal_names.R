@@ -27,7 +27,7 @@ extract_personal_names  <- function(x, languages=c("english")) {
   guessed <- character(length=length(x))
   
   # Try if the form is "Merckell, Johan Cristopher"
-  # Update full_name if there's a match
+  message("Update full_name if there's a match")
   relation <- get_relation_keyword(x, NULL, languages=languages)
   inds <- which(relation == "")
   
@@ -35,7 +35,7 @@ extract_personal_names  <- function(x, languages=c("english")) {
   full_name <- gsub("^([[:upper:]][[:lower:]]+), ((([[:upper:]][[:lower:]]+|[[:upper:]][.])( |$))+)", "\\2 \\1", x)
   
   # Try if the form is "Merckell, Johan Cristopherin leski"
-  # Update full_name if necessary
+  message("Update full_name if necessary")
   inds <- which(relation != "")
   pattern <- paste("(^[[:upper:]][[:lower:]]+), ((([[:upper:]][[:lower:]]+|[[:upper:]][.])( |))+)(:n)? ", relation, "$", sep="")
   full_name[inds] <- str_replace(x[inds], pattern=pattern[inds], replacement=paste0("\\2 \\1 ", relation[inds]))
@@ -46,7 +46,7 @@ extract_personal_names  <- function(x, languages=c("english")) {
   # First: try with prefixed "by", "af" etc...
   f < system.file("extdata/by_words.csv", package="bibliographica")
   #f <- "../inst/extdata/by_words.csv"
-  by_words <- read.csv(f, sep="\t", fileEncoding="UTF-8")
+  by_words <- read.csv(f, sep="\t", fileEncoding="UTF-8", sep = "\t")
   by_w <- paste0(as.character(by_words$synonyme), collapse = "|" )
   by_w <- paste0(" (", by_w, ") ")
   full_name[inds] <- str_extract(x[inds], paste0(by_w, "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+"))
