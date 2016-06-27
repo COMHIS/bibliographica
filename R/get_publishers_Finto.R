@@ -118,6 +118,7 @@ get_publishers_Finto <- function(Finto_corrected, Finto_comp, all_names, known_i
       } else if (match_method==3) {
         inds <- which(Finto_comp$full_name==unique_data$names.full_name[idx])
       } else {
+      
       }
       
       origs <- unique(Finto_comp$orig[inds])

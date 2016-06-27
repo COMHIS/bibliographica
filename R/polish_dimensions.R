@@ -81,7 +81,7 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   }
 
   # --------------------------------------
-  
+
   tab <- t(sapply(s, function (x) {a <- try(polish_dimension(x, synonyms)); if (class(a) == "try-error") {a <- rep(NA, 5)}; return(a)
     }))
   rownames(tab) <- NULL

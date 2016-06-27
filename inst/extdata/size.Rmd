@@ -8,13 +8,34 @@ output: markdown_document
 
 ## Page counts
 
-[Page conversions from raw data to final page count estimates](output.tables/pagecount_conversion_nontrivial.csv)
+  * Page count missing and estimated for `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents (`r (sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig)))/nrow(df)`%).
+
+  * Page count missing and could not be estimated for `r sum(is.na(df.preprocessed$pagecount.orig) & is.na(df.preprocessed$pagecount))` documents
+
+  * Page count updated for `r sum(!df$pagecount.orig == df$pagecount, na.rm = T)` documents.
+  
+  * [Conversions from raw data to final page count estimates](output.tables/pagecount_conversion_nontrivial.csv)
 
 <!--[Page conversions from raw data to final page count estimates with volume info](output.tables/page_conversion_table_full.csv)-->
 
-[Discarded pagecount info](output.tables/pagecount_discarded.csv)
+  * [Discarded pagecount info](output.tables/pagecount_discarded.csv)
 
-[Automated tests for page count conversions](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/tests_polish_physical_extent.csv)
+  * [Automated tests for page count conversions](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/tests_polish_physical_extent.csv)
+
+
+Visual summary of the estimated page counts per gatherings (shown only for the `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents that have missing pagecount info in the original data):
+
+```{r summarysize, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=8}
+theme_set(theme_bw(20))
+p <- ggplot(subset(df.preprocessed, is.na(pagecount.orig)),
+       aes(x = gatherings, y = pagecount)) +
+       geom_count() +
+       coord_flip() +
+       ggtitle("Estimated page counts") +
+       xlab("Gatherings") +
+       ylab("Estimated page count")
+print(p)
+```
 
 ## Document size comparisons
 
@@ -82,7 +103,7 @@ print(p)
 ```
 
 
-Compare gatherings and page counts. Page count information is originally missing but subsequently estimated for `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents and updated (changed) for `r sum(!df$pagecount.orig == df$pagecount, na.rm = T)` documents. 
+Compare gatherings and page counts. 
 
 
 ```{r summarypagecomp, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12, fig.height=7}
