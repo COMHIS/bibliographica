@@ -1,5 +1,5 @@
-#' @title Harmonize publisher main
-#' @description Main handler for publisher fields
+#' @title Harmonize Publisher Main
+#' @description Main handler for publisher fields.
 #' @param datasource String denoting catalog: "fennica", "kungliga"...
 #' @param df.orig Data frame with raw data
 #' @param testing_max Integer 1:testing_max rows will be handled. For testing purposes only
@@ -92,11 +92,11 @@ harmonize_publisher_main <- function (datasource, df.orig, testing_max=NULL) {
   # Convert S.N. into NA and Author into <Author>
   f <- system.file("extdata/NA_publishers.csv", package="bibliographica")
   synonymes <- read.csv(file=f, sep="\t", fileEncoding="UTF-8")
-  combined_pubs$mod <- map(combined_pubs$mod, synonyms, mode="recursive")
+  combined_pubs$mod <- map(combined_pubs$mod, synonymes, mode="recursive")
   
   # Last unification: If author name is the same as the publisher name -> mark as self-published
   # NB! This could be more refined!
-  inds <- which(df.orig$publisher==df.orig$author)
+  inds <- which(df.orig$publisher==df.orig$author_name)
   combined_pubs$mod[inds] <- "<Author>"
   
   return (combined_pubs)
