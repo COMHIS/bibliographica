@@ -5,6 +5,11 @@ date: "`r Sys.Date()`"
 output: markdown_document
 ---
 
+```{r init}
+#opts_chunk$set(comment=NA, fig.width=6, fig.height=6)
+opts_chunk$set(fig.path = "figure/size-")
+```
+
 
 ## Page counts
 
