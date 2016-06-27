@@ -7,7 +7,6 @@
 #' @export
 #' @author Hege Roivainen \email{hege.roivainen@@gmail.com}
 #' @references See citation("bibliographica")
-#' @examples # clean_publisher(x, languages=c("finnish", "swedish", "latin"))
 #' @keywords utilities
 harmonize_publisher_main <- function (datasource, df.orig, testing_max=NULL) {
 

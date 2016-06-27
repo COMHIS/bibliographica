@@ -11,6 +11,7 @@
 #' @keywords utilities
 harmonize_publisher_fennica <- function(df.orig, cheat_list, languages=c("english")) {
 
+  message("Starting: harmonize_publisher_fennica")
   # First: Take the publication year  
   publication_year <- polish_years(df.orig$publication_time)
   
@@ -45,6 +46,8 @@ harmonize_publisher_fennica <- function(df.orig, cheat_list, languages=c("englis
   # Check against Finto, if there's a preferred way in outputting the publisher name
   # Included are also publication place & year
   # Typos are allowed to a small extent
+  
+  message("About to start: get_publishers_Finto")
   Finto_pubs <- get_publishers_Finto(Finto_corrected = cheat_list$pref, 
                             Finto_comp = Finto_comp,
                             all_names = all_names, 

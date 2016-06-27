@@ -10,10 +10,11 @@
 #' @keywords utilities
 extract_personal_names  <- function(x, languages=c("english")) {
   
+  message("Starting extract_personal_names")
   orig <- x
   # First, some of the words must be lowercased, so they won't be recognized as names
   x <- decapitate_keywords(x, languages=languages)  
-  
+  message("Decapitated")
   # Prepare everything, so that they have equal length
   family_name <- character(length=length(x))
   initials <- character(length=length(x))
@@ -26,6 +27,8 @@ extract_personal_names  <- function(x, languages=c("english")) {
   # Update full_name if there's a match
   relation <- get_relation_keyword(x, NULL, languages=languages)
   inds <- which(relation == "")
+  
+  
   full_name <- gsub("^([[:upper:]][[:lower:]]+), ((([[:upper:]][[:lower:]]+|[[:upper:]][.])( |$))+)", "\\2 \\1", x)
   
   # Try if the form is "Merckell, Johan Cristopherin leski"
@@ -36,6 +39,18 @@ extract_personal_names  <- function(x, languages=c("english")) {
   
   # If full_name is still unchanged, it hasn't changed: try again the normal way
   inds <- which(full_name==x)
+  
+  # First: try with prefixed "by", "af" etc...
+  f < system.file("extdata/by_words.csv", package="bibliographica")
+  #f <- "../inst/extdata/by_words.csv"
+  by_words <- read.csv(f, sep="\t", fileEncoding="UTF-8")
+  by_w <- paste0(as.character(by_words$synonyme), collapse = "|" )
+  by_w <- paste0(" (", by_w, ") ")
+  full_name[inds] <- str_extract(x[inds], paste0(by_w, "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+"))
+  full_name[inds] <- str_extract(full_name[inds], "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+")
+
+    # Then those without the by_words
+  inds <- which(is.na(full_name))
   full_name[inds] <- str_extract(x[inds], "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+")
 
   # Make sure that number of given names is not negative
