@@ -44,9 +44,9 @@ extract_personal_names  <- function(x, languages=c("english")) {
   inds <- which(full_name==x)
   
   # First: try with prefixed "by", "af" etc...
-  f < system.file("extdata/by_words.csv", package="bibliographica")
+  f <- system.file("extdata/by_words.csv", package="bibliographica")
   #f <- "../inst/extdata/by_words.csv"
-  by_words <- read.csv(f, sep="\t", fileEncoding="UTF-8", sep = "\t")
+  by_words <- read.csv(f, sep="\t", fileEncoding="UTF-8")
   by_w <- paste0(as.character(by_words$synonyme), collapse = "|" )
   by_w <- paste0(" (", by_w, ") ")
   full_name[inds] <- str_extract(x[inds], paste0(by_w, "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+"))
