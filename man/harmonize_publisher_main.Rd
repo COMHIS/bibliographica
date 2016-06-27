@@ -19,9 +19,6 @@ Data frame with orig, mod
 \description{
 Main handler for publisher fields.
 }
-\examples{
-# clean_publisher(x, languages=c("finnish", "swedish", "latin"))
-}
 \author{
 Hege Roivainen \email{hege.roivainen@gmail.com}
 }
