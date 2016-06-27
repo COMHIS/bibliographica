@@ -33,6 +33,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
     message(field)
 
+
    message("Accepted entries in the preprocessed data")
     s <- write_xtable(df.preprocessed[[field]], paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
 
@@ -125,6 +126,11 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       	 		   count = TRUE, sort.by = "author")
 
   # ----------------------------------------------------
+
+   message("Publication country accepted")
+   field <- "country"
+   s <- write_xtable(df.preprocessed[[field]], paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
+
 
   message("publication_place accepted")
   tmp <- write_xtable(df.preprocessed[, c("publication_place", "country")],
