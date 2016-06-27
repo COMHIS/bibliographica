@@ -25,7 +25,7 @@ output: markdown_document
 
 Visual summary of the estimated page counts per gatherings (shown only for the `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents that have missing pagecount info in the original data):
 
-```{r summarysize, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=8}
+```{r size-estimated, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=8}
 theme_set(theme_bw(20))
 p <- ggplot(subset(df.preprocessed, is.na(pagecount.orig)),
        aes(x = gatherings, y = pagecount)) +
@@ -59,7 +59,7 @@ These include estimates that are based on auxiliary information sheets:
 
 Document size (area) info in area is available for `r sum(!is.na(df$area))` documents (`r round(100*mean(!is.na(df$area)))`%). Estimates of document size (area) info in gatherings system are available for `r sum(!is.na(df$gatherings))` documents (`r round(100*mean(!is.na(df$gatherings)))`%). 
 
-```{r summarysize, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=5}
+```{r size-summary, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=5}
 p <- ggplot(df, aes(x = gatherings)) 
 p <- p + geom_bar()
 n <- nchar(max(na.omit(table(df$gatherings))))
@@ -74,7 +74,7 @@ print(p)
 
 Compare gatherings and area sizes as a quality check. This includes all data; the area has been estimated from the gatherings when dimension information was not available.
 
-```{r summarysizecomp, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7}
+```{r size-comp, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7}
 dfs <- df %>% filter(!is.na(area) & !is.na(gatherings))
 dfs <- dfs[, c("gatherings", "area")]
 dfm <- melt(table(dfs)) # TODO switch to gather here
@@ -93,7 +93,7 @@ print(p)
 
 Document dimension histogram (surface area). Few document sizes dominate publishing.
 
-```{r summary-surfacearea, fig.height=8, fig.width=10, echo=FALSE, warning=FALSE, message=FALSE}
+```{r size-surfacearea, fig.height=8, fig.width=10, echo=FALSE, warning=FALSE, message=FALSE}
 p <- ggplot(df, aes(x = area))
 p <- p + geom_histogram() 
 p <- p + xlab("Document surface area (log10)")
@@ -106,7 +106,7 @@ print(p)
 Compare gatherings and page counts. 
 
 
-```{r summarypagecomp, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12, fig.height=7}
+```{r size-pagecomp, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12, fig.height=7}
 dfs <- select(df, pagecount, gatherings) 
 dfs$pagecount <- as.numeric(gsub(" pages", "", dfs$pagecount))
 dfs <- dfs %>% filter(!is.na(pagecount) & !is.na(gatherings))
@@ -130,7 +130,7 @@ print(p)
 
 Compare original gatherings and original heights where both are available. The point size indicates the number of documents with the corresponding combination. The red dots indicate the estimated height that is used when only gathering information is available. It seems that in most documents, the given height is smaller than the correponding estimate.
 
-```{r summarysizevalidation, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7}
+```{r size-validation, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7}
 # Compare given dimensions to gatherings
 # (not so much data with width so skip that)
 df2 <- filter(df, !is.na(height) | !is.na(width))
@@ -149,7 +149,7 @@ print(p)
 
 ### Gatherings timelines
 
-```{r papercompbyformat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7, fig.show="hold", out.width="430px"}
+```{r size-compbyformat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7, fig.show="hold", out.width="430px"}
 dfs <- df %>% filter(!gatherings == "NA")
 res <- titlecount_timeline(dfs, "gatherings", nmin = 15, mode = "n") 
 print(res$plot)
@@ -166,13 +166,13 @@ print(res$plot)
 
 Multi-volume documents average page counts are given per volume.
 
-```{r summarypagecountsmulti, echo=FALSE, message=FALSE, warning=FALSE}
+```{r size-pagecountsmulti, echo=FALSE, message=FALSE, warning=FALSE}
 source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
 kable(mean.pagecounts, caption = "Average page counts", digits = 2)
 ```
 
 
-```{r summarypagecountsmulti2, echo=FALSE, message=FALSE, warning=FALSE, fig.width=15, fig.height=6}
+```{r size-pagecountsmulti2, echo=FALSE, message=FALSE, warning=FALSE, fig.width=15, fig.height=6}
 p <- ggplot(melt(mean.pagecounts[, c("median.pages.multivol", "median.pages.singlevol", "median.pages.issue", "doc.dimension")]), aes(fill = variable, y = value, x = doc.dimension)) 
 p <- p + geom_bar(stat = "identity", position = "dodge")
 p <- p + ylab("Pages")
@@ -196,7 +196,7 @@ grid.arrange(p1, p2, nrow = 1)
 
 Here we use the original data only:
 
-```{r summaryavedimstime, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12, fig.height=7}
+```{r size-avedimstime, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12, fig.height=7}
 # only include gatherings with sufficiently many documents
 nmin <- 2000
 top.gatherings <- setdiff(names(which(table(df$gatherings.original) > nmin)), "NA")
@@ -223,7 +223,7 @@ print(p)
 
 Only the most frequently occurring gatherings are listed here:
 
-```{r summaryavedims, echo=FALSE, message=FALSE, warning=FALSE}
+```{r size-avedims, echo=FALSE, message=FALSE, warning=FALSE}
 df2 <- filter(df, !is.na(gatherings.original) & (!is.na(height.original) | !is.na(width.original))) %>%
        filter(gatherings.original %in% top.gatherings) %>%
        group_by(gatherings.original) %>% 
