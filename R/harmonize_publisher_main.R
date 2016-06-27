@@ -1,3 +1,14 @@
+#' @title Harmonize publisher main
+#' @description Main handler for publisher fields
+#' @param datasource String denoting catalog: "fennica", "kungliga"...
+#' @param df.orig Data frame with raw data
+#' @param testing_max Integer 1:testing_max rows will be handled. For testing purposes only
+#' @return Data frame with orig, mod
+#' @export
+#' @author Hege Roivainen \email{hege.roivainen@@gmail.com}
+#' @references See citation("bibliographica")
+#' @examples # clean_publisher(x, languages=c("finnish", "swedish", "latin"))
+#' @keywords utilities
 harmonize_publisher_main <- function (datasource, df.orig, testing_max=NULL) {
 
   # TODO : one way to speed up is to only consider unique entries. 
@@ -75,7 +86,18 @@ harmonize_publisher_main <- function (datasource, df.orig, testing_max=NULL) {
   } else {
     combined_pubs <- clean_publisher(raw_publishers, languages=languages)
     combined_pubs <- harmonize_publisher(combined_pubs, publication_year, languages=languages)
+    combined_pubs <- combined_pubs[,1:2]
   }
+  
+  # Convert S.N. into NA and Author into <Author>
+  f <- system.file("extdata/NA_publishers.csv", package="bibliographica")
+  synonymes <- read.csv(file=f, sep="\t", fileEncoding="UTF-8")
+  combined_pubs$mod <- map(combined_pubs$mod, synonyms, mode="recursive")
+  
+  # Last unification: If author name is the same as the publisher name -> mark as self-published
+  # NB! This could be more refined!
+  inds <- which(df.orig$publisher==df.orig$author)
+  combined_pubs$mod[inds] <- "<Author>"
   
   return (combined_pubs)
 }

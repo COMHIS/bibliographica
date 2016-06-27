@@ -48,9 +48,8 @@ clean_publisher <- function(x, languages=c("english")) {
   for (language in languages) {
     if (language=="swedish") {
       f <- system.file("extdata/sv_publisher.csv", package="bibliographica")
-    #} else if (language=="english") {
-    # LL: I had to comment this out as en_publisher.csv is not available in git (to add)
-    #  f <- system.file("extdata/en_publisher.csv", package="bibliographica")
+    } else if (language=="english") {
+      f <- system.file("extdata/en_publisher.csv", package="bibliographica")
     } else if (language=="finnish") {
       f <- system.file("extdata/fi_publisher.csv", package="bibliographica")
     } else if (language=="latin") {
