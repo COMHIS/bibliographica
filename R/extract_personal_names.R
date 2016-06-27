@@ -1,5 +1,5 @@
-#' @title Extract personal names
-#' @description Extracts personal names from
+#' @title Extract Personal Names
+#' @description Extracts personal names.
 #' @param x Vector of publisher names
 #' @param languages A vector of languages which are used in detecting relation keywords
 #' @return Data frame: orig, initials, family, full_name, init_name, guessed, relation
@@ -9,7 +9,10 @@
 #' @examples # extract_personal_names(x, languages=c("finnish", "swedish", "latin"))
 #' @keywords utilities
 extract_personal_names  <- function(x, languages=c("english")) {
-  
+
+  # To avoid warning in pkg build / LL
+  f <- NULL
+
   message("Starting extract_personal_names")
   orig <- x
   # First, some of the words must be lowercased, so they won't be recognized as names

@@ -2,7 +2,7 @@
 % Please edit documentation in R/extract_personal_names.R
 \name{extract_personal_names}
 \alias{extract_personal_names}
-\title{Extract personal names}
+\title{Extract Personal Names}
 \usage{
 extract_personal_names(x, languages = c("english"))
 }
@@ -15,7 +15,7 @@ extract_personal_names(x, languages = c("english"))
 Data frame: orig, initials, family, full_name, init_name, guessed, relation
 }
 \description{
-Extracts personal names from
+Extracts personal names.
 }
 \examples{
 # extract_personal_names(x, languages=c("finnish", "swedish", "latin"))
