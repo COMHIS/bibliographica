@@ -58,5 +58,7 @@ if ("language" %in% update.fields) {
   
 }
 
+print("Enrich OK")
+
 # ---------------------------------------
 
