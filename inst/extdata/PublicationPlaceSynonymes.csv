@@ -296,7 +296,7 @@ Ankarsrum;ankarsrum;
 Ankarsvik;ankarsvik;
 Anklam;ankklam;
 Anklam;anklam;
-Ann Arbor;ann arbor;is this not MI ?
+Ann Arbor MI;ann arbor;
 Ann Arbor MI;ann arbor mich;
 Ann Arbor MI;ann arbor mi;
 Annapolis Md;annapolis;
@@ -692,7 +692,7 @@ Birmingham;birmingham england;
 Birmingham;birminghamiae;
 Birmingham;brimingham;
 Birmingham;birmingham;
-Bishop Hill;bishop hill;Is this not IL?
+Bishop Hill IL;bishop hill;
 Bishop Hill IL;bishop hill ill;
 Bishop Hill IL;bishop hill il;
 Bishop's Castle;bishops castle;
@@ -965,10 +965,10 @@ Brussels;brvselas;
 Brussels;bryssel;
 Brussels;woluwe;
 Brussels;brussels;
-Bryn Athyn;bryn athyn;Is this not PA?
+Bryn Athyn PA;bryn athyn;
 Bryn Athyn PA;bryn athyn PA;
 Bryn Athyn PA;bryn athyn penn;
-Bryn Mawr;bryn mawr;Is this not PA?
+Bryn Mawr PA;bryn mawr;
 Bryn Mawr PA;bryn mawr penn;
 Bryn Mawr PA;bryn mawr PA;
 Buchanan Mi;buchanan mich;
@@ -1487,8 +1487,8 @@ Degeberga;degeberga;
 Degerfors;degerfors;
 Deje;deje;
 Dejefors;dejefors;
-DeKalb IL;kalb ill;Spelling error?
-DeKalb IL;dekalb il;Spelling error?
+DeKalb IL;kalb ill;Spelling error? DeKalb is correct.
+DeKalb IL;dekalb il;Spelling error? DeKalb is correct.
 Delft;delf;
 Delft;delff;
 Delft;delf holeand;
@@ -3155,8 +3155,8 @@ Ishpeming Mi;ishpeming;
 Ishpeming Mi;ishpeming mich;
 Ishpeming Mi;ishpeming michigan;
 Ishpeming Mi;ishpeming mi;
-Ishperning Mi;ishperning mich;Is this not Ishpeming?
-Ishperning Mi;ishperning mi;Is this not Ishpeming?
+Ishpeming Mi;ishperning mich;
+Ishpeming Mi;ishperning mi;
 Isle;isle;
 Isleworth;isleworth;
 Isojoki;isojoki;
@@ -3588,9 +3588,9 @@ Kreuznach;kreuznach;
 Kristdala;kristala;
 Kristdala;kristdala;
 Kristiansand;kristiansand;
-Kristianstad;fryksbo önnestad;
-Kristianstad;önnestad;
-Kristianstad;kristianstad;This could also be Copenhagen but I removed that.
+kristianstad;fryksbo önnestad;
+kristianstad;önnestad;
+Copenhagen;kristianstad;This could also be Copenhagen but I removed that. Fixed back to Copenhagen (other Kristianstad synonyms left in place for clarity's sake).
 Kristiansund;kristiansund;
 Kristiinankaupunki;christinehamn;
 Kristiinankaupunki;christinehamn rosdahl;
@@ -4414,7 +4414,7 @@ Lönsboda;lönsboda;
 Loppi;loppi;
 Lorch;lorch;
 Lorient;lorient;
-Los Angeles;los angeles;Is this not CA?
+Los Angeles CA;los angeles;
 Los Angeles CA;los angeles cal;
 Los Angeles CA;los angeles calif;
 Los Angeles CA;los angeles ca;
@@ -4764,7 +4764,7 @@ Montereau;montereau;
 Montevideo;montevideo;
 Montevrain;montevrain;
 Montpelier Vt;montpelier vt;
-Montpellier;montpellier;Is this not Vt?
+Montpellier;montpellier;Is this not Vt? No, a place in France.
 Montreal;montre al;
 Montreal;montreal quebec;
 Montreal;teiotiagi;
@@ -5223,7 +5223,7 @@ Nybro;nybro;
 Nygard;nygard;
 Nyhamnsläge;nyhamnsläge;
 Nyhem;nyhem;
-Nykjobing;nykjobing;Is this not Nyköping?
+Nyköping;nykjobing;
 Nyköping;nuköping;
 Nyköping;nycopiae;
 Nyköping;nykjöbing;
@@ -6482,7 +6482,7 @@ Soerabaja;soerabaia;
 Soerabaja;soerabaja;
 Soest;soest;
 Sofia;sofia;
-Sofija;sofija;Is this not Sofia?
+Sofia;sofija;
 Soini;soini;
 Solberga;solberga;
 Sölje;sölje;
@@ -8248,7 +8248,7 @@ Yeovil;yeovil england;
 Yeovil;yeovil;
 Ylimarkku;ylimarkku;
 Ylistaro;ylistaro;
-Övertorneå;ylitornio;Is this correct mapping?
+Ylitornio;ylitornio;Is this correct mapping? Fixed now to Ylitornio (Finland), Övertorneå is a place in Sweden.
 Övertorneå;övertornea;
 Övertorneå;övertorneå;
 Övertorneå;övertornea;
