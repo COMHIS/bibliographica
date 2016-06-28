@@ -12,7 +12,7 @@
 #' @importFrom knitr knit
 #' @examples # generate_summaryfiles()
 #' @keywords utilities
-generate_summaryfiles <- function (df, author = "Author TBA", output.folder = "output.tables/", ntop = 20, summaries = c("overview", "author", "publicationplace", "publisher", "documents", "size", "gender", "topic", "language", "title", "publicationyear")) {
+generate_summaryfiles <- function (df, author = "Author TBA", output.folder = "output.tables/", ntop = 20, summaries = c("overview", "author", "publicationplace", "publisher", "documents", "size", "gender", "topic", "language", "title", "publicationyear", "pagecount", "dimension")) {
 
   # Output file paths		      
   outputs <- c()
