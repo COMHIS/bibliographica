@@ -24,8 +24,11 @@ titlecount_timeline <- function (x, group_by, nmin = 0, mode = "n") {
      summarize(n = n())
 
   # Remove entries with too few occurrences
-  df2 <- dplyr::filter(df2, group_by %in% setdiff(names(which(table(df2$group_by) >= nmin)), "NA"))
+  df2 <- df2 %>% filter(!is.na(publication_decade) &
+    group_by %in% setdiff(names(which(table(df2$group_by) >= nmin)), "NA"))
+  #df2 <- df2 %>% dplyr::filter(group_by %in% setdiff(names(which(table(df2$group_by) >= nmin)), "NA"))  
   df2$group_by <- droplevels(df2$group_by)
+  
 
   # Add percentages
   df3 = spread(df2, "publication_decade", "n", fill = 0)

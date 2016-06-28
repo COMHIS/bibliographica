@@ -13,7 +13,7 @@ opts_chunk$set(fig.path = "figure/size-")
 
 ## Page counts
 
-  * Page count missing and estimated for `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents (`r (sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig)))/nrow(df)`%).
+  * Page count missing and estimated for `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents (`r round(100*(sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig)))/nrow(df), 1)`%).
 
   * Page count missing and could not be estimated for `r sum(is.na(df.preprocessed$pagecount.orig) & is.na(df.preprocessed$pagecount))` documents
 
@@ -30,7 +30,7 @@ opts_chunk$set(fig.path = "figure/size-")
 
 Visual summary of the estimated page counts per gatherings (shown only for the `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents that have missing pagecount info in the original data):
 
-```{r size-estimated, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=8}
+```{r size-estimated, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
 theme_set(theme_bw(20))
 p <- ggplot(subset(df.preprocessed, is.na(pagecount.orig)),
        aes(x = gatherings, y = pagecount)) +
@@ -44,13 +44,21 @@ print(p)
 
 ## Document size comparisons
 
-[Incomplete dimension info - document surface are could not be estimated](output.tables/physical_dimension_incomplete.csv)
+  * Document size (area) info is available for `r sum(!is.na(df$area))` documents (`r round(100*mean(!is.na(df$area)))`%). For the remaining documents, critical dimension information was not available or could not be interpreted: [List of entries where document surface could not be estimated](output.tables/physical_dimension_incomplete.csv)
 
-[Dimension conversion table](output.tables/conversions_physical_dimension.csv)
+  * Some dimension info is provided in the original data but could not be interpreted for `r sum((!df$gatherings.original == "NA") & (df$gatherings == "NA"))` documents (ie. dimension info was estimated for `r round(100 - 100*mean((!df$gatherings.original == "NA") & (df$gatherings == "NA"))/sum(!df$gatherings.original == "NA"),1)`% of the documents where this field was not empty).
 
-[Automated tests for dimension conversions](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/tests_dimension_polish.csv)
+  * Document gatherings info is originally available for `r sum(!df$gatherings.original == "NA")` documents (`r round(100*mean(!df$gatherings.original == "NA"))`%), and further estimated up to `r sum(!df$gatherings == "NA")` documents (`r round(100*mean(!df$gatherings == "NA"))`%).
 
-These include estimates that are based on auxiliary information sheets:
+  * Document height info is originally available for `r sum(!is.na(df$height.original))` documents (`r round(100*mean(!is.na(df$height.original)))`%), and further estimated up to `r sum(!is.na(df$height))` documents (`r round(100*mean(!is.na(df$height)))`%).
+
+  * Document width info is originally available for `r sum(!is.na(df$width.original))` documents (`r round(100*mean(!is.na(df$width.original)))`%), and further estimated up to `r sum(!is.na(df$width))` documents (`r round(100*mean(!is.na(df$width)))`%).
+
+  * [Dimension conversions from raw data to final estimates](output.tables/conversions_physical_dimension.csv)
+
+  * [Automated tests for dimension conversions](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/tests_dimension_polish.csv)
+
+The estimates are based on the following auxiliary information sheets:
 
   * [Document dimension abbreviations](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/document_size_abbreviations.csv)
 
@@ -62,9 +70,9 @@ These include estimates that are based on auxiliary information sheets:
   
 <!--[Discarded dimension info](output.tables/dimensions_discarded.csv)-->
 
-Document size (area) info in area is available for `r sum(!is.na(df$area))` documents (`r round(100*mean(!is.na(df$area)))`%). Estimates of document size (area) info in gatherings system are available for `r sum(!is.na(df$gatherings))` documents (`r round(100*mean(!is.na(df$gatherings)))`%). 
+Estimates of document size (area) info in gatherings system are available for `r sum(!is.na(df$gatherings))` documents (`r round(100*mean(!is.na(df$gatherings)))`%). Also compare gatherings and area sizes as a quality check. This includes all data; the area has been estimated from the gatherings when dimension information was not available.
 
-```{r size-summary, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=5}
+```{r size-summary, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=8, fig.show="hold"}
 p <- ggplot(df, aes(x = gatherings)) 
 p <- p + geom_bar()
 n <- nchar(max(na.omit(table(df$gatherings))))
@@ -74,12 +82,7 @@ p <- p + xlab("Size (gatherings)")
 p <- p + ylab("Title count")
 p <- p + coord_flip()
 print(p)
-```
 
-
-Compare gatherings and area sizes as a quality check. This includes all data; the area has been estimated from the gatherings when dimension information was not available.
-
-```{r size-comp, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7}
 dfs <- df %>% filter(!is.na(area) & !is.na(gatherings))
 dfs <- dfs[, c("gatherings", "area")]
 dfm <- melt(table(dfs)) # TODO switch to gather here
@@ -96,6 +99,7 @@ p <- p + coord_flip()
 print(p)
 ```
 
+
 Document dimension histogram (surface area). Few document sizes dominate publishing.
 
 ```{r size-surfacearea, fig.height=8, fig.width=10, echo=FALSE, warning=FALSE, message=FALSE}
@@ -108,10 +112,10 @@ print(p)
 ```
 
 
-Compare gatherings and page counts. 
+Gatherings versus page counts, and original gatherings versus original heights where both are available. The point size indicates the number of documents with the corresponding combination. The red dots indicate the estimated height that is used when only gathering information is available. It seems that in most documents, the given height is smaller than the correponding estimate.
 
 
-```{r size-pagecomp, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12, fig.height=7}
+```{r size-pagecomp, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=8, fig.show="hold"}
 dfs <- select(df, pagecount, gatherings) 
 dfs$pagecount <- as.numeric(gsub(" pages", "", dfs$pagecount))
 dfs <- dfs %>% filter(!is.na(pagecount) & !is.na(gatherings))
@@ -131,11 +135,7 @@ p <- p + xlab("Size (gatherings)")
 p <- p + ylab("Pages (original and estimated)")
 p <- p + coord_flip()
 print(p)
-```
 
-Compare original gatherings and original heights where both are available. The point size indicates the number of documents with the corresponding combination. The red dots indicate the estimated height that is used when only gathering information is available. It seems that in most documents, the given height is smaller than the correponding estimate.
-
-```{r size-validation, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7}
 # Compare given dimensions to gatherings
 # (not so much data with width so skip that)
 df2 <- filter(df, !is.na(height) | !is.na(width))
@@ -154,7 +154,7 @@ print(p)
 
 ### Gatherings timelines
 
-```{r size-compbyformat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7, fig.show="hold", out.width="430px"}
+```{r size-compbyformat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=10, fig.show="hold", out.width="430px"}
 dfs <- df %>% filter(!gatherings == "NA")
 res <- titlecount_timeline(dfs, "gatherings", nmin = 15, mode = "n") 
 print(res$plot)
