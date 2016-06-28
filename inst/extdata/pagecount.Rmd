@@ -1,0 +1,96 @@
+---
+title: "Pagecount preprocessing summary"
+author: "`r author`"
+date: "`r Sys.Date()`"
+output: markdown_document
+---
+
+```{r init, echo=FALSE}
+#opts_chunk$set(comment=NA, fig.width=6, fig.height=6)
+opts_chunk$set(fig.path = "figure/size-")
+```
+
+
+## Page counts
+
+  * Page count missing and estimated for `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents (`r round(100*(sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig)))/nrow(df), 1)`%).
+
+  * Page count missing and could not be estimated for `r sum(is.na(df.preprocessed$pagecount.orig) & is.na(df.preprocessed$pagecount))` documents
+
+  * Page count updated for `r sum(!df$pagecount.orig == df$pagecount, na.rm = T)` documents.
+  
+  * [Conversions from raw data to final page count estimates](output.tables/pagecount_conversion_nontrivial.csv)
+
+<!--[Page conversions from raw data to final page count estimates with volume info](output.tables/page_conversion_table_full.csv)-->
+
+  * [Discarded pagecount info](output.tables/pagecount_discarded.csv)
+
+  * [Automated tests for page count conversions](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/tests_polish_physical_extent.csv)
+
+
+Left: Gatherings vs. overall pagecounts (original + estimated). Right: Only the estimated page counts (shown only for the `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents that have missing pagecount info in the original data):
+
+```{r size-estimated, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="430px"}
+theme_set(theme_bw(20))
+dfs <- select(df, pagecount, gatherings) 
+dfs$pagecount <- as.numeric(gsub(" pages", "", dfs$pagecount))
+dfs <- dfs %>% filter(!is.na(pagecount) & !is.na(gatherings))
+dfg <- group_by(dfs, pagecount, gatherings) %>% tally()
+names(dfg) <- c("pages", "gatherings", "documents")
+dfg$gatherings <- factor(dfg$gatherings, levels = levels(df$gatherings))
+ylims <- range(dfg$pages)
+p <- ggplot(dfg, aes(x = gatherings, y = pages)) 
+#p <- p + scale_y_continuous(trans = "log10")
+n <- nchar(max(na.omit(table(dfg$pages))))
+ylim <- ylim(ylims)
+p <- p + scale_y_log10(breaks=10^(0:n))
+p <- p + geom_point(aes(size = documents))
+p <- p + scale_size(trans="log10")
+p <- p + ggtitle(paste("Estimated and original pages\n(n=", sum(dfg$documents), ")", sep = ""))
+p <- p + xlab("Size (gatherings)")
+p <- p + ylab("Pages (original and estimated)")
+p <- p + coord_flip()
+print(p)
+
+p <- ggplot(subset(df.preprocessed, is.na(pagecount.orig)),
+       aes(x = gatherings, y = pagecount)) +
+       geom_count() +
+       coord_flip() +
+       ggtitle("Estimated page counts") +
+       xlab("Gatherings") +
+       ylab("Estimated page count")
+print(p)
+```
+
+
+<!--
+
+## Average page counts (only works in CERL now)
+
+Multi-volume documents average page counts are given per volume.
+
+```{r size-pagecountsmulti, echo=FALSE, message=FALSE, warning=FALSE}
+source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
+kable(mean.pagecounts, caption = "Average page counts", digits = 2)
+```
+
+```{r size-pagecountsmulti2, echo=FALSE, message=FALSE, warning=FALSE, fig.width=15, fig.height=6}
+p <- ggplot(melt(mean.pagecounts[, c("median.pages.multivol", "median.pages.singlevol", "median.pages.issue", "doc.dimension")]), aes(fill = variable, y = value, x = doc.dimension)) 
+p <- p + geom_bar(stat = "identity", position = "dodge")
+p <- p + ylab("Pages")
+p <- p + xlab("")
+p <- p + coord_flip()
+p <- p + ggtitle("Median page counts")
+p1 <- p
+
+p <- ggplot(melt(mean.pagecounts[, c("mean.pages.multivol", "mean.pages.singlevol", "mean.pages.issue", "doc.dimension")]), aes(fill = variable, y = value, x = doc.dimension)) 
+p <- p + geom_bar(stat = "identity", position = "dodge")
+p <- p + ylab("Pages")
+p <- p + xlab("")
+p <- p + coord_flip()
+p <- p + ggtitle("Mean page counts")
+p2 <- p
+grid.arrange(p1, p2, nrow = 1)
+```
+
+-->

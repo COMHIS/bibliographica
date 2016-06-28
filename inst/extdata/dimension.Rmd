@@ -1,0 +1,163 @@
+---
+title: "Document dimension preprocessing summary"
+author: "`r author`"
+date: "`r Sys.Date()`"
+output: markdown_document
+---
+
+```{r init, echo=FALSE}
+#opts_chunk$set(comment=NA, fig.width=6, fig.height=6)
+opts_chunk$set(fig.path = "figure/dimension-")
+```
+
+## Document size comparisons
+
+  * Some dimension info is provided in the original raw data for altogether `r sum(!is.na(df.orig[df$original_row,]$physical_dimension))` documents (`r round(100*mean(!is.na(df.orig[df$original_row,]$physical_dimension)),1)`%) but could not be interpreted for `r sum(!is.na(df.orig[df$original_row,]$physical_dimension) & (df$gatherings == "NA"))` documents (ie. dimension info was successfully estimated for `r round(100 - 100 * sum(!is.na(df.orig[df$original_row,]$physical_dimension) & (df$gatherings == "NA"))/sum(!is.na(df.orig[df$original_row,]$physical_dimension)), 1)` % of the documents where this field was not empty).
+
+  * Document size (area) info was obtained in the final preprocessed data for altogether `r sum(!is.na(df$area))` documents (`r round(100*mean(!is.na(df$area)))`%). For the remaining documents, critical dimension information was not available or could not be interpreted: [List of entries where document surface could not be estimated](output.tables/physical_dimension_incomplete.csv)
+
+  * Document gatherings info is originally available for `r sum(!df$gatherings.original == "NA")` documents (`r round(100*mean(!df$gatherings.original == "NA"))`%), and further estimated up to `r sum(!df$gatherings == "NA")` documents (`r round(100*mean(!df$gatherings == "NA"))`%) in the final preprocessed data.
+
+  * Document height info is originally available for `r sum(!is.na(df$height.original))` documents (`r round(100*mean(!is.na(df$height.original)))`%), and further estimated up to `r sum(!is.na(df$height))` documents (`r round(100*mean(!is.na(df$height)))`%) in the final preprocessed data.
+
+  * Document width info is originally available for `r sum(!is.na(df$width.original))` documents (`r round(100*mean(!is.na(df$width.original)))`%), and further estimated up to `r sum(!is.na(df$width))` documents (`r round(100*mean(!is.na(df$width)))`%) in the final preprocessed data.
+
+
+These tables can be used to verify the accuracy of the conversions from the raw data to final estimates:
+
+  * [Dimension conversions from raw data to final estimates](output.tables/conversions_physical_dimension.csv)
+
+  * [Automated tests for dimension conversions](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/tests_dimension_polish.csv)
+
+The estimates are based on the following auxiliary information sheets:
+
+  * [Document dimension abbreviations](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/document_size_abbreviations.csv)
+
+  * [Standard sheet size estimates](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/sheetsizes.csv)
+
+  * [Document dimension estimates](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/documentdimensions.csv) (used when information is partially missing)
+
+
+  
+<!--[Discarded dimension info](output.tables/dimensions_discarded.csv)-->
+
+Estimates of document size (area) info in gatherings system are available for `r sum(!is.na(df$gatherings))` documents (`r round(100*mean(!is.na(df$gatherings)))`%). Also compare gatherings and area sizes as a quality check. This includes all data; the area has been estimated from the gatherings when dimension information was not available.
+
+```{r summary, echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=7, fig.show="hold", out.width="430px"}
+p <- ggplot(df, aes(x = gatherings)) 
+p <- p + geom_bar()
+n <- nchar(max(na.omit(table(df$gatherings))))
+p <- p + scale_y_log10(breaks=10^(0:n))
+p <- p + ggtitle("Title count")
+p <- p + xlab("Size (gatherings)")
+p <- p + ylab("Title count")
+p <- p + coord_flip()
+print(p)
+
+dfs <- df %>% filter(!is.na(area) & !is.na(gatherings))
+dfs <- dfs[, c("gatherings", "area")]
+dfm <- melt(table(dfs)) # TODO switch to gather here
+names(dfm) <- c("gatherings", "area", "documents")
+dfm$gatherings <- factor(dfm$gatherings, levels = levels(df$gatherings))
+p <- ggplot(dfm, aes(x = gatherings, y = area)) 
+p <- p + scale_y_continuous(trans = "log2")
+p <- p + geom_point(aes(size = documents))
+p <- p + scale_size(trans="log10")
+p <- p + ggtitle("Gatherings vs. area")
+p <- p + xlab("Size (gatherings)")
+p <- p + ylab("Size (area)")
+p <- p + coord_flip()
+print(p)
+```
+
+
+Left: Document dimension histogram (surface area). Few document sizes dominate publishing. Right: original gatherings versus original heights where both are available. The point size indicates the number of documents with the corresponding combination. The red dots indicate the estimated height that is used when only gathering information is available. It seems that in most documents, the given height is smaller than the correponding estimate.
+
+
+```{r sizes, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=5, fig.show="hold",out.width="430px"}
+p <- ggplot(df, aes(x = area))
+p <- p + geom_histogram() 
+p <- p + xlab("Document surface area (log10)")
+p <- p + ggtitle("Document dimension (surface area)")
+p <- p + scale_x_log10()
+print(p)
+
+# Compare given dimensions to gatherings
+# (not so much data with width so skip that)
+df2 <- filter(df, !is.na(height) | !is.na(width))
+df2 <- df2[!is.na(as.character(df2$gatherings)),]
+df3 <- filter(df2, !is.na(height))
+ss <- sheet_sizes()
+df3$gathering.height.estimate <- ss[match(df3$gatherings, ss$gatherings),"height"]
+df4 <- df3 %>% group_by(gatherings, height) %>% tally()
+p <- ggplot(df4, aes(y = gatherings, x = height))
+p <- p + geom_point(aes(size = n))
+p <- p + geom_point(data = unique(df3), aes(y = gatherings, x = gathering.height.estimate), color = "red")
+p <- p + ylab("Gatherings (original)") + xlab("Height (original)") 
+p <- p + ggtitle("Height comparison")
+print(p)
+```
+
+### Gatherings timelines
+
+```{r compbyformat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7, fig.show="hold", out.width="430px"}
+dfs <- df %>% filter(!gatherings == "NA")
+res <- titlecount_timeline(dfs, "gatherings", nmin = 15, mode = "n") 
+print(res$plot)
+
+res <- titlecount_timeline(dfs, "gatherings", nmin = 15, mode = "percentage") 
+print(res$plot)
+```
+
+
+
+<!--
+
+
+## Average document dimensions 
+
+Here we use the original data only:
+
+```{r avedimstime, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12, fig.height=7}
+# only include gatherings with sufficiently many documents
+nmin <- 2000
+top.gatherings <- setdiff(names(which(table(df$gatherings.original) > nmin)), "NA")
+
+df2 <- filter(df, !gatherings.original == "NA" & (!is.na(height.original) | !is.na(width.original))) %>%
+       filter(gatherings.original %in% top.gatherings) %>%
+       select(publication_decade, gatherings.original, height.original, width.original)
+       
+df3 <- df2 %>% group_by(gatherings.original, publication_decade) %>% 
+       summarize(mean.height.original = mean(height.original, na.rm = T),
+    	         mean.width.original  = mean(width.original, na.rm = T),
+		 n = n())
+
+p <- ggplot()
+p <- p + geom_point(data = df3, aes(x = publication_decade, y = mean.height.original, size = n, group = gatherings.original, color = gatherings.original))
+# Use mean height here to speed up
+p <- p + geom_smooth(data = df3, method = "loess", aes(x = publication_decade, y = mean.height.original, group = gatherings.original, color = gatherings.original))
+p <- p + ggtitle("Height")
+print(p)
+```
+
+
+
+
+Only the most frequently occurring gatherings are listed here:
+
+```{r avedims, echo=FALSE, message=FALSE, warning=FALSE}
+df2 <- filter(df, !is.na(gatherings.original) & (!is.na(height.original) | !is.na(width.original))) %>%
+       filter(gatherings.original %in% top.gatherings) %>%
+       group_by(gatherings.original) %>% 
+       summarize(
+    	    mean.width = mean(width.original, na.rm = T), 
+	    median.width = mean(width.original, na.rm = T),        
+            mean.height = mean(height.original, na.rm = T),
+	    median.height = mean(height.original, na.rm = T),
+	    n = n())
+
+mean.dimensions <- as.data.frame(df2)
+kable(mean.dimensions, caption = "Average document dimensions", digits = 2)
+```
+
+-->
