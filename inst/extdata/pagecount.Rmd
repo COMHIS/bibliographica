@@ -15,7 +15,7 @@ opts_chunk$set(fig.path = "figure/size-")
 
   * Page count missing and estimated for `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents (`r round(100*(sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig)))/nrow(df), 1)`%).
 
-  * Page count missing and could not be estimated for `r sum(is.na(df.preprocessed$pagecount.orig) & is.na(df.preprocessed$pagecount))` documents
+  * Page count missing and could not be estimated for `r sum(is.na(df.preprocessed$pagecount.orig) & is.na(df.preprocessed$pagecount))` documents (`r round(100 * sum(is.na(df.preprocessed$pagecount.orig) & is.na(df.preprocessed$pagecount))/nrow(df.preprocessed), 1)`%).
 
   * Page count updated for `r sum(!df$pagecount.orig == df$pagecount, na.rm = T)` documents.
   

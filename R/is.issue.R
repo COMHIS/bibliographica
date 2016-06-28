@@ -12,8 +12,8 @@
 is.issue <- function (df) {
 
   # Gatherings 1to-4to (any number of vols) 
-  selected.gatherings <- c("1to", "2small", "2to", "2long", "4small", "4to", "4long")
-  inds1 <- (df$gatherings %in% selected.gatherings) 
+  # selected.gatherings <- c("1to", "bs", "2small", "2fo", "2long", "4small", "4to", "4long")
+  # inds1 <- (df$gatherings %in% selected.gatherings) 
   
   # All docs with >30 vols
   inds2 <- df$volcount > 30 
@@ -26,10 +26,11 @@ is.issue <- function (df) {
   	     (df$publication_year_till - df$publication_year_from) >= 3
 
   # Large gatherings and docs with many volumes are considered issues
-  inds <- inds1 | inds2 | inds3 | inds4
+  inds <- inds2 | inds3 | inds4
 
   inds[is.na(inds)] <- FALSE
 
   inds
   
 }
+
