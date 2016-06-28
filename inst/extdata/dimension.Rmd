@@ -29,7 +29,9 @@ These tables can be used to verify the accuracy of the conversions from the raw 
 
   * [Automated tests for dimension conversions](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/tests_dimension_polish.csv)
 
-The estimates are based on the following auxiliary information sheets:
+
+
+The estimated dimensions are based on the following auxiliary information sheets:
 
   * [Document dimension abbreviations](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/document_size_abbreviations.csv)
 
@@ -41,19 +43,10 @@ The estimates are based on the following auxiliary information sheets:
   
 <!--[Discarded dimension info](output.tables/dimensions_discarded.csv)-->
 
-Estimates of document size (area) info in gatherings system are available for `r sum(!is.na(df$gatherings))` documents (`r round(100*mean(!is.na(df$gatherings)))`%). Also compare gatherings and area sizes as a quality check. This includes all data; the area has been estimated from the gatherings when dimension information was not available.
+Left: final gatherings vs. final document dimension (width x height). Right: original gatherings versus original heights where both are available. The point size indicates the number of documents for each case. The red dots indicate the estimated height that is used when only gathering information is available. 
+
 
 ```{r summary, echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=7, fig.show="hold", out.width="430px"}
-p <- ggplot(df, aes(x = gatherings)) 
-p <- p + geom_bar()
-n <- nchar(max(na.omit(table(df$gatherings))))
-p <- p + scale_y_log10(breaks=10^(0:n))
-p <- p + ggtitle("Title count")
-p <- p + xlab("Size (gatherings)")
-p <- p + ylab("Title count")
-p <- p + coord_flip()
-print(p)
-
 dfs <- df %>% filter(!is.na(area) & !is.na(gatherings))
 dfs <- dfs[, c("gatherings", "area")]
 dfm <- melt(table(dfs)) # TODO switch to gather here
@@ -68,19 +61,6 @@ p <- p + xlab("Size (gatherings)")
 p <- p + ylab("Size (area)")
 p <- p + coord_flip()
 print(p)
-```
-
-
-Left: Document dimension histogram (surface area). Few document sizes dominate publishing. Right: original gatherings versus original heights where both are available. The point size indicates the number of documents with the corresponding combination. The red dots indicate the estimated height that is used when only gathering information is available. It seems that in most documents, the given height is smaller than the correponding estimate.
-
-
-```{r sizes, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=5, fig.show="hold",out.width="430px"}
-p <- ggplot(df, aes(x = area))
-p <- p + geom_histogram() 
-p <- p + xlab("Document surface area (log10)")
-p <- p + ggtitle("Document dimension (surface area)")
-p <- p + scale_x_log10()
-print(p)
 
 # Compare given dimensions to gatherings
 # (not so much data with width so skip that)
@@ -94,18 +74,48 @@ p <- ggplot(df4, aes(y = gatherings, x = height))
 p <- p + geom_point(aes(size = n))
 p <- p + geom_point(data = unique(df3), aes(y = gatherings, x = gathering.height.estimate), color = "red")
 p <- p + ylab("Gatherings (original)") + xlab("Height (original)") 
-p <- p + ggtitle("Height comparison")
+p <- p + ggtitle("Gatherings vs. height")
+print(p)
+```
+
+
+Left: Document dimension histogram (surface area). Right: title count per gatherings.
+
+```{r sizes, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=5, fig.show="hold",out.width="430px"}
+p <- ggplot(df, aes(x = area))
+p <- p + geom_histogram() 
+p <- p + xlab("Document surface area (log10)")
+p <- p + ggtitle("Document dimension (surface area)")
+p <- p + scale_x_log10()
+print(p)
+
+p <- ggplot(df, aes(x = gatherings)) 
+p <- p + geom_bar()
+n <- nchar(max(na.omit(table(df$gatherings))))
+p <- p + scale_y_log10(breaks=10^(0:n))
+p <- p + ggtitle("Title count")
+p <- p + xlab("Size (gatherings)")
+p <- p + ylab("Title count")
+p <- p + coord_flip()
 print(p)
 ```
 
 ### Gatherings timelines
 
+```{r ndef, echo=FALSE, message=FALSE, warning=FALSE}
+nmin = 15
+```
+
+
+Popularity of different document sizes over time. Left: absolute title counts. Right: relative title counts. Gatherings with less than `r nmin` documents at every decade are excluded:
+
+
 ```{r compbyformat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7, fig.show="hold", out.width="430px"}
 dfs <- df %>% filter(!gatherings == "NA")
-res <- titlecount_timeline(dfs, "gatherings", nmin = 15, mode = "n") 
+res <- titlecount_timeline(dfs, "gatherings", nmin = nmin, mode = "n") 
 print(res$plot)
 
-res <- titlecount_timeline(dfs, "gatherings", nmin = 15, mode = "percentage") 
+res <- titlecount_timeline(dfs, "gatherings", nmin = nmin, mode = "percentage") 
 print(res$plot)
 ```
 

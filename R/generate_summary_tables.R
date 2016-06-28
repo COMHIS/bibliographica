@@ -337,14 +337,18 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   g <- as.character(df.preprocessed$gatherings)
   x <- as.character(df.preprocessed[["pagecount"]])
   inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
-  tmp <- write_xtable(cbind(gatherings = g[inds],
+  tmp <- write_xtable(cbind(#gatherings = g[inds],
       	                    original_extent = o[inds],  
       	 		    final_pagecount = x[inds]),
     paste(output.folder, "pagecount_conversion_nontrivial.csv", sep = ""), count = TRUE)
   
   message("Discard summaries")
-  inds <- which(is.na(x))
-  tmp <- write_xtable(cbind(gatherings = g[inds], physical_extent = o[inds]),
+  inds <- which(is.na(df.preprocessed$pagecount.orig))
+  tmp <- write_xtable(cbind(
+      	   gatherings = g[inds],	   
+	   physical_extent = o[inds],
+	   estimated_pagecount = x[inds]
+	   ),
       paste(output.folder, "pagecount_discarded.csv", sep = ""),
       count = TRUE)
 

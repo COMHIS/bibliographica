@@ -39,7 +39,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
   # Remove dimension info
   s = gsub("^[0-9]+.o ", "", s) 
- 
+
   # In Finnish texts s. is used instead of p.		
   f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
   page.synonyms <- read_mapping(f, sep = ";", mode = "table", fast = TRUE)
@@ -155,6 +155,11 @@ polish_physext_help <- function (s, page.harmonize) {
 
   # "2 pts (96, 110 s.)" = 96 + 110s
   if (length(grep("[0-9]+ pts (*)", s)) > 0 && length(grep(";", s)) == 0) {
+    s = gsub(",", ";", s)
+  }
+
+  # "3 vol (16, 16, 16 s.)" becomes 16 + 16 + 16
+  if (length(grep("[0-9]+ vol (*)", s)) > 0 && length(grep(";", s)) == 0) {
     s = gsub(",", ";", s)
   }
 

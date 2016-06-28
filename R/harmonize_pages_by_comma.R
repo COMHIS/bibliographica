@@ -10,9 +10,12 @@ harmonize_pages_by_comma <- function (s) {
   }
 
   # After plate operations handle p/s ("pages" / "sivua")
+  s <- condense_spaces(s)
   if (length(grep("plates", s)) == 0) {
-    s <- gsub("[p|s]\\.\\)", " ", s)
+    s <- gsub("^[p|s]", "", s)    
+    s <- gsub("^[p|s]\\.\\)", " ", s)
     s <- gsub("[p|s] *$", " ", s)
+    s <- gsub("^[p|s] ", "", s)
     s <- gsub("[p|s]\\.]$", " ", s)
     s <- gsub(" [p|s]\\.{0,1} {0,1}\\]$", " ", s)
   }

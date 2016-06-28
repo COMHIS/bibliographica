@@ -1,4 +1,5 @@
 synonyme;name
+karttaliitettä;sheets
 =evangeliska sällskapets skrifter;
 evangeliska sällskapets skrifter; 
 kartor;sheets
@@ -15,6 +16,7 @@ nid\.;vol
 tab\.;tables
 taulukkol\.;tables
 nuotteja;plates
+lösa kartor;sheets
 karttalehteä;sheets
 karttalehti;sheet
 kartta;sheet
@@ -53,6 +55,7 @@ muotokuvalehteä;plates
 pl$;plates
 blad;plates
 irtokuvalehteä;plates
+spalter;plates
 irtokuval;plates
 valokuvaa;plates
 liitelehteä;plates
@@ -67,9 +70,12 @@ luetteloa;plates
 kuvalehteä taitettuina;plates
 hopvikta kartongskifvor;plates
 lomaketta;plates
+lehteä tekstiä;plates
+lehteä kuvia;plates
 vyblad;plates
 kuvataulua;plates
 kuvapiirrosta;plates
 och;+
 sammanfattning;
-inkl. ann.; 
+inkl. ann.;
+ ja ; ,

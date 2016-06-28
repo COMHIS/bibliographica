@@ -12,10 +12,22 @@ test_that("Page count is correct", {
     if (is.na(synonymes$expected[i]) || (synonymes$expected[i] == "equal")) {
       expect_equal(as.character(polish_physical_extent(test_clause)[[test_field]]), test_result)
     }
+    #print(c(as.character(polish_physical_extent(test_clause)[[test_field]]), test_result))
   }
   
   
   # TODO
+  #[4] s. 2:o.	 4
+  #[1-3] 4-43 [44-45] 45-51 [po. 46-52] s.	52
+  #4to [2] s., s. 113-111 [po. 128]     130
+  #[08], 584 s. =(s. 566-84 opag.)=     592	8 + 584
+  #[12], 1138 s. =(s. 1131-38 opag.)=   1150	12+1138
+  #[16] , 376 s. =(s. 371-76 opag.)=.   394	16+376
+  #[2], 13 [1] s.	   16	  2+13+1
+  #2 vol.;(156, 166 s.)	  322	156+166
+  #2 vol.;(130, 118 s.)=	  248	130+118
+  #6 vol. i 2 (319 ; 246 s.) 565	319+246
+  #vj,258s	 264	6+258 
   #  expect_equal(polish_physical_extent("[2] s., s. 65-82, IV kuvalehteä")$pagecount, 28)
   #  expect_equal(polish_physical_extent("1 kartasto ([166] s.)")$pagecount, 166)
   #  expect_equal(polish_physical_extent("1 sheet (2, [2] p.)")$pagecount, 2) # = 1 sheet

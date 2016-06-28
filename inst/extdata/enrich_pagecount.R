@@ -20,6 +20,9 @@ df.preprocessed$issue = is.issue(df.preprocessed)
 print("Calculate average page counts based on available data")
 # TODO make a function that quickly returns this. No need to precalculate it.
 source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
+write.table(mean.pagecounts.singlevol, file = "mean_pagecounts_singlevol.csv", sep = ",", quote = F, row.names = F)
+write.table(mean.pagecounts.multivol, file = "mean_pagecounts_multivol.csv", sep = ",", quote = F, row.names = F)
+write.table(mean.pagecounts.issue, file = "mean_pagecounts_issue.csv", sep = ",", quote = F, row.names = F)
 
 # --------------------------------------------------------------------------
 

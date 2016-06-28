@@ -23,7 +23,7 @@ opts_chunk$set(fig.path = "figure/size-")
 
 <!--[Page conversions from raw data to final page count estimates with volume info](output.tables/page_conversion_table_full.csv)-->
 
-  * [Discarded pagecount info](output.tables/pagecount_discarded.csv)
+  * [Discarded pagecount info](output.tables/pagecount_discarded.csv) For these cases the missing/discarded page count was estimated based on average page count estimates for [single volume](mean_pagecounts_singlevol.csv), [multi-volume](mean_pagecounts_multivol.csv) and [issues](mean_pagecounts_issue.csv), calculated from those documents where original pagecount info is available.
 
   * [Automated tests for page count conversions](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/tests_polish_physical_extent.csv)
 
@@ -52,11 +52,11 @@ p <- p + ylab("Pages (original and estimated)")
 p <- p + coord_flip()
 print(p)
 
-p <- ggplot(subset(df.preprocessed, is.na(pagecount.orig)),
+p <- ggplot(subset(df.preprocessed, is.na(pagecount.orig) & !is.na(pagecount)),
        aes(x = gatherings, y = pagecount)) +
        geom_count() +
        coord_flip() +
-       ggtitle("Estimated page counts") +
+       ggtitle(paste("Estimated page counts\n(n=", sum(is.na(df.preprocessed$pagecount.orig) & !is.na(df.preprocessed$pagecount)), ")", sep = "")) +
        xlab("Gatherings") +
        ylab("Estimated page count")
 print(p)
