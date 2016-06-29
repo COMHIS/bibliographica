@@ -34,7 +34,8 @@ if (reload.data) {
 # If update fields is provided, then look for previously preprocessed file
 if (exists("update.fields") && !is.null(update.fields) && ("df0.Rds" %in% dir())) {
 
-  df.preprocessed <- readRDS("df0.Rds")  
+  #df.preprocessed <- readRDS("df0.Rds") # Missing enrichments
+  df.preprocessed <- readRDS("df.Rds")    
   conversions <- readRDS("conversions.Rds")
   
 } else {

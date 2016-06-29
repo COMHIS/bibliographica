@@ -415,7 +415,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_extent.csv")
 
   message("Physical dimension info")
-  tab <- cbind(original = df.orig$physical_dimension, df.preprocessed[, c("gatherings.original", "width.original", "height.original", "obl.original", "gatherings", "width", "height", "obl", "area")])
+  tab <- cbind(original = df.orig$physical_dimension,
+               df.preprocessed[, c("gatherings.original", "width.original", "height.original", "obl.original", "gatherings", "width", "height", "obl", "area")])
   tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_dimension.csv")
 
   # Accepted / Discarded dimension info

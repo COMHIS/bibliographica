@@ -8,12 +8,14 @@ if (c("publication_place", "publication_geography") %in% update.fields) {
   source(system.file("extdata/enrich_geo.R", package = "bibliographica"))
 }
 
+# Always do. New field "author" needed for first edition recognition.
+# This is fast.
 if (c("author_name", "author_date") %in% update.fields) {
   source(system.file("extdata/enrich_author.R", package = "bibliographica"))
 }
 
 # Always do. This is fast.
-# Do after enrich_author
+# Must be done after enrich_author
 #if ("publication_time" %in% update.fields) {
   source(system.file("extdata/enrich_years.R", package = "bibliographica"))
 #}

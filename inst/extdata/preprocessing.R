@@ -7,6 +7,7 @@ res <- polish_all(df.orig, fields = update.fields, # note to HR: I moved publish
 
 # -------------------------------------------------------
 
+
 if (!exists("df.preprocessed")) {
 
   conversions <- res$conversions
@@ -17,6 +18,10 @@ if (!exists("df.preprocessed")) {
 
   # Replace old versions with the updated ones (if any)
   conversions[update.fields] <- res$conversions[update.fields]
+
+  if (!exists("preprocessing.times")) {
+    preprocessing.times <- res$preprocessing.times
+  }
   preprocessing.times[update.fields] <- res$preprocessing.times[update.fields]
 
   upf <- unlist(conversions[update.fields])
@@ -24,12 +29,8 @@ if (!exists("df.preprocessed")) {
 
 }
 
-# -----------------------------------------------
-
 saveRDS(df.preprocessed, "df0.Rds", compress = TRUE)
 saveRDS(conversions, "conversions.Rds", compress = TRUE)
-
-# -----------------------------------------------
 
 # Processing times
 library(magrittr)
