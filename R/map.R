@@ -66,10 +66,12 @@ map <- function (x, synonymes, remove.unknown = FALSE, mode = "exact.match", ver
     # mode: "match" and "recursive"
     for (i in 1:nrow(synonymes)) {
       from = synonymes[i, "synonyme"]
-      inds <- which(!is.na(grep(from, xx)))
-      if (length(inds) > 0) {
-	      to = synonymes[i, "name"]
-        xx[inds] <- gsub(from, to, xx[inds])
+      if (!is.null(from)) {
+        inds <- which(!is.na(grep(from, xx)))
+        if (length(inds) > 0) {
+	        to = synonymes[i, "name"]
+          xx[inds] <- gsub(from, to, xx[inds])
+        }
       }
     }
 
