@@ -25,7 +25,10 @@ harmonize_abbreviated_names <- function(x, languages="english") {
     
     synonyms <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")
   
-    x <- map(x, synonyms, mode="recursive")
+    if (!is.na(x)) {
+      x <- map(x, synonyms, mode="recursive")
+    }
+    
   }
   x
   
