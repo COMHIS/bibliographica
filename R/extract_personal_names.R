@@ -17,6 +17,8 @@ extract_personal_names  <- function(x, languages=c("english")) {
   orig <- x
   # First, some of the words must be lowercased, so they won't be recognized as names
   x <- decapitate_keywords(x, languages=languages)  
+  x <- harmonize_abbreviated_names(x, language=languages)
+  
   message("Decapitated")
   # Prepare everything, so that they have equal length
   family_name <- character(length=length(x))
