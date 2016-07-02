@@ -1,5 +1,5 @@
-#' @title Removes duplicates
-#' @description Tags files as to be removed
+#' @title Get dissertation mismatches
+#' @description Gets duplicates which are tagged as dissertations in another catalog, but in the other one aren't
 #' @param df.prepocessed Data frame of combined catalogs
 #' @param field_names List of field names of exactly matching values
 #' @return Data frame
@@ -7,7 +7,7 @@
 #' @author Hege Roivainen \email{hege.roivainen@@gmail.com}
 #' @references See citation("bibliographica")
 #' @keywords utilities
-remove_duplicates <- function (df.preprocessed, field_names=c("short_title", "publication_place", "publication_year")) {
+get_dissertation_mismatch <- function (df.preprocessed, field_names=c("short_title", "publication_place", "publication_year")) {
     
   l <- (nrow(df.preprocessed))
   
@@ -27,7 +27,6 @@ remove_duplicates <- function (df.preprocessed, field_names=c("short_title", "pu
   dup_f <- which(duplicated(df.preprocessed[field_names], fromLast=TRUE) & !duplicated(df.preprocessed[field_names]))
   df.preprocessed$first_duplicated <- FALSE
   df.preprocessed$first_duplicated[dup_f] <- TRUE
-  
   
   # Iterate those that are from the Fennica catalog
   fennica_dups <- df.preprocessed %>% filter(df.preprocessed$catalog=="Fennica")
@@ -55,44 +54,28 @@ remove_duplicates <- function (df.preprocessed, field_names=c("short_title", "pu
   offset <- 1
   cluster_no <- 1
   
+  dissertation_failures <- df.preprocessed[FALSE,]
   # NB!
   # Currently catches only those duplicates, that are found in both Fennica and Kungliga
   # 1) Iterates through unique Fennica titles (+town, +year)
   # 2) Gets duplicates with counterparts in Kungliga
   #for (i in 1:nrow(fennica_dups)) {
   for (i in 1:nrow(fennica_dups)) {
-    #print("Found dup")
-    #print(names(df.preprocessed))
+    
     dup <- fennica_dups[i,field_names]
-    #print(dup)
-    #print(dup[1,])
     dups <- merge(df.preprocessed, dup, by.x = field_names, by.y = field_names)[,names(df.preprocessed)]
     
     if (length(which(dups$catalog=="Kungliga")) > 0) {  
-        #print("Found Kungliga")
+      if ((nrow(dups[which(dups$dissertation==TRUE),]) > 0 ) && (nrow(dups[which(dups$dissertation==FALSE),]) > 0)) {
         
         new_offset <- (offset + nrow(dups))
-        #inds <- which(df.preprocessed[,1:length(dups)] %in% dups$catalog_index)
-        inds <- dups$catalog_index[which(dups$catalog=="Fennica")]
-        rem_inds <- which(df.preprocessed$catalog=="Fennica" & df.preprocessed$catalog_index %in% inds)
-        df.preprocessed$remove[rem_inds] <- remove[rem_inds]
-        inds <- dups$catalog_index[which(dups$catalog=="Kungliga")]
-        rem_inds <- which(df.preprocessed$catalog=="Kungliga" & df.preprocessed$catalog_index %in% inds)
-        df.preprocessed$remove[rem_inds] <- remove[rem_inds]
-        #inds <- dups$catalog_index[which(dups$catalog=="Kungliga")]
-        #print(inds)
-        #combined_friends[offset:(new_offset-1),1:9] <- dups[,1:9]
-        #combined_friends$cluster[offset:(new_offset-1)] <- cluster_no
-        #combined_friends$cluster_idx[offset:(new_offset-1)] <- 1:nrow(dups)
-        #df.preprocessed$remove[offset:(new_offset-1)] <- dups$remove[inds]
+        
+        dissertation_failures[offset:(new_offset-1),] <- dups
         offset <- new_offset
-        #cluster_no <- (cluster_no + 1)
+      }
     }
   }
   
-  df.preprocessed
-  # Remove empty rows
-  # <- combined_friends[which(combined_friends$catalog!=""),]
-
-  return (df.preprocessed)
+  dissertation_failures <- dissertation_failures %>% filter(!is.na(short_title))
+  return (dissertation_failures)
 }
