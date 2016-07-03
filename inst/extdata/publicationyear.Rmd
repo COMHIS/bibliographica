@@ -61,9 +61,21 @@ have multiple occurrences, sometimes with different publication years.
 Where multiple publication years are seen, the earliest occurrence is
 suggested as the first edition.
 
+This figure shows the number of first editions per decade.
 
+```{r firsteditions, echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=6, out.width="280px"}
+df <- df.preprocessed
+df <- df %>% group_by(publication_decade) %>%
+             summarise(n = sum(first_edition, na.rm = TRUE))
 
-
-
+theme_set(theme_bw(20))
+p <- ggplot(df, aes(x = publication_decade, y = n)) +
+       geom_point(size = 5) +
+       geom_smooth(col = "black") + 
+       xlab("Publication year") +
+       ylab("First editions (n)") +
+       ggtitle(paste("First editions count (", catalogue, ")", sep = ""))
+print(p)
+```
 
 

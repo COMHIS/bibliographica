@@ -7,7 +7,8 @@ output: markdown_document
 
 ```{r init, echo=FALSE}
 #opts_chunk$set(comment=NA, fig.width=6, fig.height=6)
-opts_chunk$set(fig.path = "figure/size-")
+opts_chunk$set(fig.path = "figure/pagecount-")
+df <- df.preprocessed
 ```
 
 
