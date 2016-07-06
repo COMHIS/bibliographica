@@ -4,12 +4,12 @@
 \alias{titlecount_timeline}
 \title{Title Count Timeline}
 \usage{
-titlecount_timeline(x, group_by, nmin = 0, mode = "n")
+titlecount_timeline(x, group, nmin = 0, mode = "n")
 }
 \arguments{
 \item{x}{data frame}
 
-\item{group_by}{Field indicating the groups to compare}
+\item{group}{Field indicating the groups to compare}
 
 \item{nmin}{Include only entries with at least nmin occurrences}
 
