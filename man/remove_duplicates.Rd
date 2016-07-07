@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_duplicates.R
 \name{remove_duplicates}
 \alias{remove_duplicates}
-\title{Removes duplicates}
+\title{Remove Duplicates}
 \usage{
 remove_duplicates(df.preprocessed, field_names = c("short_title",
   "publication_place", "publication_year"))
@@ -16,7 +16,7 @@ remove_duplicates(df.preprocessed, field_names = c("short_title",
 Data frame
 }
 \description{
-Tags files as to be removed
+Tag entries to be removed.
 }
 \author{
 Hege Roivainen \email{hege.roivainen@gmail.com}
