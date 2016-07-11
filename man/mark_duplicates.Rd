@@ -4,13 +4,13 @@
 \alias{mark_duplicates}
 \title{Mark Duplicates}
 \usage{
-mark_duplicates(df, field_names = c("short_title", "publication_place",
-  "publication_year"))
+mark_duplicates(df.preprocessed, field_names = c("short_title",
+  "publication_place", "publication_year"))
 }
 \arguments{
-\item{field_names}{List of field names of exactly matching values}
+\item{df.preprocessed}{Data frame of combined catalogs}
 
-\item{df.prepocessed}{Data frame of combined catalogs}
+\item{field_names}{List of field names of exactly matching values}
 }
 \value{
 Data frame

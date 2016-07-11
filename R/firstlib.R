@@ -8,6 +8,7 @@
 #' @importFrom dplyr rbind_all
 #' @importFrom dplyr rename
 #' @importFrom dplyr select
+#' @importFrom dplyr summarise
 #' @importFrom dplyr summarize
 #' @importFrom dplyr tbl_df
 #' @importFrom dplyr %>%
@@ -48,7 +49,6 @@
 #' @importFrom utils read.csv
 #' @importFrom utils write.csv
 #' @importFrom utils write.table
-#' @importFrom XML xmlTreeParse
 .onAttach <- function(lib, pkg)
 {
 
