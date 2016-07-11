@@ -11,14 +11,14 @@
 filter_dissertations <- function(df.combined, catalog_name="ANY", town="ANY") {
   
   if (catalog_name != "ANY") {
-    dissertations <- df.combined %>% filter(catalog == catalog_name)
-    dissertations <- dissertations %>% filter(dissertation==TRUE)
+    dissertations <- df.combined %>% filter(df.combined$catalog == catalog_name)
+    dissertations <- dissertations %>% filter(dissertations$dissertation==TRUE)
   } else {
-    dissertations <- df.combined %>% filter(dissertation==TRUE)
+    dissertations <- df.combined %>% filter(df.combined$dissertation==TRUE)
   }
 
   if (town != "ANY") {
-    dissertations <- dissertations %>% filter(publication_place == town)
+    dissertations <- dissertations %>% filter(dissertations$publication_place == town)
   }
   
   return (dissertations)

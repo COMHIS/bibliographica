@@ -3,7 +3,7 @@
 #' @param combined_catalogs Data frame of combined catalogs
 #' @param catalog_name String of the catalog whose files are listed
 #' @param towns Names of towns that will be listed
-#' @param write_to_file Boolean indicating if the value should be printed or not
+#' @param write_to_one_file Boolean indicating if the value should be printed or not
 #' @return Boolean Returns always TRUE
 #' @export
 #' @author Hege Roivainen \email{hege.roivainen@@gmail.com}

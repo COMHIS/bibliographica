@@ -1,6 +1,6 @@
 #' @title Get dissertation mismatches
 #' @description Gets duplicates which are tagged as dissertations in another catalog, but in the other one aren't
-#' @param df.prepocessed Data frame of combined catalogs
+#' @param df.preprocessed Data frame of combined catalogs
 #' @param field_names List of field names of exactly matching values
 #' @return Data frame
 #' @export
@@ -76,6 +76,6 @@ get_dissertation_mismatch <- function (df.preprocessed, field_names=c("short_tit
     }
   }
   
-  dissertation_failures <- dissertation_failures %>% filter(!is.na(short_title))
+  dissertation_failures <- dissertation_failures %>% filter(!is.na(dissertation_failures$short_title))
   return (dissertation_failures)
 }

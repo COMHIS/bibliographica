@@ -1,5 +1,5 @@
-#' @title Filter duplicates
-#' @description Filters duplicates from df.preprocessed
+#' @title Removes duplicates
+#' @description Tags files as to be removed
 #' @param df.preprocessed Data frame of combined catalogs
 #' @param field_names List of field names of exactly matching values
 #' @return Data frame
@@ -7,7 +7,7 @@
 #' @author Hege Roivainen \email{hege.roivainen@@gmail.com}
 #' @references See citation("bibliographica")
 #' @keywords utilities
-filter_duplicates <- function (df.preprocessed, field_names=c("short_title", "publication_place", "publication_year")) {
+remove_duplicates <- function (df.preprocessed, field_names=c("short_title", "publication_place", "publication_year")) {
     
   l <- (nrow(df.preprocessed))
   
@@ -55,8 +55,6 @@ filter_duplicates <- function (df.preprocessed, field_names=c("short_title", "pu
   offset <- 1
   cluster_no <- 1
   
-  duplicates <- df.preprocessed[FALSE,]
-  
   # NB!
   # Currently catches only those duplicates, that are found in both Fennica and Kungliga
   # 1) Iterates through unique Fennica titles (+town, +year)
@@ -66,26 +64,24 @@ filter_duplicates <- function (df.preprocessed, field_names=c("short_title", "pu
     #print("Found dup")
     #print(names(df.preprocessed))
     dup <- fennica_dups[i,field_names]
-    
     #print(dup)
     #print(dup[1,])
     dups <- merge(df.preprocessed, dup, by.x = field_names, by.y = field_names)[,names(df.preprocessed)]
     
     if (length(which(dups$catalog=="Kungliga")) > 0) {  
-        #print(i)
         #print("Found Kungliga")
         
         new_offset <- (offset + nrow(dups))
         #inds <- which(df.preprocessed[,1:length(dups)] %in% dups$catalog_index)
-        #inds <- dups$catalog_index[which(dups$catalog=="Fennica")]
-        #rem_inds <- which(df.preprocessed$catalog=="Fennica" & df.preprocessed$catalog_index %in% inds)
-        #df.preprocessed$remove[rem_inds] <- remove[rem_inds]
-        #inds <- dups$catalog_index[which(dups$catalog=="Kungliga")]
-        #rem_inds <- which(df.preprocessed$catalog=="Kungliga" & df.preprocessed$catalog_index %in% inds)
-        #df.preprocessed$remove[rem_inds] <- remove[rem_inds]
+        inds <- dups$catalog_index[which(dups$catalog=="Fennica")]
+        rem_inds <- which(df.preprocessed$catalog=="Fennica" & df.preprocessed$catalog_index %in% inds)
+        df.preprocessed$remove[rem_inds] <- remove[rem_inds]
+        inds <- dups$catalog_index[which(dups$catalog=="Kungliga")]
+        rem_inds <- which(df.preprocessed$catalog=="Kungliga" & df.preprocessed$catalog_index %in% inds)
+        df.preprocessed$remove[rem_inds] <- remove[rem_inds]
         #inds <- dups$catalog_index[which(dups$catalog=="Kungliga")]
         #print(inds)
-        duplicates[offset:(new_offset-1),] <- dups
+        #combined_friends[offset:(new_offset-1),1:9] <- dups[,1:9]
         #combined_friends$cluster[offset:(new_offset-1)] <- cluster_no
         #combined_friends$cluster_idx[offset:(new_offset-1)] <- 1:nrow(dups)
         #df.preprocessed$remove[offset:(new_offset-1)] <- dups$remove[inds]
@@ -94,6 +90,9 @@ filter_duplicates <- function (df.preprocessed, field_names=c("short_title", "pu
     }
   }
   
-  duplicates <- duplicates %>% filter(!is.na(duplicates$catalog))
-  return (duplicates)
+  df.preprocessed
+  # Remove empty rows
+  # <- combined_friends[which(combined_friends$catalog!=""),]
+
+  return (df.preprocessed)
 }

@@ -14,7 +14,7 @@ write_towns_in_catalog(combined_catalogs, catalog_name, towns,
 
 \item{towns}{Names of towns that will be listed}
 
-\item{write_to_file}{Boolean indicating if the value should be printed or not}
+\item{write_to_one_file}{Boolean indicating if the value should be printed or not}
 }
 \value{
 Boolean Returns always TRUE

@@ -30,7 +30,7 @@ get_dissertation_mismatches <- function(combined_catalogs) {
   # Iterate through catalog clusters
   for (cl in unique(combined_catalogs$cluster)) {
     #diss <- combined_catalogs$dissertation[which(combined_catalogs$cluster==cl & combined_friends$cluster_idx==1)]
-    whole_cluster <- combined_friends[which(combined_friends$cluster==cl),]
+    whole_cluster <- combined_catalogs[which(combined_catalogs$cluster==cl),]
     if ((nrow(whole_cluster[which(whole_cluster$diss==""),]) > 0 ) && (nrow(whole_cluster[which(whole_cluster$diss!=""),]) > 0)) {
     
 #    if (diss != "") {
