@@ -1,5 +1,8 @@
 * Technical
 
+Fennica geo enrich brings in geocoordinates to many new places. Could
+be incorporated in the main pipeline already to simplify things.
+
 test_physical_extent TODOs
 
 Lisää README-fileihin tai summarymarkdowneihin viitteet nimi- ja

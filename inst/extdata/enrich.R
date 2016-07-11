@@ -4,13 +4,13 @@
 
 check <- "enrich"
 
-if (c("publication_place", "publication_geography") %in% update.fields) {
+if (any(c("publication_place", "publication_geography") %in% update.fields)) {
   source(system.file("extdata/enrich_geo.R", package = "bibliographica"))
 }
 
 # Always do. New field "author" needed for first edition recognition.
 # This is fast.
-if (c("author_name", "author_date") %in% update.fields) {
+if (any(c("author_name", "author_date") %in% update.fields)) {
   source(system.file("extdata/enrich_author.R", package = "bibliographica"))
 }
 
@@ -34,7 +34,7 @@ if ("publisher" %in% update.fields) {
 
 # -------------------------------------------------------------------
 
-if (c("physical_extent", "physical_dimension") %in% update.fields) {
+if (any(c("physical_extent", "physical_dimension") %in% update.fields)) {
 
   source(system.file("extdata/enrich_dimensions.R", package = "bibliographica"))
 
