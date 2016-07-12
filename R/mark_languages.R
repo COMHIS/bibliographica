@@ -49,6 +49,7 @@ mark_languages <- function(x) {
   # each accepted language
   subroutine <- function(abbrv, x){
      grepl(paste("^", abbrv, "$", sep = ""), x, ignore.case = T) |
+     grepl(paste("^", abbrv, sep = ""), x, ignore.case = T) |
      grepl(paste(";", abbrv, sep = ""), x, ignore.case = T) |
      grepl(paste(";", abbrv, "$", sep = ""), x, ignore.case = T) 
   }
