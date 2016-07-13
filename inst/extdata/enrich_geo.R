@@ -7,16 +7,12 @@ geoc <- bibliographica::get_geocoordinates(df.preprocessed$publication_place,
 				geonames, places.geonames)
 geoc$publication_place <- df.preprocessed$publication_place
 
-stop("check")
-
 # Remove earlier versions of these fields
 if (any(names(geoc) %in% names(df.preprocessed))) {
   df.preprocessed <- df.preprocessed[, -which(names(df.preprocessed) %in% names(geoc))]
 }
 # Merge 
 df.preprocessed <- cbind(df.preprocessed, geoc)  
-
-
 
 # -----------------------------------------------------------------
 
