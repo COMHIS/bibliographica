@@ -28,16 +28,19 @@ mark_languages <- function(x) {
   # see http://www.loc.gov/marc/languages/
   f <- system.file("extdata/language_abbreviations.csv", package = "bibliographica")
   abrv <- read_mapping(f,
-			include.lowercase = TRUE, # some catalogs may use uppercase, others not
-       	  		self.match = TRUE, # some catalogs may use abbreviations, others not
-			ignore.empty = FALSE,
-       	  		mode = "table", sep = "\t")
-
+	include.lowercase = TRUE, # some catalogs may use uppercase, others not
+       	self.match = TRUE, # some catalogs may use abbreviations, others not
+	ignore.empty = FALSE,
+       	mode = "table", sep = "\t")
 
   # Unrecognized languages?
-  unrec <- as.vector(na.omit(setdiff(unique(unlist(strsplit(as.character(unique(x)), ";"))), abrv$synonyme)))
+  unrec <- as.vector(na.omit(setdiff(
+  	     unique(unlist(strsplit(as.character(unique(x)), ";"))),
+	     abrv$synonyme
+	     )))
+  
   if (length(unrec) > 0) {
-    warning(paste("Unidentified languages: ", unrec, collapse = ";"))
+    warning(paste("Unidentified languages: ", paste(unrec, collapse = ";")))
   }
 
   # TODO Vectorize to speed up ?

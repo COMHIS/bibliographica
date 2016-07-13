@@ -397,8 +397,12 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   lang <- unlist(strsplit(df.orig$language, ";"))
   # Remove the known ones (und is Undetermined)
   unknown.lang <- setdiff(lang, c(abrv$synonyme, "und"))
-  tmp <- write_xtable(unknown.lang,
-	   filename = paste(output.folder, "language_discarded.csv", sep = ""))
+  # Count occurrences of each unknown lang
+  u <- colSums(sapply(unknown.lang, function (ul) grepl(ul, df.orig$language)))
+  tab <- cbind(term = names(u), n = unname(u))
+  tmp <- write.csv(tab,
+	   file = paste(output.folder, "language_discarded.csv", sep = ""),
+	   quote = F, row.names = F)
 
   message("Language conversions")
   field = "language"

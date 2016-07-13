@@ -23,14 +23,14 @@ get_geocoordinates <- function (x, geonames, places.geonames) {
   # Otherwise too many mismatches with identical city names from different
   # continents
   # Download geonames data (city coordinates etc)
-  #geonames <- get_geonames("cities1000", tempdir())
-  #save(geonames, file = "geonames.RData")
-  #places <- sort(as.character(unique(pubplace)))
+  # geonames <- get_geonames("cities1000", tempdir())
+  # save(geonames, file = "geonames.RData")
+  # places <- sort(as.character(unique(pubplace)))
   # @importFrom estc match_geonames
-  #if (!length(places.geonames) == length(places)) {
-  #  places.geonames <- estc::match_geonames(places, geonames)
-  #  save(places.geonames, file = "places.geonames.RData")
-  #}
+  # if (!length(places.geonames) == length(places)) {
+  #   places.geonames <- estc::match_geonames(places, geonames)
+  #   save(places.geonames, file = "places.geonames.RData")
+  # }
 
   # print("Match to geonames")
   geocoordinates <- geonames[match(places.geonames, geonames$asciiname), ]
@@ -141,7 +141,6 @@ get_geocoordinates <- function (x, geonames, places.geonames) {
   # that will be used in place - country and place - coordinate mappings
   # systematically
   f <- system.file("extdata/geocoordinates.csv", package = "bibliographica")
-  #f <- "../extdata/geocoordinates.csv"
   geotab <- read.csv(f, sep = "\t")
   rownames(geotab) <- geotab$place
   coms <- intersect(geotab$place, rownames(geocoordinates))
@@ -185,7 +184,31 @@ get_geocoordinates <- function (x, geonames, places.geonames) {
   }
 
   tmpdf <- quickdf(list(latitude = latitude, longitude = longitude))
-  #tmpdf <- data.frame(latitude = latitude, longitude = longitude, stringsAsFactors = FALSE)
+
+  # Now for missing geocoordinates try further custom data
+  nainds <- is.na(tmpdf$latitude) | is.na(tmpdf$longitude)
+  missing.geoc <- pubplace.uniq[nainds]
+
+  # Unpolished code showing how the missing coords were retrieved from osm
+  #gctmp <- NULL
+  #library(gisfin)
+  #for (place in missing.geoc) {
+  #  print(place)
+  #  a <- try(get_geocode(paste("&city=", place, sep = ""), service="openstreetmap", raw_query=T))
+  # if (class(a) == "try-error") {a <- list(lat = NA, lon = NA)}; 
+  #  gctmp <- rbind(gctmp, c(lat = a$lat, lon = a$lon))
+  #}
+  #gctmp <- as.data.frame(gctmp)
+  #gctmp$publication_place <- missing.geoc
+  #saveRDS(gctmp, file = "geoc_Kungliga.Rds")
+  #else {
+  f2 <- system.file("extdata/geoc_Kungliga.Rds", package = "bibliographica")
+  f3 <- system.file("extdata/geoc_Finland.Rds", package = "bibliographica")    
+  f2r <- readRDS(f2)
+  f3r <- readRDS(f2)
+  gctmp <- unique(bind_rows(f2r, f3r))
+  tmpdf$latitude[nainds]  <- gctmp$lat[match(missing.geoc, gctmp$publication_place)]
+  tmpdf$longitude[nainds] <- gctmp$lon[match(missing.geoc, gctmp$publication_place)]
 
   # Map back to the original domain
   return(tmpdf[match(pubplace.orig, pubplace.uniq),])
