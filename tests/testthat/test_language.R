@@ -14,6 +14,9 @@ test_that("Language recognition works correctly", {
   expect_true(unlist(mark_languages(c("swe;eng", "fin", "und", "lat;eng"))[4,"language.Latin"]))
   expect_true(!unlist(mark_languages(c("swe;eng", "fin", "und", "lat;eng"))[4,"language.Swedish"]))
   expect_true(mark_languages("swe;eng")[["language.Multiple languages"]])
-  expect_true(!mark_languages(c("swe;eng", "lat"))[["language.Multiple languages"]][[2]])    
+  expect_true(!mark_languages(c("swe;eng", "lat"))[["language.Multiple languages"]][[2]])
+  expect_true(mark_languages(c("swe;eng", "lat", "eng;Greek, Ancient (to 1453)"))$multilingual[[3]])
+  expect_equal(rowSums(mark_languages(c("swe;eng", "lat", "eng;Greek, Ancient (to 1453)")) %>% select(starts_with("language.")))[[3]], 2)
+  expect_equal(rowSums(mark_languages(c("swe;eng", "lat", "eng;Greek, Ancient (to 1453)")) %>% select(starts_with("language.")))[[2]], 1)  
 
 })

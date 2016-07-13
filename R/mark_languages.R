@@ -28,10 +28,24 @@ mark_languages <- function(x) {
   # see http://www.loc.gov/marc/languages/
   f <- system.file("extdata/language_abbreviations.csv", package = "bibliographica")
   abrv <- read_mapping(f,
-	include.lowercase = TRUE, # some catalogs may use uppercase, others not
+	include.lowercase = TRUE, 
        	self.match = TRUE, # some catalogs may use abbreviations, others not
 	ignore.empty = FALSE,
        	mode = "table", sep = "\t")
+
+  # Further harmonization
+  x <- gsub("\\(", " ", x)
+  x <- gsub("\\)", " ", x)
+  x <- gsub("\\,", " ", x)
+  x <- gsub(" +", " ", x)  
+  abrv$name <- gsub("\\(", " ", abrv$name)
+  abrv$name <- gsub("\\)", " ", abrv$name)
+  abrv$name <- gsub("\\,", " ", abrv$name)
+  abrv$name <- gsub(" +", " ", abrv$name)    
+  abrv$synonyme <- gsub("\\(", " ", abrv$synonyme)
+  abrv$synonyme <- gsub("\\)", " ", abrv$synonyme)
+  abrv$synonyme <- gsub("\\,", " ", abrv$synonyme)
+  abrv$synonyme <- gsub(" +", " ", abrv$synonyme)  
 
   # Unrecognized languages?
   unrec <- as.vector(na.omit(setdiff(
@@ -79,7 +93,7 @@ mark_languages <- function(x) {
   }
   u <- "Multiple languages"
   li[[u]] <- subroutine(u, x) | grepl(";", x)
-  
+
   dff <- as_data_frame(li)
   names(dff) <- paste("language.", names(dff), sep = "")
 
