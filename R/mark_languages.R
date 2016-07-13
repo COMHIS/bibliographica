@@ -9,7 +9,11 @@
 #' @keywords utilities
 mark_languages <- function(x) {
 
-  x[x == "NA"] = ""
+  # Harmonize
+  x <- tolower(as.character(x))	       
+  x[x == "NA"] <- ""
+  x[x == "n/a"] <- ""
+  x[is.na(x)] <- ""  
   x <- gsub("^;","",x)
   x <- gsub(";$","",x)
 
@@ -23,12 +27,25 @@ mark_languages <- function(x) {
   # TODO: XML version available, read directly in R:
   # see http://www.loc.gov/marc/languages/
   f <- system.file("extdata/language_abbreviations.csv", package = "bibliographica")
-  abrv <- read_mapping(f, include.lowercase = F, self.match = F, ignore.empty = FALSE, mode = "table", sep = "\t")
+  abrv <- read_mapping(f,
+			include.lowercase = TRUE, # some catalogs may use uppercase, others not
+       	  		self.match = TRUE, # some catalogs may use abbreviations, others not
+			ignore.empty = FALSE,
+       	  		mode = "table", sep = "\t")
+
+
+  # Unrecognized languages?
+  unrec <- as.vector(na.omit(setdiff(unique(unlist(strsplit(as.character(unique(x)), ";"))), abrv$synonyme)))
+  if (length(unrec) > 0) {
+    warning(paste("Unidentified languages: ", unrec, collapse = ";"))
+  }
 
   # TODO Vectorize to speed up ?
   for (i in 1:length(x)) {
     
-      lll <- sapply(unlist(strsplit(x[[i]], ";")), function (xx) {as.character(map(xx, abrv, remove.unknown = TRUE, mode = "exact.match"))})
+      lll <- sapply(unlist(strsplit(x[[i]], ";")), function (xx) {
+               as.character(map(xx, abrv, remove.unknown = TRUE, mode = "exact.match"))
+	       })
 
       lll <- na.omit(as.character(unname(lll)))
       if (length(lll) == 0) {lll <- NA}
@@ -66,5 +83,5 @@ mark_languages <- function(x) {
   dff$language <- as.factor(x)
   
   dff[match(xorig, xuniq),]
-  
+
 }

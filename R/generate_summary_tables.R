@@ -392,7 +392,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   message("Undefined language")
   # Remove "und" from the list ("Undetermined")
   f <- system.file("extdata/language_abbreviations.csv", package = "bibliographica")
-  abrv <- read_mapping(f, include.lowercase = F, self.match = F, ignore.empty = FALSE, mode = "table", sep = "\t")
+  abrv <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table", sep = "\t")
   # List unique languages that occur in the data
   lang <- unlist(strsplit(df.orig$language, ";"))
   # Remove the known ones (und is Undetermined)
