@@ -16,14 +16,25 @@ is.issue <- function (df) {
   # inds1 <- (df$gatherings %in% selected.gatherings) 
   
   # All docs with >30 vols
-  inds2 <- df$volcount > 30 
+  if ("volcount" %in% names(df)) {
+    inds2 <- df$volcount > 30 
+  } else {
+    inds2 <- rep(FALSE, nrow(df))
+  }
 
   # All documents that have publication frequency
-  inds3 <- !is.na(df$publication_frequency)
+  if ("publication_frequency" %in% names(df)) {    
+    inds3 <- !is.na(df$publication_frequency)
+  } else {
+    inds3 <- rep(FALSE, nrow(df))
+  }
+  # TODO: how to consider publication_interval which is sometimes available?
 
   # All multivols (>=2) that have publication period of >= 3 years
-  inds4 <- (df$volcount >= 2) &
-  	     (df$publication_year_till - df$publication_year_from) >= 3
+  inds4 <- (df$publication_year_till - df$publication_year_from) >= 3  
+  if ("volcount" %in% names(df)) {
+    inds4 <- inds4 & (df$volcount >= 2) 
+  }
 
   # Large gatherings and docs with many volumes are considered issues
   inds <- inds2 | inds3 | inds4

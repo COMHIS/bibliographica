@@ -1,12 +1,11 @@
 check <- "preprocess"
 
-# Preprocess selected original fields 
-res <- polish_all(df.orig, fields = update.fields, # note to HR: I moved publisher skipping from here to fennica/inst/examples/main.R ignore.fields
+# Preprocess selected original fields
+res <- polish_all(df.orig, fields = update.fields, 
 	  mc.cores = mc.cores,
 	  conversions = conversions, catalog = catalog)
 
 # -------------------------------------------------------
-
 
 if (!exists("df.preprocessed")) {
 
@@ -42,7 +41,6 @@ dft %<>% arrange(Time)
 dft$Field <- factor(dft$Field, levels = as.character(dft$Field))
 p <- ggplot(dft, aes(x = Field, y = Time)) +
      geom_bar(stat = "identity") +
-     #scale_y_log10() +
      ylab("Time (Minutes)") +
      coord_flip() +
      ggtitle("Processing times")
