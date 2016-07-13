@@ -82,7 +82,10 @@ mark_languages <- function(x) {
   
   dff <- as_data_frame(li)
   names(dff) <- paste("language.", names(dff), sep = "")
-  
+
+  # For "language.Multiple languages" use another field name
+  names(dff) <- gsub("language.Multiple languages", "multilingual", names(dff))
+
   dff$language <- as.factor(x)
   
   dff[match(xorig, xuniq),]

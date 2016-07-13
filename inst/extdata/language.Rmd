@@ -9,7 +9,7 @@ output: markdown_document
 
  * `r ncol(df %>% select(starts_with("language.")))-1` unique languages
  * The languages may come in [combinations](output.tables/language_conversions.csv)
- * `r length(union(grep(";", df$language), which(df$language == "Multiple languages")))` docs (`r round(100*length(union(grep(";", df$language), which(df$language == "Multiple languages")))/nrow(df), 2)`%) with multiple languages
+ * `r sum(df$multilingual, na.rm = TRUE)` multilingual documents (`r round(100 * mean(df$multilingual, na.omit = TRUE), 2)`%)  
  * `r sum(is.na(df$language))` docs (`r round(100*mean(is.na(df$language)),2)`%) with no recognized language 
  * [Discarded languages](output.tables/language_discarded.csv)
 
