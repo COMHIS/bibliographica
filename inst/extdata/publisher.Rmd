@@ -62,3 +62,5 @@ res <- compare_title_paper(df, "publisher")
 print(res$plot)  
 kable(subset(res$table, publisher %in% tops), digit = 2)
 ```
+
+
