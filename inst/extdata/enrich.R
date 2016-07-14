@@ -41,11 +41,21 @@ if (any(c("physical_extent", "physical_dimension") %in% update.fields)) {
   source(system.file("extdata/enrich_pagecount.R", package = "bibliographica"))
 
   print("Add estimated paper consumption")
+
+  # Estimated print run size
+  printrun <- 1000 # This could be improved - varies in time !
+  
   # One m2 is 100 * 100 cm2 = 1e4 cm2
   # One km2 is 1000 * 1000 m2 = 1e6 m2 = 1e10 cm2
   # Estimated average print run per document: 1000
-  printrun <- 1000 # This could be improved - varies in time !
-  df.preprocessed <- mutate(df.preprocessed, paper.consumption.km2 = width * height * pagecount/2 * (1/1e10) * printrun)
+  # df.preprocessed <- mutate(df.preprocessed,
+  #      paper.consumption.km2 = width * height * pagecount/2 * (1/1e10) * printrun)
+
+  # Paper consumption in sheets
+  # (divide document area by standard sheet area
+  sheet.area <- subset(sheet_sizes(), format == "sheet")$area
+  df.preprocessed <- mutate(df.preprocessed,
+          paper = printrun * (width * height)/ sheet.area)  
 
 }
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/paper_timeline.R
 \name{paper_timeline}
 \alias{paper_timeline}
-\title{Paper consumption timeline}
+\title{Paper Consumption Timeline}
 \usage{
 paper_timeline(x, field, nmin = 0)
 }

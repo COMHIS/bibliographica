@@ -1,5 +1,5 @@
-#' @title Compare title count and paper consumption
-#' @description Compare title count and paper consumption for selected field
+#' @title Compare Title Count and Paper Consumption
+#' @description Compare title count and paper consumption for selected field.
 #' @param x data frame
 #' @param field Field to analyze
 #' @param selected Limit the analysis on selected entries
@@ -16,7 +16,7 @@
 #' @keywords utilities
 compare_title_paper <- function (x, field, selected = NULL, plot.mode = "text") {
 
-  paper.consumption.km2 <- publication_decade <- titles <- paper <- NULL
+  paper <- publication_decade <- titles <- paper <- NULL
 
   x$field <- x[[field]]
 
@@ -27,12 +27,12 @@ compare_title_paper <- function (x, field, selected = NULL, plot.mode = "text") 
             filter(field %in% selected) %>%
 	    group_by(field) %>%	    
             summarize(titles = n(),
-                      paper = sum(paper.consumption.km2, na.rm = T))
+                      paper = sum(paper, na.rm = T))
 
 
   # Prepare the plot
   p <- ggplot(x, aes(x = titles, y = paper)) +
-    xlab("Title count") + ylab("Paper consumption (km2)") + 
+    xlab("Title count") + ylab("Standard sheets") + 
     ggtitle(paste("Title count versus paper (", field, ")")) +
     scale_x_log10() + scale_y_log10() 
 

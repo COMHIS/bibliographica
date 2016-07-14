@@ -2,7 +2,7 @@
 % Please edit documentation in R/compare_title_paper.R
 \name{compare_title_paper}
 \alias{compare_title_paper}
-\title{Compare title count and paper consumption}
+\title{Compare Title Count and Paper Consumption}
 \usage{
 compare_title_paper(x, field, selected = NULL, plot.mode = "text")
 }
@@ -23,7 +23,7 @@ List:
 }
 }
 \description{
-Compare title count and paper consumption for selected field
+Compare title count and paper consumption for selected field.
 }
 \examples{
 \dontrun{compare_title_paper(df, "author")}
