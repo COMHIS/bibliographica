@@ -1,5 +1,5 @@
-#' @title Clean publisher
-#' @description Pre-cleans publisher field
+#' @title Clean Publisher
+#' @description Pre-cleans publisher field.
 #' @param x Vector of publisher names
 #' @param languages A vector of languages which are used in detecting relation keywords
 #' @return Vector of publisher names
@@ -12,37 +12,7 @@ clean_publisher <- function(x, languages=c("english")) {
 
   # Only consider unique terms to speed up		
   xorig <- as.character(x)
-  x <- xuniq <- unique(xorig)  
-
-  # Used to be located after all the language specific stuff and before the generic stuff
-  q <- x  
-  
-  # select the first item from the list
-  q <- gsub("^([^;]+);.*$", "\\1", q)
-  q <- gsub("^([^(]+)[(].*[)]$", "\\1", q)
-  q <- gsub("^([^[]+)[[].*[]]$", "\\1", q)
-  q <- gsub("^[(].*[)]([^(]+)$", "\\1", q)
-  q <- gsub("^[[].*[]]([^[]+)$", "\\1", q)
-  
-  # remove everything in brackets or parentheses after collecting i komm., distr., exp., för ... -information
-  # TBD
-   
-  # remove naughty characters from the rear
-  endings=c(" ", "\\(", "\\)", "\\[", "\\]", "\\.", ";", ":", ",", "'")
-  q <- remove_endings(q, endings=endings, random_order=TRUE)
-  
-  # replace naughty characters from the middle
-  # At least in Finto data there's "$b" separating two clauses, and this causes a problem for str_replace
-  # I don't know what the real character should be, so I'll just select one at random
-  q <- gsub(" [$]b", ".", q)
-  q <- gsub(" [$]", "", q)
-
-  # Back to original indices, then unique again;
-  # reduces number of unique cases further
-  # Back to original indices, then unique again;
-  # reduces number of unique cases further
-  xorig <- q[match(xorig, xuniq)]
-  q <- xuniq <- unique(xorig)
+  q <- x <- xuniq <- unique(xorig)  
 
   # Used to the first thing to do in this function
   for (language in languages) {

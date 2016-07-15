@@ -18,9 +18,6 @@ change_to_Finto_preferred <- function (pubs, towns, years, cheat_list) {
     
     for (idx in 1:nrow(unique_pubs)) {
 
-      #if ((idx %% 2500) == 1) {
-      #  print (idx)
-      #}
       pubname <- as.character(unique_pubs$mod[idx])
       pubtown <- unique_pubs$town[idx]
       pubtill <- unique_pubs$pubtill[idx]

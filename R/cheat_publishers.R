@@ -1,5 +1,5 @@
 #' @title Cheat Publishers
-#' @description Get publisher list from an xml file
+#' @description Get publisher list from an xml file.
 #' @return Data frame with possible publisher form and the preferred output
 #' @export
 #' @import XML

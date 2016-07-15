@@ -3,7 +3,7 @@
 #' @param x A vector of publisher names
 #' @param publication_year Data frame with "from" and "till" years
 #' @param languages A vector of languages which are used in detecting relation keywords
-#' @return Data frame with orig, mod and comp 
+#' @return Polished vector.
 #' @export
 #' @importFrom stringdist amatch
 #' @importFrom stringr str_replace
@@ -12,6 +12,9 @@
 #' @examples # harmonize_publisher(x, publication_year, languages=c("finnish", "swedish", "latin"))
 #' @keywords utilities
 harmonize_publisher <- function(x, publication_year, languages=c("english")) {
+
+  # Clean up first		    
+  x <- clean_publisher(x, languages = languages)
 
   # Only consider unique terms to speed up		
   xorig <- as.character(x)
@@ -302,6 +305,8 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
         
   }
 
-  return (data.frame(list(orig=framePublishers$orig, mod=framePublishers$mod, comp=framePublishers$comp)))
+  # Speed up things by only returning mod
+  #return (data.frame(list(orig=framePublishers$orig, mod=framePublishers$mod, comp=framePublishers$comp)))
+  return(framePublishers$mod)  
   
 }

@@ -4,12 +4,10 @@
 \alias{polish_publisher}
 \title{Polish Publisher}
 \usage{
-polish_publisher(x, synonyms = NULL, verbose = TRUE, mc.cores = 1)
+polish_publisher(x, verbose = TRUE, mc.cores = 1)
 }
 \arguments{
 \item{x}{publisher field (a vector)}
-
-\item{synonyms}{Synonyme table}
 
 \item{verbose}{verbose}
 
@@ -19,7 +17,7 @@ polish_publisher(x, synonyms = NULL, verbose = TRUE, mc.cores = 1)
 polished publisher field (a vector)
 }
 \description{
-Polish publishing house names.
+Generic function for preliminary polishing of publishing house names.
 }
 \examples{
 \dontrun{v <- polish_publisher(c("Oxford University Press","tryckt hos Cambridge University Press"))}

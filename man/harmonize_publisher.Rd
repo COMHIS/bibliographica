@@ -14,7 +14,7 @@ harmonize_publisher(x, publication_year, languages = c("english"))
 \item{languages}{A vector of languages which are used in detecting relation keywords}
 }
 \value{
-Data frame with orig, mod and comp
+Polished vector.
 }
 \description{
 Harmonizes publishers with slight misspellings.

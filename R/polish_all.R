@@ -19,6 +19,22 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.
     message("List raw data fields to be preprocessed")
     fields <- names(df.orig) # Update all
   }
+
+  # Prioritize polishing of certain fields
+  # (may be needed for the later ones)
+  for (priority.field in c("publication_place", "publication_year")) {
+    if (priority.field %in% fields) {
+      fields <- c(priority.field, setdiff(fields, priority.field))
+    }
+  }
+  
+  # Anti-prioritize polishing of certain fields
+  # (may require information from the other fields)
+  for (last.field in c("publisher")) {
+    if (priority.field %in% fields) {
+      fields <- c(setdiff(fields, last.field), last.field)
+    }
+  }
   
   message("Entry identifier to match back to the originals")
   df.preprocessed <- data.frame(original_row = df.orig$original_row)

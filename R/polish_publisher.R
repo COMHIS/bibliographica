@@ -1,7 +1,6 @@
 #' @title Polish Publisher
-#' @description Polish publishing house names.
+#' @description Generic function for preliminary polishing of publishing house names.
 #' @param x publisher field (a vector)
-#' @param synonyms Synonyme table
 #' @param verbose verbose
 #' @param mc.cores Number of cores for parallelization
 #' @return polished publisher field (a vector)
@@ -10,7 +9,7 @@
 #' @references See citation("bibliographica")
 #' @examples \dontrun{v <- polish_publisher(c("Oxford University Press","tryckt hos Cambridge University Press"))}
 #' @keywords utilities
-polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
+polish_publisher <- function(x, verbose = TRUE, mc.cores = 1) {
 
   xorig <- tolower(x)
   xuniq <- unique(xorig)
@@ -30,7 +29,6 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
 		package = "bibliographica")
   spechars <- read_mapping(f, sep = ";", mode = "table", include.lowercase = TRUE, fast = TRUE)
    
-
   # Initial harmonization
   x <- gsub("[,|;|:|\\?|-|\\&|\\.]+", "", x) 
   x <- str_trim(gsub("\\(+", "", gsub("\\)+", "", x)))
@@ -50,10 +48,6 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
   xorig <- x[match(xorig, xuniq)]
   x <- xuniq <- unique(xorig)
 
-  if (verbose) {
-    message(paste("..", length(xuniq), "unique cases"))
-  }
-
   if (verbose) { message("..converting special characters") }
   x <- as.character(map(x, spechars, mode = "recursive"))
 
@@ -63,22 +57,29 @@ polish_publisher <- function(x, synonyms = NULL, verbose = TRUE, mc.cores = 1) {
   # Remove strings that are single letters
   x[x %in% letters] <- NA
 
-  # Back to original indices, then unique again; reduces
-  # number of unique cases further
-  xorig <- x[match(xorig, xuniq)]
-  x <- xuniq <- unique(xorig)
+  # select the first item from the list
+  x <- gsub("^([^;]+);.*$", "\\1", x)
+  x <- gsub("^([^(]+)[(].*[)]$", "\\1", x)
+  x <- gsub("^([^[]+)[[].*[]]$", "\\1", x)
+  x <- gsub("^[(].*[)]([^(]+)$", "\\1", x)
+  x <- gsub("^[[].*[]]([^[]+)$", "\\1", x)
 
-  if (is.null(synonyms)) {
-    f <- system.file("extdata/publisher.csv", package = "bibliographica")
-    synonyms <- read_mapping(f, sep = ";", mode = "table", lowercase = TRUE, fast = TRUE)    
-  }
 
-  x <- map(x, synonyms, mode = "exact.match")  
+  # remove everything in brackets or parentheses after collecting i
+  # komm., distr., exp., för ... -information TBD
+   
+  # remove naughty characters from the rear
+  endings=c(" ", "\\(", "\\)", "\\[", "\\]", "\\.", ";", ":", ",", "'")
+  x <- remove_endings(x, endings=endings, random_order=TRUE)
+  
+  # replace naughty characters from the middle
+  # At least in Finto data there's "$b" separating two clauses, and this causes a problem for str_replace
+  # I don't know what the real character should be, so I'll just select one at random
+  x <- gsub(" [$]b", ".", x)
+  x <- gsub(" [$]", "", x)
 
-  # Project unique cases back to the original list
-  x2 <- as.character(x[match(xorig, xuniq)])
-
-  x2
+  # Project to original indices and return
+  as.character(x[match(xorig, xuniq)])
 
 }
 

@@ -10,7 +10,7 @@ cheat_publishers()
 Data frame with possible publisher form and the preferred output
 }
 \description{
-Get publisher list from an xml file
+Get publisher list from an xml file.
 }
 \author{
 Hege Roivainen \email{hege.roivainen@gmail.com}

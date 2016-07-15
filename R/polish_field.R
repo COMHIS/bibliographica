@@ -92,9 +92,11 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1, catalog=NULL)
 
   } else if (field == "publisher") {
 
-    #tab <- polish_publisher(df[[field]], verbose = verbose, mc.cores = mc.cores)
-    tab <- harmonize_publisher_main(datasource=catalog, df.orig=df)
-    df.tmp <- data.frame(publisher = tab$mod)
+    # Generic cleanup for the publisher field
+    tab <- polish_publisher(df[[field]], verbose = verbose, mc.cores = mc.cores)
+
+    # Collect results to data frame
+    df.tmp <- data.frame(publisher = tab)
 
   } else if (field == "corporate") {
 

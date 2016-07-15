@@ -2,7 +2,7 @@
 % Please edit documentation in R/clean_publisher.R
 \name{clean_publisher}
 \alias{clean_publisher}
-\title{Clean publisher}
+\title{Clean Publisher}
 \usage{
 clean_publisher(x, languages = c("english"))
 }
@@ -15,7 +15,7 @@ clean_publisher(x, languages = c("english"))
 Vector of publisher names
 }
 \description{
-Pre-cleans publisher field
+Pre-cleans publisher field.
 }
 \examples{
 # clean_publisher(x, languages=c("finnish", "swedish", "latin"))
