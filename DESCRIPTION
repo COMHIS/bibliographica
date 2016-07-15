@@ -32,8 +32,7 @@ Imports:
     stringr,
     tibble,
     tidyr,
-    tm,
-    XML
+    tm
 Suggests:
     rmarkdown,
     testthat
