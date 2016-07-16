@@ -4,12 +4,12 @@
 \alias{harmonize_for_comparison}
 \title{Harmonize for comparison}
 \usage{
-harmonize_for_comparison(x, language = "english")
+harmonize_for_comparison(x, languages = "english")
 }
 \arguments{
 \item{x}{A vector of publisher names}
 
-\item{language}{language which is used in detecting orthographical variants}
+\item{languages}{languages used to detect orthographical variants}
 }
 \value{
 Vector of publishers names

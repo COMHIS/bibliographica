@@ -127,7 +127,8 @@ harmonize_publisher <- function(df, languages=c("english")) {
   }
   
   # prepare_nameforms (remove initials, transform fv -> v; fw -> v ... etc.)
-  compPublisher <- harmonize_for_comparison(na.omit(names(tab)), languages = languages)
+  compPublisher <- harmonize_for_comparison(na.omit(names(tab)),
+			languages = languages)
 
   # Initiate & preallocate a new version of publishers
   framePublishers <- data.frame(orig  = character(length(id)),
