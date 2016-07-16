@@ -382,7 +382,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   births <- split(df.preprocessed$author_birth, df.preprocessed$author_name)
   births <- births[sapply(births, length, USE.NAMES = FALSE) > 0]
   many.births <- lapply(births[names(which(sapply(births, function (x) {length(unique(na.omit(x)))}, USE.NAMES = FALSE) > 1))], function (x) {sort(unique(na.omit(x)))})
-  dfs <- df.preprocessed[df.preprocessed$author_name %in% names(many.births), c("author_name", "author_birth", "author_death")]
+  dfs <- df.preprocessed[df.preprocessed$author_name %in% names(many.births),
+      	 			c("author_name", "author_birth", "author_death")]
   dfs <- unique(dfs)
   dfs <- dfs %>% arrange(author_name, author_birth, author_death)
   write.table(dfs, paste(output.folder, "author_life_ambiguous.csv", sep = ""), quote = F, sep = "\t", row.names = FALSE)
@@ -397,12 +398,16 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   lang <- unlist(strsplit(df.orig$language, ";"))
   # Remove the known ones (und is Undetermined)
   unknown.lang <- setdiff(lang, c(abrv$synonyme, "und"))
-  # Count occurrences of each unknown lang
-  u <- colSums(sapply(unknown.lang, function (ul) grepl(ul, df.orig$language)))
-  tab <- cbind(term = names(u), n = unname(u))
-  tmp <- write.csv(tab,
-	   file = paste(output.folder, "language_discarded.csv", sep = ""),
-	   quote = F, row.names = F)
+  if (length(unknown.lang)>0) {
+    # Count occurrences of each unknown lang
+    u <- colSums(sapply(unknown.lang, function (ul) grepl(ul, df.orig$language)))
+    tab <- cbind(term = names(u), n = unname(u))
+    tmp <- write.csv(tab,
+	     file = paste(output.folder, "language_discarded.csv", sep = ""),
+	     quote = F, row.names = F)
+  } else {
+    write.csv("No entries.", file = paste(output.folder, "language_discarded.csv", sep = ""))
+  }
 
   message("Language conversions")
   field = "language"
