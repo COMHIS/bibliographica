@@ -26,6 +26,9 @@ This documents the conversions from raw data to the final preprocessed version (
 
 ## Annotated documents
 
+  * `r nrow(df.orig)` documents in the original raw data
+  * `r nrow(df)` documents in the final preprocessed data (`r round(100 * nrow(df)/nrow(df.orig), 2)`%)
+
 Fraction of documents with data:
 
 ```{r summaryannotations, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=8, fig.height=11}

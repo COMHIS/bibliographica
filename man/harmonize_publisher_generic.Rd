@@ -7,7 +7,7 @@
 harmonize_publisher_generic(df.preprocessed, languages = "english")
 }
 \arguments{
-\item{df.preprocessed}{Data frame with raw data, assuming the place, year fields are already polished.}
+\item{df.preprocessed}{Data frame assuming the place, year fields are already polished.}
 
 \item{languages}{languages to consider in polishing}
 }

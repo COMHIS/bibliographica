@@ -1,6 +1,7 @@
 #' @title Generate summary files
 #' @description Generates statistical summaries for the preprocessed data
 #' @param df data.frame to be summarized
+#' @param df.orig Original unpolished data.frame 
 #' @param author Author name (to printed on the generated documents)
 #' @param output.folder Path to the folder with associated summary table
 #' @param ntop The number of top findings to show
@@ -12,7 +13,7 @@
 #' @importFrom knitr knit
 #' @examples # generate_summaryfiles()
 #' @keywords utilities
-generate_summaryfiles <- function (df, author = "Author TBA", output.folder = "output.tables/", ntop = 20, summaries = c("overview", "author", "publicationplace", "publisher", "documents", "size", "gender", "topic", "language", "title", "publicationyear", "pagecount", "dimension")) {
+generate_summaryfiles <- function (df, df.orig = NULL, author = "Author TBA", output.folder = "output.tables/", ntop = 20, summaries = c("overview", "author", "publicationplace", "publisher", "documents", "size", "gender", "topic", "language", "title", "publicationyear", "pagecount", "dimension")) {
 
   # Output file paths		      
   outputs <- c()

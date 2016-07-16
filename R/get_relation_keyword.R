@@ -32,9 +32,11 @@ get_relation_keyword <- function(x, full_name, languages=c("english")) {
     i <- i + 1
   }
   
-  ret <- character(length=length(x))
+  ret <- character(length = length(x))
   for (fil in f) {
+  
     synonyms <- read.csv(file=fil, sep="\t", fileEncoding="UTF-8")
+    
     for (i in 1:nrow(synonyms)) {
       if (is.null(full_name)) {
         pattern <- as.character(synonyms$synonyme[i])

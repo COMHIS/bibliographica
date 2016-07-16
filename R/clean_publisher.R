@@ -14,25 +14,8 @@ clean_publisher <- function(x, languages=c("english")) {
   xorig <- as.character(x)
   q <- x <- xuniq <- unique(xorig)  
 
-  # Used to the first thing to do in this function
-  for (language in languages) {
-    if (language=="swedish") {
-      f <- system.file("extdata/sv_publisher.csv", package="bibliographica")
-    } else if (language=="english") {
-      f <- system.file("extdata/en_publisher.csv", package="bibliographica")
-    } else if (language=="finnish") {
-      f <- system.file("extdata/fi_publisher.csv", package="bibliographica")
-    } else if (language=="latin") {
-      f <- system.file("extdata/lat_publisher.csv", package="bibliographica")
-    } else {
-      print (paste0("Unknown language in languages: ", language))
-    }
-
-    synonyms <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")
-
-    q <- map(q, synonyms, mode="recursive")
-
-  } 
+  # Language wise harmonization
+  q <- harmonize_publishers_per_language(q, languages)
 
   # remove brackets and parentheses (Destructive phase)
   q <- gsub("^[(](.*)[)]$", "\\1", q)
@@ -54,7 +37,6 @@ clean_publisher <- function(x, languages=c("english")) {
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1.\\2.\\3. \\4", q)
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1.\\2. \\3", q)
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1. \\2", q)
-
 
   # Back to original indices
   qret <- q[match(xorig, xuniq)]

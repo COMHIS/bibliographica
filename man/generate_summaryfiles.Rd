@@ -4,13 +4,15 @@
 \alias{generate_summaryfiles}
 \title{Generate summary files}
 \usage{
-generate_summaryfiles(df, author = "Author TBA",
+generate_summaryfiles(df, df.orig = NULL, author = "Author TBA",
   output.folder = "output.tables/", ntop = 20, summaries = c("overview",
   "author", "publicationplace", "publisher", "documents", "size", "gender",
   "topic", "language", "title", "publicationyear", "pagecount", "dimension"))
 }
 \arguments{
 \item{df}{data.frame to be summarized}
+
+\item{df.orig}{Original unpolished data.frame}
 
 \item{author}{Author name (to printed on the generated documents)}
 

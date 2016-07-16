@@ -1,6 +1,6 @@
 #' @title Harmonize Publisher Generic
 #' @description Main handler for publisher fields.
-#' @param df.preprocessed Data frame with raw data, assuming the place, year fields are already polished.
+#' @param df.preprocessed Data frame assuming the place, year fields are already polished.
 #' @param languages languages to consider in polishing
 #' @return A vector with polished entries.
 #' @export

@@ -15,7 +15,7 @@ harmonize_abbreviated_names(x, languages = "english")
 Vector of publishers names
 }
 \description{
-Writes out abbreviated names
+Writes out abbreviated names.
 }
 \examples{
 # harmonize_abbreviated_names(c("Phil.", "Joh."), languages=c("finnish"))

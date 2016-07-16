@@ -1,5 +1,5 @@
 #' @title Harmonize abbreviated names
-#' @description Writes out abbreviated names
+#' @description Writes out abbreviated names.
 #' @param x A vector of publisher names
 #' @param languages Language which are used in writing out the abbreviated names
 #' @return Vector of publishers names

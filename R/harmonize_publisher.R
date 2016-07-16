@@ -38,19 +38,10 @@ harmonize_publisher <- function(df, languages=c("english")) {
   # reduces number of unique cases further
   xorig <- x[match(xorig$original_row, xuniq$original_row),]
   x <- xuniq <- unique(xorig)
-
-  for (language in languages) {
-    if (language == "swedish") {
-      f <- system.file("extdata/sv_publisher.csv",package = "bibliographica")
-    } else if (language == "finnish") {
-      f <- system.file("extdata/fi_publisher.csv", package = "bibliographica")  
-    } else {
-      f <- system.file("extdata/en_publisher.csv", package = "bibliographica")
-    }
-    synonyms <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")
-    x$publisher <- map(x$publisher, synonyms, mode="recursive")
-  }
   
+  # Language wise harmonization
+  x$publisher <- harmonize_publishers_per_language(x$publisher, languages)
+
   # remove brackets and parentheses (Destructive phase)
   x$publisher <- gsub("^[(](.*)[)]$", "\\1", x$publisher)
   x$publisher <- gsub("^[[](.*)[]]$", "\\1", x$publisher)
@@ -99,6 +90,7 @@ harmonize_publisher <- function(df, languages=c("english")) {
     if (is.na(pub)) {
       next
     }
+    
     if ((!is.infinite(min_year)) && (is.infinite(max_year))) {
       max_year <- min_year
     } else if ((!is.infinite(max_year)) && (is.infinite(min_year))) {
@@ -106,7 +98,7 @@ harmonize_publisher <- function(df, languages=c("english")) {
     } else if ((is.infinite(min_year)) && (is.infinite(max_year))) {
         ranges$min[i] <- ranges$max[i] <- NA
         ranges$publisher[i] <- pub
-        i = i + 1
+        i <- i + 1
         next
     }
     ranges$min[i] <- min_year
@@ -135,7 +127,7 @@ harmonize_publisher <- function(df, languages=c("english")) {
   }
   
   # prepare_nameforms (remove initials, transform fv -> v; fw -> v ... etc.)
-  compPublisher <- harmonize_for_comparison(na.omit(names(tab)), language = languages)
+  compPublisher <- harmonize_for_comparison(na.omit(names(tab)), languages = languages)
 
   # Initiate & preallocate a new version of publishers
   framePublishers <- data.frame(orig  = character(length(id)),
@@ -149,12 +141,12 @@ harmonize_publisher <- function(df, languages=c("english")) {
   personal_names <- extract_personal_names(compPublisher,
   		    languages=c("finnish", "latin", "swedish"))
   
-  if (language=="finnish") {
+  if ("finnish" %in% languages) {
     f = system.file("extdata/fi_publisher_with_placeholders.csv",
 		package="bibliographica")
-  } else if (language=="swedish") {
+  } else if ("swedish" %in% languages) {
     # TODO    
-  } else if (language=="english") {
+  } else if ("english" %in% languages) {
     # TODO
   } else {
     
@@ -300,7 +292,8 @@ harmonize_publisher <- function(df, languages=c("english")) {
           res <- framePublishers$mod[framePublishers$orig == res]
 
           # Add combined total for the publisher name already found
-          combinedTotal <- (unname(unlist(framePublishers$total[which(framePublishers$orig==res)])) + publisherTotal)
+          combinedTotal <- (unname(unlist(framePublishers$total[which(framePublishers$orig==res)])) +
+	                          publisherTotal)
           framePublishers$total[framePublishers$orig == res] <- combinedTotal
           
           # Update the year range for the publisher names already found
@@ -312,7 +305,7 @@ harmonize_publisher <- function(df, languages=c("english")) {
           
           # Add new entry for the modified result
           framePublishers$orig[publisherName_indices] <- publisherName
-          framePublishers$mod[publisherName_indices] <- res
+          framePublishers$mod[publisherName_indices]  <- res
           if (publisherTotal > 2) {
             framePublishers$comp[publisherName_indices] <- compare_version
           }
@@ -322,7 +315,7 @@ harmonize_publisher <- function(df, languages=c("english")) {
         
   }
 
-  # Speed up things by only returning mod
-  return(framePublishers$mod)  
+  # Back to original indices & Speed up things by only returning mod
+  return(framePublishers$mod[match(xorig$original_row, xuniq$original_row)])  
   
 }
