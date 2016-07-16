@@ -4,8 +4,6 @@
 #' @param languages A vector of languages which are used in detecting relation keywords
 #' @return Polished vector.
 #' @export
-#' @importFrom stringdist amatch
-#' @importFrom stringr str_replace
 #' @author Hege Roivainen \email{hege.roivainen@@gmail.com}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{harmonize_publisher(x, publication_year,
