@@ -4,12 +4,10 @@
 \alias{harmonize_publisher}
 \title{Harmonize Publisher}
 \usage{
-harmonize_publisher(x, publication_year, languages = c("english"))
+harmonize_publisher(df, languages = c("english"))
 }
 \arguments{
-\item{x}{A vector of publisher names}
-
-\item{publication_year}{Data frame with "from" and "till" years}
+\item{df}{bibliographic data.frame with the following fields: publication_year, publisher}
 
 \item{languages}{A vector of languages which are used in detecting relation keywords}
 }
@@ -20,7 +18,8 @@ Polished vector.
 Harmonizes publishers with slight misspellings.
 }
 \examples{
-# harmonize_publisher(x, publication_year, languages=c("finnish", "swedish", "latin"))
+\dontrun{harmonize_publisher(x, publication_year,
+                     languages = c("finnish", "swedish", "latin"))}
 }
 \author{
 Hege Roivainen \email{hege.roivainen@gmail.com}

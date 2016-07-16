@@ -4,10 +4,10 @@
 \alias{harmonize_publisher_generic}
 \title{Harmonize Publisher Generic}
 \usage{
-harmonize_publisher_generic(df.orig, languages = "english")
+harmonize_publisher_generic(df.preprocessed, languages = "english")
 }
 \arguments{
-\item{df.orig}{Data frame with raw data, assuming the place, year fields are already polished.}
+\item{df.preprocessed}{Data frame with raw data, assuming the place, year fields are already polished.}
 
 \item{languages}{languages to consider in polishing}
 }

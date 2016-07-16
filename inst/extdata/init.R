@@ -40,7 +40,6 @@ if (exists("update.fields") && !is.null(update.fields) && ("df0.Rds" %in% dir())
   
 } else {
 
-  df.preprocessed <- NULL
   conversions <- list()
   update.fields <- names(df.orig) # Update all fields
   m <- setdiff(update.fields, c("control_number", "original_row", "language", "title", "publisher", "subject_topic", "publication_topic", "author_name", "author_date", "publication_time", "physical_extent", "physical_dimension", "publication_place", "publication_geography", "title_uniform", "title_uniform2"))
