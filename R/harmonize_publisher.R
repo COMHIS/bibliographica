@@ -9,7 +9,7 @@
 #' @examples \dontrun{harmonize_publisher(x, publication_year,
 #'                      languages = c("finnish", "swedish", "latin"))}
 #' @keywords utilities
-harmonize_publisher <- function(df, languages=c("english")) {
+harmonize_publisher <- function(df, languages = c("english")) {
 
   # Only consider unique terms to speed up		
   xorig <- df

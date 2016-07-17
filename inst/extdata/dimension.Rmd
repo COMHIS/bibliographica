@@ -46,7 +46,8 @@ The estimated dimensions are based on the following auxiliary information sheets
 Left: final gatherings vs. final document dimension (width x height). Right: original gatherings versus original heights where both are available. The point size indicates the number of documents for each case. The red dots indicate the estimated height that is used when only gathering information is available. 
 
 
-```{r summary, echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=7, fig.show="hold", out.width="430px"}
+```{r summary, echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=7, fig.show="hold", out.width="280px"}
+df <- df.preprocessed
 dfs <- df %>% filter(!is.na(area) & !is.na(gatherings))
 dfs <- dfs[, c("gatherings", "area")]
 dfm <- melt(table(dfs)) # TODO switch to gather here
@@ -76,16 +77,40 @@ p <- p + geom_point(data = unique(df3), aes(y = gatherings, x = gathering.height
 p <- p + ylab("Gatherings (original)") + xlab("Height (original)") 
 p <- p + ggtitle("Gatherings vs. height")
 print(p)
+
+dfs <- df %>% filter(!is.na(paper) & !is.na(gatherings))
+dfs <- dfs[, c("gatherings", "paper")]
+dfm <- melt(table(dfs)) # TODO switch to gather here
+names(dfm) <- c("gatherings", "paper", "documents")
+dfm$gatherings <- factor(dfm$gatherings, levels = levels(df$gatherings))
+p <- ggplot(dfm, aes(x = gatherings, y = paper)) 
+p <- p + scale_y_continuous(trans = "log2")
+p <- p + geom_point(aes(size = documents))
+p <- p + scale_size(trans="log10")
+p <- p + ggtitle("Gatherings vs. paper")
+p <- p + xlab("Size (gatherings)")
+p <- p + ylab("Size (paper)")
+p <- p + coord_flip()
+print(p)
 ```
 
 
-Left: Document dimension histogram (surface area). Right: title count per gatherings.
+Left: Document dimension histogram (surface area);
+Middle: Paper consumption histogram;
+Right: title count per gatherings.
 
-```{r sizes, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=5, fig.show="hold",out.width="430px"}
+```{r sizes, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=5, fig.show="hold",out.width="280px"}
 p <- ggplot(df, aes(x = area))
 p <- p + geom_histogram() 
 p <- p + xlab("Document surface area (log10)")
 p <- p + ggtitle("Document dimension (surface area)")
+p <- p + scale_x_log10()
+print(p)
+
+p <- ggplot(df, aes(x = paper))
+p <- p + geom_histogram() 
+p <- p + xlab("Paper (log10 sheets)")
+p <- p + ggtitle("Paper consumption histogram")
 p <- p + scale_x_log10()
 print(p)
 
@@ -120,6 +145,22 @@ print(res$plot)
 ```
 
 
+### Title count versus paper consumption
+
+
+
+```{r title_vs_paper, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=7, fig.show="hold", out.width="430px"}
+d <- df.preprocessed %>%
+       group_by(publication_year) %>%
+       summarise(n = n(),
+       		 p = sum(paper, na.rm = TRUE))
+p <- ggplot(d, aes(x = n, y = p)) +
+       # geom_point(aes(color = publication_year), size = 3) +
+       geom_text(aes(label = publication_year), size = 5) + 
+       xlab("Title count") + ylab("Paper consumption") +
+       ggtitle("Title count vs. Paper by year")
+print(p)
+```
 
 <!--
 
@@ -133,7 +174,8 @@ Here we use the original data only:
 nmin <- 2000
 top.gatherings <- setdiff(names(which(table(df$gatherings.original) > nmin)), "NA")
 
-df2 <- filter(df, !gatherings.original == "NA" & (!is.na(height.original) | !is.na(width.original))) %>%
+df2 <- filter(df, !gatherings.original == "NA" &
+                  (!is.na(height.original) | !is.na(width.original))) %>%
        filter(gatherings.original %in% top.gatherings) %>%
        select(publication_decade, gatherings.original, height.original, width.original)
        
@@ -143,9 +185,17 @@ df3 <- df2 %>% group_by(gatherings.original, publication_decade) %>%
 		 n = n())
 
 p <- ggplot()
-p <- p + geom_point(data = df3, aes(x = publication_decade, y = mean.height.original, size = n, group = gatherings.original, color = gatherings.original))
+p <- p + geom_point(data = df3, aes(x = publication_decade,
+       	 		   	    y = mean.height.original,
+				    size = n,
+				    group = gatherings.original,
+				    color = gatherings.original))
 # Use mean height here to speed up
-p <- p + geom_smooth(data = df3, method = "loess", aes(x = publication_decade, y = mean.height.original, group = gatherings.original, color = gatherings.original))
+p <- p + geom_smooth(data = df3, method = "loess",
+       	   aes(x = publication_decade,
+	       y = mean.height.original,
+	       group = gatherings.original,
+	       color = gatherings.original))
 p <- p + ggtitle("Height")
 print(p)
 ```

@@ -27,6 +27,7 @@ harmonize_publisher_generic <- function (df.preprocessed, languages = "english")
   f <- system.file("extdata/NA_publishers.csv", package="bibliographica")
   synonymes <- read.csv(file = f, sep = "\t", fileEncoding = "UTF-8")
   harmonized_pubs <- map(df$publisher, synonymes, mode = "recursive")
+  harmonized_pubs[harmonized_pubs == ""] <- NA
 
   # In fact only necessary to return mod
   return(harmonized_pubs)

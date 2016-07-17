@@ -1,5 +1,7 @@
 * Technical
 
+Possibility to run overview Rmds with parallel years etc
+
 Fennica geo enrich brings in geocoordinates to many new places. Could
 be incorporated in the main pipeline already to simplify things.
 
