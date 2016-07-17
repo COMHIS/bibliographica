@@ -232,13 +232,21 @@ harmonize_publisher <- function(df, languages=c("english")) {
           ignore_indices <- which(personal_names$initials != initials)
           tmp_compare_versions[ignore_indices] <- NA
           
-          # Case: H.H.M Raivoinen vs. c("Hege Henri Markus Raivoinen", "Hege On Tyhmä")
-          # Required: exactly the same initials, full name known only in comparison group, exactly the same last name
-          indices <- grep(familyname, personal_names$family[which(personal_names$guessed==TRUE)], invert=TRUE)
-          ignore_indices <- intersect(indices, which(personal_names$guessed==TRUE))
+          # Case: H.H.M Raivoinen vs. c("Hege Henri Markus Raivoinen",
+          # "Hege On Tyhmä") Required: exactly the same initials, full
+          # name known only in comparison group, exactly the same last
+          # name
+          indices <- grep(familyname,
+	    personal_names$family[which(personal_names$guessed==TRUE)],
+	    invert=TRUE)
+          ignore_indices <- intersect(indices,
+	    which(personal_names$guessed==TRUE))
           tmp_compare_versions[ignore_indices] <- NA
-          # Insert the comparable version with initials instead of the full names
-          fix_indices <- grep(familyname, personal_names$family[personal_names$guessed==TRUE])
+	  
+          # Insert the comparable version with initials instead of the
+          # full names
+	  fix_indices <- grep(familyname,
+	  	      personal_names$family[personal_names$guessed==TRUE])
 
           tmp_compare_versions[fix_indices] <- as.character(personal_names$init_name[fix_indices])
 

@@ -8,26 +8,28 @@
 #' @references See citation("bibliographica")
 #' @examples # extract_personal_names(x, languages=c("finnish", "swedish", "latin"))
 #' @keywords utilities
-extract_personal_names  <- function(x, languages=c("english")) {
+extract_personal_names  <- function(x, languages = c("english")) {
+
+  #saveRDS(x, file = "~/tmp/tmp.RData")
+  #x <- readRDS("~/tmp/tmp.RData")  
 
   # To avoid warning in pkg build / LL
   f <- NULL
 
   message("Starting extract_personal_names")
-  orig <- x
-
-  xorig <- as.character(x)
+  xorig <- x
   x <- xuniq <- unique(xorig)  
 
-  # First, some of the words must be lowercased, so they won't be recognized as names
-  x <- decapitate_keywords(x, languages=languages)
-  x <- harmonize_abbreviated_names(x, languages=languages)
+  # First, some of the words must be lowercased,
+  # so they won't be recognized as names
+  x <- decapitate_keywords(x, languages = languages)
+  x <- harmonize_abbreviated_names(x, languages = languages)
 
   # Back to original indices, then unique again;
   # reduces number of unique cases further
   # Back to original indices, then unique again;
   # reduces number of unique cases further
-  xorig <- x[match(xorig$original_row, xuniq$original_row)]
+  xorig <- x[match(xorig, xuniq)]
   x <- xuniq <- unique(xorig)
 
   message("Decapitated")
@@ -43,7 +45,8 @@ extract_personal_names  <- function(x, languages=c("english")) {
   message("Update full_name if there's a match")
   relation <- get_relation_keyword(x, NULL, languages=languages)
   inds <- which(relation == "")  
-  full_name <- gsub("^([[:upper:]][[:lower:]]+), ((([[:upper:]][[:lower:]]+|[[:upper:]][.])( |$))+)", "\\2 \\1", x)
+  full_name <- gsub("^([[:upper:]][[:lower:]]+), 
+  	         ((([[:upper:]][[:lower:]]+|[[:upper:]][.])( |$))+)", "\\2 \\1", x)
   
   # Try if the form is "Merckell, Johan Cristopherin leski"
   message("Update full_name if necessary")
@@ -62,7 +65,7 @@ extract_personal_names  <- function(x, languages=c("english")) {
   full_name[inds] <- str_extract(x[inds], paste0(by_w, "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+"))
   full_name[inds] <- str_extract(full_name[inds], "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+")
 
-    # Then those without the by_words
+  # Then those without the by_words
   inds <- which(is.na(full_name))
   full_name[inds] <- str_extract(x[inds], "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+")
 
@@ -106,14 +109,18 @@ extract_personal_names  <- function(x, languages=c("english")) {
   # TODO: Now done twice, but the first time without the knowledge of full_name
   relation <- get_relation_keyword(x, full_name, languages)
   guessed[is.na(initials)] <- NA
-  
-  return (data.frame(orig = orig,
-		     initials  = initials,
+
+  df <- data.frame(initials  = initials,
 		     family    = family_name,
 		     full_name = full_name,
 		     init_name = full_name_with_initials,
 		     guessed   = guessed,
 		     relation  = relation,
-		     stringsAsFactors = FALSE))
-  
+		     stringsAsFactors = FALSE)
+
+  df <- df[match(xorig, xuniq),]
+  df$orig <- xorig
+
+  return(df)
+
 }
