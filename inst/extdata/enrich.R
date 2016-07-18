@@ -42,14 +42,17 @@ if (any(c("physical_extent", "physical_dimension") %in% update.fields)) {
 
   print("Add estimated paper consumption")
 
-  # Estimated print run size
+  # Estimated print run size for paper consumption estimates
   printrun <- 1000 # This could be improved - varies in time !
   
   # Paper consumption in sheets
   # (divide document area by standard sheet area
   sheet.area <- subset(sheet_sizes(), format == "sheet")$area
   df.preprocessed <- mutate(df.preprocessed,
-          paper = printrun * pagecount * (width * height)/sheet.area)  
+          paper = printrun * (pagecount/2) * (width * height)/sheet.area)
+
+  df.preprocessed <- mutate(df.preprocessed, paper.check =
+  		      width * height * pagecount/2 * (1/1e10) * printrun)
 
 }
 
