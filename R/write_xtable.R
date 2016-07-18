@@ -106,8 +106,9 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") 
     }
 
     n <- sum(as.numeric(tab[, "Count"]), na.rm = TRUE)
-    f <- round(100*n/length(xorig), 1)
-    ntxt <- paste(n, " (out of ", length(xorig), "ie. ", f, "%)", sep = "")
+    #f <- round(100*n/length(xorig), 1)
+    #ntxt <- paste(n, " (out of ", length(xorig), " ie. ", f, "%)", sep = "")
+    ntxt <- n    
     if (is.matrix(tab)) {
       suppressWarnings(tab <- rbind(rep("", ncol(tab)), tab))
       tab[1, 1] <- "Total count: "
