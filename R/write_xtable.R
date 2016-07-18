@@ -12,6 +12,8 @@
 #' @keywords utilities
 write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") {
 
+  xorig <- x
+
   if (length(x) == 0) {  
     message("The input to write_table is empty.")
     write("The input list is empty.", file = filename)    
@@ -80,7 +82,6 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") 
   
   # Arrange
   if (!sort.by %in% c("Count", colnames(x))) {
-    #warning("Sorting by name")
     sort.by <- "Name"
   }
 
@@ -103,16 +104,19 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") 
     if (!is.null(tab) && nrow(tab) > 1) {
       tab <- apply(tab, 2, as.character)
     }
-    n <- paste(sum(as.numeric(tab[, "Count"]), na.rm = TRUE), "(out of", length(x), ")", sep = "")
+
+    n <- sum(as.numeric(tab[, "Count"]), na.rm = TRUE)
+    f <- round(100*n/length(xorig), 1)
+    ntxt <- paste(n, " (out of ", length(xorig), "ie. ", f, "%)", sep = "")
     if (is.matrix(tab)) {
       suppressWarnings(tab <- rbind(rep("", ncol(tab)), tab))
       tab[1, 1] <- "Total count: "
-      tab[1, 2] <- n
+      tab[1, 2] <- ntxt
       if (ncol(tab)>2) {
         tab[1, 3:ncol(tab)] <- rep("", ncol(tab) - 2)
       }
     } else {
-      tab <- c(paste("Total count:", n), tab)
+      tab <- c(paste("Total count:", ntxt), tab)
     }
     
   }

@@ -29,7 +29,7 @@ df <- df.preprocessed
   * [Automated tests for page count conversions](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/tests_polish_physical_extent.csv)
 
 
-Left: Gatherings vs. overall pagecounts (original + estimated). Right: Only the estimated page counts (shown only for the `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents that have missing pagecount info in the original data):
+Left: Gatherings vs. overall pagecounts (original + estimated). Right: Only the estimated page counts (for the `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents that have missing pagecount info in the original data):
 
 ```{r size-estimated, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="430px"}
 theme_set(theme_bw(20))

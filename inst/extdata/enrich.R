@@ -49,7 +49,7 @@ if (any(c("physical_extent", "physical_dimension") %in% update.fields)) {
   # (divide document area by standard sheet area
   sheet.area <- subset(sheet_sizes(), format == "sheet")$area
   df.preprocessed <- mutate(df.preprocessed,
-          paper = printrun * (width * height)/ sheet.area)  
+          paper = printrun * pagecount * (width * height)/sheet.area)  
 
 }
 

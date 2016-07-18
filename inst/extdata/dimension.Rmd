@@ -89,7 +89,7 @@ p <- p + geom_point(aes(size = documents))
 p <- p + scale_size(trans="log10")
 p <- p + ggtitle("Gatherings vs. paper")
 p <- p + xlab("Size (gatherings)")
-p <- p + ylab("Size (paper)")
+p <- p + ylab("Paper (sheets)")
 p <- p + coord_flip()
 print(p)
 ```
