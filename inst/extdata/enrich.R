@@ -51,8 +51,8 @@ if (any(c("physical_extent", "physical_dimension") %in% update.fields)) {
   df.preprocessed <- mutate(df.preprocessed,
           paper = printrun * (pagecount/2) * (width * height)/sheet.area)
 
-  df.preprocessed <- mutate(df.preprocessed, paper.check =
-  		      width * height * pagecount/2 * (1/1e10) * printrun)
+  #df.preprocessed <- mutate(df.preprocessed, paper.check =
+  # 		      width * height * pagecount/2 * (1/1e10) * printrun)
 
 }
 
