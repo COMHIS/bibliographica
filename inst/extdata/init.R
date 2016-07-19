@@ -20,7 +20,9 @@ print("Read raw data")
 if (reload.data) {
 
   # Read the raw data
-  df.orig <- read_bibliographic_metadata(fs, ignore.fields = ignore.fields, verbose = TRUE)
+  df.orig <- read_bibliographic_metadata(fs,
+		ignore.fields = ignore.fields,
+		verbose = TRUE)
 
   # Save the raw data
   saveRDS(df.orig, file = "df.raw.Rds", compress = "xz")
