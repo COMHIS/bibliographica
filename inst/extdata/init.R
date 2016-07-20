@@ -48,7 +48,6 @@ if (exists("update.fields") && !is.null(update.fields) && ("df0.Rds" %in% dir())
   if (length(m) > 0) {
     warning(paste("Updates not defined for the following input fields:", paste(m , sep = ";")))
   }
-
 }
 
 

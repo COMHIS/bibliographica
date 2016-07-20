@@ -31,11 +31,11 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.
   # Anti-prioritize polishing of certain fields
   # (may require information from the other fields)
   for (last.field in c("publisher")) {
-    if (priority.field %in% fields) {
+    if (last.field %in% fields) {
       fields <- c(setdiff(fields, last.field), last.field)
     }
   }
-  
+
   message("Entry identifier to match back to the originals")
   df.preprocessed <- data.frame(original_row = df.orig$original_row)
     
@@ -83,6 +83,7 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.
     
   }
 
+  message("Field preprocessing ok.")
   list(df.preprocessed = df.preprocessed,
        conversions = conversions,
        preprocessing.times = preprocessing.times)

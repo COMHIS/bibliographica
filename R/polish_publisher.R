@@ -19,14 +19,14 @@ polish_publisher <- function (df, languages = "english") {
   message("Harmonize entries")
   pub <- harmonize_publisher(df, languages = languages)
 
-  message("Custom synonume lists")
+  message("Custom synonyme lists")
   # Convert S.N. into NA and Author into <Author>
   f <- system.file("extdata/NA_publishers.csv", package="bibliographica")
   synonymes <- read.csv(file = f, sep = "\t", fileEncoding = "UTF-8")
   pub <- map(pub, synonymes, mode = "recursive")
   pub[pub == ""] <- NA
 
-  # In fact only necessary to return mod
+  message("Publisher polished.")
   return(pub)
 
 }

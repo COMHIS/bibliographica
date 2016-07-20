@@ -98,8 +98,9 @@ polish_field <- function (df, df.preprocessed, field, verbose = TRUE, mc.cores =
     # also year fields are needed in polishing
     dfs <- df.preprocessed # Preprocessed data; required background info
     dfs[[field]] <- df[[field]] # Add the unpolished publisher field
+
     tab <- polish_publisher(dfs, languages = languages)
-      
+
     # Collect results to data frame
     df.tmp <- data.frame(publisher = tab)
 
