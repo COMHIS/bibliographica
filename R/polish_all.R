@@ -6,14 +6,14 @@
 #' @param file Temporary results saved into a file 
 #' @param mc.cores Number of cores for parallelization
 #' @param conversions Field conversion list
-#' @param catalog Customization if the bibliographic catalog is specified. Currently support for : "fennica" "kungliga", "cerl", "estc"
+#' @param languages Languages to be used in polishing
 #' @return Preprocessed data.frame and field conversion list.
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{a <- polish_all(df.orig)}
 #' @export
 #' @keywords utilities
-polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.cores = 1, conversions = list(), catalog = NULL) {
+polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.cores = 1, conversions = list(), languages = NULL) {
 
   if (is.null(fields)) {
     message("List raw data fields to be preprocessed")
@@ -52,7 +52,8 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.
     start.time <- Sys.time()
 
     # Polish the given field
-    df.tmp <- polish_field(df.orig, field, verbose = FALSE, mc.cores = mc.cores, catalog = catalog)
+    df.tmp <- polish_field(df.orig, field, verbose = FALSE,
+                           mc.cores = mc.cores, languages = languages)
 
     # Remove the fields to be updated
     inds <- which(names(df.preprocessed) %in% names(df.tmp))

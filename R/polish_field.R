@@ -4,7 +4,7 @@
 #' @param field Field to be preprocessed.
 #' @param verbose verbose
 #' @param mc.cores Number of cores for parallelization
-#' @param catalog Catalog (fennica, kungliga, estc ...)
+#' @param languages Languages to be used in polishing
 #' @return Output of the polished field
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
@@ -12,7 +12,7 @@
 #' @examples \dontrun{a <- polish_field(df, "title")}
 #' @export
 #' @keywords utilities
-polish_field <- function (df, field, verbose = TRUE, mc.cores = 1, catalog=NULL) {
+polish_field <- function (df, field, verbose = TRUE, mc.cores = 1, languages = NULL) {
 
   from <- till <- NULL
 
@@ -93,8 +93,8 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1, catalog=NULL)
   } else if (field == "publisher") {
 
     # Generic cleanup for the publisher field
-    tab <- polish_publisher(df[[field]], verbose = verbose, mc.cores = mc.cores)
-
+    tab <- polish_publisher(df[[field]], languages = languages)
+      
     # Collect results to data frame
     df.tmp <- data.frame(publisher = tab)
 
