@@ -1,6 +1,7 @@
 #' @title Polish Field
 #' @description Polish a specified library catalogue field.
 #' @param df data.frame that includes the given field
+#' @param df.preprocessed Preprocessed data.frame that may contain auxiliary info.
 #' @param field Field to be preprocessed.
 #' @param verbose verbose
 #' @param mc.cores Number of cores for parallelization
@@ -12,7 +13,7 @@
 #' @examples \dontrun{a <- polish_field(df, "title")}
 #' @export
 #' @keywords utilities
-polish_field <- function (df, field, verbose = TRUE, mc.cores = 1, languages = NULL) {
+polish_field <- function (df, df.preprocessed, field, verbose = TRUE, mc.cores = 1, languages = NULL) {
 
   from <- till <- NULL
 
@@ -93,7 +94,11 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1, languages = N
   } else if (field == "publisher") {
 
     # Generic cleanup for the publisher field
-    tab <- polish_publisher(df[[field]], languages = languages)
+    # Give the whole data frame as input since
+    # also year fields are needed in polishing
+    dfs <- df.preprocessed # Preprocessed data; required background info
+    dfs[[field]] <- df[[field]] # Add the unpolished publisher field
+    tab <- polish_publisher(dfs, languages = languages)
       
     # Collect results to data frame
     df.tmp <- data.frame(publisher = tab)

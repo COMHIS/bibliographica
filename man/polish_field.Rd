@@ -4,10 +4,13 @@
 \alias{polish_field}
 \title{Polish Field}
 \usage{
-polish_field(df, field, verbose = TRUE, mc.cores = 1, languages = NULL)
+polish_field(df, df.preprocessed, field, verbose = TRUE, mc.cores = 1,
+  languages = NULL)
 }
 \arguments{
 \item{df}{data.frame that includes the given field}
+
+\item{df.preprocessed}{Preprocessed data.frame that may contain auxiliary info.}
 
 \item{field}{Field to be preprocessed.}
 

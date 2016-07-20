@@ -12,7 +12,7 @@
 harmonize_publisher <- function(df, languages = c("english")) {
 
   # Only consider unique terms to speed up		
-  xorig <- df
+  xorig <- df[, c("publisher", "publication_year_from", "publication_year_till")]
   x <- xuniq <- unique(xorig)  
 
   # Clean up first		    

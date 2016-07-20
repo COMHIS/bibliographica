@@ -52,7 +52,7 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.
     start.time <- Sys.time()
 
     # Polish the given field
-    df.tmp <- polish_field(df.orig, field, verbose = FALSE,
+    df.tmp <- polish_field(df.orig, df.preprocessed, field, verbose = FALSE,
                            mc.cores = mc.cores, languages = languages)
 
     # Remove the fields to be updated

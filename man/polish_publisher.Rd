@@ -7,7 +7,7 @@
 polish_publisher(df, languages = "english")
 }
 \arguments{
-\item{df}{Data frame assuming the place, year fields are already polished.}
+\item{df}{Corresponding data frame assuming the place, year fields are already polished and available.}
 
 \item{languages}{languages to consider in polishing}
 }
