@@ -1,3 +1,12 @@
+#' @title Clean Publisher
+#' @description Pre-cleans publisher field.
+#' @param x Vector of publisher names
+#' @return Vector of publisher names
+#' @export
+#' @author Hege Roivainen \email{hege.roivainen@@gmail.com}
+#' @references See citation("bibliographica")
+#' @examples # clean_publisher(x, languages=c("finnish", "swedish", "latin"))
+#' @keywords utilities
 clean_publisher <- function (x) {
 
   x <- as.character(x)
