@@ -19,7 +19,10 @@ extract_personal_names  <- function(x, languages = c("english")) {
 
   # First, some of the words must be lowercased,
   # so they won't be recognized as names
+  message("Decapitate keywords")
   x <- decapitate_keywords(x, languages = languages)
+  
+  message("Harmonize abbreviated names")  
   x <- harmonize_abbreviated_names(x, languages = languages)
 
   # Back to original indices, then unique again;

@@ -13,26 +13,20 @@ decapitate_keywords <- function(x, languages=c("english")) {
   
   # TODO: make a table for languages & related files & purpose
   f <- vector(length=length(languages))
-  i <- 1
+
   if ("finnish" %in% languages) {
-    f[i] <- system.file("extdata/fi_lowercase_keywords.csv", package="bibliographica")
-    i <- i + 1
+    f[["finnish"]] <- system.file("extdata/fi_lowercase_keywords.csv", package="bibliographica")
   }
   if ("swedish" %in% languages) {
-    f[i] <- system.file("extdata/sv_lowercase_keywords.csv", package="bibliographica")
-    i <- i + 1
-  }
-  if ("english" %in% languages) {
-    f[i] <- system.file("extdata/en_lowercase_keywords.csv", package="bibliographica")
-    i <- i + 1
+    f[["swedish"]] <- system.file("extdata/sv_lowercase_keywords.csv", package="bibliographica")
   }
   if ("latin" %in% languages) {
-    f[i] <- system.file("extdata/la_lowercase_keywords.csv", package="bibliographica")
-    i <- i + 1
+    f[["latin"]] <- system.file("extdata/la_lowercase_keywords.csv", package="bibliographica")
   }
   
   for (fil in f) {
-    synonyms <- read.csv(file=fil, sep="\t", fileEncoding="UTF-8")
+    message(fil)
+    synonyms <- read.csv(file = fil, sep="\t", fileEncoding="UTF-8")
     x <- map(x, synonyms, mode = "match") # Should be faster
     #for (i in 1:nrow(synonyms)) {
     #  x <- str_replace(x, as.character(synonyms$synonyme[i]), as.character(synonyms$name[i]))
