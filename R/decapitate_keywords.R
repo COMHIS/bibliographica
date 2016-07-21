@@ -12,7 +12,8 @@
 decapitate_keywords <- function(x, languages=c("english")) {
   
   # TODO: make a table for languages & related files & purpose
-  f <- vector(length=length(languages))
+  # to read in automatically
+  f <- c()
 
   if ("finnish" %in% languages) {
     f[["finnish"]] <- system.file("extdata/fi_lowercase_keywords.csv", package="bibliographica")
