@@ -308,14 +308,24 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
    message("Accepted publishers")
    field = "publisher"
-   s <- write_xtable(df.preprocessed[[field]], paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
 
-    message("Discarded publishers")
-  if ((field %in% names(df.preprocessed)) && (field %in% names(df.orig))) {
+   message("Use corporate field for NA publishers")
+   if ("corporate" %in% names(df.orig)) {
+     message("Augmenting missing publisher entries with the corporate field")
+     inds <- which(is.na(df.orig$publisher))
+     df.orig$publisher[inds] <- df.orig$corporate[inds]
+   }
+
+   s <- write_xtable(df.preprocessed[[field]],
+     	  paste(output.folder, field, "_accepted.csv", sep = ""),
+	  count = TRUE)
+
+   message("Discarded publishers")
+   if ((field %in% names(df.preprocessed)) && (field %in% names(df.orig))) {
       inds <- which(is.na(df.preprocessed[[field]]))
       original <- as.vector(na.omit(as.character(df.orig[[field]][inds])))
       tmp <- write_xtable(original, paste(output.folder, field, "_discarded.csv", sep = ""), count = TRUE)
-    }
+   }
 
   message("publisher conversions")
   nam <- "publisher"

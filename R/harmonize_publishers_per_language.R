@@ -11,7 +11,7 @@ harmonize_publishers_per_language <- function (q, languages) {
     } else if (language=="latin") {
       f <- system.file("extdata/lat_publisher.csv", package="bibliographica")
     } else {
-      print (paste0("Unknown language in languages: ", language))
+      warning(paste0("Unknown language in languages: ", language))
     }
 
     synonyms <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")

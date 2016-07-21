@@ -10,9 +10,6 @@
 #' @keywords utilities
 extract_personal_names  <- function(x, languages = c("english")) {
 
-  #saveRDS(x, file = "~/tmp/tmp.RData")
-  #x <- readRDS("~/tmp/tmp.RData")  
-
   # To avoid warning in pkg build / LL
   f <- NULL
 
@@ -52,7 +49,9 @@ extract_personal_names  <- function(x, languages = c("english")) {
   message("Update full_name if necessary")
   inds <- which(relation != "")
   pattern <- paste("(^[[:upper:]][[:lower:]]+), ((([[:upper:]][[:lower:]]+|[[:upper:]][.])( |))+)(:n)? ", relation, "$", sep="")
-  full_name[inds] <- str_replace(x[inds], pattern=pattern[inds], replacement=paste0("\\2 \\1 ", relation[inds]))
+  full_name[inds] <- str_replace(x[inds],
+  		       pattern = pattern[inds],
+  		       replacement = paste0("\\2 \\1 ", relation[inds]))
   
   # First: try with prefixed "by", "af" etc...
   f <- system.file("extdata/by_words.csv", package="bibliographica")
@@ -61,7 +60,7 @@ extract_personal_names  <- function(x, languages = c("english")) {
   by_w <- paste0(" (", by_w, ") ")
 
   # If full_name is still unchanged, it hasn't changed: try again the normal way
-  inds <- which(full_name==x)
+  inds <- which(full_name == x)
   full_name[inds] <- str_extract(x[inds], paste0(by_w, "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+"))
   full_name[inds] <- str_extract(full_name[inds], "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+")
 
@@ -70,9 +69,9 @@ extract_personal_names  <- function(x, languages = c("english")) {
   full_name[inds] <- str_extract(x[inds], "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+")
 
   # Make sure that number of given names is not negative
-  number_of_given_names <- unname(sapply(full_name, function(name) {
+  number_of_given_names <- sapply(full_name, function(name) {
     max((str_count(name, "[[:upper:]](([[:lower:]]+)|[.])( |$)") - 1),0)
-  }))
+  }, USE.NAMES = FALSE)
   given_names_pattern <- paste("((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?))){", (number_of_given_names), "}", sep = "")
     
   given_names <- str_extract(full_name, given_names_pattern)

@@ -33,9 +33,10 @@ decapitate_keywords <- function(x, languages=c("english")) {
   
   for (fil in f) {
     synonyms <- read.csv(file=fil, sep="\t", fileEncoding="UTF-8")
-    for (i in 1:nrow(synonyms)) {
-      x <- str_replace(x, as.character(synonyms$synonyme[i]), as.character(synonyms$name[i]))
-    }
+    x <- map(x, synonyms, mode = "match") # Should be faster
+    #for (i in 1:nrow(synonyms)) {
+    #  x <- str_replace(x, as.character(synonyms$synonyme[i]), as.character(synonyms$name[i]))
+    #}
   }
   x
   

@@ -11,13 +11,16 @@
 #' @keywords utilities
 harmonize_publisher <- function(df, languages = c("english")) {
 
+  publisher <- publication_year_from <- publication_year_till <- NULL
+
   # Only consider unique terms to speed up		
   xorig <- df[, c("publisher", "publication_year_from", "publication_year_till")]
   rownames(xorig) <- paste("r",as.character(1:nrow(xorig)), sep = "-")
   x <- xuniq <- unique(xorig)  
  
-  # Clean up first		    
-  x$publisher <- clean_publisher(x$publisher, languages = languages)
+  # Language wise harmonization
+  x$publisher <- harmonize_publishers_per_language(x$publisher, languages)
+  x$publisher <- clean_publisher(x$publisher)
 
   # select the first item from the list
   x$publisher <- gsub("^([^;]+);.*$", "\\1", x$publisher)
@@ -27,8 +30,7 @@ harmonize_publisher <- function(df, languages = c("english")) {
   x$publisher <- gsub("^[[].*[]]([^[]+)$", "\\1", x$publisher)
   
   # remove everything in brackets or parentheses after collecting i komm.,
-  # distr., exp., för ... -information
-    
+  # distr., exp., för ... -information    
   # remove naughty characters from the rear
   endings=c(" ", "\\(", "\\)", "\\[", "\\]", "\\.", ";", ":", ",", "'")
   x$publisher <- remove_endings(x$publisher, endings=endings, random_order=TRUE)
@@ -42,88 +44,34 @@ harmonize_publisher <- function(df, languages = c("english")) {
   
   # Language wise harmonization
   x$publisher <- harmonize_publishers_per_language(x$publisher, languages)
-
-  # remove brackets and parentheses (Destructive phase)
-  x$publisher <- gsub("^[(](.*)[)]$", "\\1", x$publisher)
-  x$publisher <- gsub("^[[](.*)[]]$", "\\1", x$publisher)
-  x$publisher <- gsub("[[]", "", x$publisher)
-  x$publisher <- gsub("[]]", "", x$publisher)
-  x$publisher <- gsub("[(]", "", x$publisher)
-  x$publisher <- gsub("[)]", "", x$publisher)
-  
-  # add space when needed
-  x$publisher <- gsub("([[:upper:]])&", "\\1 &", x$publisher)
-  x$publisher <- gsub("&([[:upper:]])", "& \\1", x$publisher)
-  x$publisher <- gsub("([[:lower:]])&", "\\1 &", x$publisher)
-  x$publisher <- gsub("&([[:lower:]])", "& \\1", x$publisher)
-
-  # harmonize initials
-  # CWK Raivoinen -> C.W.K. Raivoinen; C. W. K. Raivoinen -> C.W.K. Raivoinen
-  x$publisher <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1.\\2.\\3. \\4", x$publisher)
-  x$publisher <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1.\\2. \\3", x$publisher)
-  x$publisher <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1. \\2", x$publisher)
+  x$publisher <- clean_publisher(x$publisher)
 
   # Back to original indices
   xorig <- x[match(rownames(xorig), rownames(xuniq)),]    
   x <- xuniq <- unique(xorig)
   
   # Get the minimum & maximum years for each publisher name
-  ranges <- data.frame(min = integer(length(unique(x$publisher))),
-  	               max = integer(length(unique(x$publisher))),
-		       publisher = character(length(unique(x$publisher))),
-		       stringsAsFactors = FALSE)
-
-  i <- 1
-  maxdiff <- 5
-  maxrange <- 40
-
-  # TODO vectorization of for loops with sapply could speed up considerably
-  for (pub in unique(x$publisher)) {
- 
-    min_year <- min(x$publication_year_from[(which(x$publisher == pub))],
-    	     						       na.rm = TRUE)
-    max_year <- max(x$publication_year_till[(which(x$publisher == pub))],
-    	     						       na.rm = TRUE)
-							       
-    if (is.na(pub)) {
-      next
-    }
-    
-    if ((!is.infinite(min_year)) && (is.infinite(max_year))) {
-      max_year <- min_year
-    } else if ((!is.infinite(max_year)) && (is.infinite(min_year))) {
-      min_year <- max_year
-    } else if ((is.infinite(min_year)) && (is.infinite(max_year))) {
-        ranges$min[i] <- ranges$max[i] <- NA
-        ranges$publisher[i] <- pub
-        i <- i + 1
-        next
-    }
-    ranges$min[i] <- min_year
-    ranges$max[i] <- max_year
-    ranges$publisher[i] <- pub
-    i <- i + 1    
-  }
-  
-  # Get the publisher name forms into a table
-  id <- as.character(x$publisher)
-  tab <- table(id)
-
+  ranges <- x %>% group_by(publisher) %>%
+                  summarise(
+		    min = min(publication_year_from, na.rm = TRUE),
+		    max = min(publication_year_till, na.rm = TRUE)
+		  )
+		  
   # Build the stop mechanism
   # NB! Hardcoded for Finnish. Language specific handling required.
   # TODO vectorization of for loops with sapply could speed up considerably
   f <- system.file("extdata/fi_publisher_caveat.csv", package="bibliographica")
-  caveats <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")
-  cav <- data.frame(name1 = character(nrow(caveats) * 2),
-		    name2 = character(nrow(caveats) * 2),
-		    stringsAsFactors = FALSE)
-  for (i in 1:nrow(caveats)) {
-    cav$name1[i] <- as.character(caveats$name1[i])
-    cav$name2[i] <- as.character(caveats$name2[i])
-    cav$name1[i+nrow(caveats)] <- as.character(caveats$name2[i])
-    cav$name2[i+nrow(caveats)] <- as.character(caveats$name1[i])
-  }
-  
+  caveats <- read.csv(f, sep = "\t", fileEncoding = "UTF-8", stringsAsFactors = FALSE)
+  colnames(caveats) <- NULL
+  cav1 <- cbind(caveats[, 1], caveats[, 2])
+  cav2 <- cbind(caveats[, 2], caveats[, 1])
+  cav <- rbind(cav1, cav2)
+  names(cav) <- c("name1", "name2")
+
+  # Get the publisher name forms into a table
+  id <- as.character(x$publisher)
+  tab <- table(id)
+
   # prepare_nameforms (remove initials, transform fv -> v; fw -> v ... etc.)
   compPublisher <- harmonize_for_comparison(na.omit(names(tab)),
 			languages = languages)
@@ -138,19 +86,17 @@ harmonize_publisher <- function(df, languages = c("english")) {
   # extract initials etc., in case publisher is a person
   # (may contain lots of false persons)
   personal_names <- extract_personal_names(compPublisher,
-  		    languages=c("finnish", "latin", "swedish"))
+  		    languages=c("finnish", "latin", "swedish", "english"))
   
   if ("finnish" %in% languages) {
     f = system.file("extdata/fi_publisher_with_placeholders.csv",
 		package="bibliographica")
-  } else if ("swedish" %in% languages) {
-    # TODO    
-  } else if ("english" %in% languages) {
-    # TODO
   } else {
-    
+    # TODO    
   }
+  
   synonyms <- read.csv(file=f, sep="\t", fileEncoding="UTF-8")
+  
   # TODO vectorization of for loops with sapply could speed up considerably  
   for (i in 1:nrow(synonyms)) {
     pattern <- str_replace(synonyms$synonyme[i], "<name>",
@@ -164,6 +110,8 @@ harmonize_publisher <- function(df, languages = c("english")) {
   }
 
   i <- 1
+  maxdiff <- 5
+  maxrange <- 40  
   # TODO vectorization of for loops with sapply could speed up considerably  
   for (publisherName in na.omit(names(tab))) {
 
@@ -210,7 +158,7 @@ harmonize_publisher <- function(df, languages = c("english")) {
 	# tmp_compare_version and the string to match
         # Remove from indices all the indices without the same last
 	# name and possibly the same initials
-        if ((!is.na(initials)) && (!is.na(guessed)) && (guessed==FALSE)) {
+        if ((!is.na(initials)) && (!is.na(guessed)) && (!guessed)) {
           # We're talking about persons, when we have the initials
           # So we'll exclude any invalid publication year ranges from the
 	  # comparison group
@@ -235,20 +183,20 @@ harmonize_publisher <- function(df, languages = c("english")) {
           # name known only in comparison group, exactly the same last
           # name
           indices <- grep(familyname,
-	    personal_names$family[which(personal_names$guessed==TRUE)],
-	    invert=TRUE)
+	    personal_names$family[which(personal_names$guessed)],
+	    invert = TRUE)
           ignore_indices <- intersect(indices,
-	    which(personal_names$guessed==TRUE))
+	    which(personal_names$guessed))
           tmp_compare_versions[ignore_indices] <- NA
 	  
           # Insert the comparable version with initials instead of the
           # full names
 	  fix_indices <- grep(familyname,
-	  	      personal_names$family[personal_names$guessed==TRUE])
+	  	      personal_names$family[personal_names$guessed])
 
           tmp_compare_versions[fix_indices] <- as.character(personal_names$init_name[fix_indices])
 
-        } else if ((!is.na(initials)) && (!is.na(guessed)) && (guessed==TRUE)) {
+        } else if ((!is.na(initials)) && (!is.na(guessed)) && (guessed)) {
 	
           # We're talking about persons, when we have the initials
           # So we'll exclude any invalid publication year ranges
