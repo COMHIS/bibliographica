@@ -1,4 +1,4 @@
-#' @title Harmonize for comparison
+#' @title Harmonize for Comparison
 #' @description Harmonize orthography
 #' @param x A vector of publisher names
 #' @param languages languages used to detect orthographical variants
@@ -9,7 +9,8 @@
 #' @examples # harmonize_for_comparison(x, language="finnish")
 #' @keywords utilities
 harmonize_for_comparison <- function(x, languages = "english") {
-  
+
+  print(languages)
   if ("swedish" %in% languages) {
     f <- system.file("extdata/sv_publisher_comparison.csv", package="bibliographica")
   } else if ("finnish" %in% languages) {

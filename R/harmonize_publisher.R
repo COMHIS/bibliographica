@@ -17,7 +17,7 @@ harmonize_publisher <- function(df, languages = c("english")) {
   xorig <- df[, c("publisher", "publication_year_from", "publication_year_till")]
   xorig$match.id <- unname(apply(xorig, 1, function (x) {paste(x, collapse = "-")}))
   x <- xuniq <- unique(xorig)  
- 
+
   x$publisher <- harmonize_publishers_per_language(x$publisher, languages)
   x$publisher <- clean_publisher(x$publisher)
 
@@ -27,7 +27,7 @@ harmonize_publisher <- function(df, languages = c("english")) {
   x$publisher <- gsub("^([^[]+)[[].*[]]$", "\\1", x$publisher)
   x$publisher <- gsub("^[(].*[)]([^(]+)$", "\\1", x$publisher)
   x$publisher <- gsub("^[[].*[]]([^[]+)$", "\\1", x$publisher)
-  
+
   # remove everything in brackets or parentheses after collecting i komm.,
   # distr., exp., för ... -information    
   # remove naughty characters from the rear
@@ -40,7 +40,7 @@ harmonize_publisher <- function(df, languages = c("english")) {
   # reduces number of unique cases further
   xorig <- x[match(xorig$match.id, xuniq$match.id),]    
   x <- xuniq <- unique(xorig)
-  
+
   # Language wise harmonization
   x$publisher <- harmonize_publishers_per_language(x$publisher, languages)
   x$publisher <- clean_publisher(x$publisher)
@@ -48,14 +48,14 @@ harmonize_publisher <- function(df, languages = c("english")) {
   # Back to original indices
   xorig <- x[match(xorig$match.id, xuniq$match.id),]    
   x <- xuniq <- unique(xorig)
-  
+
   # Get the minimum & maximum years for each publisher name
   ranges <- x %>% group_by(publisher) %>%
                   summarise(
 		    min = min(publication_year_from, na.rm = TRUE),
 		    max = min(publication_year_till, na.rm = TRUE)
 		  )
-		  
+
   # Build the stop mechanism
   # NB! Hardcoded for Finnish. Language specific handling required.
   # TODO vectorization of for loops with sapply could speed up considerably
@@ -88,10 +88,8 @@ harmonize_publisher <- function(df, languages = c("english")) {
   		    languages=c("finnish", "latin", "swedish", "english"))
   
   if ("finnish" %in% languages) {
-    f = system.file("extdata/fi_publisher_with_placeholders.csv",
-		package="bibliographica")
-  } else {
-    # TODO    
+    f <- system.file("extdata/fi_publisher_with_placeholders.csv",
+			package="bibliographica")
   }
   
   synonyms <- read.csv(file=f, sep="\t", fileEncoding="UTF-8")
@@ -144,6 +142,7 @@ harmonize_publisher <- function(df, languages = c("english")) {
         
         # Continuing the madness. If the publisher is only related to the
 	# person mentioned, it overrides almost anything
+
         if (!is.na(relation) && relation != "") {
 	
           # Ignore everything, where the relations won't match
@@ -153,6 +152,7 @@ harmonize_publisher <- function(df, languages = c("english")) {
 	  # the name and relation
           compare_version <- paste(full_name, relation, sep=" ", collapse="")
         }
+
         # Now, the initials. In case of initials, they must be the same in
 	# tmp_compare_version and the string to match
         # Remove from indices all the indices without the same last
@@ -225,20 +225,30 @@ harmonize_publisher <- function(df, languages = c("english")) {
           tmp_compare_versions[fix_indices] <- gsub(paste(initials, familyname, collapse=" "), full_name, tmp_compare_versions[fix_indices])
         }
 
-        # method="jw" ie. Jaro-Winkler. It takes into account also the length of strings.
-        # The thresholds of p & maxDist are produced by Stetson-Harrison method
-        res <- framePublishers$orig[amatch(compare_version, tmp_compare_versions,
-	       				   method = "jw", p = 0.05, maxDist = 0.06)]
+        # method = "jw" ie. Jaro-Winkler.
+	# takes into account also the length of strings.
+        # The thresholds of p & maxDist are by
+	# Stetson-Harrison method
 
-        if ((is.null(res)) || (is.na(res)) || (res == "")) {
+        res <- framePublishers$orig[amatch(compare_version,
+	         tmp_compare_versions,
+	       	 method = "jw",
+		 p = 0.05, maxDist = 0.06)]
 
-          # Add new entry
-          framePublishers$orig[publisherName_indices] <- publisherName
-          framePublishers$mod[publisherName_indices]  <- compare_version
+        if (length(res) == 0 ||  is.null(res)  ||
+	     is.na(res)  || (res == ""))  {
 
-          if (publisherTotal > 2) {
-            framePublishers$comp[publisherName_indices] <- compare_version
-          }
+	  if (length(publisherName_indices) > 0 &&
+	      length(compare_version)>0) {
+	    
+            # Add new entry
+            framePublishers$orig[publisherName_indices] <- publisherName
+            framePublishers$mod[publisherName_indices]  <- compare_version
+	    
+            if (publisherTotal > 2) {
+              framePublishers$comp[publisherName_indices] <- compare_version
+            }
+	  }
 	  
         } else {
 
@@ -258,10 +268,13 @@ harmonize_publisher <- function(df, languages = c("english")) {
           ranges$max[which(ranges$publisher %in% involved_publisher_names)] <- new_end_year
           
           # Add new entry for the modified result
-          framePublishers$orig[publisherName_indices] <- publisherName
-          framePublishers$mod[publisherName_indices]  <- res
-          if (publisherTotal > 2) {
-            framePublishers$comp[publisherName_indices] <- compare_version
+	  if (length(publisherName_indices) > 0) {
+
+            framePublishers$orig[publisherName_indices] <- publisherName
+            framePublishers$mod[publisherName_indices]  <- res
+            if (publisherTotal > 2) {
+              framePublishers$comp[publisherName_indices] <- compare_version
+	    }
           }
         }
         
@@ -270,6 +283,9 @@ harmonize_publisher <- function(df, languages = c("english")) {
   }
 
   # Back to original indices & Speed up things by only returning mod
-  return(framePublishers$mod[match(xorig$match.id, xuniq$match.id)])  
+  pub <- framePublishers$mod[match(xorig$match.id, xuniq$match.id)]
+  pub <- str_trim(pub)
+
+  return(pub)  
   
 }

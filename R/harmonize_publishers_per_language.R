@@ -1,5 +1,7 @@
 harmonize_publishers_per_language <- function (q, languages) {
 
+  q <- as.character(q)
+
   # Used to the first thing to do in this function
   for (language in languages) {
     if (language=="swedish") {

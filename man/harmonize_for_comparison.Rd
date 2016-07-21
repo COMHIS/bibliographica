@@ -2,7 +2,7 @@
 % Please edit documentation in R/harmonize_for_comparison.R
 \name{harmonize_for_comparison}
 \alias{harmonize_for_comparison}
-\title{Harmonize for comparison}
+\title{Harmonize for Comparison}
 \usage{
 harmonize_for_comparison(x, languages = "english")
 }

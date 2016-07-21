@@ -1,5 +1,7 @@
 clean_publisher <- function (x) {
 
+  x <- as.character(x)
+
   # remove brackets and parentheses (Destructive phase)
   x <- gsub("^[(](.*)[)]$", "\\1", x)
   x <- gsub("^[[](.*)[]]$", "\\1", x)

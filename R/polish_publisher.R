@@ -9,14 +9,17 @@
 #' @keywords utilities
 polish_publisher <- function (df, languages = "english") {
 
+  df$publisher <- as.character(df$publisher)
+
   message("Use corporate field for NA publishers")
   if ("corporate" %in% names(df)) {
     message("Augmenting missing publisher entries with the corporate field")
     inds <- which(is.na(df$publisher))
-    df$publisher[inds] <- df$corporate[inds]
+    df$publisher[inds] <- as.character(df$corporate[inds])
   }
 
   message("Harmonize entries")
+
   pub <- harmonize_publisher(df, languages = languages)
 
   message("Custom synonyme lists")
@@ -25,6 +28,7 @@ polish_publisher <- function (df, languages = "english") {
   synonymes <- read.csv(file = f, sep = "\t", fileEncoding = "UTF-8")
   pub <- map(pub, synonymes, mode = "recursive")
   pub[pub == ""] <- NA
+  
 
   message("Publisher polished.")
   return(pub)
