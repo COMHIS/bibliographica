@@ -15,10 +15,9 @@ harmonize_publisher <- function(df, languages = c("english")) {
 
   # Only consider unique terms to speed up		
   xorig <- df[, c("publisher", "publication_year_from", "publication_year_till")]
-  rownames(xorig) <- paste("r",as.character(1:nrow(xorig)), sep = "-")
+  xorig$match.id <- unname(apply(xorig, 1, function (x) {paste(x, collapse = "-")}))
   x <- xuniq <- unique(xorig)  
  
-  # Language wise harmonization
   x$publisher <- harmonize_publishers_per_language(x$publisher, languages)
   x$publisher <- clean_publisher(x$publisher)
 
@@ -39,7 +38,7 @@ harmonize_publisher <- function(df, languages = c("english")) {
   # reduces number of unique cases further
   # Back to original indices, then unique again;
   # reduces number of unique cases further
-  xorig <- x[match(rownames(xorig), rownames(xuniq)),]    
+  xorig <- x[match(xorig$match.id, xuniq$match.id),]    
   x <- xuniq <- unique(xorig)
   
   # Language wise harmonization
@@ -47,7 +46,7 @@ harmonize_publisher <- function(df, languages = c("english")) {
   x$publisher <- clean_publisher(x$publisher)
 
   # Back to original indices
-  xorig <- x[match(rownames(xorig), rownames(xuniq)),]    
+  xorig <- x[match(xorig$match.id, xuniq$match.id),]    
   x <- xuniq <- unique(xorig)
   
   # Get the minimum & maximum years for each publisher name
@@ -65,7 +64,7 @@ harmonize_publisher <- function(df, languages = c("english")) {
   colnames(caveats) <- NULL
   cav1 <- cbind(caveats[, 1], caveats[, 2])
   cav2 <- cbind(caveats[, 2], caveats[, 1])
-  cav <- rbind(cav1, cav2)
+  cav <- data.frame(rbind(cav1, cav2), stringsAsFactors = FALSE)
   names(cav) <- c("name1", "name2")
 
   # Get the publisher name forms into a table
@@ -271,6 +270,6 @@ harmonize_publisher <- function(df, languages = c("english")) {
   }
 
   # Back to original indices & Speed up things by only returning mod
-  return(framePublishers$mod[match(rownames(xorig), rownames(xuniq))])  
+  return(framePublishers$mod[match(xorig$match.id, xuniq$match.id)])  
   
 }

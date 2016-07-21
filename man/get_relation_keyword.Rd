@@ -2,12 +2,12 @@
 % Please edit documentation in R/get_relation_keyword.R
 \name{get_relation_keyword}
 \alias{get_relation_keyword}
-\title{Get relation keyword}
+\title{Get Relation Keyword}
 \usage{
 get_relation_keyword(x, full_name, languages = c("english"))
 }
 \arguments{
-\item{x}{A vector of publisher names}
+\item{x}{A character vector (e.g. publisher names)}
 
 \item{full_name}{A vector of full names (from first name to last) it has been picked from publisher field}
 
@@ -17,7 +17,7 @@ get_relation_keyword(x, full_name, languages = c("english"))
 Vector with relation keywords
 }
 \description{
-Get keyword that denotes that the person in question is a relative to the named person
+Pick keyword denoting that the person in question is a relative to the named person
 }
 \examples{
 # get_relation_keyword(x, full_name, languages=c("finnish", "swedish", "latin"))
