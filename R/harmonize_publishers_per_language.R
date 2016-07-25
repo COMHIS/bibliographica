@@ -1,3 +1,13 @@
+#' @title Harmonize Publishers per Language
+#' @description Harmonize publishers per language.
+#' @param q Character vector
+#' @param languages languages
+#' @return Harmonized terms
+#' @export
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' @examples \dontrun{x <- harmonize_publishers_per_language(q, languages)}
+#' @keywords utilities
 harmonize_publishers_per_language <- function (q, languages) {
 
   q <- as.character(q)
