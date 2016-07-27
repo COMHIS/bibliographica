@@ -15,7 +15,7 @@ self_published <- function (df) {
   author[author == "NA"] <- NA
 
   #print("Self-published docs where author is known but publisher not")
-  inds <- which(tolower(publisher) == "author" & !is.na(author))
+  inds <- which(tolower(publisher) %in% c("author", "<<author>>") & !is.na(author))
   if (length(inds)>0) {
     publisher[inds] <- author[inds]
   }
