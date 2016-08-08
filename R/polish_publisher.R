@@ -1,4 +1,4 @@
-#' @title Generic Cleanup for the Publisher field
+#' @title Generic Cleanup for the Publisher Field
 #' @description Main handler for publisher fields.
 #' @param df Corresponding data frame assuming the place, year fields are already polished and available.
 #' @param languages languages to consider in polishing
@@ -19,16 +19,14 @@ polish_publisher <- function (df, languages = "english") {
   }
 
   message("Harmonize entries")
-
   pub <- harmonize_publisher(df, languages = languages)
 
   message("Custom synonyme lists")
   # Convert S.N. into NA and Author into <Author>
-  f <- system.file("extdata/NA_publishers.csv", package="bibliographica")
+  f <- system.file("extdata/NA_publishers.csv", package = "bibliographica")
   synonymes <- read.csv(file = f, sep = "\t", fileEncoding = "UTF-8")
   pub <- map(pub, synonymes, mode = "recursive")
   pub[pub == ""] <- NA
-  
 
   message("Publisher polished.")
   return(pub)

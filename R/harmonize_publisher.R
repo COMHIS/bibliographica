@@ -92,7 +92,7 @@ harmonize_publisher <- function(df, languages = c("english")) {
 			package="bibliographica")
   }
   
-  synonyms <- read.csv(file=f, sep="\t", fileEncoding="UTF-8")
+  synonyms <- read.csv(file = f, sep = "\t", fileEncoding = "UTF-8")
   
   # TODO vectorization of for loops with sapply could speed up considerably  
   for (i in 1:nrow(synonyms)) {

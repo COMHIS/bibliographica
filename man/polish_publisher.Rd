@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_publisher.R
 \name{polish_publisher}
 \alias{polish_publisher}
-\title{Generic Cleanup for the Publisher field}
+\title{Generic Cleanup for the Publisher Field}
 \usage{
 polish_publisher(df, languages = "english")
 }
