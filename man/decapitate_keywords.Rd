@@ -15,7 +15,7 @@ decapitate_keywords(x, languages = c("english"))
 Vector of words
 }
 \description{
-Removes keywords.
+Removes keywords
 }
 \examples{
 # extract_personal_names(x, languages=c("finnish", "swedish", "latin"))

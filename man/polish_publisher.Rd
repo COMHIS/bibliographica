@@ -2,23 +2,21 @@
 % Please edit documentation in R/polish_publisher.R
 \name{polish_publisher}
 \alias{polish_publisher}
-\title{Generic Cleanup for the Publisher Field}
+\title{Polish Publisher Main}
 \usage{
-polish_publisher(df, languages = "english")
+polish_publisher(df)
 }
 \arguments{
-\item{df}{Corresponding data frame assuming the place, year fields are already polished and available.}
-
-\item{languages}{languages to consider in polishing}
+\item{df}{data.frame}
 }
 \value{
-A vector with polished entries.
+Data frame with orig, mod
 }
 \description{
 Main handler for publisher fields.
 }
 \author{
-Hege Roivainen \email{hege.roivainen@gmail.com}
+Leo Lahti \email{hege.roivainen@gmail.com}
 }
 \references{
 See citation("bibliographica")
