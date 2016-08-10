@@ -19,7 +19,7 @@ polish_publisher <- function (df, languages = "english") {
   }
 
   message("Harmonize entries")
-  pub <- harmonize_publisher(df, languages = languages)
+  pub <- harmonize_publisher(df, languages = languages)$mod
 
   message("Custom synonyme lists")
   # Convert S.N. into NA and Author into <Author>

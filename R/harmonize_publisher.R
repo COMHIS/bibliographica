@@ -283,8 +283,8 @@ harmonize_publisher <- function(df, languages = c("english")) {
   }
 
   # Back to original indices & Speed up things by only returning mod
-  pub <- framePublishers$mod[match(xorig$match.id, xuniq$match.id)]
-  pub <- str_trim(pub)
+  pub <- framePublishers[match(xorig$match.id, xuniq$match.id),]
+  pub$mod <- str_trim(pub$mod)
 
   return(pub)  
   
