@@ -303,7 +303,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # inst/extdata/publisher.Rmd
 
    message("Accepted publishers")
-   field = "publisher"
+   field <- "publisher"
 
    message("Use corporate field for NA publishers")
    if ("corporate" %in% names(df.orig)) {
@@ -321,9 +321,12 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       inds <- which(is.na(df.preprocessed[[field]]))
       original <- as.vector(na.omit(as.character(df.orig[[field]][inds])))
       # Remove trivial cases to simplify output
-      inds <- c(grep("^\\[+s\\.+n\\.+\\]+$", tolower(original)),
-      	        grep("^\\[+s\\.+n\\.+\\[+$", tolower(original)))
-      original <- original[-inds]
+      inds <- c(grep("^\\[*s\\.*n\\.*\\]*[0-9]*$", tolower(original)),
+      	        grep("^\\[*s\\.*n\\.*\\[*[0-9]*$", tolower(original)))
+		
+      if (length(inds) > 0) {		
+        original <- original[-inds]
+      }
       tmp <- write_xtable(original, paste(output.folder, field, "_discarded.csv", sep = ""), count = TRUE)
    }
 
