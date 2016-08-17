@@ -321,7 +321,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       inds <- which(is.na(df.preprocessed[[field]]))
       original <- as.vector(na.omit(as.character(df.orig[[field]][inds])))
       # Remove trivial cases to simplify output
-      inds <- c(grep("^\\[*s\\.*n\\.*\\]*[0-9]*$", tolower(original)),
+      inds <- c(grep("^\\[*s\\.*n\\.*\\]*[0-9]*\\.*$", tolower(original)),
       	        grep("^\\[*s\\.*n\\.*\\[*[0-9]*$", tolower(original)))
 		
       if (length(inds) > 0) {		

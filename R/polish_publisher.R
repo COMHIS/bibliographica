@@ -1,5 +1,5 @@
-#' @title Polish Publisher Main
-#' @description Main handler for publisher fields.
+#' @title Polish Publisher Generic
+#' @description Generic cleanup of the publisher field.
 #' @param x Character vector of publisher names
 #' @return Data frame with orig, mod
 #' @export
@@ -8,7 +8,18 @@
 #' @keywords utilities
 polish_publisher <- function (x) {
 
-  # No operations implemented for now.		 
-  x
+  # Lowercase		 
+  x <- tolower(x)
+
+  # .test -> test
+  x <- gsub("^\\.*", "", x)
+
+  # test. -> test
+  x <- gsub("\\.*$", "", x)
+
+  # s.n -> ""
+  x <- gsub("\\[*s\\.*n\\.*\\]*", " ", x)
+
+  x <- condense_spaces(x)
 
 }

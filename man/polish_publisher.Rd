@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_publisher.R
 \name{polish_publisher}
 \alias{polish_publisher}
-\title{Polish Publisher Main}
+\title{Polish Publisher Generic}
 \usage{
 polish_publisher(x)
 }
@@ -13,7 +13,7 @@ polish_publisher(x)
 Data frame with orig, mod
 }
 \description{
-Main handler for publisher fields.
+Generic cleanup of the publisher field.
 }
 \author{
 Leo Lahti \email{hege.roivainen@gmail.com}
