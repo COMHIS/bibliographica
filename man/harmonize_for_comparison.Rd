@@ -18,7 +18,7 @@ Vector of publishers names
 Harmonize orthography
 }
 \examples{
-# harmonize_for_comparison(x, language="finnish")
+# harmonize_for_comparison(x, languages = "finnish")
 }
 \author{
 Hege Roivainen \email{hege.roivainen@gmail.com}

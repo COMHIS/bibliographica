@@ -75,10 +75,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, paste("author_conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
 
-
-
-
-
   # -----------------------------------------------------
 
    message("subject_topic")
@@ -324,6 +320,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
    if ((field %in% names(df.preprocessed)) && (field %in% names(df.orig))) {
       inds <- which(is.na(df.preprocessed[[field]]))
       original <- as.vector(na.omit(as.character(df.orig[[field]][inds])))
+      # Remove trivial cases to simplify output
+      inds <- grep("^[+s\\.+n\\.+]+$", original)
+      original <- original[-inds]
       tmp <- write_xtable(original, paste(output.folder, field, "_discarded.csv", sep = ""), count = TRUE)
    }
 

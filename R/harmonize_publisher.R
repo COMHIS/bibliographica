@@ -142,13 +142,15 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
   }
   
   # prepare_nameforms (remove initials, transform fv -> v; fw -> v ... etc.)
-  compPublisher <- harmonize_for_comparison(na.omit(tab[,1]), language="finnish")
+  # TODO should not be finland specific !
+  compPublisher <- harmonize_for_comparison(na.omit(tab[,1]), languages="finnish")
 
   # Initiate & preallocate a new version of publishers
   #framePublishers <- data.frame(orig=character(nrow(tab)), mod=character(nrow(tab)), comp=character(nrow(tab)), total=numeric(nrow(tab)), stringsAsFactors = FALSE)
   framePublishers <- data.frame(orig=character(length(id)), mod=character(length(id)), comp=character(length(id)), total=numeric(length(id)), stringsAsFactors = FALSE)
   
   # extract initials etc., in case publisher is a person (may contain lots of false persons)
+  # TODO should not be Finland specific !
   personal_names <- extract_personal_names(compPublisher, languages=c("finnish", "latin", "swedish"))
   
   if (language=="finnish") {

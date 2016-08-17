@@ -4,10 +4,10 @@
 \alias{polish_publisher}
 \title{Polish Publisher Main}
 \usage{
-polish_publisher(df)
+polish_publisher(x)
 }
 \arguments{
-\item{df}{data.frame}
+\item{x}{Character vector of publisher names}
 }
 \value{
 Data frame with orig, mod
