@@ -1,6 +1,6 @@
-#' @title Clean publisher
-#' @description Pre-cleans publisher field
-#' @param x Vector of publisher names
+#' @title Clean Publisher
+#' @description Preliminary cleanup for the publisher field.
+#' @param x A vector of publisher names
 #' @param languages A vector of languages which are used in detecting relation keywords
 #' @return Vector of publisher names
 #' @export
@@ -45,20 +45,23 @@ clean_publisher <- function(x, languages=c("english")) {
   q <- xuniq <- unique(xorig)
 
   # Used to the first thing to do in this function
+  # TODO we already have lots of these terms in inst/extdata/printstop_*.csv
+  # could we just switch to those ?
   for (language in languages) {
-    if (language=="swedish") {
+    if (language == "swedish") {
       f <- system.file("extdata/sv_publisher.csv", package="bibliographica")
-    } else if (language=="english") {
+    } else if (language == "english") {
       f <- system.file("extdata/en_publisher.csv", package="bibliographica")
-    } else if (language=="finnish") {
+    } else if (language == "finnish") {
       f <- system.file("extdata/fi_publisher.csv", package="bibliographica")
-    } else if (language=="latin") {
+    } else if (language == "latin") {
       f <- system.file("extdata/lat_publisher.csv", package="bibliographica")
     } else {
       print (paste0("Unknown language in languages: ", language))
     }
 
-    synonyms <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")
+    #synonyms <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")
+    synonyms <- read_mapping(f, sep = "\t", encoding = "UTF-8")    
 
     q <- map(q, synonyms, mode="recursive")
 
@@ -84,7 +87,7 @@ clean_publisher <- function(x, languages=c("english")) {
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1.\\2.\\3. \\4", q)
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1.\\2. \\3", q)
   q <- gsub("\\b([[:upper:]])[.]?[ ]?([[:upper:]][[:lower:]])", "\\1. \\2", q)
-
+  q <- str_trim(q)
 
   # Back to original indices
   qret <- q[match(xorig, xuniq)]

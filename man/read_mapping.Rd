@@ -8,7 +8,7 @@ read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
   include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE,
   verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE,
   from = "synonyme", to = "name", fast = FALSE, encoding = "UTF-8",
-  trim = FALSE)
+  trim = FALSE, empty.is.na = FALSE)
 }
 \arguments{
 \item{file}{Input file}
@@ -40,6 +40,8 @@ read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
 \item{encoding}{Character encoding (needed in Windows environment)}
 
 \item{trim}{trim empty spaces from the beginning and end of the strings}
+
+\item{empty.is.na}{Interpret empty conversions as NA. By default this is FALSE.}
 }
 \value{
 Synonyme data frame with the fields 'name' (the selected term) and 'synonyme' (the alternative terms).

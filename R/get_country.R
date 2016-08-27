@@ -1,5 +1,5 @@
 #' @title Get Country
-#' @description Map geographic places to country names
+#' @description Map geographic places to country names.
 #' @param x A vector of region names (cities or municipalities etc.)
 #' @param map data.frame with region to country mappings (fields 'region' and 'country')
 #' @return Country vector
