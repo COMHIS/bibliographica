@@ -9,7 +9,7 @@
 polish_publisher <- function (x) {
 
   # Lowercase		 
-  x <- tolower(x)
+  # x <- tolower(x)
 
   # .test -> test
   x <- gsub("^\\.*", "", x)
