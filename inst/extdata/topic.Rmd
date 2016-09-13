@@ -25,7 +25,8 @@ tab <- rev(sort(tab))
 Top-`r ntop` subject topics and number of documents for each.
 
 ```{r summarytopics22, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=8}
-p <- top_plot(df, "subject_topic", ntop)
+tab <- unlist(strsplit(na.omit(as.character(df$subject_topic)), ";"))
+p <- top_plot(tab[!is.na(tab)], ntop = ntop)
 p <- p + ggtitle(paste("Top subject topics"))
 p <- p + ylab("Documents")
 print(p)
@@ -33,7 +34,7 @@ print(p)
 
 ### Publication topic
 
-We also have the publication_topic field. The links are invalid if the lists are empty.
+The publication_topic field is also available in some catalogs. The links are invalid if the lists are empty.
 
 ```{r summarytopics22334, echo=FALSE, message=FALSE, warning=FALSE}
 # List all topics
@@ -49,12 +50,15 @@ tab <- rev(sort(tab))
   * [List of discarded publication topics](output.tables/publication_topic_discarded.csv)
   * `r sum(!is.na(df$publication_topic))` documents (`r round(100*mean(!is.na(df$publication_topic)))`%) are assigned a publication topic 
 
-
-Top-`r ntop` publication topics and number of documents for each.
+Top-`r ntop` publication topics and number of documents for each, in
+case the field is available:
 
 ```{r summarytopics223, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=8}
-p <- top_plot(df, "publication_topic", ntop)
-p <- p + ggtitle(paste("Top publication topics"))
-p <- p + ylab("Documents")
-print(p)
+p <- NULL
+if ("publication_topic" %in% names(df)) {
+  p <- top_plot(df, "publication_topic", ntop)
+  p <- p + ggtitle(paste("Top publication topics"))
+  p <- p + ylab("Documents")
+  print(p)
+}
 ```

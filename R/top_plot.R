@@ -12,10 +12,6 @@
 #' @keywords utilities
 top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL) {
 
-  if (nrow(x) == 0 | length(x) == 0) {
-    return(ggplot())
-  }
-
   # Circumvent warnings in build
   color <- NULL
 
@@ -23,8 +19,12 @@ top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL) {
     x <- x[[field]]
   }
 
-  if (is.factor(x)) {
-    x <- droplevels(x)
+  if (is.factor(x) || is.character(x) || is.numeric(x)) {
+    x <- droplevels(as.factor(x))
+  }
+
+  if (length(x) == 0) {
+    return(ggplot())
   }
 
   tab <- rev(sort(table(x)))
