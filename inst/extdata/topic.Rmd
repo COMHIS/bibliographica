@@ -7,6 +7,9 @@ output: markdown_document
 
 ## Subject topics
 
+The topics are shown individually. Note that each document may have
+several assigned topics.
+
 ```{r summarytopics, echo=FALSE, message=FALSE, warning=FALSE}
 # List all topics
 spl <- strsplit(na.omit(as.character(df$subject_topic)), ";")
@@ -19,7 +22,7 @@ tab <- rev(sort(tab))
 
   * `r length(unique(df$subject_topic))` [unique accepted subject topics](output.tables/subject_topic_accepted.csv)
   * [List of discarded subject topics](output.tables/subject_topic_discarded.csv)
-  * `r sum(!is.na(df$subject_topic))` documents (`r round(100*mean(!is.na(df$subject_topic)))`%) are assigned a subject topic 
+  * `r sum(!is.na(df$subject_topic))` documents (`r round(100*mean(!is.na(df$subject_topic)))`%) are assigned one or more subject topics 
 
 
 Top-`r ntop` subject topics and number of documents for each.

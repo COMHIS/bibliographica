@@ -25,7 +25,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     "row.index", "paper", "publication_decade",
     "publication_year", "subject_topic", "publication_year_from", "publication_year_till",
     "pagecount", "obl", "obl.original", "original_row", "dissertation",
-    "synodal", "original", "unity", "author_birth", "author_death",
+    "synodal", "language", "original", "unity", "author_birth", "author_death",
     "gatherings.original", "width.original", "height.original",
     "longitude", "latitude", "page", "item", "publisher.printedfor",
     "publisher", "country", "author_pseudonyme", "publication_place",
@@ -410,10 +410,12 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # List unique languages that occur in the data
   lang <- unlist(strsplit(df.orig$language, ";"))
   # Remove the known ones (und is Undetermined)
-  unknown.lang <- setdiff(lang, c(abrv$synonyme, "und"))
+  known.abbreviations <- setdiff(abrv$synonyme, "und") # und = Undetermined
+  unknown.lang <- setdiff(lang, known.abbreviations) 
   if (length(unknown.lang)>0) {
     # Count occurrences of each unknown lang
-    u <- colSums(sapply(unknown.lang, function (ul) grepl(ul, df.orig$language)))
+    u <- rev(sort(colSums(sapply(unknown.lang, function (ul) grepl(paste("^", ul, "$", sep = ""), unlist(strsplit(df.orig$language, ";")))))))
+    u <- u[u > 0]
     tab <- cbind(term = names(u), n = unname(u))
     tmp <- write.csv(tab,
 	     file = paste(output.folder, "language_discarded.csv", sep = ""),
@@ -421,6 +423,10 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   } else {
     write.csv("No entries.", file = paste(output.folder, "language_discarded.csv", sep = ""))
   }
+
+  message("Accepted languages")
+  known.lang <- lang[lang %in% known.abbreviations]
+  tmp <- write_xtable(map(known.lang, abrv), paste(output.folder, "language_accepted.csv", sep = ""), count = TRUE)
 
   message("Language conversions")
   field = "language"
