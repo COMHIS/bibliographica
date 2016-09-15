@@ -418,16 +418,16 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   message("Conversion: publication interval")
   # Publication interval
   o <- as.character(df.orig[["publication_interval"]])
-  x <- df.preprocessed[, c("publication_interval", "publication_interval_from", "publication_interval_till")]
+  x <- df.preprocessed[, c("publication_interval_from", "publication_interval_till")]
   tab <- cbind(original = o, x)
-  tab <- tab[!is.na(tab$publication_interval),]
+  tab <- tab[!is.na(tab$publication_interval_from) | !is.na(tab$publication_interval_till),]
   tmp <- write_xtable(tab,
       paste(output.folder, "publication_interval_conversion_nontrivial.csv",
       sep = ""), count = TRUE)
   
   message("Discarded publication interval")
   o <- as.character(df.orig[["publication_interval"]])
-  x <- as.character(df.preprocessed[["publication_interval"]])
+  x <- as.character(df.preprocessed[c("publication_interval_from", "publication_interval_till")])
   inds <- which(is.na(x))
   tmp <- write_xtable(o[inds],
       paste(output.folder, "publication_interval_discarded.csv", sep = ""),
