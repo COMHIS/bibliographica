@@ -9,7 +9,7 @@
 polish_publication_frequency <- function(x) {
 
   # Remove periods
-  x <- tolower(gsub("\\.$", "", x))
+  x <- condense_spaces(tolower(gsub("\\.$", "", x)))
 
   f <- system.file("extdata/replace_special_chars.csv",
                 package = "bibliographica")

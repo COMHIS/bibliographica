@@ -66,6 +66,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x = xuniq <- unique(xorig)
   
   x <- harmonize_ie(x)
+
   x <- gsub("-a", "- a", x) # -approximately
   x <- remove_print_statements(x)
   
@@ -76,7 +77,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- sapply(x, function (xi) {handle_ie(xi, harmonize = FALSE)}, USE.NAMES = FALSE)
   x <- condense_spaces(gsub("\\.", " ", x))
   x <- remove_time_info(x, verbose = F, months)
-  
+
   # Map back to original indices and make unique again. To speedup further.
   xorig <- x[match(xorig, xuniq)]
   x <- xuniq <- unique(xorig)
@@ -88,7 +89,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- gsub("^& ", "", x)  
   x <- gsub(" -", "-", gsub("- ", "-", x))
   x <- harmonize_christian(x)
-  
+
   inds <- grep(" or ", x)
   if (length(inds)>0) {
     x[inds] <- sapply(x[inds], function (x) unlist(strsplit(x, " or "), use.names = FALSE)[[2]])
@@ -107,9 +108,9 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   xorig <- x
   xuniq <- unique(xorig)
   x <- xuniq
-  
+
   res <- suppressWarnings(lapply(x, function (xi) {a <- try(polish_year(xi, start_synonyms = start_synonyms, end_synonyms = end_synonyms, months, verbose)); if (class(a) == "try-error") {return(c(NA, NA))} else {return(a)}}))
-  
+
   res <- do.call("rbind", res)
   start_year <- res[,1]
   end_year   <- res[,2]
@@ -147,7 +148,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, verbose = FALSE) {
   
   # if (verbose) {message(x)}
-  
+
   # Some quick returns for simple cases to speed up
   if (length(grep("^[0-9]{4}$", x)) > 0) {
     # 1900
@@ -176,7 +177,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     end <- NA
     return (c(from=as.numeric(start), till=as.numeric(end)))    
   }
-  
+
   # More complex cases..
   # "mdccx-mdccxi [1710-1711]" -> [1710-1711]
   if (length(grep("[[:lower:]]*-[[:lower:]]* \\[[0-9]*-[0-9]*\\]", x))>0) {
@@ -190,11 +191,16 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   } else if (length(grep("^[0-9]{4}\\[[0-9]{4}\\]-[0-9]{2}", x))>0) {
     # "1646[1647]-50" -> 1647-50
     x <- gsub("\\]", "", substr(x, 6, nchar(x)))
-  } else if (length(grep("^[0-9]{4} \\[po [0-9]*\\]", x))>0) {
-    # "1738 [po. 1752]" -> 1738
-    x <- substr(x, 1, 4)
   }
-  
+  #else if (length(grep("^[0-9]{4} \\[po [0-9]*\\]", x))>0) {
+  #  # "1738 [po[\\.]* 1752]" -> 1738
+  #  x <- substr(x, 1, 4)
+  #} else if (length(grep("^[0-9]{4} \\[po[\\.]* [0-9]+-[0-9]+\\]", x))>0) {
+  #  # "1738 [po* 1739-1752]" -> 1739-1752
+  #  #x <- condense_spaces(gsub("\\]", "", unlist(strsplit(x, "\\[po"))[[2]]))
+  #  x <- gsub("po", "ie", x)
+  #}
+
   # Now Remove some special chars
   x <- gsub("\\(\\)", "", x)  
   x <- gsub("-+", "-", x)

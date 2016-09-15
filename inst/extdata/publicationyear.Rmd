@@ -36,7 +36,7 @@ Publication frequency information is available for `r sum(!is.na(df$publication_
 
 ### Publication interval
 
-Publication interval is available for `r sum(!is.na(df$publication_interval))` documents (`r round(100*mean(!is.na(df$publication_interval)))`%). 
+Publication interval is available for `r sum(!is.na(df$publication_interval_from) | !is.na(df$publication_interval_till))` documents (`r round(100*mean(!is.na(df$publication_interval_from) | !is.na(df$publication_interval_till)))`%). 
 
 [Publication interval accepted](output.tables/publication_interval_accepted.csv)
 
@@ -54,17 +54,15 @@ are multiple instances from the same earliest year, they are all
 marked as potential first editions. Later need to check if this
 information is readily available in MARC.
 
-In this data we have `r nrow(unique(df[, c("title", "author")]))`
-unique documents with an identical title and author. Out of these,
-`r length(which(write_xtable(df[, c("title", "author")])$Count > 1))`
-have multiple occurrences, sometimes with different publication years.
-Where multiple publication years are seen, the earliest occurrence is
-suggested as the first edition.
+There are `r nrow(unique(df[, c("title", "author")]))` unique
+documents with an identical title and author; `r
+length(which(write_xtable(df[, c("title", "author")])$Count > 1))` of
+those have multiple occurrences, sometimes with different publication
+years.  The earliest occurrence is suggested as the first edition.
 
 This figure shows the number of first editions per decade.
 
 ```{r firsteditions, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
-dev.off()
 df <- df.preprocessed
 df <- df %>% group_by(publication_decade) %>%
              summarise(total = n(), first = sum(first_edition, na.rm = TRUE))

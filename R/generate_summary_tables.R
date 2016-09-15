@@ -25,6 +25,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     "row.index", "paper", "publication_decade",
     "publication_year", "publication_year_from", "publication_year_till",
     "publication_interval",
+    "publication_interval_from",
+    "publication_interval_till",        
     "subject_topic", 
     "pagecount", "obl", "obl.original", "original_row", "dissertation",
     "synodal", "language", "original", "unity", "author_birth", "author_death",
@@ -389,6 +391,11 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   # --------------------------------------------
 
+  message("Accepted publication frequency")
+  tmp <- write_xtable(df.preprocessed$publication_frequency_annual,
+      paste(output.folder, "publication_frequency_accepted.csv", sep = ""),
+      count = TRUE, sort.by = "publication_frequency_annual")
+
   message("Conversion: publication frequency")
   # Publication frequency
   o <- as.character(df.orig[["publication_frequency"]])
@@ -397,21 +404,17 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tab <- tab[!is.na(tab$publication_frequency_text),]
   tmp <- write_xtable(tab,
       paste(output.folder, "publication_frequency_conversion.csv",
-      sep = ""), count = TRUE)
+      sep = ""), count = TRUE) #, sort.by = "publication_frequency_annual")
   
   message("Discarded publication frequency")
   o <- as.character(df.orig[["publication_frequency"]])
   x1 <- as.character(df.preprocessed[["publication_frequency_annual"]])
   x2 <- as.character(df.preprocessed[["publication_frequency_text"]])  
   inds <- which(is.na(x1) & is.na(x2))
+  #inds <- which(is.na(x1))  
   tmp <- write_xtable(o[inds],
       paste(output.folder, "publication_frequency_discarded.csv", sep = ""),
       count = TRUE)
-
-  message("Accepted publication frequency")
-  tmp <- write_xtable(df.preprocessed$publication_frequency_annual,
-      paste(output.folder, "publication_frequency_accepted.csv", sep = ""),
-      count = TRUE, sort.by = "publication_frequency_annual")
 
   # --------------------------------------------
 
@@ -427,10 +430,18 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   
   message("Discarded publication interval")
   o <- as.character(df.orig[["publication_interval"]])
-  x <- as.character(df.preprocessed[c("publication_interval_from", "publication_interval_till")])
-  inds <- which(is.na(x))
+  x <- df.preprocessed[c("publication_interval_from", "publication_interval_till")]
+  inds <- which(rowSums(is.na(x)) == 2)
   tmp <- write_xtable(o[inds],
       paste(output.folder, "publication_interval_discarded.csv", sep = ""),
+      count = TRUE)
+
+  message("Accepted publication interval")
+  o <- as.character(df.orig[["publication_interval"]])
+  x <- df.preprocessed[c("publication_interval_from", "publication_interval_till")]
+  inds <- which(rowSums(!is.na(x))>0)
+  tmp <- write_xtable(x[inds,],
+      paste(output.folder, "publication_interval_accepted.csv", sep = ""),
       count = TRUE)
   
   # --------------------------------------------
