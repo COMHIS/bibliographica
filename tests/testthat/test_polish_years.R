@@ -198,12 +198,27 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("1738 [po. 1746]")$from, 1746)
   expect_equal(polish_years("1738 [po 1746]")$from, 1746)
   expect_equal(polish_years("prÃ¤ndÃ¤tty wuonna 1739 [po. 1771--1784]")$from, 1771)
-  expect_equal(polish_years("prÃ¤ndÃ¤tty wuonna 1739 [po. 1771--1784]")$till, 1784)      
+  expect_equal(polish_years("prÃ¤ndÃ¤tty wuonna 1739 [po. 1771--1784]")$till, 1784)
 
-  # expect_equal(polish_years("1905 [oik. 15]")$from, 1905)   
-  # expect_equal(polish_years("étei a kh o s [=1676]")$from, 1676)  
-  #expect_equal(polish_years("wuona jelken Christuxen syndymän 1616,;1616")$from, 1616)
-  # MDCCI. [1701] [1702]
+  expect_equal(polish_years("1905 [oik. 15]")$from, 1915)
+ 
+  expect_equal(polish_years("[1904-] 1905.")$from, 1904)
+  expect_equal(polish_years("[1904-] 1905.")$till, 1905)  
+
+  expect_equal(polish_years("1722?,;2:o.")$from, 1722)
+  expect_equal(polish_years("1731,;4:o.")$from, 1731)
+  expect_equal(polish_years("1893-1913[?]")$from, 1893)
+  expect_equal(polish_years("1893-1913[?]")$till, 1913)
+  expect_equal(polish_years("1913, 1915, 1916.")$from, 1913)
+  expect_equal(polish_years("1913, 1915, 1916.")$till, 1916)  
+  expect_equal(polish_years("a[...] 1666-1670.")$from, 1666)
+  expect_equal(polish_years("a[...] 1666-1670.")$till, 1670)  
+  expect_equal(polish_years("wuona jelken Christuxen syndymän 1616,;1616")$from, 1616)
+  expect_equal(polish_years("étei a kh o s [=1676]")$from, 1676)
+  expect_equal(polish_years("MDCCI. [1701] [1702]")$from, 1701)
+  expect_equal(polish_years("MDCCI. [1701] [1702]")$till, 1702)    
+   
+  # expect_equal(polish_years("wuonna 1754 s. 13 päiwänä touco cuusa.")$from, 1754)  
 
   
 })

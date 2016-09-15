@@ -17,6 +17,7 @@ harmonize_ie <- function (x, separator = "i.e") {
   x <- condense_spaces(x)
   x <- gsub("-+", "-", x)
 
+  x <- gsub("\\[oik[\\.]*", "[i.e ", x)
   x <- gsub("p\\.o\\.", " i.e ", x) # Finnish: pitaisi olla
   x <- gsub("p\\.o ", " i.e ", x) # Finnish: pitaisi olla  
   x <- gsub("\\[po[\\.]*", " i.e ", x) # Finnish: pitaisi olla  
