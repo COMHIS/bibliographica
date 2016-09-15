@@ -25,11 +25,11 @@ print(p)
 
 ### Publication frequency
 
-Publication frequency is available for `r sum(!is.na(df$publication_frequency))` documents (`r round(100*mean(!is.na(df$publication_frequency)))`%). The links are invalid if the lists are empty.
+Publication frequency information is available for `r sum(!is.na(df$publication_frequency_text))` documents (`r round(100*mean(!is.na(df$publication_frequency)))`%). The links are invalid if the lists are empty.
 
 [Publication frequency accepted](output.tables/publication_frequency_accepted.csv)
 
-[Publication frequency conversions](output.tables/publication_frequency_conversion_nontrivial.csv)
+[Publication frequency conversions](output.tables/publication_frequency_conversion.csv)
 
 [Publication frequency discarded](output.tables/publication_frequency_discarded.csv)
 

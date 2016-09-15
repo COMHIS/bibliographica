@@ -137,8 +137,8 @@ polish_field <- function (df, df.preprocessed, field, verbose = TRUE, mc.cores =
       
     # Add to data.frame
     df.tmp <- data.frame(
-      publication_frequency_per_year = tmp$annual,
-      publication_frequency = tmp$freq)    
+      publication_frequency_annual = tmp$annual,
+      publication_frequency_text = tmp$freq)    
 
   } else if (field == "control_number") {
   
