@@ -34,16 +34,14 @@ polish_field <- function (df, df.preprocessed, field, verbose = TRUE, mc.cores =
   	      	 		     )
 
   # No preprocessing implemented for these fields
-  # but the name may chaneg
+  # but the name may change
   if (field %in% c("control_number",
                  "subject_geography",
 		 "publication_geography",
 		 "title_uniform",
 		 "title_uniform2",
-		 "publication_frequency",
 		 "row_index",
 		 "original_row",
-		 "publication_interval",
 		 "estc_control_number"		 
 		 )) {
     df.tmp <- data.frame(df[[field]])
@@ -123,6 +121,24 @@ polish_field <- function (df, df.preprocessed, field, verbose = TRUE, mc.cores =
     df.tmp <- data.frame(publication_year_from = tmp$from,
               		 publication_year_till = tmp$till
         )
+
+  } else if (field == "publication_interval") {
+    
+    tmp <- polish_years(df[[field]], check = TRUE)
+      
+    # Add to data.frame
+    df.tmp <- data.frame(publication_interval_from = tmp$from,
+              		 publication_interval_till = tmp$till
+        )
+    
+  } else if (field == "publication_frequency") {
+  
+    tmp <- polish_publication_frequency(df[[field]])
+      
+    # Add to data.frame
+    df.tmp <- data.frame(
+      publication_frequency_per_year = tmp$annual,
+      publication_frequency = tmp$freq)    
 
   } else if (field == "control_number") {
   

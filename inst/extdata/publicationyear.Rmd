@@ -27,9 +27,9 @@ print(p)
 
 Publication frequency is available for `r sum(!is.na(df$publication_frequency))` documents (`r round(100*mean(!is.na(df$publication_frequency)))`%). The links are invalid if the lists are empty.
 
-[Publication frequency accepted](output.tables/publication_frequency_discarded.csv)
+[Publication frequency accepted](output.tables/publication_frequency_accepted.csv)
 
-[Publication frequency conversions](output.tables/publication_frequency_conversion.csv)
+[Publication frequency conversions](output.tables/publication_frequency_conversion_nontrivial.csv)
 
 [Publication frequency discarded](output.tables/publication_frequency_discarded.csv)
 
@@ -38,9 +38,9 @@ Publication frequency is available for `r sum(!is.na(df$publication_frequency))`
 
 Publication interval is available for `r sum(!is.na(df$publication_interval))` documents (`r round(100*mean(!is.na(df$publication_interval)))`%). 
 
-[Publication interval accepted](output.tables/publication_interval_discarded.csv)
+[Publication interval accepted](output.tables/publication_interval_accepted.csv)
 
-[Publication interval conversions](output.tables/publication_interval_conversion.csv)
+[Publication interval conversions](output.tables/publication_interval_conversion_nontrivial.csv)
 
 [Publication interval discarded](output.tables/publication_interval_discarded.csv)
 
@@ -63,18 +63,21 @@ suggested as the first edition.
 
 This figure shows the number of first editions per decade.
 
-```{r firsteditions, echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=6, out.width="280px"}
+```{r firsteditions, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+dev.off()
 df <- df.preprocessed
 df <- df %>% group_by(publication_decade) %>%
-             summarise(n = sum(first_edition, na.rm = TRUE))
-
+             summarise(total = n(), first = sum(first_edition, na.rm = TRUE))
+df2 <- melt(df, id = "publication_decade")
 theme_set(theme_bw(20))
-p <- ggplot(df, aes(x = publication_decade, y = n)) +
-       geom_point(size = 5) +
-       geom_smooth(col = "black") + 
+p <- ggplot(df2, aes(x = publication_decade, y = value, group = variable)) +
+       geom_point(aes(shape = variable), size = 5) +
+       geom_line(aes(shape = variable)) +       
+       geom_smooth(aes(col = variable, fill = variable)) + 
        xlab("Publication year") +
        ylab("First editions (n)") +
-       ggtitle(paste("First editions count (", catalogue, ")", sep = ""))
+       #scale_y_log10() +
+       ggtitle("First editions vs. total title count")
 print(p)
 ```
 

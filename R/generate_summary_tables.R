@@ -23,7 +23,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   for (field in setdiff(names(df.preprocessed),
     c(names(df.preprocessed)[grep("language", names(df.preprocessed))] , 
     "row.index", "paper", "publication_decade",
-    "publication_year", "subject_topic", "publication_year_from", "publication_year_till",
+    "publication_year", "publication_year_from", "publication_year_till",
+    "publication_interval",
+    "subject_topic", 
     "pagecount", "obl", "obl.original", "original_row", "dissertation",
     "synodal", "language", "original", "unity", "author_birth", "author_death",
     "gatherings.original", "width.original", "height.original",
@@ -383,6 +385,26 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   inds <- which(is.na(x))
   tmp <- write_xtable(o[inds],
       paste(output.folder, "publication_year_discarded.csv", sep = ""),
+      count = TRUE)
+
+  # --------------------------------------------
+
+  message("Conversion: publication interval")
+  # Publication interval
+  o <- as.character(df.orig[["publication_interval"]])
+  x <- df.preprocessed[, c("publication_interval", "publication_interval_from", "publication_interval_till")]
+  tab <- cbind(original = o, x)
+  tab <- tab[!is.na(tab$publication_interval),]
+  tmp <- write_xtable(tab,
+      paste(output.folder, "publication_interval_conversion.csv",
+      sep = ""), count = TRUE)
+  
+  message("Discarded publication interval")
+  o <- as.character(df.orig[["publication_interval"]])
+  x <- as.character(df.preprocessed[["publication_interval"]])
+  inds <- which(is.na(x))
+  tmp <- write_xtable(o[inds],
+      paste(output.folder, "publication_interval_discarded.csv", sep = ""),
       count = TRUE)
   
   # --------------------------------------------
