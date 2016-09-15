@@ -222,3 +222,14 @@ test_that("Year polishing is correct", {
 
   
 })
+
+x <- df.orig$publication_interval
+inds <- c(sample(grep("^[0-9]{4}$", gsub("\\.$", "", x)), 50))
+write.table(df.orig[inds,], file = "~/tmp/tmp.csv", sep = "|", quote = F, row.names = F)
+
+
+#1-16
+#inds2 <- sample(grep("^[0-9]{1}-[0-9]{1,2}$", gsub("\\.$", "", df.orig$publication_interval)), 50)
+write.table(df.orig[inds2,], file = "~/tmp/tmp2.csv", sep = "|", quote = F, row.names = F)
+
+
