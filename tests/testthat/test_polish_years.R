@@ -216,8 +216,70 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("wuona jelken Christuxen syndymän 1616,;1616")$from, 1616)
   expect_equal(polish_years("étei a kh o s [=1676]")$from, 1676)
   expect_equal(polish_years("MDCCI. [1701] [1702]")$from, 1701)
-  expect_equal(polish_years("MDCCI. [1701] [1702]")$till, 1702)    
-   
+  expect_equal(polish_years("MDCCI. [1701] [1702]")$till, 1702)
+
+  expect_equal(polish_years("1889, 1-1890, 12. 1890 1890 4")$from, 1889)
+  expect_equal(polish_years("1889, 1-1890, 12. 1890 1890 4")$till, 1890)
+
+  expect_equal(polish_years("Läseåret 1885/1886-Läseåret 1889/1890. 1885 1885 2")$from, 1885)
+  expect_equal(polish_years("Läseåret 1885/1886-Läseåret 1889/1890. 1885 1885 2")$till, 1890)
+
+  expect_equal(polish_years("1890/1891-1913/1914. 1890 1890 2")$from, 1890)
+  expect_equal(polish_years("1890/1891-1913/1914. 1890 1890 2")$till, 1914)
+
+  expect_equal(polish_years("1908, 1-1909, 2. 1909 1909 2")$from, 1908)
+  expect_equal(polish_years("1908, 1-1909, 2. 1909 1909 2")$till, 1909)
+
+  expect_equal(polish_years("1891, 0-1905, 51. 1905 1905 2")$from, 1891)
+  expect_equal(polish_years("1891, 0-1905, 51. 1905 1905 2")$till, 1905)
+
+
+  expect_equal(polish_years("2 (1911)-1919. 1919 1919 1")$from, 1911)
+  expect_equal(polish_years("2 (1911)-1919. 1919 1919 1")$till, 1919)
+
+  expect_equal(polish_years("1900/1901-1930/1931. 1900 1900 1")$from, 1900)
+  expect_equal(polish_years("1900/1901-1930/1931. 1900 1900 1")$till, 1931)
+
+  expect_equal(polish_years("1903, häft 1-1904, häft 49. 1904 1904 1")$from, 1903)
+  expect_equal(polish_years("1903, häft 1-1904, häft 49. 1904 1904 1")$till, 1904)
+
+  expect_equal(polish_years("1901-2, (1902). 1901 1901 1")$from, 1901)
+  expect_equal(polish_years("1901-2, (1902). 1901 1901 1")$till, 1902)
+
+  expect_equal(polish_years("1852/1887-1899/1914. 1852 1852 1")$from, 1852)
+  expect_equal(polish_years("1852/1887-1899/1914. 1852 1852 1")$till, 1914)
+
+  # Could also be 1895-1900
+  expect_equal(polish_years("1893, 1895-1899/1900. 1893 1893 1")$from, 1893)
+  expect_equal(polish_years("1893, 1895-1899/1900. 1893 1893 1")$till, 1900)
+
+  expect_equal(polish_years("1903-6(1908) 1903 1903 1")$from, 1903)
+  expect_equal(polish_years("1903-6(1908) 1903 1903 1")$till, 1908)
+
+  expect_equal(polish_years("9(1898)-1910. 1910 1910 1")$from, 1898)
+  expect_equal(polish_years("9(1898)-1910. 1910 1910 1")$till, 1910)
+
+  expect_equal(polish_years("1903, 1-1911, 11. 1911 1911 1")$from, 1903)
+  expect_equal(polish_years("1903, 1-1911, 11. 1911 1911 1")$till, 1911)
+
+  expect_equal(polish_years("Näytenumero 5.12.1870 ; 1871-24.1.1872. 1872 1872 1")$from, 1870)
+  expect_equal(polish_years("Näytenumero 5.12.1870 ; 1871-24.1.1872. 1872 1872 1")$till, 1872)
+
+  expect_equal(polish_years("Näytenumero 7.12.1882 ; 1883-30.12.1885. 1885 1885 1")$from, 1882)
+  expect_equal(polish_years("Näytenumero 7.12.1882 ; 1883-30.12.1885. 1885 1885 1")$till, 1885)
+
+  expect_equal(polish_years("1865, 1-1869, 4. 1869 1869 1")$from, 1865)
+  expect_equal(polish_years("1865, 1-1869, 4. 1869 1869 1")$till, 1869)
+
+  expect_equal(polish_years("1907, provn:r-1912, 1. 1912 1912 1")$from, 1907)
+  expect_equal(polish_years("1907, provn:r-1912, 1. 1912 1912 1")$till, 1912)
+
+  expect_equal(polish_years("1894, profn:r-1895, 6. 1895 1895 1")$from, 1894)
+  expect_equal(polish_years("1894, profn:r-1895, 6. 1895 1895 1")$till, 1895)
+  
+  expect_equal(polish_years("1911, näyten:o 1-1913, 51. 1913 1913 1")$from, 1911)
+  expect_equal(polish_years("1911, näyten:o 1-1913, 51. 1913 1913 1")$till, 1913)
+ 
   # expect_equal(polish_years("wuonna 1754 s. 13 päiwänä touco cuusa.")$from, 1754)  
 
   

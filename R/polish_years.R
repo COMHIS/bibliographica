@@ -148,6 +148,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 #' @keywords utilities
 polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, verbose = FALSE) {
 
+
   # if (verbose) {message(x)}
 
   # Some quick returns for simple cases to speed up
@@ -265,7 +266,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   if (length(x) > 1) {
     x <- na.omit(x)
   }
-  
+
   # NA-1524-1700
   if (length(grep("NA-[0-9]{4}-[0-9]{4}$", x))>0) {
     x <- substr(x, 4, 13)
@@ -281,7 +282,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     # 1780 1800 > 1780-1800
     x <- gsub(" ", "-", x)
   }
-  
+
   # "( ) 25 1643"
   spl <- unlist(strsplit(x, " "), use.names = FALSE)
   spl <- unique(spl[grep("[0-9]{4}", spl)])
@@ -291,7 +292,25 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   if (length(grep("[0-9]{4}, [0-9]{4}$", x))>0) {  
     x <- as.character(min(as.numeric(unique(unlist(strsplit(x, ","), use.names = FALSE)))))
   }
-  
+
+  # "1885/1886--1889/1890-1885-1885-2"
+  x <- gsub("\\(", " ", x)
+  x <- gsub("\\)", " ", x)
+  x <- gsub(" -+", "-", x)
+  x <- gsub("-+ ", "-", x)
+  x <- gsub(" ", "-", x)
+  if (length(grep("^[0-9|/|-]+$", x))>0) {
+    n <- unlist(strsplit(unlist(strsplit(x, "-"), use.names = F), "/"), use.names = F)
+    n <- unlist(strsplit(unlist(strsplit(n, "\\("), use.names = F), "\\)"), use.names = F)
+    n <- na.omit(as.numeric(n))
+    n <- n[n>=100] # do not accept years below this one
+    start <- NA
+    if (length(n) > 0) {start <- min(n)}
+    end <- NA
+    if (length(n)>1) {end <- max(n)}
+    return (c(from=as.numeric(start), till=as.numeric(end)))  
+  }
+
   if (length(grep("^[0-9]{4}$", x)) > 0) {
     # 1900
     start <- gsub("^([0-9]+)$", "\\1", x)
@@ -303,15 +322,15 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     end <- gsub(".*([0-9]{4})$", "\\1", x)
     return (c(from=as.numeric(start), till=as.numeric(end)))
   }
-  
+
   # Proceed to more complex cases
   start <- map(x, start_synonyms)
   start <- as.character(start)
-  
+
   if (length(grep("-", x))>0) {
-    spl <- unlist(strsplit(as.character(start), "-"), use.names = FALSE)
+    spl <- unlist(strsplit(as.character(start), "-+"), use.names = FALSE)
     spl <- as.numeric(spl)
-    
+
     if (sum(is.na(spl))>1) {
       # NA, 3, NA -> 3, NA (assume the year is start year if it is not clear)
       spl <- spl[min(which(!is.na(c(NA, 3, NA)))):length(spl)]
@@ -326,7 +345,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     }
     x <- paste(x, collapse = "-")
   }
-  
+
   if (length(grep("^NA[-][0-9]{4}$", x)) > 0) {
     # NA-1910
     start <- NA
@@ -347,13 +366,18 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     # "1798. (price one dollar)"  
     start <- unlist(strsplit(x, "\\."), use.names = FALSE)[[1]]
     end <- NA
-  } else if (length(grep("[0-9]*", x)) > 0) {
-    # MDCCLXVIII. 1768  
-    spl <- unlist(strsplit(x, " "), use.names = FALSE)
-    if (length(spl) > 1) {spl <- spl[[2]]} else {spl <- spl[[1]]}
-    start <- spl
+  } else if (length(grep("[0-9]+", x)) > 0) {
+    # MDCCLXVIII. 1768
+    spl <- unlist(strsplit(unlist(strsplit(x, " "), use.names = FALSE), "-"), use.names = FALSE)
+    spl <- na.omit(as.numeric(spl))
+    spl <- spl[spl > 100] # Do not accept years earlier than this
+    #if (length(spl) > 1) {spl <- spl[[2]]} else {spl <- spl[[1]]}
+    #start <- spl
+    #end <- NA
+    start <- min(spl)
     end <- NA
-  }
+    if (length(spl) > 1) {end <- max(spl)}
+  } 
   
   start[start == ""] <- NA
   start[start == " "] <- NA  
