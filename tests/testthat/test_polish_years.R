@@ -279,9 +279,52 @@ test_that("Year polishing is correct", {
   
   expect_equal(polish_years("1911, näyten:o 1-1913, 51. 1913 1913 1")$from, 1911)
   expect_equal(polish_years("1911, näyten:o 1-1913, 51. 1913 1913 1")$till, 1913)
- 
-  # expect_equal(polish_years("wuonna 1754 s. 13 päiwänä touco cuusa.")$from, 1754)  
 
+  expect_equal(polish_years("Läseåret 1885/1886-Läseåret 1894/1895.")$from, 1885)
+  expect_equal(polish_years("Läseåret 1885/1886-Läseåret 1894/1895.")$till, 1895)
+
+
+  expect_equal(polish_years("Näytenumero 3.6.1882 ; 30.6.1882-19.1.1894")$from, 1882)
+  expect_equal(polish_years("Näytenumero 3.6.1882 ; 30.6.1882-19.1.1894")$till, 1894)  
+
+  expect_equal(polish_years("1(1861/1865)-8(1896/1900)")$from, 1861)
+  expect_equal(polish_years("1(1861/1865)-8(1896/1900)")$till, 1900)
+
+  expect_equal(polish_years("1(1861/1865)-8(1900)")$from, 1861)
+  expect_equal(polish_years("1(1861/1865)-8(1900)")$till, 1900)
+
+  expect_equal(polish_years("13(1861/1865)-8(1900)")$from, 1861)
+  expect_equal(polish_years("13(1861/1865)-18(1900)")$till, 1900)
+  
+  expect_equal(polish_years("1(1865)-8(1900)")$from, 1865)
+  expect_equal(polish_years("1(1865)-8(1900)")$till, 1900)
+
+  expect_equal(polish_years("1(1865)-8 (1900)")$from, 1865)
+  expect_equal(polish_years("1 (1865)-8(1900)")$till, 1900)
+
+  expect_equal(polish_years("1884, [0] ; 1885, 1-1892, 12")$from, 1884)
+  expect_equal(polish_years("1884, [0] ; 1885, 1-1892, 12")$till, 1892)
+
+  expect_equal(polish_years("1896, [1] ; 1897, n:o 0 ; 1898, n:o 0-1898, n:o 24")$from, 1896)
+  expect_equal(polish_years("1896, [1] ; 1897, n:o 0 ; 1898, n:o 0-1898, n:o 24.")$till, 1898)
+
+  expect_equal(polish_years("1902, [1].")$from, 1902)
+  expect_equal(polish_years("1903,1.")$from, 1903)
+  
+  # TODO
+  #expect_equal(polish_years("1902, 29.12.-1903, 28.6.")$from, 1902)
+  #expect_equal(polish_years("1902, 29.12.-1903, 28.6.")$till, 1903)    
+  # [1904/1905], [1-26] ;1905/06, 1-54.
+  # 1:nen vsk. (1899/1900)
+  # 1. årg. (1880)-7. årg. (1887/1888) = 1. vsk. (1880)-7. vsk. (1887/1888)
+  # 1. årg. (1889/1890)-27. årg. (1915/1916)
+  # 1896, 0 (30.9.)-1897, 31.1.
+  # 1897, 31.3.-1897, 31.3.
+  # God' 1 (1914/1915), n:o 1-god' 3 (1916/1917), n:o 3. 
+  # Pendant l'hiver 1895/1896-Pendant l'hiver 1897/1898. 
+  #expect_equal(polish_years("3:dje årgången, [1-26] ([1904/1905]) ; 1:sta årgången, n:o 1-54 (1905/1906)")$from, 1904)
+  #expect_equal(polish_years("3:dje årgången, [1-26] ([1904/1905]) ; 1:sta årgången, n:o 1-54 (1905/1906)")$till, 1906)    
+  # expect_equal(polish_years("wuonna 1754 s. 13 päiwänä touco cuusa.")$from, 1754)  
   
 })
 

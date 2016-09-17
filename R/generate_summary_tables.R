@@ -398,7 +398,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Conversion: publication frequency")
   # Publication frequency
-  o <- as.character(df.orig[["publication_frequency"]])
+  o <- tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))
   x <- df.preprocessed[, c("publication_frequency_annual", "publication_frequency_text")]
   tab <- cbind(original = o, x)
   tab <- tab[!is.na(tab$publication_frequency_text),]
@@ -420,7 +420,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Conversion: publication interval")
   # Publication interval
-  o <- as.character(df.orig[["publication_interval"]])
+  o <- tolower(gsub("\\.$", "", as.character(df.orig[["publication_interval"]])))
   x <- df.preprocessed[, c("publication_interval_from", "publication_interval_till")]
   tab <- cbind(original = o, x)
   tab <- tab[!is.na(tab$publication_interval_from) | !is.na(tab$publication_interval_till),]

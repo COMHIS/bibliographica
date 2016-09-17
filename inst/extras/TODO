@@ -13,6 +13,18 @@ gendertietokannosita.
 read_mapping -> Use the fast = TRUE more - at least for slower
 polishing function
 
+
+* Publication time
+
+The [discarded publication
+names](https://github.com/rOpenGov/fennica/blob/master/inst/examples/output.tables/publication_year_discarded.csv)
+include terms such as '184?'. These could be however added in
+publication_decade field to include all possible information in
+decadal analysis. And then include in conversion summaries the
+original, year, and decade.
+
+test_polish_years still has some unresolved cases
+
 * Author names
 
 kaikkiin aineistoihin VIAF auktorifile pitää selvittää. iso

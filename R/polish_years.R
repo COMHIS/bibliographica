@@ -12,7 +12,10 @@
 #' @examples \dontrun{df <- polish_years(c("1746", "1745-1750"))}
 #' @keywords utilities
 polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TRUE, check = FALSE) {
-  
+
+  x <- gsub("\\.$", "", x)
+  x <- gsub(", *\\[*[0-9]\\]*$", "", x)
+
   if (is.null(start_synonyms)) {
     f <- system.file("extdata/fi_start_years.csv", package = "bibliographica")
     start_synonyms <- read_mapping(f, sep = "\t", mode = "table")
@@ -41,10 +44,21 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   # "[1.12.1584 jalkeen]" -> 1584 jalkeen
   inds <- grep("[0-9]{1,2}\\.[0-9]{1,2}\\.[0-9]{4}", x)
   x[inds] <- gsub("[0-9]{1,2}\\.[0-9]{1,2}\\.", "", x[inds])
-  
-  # 75,9 -> 75.9  
-  x <- gsub(",", ".", x)
-  
+
+  #if (length(grep("^[0-9]{4}, *\\[*[0-9]\\]*$", x))) {
+  #  # 1902,[1]
+  #  x <- gsub(",", " ", x)
+  #  x <- gsub("\\[", " ", x)
+  #  x <- gsub("\\]", " ", x)
+  #  x <- gsub("\\.", " ", x)
+  #  x <- unlist(strsplit(x, " "), use.names = FALSE)
+  #  x <- na.omit(as.numeric(x))
+  #  x <- x[x>=100]
+  #} else {
+    # 75,9 -> 75.9
+    x <- gsub(",", ".", x)
+  #}
+
   # 23.1967 -> 1967
   x <- gsub(" [0-9]{1,2}\\.", "", x)   
   
@@ -109,7 +123,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   xorig <- x
   xuniq <- unique(xorig)
   x <- xuniq
-  
+
   res <- suppressWarnings(lapply(x, function (xi) {a <- try(polish_year(xi, start_synonyms = start_synonyms, end_synonyms = end_synonyms, months, verbose)); if (class(a) == "try-error") {return(c(NA, NA))} else {return(a)}}))
 
   res <- do.call("rbind", res)
@@ -148,7 +162,6 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 #' @keywords utilities
 polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, verbose = FALSE) {
 
-
   # if (verbose) {message(x)}
 
   # Some quick returns for simple cases to speed up
@@ -158,6 +171,13 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     start <- gsub("^([0-9]+)$", "\\1", x)
     end <- NA
     return (c(from=as.numeric(start), till=end))
+  } else if (length(grep("^[0-9]{3}\\[+[0-9]\\]+$", x)) > 0) {
+    # 190[1]]
+    x <- gsub("\\[", "", x)
+    x <- gsub("\\]", "", x)    
+    start <- x
+    end <- NA
+    return (c(from=as.numeric(start), till=end))    
   } else if (length(grep("^\\[*[0-9]{4}\\]*[-]\\[*[0-9]{4}\\]*$", x)) > 0) {
     # 1900-1910 / [1929]-[1930]
     start <- gsub("^\\[*([0-9]{4}).*\\]*", "\\1", x)
@@ -195,8 +215,9 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   # "mdccx-mdccxi [1710-1711]" -> [1710-1711]
   if (length(grep("[[:lower:]]*-[[:lower:]]* \\[[0-9]*-[0-9]*\\]", x))>0) {
     x <- remove_letters(x)
-  } else if (length(grep("^[0-9]{4}\\[[0-9]\\]$", x))>0) {
+  } else if (length(grep("^[0-9]{4} *\\[[0-9]\\]$", x))>0) {
     # "1646[7]" -> 1647
+    x <- gsub(" \\[", "\\[", x)
     x <- paste(substr(x, 1, 3), substr(x, 6, 6), sep = "")
   } else if (length(grep("^[0-9]{4}-\\[[0-9]*\\]", x))>0) {
     # "1646-[47]" -> 1646-47
@@ -209,15 +230,6 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     x <- substr(x, 1, 4)
   }  
 
-  #else if (length(grep("^[0-9]{4} \\[po [0-9]*\\]", x))>0) {
-  #  # "1738 [po[\\.]* 1752]" -> 1738
-  #  x <- substr(x, 1, 4)
-  #} else if (length(grep("^[0-9]{4} \\[po[\\.]* [0-9]+-[0-9]+\\]", x))>0) {
-  #  # "1738 [po* 1739-1752]" -> 1739-1752
-  #  #x <- condense_spaces(gsub("\\]", "", unlist(strsplit(x, "\\[po"))[[2]]))
-  #  x <- gsub("po", "ie", x)
-  #}
-
   # Now Remove some special chars
   x <- gsub("\\(\\)", "", x)  
   x <- gsub("-+", "-", x)
@@ -228,24 +240,39 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   x <- gsub("\\\\>", " ", x)
   x <- gsub("\\[=", "[", x)
   x <- gsub("\\[\\]", "-", x)    
-  
-  if (length(grep("[0-9]{2}\\[[0-9]{2}\\]", x))>0) {
+  x <- gsub("[[:lower:]]", "", x)
+  x <- condense_spaces(x)
+
+  if (length(grep("^[0-9]{2}\\[[0-9]{2}\\]$", x))>0) {
     # 19[99]
     x <- gsub("\\[", "", x)
     x <- gsub("\\]", "", x)    
-  } else if (length(grep("[0-9]{3}\\[[0-9]{1}\\]", x))>0) {
+  } else if (length(grep("^[0-9]{3}\\[[0-9]{1}\\]$", x))>0) {
     # 199[9]
     x <- gsub("\\[", "", x)
     x <- gsub("\\]", "", x)    
-  } else if (length(grep("^[0-9]{4}/[0-9] \\[[0-9]{4}\\]", x))>0) {
+  } else if (length(grep("^[0-9]{4}/[0-9] \\[[0-9]{4}\\]$", x))>0) {
     # 1695/6 [1696]
     x <- gsub("\\]", "", unlist(strsplit(x, "\\["), use.names = FALSE)[[2]])
-  } else if (length(grep("^[0-9]{4} {0,1}\\[[0-9]*\\]", x))>0) {
-    # 1726[1727] -> 1727  
+  } else if (length(grep("^[0-9]{4} {0,1}\\[[0-9]*\\]$", x))>0) {
+    # 1726[1727] -> 1727
     x <- gsub(" \\[", "[", x)
     x <- substr(x, 6, 9)
+  } else if (all(!unlist(strsplit(x, "")) %in% letters) && length(grep("\\[[0-9]\\]", x))>0) {
+    x <- gsub("\\[", " ", x)
+    x <- gsub("\\]", " ", x)
+    x <- gsub("\\(", " ", x)
+    x <- gsub("\\)", " ", x)    
+    x <- gsub("-", " ", x)
+    x <- gsub(";", " ", x)
+    x <- gsub(",", " ", x)
+    x <- gsub("/", " ", x)
+    x <- unlist(strsplit(x, " "), use.names = FALSE)
+    x <- na.omit(as.numeric(x))
+    x <- x[x >= 100] # ignore years below 100
+    x <- paste(min(x), max(x), sep = "-")
   }
-  
+
   x <- gsub("\\[[0-9]{2,3}-*\\]", "", x)  
   x <- gsub("-\\]-", "-", x)
   x <- gsub("\\[[0-9]{2}-\\]", "NA", x)
@@ -267,8 +294,24 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     x <- na.omit(x)
   }
 
-  # NA-1524-1700
-  if (length(grep("NA-[0-9]{4}-[0-9]{4}$", x))>0) {
+  x <- gsub(" *-+ *","-",x)
+
+  if (length(grep("\\([0-9]+ */*[0-9]+\\)-[0-9]+ *\\([0-9]{4}/*[0-9]+", x))>0) {
+    # "1(1861/1865)-8(1896/1900"
+    x <- gsub("\\(", " ", x)
+    x <- gsub("\\)", " ", x)
+    x <- gsub("/", " ", x)
+    x <- gsub("-", " ", x)            
+    x <- unlist(strsplit(x, " "), use.names = FALSE)
+    x <- na.omit(as.numeric(x))
+    x <- x[x >= 100] # ignore years below 100
+    x <- paste(min(x), max(x), sep = "-")  
+  } else if (length(grep("^[0-9]{4}/[0-9]{4}-[0-9]{4}/[0-9]{4}$", x))>0) {
+    # "1885/1886- 1894/1895"
+    x <- na.omit(as.numeric(unlist(strsplit(unlist(strsplit(x, "-"), use.names = FALSE), "/"), use.names = FALSE)))
+    x <- paste(min(x), max(x), sep = "-")
+  } else if (length(grep("NA-[0-9]{4}-[0-9]{4}$", x))>0) {
+    # NA-1524-1700
     x <- substr(x, 4, 13)
   } else if (length(grep("NA-[0-9]{4}-NA$", x))>0) {
     # 1736-49
@@ -276,12 +319,22 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   } else if (length(grep("[0-9]{4}-[0-9]{1,2}$", x))>0) {
     spl <- unlist(strsplit(x, "-"), use.names = FALSE)
     x <- paste(spl[[1]], paste(substr(spl[[1]], 1, 4-nchar(spl[[2]])), spl[[2]], sep = ""), sep = "-")
-  } else if (length(grep("[0-9]{4}/[0-9]*$", x))>0) {
+  } else if (length(grep("^[0-9]{4}/[0-9]*$", x))>0) {  
     x <- substr(x, 1, 4)
   } else if (length(grep("[0-9]{4} [0-9]*$", x))>0) {
     # 1780 1800 > 1780-1800
     x <- gsub(" ", "-", x)
   }
+
+  #x <- unlist(strsplit("3: 1-26 ( 1904/1905 ) , 1: : 1-54 (1905/1906", ""))
+  #x <- unlist(strsplit(x, ""))  
+  #x <- as.numeric(x)
+  #x[is.na(x)] <- "-"
+  #x <- condense_spaces(paste(x, collapse = ""))
+  #x <- unlist(strsplit(x, "-"), use.names = FALSE)
+  #x <- na.omit(as.numeric(x))
+  #x <- x[x >= 100] # ignore less than 100
+  #x <- paste(min(x), max(x), sep = "-")
 
   # "( ) 25 1643"
   spl <- unlist(strsplit(x, " "), use.names = FALSE)
@@ -337,6 +390,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     }
     x <- spl
     
+
     start <- x[[1]]
     if (length(x) > 1) {
       end <- x[[2]]

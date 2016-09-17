@@ -156,42 +156,79 @@ polish_publication_frequency <- function(x) {
   if (length(inds)>0) {
     freq[inds] <- 1
     unit[inds] <- NA
-    x[inds] <- "kertajulkaisu"        
+    x[inds] <- "Single"        
   }
 
   # Misc
   inds <- unique(c(
-       	    grep("^epasaannollinen$", x),
+       	    grep("^ep.s..nn.llinen$", x),
        	    grep("^ilmestymistiheys vaihtelee$", x),
        	    grep("^vaihtelee$", x),
-       	    grep("^vaihdellut$", x)
+       	    grep("^vaihdellut$", x),
+       	    grep("^seitsem.an numeroa$", x)	    
 	  ))
   if (length(inds)>0) {
     freq[inds] <- NA
     unit[inds] <- NA
-    x[inds] <- "vaihteleva"    
+    x[inds] <- "Irregular"    
   }
 
+  # Translate units in English
+  unit <- gsub("vuodessa", "year", unit)
+  unit <- gsub("vuosi", "year", unit)
+  unit <- gsub("kuukaudessa", "month", unit)
+  unit <- gsub("kuussa", "month", unit)  
+  unit <- gsub("kuukausi", "month", unit)
+  unit <- gsub("viikossa", "week", unit)
+  unit <- gsub("viikko", "week", unit)
+  unit <- gsub("paivittain", "day", unit)  
+  unit <- gsub("paivassa", "day", unit)
+  unit <- gsub("paiva", "day", unit)
+
   # Convert all units to years
-  unit <- gsub("vuodessa", "1", unit)
-  unit <- gsub("vuosi", "1", unit)
-  unit <- gsub("year", "1", unit)  
-  unit <- gsub("kuukaudessa", as.character(1/12), unit)
-  unit <- gsub("kuussa", as.character(1/12), unit)  
-  unit <- gsub("kuukausi", as.character(1/12), unit)
-  unit <- gsub("month", as.character(1/12), unit)  
-  unit <- gsub("viikossa", as.character(1/52), unit)
-  unit <- gsub("viikko", as.character(1/52), unit)
-  unit <- gsub("week", as.character(1/52), unit)  
-  unit <- gsub("paivittain", as.character(1/365), unit)  
-  unit <- gsub("paivassa", as.character(1/365), unit)
-  unit <- gsub("paiva", as.character(1/365), unit)
-  unit <- gsub("day", as.character(1/365), unit)
-  unit <- gsub("single", "kertajulkaisu", unit)
-  unit <- gsub("irregular", "vaihteleva", unit)          
+  unityears <- unit
+  unityears <- gsub("year", "1", unityears)  
+  unityears <- gsub("month", as.character(1/12), unityears)  
+  unityears <- gsub("week", as.character(1/52), unityears)  
+  unityears <- gsub("day", as.character(1/365), unityears)
 
-  suppressWarnings(annual <- freq / as.numeric(unit))
+  suppressWarnings(annual <- freq / as.numeric(unityears))
 
-  data.frame(freq = x, annual = annual)
+  # Provide harmonized textual explanations for each frequency
+  text <- x
+  peryear <- as.numeric(annual)
+  inds <- is.numeric(peryear) & !is.na(peryear) 
+  text[inds] <- peryear[inds]
+
+  text[round(peryear) == 365] <- "Daily"
+  text[round(peryear) == 104] <- "Twice per Week"  
+  text[round(peryear) == 156] <- "Three per Week"
+  text[round(peryear) == 208] <- "Four per Week"  
+  text[round(peryear) == 312] <- "Six per Week"    
+  text[round(peryear) == 52] <- "Weekly"
+  text[round(peryear) == 36] <- "Three per Month"
+  text[round(peryear) %in% c(17,18)] <- "Every three Weeks"
+  text[round(peryear) == 24] <- "Twice per Month"
+  text[round(peryear) == 26] <- "Every two Weeks"  
+  text[round(peryear) == 12] <- "Monthly"
+  text[round(peryear) == 1] <- "Annual"
+  text[round(peryear) == 2] <- "Every six Months"
+  text[round(peryear) == 3] <- "Every four Months"
+  text[round(peryear) == 4] <- "Every three Months"
+  text[round(peryear) == 5] <- "Five per Year"
+  text[round(peryear) == 7] <- "Seven per Year"  
+  text[round(peryear) == 8] <- "Eight per Year"
+  text[round(peryear) == 9] <- "Nine per Year"    
+  text[round(peryear) == 6] <- "Every two months"  
+  text[round(peryear,1) == .5] <- "Every two Years"
+  text[round(peryear,1) == .3] <- "Every three Years"
+  text[round(peryear,1) == .25] <- "Every four Years"
+  annual[text == "Irregular"] <- NA
+  annual[text == "Single"] <- NA  
+
+  # Order the levels by frequency
+  text <- factor(text, levels = unique(text[order(unityears)]))
+  
+  data.frame(freq = text, annual = annual)
 
 }
