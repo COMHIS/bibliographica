@@ -172,7 +172,7 @@ polish_publication_frequency <- function(x) {
 	  ))
   if (length(inds) > 0) {
     freq[inds] <- NA
-    unit[inds] <- NA
+    unit[inds] <- "Irregular"
     x[inds] <- "Irregular"    
   }
   
@@ -187,7 +187,6 @@ polish_publication_frequency <- function(x) {
   unit <- gsub("paivittain", "day", unit)  
   unit <- gsub("paivassa", "day", unit)
   unit <- gsub("paiva", "day", unit)
-  unit <- gsub("ep.s..nn.llinen", "Irregular", unit)  
 
   # Convert all units to years
   unityears <- unit
@@ -195,6 +194,9 @@ polish_publication_frequency <- function(x) {
   unityears <- gsub("month", as.character(1/12), unityears)  
   unityears <- gsub("week", as.character(1/52), unityears)  
   unityears <- gsub("day", as.character(1/365), unityears)
+  
+  unityears <- gsub("Irregular", NA, unityears)
+  unityears <- gsub("Single", NA, unityears)    
 
   suppressWarnings(annual <- freq / as.numeric(unityears))
 
@@ -227,12 +229,14 @@ polish_publication_frequency <- function(x) {
   text[round(peryear,1) == .5] <- "Every two Years"
   text[round(peryear,1) == .3] <- "Every three Years"
   text[round(peryear,1) == .25] <- "Every four Years"
-  annual[text == "Irregular"] <- NA
-  annual[text == "Single"] <- NA  
+  annual[which(text == "Irregular")] <- NA
+  annual[which(text == "Single")] <- NA  
 
   # Order the levels by frequency
   text <- factor(text, levels = unique(text[order(unityears)]))
-  
+  annual[which(text == "Irregular")] <- NA
+  annual[which(text == "Single")] <- NA  
+
   data.frame(freq = text, annual = annual)
 
 }

@@ -401,6 +401,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   message("Conversion: publication frequency")
   # Publication frequency
   o <- tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))
+  #o <- as.character(df.orig[["publication_frequency"]])
   x <- df.preprocessed[, c("publication_frequency_annual", "publication_frequency_text")]
   tab <- cbind(original = o, x)
   tab <- tab[!is.na(tab$publication_frequency_text),]
