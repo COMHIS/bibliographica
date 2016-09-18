@@ -392,7 +392,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # --------------------------------------------
 
   message("Accepted publication frequency")
-  tmp <- write_xtable(df.preprocessed$publication_frequency_annual,
+  tmp <- write_xtable(
+     df.preprocessed[, c("publication_frequency_text",
+			 "publication_frequency_annual")],
       paste(output.folder, "publication_frequency_accepted.csv", sep = ""),
       count = TRUE, sort.by = "publication_frequency_annual")
 

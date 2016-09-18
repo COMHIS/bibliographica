@@ -162,17 +162,20 @@ polish_publication_frequency <- function(x) {
   # Misc
   inds <- unique(c(
        	    grep("^ep.s..nn.llinen$", x),
+       	    grep("^ep.s..nn.llisesti$", x),	    
        	    grep("^ilmestymistiheys vaihtelee$", x),
        	    grep("^vaihtelee$", x),
        	    grep("^vaihdellut$", x),
-       	    grep("^seitsem.an numeroa$", x)	    
+	    # This could be combined with interval to
+	    # calculated frequency
+       	    grep("^[[:lower:]]+ numeroa$", x)	    
 	  ))
-  if (length(inds)>0) {
+  if (length(inds) > 0) {
     freq[inds] <- NA
     unit[inds] <- NA
     x[inds] <- "Irregular"    
   }
-
+  
   # Translate units in English
   unit <- gsub("vuodessa", "year", unit)
   unit <- gsub("vuosi", "year", unit)
@@ -184,6 +187,7 @@ polish_publication_frequency <- function(x) {
   unit <- gsub("paivittain", "day", unit)  
   unit <- gsub("paivassa", "day", unit)
   unit <- gsub("paiva", "day", unit)
+  unit <- gsub("ep.s..nn.llinen", "Irregular", unit)  
 
   # Convert all units to years
   unityears <- unit
