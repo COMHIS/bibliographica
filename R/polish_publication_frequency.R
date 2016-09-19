@@ -194,12 +194,12 @@ polish_publication_frequency_finnish <- function(x) {
             grep("^[0-9]+ *[0-9]* kertaa [[:lower:]]+$", x))
   if (length(inds)>0) {
     x[inds] <- condense_spaces(gsub("kerta+", "", x[inds]))
-    n <- sapply(strsplit(x[inds], " "), function (x) {x[1:2]})
+    n <- sapply(strsplit(x[inds], " "), function (x) {x[-length(x)]})
     n <- as.character(n)
     freq[inds] <- mean(as.numeric(n))
-    unit[inds] <- sapply(strsplit(x[inds], " "), function (x) {x[[3]]})
+    unit[inds] <- sapply(strsplit(x[inds], " "), function (x) {x[[length(x)]]})
   }
-  
+
   # kaksi kertaa vuodessa
   inds <- unique(c(
             grep("^[[:lower:]]+ kerta+ [[:lower:]]+$", x),
