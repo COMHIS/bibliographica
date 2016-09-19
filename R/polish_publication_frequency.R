@@ -190,11 +190,12 @@ polish_publication_frequency_finnish <- function(x) {
   }
 
   # yhdesta kahteen kertaa vuodessa
-  inds <- grep("^[[:lower:]]+ [[:lower:]]+ kertaa [[:lower:]]+$", x)
+  inds <- c(grep("^[[:lower:]]+ [[:lower:]]+ kertaa [[:lower:]]+$", x),
+            grep("^[0-9]+ *[0-9]* kertaa [[:lower:]]+$", x))
   if (length(inds)>0) {
     x[inds] <- condense_spaces(gsub("kerta+", "", x[inds]))
     n <- sapply(strsplit(x[inds], " "), function (x) {x[1:2]})
-    n <- as.character(x)
+    n <- as.character(n)
     freq[inds] <- mean(as.numeric(n))
     unit[inds] <- sapply(strsplit(x[inds], " "), function (x) {x[[3]]})
   }
@@ -206,6 +207,16 @@ polish_publication_frequency_finnish <- function(x) {
 	    ))
   if (length(inds)>0) {
     x[inds] <- condense_spaces(gsub("kerta+", "", x[inds]))
+  }
+
+  # yksi-kaksi numeroa
+  # setting to NA as the interval not given
+  # TODO: can be combined with interval or years to calculate frequency
+  inds <- unique(c(
+            grep("^[[:lower:]&-]+ numero[a]*$", x),
+            grep("^[0-9]+-*[0-9]* numero[a]*$", x)))
+  if (length(inds)>0) {
+    x[inds] <- NA
   }
 
   # yksi-kaksi numeroa/numeroa vuodessa

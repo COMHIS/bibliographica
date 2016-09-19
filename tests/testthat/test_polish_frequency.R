@@ -15,7 +15,10 @@ test_that("polish_publication_frequency works correctly", {
   expect_equal(polish_publication_frequency("kerran kuussa")$annual, 12)
   expect_equal(polish_publication_frequency("1-2 kuussa")$annual, 18)
   expect_equal(polish_publication_frequency("yhdestä-kahteen kuussa")$annual, 18)
+  expect_equal(polish_publication_frequency("yhdestä kahteen kertaa kuussa")$annual, 18)  
   expect_equal(polish_publication_frequency("kahdesta-neljaan kertaa kuussa")$annual, 36)  
+
+  expect_true(polish_publication_frequency("Kahdeksan numeroa.")$annual)
 
   expect_equal(polish_publication_frequency("paivittain")$annual, 365)
   expect_equal(polish_publication_frequency("viikottain")$annual, 52)
