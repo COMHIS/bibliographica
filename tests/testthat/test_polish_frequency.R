@@ -1,7 +1,7 @@
 context("Publication frequency")
 
 test_that("polish_publication_frequency works correctly", {
-  expect_equal(as.character(polish_publication_frequency("Kaksi kertaa vuodessa.")$freq), "kaksi vuodessa")
+  expect_equal(as.character(polish_publication_frequency("Kaksi kertaa vuodessa.")$freq), "Every six Months")
   expect_equal(polish_publication_frequency("Kaksi kertaa vuodessa.")$annual, 2)
   expect_equal(polish_publication_frequency("yksi kertaa vuodessa.")$annual, 1)
   expect_equal(polish_publication_frequency("yksi kerta vuodessa")$annual, 1)    
@@ -30,4 +30,11 @@ test_that("polish_publication_frequency works correctly", {
 
   expect_true(is.na(polish_publication_frequency("kertajulkaisu")$annual))
   expect_true(is.na(polish_publication_frequency("vaihtelee")$annual))
+
+  expect_equal(as.character(polish_publication_frequency("vaihtelee")$freq), "Irregular")
+  expect_equal(as.character(polish_publication_frequency("ilmestynyt vain kerran")$freq), "Single")
+
+  expect_equal(as.character(polish_publication_frequency("1 nr/manad med sommaruppehall")$freq), "Monthly")
+  expect_equal(as.character(polish_publication_frequency("1 nr/manaden med sommaruppehall")$freq), "Monthly")    
+
 })

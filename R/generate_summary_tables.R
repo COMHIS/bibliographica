@@ -373,7 +373,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Conversion: publication year")
   # Publication year
-  o <- as.character(df.orig[["publication_time"]])
+  o <- gsub("\\.$", "", as.character(df.orig[["publication_time"]]))
   x <- df.preprocessed[, c("publication_year", "publication_year_from", "publication_year_till")]
   tab <- cbind(original = o, x)
   tab <- tab[!is.na(tab$publication_year),]
@@ -400,7 +400,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Conversion: publication frequency")
   # Publication frequency
-  o <- cbind(original_frequency = tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]]))))
+  #o <- cbind(original_frequency = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))))
+  o <- as.character(df.orig[["publication_frequency"]])
 
   #o <- cbind(original_frequency = tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]]))),
   #           original_interval = tolower(gsub("\\.$", "", as.character(df.orig[["publication_interval"]]))),
@@ -409,6 +410,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   #o <- as.character(df.orig[["publication_frequency"]])
   x <- df.preprocessed[, c("publication_frequency_text", "publication_frequency_annual")]
   tab <- cbind(x, o)
+  tab$publication_frequency_annual <- round(tab$publication_frequency_annual, 2)
+  tab$publication_frequency_text <- condense_spaces(tab$publication_frequency_text)  
   #tab <- tab[!is.na(tab$publication_frequency_text),]
   tmp <- write_xtable(tab,
       paste(output.folder, "publication_frequency_conversion.csv",
@@ -439,7 +442,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   message("Discarded publication interval")
   o <- as.character(df.orig[["publication_interval"]])
   x <- df.preprocessed[c("publication_interval_from", "publication_interval_till")]
-  inds <- which(rowSums(is.na(x)) == 2)
+  #inds <- which(rowSums(is.na(x)) == 2 & is.na(df.preprocessed$publication_frequency_text))
+  inds <- which(rowSums(is.na(x)) == 2)  
   tmp <- write_xtable(o[inds],
       paste(output.folder, "publication_interval_discarded.csv", sep = ""),
       count = TRUE)
