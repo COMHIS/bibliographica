@@ -400,14 +400,19 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Conversion: publication frequency")
   # Publication frequency
-  o <- tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))
+  o <- cbind(original_frequency = tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]]))))
+
+  #o <- cbind(original_frequency = tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]]))),
+  #           original_interval = tolower(gsub("\\.$", "", as.character(df.orig[["publication_interval"]]))),
+  #           original_time = tolower(gsub("\\.$", "", as.character(df.orig[["publication_time"]])))
+  #     )
   #o <- as.character(df.orig[["publication_frequency"]])
-  x <- df.preprocessed[, c("publication_frequency_annual", "publication_frequency_text")]
-  tab <- cbind(original = o, x)
-  tab <- tab[!is.na(tab$publication_frequency_text),]
+  x <- df.preprocessed[, c("publication_frequency_text", "publication_frequency_annual")]
+  tab <- cbind(x, o)
+  #tab <- tab[!is.na(tab$publication_frequency_text),]
   tmp <- write_xtable(tab,
       paste(output.folder, "publication_frequency_conversion.csv",
-      sep = ""), count = TRUE) #, sort.by = "publication_frequency_annual")
+      sep = ""), count = TRUE, sort.by = "publication_frequency_text")
   
   message("Discarded publication frequency")
   o <- as.character(df.orig[["publication_frequency"]])

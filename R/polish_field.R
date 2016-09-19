@@ -132,20 +132,19 @@ polish_field <- function (df, df.preprocessed, field, verbose = TRUE, mc.cores =
         )
     
   } else if (field == "publication_frequency") {
-  
+
     tmp <- polish_publication_frequency(df[[field]])
-      
+
     # Add to data.frame
     df.tmp <- data.frame(
       publication_frequency_annual = tmp$annual,
-      publication_frequency_text = tmp$freq)    
+      publication_frequency_text   = tmp$freq)    
 
   } else if (field == "control_number") {
   
     NULL
 
   } else {
-
 
     #warning(paste("No info on how to preprocess field: ", field))
     #df.tmp <- NULL

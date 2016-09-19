@@ -29,4 +29,4 @@ f <- sapply(strsplit(gsub("\\.$", "", dfo$publication_interval[idx]), "-"), func
 fa <- f/(df.preprocessed$publication_year_till[idx] - df.preprocessed$publication_year_from[idx] + 1)
 i <- is.na(df.preprocessed$publication_frequency_annual[idx])
 df.preprocessed$publication_frequency_annual[idx[i]] <- fa[i]
-
+df.preprocessed$publication_frequency_text <- publication_frequency_text(df.preprocessed$publication_frequency_text, df.preprocessed$publication_frequency_annual)

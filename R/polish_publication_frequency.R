@@ -16,6 +16,147 @@ polish_publication_frequency <- function(x) {
   spechars <- suppressWarnings(read_mapping(f, sep = ";", mode = "table", include.lowercase = TRUE))
   x <- as.character(map(x, spechars, mode = "match"))
 
+  # Recognize language
+  if (length(c(grep("vuosi", x), grep("numero", x)))>0) {
+    tmp <- polish_publication_frequency_finnish(x)
+  } else if (length(c(grep("manad", x), grep("vecka", x)))>0) {
+    tmp <- polish_publication_frequency_swedish(x)  
+  }
+
+  # Convert all units to years
+  unityears <- tmp$unit
+  unityears <- gsub("year", "1", unityears)  
+  unityears <- gsub("month", as.character(1/12), unityears)  
+  unityears <- gsub("week", as.character(1/52), unityears)  
+  unityears <- gsub("day", as.character(1/365), unityears)  
+  unityears <- gsub("Irregular", NA, unityears)
+  unityears <- gsub("Single", NA, unityears)    
+
+  suppressWarnings(
+    annual <- tmp$freq / as.numeric(unityears)
+  )
+
+  # Provide harmonized textual explanations for each frequency
+  annual2text <- publication_frequency_text(x, annual)
+
+  data.frame(freq = annual2text, annual = annual)
+
+}
+
+
+
+
+
+#' @title Polish Publication Frequency Swedish
+#' @description Harmonize publication frequencies for Swedish data.
+#' @param x publication frequency field (a vector) 
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' @examples \dontrun{df <- polish_publication_frequency_swedish("1 nr/ar")}
+#' @keywords utilities
+polish_publication_frequency_swedish <- function(x) {
+
+  x <- gsub("^ca ", "", x)				     
+
+  freq <- rep(NA, length = length(x))
+  unit <- rep(NA, length = length(x))  
+
+  # Swedish
+  f <- system.file("extdata/numbers_swedish.csv", package = "bibliographica")
+  char2num <- read_mapping(f, sep = ",", mode = "table", from = "character", to = "numeric")
+  
+  # 6 nr/ar / 6-8 nr/ar
+  inds <- grep("^[0-9]+-*[0-9]* nr/ar$", x)
+  if (length(inds) > 0) {
+    s <- condense_spaces(gsub("/", "", gsub("[[:lower:]]", "", x)))
+    s <- unlist(strsplit(s, "-"), use.names = FALSE)
+    freq[inds] <- mean(as.numeric(s))
+    unit[inds] <- "year"
+  }
+
+  # 6-8 nr/manad
+  inds <- grep("^[0-9]+-*[0-9]* nr/manad$", x)
+  if (length(inds) > 0) {
+    s <- condense_spaces(gsub("/", "", gsub("[[:lower:]]", "", x)))
+    s <- unlist(strsplit(s, "-"), use.names = FALSE)
+    freq[inds] <- mean(as.numeric(s))
+    unit[inds] <- "month"
+  }
+
+  # 6-8 nr/vecka
+  inds <- grep("^[0-9]+-*[0-9]* nr/vecka", x)
+  if (length(inds) > 0) {
+    s <- condense_spaces(gsub("/", "", gsub("[[:lower:]]", "", x)))
+    s <- unlist(strsplit(s, "-"), use.names = FALSE)
+    freq[inds] <- mean(as.numeric(s))
+    unit[inds] <- "week"
+  }
+
+  # 6-8 nr/kvartal
+  inds <- grep("^[0-9]+-*[0-9]* nr/kvartal", x)
+  if (length(inds) > 0) {
+    s <- condense_spaces(gsub("/", "", gsub("[[:lower:]]", "", x)))
+    s <- unlist(strsplit(s, "-"), use.names = FALSE)
+    freq[inds] <- 4 * mean(as.numeric(s))
+    unit[inds] <- "year"
+  }
+
+  # daglig
+  inds <- grep("^daglig$", x)
+  if (length(inds)>0) {
+    freq[inds] <- 1
+    unit[inds] <- "day"
+  }
+
+  # arligen
+  inds <- grep("^arligen$", x)
+  if (length(inds)>0) {
+    freq[inds] <- 1
+    unit[inds] <- "year"
+  }
+
+  # vartannat ar
+  inds <- grep("^vartannat ar$", x)
+  if (length(inds)>0) {
+    freq[inds] <- .5
+    unit[inds] <- "year"
+  }
+
+  # Misc
+  inds <- unique(c(
+       	    grep("^oregelbunden$", x)
+	  ))
+  if (length(inds) > 0) {
+    freq[inds] <- NA
+    unit[inds] <- "Irregular"
+    x[inds] <- "Irregular"    
+  }
+  
+  # Translate units in English
+  unit <- gsub("ar", "year", unit)
+  unit <- gsub("manad", "month", unit)
+  unit <- gsub("vecka", "week", unit)
+  unit <- gsub("dag", "day", unit)  
+
+  data.frame(unit = unit, freq = freq)
+
+}
+
+
+
+
+
+
+
+#' @title Polish Publication Frequency Finnish
+#' @description Harmonize publication frequencies for Finnish data.
+#' @param x publication frequency field (a vector) 
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' @examples \dontrun{df <- polish_publication_frequency_finnish("Kerran vuodessa")}
+#' @keywords utilities
+polish_publication_frequency_finnish <- function(x) {
+
   freq <- rep(NA, length = length(x))
   unit <- rep(NA, length = length(x))  
 
@@ -188,55 +329,11 @@ polish_publication_frequency <- function(x) {
   unit <- gsub("paivassa", "day", unit)
   unit <- gsub("paiva", "day", unit)
 
-  # Convert all units to years
-  unityears <- unit
-  unityears <- gsub("year", "1", unityears)  
-  unityears <- gsub("month", as.character(1/12), unityears)  
-  unityears <- gsub("week", as.character(1/52), unityears)  
-  unityears <- gsub("day", as.character(1/365), unityears)
-  
-  unityears <- gsub("Irregular", NA, unityears)
-  unityears <- gsub("Single", NA, unityears)    
-
-  suppressWarnings(annual <- freq / as.numeric(unityears))
-
-  # Provide harmonized textual explanations for each frequency
-  text <- x
-  peryear <- as.numeric(annual)
-  inds <- is.numeric(peryear) & !is.na(peryear) 
-  text[inds] <- peryear[inds]
-
-  text[round(peryear) == 365] <- "Daily"
-  text[round(peryear) == 104] <- "Twice per Week"  
-  text[round(peryear) == 156] <- "Three per Week"
-  text[round(peryear) == 208] <- "Four per Week"  
-  text[round(peryear) == 312] <- "Six per Week"    
-  text[round(peryear) == 52] <- "Weekly"
-  text[round(peryear) == 36] <- "Three per Month"
-  text[round(peryear) %in% c(17,18)] <- "Every three Weeks"
-  text[round(peryear) == 24] <- "Twice per Month"
-  text[round(peryear) == 26] <- "Every two Weeks"  
-  text[round(peryear) == 12] <- "Monthly"
-  text[round(peryear) == 1] <- "Annual"
-  text[round(peryear) == 2] <- "Every six Months"
-  text[round(peryear) == 3] <- "Every four Months"
-  text[round(peryear) == 4] <- "Every three Months"
-  text[round(peryear) == 5] <- "Five per Year"
-  text[round(peryear) == 7] <- "Seven per Year"  
-  text[round(peryear) == 8] <- "Eight per Year"
-  text[round(peryear) == 9] <- "Nine per Year"    
-  text[round(peryear) == 6] <- "Every two months"  
-  text[round(peryear,1) == .5] <- "Every two Years"
-  text[round(peryear,1) == .3] <- "Every three Years"
-  text[round(peryear,1) == .25] <- "Every four Years"
-  annual[which(text == "Irregular")] <- NA
-  annual[which(text == "Single")] <- NA  
-
-  # Order the levels by frequency
-  text <- factor(text, levels = unique(text[order(unityears)]))
-  annual[which(text == "Irregular")] <- NA
-  annual[which(text == "Single")] <- NA  
-
-  data.frame(freq = text, annual = annual)
+  data.frame(unit = unit, freq = freq)
 
 }
+
+
+
+
+
