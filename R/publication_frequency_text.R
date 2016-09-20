@@ -36,7 +36,13 @@ publication_frequency_text <- function (x, peryear) {
   text[round(1/peryear) == 2] <- "Every two Years"  
   text[round(1/peryear) == 3] <- "Every three Years"
   text[round(1/peryear) == 4] <- "Every four Years"
-  text[round(1/peryear) == 5] <- "Every five Years"  
+  text[round(1/peryear) == 5] <- "Every five Years"
+  text[round(1/peryear) == 6] <- "Every six Years"
+  text[round(1/peryear) == 7] <- "Every seven Years"
+  text[round(1/peryear) == 8] <- "Every eight Years"
+  text[round(1/peryear) == 9] <- "Every nine Years"        
+  text[round(1/peryear) == 10] <- "Every ten Years"
+  text[round(1/peryear) >= 11] <- "Less than every ten Years"      
 
   # x[!is.na(text)] <- text[!is.na(text)]
 

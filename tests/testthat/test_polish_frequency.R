@@ -19,6 +19,7 @@ test_that("polish_publication_frequency works correctly", {
   expect_equal(polish_publication_frequency("kahdesta-neljaan kertaa kuussa")$annual, 36)  
 
   expect_true(is.na(polish_publication_frequency("Kahdeksan numeroa.")$annual))
+  expect_equal(as.character(polish_publication_frequency("Kahdeksan numeroa.")$freq), "Irregular")
 
   expect_equal(polish_publication_frequency("paivittain")$annual, 365)
   expect_equal(polish_publication_frequency("viikottain")$annual, 52)
@@ -38,6 +39,15 @@ test_that("polish_publication_frequency works correctly", {
   expect_equal(as.character(polish_publication_frequency("ilmestynyt vain kerran")$freq), "Single")
 
   expect_equal(as.character(polish_publication_frequency("1 nr/manad med sommaruppehall")$freq), "Monthly")
-  expect_equal(as.character(polish_publication_frequency("1 nr/manaden med sommaruppehall")$freq), "Monthly")    
+  expect_equal(as.character(polish_publication_frequency("1 nr/manaden med sommaruppehall")$freq), "Monthly")
+  expect_equal(as.character(polish_publication_frequency("vart tredje ar")$freq), "Every three Years")
+  expect_equal(as.character(polish_publication_frequency("Varje vecka")$freq), "Weekly")
+  expect_equal(as.character(polish_publication_frequency("varannan månad")$freq), "Every two months")
+  expect_equal(as.character(polish_publication_frequency("1 nr/varannan månad")$freq), "Every two months")
+
+  expect_equal(as.character(polish_publication_frequency("4 h./år")$freq), "Every three Months")
+  expect_equal(as.character(polish_publication_frequency("4 hft/år")$freq), "Every three Months")
+  expect_equal(as.character(polish_publication_frequency("Varje vecka")$freq), "Weekly")
+  expect_equal(polish_publication_frequency("Vartannat eller vart trejde år")$annual, 2.5)    
 
 })

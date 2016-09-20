@@ -57,8 +57,11 @@ polish_publication_frequency <- function(x) {
 #' @keywords utilities
 polish_publication_frequency_swedish <- function(x) {
 
-  x <- gsub("^ca ", "", x)				     
-
+  x <- gsub("^ca ", "", x)
+  x <- gsub(" h\\.*/", " nr/", x)
+  x <- gsub(" hft\\.*/", " nr/", x)
+  x <- gsub(" pl\\.*/", " nr/", x)
+  
   freq <- rep(NA, length = length(x))
   unit <- rep(NA, length = length(x))  
 
@@ -69,19 +72,20 @@ polish_publication_frequency_swedish <- function(x) {
   
   # 6 nr/ar / 6-8 nr/ar
   inds <- grep("^[0-9]+-*[0-9]* nr/ar$", x)
-
   if (length(inds) > 0) {
-    s <- condense_spaces(gsub("/", "", gsub("[[:lower:]]", "", x)))
+    s <- condense_spaces(gsub("/", "", gsub("[[:lower:]]", "", x[inds])))
     s <- unlist(strsplit(s, "-"), use.names = FALSE)
     freq[inds] <- mean(as.numeric(s))
     unit[inds] <- "year"
   }
 
-  # 6-8 nr/manad OR 6-8 nr/manaden 
-  inds <- c(grep("^[0-9]+-*[0-9]* nr/manad *[:lower:| ]*", x),
+  # 6-8 nr/manad OR 6-8 nr/manaden OR 6-8 nr/man
+  inds <- c(
+          grep("^[0-9]+-*[0-9]* nr/man *[:lower:| ]*", x),
+          grep("^[0-9]+-*[0-9]* nr/manad *[:lower:| ]*", x),	  
           grep("^[0-9]+-*[0-9]* nr/manaden *[:lower:| ]*", x))
   if (length(inds) > 0) {
-    s <- gsub("[[:lower:]]", "", x)
+    s <- gsub("[[:lower:]]", "", x[inds])
     s <- condense_spaces(gsub("/", "", s))
     s <- unlist(strsplit(s, "-"), use.names = FALSE)
     freq[inds] <- mean(as.numeric(s))
@@ -91,7 +95,7 @@ polish_publication_frequency_swedish <- function(x) {
   # 6-8 nr/vecka
   inds <- grep("^[0-9]+-*[0-9]* nr/vecka", x)
   if (length(inds) > 0) {
-    s <- condense_spaces(gsub("/", "", gsub("[[:lower:]]", "", x)))
+    s <- condense_spaces(gsub("/", "", gsub("[[:lower:]]", "", x[inds])))
     s <- unlist(strsplit(s, "-"), use.names = FALSE)
     freq[inds] <- mean(as.numeric(s))
     unit[inds] <- "week"
@@ -114,28 +118,56 @@ polish_publication_frequency_swedish <- function(x) {
   }
 
   # arligen
-  inds <- grep("^arligen$", x)
+  inds <- c(grep("^.rlig$", x), grep("^.rligen$", x))
   if (length(inds)>0) {
     freq[inds] <- 1
     unit[inds] <- "year"
   }
 
-  # vartannat ar
-  inds <- grep("^vartannat ar$", x)
+  # 1 nr/varannan månad	
+  inds <- c(grep("^[0-9]+ nr/vartannat [[:lower:]]+$", x), grep("^[0-9]+ nr/varannan [[:lower:]]+$", x))
+  if (length(inds)>0) {
+    spl <- strsplit(x[inds], " ")
+    freq[inds] <- as.numeric(sapply(spl, function (xi) {xi[[1]]}))/2
+    unit[inds] <- sapply(strsplit(x[inds], " "), function (xi) {xi[[length(xi)]]})
+  }
+  
+  # varannan/vartannat ar/manad/vecka
+  inds <- c(grep("^vartannat [[:lower:]]+$", x), grep("^varannan [[:lower:]]+$", x))
   if (length(inds)>0) {
     freq[inds] <- .5
-    unit[inds] <- "year"
+    unit[inds] <- sapply(strsplit(x[inds], " "), function (xi) {xi[[2]]})
+  }
+
+
+  # Vartannat eller vart trejde år
+  # Vartannat till vart tredje år 
+  inds <- c(grep("^vartannat [[:lower:]]+ vart 3 [[:lower:]]+$", x),
+            grep("^varannan [[:lower:]]+ vart 3 [[:lower:]]+$", x)
+       )
+
+  if (length(inds)>0) {
+    freq[inds] <- 2.5
+    unit[inds] <- sapply(strsplit(x[inds], " "), function (xi) {xi[[length(xi)]]})
   }
 
 
   # vart x ar
-  inds <- grep("^vart [[:lower:]]+ [[:lower:]]+$", x)  
+  inds <- grep("^vart [0-9]+ [[:lower:]]+$", x)
   if (length(inds)>0) {
-    x <- gsub("^vart ", "", x)
-    n <- sapply(strsplit(x[inds], " "), function (x) {x[[1]]})
-    n <- as.character(x)
+    x[inds] <- gsub("^vart ", "", x[inds])
+    n <- sapply(strsplit(x[inds], " "), function (xi) {xi[[1]]})
+    n <- as.character(n)
     freq[inds] <- 1/as.numeric(n)
-    unit[inds] <- sapply(strsplit(x[inds], " "), function (x) {x[[2]]})
+    unit[inds] <- sapply(strsplit(x[inds], " "), function (xi) {xi[[2]]})
+  }
+
+  # Varje vecka
+  inds <- grep("^varje [[:lower:]]+$", x)
+  if (length(inds)>0) {
+    x[inds] <- gsub("^varje ", "", x[inds])
+    freq[inds] <- 1
+    unit[inds] <- x[inds]
   }
 
   # Misc
@@ -149,10 +181,14 @@ polish_publication_frequency_swedish <- function(x) {
   }
   
   # Translate units in English
-  # unit <- gsub("ar", "year", unit)
-  unit <- gsub("manad", "month", unit)
-  unit <- gsub("vecka", "week", unit)
-  unit <- gsub("dag", "day", unit)  
+  unit <- gsub("^ar$", "year", unit)
+  unit <- gsub("manaden", "month", unit)
+  unit <- gsub("manad", "month", unit)  
+  unit <- gsub("man", "month", unit)  
+  unit <- gsub("veckor", "week", unit)
+  unit <- gsub("vecka", "week", unit)  
+  unit <- gsub("dagar", "day", unit)
+  unit <- gsub("dag", "day", unit)    
 
   data.frame(unit = unit, freq = freq)
 
@@ -166,7 +202,7 @@ polish_publication_frequency_swedish <- function(x) {
 
 #' @title Polish Publication Frequency Finnish
 #' @description Harmonize publication frequencies for Finnish data.
-#' @param x publication frequency field (a vector) 
+#' @param x publication frequency field (a vector) 1
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df <- polish_publication_frequency_finnish("Kerran vuodessa")}
@@ -195,9 +231,8 @@ polish_publication_frequency_finnish <- function(x) {
   if (length(inds)>0) {
     x[inds] <- condense_spaces(gsub("kerta+", "", x[inds]))
     n <- sapply(strsplit(x[inds], " "), function (x) {x[-length(x)]})
-    n <- as.character(n)
-    freq[inds] <- mean(as.numeric(n))
-    unit[inds] <- sapply(strsplit(x[inds], " "), function (x) {x[[length(x)]]})
+    freq[inds] <- mean(na.omit(as.numeric(n)))
+    unit[inds] <- sapply(strsplit(x[inds], " "), function (xi) {xi[[length(xi)]]})
   }
 
   # kaksi kertaa vuodessa
@@ -217,6 +252,8 @@ polish_publication_frequency_finnish <- function(x) {
             grep("^[0-9]+-*[0-9]* numero[a]*$", x)))
   if (length(inds)>0) {
     x[inds] <- NA
+    freq[inds] <- NA
+    unit[inds] <- "Irregular"
   }
 
   # yksi-kaksi numeroa/numeroa vuodessa
@@ -259,7 +296,6 @@ polish_publication_frequency_finnish <- function(x) {
     freq[inds] <- as.numeric(n)
     unit[inds] <- sapply(strsplit(x[inds], " "), function (x) {x[[2]]})
   }
-
 
   # kerran kuussa
   inds <- grep("^kerran [[:lower:]]+$", x)
