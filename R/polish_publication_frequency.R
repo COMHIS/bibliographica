@@ -74,8 +74,7 @@ polish_publication_frequency_swedish <- function(x) {
   inds <- grep("^[0-9]+-*[0-9]* nr/ar$", x)
   if (length(inds) > 0) {
     s <- condense_spaces(gsub("/", "", gsub("[[:lower:]]", "", x[inds])))
-    s <- unlist(strsplit(s, "-"), use.names = FALSE)
-    freq[inds] <- mean(as.numeric(s))
+    freq[inds] <- sapply(strsplit(s, "-"), function (xi) {mean(as.numeric(xi))})
     unit[inds] <- "year"
   }
 
@@ -87,8 +86,7 @@ polish_publication_frequency_swedish <- function(x) {
   if (length(inds) > 0) {
     s <- gsub("[[:lower:]]", "", x[inds])
     s <- condense_spaces(gsub("/", "", s))
-    s <- unlist(strsplit(s, "-"), use.names = FALSE)
-    freq[inds] <- mean(as.numeric(s))
+    freq[inds] <- sapply(strsplit(s, "-"), function (xi) {mean(as.numeric(xi))})
     unit[inds] <- "month"
   }
 
@@ -96,8 +94,7 @@ polish_publication_frequency_swedish <- function(x) {
   inds <- grep("^[0-9]+-*[0-9]* nr/vecka", x)
   if (length(inds) > 0) {
     s <- condense_spaces(gsub("/", "", gsub("[[:lower:]]", "", x[inds])))
-    s <- unlist(strsplit(s, "-"), use.names = FALSE)
-    freq[inds] <- mean(as.numeric(s))
+    freq[inds] <- sapply(strsplit(s, "-"), function (xi) {mean(as.numeric(xi))})
     unit[inds] <- "week"
   }
 
@@ -105,8 +102,7 @@ polish_publication_frequency_swedish <- function(x) {
   inds <- grep("^[0-9]+-*[0-9]* nr/kvartal", x)
   if (length(inds) > 0) {
     s <- condense_spaces(gsub("/", "", gsub("[[:lower:]]", "", x)))
-    s <- unlist(strsplit(s, "-"), use.names = FALSE)
-    freq[inds] <- 4 * mean(as.numeric(s)) # kvartal is 1/4 year
+    freq[inds] <- 4 * sapply(strsplit(s, "-"), function (xi) {mean(as.numeric(xi))}) # kvartal is 1/4 year
     unit[inds] <- "year"
   }
 
