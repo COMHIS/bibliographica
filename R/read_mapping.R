@@ -45,7 +45,7 @@ read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, i
     aa$synonyme <- as.character(aa$synonyme)
     aa <- aa[!duplicated(aa),]
     
-  } else if (mode == "table") {
+  } else if (mode %in% c("table", "vector")) {
     # aa <- read.csv(file, sep = sep, stringsAsFactors = FALSE, fileEncoding = "UTF-8")
     
     if (fast) {
@@ -57,7 +57,6 @@ read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, i
 
     # Temporarily name columns as name and synonyme
     # (needed in check_synonymes)
-    
     aa <- aa[, c(from, to)]
     colnames(aa) <- c("synonyme", "name")
     
@@ -89,6 +88,12 @@ read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, i
   if (trim) {
     aa$synonyme = str_trim(aa$synonyme)
     aa$name = str_trim(aa$name)    
+  }
+
+  if (mode == "vector") {
+    vec <- as.vector(aa[, to])
+    names(vec) <- as.character(aa[, from])
+    aa <- vec    
   }
 
   aa 

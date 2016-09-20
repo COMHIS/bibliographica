@@ -69,9 +69,9 @@ polish_publication_frequencies <- function(x) {
 polish_publication_frequency_swedish <- function(x) {
 
   x <- gsub("^ca ", "", x)
-  x <- gsub(" h\\.*/", " nr/", x)
-  x <- gsub(" hft\\.*/", " nr/", x)
-  x <- gsub(" pl\\.*/", " nr/", x)
+  x <- gsub(" h\\.* */", " nr/", x)
+  x <- gsub(" hft\\.* */", " nr/", x)
+  x <- gsub(" pl\\.* */", " nr/", x)
   
   freq <- rep(NA, length = length(x))
   unit <- rep(NA, length = length(x))  
@@ -183,7 +183,20 @@ polish_publication_frequency_swedish <- function(x) {
     freq[inds] <- NA
     unit[inds] <- "Irregular"
   }
-  
+
+  # Special cases
+  inds <- which(x == "vart 3 ar-1 nr/ar") # Every second year
+  if (length(inds) > 0) {
+    freq[inds] <- 1/2
+    unit[inds] <- "year"
+  }
+
+  inds <- which(x == "vart 3 till vart 4 ar") # Every 3-4 years
+  if (length(inds) > 0) {
+    freq[inds] <- 1/3.5
+    unit[inds] <- "year"
+  }
+
   # Translate units in English
   unit <- gsub("^ar$", "year", unit)
   unit <- gsub("manaden", "month", unit)
