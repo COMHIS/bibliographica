@@ -400,8 +400,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Conversion: publication frequency")
   # Publication frequency
-  #o <- cbind(original_frequency = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))))
-  o <- as.character(df.orig[["publication_frequency"]])
+  o <- cbind(original_frequency = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))))
+  #o <- as.character(df.orig[["publication_frequency"]])
   #o <- cbind(original_frequency = tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]]))),
   #           original_interval = tolower(gsub("\\.$", "", as.character(df.orig[["publication_interval"]]))),
   #           original_time = tolower(gsub("\\.$", "", as.character(df.orig[["publication_time"]])))

@@ -8,15 +8,26 @@
 #' @keywords utilities
 polish_publication_frequency <- function(x) {
 
-  # Remove periods
+  # Remove periods  
   x <- condense_spaces(tolower(gsub("\\.$", "", x)))
   x <- gsub(" /", "/", x)
-
   f <- system.file("extdata/replace_special_chars.csv",
                 package = "bibliographica")
   spechars <- suppressWarnings(read_mapping(f, sep = ";", mode = "table", include.lowercase = TRUE))
   x <- as.character(map(x, spechars, mode = "match"))
   
+  xorig <- x
+  x <- xuniq <- unique(xorig)
+  df <- do.call("rbind", lapply(x, polish_publication_frequencies))
+  
+  # Match to original inds and return
+  df[match(xorig, xuniq),]
+
+}
+
+
+polish_publication_frequencies <- function(x) {
+
   # Convert with different languages. Use the one with least NAs
   # not an optimal hack but works for the time being..
   tmps <- list()
@@ -141,7 +152,6 @@ polish_publication_frequency_swedish <- function(x) {
   inds <- c(grep("^vartannat [[:lower:]]+ vart 3 [[:lower:]]+$", x),
             grep("^varannan [[:lower:]]+ vart 3 [[:lower:]]+$", x)
        )
-
   if (length(inds)>0) {
     freq[inds] <- 2.5
     unit[inds] <- sapply(strsplit(x[inds], " "), function (xi) {xi[[length(xi)]]})
@@ -152,9 +162,7 @@ polish_publication_frequency_swedish <- function(x) {
   inds <- grep("^vart [0-9]+ [[:lower:]]+$", x)
   if (length(inds)>0) {
     x[inds] <- gsub("^vart ", "", x[inds])
-    n <- sapply(strsplit(x[inds], " "), function (xi) {xi[[1]]})
-    n <- as.character(n)
-    freq[inds] <- 1/as.numeric(n)
+    freq[inds] <- 1/as.numeric(sapply(strsplit(x[inds], " "), function (xi) {xi[[1]]}))
     unit[inds] <- sapply(strsplit(x[inds], " "), function (xi) {xi[[2]]})
   }
 
