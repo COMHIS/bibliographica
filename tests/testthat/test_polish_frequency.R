@@ -52,4 +52,7 @@ test_that("polish_publication_frequency works correctly", {
   expect_equal(polish_publication_frequency("Vart tredje år-1 nr/år")$annual, 0.5)
   expect_equal(polish_publication_frequency("Vart tredje till vart fjärde år")$annual, 1/3.5)
 
+  expect_equal(as.character(polish_publication_frequency("Tidigare 1 nr vart tredje år, nu 1 nr/år")$freq), "Irregular")
+  expect_equal(polish_publication_frequency("16 nr/termin")$annual, 32)  
+
 })

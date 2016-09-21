@@ -400,17 +400,17 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Conversion: publication frequency")
   # Publication frequency
-  o <- cbind(original_frequency = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))))
+  #o <- cbind(original_frequency = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))))
   #o <- as.character(df.orig[["publication_frequency"]])
-  #o <- cbind(original_frequency = tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]]))),
-  #           original_interval = tolower(gsub("\\.$", "", as.character(df.orig[["publication_interval"]]))),
-  #           original_time = tolower(gsub("\\.$", "", as.character(df.orig[["publication_time"]])))
-  #     )
-  #o <- as.character(df.orig[["publication_frequency"]])
+  o <- cbind(original_frequency = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))),
+             original_interval = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_interval"]])))),
+             original_time = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_time"]]))))
+       )
   x <- df.preprocessed[, c("publication_frequency_text", "publication_frequency_annual")]
   tab <- cbind(x, o)
   tab$publication_frequency_annual <- round(tab$publication_frequency_annual, 2)
-  tab$publication_frequency_text <- condense_spaces(tab$publication_frequency_text)  
+  tab$publication_frequency_text <- condense_spaces(tab$publication_frequency_text)
+  tab <- tab[which(!rowMeans(is.na(tab[, 1:3])) == 1),] # Remove NA cases  
   #tab <- tab[!is.na(tab$publication_frequency_text),]
   tmp <- write_xtable(tab,
       paste(output.folder, "publication_frequency_conversion.csv",

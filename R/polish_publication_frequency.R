@@ -10,7 +10,10 @@ polish_publication_frequency <- function(x) {
 
   # Remove periods  
   x <- condense_spaces(tolower(gsub("\\.$", "", x)))
-  x <- gsub(" /", "/", x)
+  x <- gsub("^ca ", "", x)
+  x <- gsub(" */ *", "/", x)
+  x <- gsub("^[0-9]+ s$", "", x)
+  
   f <- system.file("extdata/replace_special_chars.csv",
                 package = "bibliographica")
   spechars <- suppressWarnings(read_mapping(f, sep = ";", mode = "table", include.lowercase = TRUE))
@@ -68,10 +71,11 @@ polish_publication_frequencies <- function(x) {
 #' @keywords utilities
 polish_publication_frequency_swedish <- function(x) {
 
-  x <- gsub("^ca ", "", x)
-  x <- gsub(" h\\.* */", " nr/", x)
-  x <- gsub(" hft\\.* */", " nr/", x)
-  x <- gsub(" pl\\.* */", " nr/", x)
+  x <- gsub(" h\\.*/", " nr/", x)
+  x <- gsub(" hft\\.*/", " nr/", x)
+  x <- gsub(" pl\\.*/", " nr/", x)
+  x <- gsub(" sa l.nge kryssningarna varar", " ", x)
+  x <- condense_spaces(x)
   
   freq <- rep(NA, length = length(x))
   unit <- rep(NA, length = length(x))  
@@ -107,6 +111,15 @@ polish_publication_frequency_swedish <- function(x) {
     s <- condense_spaces(gsub("/", "", gsub("[[:lower:]]", "", x[inds])))
     freq[inds] <- sapply(strsplit(s, "-"), function (xi) {mean(as.numeric(xi))})
     unit[inds] <- "week"
+  }
+
+  # 6-8 nr/termin
+  inds <- grep("^[0-9]+-*[0-9]* nr/termin", x)
+  if (length(inds) > 0) {
+    s <- condense_spaces(gsub("/", "", gsub("[[:lower:]]", "", x[inds])))
+    # Termin is 1/2 years, hence multiplying the frequency by 2 to get annual estimate
+    freq[inds] <- 2 * sapply(strsplit(s, "-"), function (xi) {mean(as.numeric(xi))})
+    unit[inds] <- "year"
   }
 
   # 6-8 nr/kvartal
@@ -146,7 +159,6 @@ polish_publication_frequency_swedish <- function(x) {
     unit[inds] <- sapply(strsplit(x[inds], " "), function (xi) {xi[[2]]})
   }
 
-
   # Vartannat eller vart trejde år
   # Vartannat till vart tredje år 
   inds <- c(grep("^vartannat [[:lower:]]+ vart 3 [[:lower:]]+$", x),
@@ -174,6 +186,13 @@ polish_publication_frequency_swedish <- function(x) {
     unit[inds] <- x[inds]
   }
 
+  # irregular
+  inds <- grep("^irregular$", x)
+  if (length(inds)>0) {
+    freq[inds] <- NA
+    unit[inds] <- "Irregular"
+  }
+
   # Misc
   inds <- unique(c(
        	    grep("^oregelbunden$", x),
@@ -184,17 +203,38 @@ polish_publication_frequency_swedish <- function(x) {
     unit[inds] <- "Irregular"
   }
 
+  # TODO add these to separate table
   # Special cases
   inds <- which(x == "vart 3 ar-1 nr/ar") # Every second year
   if (length(inds) > 0) {
     freq[inds] <- 1/2
     unit[inds] <- "year"
   }
-
-  inds <- which(x == "vart 3 till vart 4 ar") # Every 3-4 years
-  if (length(inds) > 0) {
-    freq[inds] <- 1/3.5
-    unit[inds] <- "year"
+  
+  if (x == "vart 3 till vart 4 ar") {
+    freq <- 1/3.5    
+    unit <- "year"
+  } else if (x == "1 nr/vecka med sommaruppehall, dvs ca 42 nr/ar") {
+    freq <- 42
+    unit <- "year"
+  } else if (x == "1 nr/vecka (april-sept.), 2 nr/månad (okt.-mars)") {
+    freq <- 26 + 12 
+    unit <- "year"
+  } else if (x == "1 nr/vecka (april-sept.)") {
+    freq <- 26
+    unit <- "year"
+  } else if (x == "2 nr/månad (1 och 4 kvartalet), 1 nr/kvartal (2 och 3 kvartalet)") {
+    freq <- 12 + 2
+    unit <- "year"
+  } else if (x == "11 nr/ar + arsvol") {
+    freq <- 12
+    unit <- "year"
+  } else if (x == "tidigare 1 nr vart 3 ar, nu 1 nr/ar")  {
+    freq <- NA
+    unit <- "Irregular"
+  } else if (x == "2 nr/månad (1856-1859). 1 nr/månad (1860-186?)")  {
+    freq <- NA
+    unit <- "Irregular"
   }
 
   # Translate units in English
