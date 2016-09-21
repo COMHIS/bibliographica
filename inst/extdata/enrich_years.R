@@ -25,8 +25,11 @@ message("Enrich publication frequency")
 # within the given years. Augment the data based on this logic.
 dfo <- df.orig[df.preprocessed$original_row, ]
 idx <- grep("^[0-9]{1}-[0-9]{1,2}$", gsub("\\.$", "", dfo$publication_interval))
-f <- sapply(strsplit(gsub("\\.$", "", dfo$publication_interval[idx]), "-"), function (x) {diff(sort(as.numeric(x)))+1})
-fa <- f/(df.preprocessed$publication_year_till[idx] - df.preprocessed$publication_year_from[idx] + 1)
-i <- is.na(df.preprocessed$publication_frequency_annual[idx])
-df.preprocessed$publication_frequency_annual[idx[i]] <- fa[i]
-df.preprocessed$publication_frequency_text <- publication_frequency_text(df.preprocessed$publication_frequency_text, df.preprocessed$publication_frequency_annual)
+if (length(idx) > 0) {
+  f <- sapply(strsplit(gsub("\\.$", "", dfo$publication_interval[idx]), "-"), function (x) {diff(sort(as.numeric(x)))+1})
+  fa <- f/(df.preprocessed$publication_year_till[idx] - df.preprocessed$publication_year_from[idx] + 1)
+  i <- is.na(df.preprocessed$publication_frequency_annual[idx])
+  df.preprocessed$publication_frequency_annual[idx[i]] <- fa[i]
+  df.preprocessed$publication_frequency_text <- publication_frequency_text(df.preprocessed$publication_frequency_text, df.preprocessed$publication_frequency_annual)
+}
+

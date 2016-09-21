@@ -16,6 +16,7 @@ Publication year is available for `r sum(!is.na(df$publication_year))` documents
 
 ```{r summarypublicationyear, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
 # Title count per decade
+df <- df.preprocessed
 df2 <- df %>% group_by(publication_decade) %>% filter(publication_decade < 2010) 
 p <- ggplot(df2, aes(publication_decade)) +
      geom_bar() + scale_y_log10() +
@@ -55,9 +56,9 @@ marked as potential first editions. Later need to check if this
 information is readily available in MARC.
 
 There are `r nrow(unique(df[, c("title", "author")]))` unique
-documents with an identical title and author;
-`r length(which(write_xtable(df[, c("title", "author")])$Count > 1))` of
-those have multiple occurrences, sometimes with different publication
+documents with an identical title and author and
+`r length(which(write_xtable(df[, c("title", "author")])$Count > 1))`
+of those have multiple occurrences, sometimes with different publication
 years.  The earliest occurrence is suggested as the first edition.
 
 This figure shows the number of first editions per decade.

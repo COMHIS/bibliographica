@@ -419,7 +419,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   message("Discarded publication frequency")
   o <- as.character(df.orig[["publication_frequency"]])
   x1 <- as.character(df.preprocessed[["publication_frequency_annual"]])
-  x2 <- as.character(df.preprocessed[["publication_frequency_text"]])  
+  x2 <- as.character(df.preprocessed[["publication_frequency_text"]])    
   inds <- which(is.na(x1) & is.na(x2))
   #inds <- which(is.na(x1))  
   tmp <- write_xtable(o[inds],
@@ -439,10 +439,15 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       sep = ""), count = TRUE)
   
   message("Discarded publication interval")
-  o <- df.orig[, c("original_publication_interval", "original_publication_time", "original_publication_frequency")]
-  x <- df.preprocessed[c("publication_interval_from", "publication_interval_till")]
-  inds <- which(rowSums(is.na(x)) == 2)  
-  tmp <- write_xtable(o[inds, ],
+  o <- df.orig[, c("publication_interval", "publication_time", "publication_frequency")]
+  o$publication_time <- gsub("^\\[", "", gsub("\\]$", "", gsub("\\.$", "", o$publication_time)))
+  x <- df.preprocessed[,c("publication_interval_from", "publication_interval_till")]
+  x2 <- df.preprocessed[, c("publication_frequency_annual", "publication_frequency_text")]
+
+  inds <- which(rowSums(is.na(x)) == 2 & rowSums(is.na(x2)) == 2 )
+  o <- o[inds,]
+  inds <- is.na(unlist(o[,1])) & grepl("^[0-9]+$", unlist(o[, 2])) & is.na(unlist(o[,3]))
+  tmp <- write_xtable(o[!inds,],
       paste(output.folder, "publication_interval_discarded.csv", sep = ""),
       count = TRUE)
 
