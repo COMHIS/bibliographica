@@ -237,6 +237,9 @@ polish_publication_frequency_swedish <- function(x) {
   } else if (x == "2 nr/m.nad ([0-9]+-[0-9]+). 1 nr/m.nad ([0-9]+-[0-9+]?)")  {
     freq <- NA
     unit <- "Irregular"
+  } else if (x == "var 3 dag s. l.nge kryssningarna varar")  {
+    freq <- 1/3
+    unit <- "day"
   }
 
   # Translate units in English
