@@ -439,11 +439,10 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       sep = ""), count = TRUE)
   
   message("Discarded publication interval")
-  o <- as.character(df.orig[["publication_interval"]])
+  o <- df.orig[, c("original_publication_interval", "original_publication_time", "original_publication_frequency")]
   x <- df.preprocessed[c("publication_interval_from", "publication_interval_till")]
-  #inds <- which(rowSums(is.na(x)) == 2 & is.na(df.preprocessed$publication_frequency_text))
   inds <- which(rowSums(is.na(x)) == 2)  
-  tmp <- write_xtable(o[inds],
+  tmp <- write_xtable(o[inds, ],
       paste(output.folder, "publication_interval_discarded.csv", sep = ""),
       count = TRUE)
 
