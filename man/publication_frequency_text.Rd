@@ -7,13 +7,15 @@
 publication_frequency_text(x, peryear)
 }
 \arguments{
-\item{x}{publication frequency per year}
+\item{x}{Original publication frequency text}
+
+\item{peryear}{Estimated annual publication frequency}
 }
 \description{
 Convert annual publication frequencies to text format.
 }
 \examples{
-\dontrun{df <- publication_frequency_text("Once a year", 1)}
+\dontrun{df <- publication_frequency_text("Twice per year" 2)}
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

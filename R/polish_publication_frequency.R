@@ -29,7 +29,7 @@ polish_publication_frequency <- function(x) {
 }
 
 
-polish_publication_frequencies <- function(x) {
+polish_publication_frequencies <- function (x) {
 
   # Convert with different languages. Use the one with least NAs
   # not an optimal hack but works for the time being..
@@ -74,7 +74,7 @@ polish_publication_frequency_swedish <- function(x) {
   x <- gsub(" h\\.*/", " nr/", x)
   x <- gsub(" hft\\.*/", " nr/", x)
   x <- gsub(" pl\\.*/", " nr/", x)
-  x <- gsub(" sa l.nge kryssningarna varar", " ", x)
+  x <- gsub(" s. l.nge kryssningarna varar", " ", x)
   x <- condense_spaces(x)
   
   freq <- rep(NA, length = length(x))
@@ -144,7 +144,7 @@ polish_publication_frequency_swedish <- function(x) {
     unit[inds] <- "year"
   }
 
-  # 1 nr/varannan månad	
+  # 1 nr/varannan manad	
   inds <- c(grep("^[0-9]+ nr/vartannat [[:lower:]]+$", x), grep("^[0-9]+ nr/varannan [[:lower:]]+$", x))
   if (length(inds)>0) {
     spl <- strsplit(x[inds], " ")
@@ -159,8 +159,8 @@ polish_publication_frequency_swedish <- function(x) {
     unit[inds] <- sapply(strsplit(x[inds], " "), function (xi) {xi[[2]]})
   }
 
-  # Vartannat eller vart trejde år
-  # Vartannat till vart tredje år 
+  # Vartannat eller vart trejde ar
+  # Vartannat till vart tredje ar 
   inds <- c(grep("^vartannat [[:lower:]]+ vart 3 [[:lower:]]+$", x),
             grep("^varannan [[:lower:]]+ vart 3 [[:lower:]]+$", x)
        )
@@ -210,20 +210,22 @@ polish_publication_frequency_swedish <- function(x) {
     freq[inds] <- 1/2
     unit[inds] <- "year"
   }
-  
-  if (x == "vart 3 till vart 4 ar") {
+
+  if (is.null(x) || is.na(x)) {
+    # skip
+  } else if (x == "vart 3 till vart 4 ar") {
     freq <- 1/3.5    
     unit <- "year"
   } else if (x == "1 nr/vecka med sommaruppehall, dvs ca 42 nr/ar") {
     freq <- 42
     unit <- "year"
-  } else if (x == "1 nr/vecka (april-sept.), 2 nr/månad (okt.-mars)") {
+  } else if (x == "1 nr/vecka (april-sept.), 2 nr/m.nad (okt.-mars)") {
     freq <- 26 + 12 
     unit <- "year"
   } else if (x == "1 nr/vecka (april-sept.)") {
     freq <- 26
     unit <- "year"
-  } else if (x == "2 nr/månad (1 och 4 kvartalet), 1 nr/kvartal (2 och 3 kvartalet)") {
+  } else if (x == "2 nr/m.nad (1 och 4 kvartalet), 1 nr/kvartal (2 och 3 kvartalet)") {
     freq <- 12 + 2
     unit <- "year"
   } else if (x == "11 nr/ar + arsvol") {
@@ -232,7 +234,7 @@ polish_publication_frequency_swedish <- function(x) {
   } else if (x == "tidigare 1 nr vart 3 ar, nu 1 nr/ar")  {
     freq <- NA
     unit <- "Irregular"
-  } else if (x == "2 nr/månad (1856-1859). 1 nr/månad (1860-186?)")  {
+  } else if (x == "2 nr/m.nad ([0-9]+-[0-9]+). 1 nr/m.nad ([0-9]+-[0-9+]?)")  {
     freq <- NA
     unit <- "Irregular"
   }

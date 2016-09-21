@@ -1,10 +1,11 @@
 #' @title Annual Publication Frequency to Text
 #' @description Convert annual publication frequencies to text format.
-#' @param x publication frequency per year
+#' @param x Original publication frequency text
+#' @param peryear Estimated annual publication frequency
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @examples \dontrun{df <- publication_frequency_text("Once a year", 1)}
+#' @examples \dontrun{df <- publication_frequency_text("Twice per year" 2)}
 #' @keywords utilities
 publication_frequency_text <- function (x, peryear) {
 

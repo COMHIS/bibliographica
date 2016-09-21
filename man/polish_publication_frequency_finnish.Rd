@@ -7,7 +7,7 @@
 polish_publication_frequency_finnish(x)
 }
 \arguments{
-\item{x}{publication frequency field (a vector)}
+\item{x}{publication frequency field (a vector) 1}
 }
 \description{
 Harmonize publication frequencies for Finnish data.
