@@ -1,6 +1,6 @@
-#' @title Get relation keyword
-#' @description Get keyword that denotes that the person in question is a relative to the named person
-#' @param x A vector of publisher names
+#' @title Get Relation Keyword
+#' @description Pick keyword denoting that the person in question is a relative to the named person
+#' @param x A character vector (e.g. publisher names)
 #' @param full_name A vector of full names (from first name to last) it has been picked from publisher field
 #' @param languages A vector of languages which are used in detecting relation keywords
 #' @return Vector with relation keywords
@@ -13,26 +13,31 @@
 get_relation_keyword <- function(x, full_name, languages=c("english")) {
   
   # TODO: make a table for languages & related files & purpose
-  f <- vector(length=length(languages))
-  i <- 1
+  f <- c()
+
   if ("finnish" %in% languages) {
-    f[i] <- system.file("extdata/fi_relation_keywords.csv", package="bibliographica")
-    i <- i + 1
+    f[["finnish"]] <- system.file("extdata/fi_relation_keywords.csv", package="bibliographica")
   }
   if ("swedish" %in% languages) {
-    f[i] <- system.file("extdata/sv_relation_keywords.csv", package="bibliographica")
-    i <- i + 1
+    f[["swedish"]] <- system.file("extdata/sv_relation_keywords.csv", package="bibliographica")
   }
-  if ("english" %in% languages) {
-    f[i] <- system.file("extdata/en_relation_keywords.csv", package="bibliographica")
-    i <- i + 1
-  }
+  # TODO HR
+  # en_relation_keywords.csv does not exist in bibliographica
+  # also en_lowercase_keywords.csv was missing
+  # add to github if available
+  #if ("english" %in% languages) {
+  #  f[["english"]] <- system.file("extdata/en_relation_keywords.csv", package="bibliographica")
+  #}
   if ("latin" %in% languages) {
-    f[i] <- system.file("extdata/la_relation_keywords.csv", package="bibliographica")
-    i <- i + 1
+    f[["latin"]] <- system.file("extdata/la_relation_keywords.csv", package="bibliographica")
   }
-  
+
   ret <- character(length = length(x))
+
+  if (length(f) == 0) {
+    return(ret)
+  }
+
   for (fil in f) {
   
     synonyms <- read.csv(file=fil, sep="\t", fileEncoding="UTF-8")

@@ -2,28 +2,21 @@
 % Please edit documentation in R/polish_publisher.R
 \name{polish_publisher}
 \alias{polish_publisher}
-\title{Polish Publisher}
+\title{Polish Publisher Generic}
 \usage{
-polish_publisher(x, verbose = TRUE, mc.cores = 1)
+polish_publisher(x)
 }
 \arguments{
-\item{x}{publisher field (a vector)}
-
-\item{verbose}{verbose}
-
-\item{mc.cores}{Number of cores for parallelization}
+\item{x}{Character vector of publisher names}
 }
 \value{
-polished publisher field (a vector)
+Data frame with orig, mod
 }
 \description{
-Generic function for preliminary polishing of publishing house names.
-}
-\examples{
-\dontrun{v <- polish_publisher(c("Oxford University Press","tryckt hos Cambridge University Press"))}
+Generic cleanup of the publisher field.
 }
 \author{
-Niko Ilomaki \email{niko.ilomaki@helsinki.fi}
+Leo Lahti \email{hege.roivainen@gmail.com}
 }
 \references{
 See citation("bibliographica")

@@ -16,6 +16,7 @@ Publication year is available for `r sum(!is.na(df$publication_year))` documents
 
 ```{r summarypublicationyear, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
 # Title count per decade
+df <- df.preprocessed
 df2 <- df %>% group_by(publication_decade) %>% filter(publication_decade < 2010) 
 p <- ggplot(df2, aes(publication_decade)) +
      geom_bar() + scale_y_log10() +
@@ -25,9 +26,9 @@ print(p)
 
 ### Publication frequency
 
-Publication frequency is available for `r sum(!is.na(df$publication_frequency))` documents (`r round(100*mean(!is.na(df$publication_frequency)))`%). The links are invalid if the lists are empty.
+Publication frequency information is available for `r sum(!is.na(df$publication_frequency_text))` documents (`r round(100*mean(!is.na(df$publication_frequency_text)))`%). The links are invalid if the lists are empty. The (estimated annual) frequencies are converted to plain text according to their closest match in [this table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/frequency_conversions.csv).
 
-[Publication frequency accepted](output.tables/publication_frequency_discarded.csv)
+[Publication frequency accepted](output.tables/publication_frequency_accepted.csv)
 
 [Publication frequency conversions](output.tables/publication_frequency_conversion.csv)
 
@@ -36,11 +37,11 @@ Publication frequency is available for `r sum(!is.na(df$publication_frequency))`
 
 ### Publication interval
 
-Publication interval is available for `r sum(!is.na(df$publication_interval))` documents (`r round(100*mean(!is.na(df$publication_interval)))`%). 
+Publication interval is available for `r sum(!is.na(df$publication_interval_from) | !is.na(df$publication_interval_till))` documents (`r round(100*mean(!is.na(df$publication_interval_from) | !is.na(df$publication_interval_till)))`%). 
 
-[Publication interval accepted](output.tables/publication_interval_discarded.csv)
+[Publication interval accepted](output.tables/publication_interval_accepted.csv)
 
-[Publication interval conversions](output.tables/publication_interval_conversion.csv)
+[Publication interval conversions](output.tables/publication_interval_conversion_nontrivial.csv)
 
 [Publication interval discarded](output.tables/publication_interval_discarded.csv)
 
@@ -54,27 +55,28 @@ are multiple instances from the same earliest year, they are all
 marked as potential first editions. Later need to check if this
 information is readily available in MARC.
 
-In this data we have `r nrow(unique(df[, c("title", "author")]))`
-unique documents with an identical title and author. Out of these,
+There are `r nrow(unique(df[, c("title", "author")]))` unique
+documents with an identical title and author and
 `r length(which(write_xtable(df[, c("title", "author")])$Count > 1))`
-have multiple occurrences, sometimes with different publication years.
-Where multiple publication years are seen, the earliest occurrence is
-suggested as the first edition.
+of those have multiple occurrences, sometimes with different publication
+years.  The earliest occurrence is suggested as the first edition.
 
 This figure shows the number of first editions per decade.
 
-```{r firsteditions, echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=6, out.width="280px"}
+```{r firsteditions, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
 df <- df.preprocessed
 df <- df %>% group_by(publication_decade) %>%
-             summarise(n = sum(first_edition, na.rm = TRUE))
-
+             summarise(total = n(), first = sum(first_edition, na.rm = TRUE))
+df2 <- melt(df, id = "publication_decade")
 theme_set(theme_bw(20))
-p <- ggplot(df, aes(x = publication_decade, y = n)) +
-       geom_point(size = 5) +
-       geom_smooth(col = "black") + 
+p <- ggplot(df2, aes(x = publication_decade, y = value, group = variable)) +
+       geom_point(aes(shape = variable), size = 5) +
+       geom_line(aes(shape = variable)) +       
+       geom_smooth(aes(col = variable, fill = variable)) + 
        xlab("Publication year") +
        ylab("First editions (n)") +
-       ggtitle(paste("First editions count (", catalogue, ")", sep = ""))
+       #scale_y_log10() +
+       ggtitle("First editions vs. total title count")
 print(p)
 ```
 

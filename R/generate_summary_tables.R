@@ -23,9 +23,13 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   for (field in setdiff(names(df.preprocessed),
     c(names(df.preprocessed)[grep("language", names(df.preprocessed))] , 
     "row.index", "paper", "publication_decade",
-    "publication_year", "subject_topic", "publication_year_from", "publication_year_till",
+    "publication_year", "publication_year_from", "publication_year_till",
+    "publication_interval",
+    "publication_interval_from",
+    "publication_interval_till",        
+    "subject_topic", 
     "pagecount", "obl", "obl.original", "original_row", "dissertation",
-    "synodal", "original", "unity", "author_birth", "author_death",
+    "synodal", "language", "original", "unity", "author_birth", "author_death",
     "gatherings.original", "width.original", "height.original",
     "longitude", "latitude", "page", "item", "publisher.printedfor",
     "publisher", "country", "author_pseudonyme", "publication_place",
@@ -74,10 +78,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 			  ),
       paste(output.folder, paste("author_conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
-
-
-
-
 
   # -----------------------------------------------------
 
@@ -307,15 +307,32 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # inst/extdata/publisher.Rmd
 
    message("Accepted publishers")
-   field = "publisher"
-   s <- write_xtable(df.preprocessed[[field]], paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
+   field <- "publisher"
 
-    message("Discarded publishers")
-  if ((field %in% names(df.preprocessed)) && (field %in% names(df.orig))) {
+   message("Use corporate field for NA publishers")
+   if ("corporate" %in% names(df.orig)) {
+     message("Augmenting missing publisher entries with the corporate field")
+     inds <- which(is.na(df.orig$publisher))
+     df.orig$publisher[inds] <- df.orig$corporate[inds]
+   }
+
+   s <- write_xtable(df.preprocessed[[field]],
+     	  paste(output.folder, field, "_accepted.csv", sep = ""),
+	  count = TRUE)
+
+   message("Discarded publishers")
+   if ((field %in% names(df.preprocessed)) && (field %in% names(df.orig))) {
       inds <- which(is.na(df.preprocessed[[field]]))
       original <- as.vector(na.omit(as.character(df.orig[[field]][inds])))
+      # Remove trivial cases to simplify output
+      inds <- c(grep("^\\[*s\\.*n\\.*\\]*[0-9]*\\.*$", tolower(original)),
+      	        grep("^\\[*s\\.*n\\.*\\[*[0-9]*$", tolower(original)))
+		
+      if (length(inds) > 0) {		
+        original <- original[-inds]
+      }
       tmp <- write_xtable(original, paste(output.folder, field, "_discarded.csv", sep = ""), count = TRUE)
-    }
+   }
 
   message("publisher conversions")
   nam <- "publisher"
@@ -356,7 +373,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Conversion: publication year")
   # Publication year
-  o <- as.character(df.orig[["publication_time"]])
+  o <- gsub("\\.$", "", as.character(df.orig[["publication_time"]]))
   x <- df.preprocessed[, c("publication_year", "publication_year_from", "publication_year_till")]
   tab <- cbind(original = o, x)
   tab <- tab[!is.na(tab$publication_year),]
@@ -370,6 +387,76 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   inds <- which(is.na(x))
   tmp <- write_xtable(o[inds],
       paste(output.folder, "publication_year_discarded.csv", sep = ""),
+      count = TRUE)
+
+  # --------------------------------------------
+
+  message("Accepted publication frequency")
+  tmp <- write_xtable(
+     df.preprocessed[, c("publication_frequency_text",
+			 "publication_frequency_annual")],
+      paste(output.folder, "publication_frequency_accepted.csv", sep = ""),
+      count = TRUE, sort.by = "publication_frequency_annual")
+
+  message("Conversion: publication frequency")
+  # Publication frequency
+  #o <- cbind(original_frequency = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))))
+  #o <- as.character(df.orig[["publication_frequency"]])
+  o <- cbind(original_frequency = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))),
+             original_interval = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_interval"]])))),
+             original_time = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_time"]]))))
+       )
+  x <- df.preprocessed[, c("publication_frequency_text", "publication_frequency_annual")]
+  tab <- cbind(x, o)
+  tab$publication_frequency_annual <- round(tab$publication_frequency_annual, 2)
+  tab$publication_frequency_text <- condense_spaces(tab$publication_frequency_text)
+  tab <- tab[which(!rowMeans(is.na(tab[, 1:3])) == 1),] # Remove NA cases  
+  #tab <- tab[!is.na(tab$publication_frequency_text),]
+  tmp <- write_xtable(tab,
+      paste(output.folder, "publication_frequency_conversion.csv",
+      sep = ""), count = TRUE, sort.by = "publication_frequency_text")
+  
+  message("Discarded publication frequency")
+  o <- as.character(df.orig[["publication_frequency"]])
+  x1 <- as.character(df.preprocessed[["publication_frequency_annual"]])
+  x2 <- as.character(df.preprocessed[["publication_frequency_text"]])    
+  inds <- which(is.na(x1) & is.na(x2))
+  #inds <- which(is.na(x1))  
+  tmp <- write_xtable(o[inds],
+      paste(output.folder, "publication_frequency_discarded.csv", sep = ""),
+      count = TRUE)
+
+  # --------------------------------------------
+
+  message("Conversion: publication interval")
+  # Publication interval
+  o <- tolower(gsub("\\.$", "", as.character(df.orig[["publication_interval"]])))
+  x <- df.preprocessed[, c("publication_interval_from", "publication_interval_till")]
+  tab <- cbind(original = o, x)
+  tab <- tab[!is.na(tab$publication_interval_from) | !is.na(tab$publication_interval_till),]
+  tmp <- write_xtable(tab,
+      paste(output.folder, "publication_interval_conversion_nontrivial.csv",
+      sep = ""), count = TRUE)
+  
+  message("Discarded publication interval")
+  o <- df.orig[, c("publication_interval", "publication_time", "publication_frequency")]
+  o$publication_time <- gsub("^\\[", "", gsub("\\]$", "", gsub("\\.$", "", o$publication_time)))
+  x <- df.preprocessed[,c("publication_interval_from", "publication_interval_till")]
+  x2 <- df.preprocessed[, c("publication_frequency_annual", "publication_frequency_text")]
+
+  inds <- which(rowSums(is.na(x)) == 2 & rowSums(is.na(x2)) == 2 )
+  o <- o[inds,]
+  inds <- is.na(unlist(o[,1])) & grepl("^[0-9]+$", unlist(o[, 2])) & is.na(unlist(o[,3]))
+  tmp <- write_xtable(o[!inds,],
+      paste(output.folder, "publication_interval_discarded.csv", sep = ""),
+      count = TRUE)
+
+  message("Accepted publication interval")
+  o <- as.character(df.orig[["publication_interval"]])
+  x <- df.preprocessed[c("publication_interval_from", "publication_interval_till")]
+  inds <- which(rowSums(!is.na(x))>0)
+  tmp <- write_xtable(x[inds,],
+      paste(output.folder, "publication_interval_accepted.csv", sep = ""),
       count = TRUE)
   
   # --------------------------------------------
@@ -397,10 +484,12 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # List unique languages that occur in the data
   lang <- unlist(strsplit(df.orig$language, ";"))
   # Remove the known ones (und is Undetermined)
-  unknown.lang <- setdiff(lang, c(abrv$synonyme, "und"))
+  known.abbreviations <- setdiff(abrv$synonyme, "und") # und = Undetermined
+  unknown.lang <- setdiff(lang, known.abbreviations) 
   if (length(unknown.lang)>0) {
     # Count occurrences of each unknown lang
-    u <- colSums(sapply(unknown.lang, function (ul) grepl(ul, df.orig$language)))
+    u <- rev(sort(colSums(sapply(unknown.lang, function (ul) grepl(paste("^", ul, "$", sep = ""), unlist(strsplit(df.orig$language, ";")))))))
+    u <- u[u > 0]
     tab <- cbind(term = names(u), n = unname(u))
     tmp <- write.csv(tab,
 	     file = paste(output.folder, "language_discarded.csv", sep = ""),
@@ -408,6 +497,10 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   } else {
     write.csv("No entries.", file = paste(output.folder, "language_discarded.csv", sep = ""))
   }
+
+  message("Accepted languages")
+  known.lang <- lang[lang %in% known.abbreviations]
+  tmp <- write_xtable(map(known.lang, abrv), paste(output.folder, "language_accepted.csv", sep = ""), count = TRUE)
 
   message("Language conversions")
   field = "language"

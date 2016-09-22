@@ -20,7 +20,9 @@ print("Read raw data")
 if (reload.data) {
 
   # Read the raw data
-  df.orig <- read_bibliographic_metadata(fs, ignore.fields = ignore.fields, verbose = TRUE)
+  df.orig <- read_bibliographic_metadata(fs,
+		ignore.fields = ignore.fields,
+		verbose = TRUE)
 
   # Save the raw data
   saveRDS(df.orig, file = "df.raw.Rds", compress = "xz")
@@ -46,7 +48,6 @@ if (exists("update.fields") && !is.null(update.fields) && ("df0.Rds" %in% dir())
   if (length(m) > 0) {
     warning(paste("Updates not defined for the following input fields:", paste(m , sep = ";")))
   }
-
 }
 
 

@@ -7,7 +7,7 @@
 clean_publisher(x, languages = c("english"))
 }
 \arguments{
-\item{x}{Vector of publisher names}
+\item{x}{A vector of publisher names}
 
 \item{languages}{A vector of languages which are used in detecting relation keywords}
 }
@@ -15,7 +15,7 @@ clean_publisher(x, languages = c("english"))
 Vector of publisher names
 }
 \description{
-Pre-cleans publisher field.
+Preliminary cleanup for the publisher field.
 }
 \examples{
 # clean_publisher(x, languages=c("finnish", "swedish", "latin"))

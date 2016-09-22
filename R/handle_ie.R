@@ -27,8 +27,18 @@ handle_ie <- function (x, harmonize = TRUE, separator = "i.e") {
 
   # z [i.e y] -> y
   if (length(grep("[0-9|a-z]*\\.* \\[i\\.e [0-9|a-z]*\\]", x))>0) {
+
+    # This is for "1905 [ie. 15]" -> 1915
+    spl <- strsplit(x, " \\[i\\.e ")
+    x1 <- sapply(spl, function (x) {x[[1]]})
+    x2 <- gsub("\\]", "", sapply(spl, function (x) {x[[2]]}))
+    inds <- which(nchar(x1) == 4 & nchar(x2) == 2)
+    x[inds] <- sapply(inds, function (ind) {paste(substr(x1[[ind]], 1, 2), x2[[ind]], sep = "")})
+
     x <- gsub("^[0-9|a-z]*\\.* \\[i\\.e", "", x)
+
     x <- gsub("\\]$", "", x)
+    
   }
 
   if (length(grep("-", x)) > 0 && length(grep("i\\.e", x)) > 0) {

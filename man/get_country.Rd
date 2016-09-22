@@ -15,7 +15,7 @@ get_country(x, map = NULL)
 Country vector
 }
 \description{
-Map geographic places to country names
+Map geographic places to country names.
 }
 \examples{
 x2 <- get_country("Berlin")

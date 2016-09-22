@@ -5,7 +5,7 @@
 \title{Generic Preprocessing for Bibliographic Metadata}
 \usage{
 polish_all(df.orig, fields = NULL, verbose = TRUE, file = NULL,
-  mc.cores = 1, conversions = list(), catalog = NULL)
+  mc.cores = 1, conversions = list(), languages = NULL)
 }
 \arguments{
 \item{df.orig}{Original data.frame}
@@ -20,7 +20,7 @@ polish_all(df.orig, fields = NULL, verbose = TRUE, file = NULL,
 
 \item{conversions}{Field conversion list}
 
-\item{catalog}{Customization if the bibliographic catalog is specified. Currently support for : "fennica" "kungliga", "cerl", "estc"}
+\item{languages}{Languages to be used in polishing}
 }
 \value{
 Preprocessed data.frame and field conversion list.

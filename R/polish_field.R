@@ -1,10 +1,11 @@
 #' @title Polish Field
 #' @description Polish a specified library catalogue field.
 #' @param df data.frame that includes the given field
+#' @param df.preprocessed Preprocessed data.frame that may contain auxiliary info.
 #' @param field Field to be preprocessed.
 #' @param verbose verbose
 #' @param mc.cores Number of cores for parallelization
-#' @param catalog Catalog (fennica, kungliga, estc ...)
+#' @param languages Languages to be used in polishing
 #' @return Output of the polished field
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
@@ -12,7 +13,7 @@
 #' @examples \dontrun{a <- polish_field(df, "title")}
 #' @export
 #' @keywords utilities
-polish_field <- function (df, field, verbose = TRUE, mc.cores = 1, catalog=NULL) {
+polish_field <- function (df, df.preprocessed, field, verbose = TRUE, mc.cores = 1, languages = NULL) {
 
   from <- till <- NULL
 
@@ -33,13 +34,12 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1, catalog=NULL)
   	      	 		     )
 
   # No preprocessing implemented for these fields
-  # but the name may chaneg
+  # but the name may change
   if (field %in% c("control_number",
                  "subject_geography",
 		 "publication_geography",
 		 "title_uniform",
 		 "title_uniform2",
-		 "publication_frequency",
 		 "row_index",
 		 "original_row",
 		 "estc_control_number"		 
@@ -92,7 +92,7 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1, catalog=NULL)
   } else if (field == "publisher") {
 
     # Generic cleanup for the publisher field
-    tab <- polish_publisher(df[[field]], verbose = verbose, mc.cores = mc.cores)
+    tab <- polish_publisher(df[[field]])
 
     # Collect results to data frame
     df.tmp <- data.frame(publisher = tab)
@@ -122,12 +122,29 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1, catalog=NULL)
               		 publication_year_till = tmp$till
         )
 
+  } else if (field == "publication_interval") {
+    
+    tmp <- polish_years(df[[field]], check = TRUE)
+      
+    # Add to data.frame
+    df.tmp <- data.frame(publication_interval_from = tmp$from,
+              		 publication_interval_till = tmp$till
+        )
+    
+  } else if (field == "publication_frequency") {
+
+    tmp <- polish_publication_frequency(df[[field]])
+
+    # Add to data.frame
+    df.tmp <- data.frame(
+      publication_frequency_annual = tmp$annual,
+      publication_frequency_text   = tmp$freq)    
+
   } else if (field == "control_number") {
   
     NULL
 
   } else {
-
 
     #warning(paste("No info on how to preprocess field: ", field))
     #df.tmp <- NULL

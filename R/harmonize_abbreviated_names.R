@@ -21,14 +21,17 @@ harmonize_abbreviated_names <- function(x, languages="english") {
       f <- system.file("extdata/la_abbreviated_names.csv", package="bibliographica")
     } else {
       message(paste0("Unknown language in harmonize_abbreviated_names: ", language))
+      f <- NULL      			      
+    }
+
+    if (!is.null(f)) {
+      synonyms <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")
+      inds <- which(!is.na(x))
+      x[inds] <- map(x[inds], synonyms, mode = "recursive")
     }
     
-    synonyms <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")
-    
-    inds <- which(!is.na(x))
-    x[inds] <- map(x[inds], synonyms, mode="recursive")
-    
   }
+  
   x
   
 }

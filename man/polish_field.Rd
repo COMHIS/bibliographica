@@ -4,10 +4,13 @@
 \alias{polish_field}
 \title{Polish Field}
 \usage{
-polish_field(df, field, verbose = TRUE, mc.cores = 1, catalog = NULL)
+polish_field(df, df.preprocessed, field, verbose = TRUE, mc.cores = 1,
+  languages = NULL)
 }
 \arguments{
 \item{df}{data.frame that includes the given field}
+
+\item{df.preprocessed}{Preprocessed data.frame that may contain auxiliary info.}
 
 \item{field}{Field to be preprocessed.}
 
@@ -15,7 +18,7 @@ polish_field(df, field, verbose = TRUE, mc.cores = 1, catalog = NULL)
 
 \item{mc.cores}{Number of cores for parallelization}
 
-\item{catalog}{Catalog (fennica, kungliga, estc ...)}
+\item{languages}{Languages to be used in polishing}
 }
 \value{
 Output of the polished field

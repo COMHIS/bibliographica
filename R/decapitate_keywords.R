@@ -1,5 +1,5 @@
 #' @title Decapitate keywords
-#' @description Removes keywords.
+#' @description Removes keywords
 #' @param x Vector of personal names
 #' @param languages A vector of languages which are used in detecting keywords
 #' @return Vector of words

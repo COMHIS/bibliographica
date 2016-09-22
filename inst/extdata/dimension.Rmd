@@ -149,17 +149,17 @@ print(res$plot)
 
 
 
-```{r title_vs_paper, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=7}
+```{r title_vs_paper, echo=FALSE, message=FALSE, warning=FALSE, fig.width=15, fig.height=10}
 d <- df.preprocessed %>%
        group_by(publication_year) %>%
        summarise(n = n(),
        		 p = sum(paper, na.rm = TRUE))
-p <- ggplot(d, aes(x = n, y = p)) +
+p <- ggplot(d, aes(y = n, x = p)) +
        # geom_point(aes(color = publication_year), size = 3) +
-       geom_text(aes(label = publication_year), size = 5) + 
-       xlab("Title count") + ylab("Paper consumption") +
+       geom_text(aes(label = publication_year), size = 3) + 
+       ylab("Title count") + xlab("Paper consumption") +
        scale_x_log10() + scale_y_log10() + 
-       ggtitle("Title count vs. Paper by year")
+       ggtitle("Paper vs. Title count by year")
 print(p)
 ```
 
