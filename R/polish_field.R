@@ -42,7 +42,6 @@ polish_field <- function (df, field, verbose = TRUE, mc.cores = 1, catalog=NULL)
 		 "publication_frequency",
 		 "row_index",
 		 "original_row",
-		 "publication_interval",
 		 "estc_control_number"		 
 		 )) {
     df.tmp <- data.frame(df[[field]])
