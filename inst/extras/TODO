@@ -1,5 +1,8 @@
 * Technical
 
+Move all unit tests to tables that can be linked from the overview
+page. As already done with publicationplaces.Rmd
+
 Possibility to run overview Rmds with parallel years etc
 
 Fennica geo enrich brings in geocoordinates to many new places. Could
@@ -38,6 +41,8 @@ hyväksi muuhun kuin tilastollisiin juttuihin.
 
 
 * Geographical info
+
+Several GIS coordinates for obvious places missing at least for estc.
 
 The opencage R package
 https://cran.r-project.org/web/packages/opencage/vignettes/opencage.html
