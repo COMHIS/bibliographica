@@ -392,12 +392,14 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # --------------------------------------------
 
   message("Accepted publication frequency")
-  tmp <- write_xtable(
+  if ("publication_frequency_text" %in% names(df.preprocessed)) {
+    tmp <- write_xtable(
      df.preprocessed[, c("publication_frequency_text",
 			 "publication_frequency_annual")],
       paste(output.folder, "publication_frequency_accepted.csv", sep = ""),
       count = TRUE, sort.by = "publication_frequency_annual")
-
+  
+  
   message("Conversion: publication frequency")
   # Publication frequency
   #o <- cbind(original_frequency = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))))
@@ -426,9 +428,13 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, "publication_frequency_discarded.csv", sep = ""),
       count = TRUE)
 
+  }
+
   # --------------------------------------------
 
   message("Conversion: publication interval")
+  if ("publication_interval" %in% names(df.preprocessed)) {
+  
   # Publication interval
   o <- tolower(gsub("\\.$", "", as.character(df.orig[["publication_interval"]])))
   x <- df.preprocessed[, c("publication_interval_from", "publication_interval_till")]
@@ -458,7 +464,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   tmp <- write_xtable(x[inds,],
       paste(output.folder, "publication_interval_accepted.csv", sep = ""),
       count = TRUE)
-  
+
+  }
+
   # --------------------------------------------
 
   message("Authors with missing life years")
