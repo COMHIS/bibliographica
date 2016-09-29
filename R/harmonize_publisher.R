@@ -153,6 +153,9 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
   # TODO should not be Finland specific !
   personal_names <- extract_personal_names(compPublisher, languages=c("finnish", "latin", "swedish"))
   
+  # !!!!!!! THIS IS WRONG !!!!!!!
+  language <- "finnish"
+  
   if (language=="finnish") {
     f = system.file("extdata/fi_publisher_with_placeholders.csv", package="bibliographica")
   } else if (language=="swedish") {
