@@ -18,8 +18,8 @@ polish_publisher <- function (x) {
   x <- gsub("\\.*$", "", x)
 
   # s.n -> ""
-  x <- gsub("\\[*s\\.*n\\.*\\]*", " ", x)
+  x <- gsub("^\\[*s\\.*n\\.*\\]*$", " ", x)
 
   x <- condense_spaces(x)
-
+  x
 }

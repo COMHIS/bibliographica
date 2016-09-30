@@ -19,6 +19,12 @@ clean_publisher <- function(x, languages=c("english")) {
   
   # select the first item from the list
   q <- gsub("^([^;]+);.*$", "\\1", q)
+  
+  # Remove possible remains of separator characters
+  endings=c(" ", "\\.", ";", ":", ",", "'")
+  q <- remove_endings(q, endings=endings, random_order=TRUE)
+  
+  # Select those things that aren't in brackets or parentheses
   q <- gsub("^([^(]+)[(].*[)]$", "\\1", q)
   q <- gsub("^([^[]+)[[].*[]]$", "\\1", q)
   q <- gsub("^[(].*[)]([^(]+)$", "\\1", q)
