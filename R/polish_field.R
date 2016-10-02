@@ -36,7 +36,7 @@ polish_field <- function (df, df.preprocessed, field, verbose = TRUE, mc.cores =
 
   # No preprocessing implemented for these fields
   # but the name may change
-  if (field %in% c("control_number",
+  if (field %in% c(
                  "subject_geography",
 		 "publication_geography",
 		 "title_uniform",
@@ -143,7 +143,8 @@ polish_field <- function (df, df.preprocessed, field, verbose = TRUE, mc.cores =
 
   } else if (field %in% c("control_number", "system_control_number")) {
   
-    NULL
+    df.tmp <- data.frame(df[[field]])
+    names(df.tmp) <- conversions[[field]]
 
   } else {
 
