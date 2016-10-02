@@ -137,10 +137,10 @@ Popularity of different document sizes over time. Left: absolute title counts. R
 
 ```{r compbyformat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7, fig.show="hold", out.width="430px"}
 dfs <- df %>% filter(!gatherings == "NA")
-res <- titlecount_timeline(dfs, "gatherings", nmin = nmin, mode = "n") 
+res <- timeline(dfs, group = "gatherings", nmin = nmin, mode = "absolute") 
 print(res$plot)
 
-res <- titlecount_timeline(dfs, "gatherings", nmin = nmin, mode = "percentage") 
+res <- timeline(dfs, group = "gatherings", nmin = nmin, mode = "percentage") 
 print(res$plot)
 ```
 
