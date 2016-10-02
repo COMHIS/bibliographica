@@ -18,6 +18,7 @@ polish_field <- function (df, df.preprocessed, field, verbose = TRUE, mc.cores =
   from <- till <- NULL
 
   conversions <- list(control_number = "control_number",
+  	      	      system_control_number = "system_control_number",  
   	      	      subject_geography = "subject_geography",
 		      publication_geography = "publication_geography",
 		      subject_topic = "topic",
@@ -140,7 +141,7 @@ polish_field <- function (df, df.preprocessed, field, verbose = TRUE, mc.cores =
       publication_frequency_annual = tmp$annual,
       publication_frequency_text   = tmp$freq)    
 
-  } else if (field == "control_number") {
+  } else if (field %in% c("control_number", "system_control_number")) {
   
     NULL
 
