@@ -33,7 +33,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     "gatherings.original", "width.original", "height.original",
     "longitude", "latitude", "page", "item", "publisher.printedfor",
     "publisher", "country", "author_pseudonyme", "publication_place",
-    "control_number", "author_name", "author", "area", "width", "height", "gender"))) {
+    "control_number", "system_control_number",
+    "author_name", "author", "area", "width", "height", "gender"))) {
 
     message(field)
 
