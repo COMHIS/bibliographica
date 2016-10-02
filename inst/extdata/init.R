@@ -44,7 +44,7 @@ if (exists("update.fields") && !is.null(update.fields) && ("df0.Rds" %in% dir())
 
   conversions <- list()
   update.fields <- names(df.orig) # Update all fields
-  m <- setdiff(update.fields, c("control_number", "original_row", "language", "title", "publisher", "subject_topic", "publication_topic", "author_name", "author_date", "publication_time", "physical_extent", "physical_dimension", "publication_place", "publication_geography", "title_uniform", "title_uniform2"))
+  m <- setdiff(update.fields, c("system_control_number", "control_number", "original_row", "language", "title", "publisher", "subject_topic", "publication_topic", "author_name", "author_date", "publication_time", "physical_extent", "physical_dimension", "publication_place", "publication_geography", "title_uniform", "title_uniform2"))
   if (length(m) > 0) {
     warning(paste("Updates not defined for the following input fields:", paste(m , sep = ";")))
   }
