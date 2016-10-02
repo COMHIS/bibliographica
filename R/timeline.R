@@ -18,15 +18,17 @@
 timeline <- function (x, field = "titlecount", group = NULL, nmin = 0, mode = "absolute") {
 
   publication_decade <- NULL
-  field <- NULL
-  
+
   if (!is.null(group)) {
     x <- x[, c("publication_decade", group)]
     x$group <- x[[group]]
   } else {
     x$group <- rep(1, nrow(x))
   }
- 
+
+  if (is.null(field)) {
+    field <- "titlecount"
+  }
   if (field == "titlecount" && !field %in% names(x)) {
     x[[field]] <- rep(1, nrow(x))
   }
