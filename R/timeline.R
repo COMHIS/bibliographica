@@ -68,7 +68,7 @@ timeline <- function (x, field = "titlecount", group = NULL, nmin = 0, mode = "a
     p <- ggplot(dfs, aes(y = mode, x = publication_decade)) + geom_bar(stat = "identity")
   }
 
-   p <- p + ylab(paste(field, "(", mode, ")", sep = "")) +
+   p <- p + ylab(paste(field, " (", mode, ")", sep = "")) +
             xlab("Publication decade") +
 	    ggtitle(paste("Timeline for ", field, sep = "")) 
 
