@@ -33,7 +33,9 @@ s [F|f]örbund
 stift$	stiftelse
 [Ee]v[.]	Evangeliska
 [Ee]vang[.]	Evangeliska
-s [F|f]örlaget
+[']s 	s 
+[']s$	s
+s [F|f]örlaget	
 s [F|f]orlaget	
 s [F|f]örlag	
 s [F|f]orlag	
@@ -75,15 +77,20 @@ s [B|b]okforl$
 kommissionär	
  i distr$	
  i distr[.]	
+[,] distr[.]	
+[,] distr$	 
 distribuent	
 [Uu]niv[.]?-	universitets
 [Uu]niv[.]s	universitets
 [Uu]niv:s	universitets
 [Uu]niv[.]	universitets
 [Uu]niv:ts	universitets
+k[.] hofbok	hofbok
+kungl[.] hofbok	hofbok
+kungliga hofbok	hofbok
 [B|b]okh[.]	bokhandel
 [B|b]okh$	bokhandel
-[B|b]bokhandeln	bokhandel
+[B|b]okhandeln	bokhandel
 -[B|b]okhandel	bokhandel
 [D|d]istr[.]	
 [D|d]istribuent	
