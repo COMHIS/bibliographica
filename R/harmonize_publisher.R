@@ -273,6 +273,14 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
         # The thresholds of p & maxDist are produced by Stetson-Harrison method
         res <- framePublishers$orig[amatch(compare_version, tmp_compare_versions, method="jw", p=0.05, maxDist=0.06)]
         
+        # 2016-10-04: Added yet another step for case insensitive exact matches
+        if ((is.null(res)) || (is.na(res)) || (res=="")) {
+          #if ((!is.na(compare_version)) && (length(grep(tolower(compare_version), tolower(tmp_compare_versions))) >= 1)) {
+          res <- na.omit(framePublishers$orig[grep(paste0("^", tolower(publisherName), "$"), tolower(na.omit(framePublishers$orig)))])[1]
+          #if (!is.na(res)) {
+          #  message(paste0("exact match found for: ", res, " ", publisherName))
+          #}
+        }
         if ((is.null(res)) || (is.na(res)) || (res=="")) {
           # Add new entry
           framePublishers$orig[publisherName_indices] <- publisherName
