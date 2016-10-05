@@ -40,10 +40,11 @@ top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL, max.char =
   ntop <- min(ntop, nrow(dfs))
   
   dfs <- dfs[1:ntop,] # Pick top-n items
-  dfs$names <- droplevels(factor(dfs$names, levels = rev(dfs$names)))
 
   # Limit length of names in the printout
   dfs$names <- substr(as.character(dfs$names), 1, nchar)
+
+  dfs$names <- droplevels(factor(dfs$names, levels = rev(dfs$names)))
 
   dfs$color <- rep("black", nrow(dfs))
   if (!is.null(highlight)) {
