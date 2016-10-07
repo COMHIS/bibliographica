@@ -48,7 +48,7 @@ timeline <- function (x, field = "titlecount", group = NULL, nmin = 0, mode = "a
   # Add relatives
   df3 <- spread(df2, "publication_decade", "absolute", fill = 0)
   df3[, -1] = 100 * apply(df3[, -1], 2, function (x) {x/sum(x, na.rm = TRUE)})
-  df3 <- melt(df3, "group")  
+  df3 <- melt(as.data.frame(df3), "group")  
   colnames(df3) <- c("group", "publication_decade", "relative")
   df3$publication_decade <- as.numeric(as.character(df3$publication_decade))
   df3 <- df3[, c("publication_decade", "group", "relative")]
