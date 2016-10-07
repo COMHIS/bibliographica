@@ -1,5 +1,5 @@
 
-validate_names <- function(df.preprocessed) {}
+validate_names <- function(df.preprocessed) {
 
   print("Validate author names. Set non-valid names to NA")
 
