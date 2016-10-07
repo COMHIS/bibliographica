@@ -1,17 +1,23 @@
-print("Validate author names. Set non-valid names to NA")
 
-# Some basic validation
-# "V. P" -> NA
-df.preprocessed$author_name[grep("^[A-Z|a-z][\\.|\\,]+ *[A-Z|a-z]$", df.preprocessed$author_name)] <- NA
+validate_names <- function(df.preprocessed) {}
 
-# "V. P. H" -> NA
-df.preprocessed$author_name[grep("^[A-Z|a-z][\\.|\\,]+ *[A-Z|a-z][\\.|\\,]+ *[A-Z|a-z][\\.|\\,]*$", df.preprocessed$author_name)] <- NA
+  print("Validate author names. Set non-valid names to NA")
 
-# "V P" -> NA
-df.preprocessed$author_name[grep("^[A-Z|a-z] +[A-Z|a-z]$", df.preprocessed$author_name)] <- NA
+  # Some basic validation
+  # "V. P" -> NA
+  df.preprocessed$author_name[grep("^[A-Z|a-z][\\.|\\,]+ *[A-Z|a-z]$", df.preprocessed$author_name)] <- NA
 
-# "V P H" -> NA
-df.preprocessed$author_name[grep("^[A-Z|a-z] +[A-Z|a-z] +[A-Z|a-z]$", df.preprocessed$author_name)] <- NA
+  # "V. P. H" -> NA
+  df.preprocessed$author_name[grep("^[A-Z|a-z][\\.|\\,]+ *[A-Z|a-z][\\.|\\,]+ *[A-Z|a-z][\\.|\\,]*$", df.preprocessed$author_name)] <- NA
+
+  # "V P" -> NA
+  df.preprocessed$author_name[grep("^[A-Z|a-z] +[A-Z|a-z]$", df.preprocessed$author_name)] <- NA
+
+  # "V P H" -> NA
+  df.preprocessed$author_name[grep("^[A-Z|a-z] +[A-Z|a-z] +[A-Z|a-z]$", df.preprocessed$author_name)] <- NA
+
+  return (df.preprocessed)
+}
 
 # -----------------------------------------------------------------
 
