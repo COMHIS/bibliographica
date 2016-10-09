@@ -6,11 +6,11 @@ Date: 2016-10-05
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Roivainen", "Hege" , role = "aut"),
-    person("Ilomaki", "Niko" , role = "aut"),
+    person("Ville", "Vaara" , role = "aut"),
     person("Tolonen", "Mikko", role = "aut"))
 Maintainer: Leo Lahti <leo.lahti@iki.fi>
 Description: Tools for bibliograhic data analysis.
-License: BSD_2_clause + file LICENSE
+License: GPL-3 + file LICENSE
 VignetteBuilder: knitr
 Encoding: UTF-8
 BugReports: https://github.com/ropengov/bibliographica/issues
