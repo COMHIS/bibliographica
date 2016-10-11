@@ -12,11 +12,6 @@ enrich_preprocessed_data <- function(data.validated, df.orig) {
   update.fields   <- data.validated$update.fields
   conversions     <- data.validated$conversions
 
-  # dirty hax to make source() functions work. TODO: make neat -vv
-  # old.wd <- getwd()
-  # current.dir <- dirname(sys.frame(1)$ofile)
-  # setwd(current.dir)
-
   check <- "enrich"
 
   if (any(c("publication_place", "publication_geography") %in% update.fields)) {

@@ -1,17 +1,14 @@
 
-check <- "preprocess"
-# debug variable? -vv
-
-# -------------------------------------------------------
-
 preprocess_data <- function(preprocessing.data, df.orig, languages, mc.cores = 1) {
 
   # mc.cores required by polish_all()
 
-#  df.orig <-         preprocessing.data[[1]]
   df.preprocessed <- preprocessing.data$df.preprocessed
   update.fields <-   preprocessing.data$update.fields
   conversions <-     preprocessing.data$conversions
+
+  check <- "preprocess"
+  # debug variable? -vv
 
   message("Preprocess selected original fields")
   
@@ -20,7 +17,7 @@ preprocess_data <- function(preprocessing.data, df.orig, languages, mc.cores = 1
       conversions = conversions, languages = languages)
 
   if (!is.null("df.preprocessed") || !exists("df.preprocessed")) {
-    # !exists carryover from previous version. Can be removed in future -vv
+    # !exists carryover from previous version. Can be removed in future? -vv
 
     conversions <- res$conversions
     preprocessing.times <- res$preprocessing.times
@@ -49,10 +46,6 @@ preprocess_data <- function(preprocessing.data, df.orig, languages, mc.cores = 1
   preprocessed.data <- list(df.preprocessed = df.preprocessed,
                             update.fields = update.fields,
                             conversions = conversions) 
-
-  # do we really need to return conversions? Is it used after this one? -vv
-  # maybe makes sense to keep the list intact during the pipeline -vv
-  # actually it's simulationg object oriented programming now! -vv
 
   return (preprocessed.data)
 }
