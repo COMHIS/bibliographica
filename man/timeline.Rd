@@ -5,7 +5,7 @@
 \title{Timeline Plot}
 \usage{
 timeline(x, field = "titlecount", group = NULL, nmin = 0,
-  mode = "absolute")
+  mode = "absolute", time.window = 10)
 }
 \arguments{
 \item{x}{data frame}
@@ -17,6 +17,8 @@ timeline(x, field = "titlecount", group = NULL, nmin = 0,
 \item{nmin}{Include only entries with at least nmin absolute frequency}
 
 \item{mode}{"absolute" or "relative"}
+
+\item{time.window}{Time window for the timeline in years. Default: 10 (publication decade).}
 }
 \value{
 List:
