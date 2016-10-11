@@ -12,6 +12,10 @@
 #' @keywords utilities
 get_relation_keyword <- function(x, full_name, languages=c("english")) {
   
+  # Adjust to version 1.1.0 of stringr, which changed NA-behaviour
+  x[which(is.na(x))] <- ""
+  full_name[which(is.na(full_name))] <- ""
+
   # TODO: make a table for languages & related files & purpose
   f <- c()
 
@@ -38,6 +42,7 @@ get_relation_keyword <- function(x, full_name, languages=c("english")) {
     return(ret)
   }
 
+  
   for (fil in f) {
   
     synonyms <- read.csv(file=fil, sep="\t", fileEncoding="UTF-8")
@@ -49,11 +54,13 @@ get_relation_keyword <- function(x, full_name, languages=c("english")) {
       } else {
         pattern <- str_replace(synonyms$synonyme[i], "<name>", full_name)
         replacement <- as.character(synonyms$name[i])
-        
       }
       if (length(x) != 0) {
-        if (is.na(str_extract(x, pattern))) {
+        inds <- which(is.na(str_extract(x, pattern)))
+        if (length(inds) == 0) {
+        
         } else {
+          print(pattern)
           inds <- intersect(which(!is.na(str_extract(x, pattern))), which(ret==""))
           ret[inds] <- replacement
         }
