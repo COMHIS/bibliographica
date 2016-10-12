@@ -83,7 +83,9 @@ polish_author <- function (s, stopwords = NULL, verbose = FALSE) {
   # Assume names are of format Last, First
   # TODO O. K. Humble, Verner -> First: Verner O K Last: Humble
   # pseudonymes are taken as such
-  first <- last <- rep(NA, length(s))
+  # convert to character type
+  first <- last <- as.character(rep(NA, length(s)))
+  
   pseudo.inds <- which(s %in% pseudo)
   inds <- inds1 <- setdiff(grep(",", s), pseudo.inds)
   if (length(inds) > 0) {
@@ -108,7 +110,6 @@ polish_author <- function (s, stopwords = NULL, verbose = FALSE) {
   }  
 
   # ------------------------------------------------------------
-
 
   if (verbose) { message("Formatting names") }
   # Some additional formatting
