@@ -79,7 +79,9 @@ polish_author <- function (s, stopwords = NULL, verbose = FALSE) {
 
   # ----------------------------------------------------------------
 
-  if (verbose) { message("Separating names") }
+  if (verbose) {
+    message("Separating names")
+  }
   # Assume names are of format Last, First
   # TODO O. K. Humble, Verner -> First: Verner O K Last: Humble
   # pseudonymes are taken as such
@@ -87,11 +89,13 @@ polish_author <- function (s, stopwords = NULL, verbose = FALSE) {
   first <- last <- as.character(rep(NA, length(s)))
   
   pseudo.inds <- which(s %in% pseudo)
+  
   inds <- inds1 <- setdiff(grep(",", s), pseudo.inds)
   if (length(inds) > 0) {
     first[inds] <- pick_firstname(s[inds], format = "last, first")
     last[inds]  <-  pick_lastname(s[inds], format = "last, first")
   }
+  
   inds <- inds2 <- setdiff(setdiff(grep(" ", s), inds1), pseudo.inds)
   if (length(inds) > 0) {
     first[inds] <- pick_firstname(s[inds], format = "first last")
@@ -114,7 +118,7 @@ polish_author <- function (s, stopwords = NULL, verbose = FALSE) {
   if (verbose) { message("Formatting names") }
   # Some additional formatting
   # eg. "Wellesley, Richard Wellesley" -> "Wellesley, Richard"
-  inds = which(!is.na(first) | !is.na(last))
+  inds <- which(!is.na(first) | !is.na(last))
   for (i in inds) {
 
     fi <- first[[i]]
@@ -140,8 +144,9 @@ polish_author <- function (s, stopwords = NULL, verbose = FALSE) {
 
   message("Name table")
   nametab <- data.frame(last = unname(last),
-  	     		first = unname(first),
-			stringsAsFactors = FALSE)
+                        first = unname(first),
+                        stringsAsFactors = FALSE
+                        )
   rownames(nametab) <- NULL
 
   message("Remove single letter last names")
