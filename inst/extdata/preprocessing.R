@@ -16,7 +16,7 @@ preprocess_data <- function(preprocessing.data, df.orig, languages, mc.cores = 1
       mc.cores = mc.cores,
       conversions = conversions, languages = languages)
 
-  if (is.null("df.preprocessed") || !exists("df.preprocessed")) {
+  if (is.null(df.preprocessed) || !exists("df.preprocessed")) {
     # !exists carryover from previous version. Can be removed in future? -vv
 
     conversions <- res$conversions
@@ -24,7 +24,6 @@ preprocess_data <- function(preprocessing.data, df.orig, languages, mc.cores = 1
     df.preprocessed <- res$df.preprocessed  
 
   } else {
-
     # Replace old versions with the updated ones (if any)
     conversions[update.fields] <- res$conversions[update.fields]
 
