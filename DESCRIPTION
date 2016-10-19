@@ -35,6 +35,7 @@ Imports:
     tm
 Suggests:
     rmarkdown,
+    roxygen2,
     testthat
 Additional_repositories:
     http://packages.ropensci.org
