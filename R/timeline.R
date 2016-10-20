@@ -1,16 +1,12 @@
-#' @title Timeline Plot
-#' @description Timeline for selected variable (possibly across various groups).
+#' @title Retrieve Timeline 
+#' @description Timeline data for selected variable (possibly across various groups).
 #' @param x data frame
-#' @param field Numeric field to summarize in the timeline. The number of entries (title count) per decade is shown by default, But if this argument is used, the sum of entries per decade for this field is given.
-#' @param group Optional. Name for a data field that indicates groups to compare. If given, the different groups are indicated by lines.
+#' @param field Numeric field to summarize in the timeline. The number of entries (title count) per decade is used by default. If this argument is used, the sum of entries per decade for this field is given.
+#' @param group Optional. Name for a data field that indicates groups to compare. 
 #' @param nmin Include only entries with at least nmin absolute frequency
 #' @param mode "absolute" or "relative"
 #' @param time.window Time window for the timeline in years. Default: 10 (publication decade).
-#' @return List:
-#' \itemize{
-#'   \item{plot}{ggplot object}
-#'   \item{table}{summary table}
-#' }
+#' @return data.frame
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
@@ -27,7 +23,6 @@ timeline <- function (x, field = "titlecount", group = NULL, nmin = 0, mode = "a
     df.preprocessed$publication_time <- time.window * floor(df.preprocessed$publication_year / time.window)
   }
 
-
   if (!is.null(group)) {
     x <- x[, c("publication_time", group)]
     x$group <- x[[group]]
@@ -38,6 +33,7 @@ timeline <- function (x, field = "titlecount", group = NULL, nmin = 0, mode = "a
   if (is.null(field)) {
     field <- "titlecount"
   }
+  
   if (field == "titlecount" && !field %in% names(x)) {
     x[[field]] <- rep(1, nrow(x))
   }
@@ -66,21 +62,6 @@ timeline <- function (x, field = "titlecount", group = NULL, nmin = 0, mode = "a
   dfs <- dplyr::full_join(df2, df3)
   dfs$mode <- dfs[[mode]]
 
-  if (length(unique(dfs$group))>1) {
-    p <- ggplot(dfs, aes(y = mode, x = publication_time,
-       		       shape = group, linetype = group)) +
-     geom_point(size = 4) +
-     geom_line(aes(color = group), size = 1) +               
-     guides(linetype = guide_legend(keywidth = 5), shape = guide_legend(keywidth = 5)) 
-
-  } else {
-    p <- ggplot(dfs, aes(y = mode, x = publication_time)) + geom_bar(stat = "identity")
-  }
-
-   p <- p + ylab(paste(field, " (", mode, ")", sep = "")) +
-            xlab("Publication time") +
-	    ggtitle(paste("Timeline for ", field, sep = "")) 
-
-   list(plot = p, table = dfs)
+  return(dfs)
 
 }
