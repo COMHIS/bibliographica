@@ -1,5 +1,5 @@
 #' @title Retrieve Relative Timeline 
-#' @description Relative timeline for selected variable between two selected groups).
+#' @description Relative timeline for selected variable between two data sets.
 #' @param x First data frame 
 #' @param y Second data frame 
 #' @param field Numeric field to summarize in the timeline (x/y). The number of entries (title count) per decade is used by default. If this argument is used, the sum of entries per decade for this field is given.
