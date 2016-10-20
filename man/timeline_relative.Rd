@@ -19,7 +19,7 @@ timeline_relative(x, y, myfield)
 data.frame
 }
 \description{
-Relative timeline for selected variable between two selected groups).
+Relative timeline for selected variable between two data sets.
 }
 \examples{
 \dontrun{timeline_relative(df, "gatherings")}
