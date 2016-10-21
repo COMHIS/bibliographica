@@ -72,7 +72,7 @@ enrich_preprocessed_data <- function(data.validated, df.orig) {
 
   }
 
-  if (c("title", "subject_topic", "publication_topic") %in% update.fields) {
+  if (any(c("title", "subject_topic", "publication_topic") %in% update.fields)) {
     # Nothing defined yet
     NULL
   }

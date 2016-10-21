@@ -14,13 +14,15 @@ validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) 
   min.year <- (-2000)
   max.year <- as.numeric(format(Sys.time(), "%Y")) # this.year
 
-  # Some documents have extremely high pagecounts (up to hundreds of thousands of pages)
+  # Some documents have extremely high pagecounts
+  # (up to hundreds of thousands of pages)
   # MT + LL selected 5000 pages as the default threshold.
-  # If the document has more pages than this, the pagecount info will be removed as unreliable
-  # The ESTC seemed to have 4 documents (out of ~5e5) with estimated pagecount over 5000
-  # so this is not having remarkable effect on most results
+  # If the document has more pages than this, the pagecount
+  # info will be removed as unreliable
+  # The ESTC seemed to have 4 documents (out of ~5e5) affected
+  # with estimated pagecount over 5000
   # Also remove negative and zero pagecounts; should not be possible
-  if ("pagecount" %in% update.fields) {
+  if ("physical_extent" %in% update.fields) {
     df.preprocessed$pagecount[df.preprocessed$pagecount > max.pagecount] <- NA
     df.preprocessed$pagecount[df.preprocessed$pagecount <= 0] <- NA    
   }
