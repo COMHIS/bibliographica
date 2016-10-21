@@ -107,7 +107,17 @@ test_that("volume count is correct", {
   expect_equal(polish_physical_extent("[4] p. (p. [3] blank)")$pagecount, 4)
   expect_equal(polish_physical_extent("1 score (144 p.)")$pagecount, 144)
   expect_equal(polish_physical_extent("1 sheet ([2] p.), [18] leaves of plates")$pagecount, 38)
+
+  # These are problematic. Too high page counts.
+
+  # The current solution is to remove these after preprocessing as
+  # suspiciously high cases. Better solution should be to fix this
+  # already in the polish_physical_extent function.
   
+  # "9 v. (v.1: [20], XII, xiii-lxxvj p., 1380 columns; v.2: [4] p., 1403-1586, 1585-1654, 1667-2796, 2805-2868 columns; v.3: [4] p., 2877-3852, 3851-4568 columns; v.4: [4] p., 4605-7064 columns; v.5: [4] p., 7125-8204 columns, [4] p., 8277-8788, 8805-9302 columns, [3] p., 9501-9634 columns, [1] p.; v.6: [4], lxviij p., 2108 columns; v.7: [4] p., 2113-5016 columns; v.8: [4] p., 648, 647-694, 697-1010, 1009-2190 columns; v.9: [4], 2215-4538, 4541-4548 columns, 4549-4566 p., 4567-4708 columns), [11] leaves of plates (mostly folded)" # Gives 36211 pages
+
+  # "[2],iv,iv,380,377*-*378,473-502,553-568,395-430,513-536,441-464*379-*380,381-422,*521-*535,[1],v,[1]p." # Gives 464388 pages
+
 })
 
 

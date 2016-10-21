@@ -6,6 +6,11 @@ validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) 
   update.fields   <- data.preprocessed$update.fields
   conversions     <- data.preprocessed$conversions # isnt used in this function -vv
 
+  # Consider all fields if update.fields is not specifically defined
+  if (is.null(update.fields)) {
+    update.fields <- names(df.preprocessed)
+  }
+
   min.year <- (-2000)
   max.year <- as.numeric(format(Sys.time(), "%Y")) # this.year
 
