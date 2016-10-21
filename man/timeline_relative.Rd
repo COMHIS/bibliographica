@@ -4,14 +4,14 @@
 \alias{timeline_relative}
 \title{Retrieve Relative Timeline}
 \usage{
-timeline_relative(x, y, myfield)
+timeline_relative(x, y, myfield, time.window = 10)
 }
 \arguments{
 \item{x}{First data frame}
 
 \item{y}{Second data frame}
 
-\item{field}{Numeric field to summarize in the timeline (x/y). The number of entries (title count) per decade is used by default. If this argument is used, the sum of entries per decade for this field is given.}
+\item{myfield}{Numeric field to summarize in the timeline (x/y). The number of entries (title count) per decade is used by default. If this argument is used, the sum of entries per decade for this field is given.}
 
 \item{time.window}{Time window for the timeline in years. Default: 10 (publication decade).}
 }

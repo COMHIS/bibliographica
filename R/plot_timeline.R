@@ -20,6 +20,8 @@
 #' @keywords utilities
 plot_timeline <- function (x, y = NULL, field = "titlecount", group = NULL, nmin = 0, mode = "absolute", time.window = 10) {
 
+  publication_time <- dataid <- NULL
+
   if (field == "dataid") {
     stop("The dataid field is in internal use.")
   }
