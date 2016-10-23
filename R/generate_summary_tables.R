@@ -487,14 +487,18 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # -------------------------------------------------------
 
   message("Undefined language")
+  gc(); rm(dfs); rm(tmp) # Cleanup
   # Remove "und" from the list ("Undetermined")
   f <- system.file("extdata/language_abbreviations.csv", package = "bibliographica")
   abrv <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table", sep = "\t")
   # List unique languages that occur in the data
-  lang <- unlist(strsplit(df.orig$language, ";"))
+  lang.orig <- df.orig$language
+  lang.orig <- lang.orig[!is.na(lang.orig)]
+  lang <- unlist(strsplit(df.orig$language, ";"), use.names = FALSE)
   # Remove the known ones (und is Undetermined)
   known.abbreviations <- setdiff(abrv$synonyme, "und") # und = Undetermined
-  unknown.lang <- setdiff(lang, known.abbreviations) 
+  unknown.lang <- setdiff(lang, known.abbreviations)
+  message("Write unknown languages")
   if (length(unknown.lang)>0) {
     # Count occurrences of each unknown lang
     u <- rev(sort(colSums(sapply(unknown.lang, function (ul) grepl(paste("^", ul, "$", sep = ""), unlist(strsplit(df.orig$language, ";")))))))
