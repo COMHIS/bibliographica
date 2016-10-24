@@ -492,22 +492,36 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   f <- system.file("extdata/language_abbreviations.csv", package = "bibliographica")
   abrv <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table", sep = "\t")
   # List unique languages that occur in the data
-  lang.orig <- df.orig$language
-  lang.orig <- lang.orig[!is.na(lang.orig)]
-  lang <- unlist(strsplit(df.orig$language, ";"), use.names = FALSE)
+  lang <- tolower(df.orig$language)
+  lang <- unique(lang[!is.na(lang)])
+  lang <- unlist(strsplit(lang, ";"), use.names = FALSE)
+  lang <- unique(lang)
+  lang <- lang[!grepl("^[0-9]$", lang)] # Remove numerics
   # Remove the known ones (und is Undetermined)
   known.abbreviations <- setdiff(abrv$synonyme, "und") # und = Undetermined
-  unknown.lang <- setdiff(lang, known.abbreviations)
+  discarded.lang <- c("*", ".", "^,", "", "-", "\\\\?", "&")
+  unknown.lang <- lang[!lang %in% c(known.abbreviations, discarded.lang)]
+
   message("Write unknown languages")
   if (length(unknown.lang)>0) {
-    spl <- unlist(strsplit(df.orig$language, ";"), use.names = FALSE)
-    # Count occurrences of each unknown lang
+    ltab <- table(df.orig$language)
+    #spl <- unlist(strsplit(names(ltab), ";"), use.names = FALSE)
+    # Count occurrences for each unknown lang
     # TODO should be easy to speed up by considering unique entries only
     # and them summing up their stats
-    u <- sapply(unknown.lang, function (ul) grepl(paste("^", ul, "$", sep = ""), spl))
+    # Identify hits 0/1
+    u <- sapply(unknown.lang, function (ul) grepl(paste("^", ul, "$", sep = ""), names(ltab))) |
+      	 sapply(unknown.lang, function (ul) grepl(paste("^", ul, ";", sep = ""), names(ltab))) |
+      	 sapply(unknown.lang, function (ul) grepl(paste(";", ul, ";", sep = ""), names(ltab))) |
+      	 sapply(unknown.lang, function (ul) grepl(paste(";", ul, "$", sep = ""), names(ltab)))
+
+    # Multiply by counts of each case 
+    u <- apply(u, 2, function (x) {x * ltab})	 
+
+    # Sum up the occurrence counts for each unknown language
     u <- colSums(u)
+    u <- u[u > 0]    
     u <- rev(sort(u))
-    u <- u[u > 0]
     tab <- cbind(term = names(u), n = unname(u))
     tmp <- write.csv(tab,
 	     file = paste(output.folder, "language_discarded.csv", sep = ""),
