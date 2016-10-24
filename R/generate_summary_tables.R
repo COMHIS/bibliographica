@@ -500,8 +500,13 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   unknown.lang <- setdiff(lang, known.abbreviations)
   message("Write unknown languages")
   if (length(unknown.lang)>0) {
+    spl <- unlist(strsplit(df.orig$language, ";"), use.names = FALSE)
     # Count occurrences of each unknown lang
-    u <- rev(sort(colSums(sapply(unknown.lang, function (ul) grepl(paste("^", ul, "$", sep = ""), unlist(strsplit(df.orig$language, ";")))))))
+    # TODO should be easy to speed up by considering unique entries only
+    # and them summing up their stats
+    u <- sapply(unknown.lang, function (ul) grepl(paste("^", ul, "$", sep = ""), spl))
+    u <- colSums(u)
+    u <- rev(sort(u))
     u <- u[u > 0]
     tab <- cbind(term = names(u), n = unname(u))
     tmp <- write.csv(tab,
