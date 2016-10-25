@@ -7,7 +7,7 @@
 mean_pagecounts(df)
 }
 \arguments{
-\item{df}{data frame}
+\item{df}{data frame, including the required fields.}
 }
 \value{
 Average page count.
@@ -16,7 +16,7 @@ Average page count.
 Estimate page counts.
 }
 \examples{
-# m <- mean_pagecounts(df)
+\dontrun{m <- mean_pagecounts(df)}
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

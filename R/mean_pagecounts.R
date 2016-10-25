@@ -1,11 +1,11 @@
 #' @title Mean Page Counts
 #' @description Estimate page counts.
-#' @param df data frame
+#' @param df data frame, including the required fields.
 #' @return Average page count.
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @examples # m <- mean_pagecounts(df)
+#' @examples \dontrun{m <- mean_pagecounts(df)}
 #' @keywords utilities
 mean_pagecounts <- function (df) {
 

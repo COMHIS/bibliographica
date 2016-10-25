@@ -1,8 +1,9 @@
 
 enrich_pagecount <- function(df.preprocessed) {
 
-  print("Add volume info where missing")
-  
+  message("Add volume info where missing")
+  gc()
+
   if (!"volcount" %in% names(df.preprocessed)) {
     df.preprocessed$volcount <- rep(1, nrow(df.preprocessed))
   }
@@ -13,38 +14,34 @@ enrich_pagecount <- function(df.preprocessed) {
 
   # --------------------------------------------------------------------------
 
-  print("Estimate total pages for the docs where it is missing")
+  message("Estimate total pages for the docs where it is missing")
   df.preprocessed$pagecount.orig <- df.preprocessed$pagecount
 
   # ----------------------------------------------------------------------------
 
   # Recognize categories
-  df.preprocessed$singlevol = is.singlevol(df.preprocessed)
-  df.preprocessed$multivol = is.multivol(df.preprocessed)
-  df.preprocessed$issue = is.issue(df.preprocessed)
+  df.preprocessed$singlevol <- is.singlevol(df.preprocessed)
+  df.preprocessed$multivol <- is.multivol(df.preprocessed)
+  df.preprocessed$issue <- is.issue(df.preprocessed)
 
   # --------------------------------------------------------------------------
 
-  print("Calculate average page counts based on available data")
-  # TODO make a function that quickly returns this. No need to precalculate it.
+  message("Calculate average page counts based on available data")
   source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
   mean.pagecounts.results <- get_mean_pagecounts(df.preprocessed)
 
-  mean.pagecounts.singlevol <- mean.pagecounts.results$singlevol
-  mean.pagecounts.multivol  <- mean.pagecounts.results$multivol
-  mean.pagecounts.issue     <- mean.pagecounts.results$issue
-
-  write.table(mean.pagecounts.singlevol,
+  message("..write into file")
+  write.table(mean.pagecounts.results$singlevol,
               file = "mean_pagecounts_singlevol.csv",
               sep = ",",
               quote = F,
               row.names = F)
-  write.table(mean.pagecounts.multivol,
+  write.table(mean.pagecounts.results$multivol,
               file = "mean_pagecounts_multivol.csv",
               sep = ",",
               quote = F,
               row.names = F)
-  write.table(mean.pagecounts.issue,
+  write.table( mean.pagecounts.results$issue,
               file = "mean_pagecounts_issue.csv",
               sep = ",",
               quote = F,
@@ -52,11 +49,11 @@ enrich_pagecount <- function(df.preprocessed) {
 
   # --------------------------------------------------------------------------
 
-  print("Identify issues that are missing pagecount")
+  message("Identify issues that are missing pagecount")
   # and add page count estimates
   inds1 <- df.preprocessed$issue & is.na(df.preprocessed$pagecount)
   df.preprocessed[inds1, "pagecount"] <- estimate_pages_issue(df.preprocessed[inds1,],
-                                                              mean.pagecounts.issue)
+                                                               mean.pagecounts.results$issue)
 
   # Identify multi-vol docs
   # .. and then take only those without page count
@@ -66,12 +63,12 @@ enrich_pagecount <- function(df.preprocessed) {
   inds <- df.preprocessed$multivol & is.na(df.preprocessed$pagecount)
   inds2 <- inds
   df.preprocessed[inds, "pagecount"] <- estimate_pages_multivol(df.preprocessed[inds,],
-                                                                mean.pagecounts.multivol)
+                                                                mean.pagecounts.results$multivol)
 
   # Single-vol docs missing pagecount
   inds3 <- df.preprocessed$singlevol & is.na(df.preprocessed$pagecount)
   df.preprocessed[inds3, "pagecount"] <- estimate_pages_singlevol(df.preprocessed[inds3,],
-                                                                  mean.pagecounts.singlevol)
+                                                                  mean.pagecounts.results$singlevol)
 
   # Store information on cases where pages were estimated
   estimated.pagecount <- cbind(id = df.preprocessed$original_row,
