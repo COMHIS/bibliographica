@@ -129,25 +129,18 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
     # If the term is not on synonyme or name list but
     # all subterms are, select the first subterm
-    ss = unique(tolower(c(synonymes$synonyme, synonymes$name)))
-    inds = which(!x %in% ss)
+    ss <- unique(tolower(c(synonymes$synonyme, synonymes$name)))
+    inds <- which(!x %in% ss)
     if (length(inds)>0) {
-      spl = strsplit(x[inds], " ")
-      inds2 = which(sapply(spl, function (xi) {all(xi %in% ss) && length(xi) > 0}, USE.NAMES = FALSE))
+      spl <- strsplit(x[inds], " ")
+      inds2 <- which(sapply(spl, function (xi) {all(xi %in% ss) && length(xi) > 0}, USE.NAMES = FALSE))
       if (length(inds2)>0) {
         x[inds[inds2]] = sapply(spl[inds2], function (xi) {xi[[1]]}, USE.NAMES = FALSE)
       }
     }
 
     # abo abo abo = abo
-    x = sapply(strsplit(x, " "), function (xi) {paste(unique(xi), collapse = " ")})
-
-    # stock holm = stockholm
-    #inds = which((!x %in% synonymes$synonyme) & sapply(strsplit(x, " "), function (xi) {!any(xi %in% ss)}) & (gsub(" ", "", x) %in% synonymes$synonyme))
-    #if (!length(inds) == 0) {
-    #  print(inds)
-    #  x = gsub(" ", "", x)
-    #}
+    x <- sapply(strsplit(x, " "), function (xi) {paste(unique(xi), collapse = " ")})
 
     # Then match place names to synonymes		
     x <- as.character(map(x, synonymes,
