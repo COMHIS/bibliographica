@@ -577,6 +577,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   write.table(tab, file = paste(output.folder, "absentgeocoordinates.csv", sep = ""), quote = F, row.names = F, sep = "\t")
 
   message("All summary tables generated.")
+  gc()
 
   return(NULL)
 }
