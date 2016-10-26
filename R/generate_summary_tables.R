@@ -151,16 +151,19 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     sep = ""), count = TRUE)
   
   message("Ambiguous publication place harmonization")  
-  f = system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
+  f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
   tab <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE,
                            mode = "table", remove.ambiguous = FALSE)
   # Only consider terms that are present in our data
   tab1 <- subset(tab, name %in% as.character(df.preprocessed$publication_place))
-  # Then also take conversions from our data. This may contain
-  # terms that were directly accepted as such as they are not on
+  
+  # Then also include conversions from our data. This may contain
+  # terms that were directly accepted as such and are not on
   # the synonyme table:
-  tab2 <- cbind(name = as.character(df.preprocessed$publication_place),
-    synonyme = as.character(tolower(polish_place(df.orig$publication_place, harmonize = FALSE))))
+  tab2 <- cbind(
+    name = as.character(df.preprocessed$publication_place),
+    synonyme = as.character(tolower(polish_place(df.orig$publication_place,
+					harmonize = FALSE))))
     
   # Combine the data from both tables
   tab <- unique(rbind(tab1, tab2))

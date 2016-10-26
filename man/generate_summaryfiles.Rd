@@ -2,7 +2,7 @@
 % Please edit documentation in R/generate_summaryfiles.R
 \name{generate_summaryfiles}
 \alias{generate_summaryfiles}
-\title{Generate summary files}
+\title{Generate Summary Pages}
 \usage{
 generate_summaryfiles(df, df.orig = NULL, author = "Author TBA",
   output.folder = "output.tables/", ntop = 20, summaries = c("overview",
@@ -26,7 +26,7 @@ generate_summaryfiles(df, df.orig = NULL, author = "Author TBA",
 A vector of output file paths
 }
 \description{
-Generates statistical summaries for the preprocessed data
+Generates statistical summaries for preprocessed data.
 }
 \examples{
 # generate_summaryfiles()
