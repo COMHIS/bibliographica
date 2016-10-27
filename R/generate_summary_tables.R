@@ -163,9 +163,10 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # Then include conversions from our data. This may contain
   # terms that were directly accepted as such and are not on
   # the synonyme table:
+  inds <- setdiff(tolower(df.orig$publication_place), tab1$synonyme)
   tab2 <- cbind(
-    name = as.character(df.preprocessed$publication_place),
-    synonyme = as.character(tolower(polish_place(df.orig$publication_place, harmonize = TRUE))))
+    name = as.character(df.preprocessed$publication_place[inds]),
+    synonyme = as.character(tolower(polish_place(df.orig$publication_place[inds], harmonize = TRUE))))
     
   # Combine the data from both tables
   tab <- unique(rbind(tab1, tab2))

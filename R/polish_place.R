@@ -6,7 +6,6 @@
 #' @param verbose verbose
 #' @param harmonize Harmonize the polished names. Logical.
 #' @return Polished vector
-#' @importFrom stringr str_trim
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
