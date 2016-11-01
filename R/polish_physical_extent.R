@@ -69,23 +69,26 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   # Plates
   plates <- read.csv(system.file("extdata/plates.csv",
   	              package = "bibliographica"), header = FALSE,
-		      stringsAsFactors = FALSE)[,1]		      
+		      stringsAsFactors = FALSE, sep = "\t")[,1]		      
   # Gatherings
   gats <- unlist(gatherings_table()[, c("Alternate", "Standard", "Symbol")], use.names = F)
   # Combine
-  missing <- unique(c(plates, gats))
+  missing <- unique(c(gats, plates))
   # Remove
   s <- gsub(",", ", ", s)
-  s2 <- condense_spaces(suppressWarnings(gsub("^[\\.|\\,]", "", remove_volume_info(s))))
+  s2 <- condense_spaces(suppressWarnings(gsub("^[\\.|\\,]", "",
+     	                  remove_volume_info(s))))
+  # Quick hack for never-ending bug fixing			  
+  s <- gsub("[0-9]+v\\.*\\,* *\\[*[0-9]+\\]* leaf of plates*$", " ", s)
+  s <- gsub("[0-9]+v\\.*\\,* *\\[*[0-9]+\\]* leaves of plates$", " ", s)
+
   inds <- which(s2 %in% missing)
   for (m in missing) {
     s[inds] <- gsub(m, " ", s[inds])
   }
   s <- condense_spaces(s)
-  rm(missing)  
+
   s[s == ""] <- NA
-
-
   if (verbose) {message("Read the mapping table for pages")}
   f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
   page.harmonize <- read_mapping(f, sep = "\t", mode = "table", fast = FALSE)
