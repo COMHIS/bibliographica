@@ -14,8 +14,7 @@ test_that("Page count is correct", {
     }
     # print(c(i, as.character(polish_physical_extent(test_clause)[[test_field]]), test_result))
   }
-  
-  
+    
   # TODO
   #[4] s. 2:o.	4  
   #[1-3] 4-43 [44-45] 45-51 [po. 46-52] s.	52
@@ -28,39 +27,64 @@ test_that("Page count is correct", {
   #2 vol.;(130, 118 s.)=	  248	130+118
   #6 vol. i 2 (319 ; 246 s.) 565	319+246
   #vj,258s	 264	6+258 
-  #  expect_equal(polish_physical_extent("[2] s., s. 65-82, IV kuvalehteä")$pagecount, 28)
-  #  expect_equal(polish_physical_extent("1 kartasto ([166] s.)")$pagecount, 166)
-  #  expect_equal(polish_physical_extent("1 sheet (2, [2] p.)")$pagecount, 2) # = 1 sheet
-  #  expect_equal(polish_physical_extent("[2] s., s. 129-143 [144-146]")$pagecount, 20)
-  #  expect_equal(polish_physical_extent("VII s., s. 259-459")$pagecount, 208)
-  #  expect_equal(polish_physical_extent("S. 14-28 ; s. 28-48")$pagecount, 35)
-  #  expect_equal(polish_physical_extent("[4], [1] 2-23 [24] s.")$pagecount, 28)
-  #  expect_equal(polish_physical_extent("[4], [1] 2-27 [28] s. (s. [28] tyhjä)")$pagecount, 32)
-  #  expect_equal(polish_physical_extent("[4], [1] 2-30 32 [po. 31] [32] s.")$pagecount, 34)
-  #  expect_equal(polish_physical_extent("[2] s., s. 161-176, [1] kuvalehti taitettuna")$pagecount, 20)  
-  #  expect_equal(polish_physical_extent("[2], 198 s. (s. 198 blank)     2          1 = 200
-  #  expect_equal(polish_physical_extent("(4),44 bl.")$pagecount, 48)
-  #  expect_equal(polish_physical_extent("38 uppsatser med särskild pag. (951)s.,1 portr.,19 pl.       38         1 = 991
-  #  expect_equal(polish_physical_extent("(1)s.,s.53-552 552        1 = 501
-  #  expect_equal(polish_physical_extent("[3] s., s. 497-740     743        1 = 247
-  #  expect_equal(polish_physical_extent("3 vol.;(258, 308, 269 s.)      308        1 = 835
-  #  expect_equal(polish_physical_extent("35[1] s.       2          3  = 36
-  
+  #[2] s., s. 65-82, IV kuvalehteä	28
+  #1 kartasto ([166] s.)	166
+  #1 sheet (2, [2] p.)	2 # = 1 sheet
+  #[2] s., s. 129-143 [144-146]	20
+  #VII s., s. 259-459	208
+  #S. 14-28 ; s. 28-48	35
+  #[4], [1] 2-23 [24] s.	28
+  #[4], [1] 2-27 [28] s. (s. [28] tyhjä)	32
+  #[4], [1] 2-30 32 [po. 31] [32] s.	34
+  #[2] s., s. 161-176, [1] kuvalehti taitettuna	20
+  #[2], 198 s. (s. 198 blank)     2          1 = 200
+  #(4),44 bl.	48
+  #38 uppsatser med särskild pag. (951)s.,1 portr.,19 pl.       38         1 = 991
+  #(1)s.,s.53-552 552        1 = 501
+  #[3] s., s. 497-740     743        1 = 247
+  #3 vol.;(258, 308, 269 s.)      308        1 = 835
+  #35[1] s.       2          3  = 36
+
+# TODO
+#[4] s. 2:o.	4  
+#[1-3] 4-43 [44-45] 45-51 [po. 46-52] s.	52
+#4to [2] s., s. 113-111 [po. 128]     130
+#[08], 584 s. =(s. 566-84 opag.)=    592	8 + 584
+#[16] , 376 s. =(s. 371-76 opag.)=.	394
+#[2], 13 [1] s.	16
+#2 vol.;(156, 166 s.)	322
+#2 vol.;(130, 118 s.)=	248
+#vj,258s	 264
+#[2] s., s. 65-82, IV kuvalehteä	28
+#6 vol. i 2 (319 ; 246 s.)	565
+#1 kartasto ([166] s.)	166
+#1 sheet (2, [2] p.)	2
+#[2] s., s. 129-143 [144-146]	20
+#VII s., s. 259-459	208
+#S. 14-28 ; s. 28-48	35
+#[4], [1] 2-23 [24] s.	28
+#[4], [1] 2-27 [28] s. (s. [28] tyhjä)	32
+#[4], [1] 2-30 32 [po. 31] [32] s.	34
+#(4),44 bl.	48
+#38 uppsatser med särskild pag. (951)s.,1 portr.,19 pl.	38
+#3 vol.;(258, 308, 269 s.)	308
+#[3] s., s. 497-740	743
+
   # Not urgent
-  #  expect_equal(polish_physical_extent("494 s., Psaltarin kanssa 619 s.")$pagecount, 619)
-  #  expect_equal(polish_physical_extent("[15] s. neljässä jaksossa")$pagecount, 15)
-  #  expect_equal(polish_physical_extent("N. 500 s useina jaksoina")$pagecount, 500)
-  #  expect_equal(polish_physical_extent("160 spalter.")$pagecount, 160)
+  #494 s., Psaltarin kanssa 619 s.	619)
+  #[15] s. neljässä jaksossa	15)
+  #N. 500 s useina jaksoina	500)
+  #160 spalter.	160)
   
   #  en osaa sanoa mikä on oikein, mutta nyt ei mene kuitenkaan oikein:
-  #  expect_equal(polish_physical_extent("[02] , ii408, iii344 s.        2          4 = ???
-  #  expect_equal(polish_physical_extent("6. vol.;(5-9 s./vol.)  9          1
-  #  expect_equal(polish_physical_extent("___volymer     2          1
-  #  expect_equal(polish_physical_extent("3 Teile 2          1
-  #  expect_equal(polish_physical_extent("Varje nummer 4 s.      2          1
-  #  expect_equal(polish_physical_extent("H. 1-3 i en vol.       2          1
-  #  expect_equal(polish_physical_extent("17, 5 p.")$pagecount, 22)
-  #  expect_equal(polish_physical_extent("20, 2 p.")$pagecount, 22)  
+  #[02] , ii408, iii344 s.        2          4 = ???
+  #6. vol.;(5-9 s./vol.)  9          1
+  #___volymer     2          1
+  #3 Teile 2          1
+  #Varje nummer 4 s.      2          1
+  #H. 1-3 i en vol.       2          1
+  #17, 5 p.	22)
+  #20, 2 p.	22)  
   
   # Not correct
   #   13 s., [2] taitettua karttalehteä -> 15		
