@@ -1,4 +1,7 @@
-yksivoluumisen kirjaksi oletetun laskemista varten muuten voisi ottaa keskiarvon yksivoluumisista dokumenteista joiden koko on yli 32 sivua.
+yksivoluumisen kirjaksi oletetun laskemista varten muuten voisi ottaa
+keskiarvon yksivoluumisista dokumenteista joiden koko on yli 32
+sivua. Nyt taidetaan ottaa kaikista? Toisaalta jos moni dokkari on 2
+sivua niin mitäs se meinaa.
 
 If originan physical_extent is "score" then ignore it from page count
 estimation as it is not a book.

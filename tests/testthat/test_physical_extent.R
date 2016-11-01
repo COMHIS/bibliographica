@@ -16,6 +16,8 @@ test_that("Page count is correct", {
   }
     
   # TODO
+  #2v.,table     2
+  #2v.table      2
   #[4] s. 2:o.	4  
   #[1-3] 4-43 [44-45] 45-51 [po. 46-52] s.	52
   #4to [2] s., s. 113-111 [po. 128]     130
