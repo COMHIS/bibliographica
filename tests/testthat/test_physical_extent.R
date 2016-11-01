@@ -12,12 +12,12 @@ test_that("Page count is correct", {
     if (is.na(synonymes$expected[i]) || (synonymes$expected[i] == "equal")) {
       expect_equal(as.character(polish_physical_extent(test_clause)[[test_field]]), test_result)
     }
-    #print(c(as.character(polish_physical_extent(test_clause)[[test_field]]), test_result))
+    # print(c(i, as.character(polish_physical_extent(test_clause)[[test_field]]), test_result))
   }
   
   
   # TODO
-  #[4] s. 2:o.	 4
+  #[4] s. 2:o.	4  
   #[1-3] 4-43 [44-45] 45-51 [po. 46-52] s.	52
   #4to [2] s., s. 113-111 [po. 128]     130
   #[08], 584 s. =(s. 566-84 opag.)=     592	8 + 584

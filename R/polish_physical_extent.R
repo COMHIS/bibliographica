@@ -31,14 +31,14 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   f <- system.file("extdata/remove_dimension.csv", package = "bibliographica")
   terms <- as.character(read.csv(f)[,1])
   s <- remove_dimension(s, terms)
-  s = gsub("^na ", "", s)
-  s = gsub("\\.s$", " s", s)
-  s = gsub("\\. s", " s", s)    
-  s = gsub("&", ",", s)  
+  s <- gsub("^na ", "", s)
+  s <- gsub("\\.s$", " s", s)
+  s <- gsub("\\. s", " s", s)    
+  s <- gsub("&", ",", s)  
   s[grep("^[ |;|:|!|?]*$", s)] <- NA 
 
   # Remove dimension info
-  s = gsub("^[0-9]+.o ", "", s) 
+  s <- gsub("^[0-9]+.o ", "", s) 
 
   # In Finnish texts s. is used instead of p.		
   f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
@@ -61,6 +61,30 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
   if (verbose) {message("Harmonize ie")}
   s <- harmonize_ie(s)
+
+  if (verbose) {message("Recognize missing page cases")}
+  # List cases that are considered as documents with missing pages
+  # For instance: documents with only plates info, or gatherings
+  # are here considered as books with missing page count info.
+  # Plates
+  plates <- read.csv(system.file("extdata/plates.csv",
+  	              package = "bibliographica"), header = FALSE,
+		      stringsAsFactors = FALSE)[,1]		      
+  # Gatherings
+  gats <- unlist(gatherings_table()[, c("Alternate", "Standard", "Symbol")], use.names = F)
+  # Combine
+  missing <- unique(c(plates, gats))
+  # Remove
+  s <- gsub(",", ", ", s)
+  s2 <- condense_spaces(suppressWarnings(gsub("^[\\.|\\,]", "", remove_volume_info(s))))
+  inds <- which(s2 %in% missing)
+  for (m in missing) {
+    s[inds] <- gsub(m, " ", s[inds])
+  }
+  s <- condense_spaces(s)
+  rm(missing)  
+  s[s == ""] <- NA
+
 
   if (verbose) {message("Read the mapping table for pages")}
   f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
@@ -106,7 +130,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
   if (verbose) {message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))}
 
-  ret <- parallel::mclapply(suniq, function (s) { a <- try(polish_physext_help(s, page.harmonize)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
+  ret <- parallel::mclapply(s, function (s) { a <- try(polish_physext_help(s, page.harmonize)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
 
   if (verbose) {message("Make data frame")}
   ret <- as.data.frame(t(sapply(ret, identity)))
