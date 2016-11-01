@@ -1,0 +1,9 @@
+yksivoluumisen kirjaksi oletetun laskemista varten muuten voisi ottaa keskiarvon yksivoluumisista dokumenteista joiden koko on yli 32 sivua.
+
+If originan physical_extent is "score" then ignore it from page count
+estimation as it is not a book.
+
+32 columns could be 32 pages or something else. How to treat?
+
+test_polish_physical_extent there are some rather urgent TODOs
+
