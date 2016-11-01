@@ -12,7 +12,6 @@
 trim_names <- function (s, stopwords, remove.letters = FALSE) {
 
   # Remove stopwords (TODO also in tau package, check that)
-  # s <- remove_stopwords(s, terms = stopwords)
   x <- suppressWarnings(remove_terms(s, stopwords, c("begin", "middle", "end")))
 
   if (remove.letters) {

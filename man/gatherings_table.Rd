@@ -2,7 +2,7 @@
 % Please edit documentation in R/gatherings_table.R
 \name{gatherings_table}
 \alias{gatherings_table}
-\title{gatherings_table}
+\title{Gatherings Table}
 \usage{
 gatherings_table(...)
 }
@@ -13,7 +13,7 @@ gatherings_table(...)
 Document gatherings table
 }
 \description{
-Document gatherings names mapping table
+Document gatherings names mapping table.
 }
 \examples{
 gatherings_table()
