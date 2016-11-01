@@ -7,6 +7,7 @@ notifications:
 
 r_github_packages:
   - jimhester/covr
+  - ropengov/sorvi  
   
 after_success:
   - Rscript -e 'covr::codecov()'
