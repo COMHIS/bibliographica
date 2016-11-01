@@ -22,7 +22,8 @@ Pick page counts, volume counts and volume numbers
 \details{
 Document parts are separated by semicolons
 
-A summary of page counting rules that this function aims to (approximately) implement are provided in 
+A summary of page counting rules that this function aims to (approximately)
+implement are provided in 
 \url{https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html}
 }
 \examples{

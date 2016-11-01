@@ -12,7 +12,7 @@ test_that("Page count is correct", {
     if (is.na(synonymes$expected[i]) || (synonymes$expected[i] == "equal")) {
       expect_equal(as.character(polish_physical_extent(test_clause)[[test_field]]), test_result)
     }
-    print(c(i, as.character(polish_physical_extent(test_clause)[[test_field]]), test_result))
+    # print(c(i, as.character(polish_physical_extent(test_clause)[[test_field]]), test_result))
   }
     
   # TODO

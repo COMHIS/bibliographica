@@ -6,7 +6,8 @@
 #' @return Raw and estimated pages per document part
 #' @details Document parts are separated by semicolons
 #' @export
-#' @details A summary of page counting rules that this function aims to (approximately) implement are provided in 
+#' @details A summary of page counting rules that this function aims to (approximately)
+#' implement are provided in 
 #' \url{https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html}
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")

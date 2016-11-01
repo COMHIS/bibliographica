@@ -2,7 +2,7 @@
 % Please edit documentation in R/guess_missing_entries.R
 \name{guess_missing_entries}
 \alias{guess_missing_entries}
-\title{Guess missing entries}
+\title{Guess Missing Entries}
 \usage{
 guess_missing_entries(id, values)
 }
@@ -15,19 +15,27 @@ guess_missing_entries(id, values)
 A vector with augmented values
 }
 \description{
-Fill in missing values. This function assumes that each unique id has a unique value which can be missing for some entries of the id but available in others. The missing data will be filled based on the available values. Ambiguous cases (same id but multiple values) are ignored.
+Fill in missing values. This function assumes that
+entries of the id but available in others. The missing data will be
+filled based on the available values. Ambiguous cases (same id but
+multiple values) are ignored.
 }
 \details{
-For instance, we may have authors and author life years (birth and death).
-The life years may be available for a given author in some entries and missing in others.
-When the information is unique, this function fills the missing entries where possible.
-The function checks that the available life years for the given id (author in this
-example) are unique (ie. to avoid ambiguous mappings, for instance distinct authors with
-identical name but different birth year). For unique id-value relation, use the unique
-value to fill in the missing entries for the same id (
+For instance, we may have authors and author life
+years (birth and death). The life years may be available for
+a given author in some entries and missing in others.
+When the information is unique, this function fills the missing
+entries where possible. The function checks that the available
+life years for the given id (author in this example) are unique
+(ie. to avoid ambiguous mappings, for instance distinct authors
+with identical name but different birth year). For unique id-value
+relation, use the unique value to fill in the missing entries for
+the same id)
 }
 \examples{
-\dontrun{guess_missing_entries(id = c("Tom", "Tom", "Pete", "Pete", "Pete"), values = c(1, NA, 2, 3, NA))}
+\dontrun{guess_missing_entries(
+  id = c("Tom", "Tom", "Pete", "Pete", "Pete"),
+  	                 values = c(1, NA, 2, 3, NA))}
 }
 \keyword{utils}
 
