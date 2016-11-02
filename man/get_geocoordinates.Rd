@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_geocoordinates.R
 \name{get_geocoordinates}
 \alias{get_geocoordinates}
-\title{Get geocoordinates}
+\title{Get Geocoordinates}
 \usage{
 get_geocoordinates(x, geonames, places.geonames)
 }
@@ -17,7 +17,7 @@ get_geocoordinates(x, geonames, places.geonames)
 data.frame with latitude and longitude
 }
 \description{
-Map geographic places to geocoordinates
+Map geographic places to geocoordinates.
 }
 \details{
 Experimental.
