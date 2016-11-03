@@ -18,9 +18,9 @@ timeline <- function (x, field = "titlecount", group = NULL, nmin = 0, mode = "a
 
   # Set the desired time window (default one decade)
   if (time.window == 10) {
-    df.preprocessed$publication_time <- df.preprocessed$publication_decade
+    x$publication_time <- x$publication_decade
   } else {
-    df.preprocessed$publication_time <- time.window * floor(df.preprocessed$publication_year / time.window)
+    x$publication_time <- time.window * floor(x$publication_year / time.window)
   }
 
   if (!is.null(group)) {
