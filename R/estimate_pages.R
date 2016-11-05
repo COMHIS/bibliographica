@@ -36,6 +36,14 @@ estimate_pages <- function (x) {
       # p5-8 -> 5-8
       x <- gsub("^p", "", x)
     }    
+  } else if (length(grep("^1 sheet \\[*[0-9+]\\]*", x))>0) {
+    # "1 sheet [166]"
+    x <- gsub("1 sheet", "", x)
+    # 1 sheet ([1+] p.)
+    x <- gsub("\\[1\\]", "2", x)
+  } else if (length(grep("^[0-9]+ sheets* [0-9]+ pages*$", x))>0) {
+    # 3 sheets 3 pages
+    x <- unlist(strsplit(x, "sheets"), use.names = FALSE)[[2]]
   }
 
   # --------------------------------------------
@@ -45,15 +53,22 @@ estimate_pages <- function (x) {
 
   # Remove plus now
   x <- gsub("\\+", "", x)
+  x <- gsub("pages*$", "", x)  
   #x <- gsub("\\+", ",", x)
 
   # "[52] plates between [58] blank sheets"
   x <- gsub("plates between ", "plates, ", x)
   # 6 sheets + 2 sheets
-  x = gsub("sheets", "sheets,", x)
+  x <- gsub("sheets", "sheets,", x)
 
   # Handle comma-separated elements separately
-  spl <- unlist(strsplit(x, ","), use.names = FALSE)
+  spl <- condense_spaces(unlist(strsplit(x, ","), use.names = FALSE))
+
+  # 13 [1] -> 13, [1]
+  if (length(grep("^[0-9]+ \\[[0-9]+\\]$", spl))>0) {
+    spl <- gsub(" ", ", ", spl)
+  }  
+  spl <- condense_spaces(unlist(strsplit(spl, ","), use.names = FALSE))
 
   # Harmonize pages within each comma
   x <- sapply(spl, function (x) { harmonize_pages_by_comma(x) }, USE.NAMES = FALSE)
@@ -67,6 +82,9 @@ estimate_pages <- function (x) {
     # Document is folios - double the page count!
     page.count.multiplier <- 2
   }
+
+  # Fix romans
+  x[x == "vj"] <- "vi"
 
   # Identify (potentially overlapping) attribute positions for
   # "arabic", "roman", "squarebracket", "dash", "sheet", "plate"
@@ -97,7 +115,7 @@ estimate_pages <- function (x) {
   if (any(inds)) {
     x[inds] <- roman2arabic(x[inds])
   }
-  
+
   # Convert plates to arabics
   inds <- pagecount.attributes["plate", ]
   if (any(inds)) {  
@@ -117,6 +135,11 @@ estimate_pages <- function (x) {
   # FIXME: at the moment these all go to sheets already
   inds <- pagecount.attributes["plate",]
   pages$plate <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
+  
+  # For now, always ignore plates. THis helps us to easily recognize
+  # documents where page count info is missing (except plates)
+  # pages$plate <- 0 # Ignored earlier, only in cases where no other page info
+  # such as "2v., plates".
 
   # Count pages according to the type
   for (type in c("arabic", "roman")) {
@@ -127,7 +150,7 @@ estimate_pages <- function (x) {
   inds <- pagecount.attributes["sheet",]
   xx <- NA
   xinds <- x[inds]
-  xinds = gsub("^sheet$", "1 sheet", xinds)
+  xinds <- gsub("^sheets*$", "1 sheet", xinds)
 
   if (length(grep("sheet", xinds))>0) {
     # 1 sheet = 2 pages

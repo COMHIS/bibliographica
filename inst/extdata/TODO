@@ -1,7 +1,21 @@
-yksivoluumisen kirjaksi oletetun laskemista varten muuten voisi ottaa
-keskiarvon yksivoluumisista dokumenteista joiden koko on yli 32
-sivua. Nyt taidetaan ottaa kaikista? Toisaalta jos moni dokkari on 2
-sivua niin mitäs se meinaa.
+>yksivoluumisen kirjaksi oletetun laskemista varten muuten voisi ottaa
+>keskiarvon yksivoluumisista dokumenteista joiden koko on yli 32
+>sivua. Nyt taidetaan ottaa kaikista? Toisaalta jos moni dokkari on 2
+>sivua niin mitäs se meinaa.
+
+Ok, done. Mutta tätä ei siis tehdä monivolyymisille tai issueille ?
+
+TODO: ks paljonko 2-sivuisia ja alle 32 sivuisia on kun plates homma
+on fiksattu
+
+------------------------
+
+harmonize_sheets.csv vs. plates.csv -> jos muutan plates poiston vasta
+harmonize_sheetsin jälkeen niin plates.csv voitaisiin poistaa ja
+saataisiin systemaattisesti tapaukset mukaan. Mutta onnistuuko ?
+
+varmista etta monivolyymisissa menee systemaattisesti oikein laskut
+per volume eika koko setti
 
 32 columns could be 32 pages or something else. How to treat?
 

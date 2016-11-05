@@ -31,6 +31,10 @@ is.roman <- function (x) {
 
 roman2arabic <- function (x) {
 
+  if (length(grep("vj", x)) == 1) {
+    x <- gsub("j", "i", x)
+  }
+
   helpf <- function(xi) {
     if (length(grep("-", xi)) > 0) {
       x2 <- str_trim(unlist(strsplit(xi, "-"), use.names = FALSE))
@@ -42,7 +46,7 @@ roman2arabic <- function (x) {
     }
     xr
   }
-  
+
   sapply(x, function (xi) {helpf(xi)}, USE.NAMES = FALSE)
 
 }

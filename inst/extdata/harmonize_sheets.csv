@@ -68,8 +68,11 @@ doubled;
 double;
 single;I
 of ill\.;
+psaltarin kanssa; 
+jaksossa;parts
 broadside \([1] p\.\);broadside
 broadsheet;broadside
+omsl\.;sheet
 broadside;sheet
 ^quarto$;1 sheet
 ^broadside$;1 sheet

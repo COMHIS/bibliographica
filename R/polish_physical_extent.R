@@ -1,5 +1,5 @@
-#' @title Polish physical_extent field
-#' @description Pick page counts, volume counts and volume numbers
+#' @title Polish physical_extent Field
+#' @description Pick page counts, volume counts and volume numbers.
 #' @param x Page number field. Vector or factor of strings.
 #' @param verbose Print progress info
 #' @param mc.cores Number of cores for parallelization
@@ -46,6 +46,12 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   page.synonyms <- read_mapping(f, sep = ";", mode = "table", fast = TRUE)
   s <- map(s, page.synonyms, mode="match")
   rm(page.synonyms)
+
+
+  f <- system.file("extdata/numbers_finnish.csv", package = "bibliographica")
+  char2num <- read_mapping(f, sep = ",", mode = "table", from = "character", to = "numeric")
+  s <- map(s, synonymes = char2num, from = "character", to = "numeric", mode = "match")
+  rm(char2num)
 
   if (verbose) {message("Harmonize volume info")}
   inds <- setdiff(1:length(s), setdiff(grep("v\\.$", s), grep("^v\\.$", s)))
@@ -119,7 +125,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
   # Trimming
   # p3 -> p 3
-  inds = grep("p[0-9]+", s)
+  inds <- grep("p[0-9]+", s)
   if (length(inds)>0) {
     s[inds] <- gsub("p", "p ", s[inds])
   }  
@@ -155,10 +161,10 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 }
 
 
-#' @title Polish physical_extent help field
+#' @title Polish physical_extent Help Field
 #' @description Internal
 #' @param s Input char
-#' @return Internal
+#' @return vector
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @keywords internal
@@ -188,7 +194,7 @@ polish_physext_help <- function (s, page.harmonize) {
 
   # "3 vol (16, 16, 16 s.)" becomes 16 + 16 + 16
   if (length(grep("[0-9]+ vol (*)", s)) > 0 && length(grep(";", s)) == 0) {
-    s = gsub(",", ";", s)
+    s <- gsub(",", ";", s)
   }
 
   # Now remove volume info
@@ -239,7 +245,7 @@ polish_physext_help2 <- function (x, page.harmonize) {
     x <- unlist(strsplit(x, ","), use.names = FALSE)
 
     x <- sapply(x, function (x) {handle_ie(x, harmonize = FALSE)})
-    
+
     x <- paste(x, collapse = ",")
     
   }
@@ -285,6 +291,11 @@ polish_physext_help2 <- function (x, page.harmonize) {
   }
 
   x <- gsub("p\\.*$", "", x)
+  # [4] p 2:o -> 4
+  x <- gsub("[0-9]:o$", "", x)
+  x <- gsub("=$", "", x)
+  x <- gsub("^[c|n]\\.", "", x)
+  
   x <- condense_spaces(x)
 
   x <- suppressWarnings(estimate_pages(x))

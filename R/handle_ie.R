@@ -41,6 +41,23 @@ handle_ie <- function (x, harmonize = TRUE, separator = "i.e") {
     
   }
 
+
+  # "[1-3] 4-43 [44-45] 45-51 [i.e 46-52]"
+  # keep the first part and just remove "45-51 ie"
+  if (length(grep("[0-9]+-[0-9]+ i\\.e [0-9]+-[0-9]+", x)) == 1) {
+    spl <- unlist(strsplit(x, " "), use.names = FALSE)    
+    rmind <- which(spl == "i.e")
+    rmind <- (rmind-1):rmind
+    x <- paste(spl[-rmind], collapse = " ")
+  }
+
+  # " p 113-111 i.e 128] " -> 113-128
+  if (length(grep("-[0-9]+ i\\.e [0-9]+", x)) == 1) {
+    spl <- unlist(strsplit(x, "-"), use.names = FALSE)
+    spl <- sapply(spl, function (spli) {handle_ie(spli)})
+    x <- paste(spl, collapse = "-")
+  }
+
   if (length(grep("-", x)) > 0 && length(grep("i\\.e", x)) > 0) {
 
     spl <- unlist(strsplit(x, "i\\.e"), use.names = FALSE)
@@ -49,6 +66,7 @@ handle_ie <- function (x, harmonize = TRUE, separator = "i.e") {
       # 1-3 ie 2-4 -> 2-4
       x <- spl[[2]]
     } else {
+    
       # [1658]-1659 [i.e. 1660] -> 1658-1660
       spl <- unlist(strsplit(x, "-"), use.names = FALSE)
       u <- sapply(spl, function (s) {handle_ie(s)}, USE.NAMES = FALSE)
@@ -56,29 +74,36 @@ handle_ie <- function (x, harmonize = TRUE, separator = "i.e") {
     }
     
   } else if (length(grep("\\[[0-9|a-z]* *i\\.e [0-9|a-z]*\\]", x))>0) {
+  
     # z [x i.e y] -> z [y]  
     x <- unlist(strsplit(x, "\\["), use.names = FALSE)
     inds <- grep("i\\.e", x)
     u <- unlist(strsplit(x[inds], "i\\.e"), use.names = FALSE)
     x[inds] <- u[[min(2, length(u))]]
     x <- paste(x, collapse = "[")
+    
   } else if (length(grep(" i\\.e ", x))>0) {
+  
     # x i.e y -> y
     x <- unlist(strsplit(x, "i\\.e"), use.names = FALSE)
     x <- x[[min(2, length(x))]]
+    
   } else if (length(grep("\\[i\\.e", x))>0) {
+  
     # x [i.e y] -> y
     x <- unlist(strsplit(x, "\\[i\\.e"), use.names = FALSE)
     x <- x[[min(2, length(x))]]
     x <- gsub("\\]*$", "", x)
+    
   } else if (length(grep("\\[[0-9|a-z]* i\\.e [0-9|a-z]*\\]", x))>0) {
     # "mdcxli [1641 i.e 1642]" -> mdcxli [1642]
     x <- unlist(strsplit(x, "\\["), use.names = FALSE)
     inds <- grep("i\\.e", x)    
     x[inds] <- handle_ie(x[inds])
     x <- paste(x, collapse = "[")
+    
   }
-  
+
   x <- gsub("\\[ ", "[", x)
   x <- gsub("^\\.*", "", x)  
   x <- str_trim(x)

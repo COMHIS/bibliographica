@@ -34,11 +34,11 @@ harmonize_sheets_help <- function (s) {
 
   for (i in 1:length(spl)) {
 
-    if (length(grep("^[0-9] sheet", spl[[i]])) > 0) {
-      xxx <- unlist(strsplit(spl[[i]], "sheet"), use.names = FALSE)
-      n <- as.numeric(str_trim(xxx[[1]]))
-      spl[[i]] <- paste(n, "sheets", sep = " ")
-    }
+    #if (length(grep("^[0-9] sheet", spl[[i]])) > 0) {
+    #  xxx <- unlist(strsplit(spl[[i]], "sheet"), use.names = FALSE)
+    #  n <- as.numeric(str_trim(xxx[[1]]))
+    #  spl[[i]] <- paste(n, "sheets", sep = " ")
+    #}
 
     if (length(grep("\\[^[0-9]|[a-z]\\] sheets", spl[[i]])) > 0) {
       xxx <- unlist(strsplit(spl[[i]], "sheet"), use.names = FALSE)
@@ -48,8 +48,8 @@ harmonize_sheets_help <- function (s) {
 
   }
 
-    # Combine again
-    s <- paste(spl, collapse = ",")
+  # Combine again
+  s <- paste(spl, collapse = ",")
 
   s
 }

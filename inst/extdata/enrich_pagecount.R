@@ -4,10 +4,15 @@ enrich_pagecount <- function(df.preprocessed) {
   message("Add volume info where missing")
   gc()
 
+  # If volcount field does not exist, then assume volcount 1 for
+  # all documents. This is for compatibility reasons.
+  # TODO: later fix downstream functions so that they can manage
+  # without such artificially added volcounts
   if (!"volcount" %in% names(df.preprocessed)) {
     df.preprocessed$volcount <- rep(1, nrow(df.preprocessed))
   }
 
+  # Same for volnumber
   if (!"volnumber" %in% names(df.preprocessed)) {
     df.preprocessed$volnumber <- rep(NA, nrow(df.preprocessed))
   }
@@ -21,8 +26,8 @@ enrich_pagecount <- function(df.preprocessed) {
 
   # Recognize categories
   df.preprocessed$singlevol <- is.singlevol(df.preprocessed)
-  df.preprocessed$multivol <- is.multivol(df.preprocessed)
-  df.preprocessed$issue <- is.issue(df.preprocessed)
+  df.preprocessed$multivol  <- is.multivol(df.preprocessed)
+  df.preprocessed$issue     <- is.issue(df.preprocessed)
 
   # --------------------------------------------------------------------------
 
