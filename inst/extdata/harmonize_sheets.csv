@@ -1,4 +1,8 @@
 synonyme;name
+plates col;plates 
+all but the first folded;
+etching with engraving; 
+\.plate;,plate
 leavse;leaves
 ^folding$;plates
 platess;plates
@@ -37,24 +41,21 @@ blank leaf;leaf
 the last [0-9] p. blank;
 versos blank;
 woodcut;
-leaves of plates \(maps\);leaf
-leave of plates; leaves
-leaf plates;leaf
-leaf of plates;leaf
-leaf of plate;leaf
-leaves of plates;leaves
-leaves of plate;leaves
+leaves of plates \(maps\);plates
+leave of plates; plates
+leaf plates;plates
+leaf of plates;plates
+leaf of plate;plate
+leaves of plates;plates
+leaves of plate;plate
 leaves \([0-9] folded\);leaves
 1 leaf;1 sheet
-[0-9]+ folded;
 some col\.;
 col.;
 front\.;
-[0-9] fold;
 some fold;
 fol\.;
-\[[0-9]\] folded;
-[0-9] folded;
+folded;
 foldedplate;plate
 foldplate;plate
 1sheet;1 sheet
@@ -90,4 +91,4 @@ map; 1p
 folded;
 ff\.;ff.,
 \(\);
-
+\[1\] plates$;, [1] plates

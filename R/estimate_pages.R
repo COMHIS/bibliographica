@@ -43,7 +43,7 @@ estimate_pages <- function (x) {
     x <- gsub("\\[1\\]", "2", x)
   } else if (length(grep("^[0-9]+ sheets* [0-9]+ pages*$", x))>0) {
     # 3 sheets 3 pages
-    x <- unlist(strsplit(x, "sheets"), use.names = FALSE)[[2]]
+    x <- gsub("^s", "", unlist(strsplit(x, "sheet"), use.names = FALSE)[[2]])
   }
 
   # --------------------------------------------
@@ -158,6 +158,13 @@ estimate_pages <- function (x) {
     xx <- suppressWarnings(2 * as.numeric(as.roman(xinds)))
   } 
   pages$sheet <- sumrule(xx) 
+
+  # If nothing else than plate info is given then consider this an
+  # empty document with no pages. Except when plate count is higher than 2.
+  nonzero <- names(which(pages > 0))
+  if (length(nonzero) == 1 && nonzero == "plate" && pages$plate <= 4) {
+    pages <- 0
+  }
 
   # Take into account multiplier
   # (for instance when page string starts with Ff the document is folios

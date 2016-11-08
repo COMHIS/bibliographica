@@ -23,8 +23,6 @@ harmonize_pages_by_comma <- function (s) {
 
   # Handle some odd cases
   s <- condense_spaces(s)
-
-  s <- condense_spaces(s)
   s[s == ""] <- NA
 
   s

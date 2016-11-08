@@ -19,7 +19,6 @@ harmonize_sheets <- function (s, harm) {
   s <- gsub("^sheets$", "2 sheets", s)
   s <- gsub("1 leaf \\(\\[2\\]p\\.\\)", "1 sheet", s)
 
-
   s <- condense_spaces(s)
 
   s 

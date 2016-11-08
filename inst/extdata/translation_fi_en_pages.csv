@@ -7,8 +7,8 @@ evangeliska sällskapets skrifter;
 kartor;sheets
 & omsl\.;sheet
  omsl$;sheet
-kartbl;plates
-portr;plates
+kartbl;sheets
+portr;sheets
 taitettuina;folded
 taitettuna;folded
 taitettua;folded
@@ -17,7 +17,7 @@ vihkoa;vol
 nid\.;vol
 tab\.;tables
 taulukkol\.;tables
-nuotteja;plates
+nuotteja;sheets
 lösa kartor;sheets
 karttalehteä;sheets
 karttalehti;sheet
@@ -27,17 +27,17 @@ karta;sheet
 arkkia;sheets
 arkki;sheet
 karttaa;sheets
-kuvalehdet;plates
+kuvalehdet;sheets
 kuvalehtiä;pla
 musikbilaga;plate
-kuvas.;plates
-kuval.;plates
-kuval;plates
+kuvas.;sheets
+kuval.;sheets
+kuval;sheets
 lehti;plate
-lehdet;plates
+lehdet;sheets
 useina numerointijaksoina;in various pagings
 med var. pag;in various pagings
-lehteä;plates
+lehteä;sheets
 taitettuna;folded
 poikittaip.;obl.
 pienempi;small
@@ -45,38 +45,40 @@ pienempi;small
 verso tyhjä;verso blanko
 tyhjä;blanko
 s\\.$;pages
-kuvalehteä;plates
-kuvalehti;plates
-kuvaliitettä;plates
-kuvasivua;plates
-malliliitettä;plates
-kartblad;plates
-kuvaa;plates
+kuvalehteä;sheets
+kuvalehti;sheets
+kuvaliitettä;sheets
+kuvasivua;sheets
+malliliitettä;sheets
+kartblad;sheets
+kuvaa;sheets
 blad;plates
-muotokuvalehteä;plates
+muotokuvalehteä;sheets
 pl$;plates
-blad;plates
-irtokuvalehteä;plates
+blad;sheets
+irtokuvalehteä;sheets
 spalter;plates
-irtokuval;plates
-valokuvaa;plates
-liitelehteä;plates
-numeroimatonta lehteä;plates
-silhuetter;plates
-dubbelsidor;plates
-taulua;plates
-yhteenliimattua lehteä;plates
-mallilehteä;plates
-mallil;plates
-luetteloa;plates
-kuvalehteä taitettuina;plates
-hopvikta kartongskifvor;plates
-lomaketta;plates
-lehteä tekstiä;plates
-lehteä kuvia;plates
+pl\\.;plates
+bl\\.;plates
+irtokuval;sheets
+valokuvaa;sheets
+liitelehteä;sheets
+numeroimatonta lehteä;sheets
+silhuetter;sheets
+dubbelsidor;sheets
+taulua;sheets
+yhteenliimattua lehteä;sheets
+mallilehteä;sheets
+mallil;sheets
+luetteloa;sheets
+kuvalehteä taitettuina;sheets
+hopvikta kartongskifvor;sheets
+lomaketta;sheets
+lehteä tekstiä;sheets
+lehteä kuvia;sheets
 vyblad;plates
-kuvataulua;plates
-kuvapiirrosta;plates
+kuvataulua;sheets
+kuvapiirrosta;sheets
 och;+
 sammanfattning;
 inkl. ann.;

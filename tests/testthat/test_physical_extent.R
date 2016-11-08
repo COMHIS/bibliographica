@@ -3,14 +3,14 @@ context("Physical extent")
 test_that("Page count is correct", {
   
   f <- system.file("extdata/tests_polish_physical_extent.csv", package = "bibliographica")
-  synonymes <- read.csv(file=f, header=TRUE, sep="\t", encoding="UTF-8")
-  for (i in 1:nrow(synonymes)) {
-    test_clause <- as.character(synonymes$clause[i])
-    test_result <- as.character(synonymes$result[i])
-    test_field <- as.character(synonymes$field[i])
+  testcases <- read.csv(file=f, header=TRUE, sep="\t", encoding="UTF-8")
+  for (i in 1:nrow(testcases)) {
+    test_clause <- as.character(testcases$clause[i])
+    test_result <- as.character(testcases$result[i])
+    test_field <- as.character(testcases$field[i])
     if ((is.na(test_field)) || (test_field =="")) {test_field <- "pagecount"}
-    if (is.na(synonymes$expected[i]) || (synonymes$expected[i] == "equal")) {
-      success <- expect_equal(as.character(polish_physical_extent(test_clause)[[test_field]]), test_result)
+    if (is.na(testcases$expected[i]) || (testcases$expected[i] == "equal")) {
+      expect_equal(as.character(polish_physical_extent(test_clause)[[test_field]]), test_result)
       #print(c(test_clause, as.character(polish_physical_extent(test_clause)[[test_field]]), test_result))
     }
   }
@@ -46,10 +46,6 @@ test_that("volume count is correct", {
   expect_true(is.na(polish_physical_extent("v, 5")$volcount)) # 5 + 5 pages, 1 volume
   expect_true(is.na(polish_physical_extent("v")$volcount))  
   expect_true(is.na(polish_physical_extent("v ;")$volcount))
-  
-  expect_equal(polish_physical_extent("[4] p. (p. [3] blank)")$pagecount, 4)
-  expect_equal(polish_physical_extent("1 score (144 p.)")$pagecount, 144)
-  expect_equal(polish_physical_extent("1 sheet ([2] p.), [18] leaves of plates")$pagecount, 38)
 
 })
 

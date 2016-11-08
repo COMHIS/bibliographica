@@ -15,6 +15,11 @@ pick_multivolume <- function (x) {
     x <- gsub("^[0-9]+ pts in ", "", x)
   }
 
+  if (length(grep("^[0-9]+ pts \\([0-9]+ *v\\.*\\)", x))>0) {
+    x <- gsub("^[0-9]+ pts \\(", "", x)
+    x <- gsub("\\)", "", x)    
+  }
+
   if (length(grep("^[0-9]* {0,1}v\\.{0,1}$", x))>0) {
     # 73 v. -> 73
     vols <- as.numeric(str_trim(gsub("v\\.{0,1}", "", x)))

@@ -47,7 +47,6 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   s <- map(s, page.synonyms, mode="match")
   rm(page.synonyms)
 
-
   f <- system.file("extdata/numbers_finnish.csv", package = "bibliographica")
   char2num <- read_mapping(f, sep = ",", mode = "table", from = "character", to = "numeric")
   s <- map(s, synonymes = char2num, from = "character", to = "numeric", mode = "match")
@@ -68,32 +67,6 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
   if (verbose) {message("Harmonize ie")}
   s <- harmonize_ie(s)
-
-  if (verbose) {message("Recognize missing page cases")}
-  # List cases that are considered as documents with missing pages
-  # For instance: documents with only plates info, or gatherings
-  # are here considered as books with missing page count info.
-  # Plates
-  plates <- read.csv(system.file("extdata/plates.csv",
-  	              package = "bibliographica"), header = FALSE,
-		      stringsAsFactors = FALSE, sep = "\t")[,1]		      
-  # Gatherings
-  gats <- unlist(gatherings_table()[, c("Alternate", "Standard", "Symbol")], use.names = F)
-  # Combine
-  missing <- unique(c(gats, plates))
-  # Remove
-  s <- gsub(",", ", ", s)
-  s2 <- condense_spaces(suppressWarnings(gsub("^[\\.|\\,]", "",
-     	                  remove_volume_info(s))))
-  # Quick hack for never-ending bug fixing			  
-  s <- gsub("[0-9]+v\\.*\\,* *\\[*[0-9]+\\]* leaf of plates*$", " ", s)
-  s <- gsub("[0-9]+v\\.*\\,* *\\[*[0-9]+\\]* leaves of plates$", " ", s)
-
-  inds <- which(s2 %in% missing)
-  for (m in missing) {
-    s[inds] <- gsub(m, " ", s[inds])
-  }
-  s <- condense_spaces(s)
 
   s[s == ""] <- NA
   if (verbose) {message("Read the mapping table for pages")}
@@ -149,12 +122,6 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   if (verbose) {message("Set zero page counts to NA")}    
   ret$pagecount[ret$pagecount == 0] <- NA 
 
-  # When volcount not given but parts is given, interpret parts as volumes
-  # and remove parts info (to avoid confusion)
-  #inds = is.na(ret$volcount) & !is.na(ret$parts)
-  #ret[inds, "volcount"] = ret[inds, "parts"]
-  #ret[inds, "parts"] = NULL
-
   if (verbose) { message("Project to original list") }
   ret[match(sorig, suniq), ]
 
@@ -163,7 +130,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
 #' @title Polish physical_extent Help Field
 #' @description Internal
-#' @param s Input char
+#' @param s input char
 #' @return vector
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
@@ -189,7 +156,7 @@ polish_physext_help <- function (s, page.harmonize) {
 
   # "2 pts (96, 110 s.)" = 96 + 110s
   if (length(grep("[0-9]+ pts (*)", s)) > 0 && length(grep(";", s)) == 0) {
-    s = gsub(",", ";", s)
+    s <- gsub(",", ";", s)
   }
 
   # "3 vol (16, 16, 16 s.)" becomes 16 + 16 + 16
@@ -295,7 +262,16 @@ polish_physext_help2 <- function (x, page.harmonize) {
   x <- gsub("[0-9]:o$", "", x)
   x <- gsub("=$", "", x)
   x <- gsub("^[c|n]\\.", "", x)
-  
+  x <- gsub("p \\[", "p, [", x)
+  x <- gsub(": b", ",", x)  
+
+  if (length(grep("\\[[[0-9]+\\] sheets*", x))>0) {
+    n <- unlist(strsplit(x, "\\] sheets*"), use.names = FALSE)
+    spl <- unlist(strsplit(n[[length(n)]], "\\["), use.names = F)
+    n <- spl[[length(spl)]]    
+    x <- gsub(paste("\\[", n, "\\] sheet", sep = ""), paste(", \\[", n, "\\] sheet", sep = ""), x)
+  }
+
   x <- condense_spaces(x)
 
   x <- suppressWarnings(estimate_pages(x))

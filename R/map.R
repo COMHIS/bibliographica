@@ -4,7 +4,9 @@
 #' @param x A character vector 
 #' @param synonymes synonyme table with the fields 'synonyme' and 'name'
 #' @param remove.unknown Logical. Remove terms that do not have synonymes.
-#' @param mode 'exact.match' replaces the terms based on the synonyme list if an exact match is  found; 'match' replaces the parts that match synonymes; 'recursive' replaces all (sub)strings recursively in the same order as in the synonyme table
+#' @param mode 'exact.match' replaces the terms based on the synonyme list if an exact match is
+#'        found; 'match' replaces the parts that match synonymes; 'recursive' replaces all
+#'        (sub)strings recursively in the same order as in the synonyme table
 #' @param verbose verbose
 #' @param from field that will be replaced
 #' @param to field that contains the final names
