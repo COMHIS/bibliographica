@@ -2,7 +2,7 @@
 % Please edit documentation in R/polish_physical_extent.R
 \name{polish_physical_extent}
 \alias{polish_physical_extent}
-\title{Polish physical_extent field}
+\title{Polish physical_extent Field}
 \usage{
 polish_physical_extent(x, verbose = FALSE, mc.cores = 1)
 }
@@ -17,7 +17,7 @@ polish_physical_extent(x, verbose = FALSE, mc.cores = 1)
 Raw and estimated pages per document part
 }
 \description{
-Pick page counts, volume counts and volume numbers
+Pick page counts, volume counts and volume numbers.
 }
 \details{
 Document parts are separated by semicolons

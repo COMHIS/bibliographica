@@ -6,7 +6,7 @@
 \usage{
 read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
   include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE,
-  verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE,
+  verbose = FALSE, remove.ambiguous = TRUE, lowercase.only = FALSE,
   from = "synonyme", to = "name", fast = FALSE, encoding = "UTF-8",
   trim = FALSE, empty.is.na = FALSE)
 }
@@ -29,7 +29,7 @@ read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
 
 \item{remove.ambiguous}{Remove ambiguous terms.}
 
-\item{lowercase}{All synonymes considered in lowercase only}
+\item{lowercase.only}{All synonymes considered in lowercase only}
 
 \item{from}{field that will be replaced}
 
