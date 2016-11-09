@@ -192,15 +192,14 @@ Merkkaan tän nyt NA:ksi, onko OK vai onko toiveita:
 MT: silloin kun sivut annettu niin mennään sillä, eli 144 tässä
 tapauksessa riippumatta onko score tai ei.
 
+LL: OK, tässä olisi helpompi toteuttaa niin että tulee 2 + 144 = 146
+sivua (ja vastaavasti shiittien ja platesien tapauksessa). Onko se ok
+(tai jopa oikein), vai runttaanko algoritmit niin että tuosta saadaan
+144s. Jälkimmäisen joutuu koodaamaan erikoistapauksena ja hidastaa
+koodia mikä aina vähän heikentää skaalautuvuutta lisää. Molemmat
+kuitenkin ihan mahdollisia toteuttaa.
 
 -------------------------
-
-Millä logiikalla tässä otetaan tuo 30 (eikä 32) plates:
-  1 leaf, 32 [30] leaves of plates -> MT: 2+60=62
-
-MT: Logiikka on se että olen ajatellut että hakasulkeet korjaa tuota 32 merkintää. Voidaan laskea mun puolesta 32 mukaan, mutta sitten en tiedä mitä nuo hakasulkeet tuossa tekee. Vähän sellainen joko tai tapaus. Yleensä olen ajatellut niin, että hakasulkeiden rooli on antaa jotain täydentävää informaatiota.
-
-
 Fiksaa:
   2 vol.;(130, 118 s.)=	#  MT: 248 / workflow: 130
   2 vol.;(156, 166 s.)	    # MT 322 = 156+166; workflow: 166

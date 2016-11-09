@@ -1,4 +1,5 @@
 clause	result	expected	field
+1 leaf, 32 [30] leaves of plates	62
 6 bl.	12
 ___volymer   NA
 3 Teile 2	NA
@@ -72,7 +73,6 @@ S. 14-28 ; s. 28-48	36
 1 kartasto ([166] s.)	166
 1 leaf	2		
 1leaf ([2]p.)	2		
-1 leaf, 32 [30] leaves of plates	2
 [1] sheet ([1]+ p.)	2		
 1 sheet ([1] p.)	2		
 1 sheet ([1]) p.	2		

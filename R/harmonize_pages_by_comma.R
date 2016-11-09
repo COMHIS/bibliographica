@@ -1,6 +1,11 @@
 # A single instance of pages within commas
 harmonize_pages_by_comma <- function (s) {
 
+  # 30 [32]
+  if (length(grep("[0-9]+ \\[[0-9]+\\]", s))>0) {
+    s <- paste(unlist(strsplit(s, " "), use.names = FALSE)[-1], collapse = " ")
+  }
+
   # Convert plates to pages
   s <- plates2pages(s)
 
