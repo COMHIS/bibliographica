@@ -31,7 +31,159 @@ tehdään joka kategorialle erikseen.
     
 -------------
 
-Venaa Mikon vastaukset
+Myös tässä olet merkannut näin:
+  [2],[16]p. of plates -> 2+16=18
+-> Onko tämä poikkeustapaus jossa platesia ei kerrotakaan kahdella?
+
+MT: tämä näyttää minun mielestäni poikkeukselta sen takia, että siinä
+on merkitty kuinka paljon plates sivuja on. Eli nyt merkintä sisältää
+tuon sivumäärän (16 p.). Eli tarkoittaisi käytännössä sitä, että
+plateseja on 8. Sääntönä yleisesti se, että jos on merkittynä kuinka
+paljon sivuja on, niin sitten mennään sillä riippumatta onko kyse
+tavallisista sivuista, plates-sivuista tai vaikkapa sheet-sivuista.
+Alla tulee tapaus jossa sheet saa merkinnän 1 sivu. Tässä mennään
+tällä merkinnällä 1 sivu, vaikka kaikissa niissä tapauksissa joissa ei
+ole erikseen merkintää siitä montako sheet-sivua on, niin sääntö on,
+että sheet = 2 sivua. Eli merkitty sivumäärä määrää aina riippumatta
+siitä minkälaisista sivuista on kyse. Tämän pitäisi toimia, katso myös
+tuo alempi sheet-selitys, logiikan pitäisi olla selvä. Kysy myös jos
+on vielä huonosti selitetty.
+
+LL: -> OK, ja onko tosiaan nyt että 16 pages of plates on tosiaan 16
+sivua eikä 2 x 16 sivua?
+MT: Joo, tässä näin sen takia kun on suoraan sanottu että plates sivuja on 16. Täten uskotaan tätä tietoa.
+
+
+---------------------------------------
+
+LL: Nyt on merkattu että "1to" tulkittaisiin kaksisivuisena dokumenttina,
+mutta "quarto" tulkittaisiin dokumenttina josta puuttuu
+sivutiedot. Meneekö oikein ? Helpompi olisi tulkita molemmat samalla
+tavalla mutta voidaan toteuttaa myös poikkeavat tulkinnat. Toimitaanko
+kaikkien gatheringsien kanssa samalla logiikalla vai onko niitten
+välilläkin eroja tässä kohtaa?
+
+MT: Kun tulkitaan 1to 2 sivuisena, niin tämä ei välttämättä mene näin
+aina (eli voi olla tapauksia joissa pitäisi olla arvio). 1to ja 4to
+niin tämä on gatherings merkintä ja siinä ei tätä tarvita.  Voitko
+antaa lisää esimerkkejä siitä miten 1to merkitty nyt niin että tulee 2
+sivua? Näitä voisi tarkistaa edelleen että saadaan varmasti oikein
+nämä tapaukset.
+
+LL: nyt siis puhutaan tapauksista joissa merkintä on puhtaasti pelkkä
+"1to", "quarto, "2fo", "4to" tai vastaava. Eli esimerkkejä ei ole
+enempää (paitsi tietysti kaikki loput mahdolliset gatheringsit
+vastaavasti).
+MT: ok, tässä tapauksessa ei voida vetää johtopäätöstä että 1to = sheet. Eli tässä toimitaan 1to kohdalla niin kuin myös muut gatheringit.
+
+
+---------------------------------------------
+
+Tämä on ongelmallinen koska puolipiste on katsottu voluumien
+erottimeksi eli tässä sheet ja plate viittaisi sen mukaan eri
+voluumeihin. Pitäisikö tämä irrottaa erikoistapaukseksi tai penkoa
+tarkemmin näitä:
+
+"1 sheet; plate"
+
+nyt pitäisi tulla 4 sivua mutta saadaan siis nykysäännöillä 2 + 0 = 2
+
+MT: näitä voitaisiin katsoa tarkemmin. Kuten myös voisin tarkistaa
+puolipisteitä isomman joukon kautta että onko muita konflikteja tämän
+voluumi-erotus tulkinnan kanssa. Lisäksi, voi olla että tämä toimii
+yhdessä katalogissa, mutta ei kaikissa (vrt. Esim. ESTC ja
+Kungliga). Eli tarkistaisin näitä edelleen.
+
+LL: OK, kaikki raakadatan tapaukset joissa puolipisteitä, on nyt
+liitetiedostoissa Fennica/Kungliga/ESTC. Voitko katsoa, löytyykö
+systemaattisia tapauksia joissa puolipistettä ei pitäisi tulkita
+voluumierottimeksi? Jos näitä on vain yksittäisiä niin sitten
+jätettäneen huomiotta ja menee kirjoitusvirheitten piikkiin. Jos on
+systemaattisia niin vaikutus voi olla isompi ja pitää ehkä huomioida.
+
+MT: Mä en nyt oikein saa kiinni mitä näissä liitetiedostoissa tapahtuu. Esimerkiksi tällainen rivi tulee vastaan:
+
+[10],76,[4]
+	
+
+32p. 1
+
+Onko tässä tabula eroteltuna se mikä on puolipisteen toisella ja toisella puolella? Voiko saada sen alkuperäisen merkinnän jossa puolipiste mukana? Nyt mun on tosi vaikea hahmottaa tästä mitä tapahtuu.
+
+
+--------------------------------------------
+
+Naissä aiemmin sovittuna intervallisääntö, eli tästä tulisi 247
+sivua. Mutta sun mukaan 743. Eli vähän samanlainen keissi.
+
+"[3] s., s. 497-740"
+
+MT: Hyvä, sama kuin edellinen eli ei muuteta näitä. Vielä
+varmistaisin, että onhan tämä yksivoluuminen teksti? Mutta jo tehdyt
+säännöt näissä. Virhe minun merkinnän. Sori.
+
+LL: Jep vol tieto poimitaan tästä samasta stringistä ja tässä kun se
+puuttuu niin tulkitaan että on 1 vol.
+MT: ok, hyvä.
+
+MT: tämä näyttää tosiaan myös olevan aika kinkkinen. Esimerkkitapauksessa hakasulkeiden poistaminen antaa oikean tuloksen, mutta eihän me niitä systemaattisesti voida lähteä poistamaan. En osaa tätä nyt ainakaan ratkaista.
+--------------------------------
+
+Millä perusteella jälkirimpsu jätetään tässä huomiotta eli pitäisikö
+tosiaan tulla 38 sivua:
+
+38 uppsatser med särskild pag. (951)s.,1 portr.,19 pl.     
+
+MT: joo, olet oikeassa, en tiedä miksi olen tässä ajatellut näin,
+mutta otetaan tässä koko satsi mukaan.
+
+LL: OK hyvä. Sanotkos vielä mitä ja millä logiikalla tuosta pitäis
+tulla. Onko 38 + 1 + 1 + 19 oikein ? Tai vaihtoehtoisesti 38 + 1 + 19
+(kun tuota 951 ei ole erotettu edeltävästä pilkulla). Vai laskettiinko
+portr omaksi sivukseen.
+
+MT: Katsoin tätä tarkemmin ja tässä tapaus näyttää siltä, että kyseessä 38 erillisen kirjoituksen kokoelma joilla teksteillä on omat sivumerkintänsä, mutta koko aineisto on 951 sivua, lisäksi tulee tuo potretti ja nuo 19 plattia eli 951 + 2 + 38 = 991.
+---------------------------------------------------------
+
+Merkkaan tän nyt NA:ksi, onko OK vai onko toiveita:
+
+  1 score (144 p.)
+
+MT: silloin kun sivut annettu niin mennään sillä, eli 144 tässä
+tapauksessa riippumatta onko score tai ei.
+
+LL: OK, tässä olisi helpompi toteuttaa niin että tulee 2 + 144 = 146
+sivua (ja vastaavasti shiittien ja platesien tapauksessa). Onko se ok
+(tai jopa oikein), vai runttaanko algoritmit niin että tuosta saadaan
+144s. Jälkimmäisen joutuu koodaamaan erikoistapauksena ja hidastaa
+koodia mikä aina vähän heikentää skaalautuvuutta lisää. Molemmat
+kuitenkin ihan mahdollisia toteuttaa.
+MT: tässä score ei ole lisäys sivuihin vaan kertoo aineiston muodon (eli liittyy musiikkiin). Siitä ei tule lisäsivuja, vaan yhteensä vaan 144 sivua. Eli käytännössä sama jos sanottaisiin, että “kirja 144 sivua”. Eli tuo score ei lisää mitään, mutta se on ilmoitettu koska aineisto poikkeaa tavallisesta.
+
+
+-------------------------
+
+Mitäs näille tehdään. Tässä oletettavasti olisi sivut per volume:
+
+  2 vol.;(130, 118 s.)=    #  MT: 248 / workflow: 130
+  2 vol.;(156, 166 s.)        # MT 322 = 156+166; workflow: 166
+  3 vol.;(258, 308, 269 s.) # MT 308; workflow 308
+
+Mutta tässä ihan samannäköinen jossa nykysäännöillä tulkitaan
+että sivut koskee koko teosta:
+
+3v.([2],x,[16],207,[1],207-862,[6]p.),plates
+
+Jos nämä käsitellään eri tapauksina niin en oikein tiedä millä
+logiikalla. Yksi mahdollisuus olisi että jos suluissa on
+pilkkueroteltuna yhtä monta numeroa kuin on volyymejä niin
+tulkittaisiin että ne viittaa volyymeihin. Mutta en tiedä onko se
+kovin hyvä tapa. Joskus sellainen merkintä voi viitata koko
+teokseenkin. Onko ehdotuksia.
+
+MT: toi sun ehdotus kuulostaa mun korvaan hyvältä (eli yhtä monta pilkkua kuin voluumi, niin silloin voluumitulkinta) sen suhteen että me tiedetään että se on oikein näissä tapauksissa. Toki jos siitä aiheutuu muita ongelmia niin sitten ei ole hyvä, mutta ihan heti ei tule mieleen mitään konfliktia. Eli en kyllä itse parempaa tähän pysty ehdottamaan.
+
+----------------------------------
 
 Jos on pelkkä plates tieto niin sitten se tulkitaan että on missing
 pages
