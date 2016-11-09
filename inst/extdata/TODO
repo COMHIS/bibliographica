@@ -28,139 +28,20 @@ osalta kuitenkin. Monivoluumiset pitäisi siis olla säännöllisesti yli
 
 -------------
 
-Myös tässä olet merkannut näin:
-  [2],[16]p. of plates -> 2+16=18
--> Onko tämä poikkeustapaus jossa platesia ei kerrotakaan kahdella?
+These are problematic. Too high page counts.
+  # "4 v. (v.1: [36], 186, [10], 468, 479-642, 645-748, [24] p. (first leaf blank), [2] leaves of plates (1 folded); v.2: [4], 749-857, 860-1270, 1269-1860, [40] p.; v.3: [28], 668, 699-1006, 1009-1140, [68] p., [3] folded leaves of plates; v.4: [8], 1141-1234, 1237-1973 , [41] p. [2] folded leaves of plates)"
+    # 4 voluuminen kirja jonka kokonaissivut juoksevat tuonne 1973, yhdessä volumessa ei ole tuhansia sivuja. Sitten nuo ylimaariset vielä siihen.
 
-MT: tämä näyttää minun mielestäni poikkeukselta sen takia, että siinä
-on merkitty kuinka paljon plates sivuja on. Eli nyt merkintä sisältää
-tuon sivumäärän (16 p.). Eli tarkoittaisi käytännössä sitä, että
-plateseja on 8. Sääntönä yleisesti se, että jos on merkittynä kuinka
-paljon sivuja on, niin sitten mennään sillä riippumatta onko kyse
-tavallisista sivuista, plates-sivuista tai vaikkapa sheet-sivuista.
-Alla tulee tapaus jossa sheet saa merkinnän 1 sivu. Tässä mennään
-tällä merkinnällä 1 sivu, vaikka kaikissa niissä tapauksissa joissa ei
-ole erikseen merkintää siitä montako sheet-sivua on, niin sääntö on,
-että sheet = 2 sivua. Eli merkitty sivumäärä määrää aina riippumatta
-siitä minkälaisista sivuista on kyse. Tämän pitäisi toimia, katso myös
-tuo alempi sheet-selitys, logiikan pitäisi olla selvä. Kysy myös jos
-on vielä huonosti selitetty.
+    # "7v.(2359[i.e.3359]p.),plates"
+    # tuo i.e. kertoo 7 volumen sivujen kokonaisuuden (paitsi plates) eli 3359 sivua. Kirjaan on merkitty 2359 sivua joka on vaarin ja oikea luku on tuo 3359. Meidan koodi ei ilmeisesti ota nyt huomioon tuota. Pitaisi kuitenkin muistaakseni olla se sääntö, että i.e. tarkoittaa todellista sivujen maaraa. Tassa tapauksessa ei siis yhteenlaskua 2359+3359, vaan 3359+plates.
 
-LL: -> OK, ja onko tosiaan nyt että 16 pages of plates on tosiaan 16
-sivua eikä 2 x 16 sivua?
 
----------------------------------------
+  # The current solution is to remove these after preprocessing as
+  # suspiciously high cases. Better solution should be to fix this
+  # already in the polish_physical_extent function.  
+  # "9 v. (v.1: [20], XII, xiii-lxxvj p., 1380 columns; v.2: [4] p., 1403-1586, 1585-1654, 1667-2796, 2805-2868 columns; v.3: [4] p., 2877-3852, 3851-4568 columns; v.4: [4] p., 4605-7064 columns; v.5: [4] p., 7125-8204 columns, [4] p., 8277-8788, 8805-9302 columns, [3] p., 9501-9634 columns, [1] p.; v.6: [4], lxviij p., 2108 columns; v.7: [4] p., 2113-5016 columns; v.8: [4] p., 648, 647-694, 697-1010, 1009-2190 columns; v.9: [4], 2215-4538, 4541-4548 columns, 4549-4566 p., 4567-4708 columns), [11] leaves of plates (mostly folded)" # Gives 36211 pages
+  # "[2],iv,iv,380,377*-*378,473-502,553-568,395-430,513-536,441-464*379-*380,381-422,*521-*535,[1],v,[1]p." # Gives 464388 pages
 
-LL: Nyt on merkattu että "1to" tulkittaisiin kaksisivuisena dokumenttina,
-mutta "quarto" tulkittaisiin dokumenttina josta puuttuu
-sivutiedot. Meneekö oikein ? Helpompi olisi tulkita molemmat samalla
-tavalla mutta voidaan toteuttaa myös poikkeavat tulkinnat. Toimitaanko
-kaikkien gatheringsien kanssa samalla logiikalla vai onko niitten
-välilläkin eroja tässä kohtaa?
-
-MT: Kun tulkitaan 1to 2 sivuisena, niin tämä ei välttämättä mene näin
-aina (eli voi olla tapauksia joissa pitäisi olla arvio). 1to ja 4to
-niin tämä on gatherings merkintä ja siinä ei tätä tarvita.  Voitko
-antaa lisää esimerkkejä siitä miten 1to merkitty nyt niin että tulee 2
-sivua? Näitä voisi tarkistaa edelleen että saadaan varmasti oikein
-nämä tapaukset.
-
-LL: nyt siis puhutaan tapauksista joissa merkintä on puhtaasti pelkkä
-"1to", "quarto, "2fo", "4to" tai vastaava. Eli esimerkkejä ei ole
-enempää (paitsi tietysti kaikki loput mahdolliset gatheringsit
-vastaavasti).
-
----------------------------------------------
-
-Tämä on ongelmallinen koska puolipiste on katsottu voluumien
-erottimeksi eli tässä sheet ja plate viittaisi sen mukaan eri
-voluumeihin. Pitäisikö tämä irrottaa erikoistapaukseksi tai penkoa
-tarkemmin näitä:
-
-"1 sheet; plate"
-
-nyt pitäisi tulla 4 sivua mutta saadaan siis nykysäännöillä 2 + 0 = 2
-
-MT: näitä voitaisiin katsoa tarkemmin. Kuten myös voisin tarkistaa
-puolipisteitä isomman joukon kautta että onko muita konflikteja tämän
-voluumi-erotus tulkinnan kanssa. Lisäksi, voi olla että tämä toimii
-yhdessä katalogissa, mutta ei kaikissa (vrt. Esim. ESTC ja
-Kungliga). Eli tarkistaisin näitä edelleen.
-
-LL: OK, kaikki raakadatan tapaukset joissa puolipisteitä, on nyt
-liitetiedostoissa Fennica/Kungliga/ESTC. Voitko katsoa, löytyykö
-systemaattisia tapauksia joissa puolipistettä ei pitäisi tulkita
-voluumierottimeksi? Jos näitä on vain yksittäisiä niin sitten
-jätettäneen huomiotta ja menee kirjoitusvirheitten piikkiin. Jos on
-systemaattisia niin vaikutus voi olla isompi ja pitää ehkä huomioida.
-
---------------------------------------------
-
-Naissä aiemmin sovittuna intervallisääntö, eli tästä tulisi 247
-sivua. Mutta sun mukaan 743. Eli vähän samanlainen keissi.
-
-"[3] s., s. 497-740"
-
-MT: Hyvä, sama kuin edellinen eli ei muuteta näitä. Vielä
-varmistaisin, että onhan tämä yksivoluuminen teksti? Mutta jo tehdyt
-säännöt näissä. Virhe minun merkinnän. Sori.
-
-LL: Jep vol tieto poimitaan tästä samasta stringistä ja tässä kun se
-puuttuu niin tulkitaan että on 1 vol.
-
--------------------------
-
-Tähän merkitty että pitäisi tulla 28 sivua. Mutta tulee 47. Johtuu
-siitä että aiemmin on päätetty laskea erikseen hakasulkeissa
-olevat. Pitäisi miettiä miten tätä sääntöä muutettaisiin.
-
-  [4], [1] 2-23 [24] s.
-
-MT: tämä tosiaan hieman hankala, hakasulkeisiin merkitty joskus myös
-näitä yksittäisiä lisättyjä sivuja jotka tosiaan käyttäytyvät hieman
-eri tavoin.
-
-Nämä vähän vastaavia (pitäisi tulla 32 ja 34 sivua mutta nyt ei tule):
-  [4], [1] 2-27 [28] s. (s. [28] tyhjä)  32 
-  [4], [1] 2-30 32 [po. 31] [32] s.	34
-  35[1] s.       # 2          3  = 36
-  [2] s., s. 129-143 [144-146]    20
-
-MT: jossain vaiheessa tehtiin sääntöjä siitä että nousevaa sarjaa
-täydennetään sivujen osalta. Kuinkakohan paljon näitä virheitä nyt on
-joka johtuu tästä samasta asetelmasta? Tuo yhden sivun heitto ei
-tietenkään kokonaisuuden kannalta ole aivan mahdoton jos nyt ei saada
-tätä täysin toimimaan. Ongelma tietysti on se, että jos syntyy muuta
-konfliktia hakasulje merkintöjen kanssa.
-
-LL: Näiden tapauksessahan laskennassa tulee nyt isojakin heittoja eli
-tällä voi olla jo merkitystä. Nousevaa sarjaa täydennetään sivujen
-osalta ja ensimmäisestä esimerkistä ("[4], [1] 2-23 [24] s.") tulee
-nyt 51 sivua mutta jos hakasulkeet poistetaan tulee 24. Jos poistetaan
-muut paitsi ensimmäiset hakasulkeet ja lisätään pilkut niin saadaan 28
-sivua ("[4], 1, 2-23, 24 s."). Onko ehdotuksia miten tehdään ?
-
-Tapausten seulominen muitten joukosta on aika hankalaa ellei samalla
-ratkaise koko ongelmaa. Voit periaatteessa selata raakadataa
-mielikuvan saamiseksi
-https://raw.githubusercontent.com/rOpenGov/estc/master/inst/examples/output.tables/pagecount_conversion_nontrivial.csv.
-
---------------------------------
-
-Millä perusteella jälkirimpsu jätetään tässä huomiotta eli pitäisikö
-tosiaan tulla 38 sivua:
-
-38 uppsatser med särskild pag. (951)s.,1 portr.,19 pl.      
-
-MT: joo, olet oikeassa, en tiedä miksi olen tässä ajatellut näin,
-mutta otetaan tässä koko satsi mukaan.
-
-LL: OK hyvä. Sanotkos vielä mitä ja millä logiikalla tuosta pitäis
-tulla. Onko 38 + 1 + 1 + 19 oikein ? Tai vaihtoehtoisesti 38 + 1 + 19
-(kun tuota 951 ei ole erotettu edeltävästä pilkulla). Vai laskettiinko
-portr omaksi sivukseen.
-
----------------------------------------------------------
 
 En osaa sanoa mikä on oikein, mutta nyt ei mene kuitenkaan oikein: No
 koitetaan päättää mihin tähdätään. Vai pistetäänkö NAksi? Mun
@@ -184,41 +65,6 @@ voidaan laskea 3 voluumina jos se sääntö meni vastaavien osalta
 samalla tavalla.
 
 #------------------
-
-Merkkaan tän nyt NA:ksi, onko OK vai onko toiveita:
-
-  1 score (144 p.)
-
-MT: silloin kun sivut annettu niin mennään sillä, eli 144 tässä
-tapauksessa riippumatta onko score tai ei.
-
-LL: OK, tässä olisi helpompi toteuttaa niin että tulee 2 + 144 = 146
-sivua (ja vastaavasti shiittien ja platesien tapauksessa). Onko se ok
-(tai jopa oikein), vai runttaanko algoritmit niin että tuosta saadaan
-144s. Jälkimmäisen joutuu koodaamaan erikoistapauksena ja hidastaa
-koodia mikä aina vähän heikentää skaalautuvuutta lisää. Molemmat
-kuitenkin ihan mahdollisia toteuttaa.
-
--------------------------
-Fiksaa:
-  2 vol.;(130, 118 s.)=	#  MT: 248 / workflow: 130
-  2 vol.;(156, 166 s.)	    # MT 322 = 156+166; workflow: 166
-  3 vol.;(258, 308, 269 s.) # MT 308; workflow 308
-
-These are problematic. Too high page counts.
-  # "4 v. (v.1: [36], 186, [10], 468, 479-642, 645-748, [24] p. (first leaf blank), [2] leaves of plates (1 folded); v.2: [4], 749-857, 860-1270, 1269-1860, [40] p.; v.3: [28], 668, 699-1006, 1009-1140, [68] p., [3] folded leaves of plates; v.4: [8], 1141-1234, 1237-1973 , [41] p. [2] folded leaves of plates)"
-    # 4 voluuminen kirja jonka kokonaissivut juoksevat tuonne 1973, yhdessä volumessa ei ole tuhansia sivuja. Sitten nuo ylimaariset vielä siihen.
-
-    # "7v.(2359[i.e.3359]p.),plates"
-    # tuo i.e. kertoo 7 volumen sivujen kokonaisuuden (paitsi plates) eli 3359 sivua. Kirjaan on merkitty 2359 sivua joka on vaarin ja oikea luku on tuo 3359. Meidan koodi ei ilmeisesti ota nyt huomioon tuota. Pitaisi kuitenkin muistaakseni olla se sääntö, että i.e. tarkoittaa todellista sivujen maaraa. Tassa tapauksessa ei siis yhteenlaskua 2359+3359, vaan 3359+plates.
-
-
-  # The current solution is to remove these after preprocessing as
-  # suspiciously high cases. Better solution should be to fix this
-  # already in the polish_physical_extent function.  
-  # "9 v. (v.1: [20], XII, xiii-lxxvj p., 1380 columns; v.2: [4] p., 1403-1586, 1585-1654, 1667-2796, 2805-2868 columns; v.3: [4] p., 2877-3852, 3851-4568 columns; v.4: [4] p., 4605-7064 columns; v.5: [4] p., 7125-8204 columns, [4] p., 8277-8788, 8805-9302 columns, [3] p., 9501-9634 columns, [1] p.; v.6: [4], lxviij p., 2108 columns; v.7: [4] p., 2113-5016 columns; v.8: [4] p., 648, 647-694, 697-1010, 1009-2190 columns; v.9: [4], 2215-4538, 4541-4548 columns, 4549-4566 p., 4567-4708 columns), [11] leaves of plates (mostly folded)" # Gives 36211 pages
-  # "[2],iv,iv,380,377*-*378,473-502,553-568,395-430,513-536,441-464*379-*380,381-422,*521-*535,[1],v,[1]p." # Gives 464388 pages
-
 
 
 

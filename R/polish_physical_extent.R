@@ -159,10 +159,16 @@ polish_physext_help <- function (s, page.harmonize) {
     s <- gsub(",", ";", s)
   }
 
-  # "3 vol (16, 16, 16 s.)" becomes 16 + 16 + 16
-  if (length(grep("[0-9]+ vol (*)", s)) > 0 && length(grep(";", s)) == 0) {
-    s <- gsub(",", ";", s)
-  }
+  # "3v. (16, 16, 16 s.)" becomes 16 + 16 + 16
+  #if (length(grep("[0-9]+v\\. *(*)", s)) > 0 && length(grep(";", s)) == 0) {
+  #  s <- gsub(",", ";", s)
+  #}
+
+  # "2v.;(130, 118 s.)=" -> 130;118
+  #if (length(grep("^[0-9]+v.;\\([0-9]+, *[0-9]+ [p|s]\\.*\\)", s)) > 0) {
+  #  s <- gsub(",", ";", s)
+  #}
+
 
   # Now remove volume info
   s <- suppressWarnings(remove_volume_info(s))

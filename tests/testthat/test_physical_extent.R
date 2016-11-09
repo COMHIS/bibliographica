@@ -11,7 +11,7 @@ test_that("Page count is correct", {
     if ((is.na(test_field)) || (test_field =="")) {test_field <- "pagecount"}
     if (is.na(testcases$expected[i]) || (testcases$expected[i] == "equal")) {
       expect_equal(as.character(polish_physical_extent(test_clause)[[test_field]]), test_result)
-      #print(c(test_clause, as.character(polish_physical_extent(test_clause)[[test_field]]), test_result))
+      # print(c(test_clause, as.character(polish_physical_extent(test_clause)[[test_field]]), test_result))
     }
   }
   

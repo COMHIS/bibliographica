@@ -21,16 +21,28 @@ harmonize_volume <- function (x, verbose = FALSE, vol.synonyms = NULL) {
   # FIXME these should be done via synonyme list ?
   if (verbose) {message("Volume terms")}
   s <- gsub("^vol\\.", "v. ", s)
-  s <- gsub("vol\\.{0,1} {0,1}$", " v. ", s)
-  s <- gsub("vol\\.", " v. ", s)  
+  s <- gsub("\ *vol\\.{0,1} {0,1}$", " v. ", s)
+  s <- gsub("\ *vol\\.", "v. ", s)
+  s <- gsub(" vol\\.* *;*", "v. ", s)
+  s <- gsub(" vol;", "v. ", s)      
   s <- gsub("^v\\.\\(", "(", s)
-  s <- gsub(" v {0,1}$", " v.", s)
+  s <- gsub(" v {0,1}$", "v. ", s)
   s <- condense_spaces(s)
-
   # "2 v " -> "2v." and "2v " -> "2v."
-  s <- sapply(s, function (si) {gsub("^[0-9]* ?v ", paste0(substr(si, 1, 1), "v."), si)}, USE.NAMES = FALSE)
 
-  s <- sapply(s, function (si) {gsub("^[0-9]+ ?v$", paste0(gsub("v$", "", si), "v."), si)}, USE.NAMES = FALSE)
+  if (length(grep("^[0-9]* *v", s))>0) {
+     spl <- unlist(strsplit(s, " "), use.names = FALSE)
+     s <- spl
+     if (length(spl) > 1) {     
+       s <- paste(spl[1:2], collapse = "")   
+     }
+
+     if (length(spl) > 2) {
+       s <- paste(s, paste(spl[3:length(spl)], collapse = " "), collapse = "")
+     }
+  }
+
+  s <- sapply(s, function (si) {gsub("^[0-9]+ *v$", paste0(gsub("v$", "", si), "v."), si)}, USE.NAMES = FALSE)
 
   s <- gsub(" v\\. ", "v\\.", s)
 
