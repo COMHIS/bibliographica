@@ -67,6 +67,33 @@ print(p)
 ```
 
 
+### Author age
+
+ * `r sum(!is.na(df$author_age))` documents have author age at the publication year (`r round(100*mean(!is.na(df$author_age)))`%). These have been calculated for documents where the publication year and author life years (birth and death) are available, and the document has been printed during the author's life time.
+
+
+```{r summaryTop10authorstimeline, fig.height=10, fig.width=20, echo=FALSE}
+theme_set(theme_bw(20))
+dfs <- df %>% filter(!is.na(author_age)) %>%
+     	 group_by(publication_decade) %>%
+     	 summarize(age = mean(author_age)) %>%
+     	 arrange(publication_decade)
+p <- ggplot(dfs, aes(x = publication_decade, y = age)) +
+       geom_bar(stat = "identity", position = "stack", color = "black") +
+       xlab("Publication Decade") +
+       ylab("Mean age (years)") +
+       scale_fill_grey() +
+       #guides(fill = guide_legend("Author")) +
+       ggtitle("Average author age")
+print(p)
+```
+
+
+
+
+
+
+
 ### Author productivity
 
 Title count versus paper consumption (all authors):

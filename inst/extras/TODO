@@ -17,6 +17,11 @@ polishing function
 
 * Publication time
 
+There are now many docs (ESTC 4000) where publication year is before
+author birth. These are removed in bibliographica/R/validation.R. We
+need to check in more detail what the reasons are, if there is
+anything systematic.
+
 The [discarded publication
 names](https://github.com/rOpenGov/fennica/blob/master/inst/examples/output.tables/publication_year_discarded.csv)
 include terms such as '184?'. These could be however added in

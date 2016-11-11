@@ -27,7 +27,7 @@ get_country <- function (x, map = NULL) {
   if (is.null(map)) {
     f <- system.file("extdata/reg2country.csv", package = "bibliographica")
     message(paste("Reading region-country mappings from file ", f))
-    map <- read_mapping(f, mode = "table", sep = ";", sort = TRUE, self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, remove.ambiguous = TRUE, lowercase = FALSE, from = "region", to = "country") 
+    map <- read_mapping(f, mode = "table", sep = ";", sort = TRUE, self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, remove.ambiguous = TRUE, lowercase.only = FALSE, from = "region", to = "country") 
   }
   
   # Map each region in x to a country

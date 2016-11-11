@@ -58,6 +58,14 @@ validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) 
       df.preprocessed[inds, "author_birth"] <- NA
       df.preprocessed[inds, "author_death"] <- NA
     }
+
+    # Publication year must be efter birth
+    inds <- which(df.preprocessed$author_birth < df.preprocessed$publication_year)
+    if (length(inds) > 0) {
+      df.preprocessed[inds, "author_birth"] <- NA
+      df.preprocessed[inds, "publication_year"] <- NA
+    }
+
   }
 
   # -----------------------------------------------------------------
