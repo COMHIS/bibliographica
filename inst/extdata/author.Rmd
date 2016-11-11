@@ -72,7 +72,7 @@ print(p)
  * `r sum(!is.na(df$author_age))` documents have author age at the publication year (`r round(100*mean(!is.na(df$author_age)))`%). These have been calculated for documents where the publication year and author life years (birth and death) are available, and the document has been printed during the author's life time.
 
 
-```{r summaryTop10authorstimeline, fig.height=10, fig.width=20, echo=FALSE}
+```{r author_age, fig.height=10, fig.width=20, echo=FALSE}
 theme_set(theme_bw(20))
 dfs <- df %>% filter(!is.na(author_age)) %>%
      	 group_by(publication_decade) %>%

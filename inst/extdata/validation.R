@@ -51,6 +51,7 @@ validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) 
     if (length(inds) > 0) {
        df.preprocessed[inds, "author_death"] <- NA
     }
+    
     # Death must be after birth
     # If this is not the case, set the life years to NA
     inds <- which(df.preprocessed$author_death < df.preprocessed$author_birth)
@@ -60,9 +61,11 @@ validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) 
     }
 
     # Publication year must be efter birth
-    inds <- which(df.preprocessed$author_birth < df.preprocessed$publication_year)
+    inds <- which(df.preprocessed$author_birth > df.preprocessed$publication_year)
     if (length(inds) > 0) {
       df.preprocessed[inds, "author_birth"] <- NA
+      df.preprocessed[inds, "author_death"] <- NA
+      df.preprocessed[inds, "author_age"] <- NA      
       df.preprocessed[inds, "publication_year"] <- NA
     }
 
