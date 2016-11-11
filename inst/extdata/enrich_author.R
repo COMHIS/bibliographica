@@ -47,10 +47,16 @@ enrich_author <- function(df.preprocessed) {
   df.preprocessed$author_gender[inds] <- g[inds]
 
   print("Author age on the publication year, when both info are available")
-  inds <- which(df.preprocessed$publication_year < df.preprocessed$author_death & !is.na(df.preprocessed$author_birth))
+  inds <- which(df.preprocessed$publication_year_from < df.preprocessed$author_death & !is.na(df.preprocessed$author_birth))
   df.preprocessed$author_age <- rep(NA, nrow(df.preprocessed))
-  df.preprocessed$author_age[inds] <- df.preprocessed$publication_year[inds] - df.preprocessed$author_birth[inds]
+  df.preprocessed$author_age[inds] <- df.preprocessed$publication_year_from[inds] - df.preprocessed$author_birth[inds]
+  # Remove negative author ages
+  # FIXME: taking these to the final summaries could help to spot errors
+  # df.preprocessed$author_age[df.preprocessed$author_age < 0] <- NA
+
+
 
   return (df.preprocessed)
 
 }
+

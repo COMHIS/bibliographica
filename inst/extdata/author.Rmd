@@ -20,6 +20,7 @@ output: markdown_document
 Top-`r ntop` uniquely identified authors and their productivity (title count).
 
 ```{r summaryauthors, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=10, out.width='430px', fig.show='hold'}
+knitr::opts_chunk$set(fig.path = "figure_slides/", dev="CairoPNG")
 p <- NULL
 p <- top_plot(df, "author", ntop) +
      		  ggtitle(paste("Top authors")) +
@@ -73,6 +74,7 @@ print(p)
 
 
 ```{r author_age, fig.height=10, fig.width=20, echo=FALSE}
+
 theme_set(theme_bw(20))
 dfs <- df %>% filter(!is.na(author_age)) %>%
      	 group_by(publication_decade) %>%
@@ -86,10 +88,33 @@ p <- ggplot(dfs, aes(x = publication_decade, y = age)) +
        #guides(fill = guide_legend("Author")) +
        ggtitle("Average author age")
 print(p)
+
+theme_set(theme_bw(20))
+dfs <- df %>% filter(!is.na(author_age)) %>%
+     	 group_by(publication_year) %>%
+     	 summarize(age = mean(na.omit(author_age)), n = n()) %>%
+     	 arrange(publication_year)
+p <- ggplot(dfs, aes(x = publication_year, y = age, size = n)) +
+       geom_point() +
+       geom_smooth() +       
+       xlab("Publication year") +
+       ylab("Mean age (years)") +
+       scale_fill_grey() +
+       #guides(fill = guide_legend("Author")) +
+       ggtitle("Author mean age")
+print(p)
+
+theme_set(theme_bw(20))
+dfs <- df %>% filter(!is.na(author_age))
+p <- ggplot(dfs, aes(x = author_age)) +
+       geom_histogram(binwidth = 10) +
+       xlab("Age (years)") + ylab("Title count")
+       #ylab("") +
+       #scale_fill_grey() +
+       #guides(fill = guide_legend("Author")) +
+       ggtitle("Author age on the publication year")
+print(p)
 ```
-
-
-
 
 
 

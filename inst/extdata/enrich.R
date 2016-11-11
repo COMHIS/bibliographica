@@ -67,8 +67,9 @@ enrich_preprocessed_data <- function(data.validated, df.orig) {
     df.preprocessed <- mutate(df.preprocessed,
             paper = printrun * (pagecount/2) * (width * height)/sheet.area)
 
-    df.preprocessed <- mutate(df.preprocessed, paper.check =
-     		      width * height * pagecount/2 * (1/1e10) * printrun)
+    # Deprecated	    
+    #df.preprocessed <- mutate(df.preprocessed, paper.check =
+    # 		      width * height * pagecount/2 * (1/1e10) * printrun)
 
   }
 

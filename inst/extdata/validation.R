@@ -1,4 +1,5 @@
 check <- "validation"
+# max.pagecount: pagecount will be marked NA for docs that exceed this limit
 
 validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) {
 
@@ -38,7 +39,6 @@ validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) 
 
   }
 
-
   if ("author_date" %in% update.fields) {
 
     # Author life years cannot exceed the present year
@@ -60,13 +60,15 @@ validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) 
       df.preprocessed[inds, "author_death"] <- NA
     }
 
-    # Publication year must be efter birth
-    inds <- which(df.preprocessed$author_birth > df.preprocessed$publication_year)
+    # Publication year must be after birth
+    # FIXME: should we let these through to the final summaries
+    # - this could help to spot problems ?
+    inds <- which(df.preprocessed$author_birth > df.preprocessed$publication_year_from)
     if (length(inds) > 0) {
       df.preprocessed[inds, "author_birth"] <- NA
       df.preprocessed[inds, "author_death"] <- NA
-      df.preprocessed[inds, "author_age"] <- NA      
-      df.preprocessed[inds, "publication_year"] <- NA
+      df.preprocessed[inds, "publication_year_from"] <- NA
+      df.preprocessed[inds, "publication_year_till"] <- NA      
     }
 
   }
