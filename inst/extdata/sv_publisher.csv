@@ -1,78 +1,38 @@
 synonyme	name
-[B|b]röd[.]	bröderna
-[B|b]r[.]	bröderna
+[Bb]röd[.]	bröderna
+[Bb]r[.]	bröderna
  och 	 & 
  o[.]? 	 & 
  och 	 & 
-& [S|s]:r	& Söner
-& [S|s][.]	& Söner
-& [F|f]ils	& Söner
-& [S|s][.]r[.]	& Söner
-& [S|s]oner	& Söner
-& [C|c]o[.]	& Co
-& [C|c]:o	& Co
-& [K|k][.]?	& Co
-s [F|f]örb[.]	
-s [F|f]örbundet	
-s [F|f]örbund	
-[F|f]örb[.]	
-[F|f]örbundet	
-[F|f]örbund	
-[K|k]ungl[.]	Kungliga
-[K|k]ungliga	Kungliga
-[K|k]ongl[.]	Kungliga
-[K|k]ongliga	Kungliga
-[K|k]gl[.]	Kungliga
-[F|f]ören[.]	förening
-[F|f]öreningen	förening
-[F|f]ören$	förening
+& [Ss]:r	& Söner
+& [Ss][.]	& Söner
+& [Ff]ils	& Söner
+& [Ss][.]r[.]	& Söner
+& [Ss]oner	& Söner
+& [Cc]o[.]	& Co
+& [Cc]:o	& Co
+& [Kk][.]?	& Co
+[Kk]ungl[.]	Kungliga
+[Kk]ungliga	Kungliga
+[Kk]ongl[.]	Kungliga
+[Kk]ongliga	Kungliga
+[Kk]gl[.]	Kungliga
+[Ff]ören[.]	förening
+[Ff]öreningen	förening
+[Ff]ören$	förening
 -stift[.]	stiftelse
-[S|s]tift[.]	stiftelse
-[S|s]tiftelsen	stiftelse
+[Ss]tift[.]	stiftelse
+[Ss]tiftelsen	stiftelse
 -stiftelse	stiftelse
 stift$	stiftelse
 [Ee]v[.]	Evangeliska
 [Ee]vang[.]	Evangeliska
 [']s 	s 
 [']s$	s
-s [F|f]örlaget	
-s [F|f]orlaget	
-s [F|f]örlag	
-s [F|f]orlag	
-s [F|f]örl[.]	
-s [F|f]orl[.]	
-s [F|f]örl$	
-s [F|f]orl$	
-s [B|b]okförlaget	
-s [B|b]okforlaget	
-s [B|b]okförlag	
-s [B|b]okforlag	
-s [B|b]okförl[.]	
-s [B|b]okforl[.]	
-s [B|b]okförl$	
-s [B|b]okforl$
-[B|b]okförlaget	
-[B|b]okforlag	
-[B|b]okförlag	
-[B|b]okforlag	
-[B|b]okförl[.]	
-[B|b]okforl[.]	
-[B|b]okförl$	
-[B|b]okforl$	
-[F|f]örlaget	
-[F|f]orlaget	
-[F|f]örlag	
-[F|f]orlag	
-[F|f]örl[.]	
-[F|f]orl[.]	
-[F|f]örl$	
-[F|f]orl$	
-[B|b]okf[.]	
-[B|b]okf$	
  i samverkan med.*	
  i komm[.]	
  i kommission	
- in [K|k]ommission	
+ in [Kk]ommission	
  i komm$	
 kommissionär	
  i distr$	
@@ -80,34 +40,36 @@ kommissionär
 [,] distr[.]	
 [,] distr$	 
 distribuent	
+[Kk]ejs[.]	Kejserliga
+[Kk]ejserl[.]	Kejserliga
 [Uu]niv[.]?-	universitets
 [Uu]niv[.]s	universitets
 [Uu]niv:s	universitets
 [Uu]niv[.]	universitets
 [Uu]niv:ts	universitets
-k[.] hofbok	hofbok
-kungl[.] hofbok	hofbok
-kungliga hofbok	hofbok
-[B|b]okh[.]	bokhandel
-[B|b]okh$	bokhandel
-[B|b]okhandeln	bokhandel
--[B|b]okhandel	bokhandel
-[D|d]istr[.]	
-[D|d]istribuent	
-[D|d]istrib[.]	
-[D|d]istribution	
-[D|d]istributör	
-[A|a]kad[.]	Akademiska
+[Kk][.] hofbok	hofbok
+[Kk]ungl[.] hofbok	hofbok
+[Kk]ungliga hofbok	hofbok
+[Bb]okh[.]	bokhandel
+[Bb]okh$	bokhandel
+[Bb]okhandeln	bokhandel
+-[Bb]okhandel	bokhandel
+[Dd]istr[.]	
+[Dd]istribuent	
+[Dd]istrib[.]	
+[Dd]istribution	
+[Dd]istributör	
+[Aa]kad[.]	Akademiska
 [Nn]ord[.]	Nordiska
-[S|s]v[.]	Svenska
-[S|s]kandinav[.]	Skandinaviska
-[S|s]kand[.]	Skandinaviska
-[S|s]ällsk[.]	sällskap
-[S|s]ällsk$	sällskap
-[S|s]ällskapet	sällskap
-[SS]tyr[.]	styrelse
+[Ss]v[.]	Svenska
+[Ss]kandinav[.]	Skandinaviska
+[Ss]kand[.]	Skandinaviska
+[Ss]ällsk[.]	sällskap
+[Ss]ällsk$	sällskap
+[Ss]ällskapet	sällskap
+[Ss]tyr[.]	styrelse
 styr$	styrelse
-[S|s]tyrelsen	styrelse
+[Ss]tyrelsen	styrelse
 styr:s	styrelse
 anstalten	anstalte
 anst$	anstalte
@@ -116,16 +78,16 @@ litt[.]-	litteratur
 samf[.]	samfund
 samfundet	samfund
 samf$	samfund
-[B|b]ibl[.]	biblioteket
-[B|b]ibl:s	bibliotekets
+[Bb]ibl[.]	biblioteket
+[Bb]ibl:s	bibliotekets
 ^SKD$	Svenska kyrkans diakonistyrelse
 ^SKS$	Suomalaisen kirjallisuuden seura
-[K|k]ristl[.]	Kristliga
-[F|f]örf:n	författare
-[F|f]örf[.]	författare
-[F|f]örf$	författare
-[F|f]örfattaren	författare
-[F|f]örfattarinna	författare
+[Kk]ristl[.]	Kristliga
+[Ff]örf:n	författare
+[Ff]örf[.]	författare
+[Ff]örf$	författare
+[Ff]örfattaren	författare
+[Ff]örfattarinna	författare
 ^[Uu]tg[.] av	
 [Uu]tgivaren	utgivare
 [Uu]tg$	utgivare
@@ -139,83 +101,116 @@ samf$	samfund
 [[]för .*?[]]	
 [Ee]xp[.] 	
 [Ee]xpeditör 	
-[T|t]idn$	tidning
+[Tt]idn$	tidning
 tidn:s	tidning
 tidn:	tidning
-[T|t]idn[.]	tidning
-[T|t]idningen	tidning
-[F|f]osterl[.]	fosterlands
-[K|k]oop[.]	kooperativa
-[A|a]ntikv[.]?$	antikvariat
-[A|a]ntikv[.]	antikvariska
-s? ?[A|a]ktieb[.]	
-(s )?[A|a][B|b]	
-s? ?[A|a]ktb[.]	
-s? ?[A|a][.]-[B|b][.]	
-s? ?[A|a][.]-[B|b]	
-s? ?[A|a]ktiebolaget	
-s? ?[A|a]ktiebolag	
-s? ?[F|f]örlagsaktiebolaget	
-s? ?[F|f]örlagsaktiebolag	
-s? ?[F|f]örlagsa[.]-b[.]	
-[F|f]örlagsavd[.]	
-[F|f]örlagsexp[.]	
+[Tt]idn[.]	tidning
+[Tt]idningen	tidning
+[Ff]osterl[.]	fosterlands
+[Kk]oop[.]	kooperativa
+[Aa]ntikv[.]?$	antikvariat
+[Aa]ntikv[.]	antikvariska
+s? ?[Aa]ktieb[.]	
+(s )?[Aa][Bb]	
+s? ?[Aa]ktb[.]	
+s? ?[Aa][.]-[Bb][.]	
+s? ?[Aa][.]-[Bb]	
+s? ?[Aa]ktiebolaget	
+s? ?[Aa]ktiebolag	
+s? ?[Ff]örlagsaktiebolaget	
+s? ?[Ff]örlagsaktiebolag	
+s? ?[Ff]örlagsa[.]-b[.]	
 ^hos 	
-^[T|t]r[.] hos 	
-(s )?[T|t]r[.]	
-s? tr$	
-(s )?[B|b]oktr[.]?	
-[B|b]oktryckeriet	
-[B|b]oktryckeri	
-[O|o]ffsettryckeriet	
-[O|o]ffsettryckeri	
-[O|o]ffsettr[.]?	
-[T|t]ryckeriet	
-[T|t]ryckeri-ab
-[T|t]ryckeri	
+^[Tt]r[.] hos 	
  i [0-9]+ (numr[.] )?ex[.]	
-[Pp]ublishing House	
-[Pp]ubl[.] House	
-international	
-[Pp]ubl[.] [C|c]o[.]
-[T|t]ryckt uti thet 	
-[T|t]ryckt uti 	
-[T|t]ryckt i 	
-[A|a]vd[.]	avdelning
-[A|a]vdelningen	avdelning
+[Tt]ryckt uti thet 	
+[Tt]ryckt uti 	
+[Tt]ryckt i 	
+[Aa]vd[.]	avdelning
+[Aa]vdelningen	avdelning
 avd$	avdelning
-[F|f]öretagen	företag
-[T|t]idskr[.]	tidskrift
-[T|t]idskrifts	tidskrift
-[H|h]ögkv[.]	högkvarter
-[H|h]ögkv$	högkvarter
+[Ff]öretagen	företag
+[Tt]idskr[.]	tidskrift
+[Tt]idskrifts	tidskrift
+[Hh]ögkv[.]	högkvarter
+[Hh]ögkv$	högkvarter
 bl[.]	blad
 bl$	blad
 bladet$	blad
-[C|c]orresp:s	correspondent
-[C|c]orresp$	correspondent
+[Cc]orresp:s	correspondent
+[Cc]orresp$	correspondent
 litogr[.]	litografiska
 litogr$	litografiska
 litograf$	litografiska
 litograf[.]	litografiska
-[A|a]llm[.]	allmänna
-[K|k]vinnl[.]	kvinnliga
-[M|m]iss[.]	mission
+[Aa]llm[.]	allmänna
+[Kk]vinnl[.]	kvinnliga
+[Mm]iss[.]	mission
 arb[.]	arbete
 -arb$	arbete
-[D|d]agl[.]	dagliga
+[Dd]agl[.]	dagliga
 alleh:s	allehanda
 alleh:as	allehanda
 alleh:	allehanda
 alleh[.]	allehanda
 Frk[.]	fröken
-[F|f]örb[.]	förbund
-[F|f]örb$	förbund
-[F|f]örbundet	förbund
-[F|f]örb 	förbund 
+[Ff]örb[.]	förbund
+[Ff]örb$	förbund
+[Ff]örbundet	förbund
+[Ff]örb 	förbund 
 stud[.]	student
 rör[.]	rörelse
 Reg[.]	regis
 Regis 	regis
 Königl[.]	königlische
 Kungliga	kungliga
+s [Tr]r[.]	Tryckeri
+s? tr$	Tryckeri
+(s )?[Bb]oktr[.]?	Tryckeri
+[Bb]oktryckeriet	Tryckeri
+[Bb]oktryckeri	Tryckeri
+[Oo]ffsettryckeriet	Tryckeri
+[Oo]ffsettryckeri	Tryckeri
+[Oo]ffsettr[.]?	Tryckeri
+[Tt]ryckeriet	Tryckeri
+[Tt]ryckeri-ab	Tryckeri
+s [Ff]örb[.]	Förbund
+s [Ff]örbundet	Förbund
+s [Ff]örbund	Förbund
+[Ff]örb[.]	Förbund
+[Ff]örbundet	Förbund
+s [Ff]örlaget	Förlag
+s [Ff]orlaget	Förlag
+s [Ff]örlag	Förlag
+s [Ff]orlag	Förlag
+s [Ff]örl[.]	Förlag
+s [Ff]orl[.]	Förlag
+s [Ff]örl$	Förlag
+s [Ff]orl$	Förlag
+s [Bb]okförlaget	Förlag
+s [Bb]okforlaget	Förlag
+s [Bb]okförlag	Förlag
+s [Bb]okforlag	Förlag
+s [Bb]okförl[.]	Förlag
+s [Bb]okforl[.]	Förlag
+s [Bb]okförl$	Förlag
+s [Bb]okforl$	Förlag
+[Bb]okförlaget	Förlag
+[Bb]okforlag	Förlag
+[Bb]okförlag	Förlag
+[Bb]okforlag	Förlag
+[Bb]okförl[.]	Förlag
+[Bb]okforl[.]	Förlag
+[Bb]okförl$	Förlag
+[Bb]okforl$	Förlag
+[Ff]örlaget	Förlag
+[Ff]orlaget	Förlag
+[Ff]orlag		Förlag
+[Ff]örl[.]	Förlag
+[Ff]orl[.]	Förlag
+[Ff]örl$	Förlag
+[Ff]orl$	Förlag
+[Bb]okf[.]	Förlag
+[Bb]okf$	Förlag
+[Ff]örlagsavd[.]	Förlag
+[Ff]örlagsexp[.]	Förlag

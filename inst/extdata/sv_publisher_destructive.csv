@@ -1,0 +1,10 @@
+synonyme	name
+[Ff]örbund	
+[Ff]örlag	
+[Kk]ejserliga	
+[Tt]ryckeri	
+[Pp]ublishing House	
+[Pp]ubl[.] House	
+international	
+[Pp]ubl[.] [Cc]o[.]	
+^[Tt]ryc?kt.*((med)|(hos)|(aff?)|(av)|([,]))	

@@ -1,3 +1,23 @@
 synonyme	name
 [P|p]rändätty 	
 [P|p]ainettu 	
+[Kk]ust[.]	Kustannus
+[Kk]ustannusoy	Kustannus
+[-][Oo][.]?[Yy][.]?	
+ [Oo][.]?[-]?[Yy][.]?	
+ OY	
+[-]OY	
+[Oo]sake[-]?[Yy][^ ]*	
+[-][Yy]htiö[^ ]*	
+[Yy]htiö$	
+[Kk]irjankust[^ ]*	
+^[Kk]ustan[^ ]*	
+[Aa]mer[.]	Amerikkalainen
+[Ss]uom[.][-]	Suomalais-
+[Ss]uomal[.][-]	Suomalais-
+[-][Ll]uth?[.][-]	-luterilainen
+[-][Ll]ut[eh]?erilainen	-luterilainen
+[Kk]irjapaino	Kirjapaino
+kirjap[.]?$	Kirjapaino
+Keis[.]	Keisarillinen
+Keisarill[.]	Keisarillinen

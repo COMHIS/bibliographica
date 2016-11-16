@@ -45,8 +45,6 @@ clean_publisher <- function(x, languages=c("english")) {
 
   # Back to original indices, then unique again;
   # reduces number of unique cases further
-  # Back to original indices, then unique again;
-  # reduces number of unique cases further
   xorig <- q[match(xorig, xuniq)]
   q <- xuniq <- unique(xorig)
 
@@ -66,7 +64,6 @@ clean_publisher <- function(x, languages=c("english")) {
       print (paste0("Unknown language in languages: ", language))
     }
 
-    #synonyms <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")
     synonyms <- read_mapping(f, sep = "\t", encoding = "UTF-8")    
 
     q <- map(q, synonyms, mode="recursive")

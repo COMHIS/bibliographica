@@ -19,7 +19,7 @@ extract_personal_names  <- function(x, languages=c("english")) {
   x <- decapitate_keywords(x, languages=languages)  
   x <- harmonize_abbreviated_names(x, languages=languages)
   
-  message("Decapitated")
+  message("... decapitated")
   # Prepare everything, so that they have equal length
   family_name <- character(length=length(x))
   initials <- character(length=length(x))
@@ -29,52 +29,57 @@ extract_personal_names  <- function(x, languages=c("english")) {
   guessed <- character(length=length(x))
   
   # Try if the form is "Merckell, Johan Cristopher"
-  message("Update full_name if there's a match")
   relation <- get_relation_keyword(x, NULL, languages=languages)
   inds <- which(relation == "")
-  
-  
-  full_name <- gsub("^([[:upper:]][[:lower:]]+), ((([[:upper:]][[:lower:]]+|[[:upper:]][.])( |$))+)", "\\2 \\1", x)
+  message("... get_relation_keyword done")
+  # HR 2016-10-06: Now accepts abbreviated names like "Fred."
+  full_name <- gsub("^([[:upper:]][[:lower:]]+), ((([[:upper:]][[:lower:]]+[.]?|[[:upper:]][.])( |$))+)", "\\2 \\1", x)
+  message("... full_name caught")
   
   # Try if the form is "Merckell, Johan Cristopherin leski"
-  message("Update full_name if necessary")
   inds <- which(relation != "")
-  pattern <- paste("(^[[:upper:]][[:lower:]]+), ((([[:upper:]][[:lower:]]+|[[:upper:]][.])( |))+)(:n)? ", relation, "$", sep="")
+  # HR 2016-10-06: Now accepts abbreviated names like "Fred."
+  pattern <- paste("(^[[:upper:]][[:lower:]]+), ((([[:upper:]][[:lower:]]+[.]?|[[:upper:]][.])( |))+)(:n)? ", relation, "$", sep="")
   full_name[inds] <- str_replace(x[inds], pattern=pattern[inds], replacement=paste0("\\2 \\1 ", relation[inds]))
   
-  # If full_name is still unchanged, it hasn't changed: try again the normal way
+  # If full_name is still unchanged, it wasn't caught yet: try again the normal way
   inds <- which(full_name==x)
+  message("... before by_words")
   
   # First: try with prefixed "by", "af" etc...
   f <- system.file("extdata/by_words.csv", package="bibliographica")
-  #f <- "../inst/extdata/by_words.csv"
   by_words <- read.csv(f, sep="\t", fileEncoding="UTF-8")
   by_w <- paste0(as.character(by_words$synonyme), collapse = "|" )
   by_w <- paste0(" (", by_w, ") ")
-  full_name[inds] <- str_extract(x[inds], paste0(by_w, "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+"))
-  full_name[inds] <- str_extract(full_name[inds], "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+")
-
-    # Then those without the by_words
+  # HR 2016-10-06: Now accepts abbreviated names like "Fred."
+  full_name[inds] <- str_extract(x[inds], paste0(by_w, "((([[:upper:]][[:lower:]]+[.]?) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+"))
+  full_name[inds] <- str_extract(full_name[inds], "((([[:upper:]][[:lower:]]+[.]?) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+")
+  message("... after by_words")
+  
+  # Then those without the by_words
+  # HR 2016-10-06: Now accepts abbreviated names like "Fred."
   inds <- which(is.na(full_name))
-  full_name[inds] <- str_extract(x[inds], "((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+")
-
+  full_name[inds] <- str_extract(x[inds], "((([[:upper:]][[:lower:]]+[.]?) |([[:upper:]][.] ?)))+[[:upper:]][[:lower:]]+")
+  
+  message("... before number_of_given_names is decided")
   # Make sure that number of given names is not negative
+  # HR 2016-10-06: Now counts abbreviated names like "Fred."
   number_of_given_names <- unname(sapply(full_name, function(name) {
-    max((str_count(name, "[[:upper:]](([[:lower:]]+)|[.])( |$)") - 1),0)
+    max((str_count(name, "(([[:upper:]][[:lower:]]+)|([[:upper:]][.]))") - 1),0)
   }))
-  given_names_pattern <- paste("((([[:upper:]][[:lower:]]+) |([[:upper:]][.] ?))){", (number_of_given_names), "}", sep = "")
-    
+  given_names_pattern <- paste("((([[:upper:]][[:lower:]]+[.]?) |([[:upper:]][.] ?))){", (number_of_given_names), "}", sep = "")
+  
+  message("... before given_names is decided")
   given_names <- str_extract(full_name, given_names_pattern)
-  initials <- gsub("[[:lower:]]+ ", ".", given_names)
+  initials <- gsub("[[:lower:]]+[.]? ", ".", given_names)
   
   # If there's no given names, there won't be initials either  
   inds <- which(given_names != "")
   family_name <- character(length=length(x))
   family_name[inds] <- str_replace(full_name[inds], given_names[inds], "")
   guessed <- (given_names != initials)
-  inds <- which(given_names == "")
-  guessed[inds] <- NA
-    
+  guessed[which(given_names == "")] <- NA
+  
   # Remove extra spaces
   initials <- gsub(" ", "", initials)
   family_name <- gsub(" +", " ", family_name)
@@ -93,11 +98,13 @@ extract_personal_names  <- function(x, languages=c("english")) {
   full_name[inds] <- str_extract(x[inds], "[^ ]*[[:upper:]][^ ]*")
   full_name_with_initials[inds] <- str_extract(x[inds], "[^ ]*[[:upper:]][^ ]*")
   guessed[inds] <- FALSE
-    
+  
+  message("... before the other time get_relation_keyword is handled")
   # Relation to named person: widow, inheritors etc. translated to English
   # TODO: Now done twice, but the first time without the knowledge of full_name
   relation <- get_relation_keyword(x, full_name, languages)
-    
+  message("... and get_relation_keyword was handled twice")
+  
   for (i in nrow(x)) {
     if (is.na(initials[i])) {guessed[i] <- NA}
   }
