@@ -16,6 +16,7 @@ mark_languages <- function(x) {
   x[is.na(x)] <- ""  
   x <- gsub("^;","",x)
   x <- gsub(";$","",x)
+  x <- condense_spaces(x)
 
   # Unique entries only to speed up
   xorig <- x
@@ -37,7 +38,8 @@ mark_languages <- function(x) {
   x <- gsub("\\(", " ", x)
   x <- gsub("\\)", " ", x)
   x <- gsub("\\,", " ", x)
-  x <- gsub(" +", " ", x)  
+  x <- gsub(" +", " ", x)
+  x <- condense_spaces(x)
   abrv$name <- gsub("\\(", " ", abrv$name)
   abrv$name <- gsub("\\)", " ", abrv$name)
   abrv$name <- gsub("\\,", " ", abrv$name)
