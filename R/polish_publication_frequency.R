@@ -17,11 +17,10 @@ polish_publication_frequency <- function(x) {
   x <- gsub("^[0-9]+ s$", "", x)
   x <- condense_spaces(x)
 
-  f <- system.file("extdata/replace_special_chars.csv",
-                package = "bibliographica")
+  f <- system.file("extdata/replace_special_chars.csv", package = "bibliographica")
   spechars <- suppressWarnings(read_mapping(f, sep = ";", mode = "table", include.lowercase = TRUE))
   x <- as.character(map(x, spechars, mode = "match"))
-  
+
   xorig <- x
   x <- xuniq <- unique(xorig)
   df <- do.call("rbind", lapply(x, polish_publication_frequencies))
@@ -77,6 +76,7 @@ polish_publication_frequency_english <- function(x) {
 
   # TODO add to CSV list rather than mixed in the code here				     
   x <- gsub("issued several times a week, frequency of issue varies", "3 per week", x)
+  x <- gsub("during the law terms", NA, x)  
   x <- gsub("suday", "sunday", x)
   x <- gsub("colleced", "collected", x)
   x <- gsub(" and index$", "", x)    
@@ -133,7 +133,6 @@ polish_publication_frequency_english <- function(x) {
   x <- gsub("bi-", "bi", x)
   x <- gsub("semi-", "semi", x)
   x <- gsub("annually", "annual", x)
-  x <- gsub("during the law terms", " ", x)
   x <- gsub(" \\[[0-9]+\\]", "", x)
   x <- condense_spaces(x)
   
@@ -146,10 +145,24 @@ polish_publication_frequency_english <- function(x) {
   char2num <- read_mapping(f, sep = ",", mode = "table", from = "character", to = "numeric")
   x <- map(x, synonymes = char2num, from = "character", to = "numeric", mode = "match")
 
+  # every ten issues/numbers
+  inds <- c(grep("^every [0-9]+ issues", x), grep("^every [0-9]+ numbers", x))
+  if (length(inds)>0) {
+    x[inds] <- NA
+  }
+
   # 18 issues per year
   inds <- grep("^[0-9]+ issues ", x)
   if (length(inds)>0) {
     x[inds] <- gsub(" issues", "", x[inds])
+  }
+
+  # 3 times weekly/daily/yearly/monthly -> 3 per week
+  inds <- grep("^[0-9]+ times [a-z]+ly$", x)
+  if (length(inds)>0) {
+    x[inds] <- gsub("ly$", "", x[inds])
+    x[inds] <- gsub(" times ", " per ", x[inds])
+    x[inds] <- gsub(" dai$", " day", x[inds])    
   }
 
   # daily
@@ -257,7 +270,7 @@ polish_publication_frequency_english <- function(x) {
   }
 
   # monthly
-  inds <- grep("^monthly$", x)
+  inds <- grep("^monthly", x)
   if (length(inds)>0) {
     freq[inds] <- 1
     unit[inds] <- "month"
@@ -265,7 +278,7 @@ polish_publication_frequency_english <- function(x) {
   }
 
   # bimonthly
-  inds <- grep("^bimonthly$", x)
+  inds <- grep("^bimonthly", x)
   if (length(inds)>0) {
     freq[inds] <- 1/2
     unit[inds] <- "month"
@@ -273,7 +286,7 @@ polish_publication_frequency_english <- function(x) {
   }
 
   # semimonthly
-  inds <- grep("^semimonthly$", x)
+  inds <- grep("^semimonthly", x)
   if (length(inds)>0) {
     freq[inds] <- 1/2
     unit[inds] <- "month"
@@ -447,7 +460,8 @@ polish_publication_frequency_english <- function(x) {
     x[inds] <- NA # handled        
   }
 
-  if (is.null(x) || is.na(x)) {
+  x <- condense_spaces(x)
+  if (is.null(x) || is.na(x) || x == "") {
     # skip
   }
 

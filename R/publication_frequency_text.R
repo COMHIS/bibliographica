@@ -14,7 +14,7 @@ publication_frequency_text <- function (x, peryear) {
   peryear.text[!is.na(peryear)] <- as.character(peryear[!is.na(peryear)])
 
   # TODO move to inst/extdata conversion table
-  f <- system.file("inst/extdata/frequency_conversions.csv", package = "bibliographica")
+  f <- system.file("extdata/frequency_conversions.csv", package = "bibliographica")
   freqs <- read_mapping(f, sep = ",", mode = "vector", include.lowercase = FALSE, from = "name", to = "annual")
   freqs <- sapply(freqs, function (s) {eval(parse(text=s))})
 
