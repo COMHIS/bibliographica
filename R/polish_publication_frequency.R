@@ -36,10 +36,11 @@ polish_publication_frequencies <- function (x) {
   # Convert with different languages. Use the one with least NAs
   # not an optimal hack but works for the time being..
   tmps <- list()
+  tmps[["English"]] <- suppressWarnings(polish_publication_frequency_english(x))
+  tmps[["Swedish"]] <- suppressWarnings(polish_publication_frequency_swedish(x))  
   tmps[["Finnish"]] <- suppressWarnings(polish_publication_frequency_finnish(x))
-  tmps[["Swedish"]] <- suppressWarnings(polish_publication_frequency_swedish(x))
-  tmps[["English"]] <- suppressWarnings(polish_publication_frequency_english(x))  
-  tmp <- tmps[[names(which.min(sapply(tmps, function (tmp) {sum(is.na(tmp))})))]]
+  lang <- names(which.min(sapply(tmps, function (tmp) {sum(is.na(tmp))})))
+  tmp <- tmps[[lang]]
 
   # Convert all units to years
   unityears <- tmp$unit
@@ -51,7 +52,7 @@ polish_publication_frequencies <- function (x) {
   unityears <- gsub("Single", NA, unityears)    
 
   suppressWarnings(
-    annual <- tmp$freq / as.numeric(unityears)
+    annual <- as.numeric(as.character(tmp$freq)) / as.numeric(unityears)
   )
 
   # Provide harmonized textual explanations for each frequency
@@ -165,6 +166,46 @@ polish_publication_frequency_english <- function(x) {
     x[inds] <- gsub(" dai$", " day", x[inds])    
   }
 
+  # daily, except sunday -> 6/week
+  inds <- grep("^daily,* except sunday$", x)
+  if (length(inds)>0) {
+    freq[inds] <- 6
+    unit[inds] <- "week"
+    x[inds] <- NA # handled    
+  }
+
+  # daily (except weekends)
+  inds <- grep("^daily,* \\(*except [a-z]+\\. & [a-z]+\\.\\)*$", x)
+  if (length(inds)>0) {
+    freq[inds] <- 5
+    unit[inds] <- "week"
+    x[inds] <- NA # handled    
+  }
+
+  # daily except sunday
+  inds <- grep("^daily,* \\(*except sundays*\\)*$", x)
+  if (length(inds)>0) {
+    freq[inds] <- 6
+    unit[inds] <- "week"
+    x[inds] <- NA # handled    
+  }
+
+  # daily (except sun.)
+  inds <- grep("^daily \\(except [a-z]+\\.\\)$", x)
+  if (length(inds)>0) {
+    freq[inds] <- 6
+    unit[inds] <- "week"
+    x[inds] <- NA # handled    
+  }
+
+  # daily except weekends
+  inds <- grep("^daily,* \\(*except weekends\\)*$", x)
+  if (length(inds)>0) {
+    freq[inds] <- 5
+    unit[inds] <- "week"
+    x[inds] <- NA # handled    
+  }
+
   # daily
   inds <- grep("^daily", x)
   if (length(inds)>0) {
@@ -181,51 +222,11 @@ polish_publication_frequency_english <- function(x) {
     x[inds] <- NA # handled    
   }
 
-  # daily, except sunday -> 6/week
-  inds <- grep("^daily,* except sunday$", x)
-  if (length(inds)>0) {
-    freq[inds] <- 6
-    unit[inds] <- "week"
-    x[inds] <- NA # handled    
-  }
-
   # every other day
   inds <- grep("^every other day$", x)
   if (length(inds)>0) {
     freq[inds] <- 1/2
     unit[inds] <- "day"
-    x[inds] <- NA # handled    
-  }
-
-  # daily except weekends
-  inds <- grep("^daily \\(except weekends\\)$", x)
-  if (length(inds)>0) {
-    freq[inds] <- 5
-    unit[inds] <- "week"
-    x[inds] <- NA # handled    
-  }
-
-  # daily except weekends
-  inds <- grep("^daily \\(except [a-z]+\\. & [a-z]+\\.\\)$", x)
-  if (length(inds)>0) {
-    freq[inds] <- 5
-    unit[inds] <- "week"
-    x[inds] <- NA # handled    
-  }
-
-  # daily except sunday
-  inds <- grep("^daily \\(except sundays*\\)$", x)
-  if (length(inds)>0) {
-    freq[inds] <- 6
-    unit[inds] <- "week"
-    x[inds] <- NA # handled    
-  }
-
-  # daily (except sun.)
-  inds <- grep("^daily \\(except [a-z]+\\.\\)$", x)
-  if (length(inds)>0) {
-    freq[inds] <- 6
-    unit[inds] <- "week"
     x[inds] <- NA # handled    
   }
 
@@ -469,7 +470,7 @@ polish_publication_frequency_english <- function(x) {
   unit <- gsub("s$", "", unit)
 
   # orig = x, 
-  data.frame(unit = unit, freq = freq)
+  data.frame(unit = unit, freq = as.numeric(as.character(freq)))
 
 }
 

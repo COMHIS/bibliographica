@@ -26,6 +26,8 @@ publication_frequency_text <- function (x, peryear) {
   }
   peryear.text[which(peryear < 0.1)] <- "Less than every ten Years"
 
+  peryear.text <- condense_spaces(peryear.text)
+
   # Order the levels by frequency
   peryear.text <- factor(peryear.text, levels = unique(peryear.text[order(peryear)]))
 

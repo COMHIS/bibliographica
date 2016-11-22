@@ -400,35 +400,42 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Accepted publication frequency")
   if ("publication_frequency_text" %in% names(df.preprocessed)) {
-    tmp <- write_xtable(
-     df.preprocessed[, c("publication_frequency_text",
-			 "publication_frequency_annual")],
+
+     publication_frequency_annual <- NULL
+
+     dfp <- df.preprocessed[, c("publication_frequency_text",
+			        "publication_frequency_annual")]
+     # Remove NA			 
+     inds <- which(is.na(dfp$publication_frequency_text) & is.na(publication_frequency_annual))
+     dfp <- dfp[-inds,]
+
+    tmp <- write_xtable(dfp,
       paste(output.folder, "publication_frequency_accepted.csv", sep = ""),
       count = TRUE, sort.by = "publication_frequency_annual")
   
-  message("Conversion: publication frequency")
-  o <- cbind(original_frequency = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))),
-             original_interval = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_interval"]])))),
-             original_time = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_time"]]))))
+    message("Conversion: publication frequency")
+    o <- cbind(original_frequency = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))),
+               original_interval = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_interval"]])))),
+               original_time = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_time"]]))))
        )
        
-  x <- df.preprocessed[, c("publication_frequency_text", "publication_frequency_annual")]
-  tab <- cbind(x, o)
-  tab$publication_frequency_annual <- round(tab$publication_frequency_annual, 2)
-  tab$publication_frequency_text <- condense_spaces(tab$publication_frequency_text)
-  tab <- tab[which(!rowMeans(is.na(tab[, 1:3])) == 1),] # Remove NA cases  
-  tmp <- write_xtable(tab,
+    x <- df.preprocessed[, c("publication_frequency_text", "publication_frequency_annual")]
+    tab <- cbind(x, o)
+    tab$publication_frequency_annual <- round(tab$publication_frequency_annual, 2)
+    tab <- tab[which(!rowMeans(is.na(tab[, 1:3])) == 1),] # Remove NA cases  
+    tmp <- write_xtable(tab,
       paste(output.folder, "publication_frequency_conversion.csv",
       sep = ""), count = TRUE, sort.by = "publication_frequency_text")
   
-  message("Discarded publication frequency")
-  o <- as.character(df.orig[["publication_frequency"]])
-  x1 <- as.character(df.preprocessed[["publication_frequency_annual"]])
-  x2 <- as.character(df.preprocessed[["publication_frequency_text"]])    
-  inds <- which(is.na(x1) & is.na(x2))
-  tmp <- write_xtable(o[inds],
+    message("Discarded publication frequency")
+    o <- as.character(df.orig[["publication_frequency"]])
+    x1 <- as.character(df.preprocessed[["publication_frequency_annual"]])
+    x2 <- as.character(df.preprocessed[["publication_frequency_text"]])    
+    inds <- which(is.na(x1) & is.na(x2))
+    tmp <- write_xtable(o[inds],
       paste(output.folder, "publication_frequency_discarded.csv", sep = ""),
       count = TRUE)
+      
   }
 
   # --------------------------------------------
