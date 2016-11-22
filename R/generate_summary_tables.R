@@ -406,8 +406,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
      dfp <- df.preprocessed[, c("publication_frequency_text",
 			        "publication_frequency_annual")]
      # Remove NA			 
-     inds <- which(is.na(dfp$publication_frequency_text) & is.na(publication_frequency_annual))
-     dfp <- dfp[-inds,]
+     inds <- is.na(dfp$publication_frequency_text) &
+     	     is.na(dfp$publication_frequency_annual)
+     dfp <- dfp[!inds,]
 
     tmp <- write_xtable(dfp,
       paste(output.folder, "publication_frequency_accepted.csv", sep = ""),
