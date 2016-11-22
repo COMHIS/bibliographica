@@ -426,7 +426,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     tab <- tab[which(!rowMeans(is.na(tab[, 1:3])) == 1),] # Remove NA cases  
     tmp <- write_xtable(tab,
       paste(output.folder, "publication_frequency_conversion.csv",
-      sep = ""), count = TRUE, sort.by = "publication_frequency_text")
+      sep = ""), count = TRUE, sort.by = "publication_frequency_annual")
   
     message("Discarded publication frequency")
     o <- as.character(df.orig[["publication_frequency"]])
