@@ -18,7 +18,7 @@ write_xtable(x, filename = NULL, count = FALSE, sort.by = "Count",
 
 \item{na.rm}{Remove NA entries}
 
-\item{add.percentages}{Add percentage information to the table. This indicates the total fraction of the count, calculated from all entries.}
+\item{add.percentages}{Add percentage information to the table. This indicates the total fraction of the count, calculated from all input entries if na.rm is FALSE, and from non-NA entries if na.rm is TRUE.}
 }
 \value{
 Table indicating the count for each unique entry in the input  vector or matrix. The function writes the statistics in the file.
