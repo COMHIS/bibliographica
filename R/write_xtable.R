@@ -4,13 +4,15 @@
 #' @param filename output file
 #' @param count Add total count of cases in the beginning
 #' @param sort.by Column used for sorting. The Count is the default.
+#' @param na.rm Remove NA entries
+#' @param add.percentages Add percentage information to the table. This indicates the total fraction of the count, calculated from all entries.
 #' @return Table indicating the count for each unique entry in the input  vector or matrix. The function writes the statistics in the file.
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{tab <- write_xtable(x, "tmp.tab")}
 #' @keywords utilities
-write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") {
+write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count", na.rm = TRUE, add.percentages = FALSE) {
 
   xorig <- x
 
@@ -27,17 +29,20 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") 
   tab <- NULL
 
   if (is.vector(x)) {
-  
-    # Remove NAs
-    x <- x[!is.na(x)]
 
+    # Original number of entries (before removing NAs)
+    norig <- length(x)
+
+    # Remove NAs
+    if (na.rm) {
+      x <- x[!is.na(x)]
+    }
+    
     if (length(x) == 0 && !is.null(filename)) {
       write("The input list is empty.", file = filename)
       return(NULL)
     }
 
-    x <- as.character(x)
-    x[is.na(x)] <- "N/A"
     counts <- rev(sort(table(x)))
     tab <- data.frame(list(Name = names(counts), Count = as.vector(counts)))
 
@@ -45,23 +50,31 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") 
 
   } else if (is.matrix(x) || is.data.frame(x)) {
 
+    # Original number of entries (before removing NAs)
+    norig <- nrow(x)
+    
     if (is.null(colnames(x))) {
       colnames(x) <- paste("X", 1:ncol(x), sep = "")
     }
 
+    # Remove NAs rows
+    if (na.rm) {    
+      keep <- which(rowMeans(is.na(x)) < 1)
+      if (length(keep) > 0) {
+        x <- x[keep,]
+      } else {
+        return(NULL)
+      }
+    }
+    
+    # Proceed
     id <- apply(x, 1, function (x) {paste(x, collapse = "-")})
     ido <- rev(sort(table(id)))
     idn <- ido[match(id, names(ido))]
 
-    tab = as.data.frame(x)
-    tab$Count = idn
+    tab <- as.data.frame(x)
+    tab$Count <- idn
     tab <- tab[!duplicated(tab),]
-
-    #if (length(tab) == 0) {  
-    #  message("The input to write_table is empty.")
-    #  write("The input list is empty.", file = filename)    
-    #  return(NULL)
-    #}
 
     if (is.null(filename)) {
       tab = tab[rev(order(tab$Count)),]
@@ -96,7 +109,12 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count") 
   }
   tab <- tab[o,]
 
-  
+  # Add fraction (counted from all non-NA entries)
+  if (add.percentages) {
+    tab$Percentage_excluding_NA <- round(100 * tab$Count/sum(tab$Count), 2)
+    tab$Percentage_Total <- round(100 * tab$Count/norig, 2)
+  }
+    
   if (count) {
     if (is.null(dim(tab)) && !is.null(tab)) {
       tab <- t(as.matrix(tab, nrow = 1))

@@ -130,8 +130,10 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
    message("Publication country accepted")
    field <- "country"
-   s <- write_xtable(df.preprocessed[[field]], paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
-
+   s <- write_xtable(df.preprocessed[[field]],
+		     paste(output.folder, field, "_accepted.csv", sep = ""),
+		     count = TRUE,
+		     add.percentages = TRUE)
 
   message("publication_place accepted")
   tmp <- write_xtable(df.preprocessed[, c("publication_place", "country")],
@@ -179,7 +181,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   
   # Only include those that we have in our data
   tab <- tab[as.character(tab$name) %in% as.character(df.preprocessed$publication_place),]  
-  write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
+  write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""),
+  		   	  		       sep = ";", quote = F, row.names = F)
 
 
   message("publication_place discarded")
@@ -188,10 +191,12 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
                          mode = "table", remove.ambiguous = FALSE)
   # Only consider terms that are present in our data
   disc <- sort(subset(tab, is.na(name))$synonyme)
+  if (length(disc) == 0) {disc <- NULL}
   tmp <- write.csv(disc,
       file = paste(output.folder, "publication_place_discarded.csv", sep = ""),
       quote = FALSE, row.names = FALSE, col.names = FALSE)
-
+  
+  
   message("Publication place todo file")
   f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
   synonymes <- suppressWarnings(read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table", trim = TRUE))
