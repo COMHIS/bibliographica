@@ -75,13 +75,6 @@ broadside \([1] p\.\);broadside
 broadsheet;broadside
 omsl\.;sheet
 broadside;sheet
-^quarto$;1 sheet
-^broadside$;1 sheet
-^folios$;1 sheet
-^folio$;1 sheet
-^sheet$;1 sheet
-^1to$;1 sheet
-^\(fol.\)$;1 sheet
 \(map;map
 map\);map
 maps\);map
@@ -92,3 +85,7 @@ folded;
 ff\.;ff.,
 \(\);
 \[1\] plates$;, [1] plates
+^folios$;1 sheet
+^folio$;1 sheet
+^sheet$;1 sheet
+^\(fol.\)$;1 sheet
