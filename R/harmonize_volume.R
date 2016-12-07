@@ -30,18 +30,11 @@ harmonize_volume <- function (x, verbose = FALSE, vol.synonyms = NULL) {
   s <- condense_spaces(s)
   # "2 v " -> "2v." and "2v " -> "2v."
 
-  if (length(grep("^[0-9]* *v", s))>0) {
-     spl <- unlist(strsplit(s, " "), use.names = FALSE)
-     s <- spl
-     if (length(spl) > 1) {     
-       s <- paste(spl[1:2], collapse = "")   
-     }
-
-     if (length(spl) > 2) {
-       s <- paste(s, paste(spl[3:length(spl)], collapse = " "), collapse = "")
-     }
+  inds <- grep("^[0-9]* *v", s)
+  if (length(inds) > 0) {
+    s[inds] <- sapply(s[inds], function (x) {vol_helper(x)})
   }
-
+print(s)
   s <- sapply(s, function (si) {gsub("^[0-9]+ *v$", paste0(gsub("v$", "", si), "v."), si)}, USE.NAMES = FALSE)
 
   s <- gsub(" v\\. ", "v\\.", s)
@@ -55,3 +48,17 @@ harmonize_volume <- function (x, verbose = FALSE, vol.synonyms = NULL) {
 
 }
 
+vol_helper <- function (s) {
+
+     spl <- unlist(strsplit(s, " "), use.names = FALSE)
+     s <- spl
+     if (length(spl) > 1) {     
+       s <- paste(spl[1:2], collapse = "")   
+     }
+
+     if (length(spl) > 2) {
+       s <- paste(s, paste(spl[3:length(spl)], collapse = " "), collapse = "")
+     }
+
+  s
+}

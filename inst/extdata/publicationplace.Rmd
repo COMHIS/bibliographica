@@ -37,7 +37,7 @@ print(p)
 
 ### Top publication countries	
 
-The complete list is available [here](output.tables/publication_place_accepted.csv).
+The complete list is available [here](output.tables/country_accepted.csv).
 
 ```{r summaryplace3, echo=FALSE, results='asis'}
 tab <- top(df, "country", output = "data.frame", round = 1)

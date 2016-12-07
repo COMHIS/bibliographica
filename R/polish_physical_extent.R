@@ -165,17 +165,6 @@ polish_physext_help <- function (s, page.harmonize) {
     s <- gsub(",", ";", s)
   }
 
-  # "3v. (16, 16, 16 s.)" becomes 16 + 16 + 16
-  #if (length(grep("[0-9]+v\\. *(*)", s)) > 0 && length(grep(";", s)) == 0) {
-  #  s <- gsub(",", ";", s)
-  #}
-
-  # "2v.;(130, 118 s.)=" -> 130;118
-  #if (length(grep("^[0-9]+v.;\\([0-9]+, *[0-9]+ [p|s]\\.*\\)", s)) > 0) {
-  #  s <- gsub(",", ";", s)
-  #}
-
-
   # Now remove volume info
   s <- suppressWarnings(remove_volume_info(s))
 
@@ -194,7 +183,7 @@ polish_physext_help <- function (s, page.harmonize) {
 
   # Estimate pages for each document separately via a for loop
   # Vectorization would be faster but we prefer simplicity and modularity here
-  
+
   # Pagecount per semicolon separated unit
   if (length(grep(";", s)) > 0) {
     spl <- unlist(strsplit(s, ";"), use.names = FALSE)

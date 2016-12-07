@@ -6,7 +6,6 @@
 #' @return NULL
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @importFrom dplyr full_join
 #' @export
 #' @examples # generate_summary_tables(df)
 #' @keywords utilities
@@ -138,7 +137,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   message("publication_place accepted")
   tmp <- write_xtable(df.preprocessed[, c("publication_place", "country")],
       filename = paste(output.folder, "publication_place_accepted.csv", sep = ""),
-      count = TRUE, sort.by = "publication_place")
+      count = TRUE, sort.by = "publication_place", add.percentages = TRUE)
 
 
   message("Publication place conversions")
@@ -208,11 +207,13 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # ------------------------------------------------------
 
   message("Missing country")
-  f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-  syn <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")  
+  f <- system.file("extdata/PublicationPlaceSynonymes.csv",
+         package = "bibliographica")
+  syn <- read_mapping(f, include.lowercase = T, self.match = T,
+      	   ignore.empty = FALSE, mode = "table")  
   rms <- as.character(syn$synonyme[is.na(as.character(syn$name))])
   tab <- as.character(df.preprocessed$publication_place)[is.na(df.preprocessed$country)]
-  # First remove places that have already been explicitly set to unknown
+  # Remove places that have already been explicitly set to unknown
   tab <- setdiff(tab, rms)
   # Then print the rest
   tmp <- write_xtable(tab, filename = "output.tables/publication_place_missingcountry.csv")
@@ -240,16 +241,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   #----------------------------------------------------
 
-  #message("Discard summaries")
-  #for (nam in setdiff(names(originals), c("country", "publication_place"))) {
-  #  o <- as.character(df.orig[[originals[[nam]]]])
-  #  x <- as.character(df.preprocessed[[nam]])
-  #  inds <- which(is.na(x))
-  #  tmp <- write_xtable(o[inds],
-  #    paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
-  #    count = TRUE)
-  #}
-  
   message("..author")
   o <- as.character(df.orig[["author_name"]])
   x <- as.character(df.preprocessed[["author"]])

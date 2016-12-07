@@ -3,6 +3,7 @@
 #' @importFrom data.table fread
 #' @importFrom dplyr count
 #' @importFrom dplyr filter
+#' @importFrom dplyr full_join
 #' @importFrom dplyr group_by
 #' @importFrom dplyr n
 #' @importFrom dplyr rbind_all
