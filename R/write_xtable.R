@@ -22,6 +22,10 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count", 
     return(NULL)
   }
 
+  if (is.data.frame(x) && ncol(x) == 1) {
+    x <- as.vector(x[,1])
+  }
+
   if (is.factor(x)) {
     x <- as.character(x)
   }
@@ -77,7 +81,7 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count", 
     tab <- tab[!duplicated(tab),]
 
     if (is.null(filename)) {
-      tab = tab[rev(order(tab$Count)),]
+      tab <- tab[rev(order(tab$Count)),]
       rownames(tab) = NULL
       return(tab)
     }
@@ -99,7 +103,7 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count", 
   }
 
   s <- as.character(tab[, sort.by])
-  n <- as.numeric(s)
+  n <- suppressWarnings(as.numeric(s))
   if (all(!is.na(n[!is.na(s)]))) {
     # If all !NAs are numeric
     o <- rev(order(n))
