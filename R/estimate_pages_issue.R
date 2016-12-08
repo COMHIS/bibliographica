@@ -1,4 +1,4 @@
-#' @title Page estimation for issues
+#' @title Issue Page Estimation
 #' @description Estimate pages for issues.
 #' @param df data.frame of documents x variables
 #' @param mean.pagecounts.issue Page count estimates to be used

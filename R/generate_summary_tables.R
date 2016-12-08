@@ -6,7 +6,6 @@
 #' @return NULL
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @importFrom dplyr full_join
 #' @export
 #' @examples # generate_summary_tables(df)
 #' @keywords utilities
@@ -36,8 +35,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     "control_number", "system_control_number",
     "author_name", "author", "area", "width", "height", "gender"))) {
 
-    message(field)
-
+   message(field)
 
    message("Accepted entries in the preprocessed data")
     s <- write_xtable(df.preprocessed[[field]], paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
@@ -108,13 +106,13 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       tmp <- write_xtable(tab, paste(output.folder, field, "_conversion_nontrivial.csv", sep = ""), count = TRUE)
     }
   
-
   # -----------------------------------------------------
 
   message("Author")
   # Separate tables for real names and pseudonymes
   tab <- df.preprocessed %>% filter(!author_pseudonyme) %>%
       	 		     select(author, author_gender)
+			     
   tmp <- write_xtable(tab,
       paste(output.folder, paste("author_accepted.csv", sep = "_"), sep = ""),
       count = FALSE, sort.by = "author")
@@ -130,13 +128,15 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
    message("Publication country accepted")
    field <- "country"
-   s <- write_xtable(df.preprocessed[[field]], paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
-
+   s <- write_xtable(df.preprocessed[[field]],
+		     paste(output.folder, field, "_accepted.csv", sep = ""),
+		     count = TRUE,
+		     add.percentages = TRUE)
 
   message("publication_place accepted")
   tmp <- write_xtable(df.preprocessed[, c("publication_place", "country")],
       filename = paste(output.folder, "publication_place_accepted.csv", sep = ""),
-      count = TRUE, sort.by = "publication_place")
+      count = TRUE, sort.by = "publication_place", add.percentages = TRUE)
 
 
   message("Publication place conversions")
@@ -179,7 +179,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   
   # Only include those that we have in our data
   tab <- tab[as.character(tab$name) %in% as.character(df.preprocessed$publication_place),]  
-  write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""), sep = ";", quote = F, row.names = F)
+  write.table(tab,
+    file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""),
+  		  sep = ";", quote = F, row.names = F)
 
 
   message("publication_place discarded")
@@ -188,14 +190,19 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
                          mode = "table", remove.ambiguous = FALSE)
   # Only consider terms that are present in our data
   disc <- sort(subset(tab, is.na(name))$synonyme)
+  if (length(disc) == 0) {disc <- NULL}
   tmp <- write.csv(disc,
       file = paste(output.folder, "publication_place_discarded.csv", sep = ""),
       quote = FALSE, row.names = FALSE, col.names = FALSE)
-
+  
+  
   message("Publication place todo file")
-  f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-  synonymes <- suppressWarnings(read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table", trim = TRUE))
-  pl = polish_place(df.orig$publication_place, remove.unknown = FALSE);
+  f <- system.file("extdata/PublicationPlaceSynonymes.csv",
+         package = "bibliographica")
+  synonymes <- suppressWarnings(read_mapping(f, include.lowercase = T,
+  	         self.match = T, ignore.empty = FALSE,
+		 mode = "table", trim = TRUE))
+  pl <- polish_place(df.orig$publication_place, remove.unknown = FALSE);
   tmp <- write.table(sort(tolower(setdiff(tolower(pl), tolower(synonymes$name)))),
       file = paste(output.folder, "publication_place_todo.csv", sep = ""),
       	   quote = FALSE, row.names = FALSE, col.names = FALSE)
@@ -203,11 +210,13 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # ------------------------------------------------------
 
   message("Missing country")
-  f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-  syn <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")  
+  f <- system.file("extdata/PublicationPlaceSynonymes.csv",
+         package = "bibliographica")
+  syn <- read_mapping(f, include.lowercase = T, self.match = T,
+      	   ignore.empty = FALSE, mode = "table")  
   rms <- as.character(syn$synonyme[is.na(as.character(syn$name))])
   tab <- as.character(df.preprocessed$publication_place)[is.na(df.preprocessed$country)]
-  # First remove places that have already been explicitly set to unknown
+  # Remove places that have already been explicitly set to unknown
   tab <- setdiff(tab, rms)
   # Then print the rest
   tmp <- write_xtable(tab, filename = "output.tables/publication_place_missingcountry.csv")
@@ -235,16 +244,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   #----------------------------------------------------
 
-  #message("Discard summaries")
-  #for (nam in setdiff(names(originals), c("country", "publication_place"))) {
-  #  o <- as.character(df.orig[[originals[[nam]]]])
-  #  x <- as.character(df.preprocessed[[nam]])
-  #  inds <- which(is.na(x))
-  #  tmp <- write_xtable(o[inds],
-  #    paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
-  #    count = TRUE)
-  #}
-  
   message("..author")
   o <- as.character(df.orig[["author_name"]])
   x <- as.character(df.preprocessed[["author"]])
@@ -341,6 +340,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       tmp <- write_xtable(original, paste(output.folder, field, "_discarded.csv", sep = ""), count = TRUE)
    }
 
+  #-----------------------------
+
   message("publisher conversions")
   nam <- "publisher"
     o <- as.character(df.orig[[nam]])
@@ -351,9 +352,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, paste(nam, "conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
     
-  
-
-
   # --------------------------------------------
 
   message("Pagecount  conversions")

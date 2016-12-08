@@ -105,6 +105,12 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   s <- condense_spaces(s)
   s[s == "s"] <- NA
 
+  # 1 score (144 p.) -> 144 pages 
+  if (length(grep("[0-9]* *scores* \\([0-9]+ p\\.*\\)", s))>0) {
+    s <- gsub("[0-9]* *scores*", " ", s)
+  }
+  s <- condense_spaces(s)
+  
   if (verbose) {message("Polish unique pages separately for each volume")}  
 
   # Back to original indices and new unique reduction 
@@ -159,19 +165,21 @@ polish_physext_help <- function (s, page.harmonize) {
     s <- gsub(",", ";", s)
   }
 
-  # "3v. (16, 16, 16 s.)" becomes 16 + 16 + 16
-  #if (length(grep("[0-9]+v\\. *(*)", s)) > 0 && length(grep(";", s)) == 0) {
-  #  s <- gsub(",", ";", s)
-  #}
-
-  # "2v.;(130, 118 s.)=" -> 130;118
-  #if (length(grep("^[0-9]+v.;\\([0-9]+, *[0-9]+ [p|s]\\.*\\)", s)) > 0) {
-  #  s <- gsub(",", ";", s)
-  #}
-
-
   # Now remove volume info
   s <- suppressWarnings(remove_volume_info(s))
+
+  # Cleanup
+  s <- gsub("^;*\\(", "", s)
+  s <- gsub("s\\.*$", "", s)
+  s <- condense_spaces(s)
+
+  # If number of volumes is the same than number of comma-separated units
+  # and there are no semicolons, then consider the comma-separated units as
+  # individual volumes and mark this by replacing commas by semicolons
+  # ie. 2v(130, 115) -> 130;115
+  if (!is.na(s) && !is.na(vols) && length(unlist(strsplit(s, ","), use.names = FALSE)) == vols && !grepl(";", s)) {
+    s <- gsub(",", ";", s)  
+  }
 
   # Estimate pages for each document separately via a for loop
   # Vectorization would be faster but we prefer simplicity and modularity here

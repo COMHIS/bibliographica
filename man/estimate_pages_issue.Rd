@@ -2,7 +2,7 @@
 % Please edit documentation in R/estimate_pages_issue.R
 \name{estimate_pages_issue}
 \alias{estimate_pages_issue}
-\title{Page estimation for issues}
+\title{Issue Page Estimation}
 \usage{
 estimate_pages_issue(df, mean.pagecounts.issue)
 }

@@ -1,7 +1,6 @@
-#' @title Identify multi volume docs
-#' @description Identify documents that can be considered multi-volume; based on other document info.
-#' @details This function is used only to estimate pagecounts for documents with missing page count information.
-#' Therefore no page count is considered in assessing the issue status.
+#' @title Identify Multi-Volume Documents
+#' @description Identify multi-volume documents based on the overall data.
+#' @details Used to estimate pagecounts for documents with missing page count information. Therefore no page count is considered in assessing the issue status.
 #' @param df data.frame of documents x variables
 #' @return Logical vector indicating the multi-volume docs
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}

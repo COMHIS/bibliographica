@@ -33,7 +33,6 @@ extract_personal_names  <- function(x, languages=c("english")) {
   relation <- get_relation_keyword(x, NULL, languages=languages)
   inds <- which(relation == "")
   
-  
   full_name <- gsub("^([[:upper:]][[:lower:]]+), ((([[:upper:]][[:lower:]]+|[[:upper:]][.])( |$))+)", "\\2 \\1", x)
   
   # Try if the form is "Merckell, Johan Cristopherin leski"
