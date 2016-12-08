@@ -14,19 +14,17 @@ df <- df.preprocessed
 
 ## Page counts
 
-  * Page count available for `r sum(!is.na(df$pagecount.orig))` documents (`r round(100*(sum(!is.na(df$pagecount.orig)))/nrow(df), 1)`%). 
+  * Page count available for `r sum(!is.na(df$pagecount))` documents in total (`r round(100*(sum(!is.na(df$pagecount)))/nrow(df), 1)`%), including both readily available and estimated page counts.
+
+  * Page count readily available for `r sum(!is.na(df$pagecount.orig))` documents (`r round(100*(sum(!is.na(df$pagecount.orig)))/nrow(df), 1)`%). 
 
   * Page count estimated for `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents (`r round(100*(sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig)))/nrow(df), 1)`%).
 
-  * Page count available for total `r sum(!is.na(df$pagecount))` documents (`r round(100*(sum(!is.na(df$pagecount)))/nrow(df), 1)`%). This includes both immediately available and estimated page counts.
-
   * Page count missing and could not be estimated for `r sum(is.na(df.preprocessed$pagecount.orig) & is.na(df.preprocessed$pagecount))` documents (`r round(100 * sum(is.na(df.preprocessed$pagecount.orig) & is.na(df.preprocessed$pagecount))/nrow(df.preprocessed), 1)`%).
 
-  * Page count updated for `r sum(!df$pagecount.orig == df$pagecount, na.rm = T)` documents.
+  * Page count updated for `r sum(!df$pagecount.orig == df$pagecount, na.rm = T)` documents in the validation phase.
   
   * [Conversions from raw data to final page count estimates](output.tables/pagecount_conversions.csv)
-
-<!--[Page conversions from raw data to final page count estimates with volume info](output.tables/page_conversion_table_full.csv)-->
 
   * [Discarded pagecount info](output.tables/pagecount_discarded.csv) For these cases the missing/discarded page count is estimated based on average page count estimates for [single volume](mean_pagecounts_singlevol.csv), [multi-volume](mean_pagecounts_multivol.csv) and [issues](mean_pagecounts_issue.csv), calculated from those documents where original pagecount info is available.
 
@@ -46,7 +44,7 @@ dfg$gatherings <- factor(dfg$gatherings, levels = levels(df$gatherings))
 ylims <- range(dfg$pages)
 p <- ggplot(dfg, aes(x = gatherings, y = pages)) 
 #p <- p + scale_y_continuous(trans = "log10")
-n <- nchar(max(na.omit(table(dfg$pages))))
+n <- 1 + nchar(max(na.omit(table(dfg$pages))))
 ylim <- ylim(ylims)
 p <- p + scale_y_log10(breaks=10^(0:n))
 p <- p + geom_point(aes(size = documents))
@@ -57,9 +55,11 @@ p <- p + ylab("Pages (original and estimated)")
 p <- p + coord_flip()
 print(p)
 
-p <- ggplot(subset(df.preprocessed, is.na(pagecount.orig) & !is.na(pagecount)),
+dfs <- subset(df.preprocessed, is.na(pagecount.orig) & !is.na(pagecount))
+p <- ggplot(dfs,
        aes(x = gatherings, y = pagecount)) +
        geom_count() +
+       scale_y_log10(breaks=10^(0:n)) +
        coord_flip() +
        ggtitle(paste("Estimated page counts\n(n=", sum(is.na(df.preprocessed$pagecount.orig) & !is.na(df.preprocessed$pagecount)), ")", sep = "")) +
        xlab("Gatherings") +
@@ -68,34 +68,78 @@ print(p)
 ```
 
 
-<!--
 
-## Average page counts (only works in CERL now)
+## Average page counts
 
-Multi-volume documents average page counts are given per volume.
+Mean and median page counts calculated based on the documents where
+the page count information was readily available. Also see the
+correponding numerical tables:
+
+ * [single volume](mean_pagecounts_singlevol.csv)
+ * [multi-volume](mean_pagecounts_multivol.csv)
+ * [issues](mean_pagecounts_issue.csv)
+
+These estimates are used to fill in page count info for the remaining
+documents where page count info is missing.
+
+The multi-volume documents average page counts are given per volume.
+
 
 ```{r size-pagecountsmulti, echo=FALSE, message=FALSE, warning=FALSE}
-source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
-kable(mean.pagecounts, caption = "Average page counts", digits = 2)
+mean.pagecounts <- get_mean_pagecounts(df)
 ```
 
-```{r size-pagecountsmulti2, echo=FALSE, message=FALSE, warning=FALSE, fig.width=15, fig.height=6}
-p <- ggplot(melt(mean.pagecounts[, c("median.pages.multivol", "median.pages.singlevol", "median.pages.issue", "doc.dimension")]), aes(fill = variable, y = value, x = doc.dimension)) 
-p <- p + geom_bar(stat = "identity", position = "dodge")
-p <- p + ylab("Pages")
-p <- p + xlab("")
-p <- p + coord_flip()
-p <- p + ggtitle("Median page counts")
-p1 <- p
+```{r size-pagecountsmulti2, echo=FALSE, message=FALSE, warning=FALSE, fig.width=20, fig.height=5}
+theme_set(theme_bw(20))
+dfs <- NULL
+for (doctype in names(mean.pagecounts)) {
+  mpc <- as.data.frame(mean.pagecounts[[doctype]])
+  mpc$doctype <- rep(doctype, nrow(mpc))
+  dfs <- rbind(dfs, mpc)
+}
+dfs$doctype <- gsub("multivol", "multi-volume", dfs$doctype)
+dfs$doctype <- gsub("singlevol", "single volume", dfs$doctype)
+dfs$doctype <- factor(dfs$doctype, levels = c("single volume", "multi-volume", "issue"))
+colnames(dfs) <- gsub("\\.pages", "", colnames(dfs))
 
-p <- ggplot(melt(mean.pagecounts[, c("mean.pages.multivol", "mean.pages.singlevol", "mean.pages.issue", "doc.dimension")]), aes(fill = variable, y = value, x = doc.dimension)) 
-p <- p + geom_bar(stat = "identity", position = "dodge")
-p <- p + ylab("Pages")
+dfm <- melt(dfs, id = c("doctype", "doc.dimension", "n"))
+dfm <- dfm[!dfm$doc.dimension == "NA", ]
+dfm$doc.dimension <- droplevels(dfm$doc.dimension)
+dfm <- filter(dfm, !is.na(value))
+
+p <- ggplot(dfm, aes(color = doctype, shape = variable, y = value, x = doc.dimension))
+p <- p + geom_point(stat = "identity", position = "dodge", size = 5)
+p <- p + ylab("Page count estimate")
 p <- p + xlab("")
 p <- p + coord_flip()
-p <- p + ggtitle("Mean page counts")
-p2 <- p
-grid.arrange(p1, p2, nrow = 1)
+p <- p + ggtitle(paste("Estimated page counts"))
+#p <- p + scale_size_continuous(limits=range(dfm$n), range=c(3, 10))
+lims <- range(na.omit(c(dfs$mean, dfs$median)))
+pics <- list()
+pics[[1]] <- p
+for (doct in unique(dfs$doctype)) {
+  dfm <- subset(dfs, doctype == doct)
+  dfm <- melt(dfm, id = c("doctype", "doc.dimension", "n"))
+  dfm <- dfm[!dfm$doc.dimension == "NA", ]
+  dfm <- filter(dfm, !is.na(value))
+  #dfm$doc.dimension <- droplevels(dfm$doc.dimension)
+  
+  p <- ggplot(dfm, aes(fill = variable, y = value, x = doc.dimension))
+  p <- p + geom_bar(stat = "identity", position = "dodge")
+  p <- p + ylab("Pages")
+  p <- p + xlab("")
+  p <- p + coord_flip()
+  p <- p + ggtitle(doct)
+  p <- p + ylim(0, max(lims))
+  
+  pics[[doct]] <- p
+}
+
+suppressWarnings(grid.arrange(pics[[1]], pics[[2]], pics[[3]], pics[[4]], nrow = 1))
+
+#kable(mean.pagecounts$singlevol, caption = "Estimated page counts (single volume)", digits = 2)
+#kable(mean.pagecounts$multivol, caption = "Estimated page counts (multi-volume)", digits = 2)
+#kable(mean.pagecounts$issue, caption = "Estimated page counts (issues)", digits = 2)
 ```
 
--->
+

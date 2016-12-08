@@ -575,12 +575,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   #-----------------------------------------------------------------------
 
-  # Mean page counts
-  # TODO make this more generic; otherwise move completely to ESTC
-  mean.pagecounts = NULL
-  source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
-  write.table(mean.pagecounts, file = paste(output.folder, "mean_page_counts.csv", sep = ""), quote = F, row.names = F, sep = ",")
-
   message("Write places with missing geolocation to file")
   tab <- rev(sort(table(df.preprocessed$publication_place[is.na(df.preprocessed$latitude) | is.na(df.preprocessed$longitude)])))
   tab <- tab[tab > 0]

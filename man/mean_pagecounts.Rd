@@ -4,10 +4,12 @@
 \alias{mean_pagecounts}
 \title{Mean Page Counts}
 \usage{
-mean_pagecounts(df)
+mean_pagecounts(df, pagecount.field = "pagecount")
 }
 \arguments{
 \item{df}{data frame, including the required fields.}
+
+\item{pagecount.field}{Field to be used in estimation.}
 }
 \value{
 Average page count.

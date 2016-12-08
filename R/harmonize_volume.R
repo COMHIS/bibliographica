@@ -29,8 +29,14 @@ harmonize_volume <- function (x, verbose = FALSE, vol.synonyms = NULL) {
   s <- gsub(" v {0,1}$", "v. ", s)
   s <- condense_spaces(s)
 
-  # "2 v " -> "2v." and "2v " -> "2v."
-  inds <- grep("^[0-9]* v", s)
+  # "2 v " -> "2v"
+  inds <- grep("^[0-9]+ v", s)
+  if (length(inds) > 0) {
+    s[inds] <- sapply(s[inds], function (x) {vol_helper3(x)})
+  }
+
+  # "2v " -> "2v."
+  inds <- grep("^[0-9]+v ", s)
   if (length(inds) > 0) {
     s[inds] <- sapply(s[inds], function (x) {vol_helper(x)})
   }
@@ -57,10 +63,34 @@ harmonize_volume <- function (x, verbose = FALSE, vol.synonyms = NULL) {
 vol_helper <- function (s) {
 
      spl <- unlist(strsplit(s, " "), use.names = FALSE)
+     spl[[1]] <- gsub("v", "v.", spl[[1]])
+
      s <- spl
+     
      if (length(spl) > 1) {     
        s <- paste(spl[1:2], collapse = "")   
-     } else if (length(spl) > 2) {
+     }
+
+     if (length(spl) > 2) {
+       s <- paste(s, paste(spl[3:length(spl)], collapse = " "), collapse = "")
+     }
+
+  s
+}
+
+vol_helper3 <- function (s) {
+
+  # TODO could be combined with vol_helper to speed up	    
+
+     spl <- unlist(strsplit(s, " "), use.names = FALSE)
+
+     s <- spl
+     
+     if (length(spl) > 1) {     
+       s <- paste(spl[1:2], collapse = "")   
+     }
+
+     if (length(spl) > 2) {
        s <- paste(s, paste(spl[3:length(spl)], collapse = " "), collapse = "")
      }
 

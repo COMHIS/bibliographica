@@ -32,7 +32,6 @@ enrich_pagecount <- function(df.preprocessed) {
   # --------------------------------------------------------------------------
 
   message("Calculate average page counts based on available data")
-  source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
   mean.pagecounts.results <- get_mean_pagecounts(df.preprocessed)
 
   message("..write into file")
