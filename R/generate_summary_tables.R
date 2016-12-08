@@ -35,8 +35,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     "control_number", "system_control_number",
     "author_name", "author", "area", "width", "height", "gender"))) {
 
-    message(field)
-
+   message(field)
 
    message("Accepted entries in the preprocessed data")
     s <- write_xtable(df.preprocessed[[field]], paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
@@ -107,13 +106,13 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       tmp <- write_xtable(tab, paste(output.folder, field, "_conversion_nontrivial.csv", sep = ""), count = TRUE)
     }
   
-
   # -----------------------------------------------------
 
   message("Author")
   # Separate tables for real names and pseudonymes
   tab <- df.preprocessed %>% filter(!author_pseudonyme) %>%
       	 		     select(author, author_gender)
+			     
   tmp <- write_xtable(tab,
       paste(output.folder, paste("author_accepted.csv", sep = "_"), sep = ""),
       count = FALSE, sort.by = "author")
@@ -180,8 +179,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   
   # Only include those that we have in our data
   tab <- tab[as.character(tab$name) %in% as.character(df.preprocessed$publication_place),]  
-  write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""),
-  		   	  		       sep = ";", quote = F, row.names = F)
+  write.table(tab,
+    file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""),
+  		  sep = ";", quote = F, row.names = F)
 
 
   message("publication_place discarded")
@@ -197,9 +197,12 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   
   
   message("Publication place todo file")
-  f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-  synonymes <- suppressWarnings(read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table", trim = TRUE))
-  pl = polish_place(df.orig$publication_place, remove.unknown = FALSE);
+  f <- system.file("extdata/PublicationPlaceSynonymes.csv",
+         package = "bibliographica")
+  synonymes <- suppressWarnings(read_mapping(f, include.lowercase = T,
+  	         self.match = T, ignore.empty = FALSE,
+		 mode = "table", trim = TRUE))
+  pl <- polish_place(df.orig$publication_place, remove.unknown = FALSE);
   tmp <- write.table(sort(tolower(setdiff(tolower(pl), tolower(synonymes$name)))),
       file = paste(output.folder, "publication_place_todo.csv", sep = ""),
       	   quote = FALSE, row.names = FALSE, col.names = FALSE)
@@ -337,6 +340,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       tmp <- write_xtable(original, paste(output.folder, field, "_discarded.csv", sep = ""), count = TRUE)
    }
 
+  #-----------------------------
+
   message("publisher conversions")
   nam <- "publisher"
     o <- as.character(df.orig[[nam]])
@@ -347,9 +352,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, paste(nam, "conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
     
-  
-
-
   # --------------------------------------------
 
   # Pagecount  

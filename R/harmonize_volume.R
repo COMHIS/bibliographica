@@ -28,25 +28,31 @@ harmonize_volume <- function (x, verbose = FALSE, vol.synonyms = NULL) {
   s <- gsub("^v\\.\\(", "(", s)
   s <- gsub(" v {0,1}$", "v. ", s)
   s <- condense_spaces(s)
-  # "2 v " -> "2v." and "2v " -> "2v."
 
-  inds <- grep("^[0-9]* *v", s)
+  # "2 v " -> "2v." and "2v " -> "2v."
+  inds <- grep("^[0-9]* v", s)
   if (length(inds) > 0) {
     s[inds] <- sapply(s[inds], function (x) {vol_helper(x)})
   }
-print(s)
+
+  inds <- grep("^[0-9]v\\(", s)
+  if (length(inds) > 0) {
+    s[inds] <- gsub("v\\(", "v.(", s[inds])
+  }
+
   s <- sapply(s, function (si) {gsub("^[0-9]+ *v$", paste0(gsub("v$", "", si), "v."), si)}, USE.NAMES = FALSE)
 
   s <- gsub(" v\\. ", "v\\.", s)
 
-  if (length(grep("^v.[0-9]+,[0-9]+", s)) > 0) {
-    spl <- unlist(strsplit(s, ","), use.names = FALSE)
-    s <- paste(spl[[1]], "-", spl[-1], sep = "")
+  inds <- grep("^v.[0-9]+,[0-9]+", s)
+  if (length(inds) > 0) {
+    s[inds] <- sapply(s[inds], function (x) {vol_helper2(x)})
   }
 
   s
 
 }
+
 
 vol_helper <- function (s) {
 
@@ -54,11 +60,16 @@ vol_helper <- function (s) {
      s <- spl
      if (length(spl) > 1) {     
        s <- paste(spl[1:2], collapse = "")   
-     }
-
-     if (length(spl) > 2) {
+     } else if (length(spl) > 2) {
        s <- paste(s, paste(spl[3:length(spl)], collapse = " "), collapse = "")
      }
 
   s
+}
+
+
+vol_helper2 <- function (s) {
+    spl <- unlist(strsplit(s, ","), use.names = FALSE)
+    s <- paste(spl[[1]], "-", spl[-1], sep = "")
+    s
 }

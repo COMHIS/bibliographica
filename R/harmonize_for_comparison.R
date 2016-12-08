@@ -10,7 +10,8 @@
 #' @keywords utilities
 harmonize_for_comparison <- function(x, languages = "english") {
 
-  print(languages)
+  message(languages)
+  
   if ("swedish" %in% languages) {
     f <- system.file("extdata/sv_publisher_comparison.csv", package="bibliographica")
   } else if ("finnish" %in% languages) {
