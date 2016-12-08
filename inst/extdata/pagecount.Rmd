@@ -14,19 +14,23 @@ df <- df.preprocessed
 
 ## Page counts
 
-  * Page count missing and estimated for `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents (`r round(100*(sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig)))/nrow(df), 1)`%).
+  * Page count available for `r sum(!is.na(df$pagecount.orig))` documents (`r round(100*(sum(!is.na(df$pagecount.orig)))/nrow(df), 1)`%). 
+
+  * Page count estimated for `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents (`r round(100*(sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig)))/nrow(df), 1)`%).
+
+  * Page count available for total `r sum(!is.na(df$pagecount))` documents (`r round(100*(sum(!is.na(df$pagecount)))/nrow(df), 1)`%). This includes both immediately available and estimated page counts.
 
   * Page count missing and could not be estimated for `r sum(is.na(df.preprocessed$pagecount.orig) & is.na(df.preprocessed$pagecount))` documents (`r round(100 * sum(is.na(df.preprocessed$pagecount.orig) & is.na(df.preprocessed$pagecount))/nrow(df.preprocessed), 1)`%).
 
   * Page count updated for `r sum(!df$pagecount.orig == df$pagecount, na.rm = T)` documents.
   
-  * [Conversions from raw data to final page count estimates](output.tables/pagecount_conversion_nontrivial.csv)
+  * [Conversions from raw data to final page count estimates](output.tables/pagecount_conversions.csv)
 
 <!--[Page conversions from raw data to final page count estimates with volume info](output.tables/page_conversion_table_full.csv)-->
 
-  * [Discarded pagecount info](output.tables/pagecount_discarded.csv) For these cases the missing/discarded page count was estimated based on average page count estimates for [single volume](mean_pagecounts_singlevol.csv), [multi-volume](mean_pagecounts_multivol.csv) and [issues](mean_pagecounts_issue.csv), calculated from those documents where original pagecount info is available.
+  * [Discarded pagecount info](output.tables/pagecount_discarded.csv) For these cases the missing/discarded page count is estimated based on average page count estimates for [single volume](mean_pagecounts_singlevol.csv), [multi-volume](mean_pagecounts_multivol.csv) and [issues](mean_pagecounts_issue.csv), calculated from those documents where original pagecount info is available.
 
-  * [Automated tests for page count conversions](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/tests_polish_physical_extent.csv)
+  * [Automated unit tests for page count conversions](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/tests_polish_physical_extent.csv) - these are used to control that the page count conversions remain correct when changes are made to the cleanup routines
 
 
 Left: Gatherings vs. overall pagecounts (original + estimated). Right: Only the estimated page counts (for the `r sum(!is.na(df$pagecount)) - sum(!is.na(df$pagecount.orig))` documents that have missing pagecount info in the original data):
