@@ -25,7 +25,9 @@ validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) 
   # Also remove negative and zero pagecounts; should not be possible
   if ("physical_extent" %in% update.fields) {
     df.preprocessed$pagecount[df.preprocessed$pagecount > max.pagecount] <- NA
-    df.preprocessed$pagecount[df.preprocessed$pagecount <= 0] <- NA    
+    df.preprocessed$pagecount[df.preprocessed$pagecount <= 0] <- NA
+    # Round page counts to the closest integer if they are not already integers
+    df.preprocessed$pagecount <- round(df.preprocessed$pagecount)
   }
 
   if ("publication_time" %in% update.fields) {

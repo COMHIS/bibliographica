@@ -1,14 +1,14 @@
 #' @title Page estimation for multivols
 #' @description Estimate pages for multivols.
 #' @param df data.frame of documents x variables
-#' @param mean.pagecounts.multivol Page count estimates to be used
+#' @param mean.pagecounts Page count estimates to be used
 #' @return Page count estimates
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @export
 #' @examples \dontrun{p <- estimate_pages_multivol(df)}
 #' @keywords utilities
-estimate_pages_multivol <- function (df, mean.pagecounts.multivol) {
+estimate_pages_multivol <- function (df, mean.pagecounts) {
 
   # Pick gatherings, volume, and page info for multi-vol docs with missing page info
   g <- df$gatherings
@@ -21,7 +21,7 @@ estimate_pages_multivol <- function (df, mean.pagecounts.multivol) {
   v[inds] <- 1
  
   # print("Pick the estimated page counts per vol separately for each doc size")
-  pages.per.vol <- mean.pagecounts.multivol[match(g, mean.pagecounts.multivol$doc.dimension), ]$median.pages.multivol
+  pages.per.vol <- mean.pagecounts[match(g, mean.pagecounts$doc.dimension), ]$median.pages
 
   # print("Add estimated total page counts for all docs")
   page.estimate <- v * pages.per.vol
@@ -30,6 +30,9 @@ estimate_pages_multivol <- function (df, mean.pagecounts.multivol) {
   # also add these to the estimated page count, multiplied by the number of volumes
   inds2 <- which(p <= 10)
   page.estimate[inds2] <- page.estimate[inds2] + v[inds2] * p[inds2]
+
+  # Round to the closest integer
+  page.estimate <- round(page.estimate)
 
   page.estimate
   

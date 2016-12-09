@@ -1,10 +1,8 @@
 ##
 ## CALCULATE AVERAGE DOC SIZES FROM THE ORIGINAL ENTRIES
-##
-
 # global variables used:
 # df.preprocessed, update.fields
-#
+# TODO All functions should go under R/ folder
 
 enrich_preprocessed_data <- function(data.validated, df.orig) {
 
@@ -37,7 +35,7 @@ enrich_preprocessed_data <- function(data.validated, df.orig) {
 
   if ("publisher" %in% update.fields) {
 
-    print("Self-published docs where author is known but publisher not")
+    message("Self-published docs where author is known but publisher not")
     # Note: also unknown authors are considered as self-publishers
     print("Add a separate self-published field")
     tmp <- self_published(df.preprocessed)
@@ -57,7 +55,6 @@ enrich_preprocessed_data <- function(data.validated, df.orig) {
     df.preprocessed <- enrich_pagecount(df.preprocessed)
 
     print("Add estimated paper consumption")
-
     # Estimated print run size for paper consumption estimates
     printrun <- 1000 # This could be improved - varies in time !
     
@@ -66,10 +63,6 @@ enrich_preprocessed_data <- function(data.validated, df.orig) {
     sheet.area <- subset(sheet_sizes(), format == "sheet")$area
     df.preprocessed <- mutate(df.preprocessed,
             paper = printrun * (pagecount/2) * (width * height)/sheet.area)
-
-    # Deprecated	    
-    #df.preprocessed <- mutate(df.preprocessed, paper.check =
-    # 		      width * height * pagecount/2 * (1/1e10) * printrun)
 
   }
 
