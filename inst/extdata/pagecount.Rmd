@@ -26,7 +26,7 @@ df <- df.preprocessed
   
   * [Conversions from raw data to final page count estimates](output.tables/pagecount_conversions.csv)
 
-  * [Discarded pagecount info](output.tables/pagecount_discarded.csv) For these cases the missing/discarded page count is estimated based on average page count estimates for [single volume](mean_pagecounts_singlevol.csv), [multi-volume](mean_pagecounts_multivol.csv) and [issues](mean_pagecounts_issue.csv), calculated from those documents where original pagecount info is available.
+  * [Augmented pagecounts](output.tables/pagecount_discarded.csv) For these cases the page count is missing (or discarded) in the original data, and estimated based on median page counts for [single volume](mean_pagecounts_singlevol.csv), [multi-volume](mean_pagecounts_multivol.csv) and [issues](mean_pagecounts_issue.csv), calculated from those documents where page count info was available.
 
   * [Automated unit tests for page count conversions](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/tests_polish_physical_extent.csv) - these are used to control that the page count conversions remain correct when changes are made to the cleanup routines
 
@@ -73,11 +73,11 @@ print(p)
 
 Mean and median page counts calculated based on the documents where
 the page count information was readily available. Also see the
-correponding numerical tables:
+correponding numerical tables with page count estimates:
 
- * [single volume](mean_pagecounts_singlevol.csv)
- * [multi-volume](mean_pagecounts_multivol.csv)
- * [issues](mean_pagecounts_issue.csv)
+ * [Single volume](mean_pagecounts_singlevol.csv)
+ * [Multi-volume](mean_pagecounts_multivol.csv)
+ * [Issue](mean_pagecounts_issue.csv)
 
 These estimates are used to fill in page count info for the remaining
 documents where page count info is missing.
@@ -89,7 +89,7 @@ The multi-volume documents average page counts are given per volume.
 mean.pagecounts <- get_mean_pagecounts(df)
 ```
 
-```{r size-pagecountsmulti2, echo=FALSE, message=FALSE, warning=FALSE, fig.width=20, fig.height=5}
+```{r size-pagecountsmulti2, echo=FALSE, message=FALSE, warning=FALSE, fig.width=25, fig.height=5}
 theme_set(theme_bw(20))
 dfs <- NULL
 for (doctype in names(mean.pagecounts)) {
@@ -109,7 +109,7 @@ dfm <- filter(dfm, !is.na(value))
 
 p <- ggplot(dfm, aes(color = doctype, shape = variable, y = value, x = doc.dimension))
 p <- p + geom_point(stat = "identity", position = "dodge", size = 5)
-p <- p + ylab("Page count estimate")
+p <- p + ylab("Pages")
 p <- p + xlab("")
 p <- p + coord_flip()
 p <- p + ggtitle(paste("Estimated page counts"))
@@ -120,8 +120,8 @@ pics[[1]] <- p
 for (doct in unique(dfs$doctype)) {
   dfm <- subset(dfs, doctype == doct)
   dfm <- melt(dfm, id = c("doctype", "doc.dimension", "n"))
-  dfm <- dfm[!dfm$doc.dimension == "NA", ]
-  dfm <- filter(dfm, !is.na(value))
+  dfm <- filter(dfm, !is.na(value))  
+  #dfm <- dfm[!dfm$doc.dimension == "NA", ]
   #dfm$doc.dimension <- droplevels(dfm$doc.dimension)
   
   p <- ggplot(dfm, aes(fill = variable, y = value, x = doc.dimension))

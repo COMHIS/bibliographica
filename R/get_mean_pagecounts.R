@@ -22,19 +22,26 @@ get_mean_pagecounts <- function(df) {
   message("get_mean_pagecounts single volume")
   # For single-volume documents, use only the ones with >=32 pages
   # to estimate average page counts
-  mean.pagecounts.singlevol <- mean_pagecounts(filter(dfs, singlevol & pagecount >= 32)) 
+  dfs.single <- filter(dfs, singlevol & pagecount >= 32)
+  mean.pagecounts.singlevol <- mean_pagecounts(dfs.single, rounding = TRUE) 
 
   message("get_mean_pagecounts multivolume")
-  mean.pagecounts.multivol <- mean_pagecounts(filter(dfs, multivol))
+  mean.pagecounts.multivol <- mean_pagecounts(filter(dfs, multivol), rounding = TRUE)
 
   message("get_mean_pagecounts issue")
-  mean.pagecounts.issue <- mean_pagecounts(filter(dfs, issue)) 
+  mean.pagecounts.issue <- mean_pagecounts(filter(dfs, issue), rounding = TRUE) 
 
   message("get_mean_pagecounts join")
-  mean.pagecounts <- full_join(mean.pagecounts.singlevol, mean.pagecounts.multivol, by = "doc.dimension")
-  mean.pagecounts <- full_join(mean.pagecounts, mean.pagecounts.issue, by = "doc.dimension")
+  mean.pagecounts <- full_join(mean.pagecounts.singlevol,
+  		               mean.pagecounts.multivol,
+			       by = "doc.dimension")
+			       
+  mean.pagecounts <- full_join(mean.pagecounts,
+  		               mean.pagecounts.issue,
+			       by = "doc.dimension")
+			       
   mean.pagecounts$doc.dimension <- factor(mean.pagecounts$doc.dimension,
-  			                    levels = levels(mean.pagecounts.singlevol$doc.dimension))
+  		levels = levels(mean.pagecounts.singlevol$doc.dimension))
 
   message("get_mean_pagecounts order")
   mean.pagecounts$doc.dimension <- order_gatherings(mean.pagecounts$doc.dimension)

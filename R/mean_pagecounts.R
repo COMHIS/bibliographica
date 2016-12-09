@@ -1,14 +1,15 @@
 #' @title Mean Page Counts
-#' @description Estimate page counts.
+#' @description Estimate mean and median page counts.
 #' @param df data frame, including the required fields.
 #' @param pagecount.field Field to be used in estimation.
+#' @param rounding Round to the closest integer
 #' @return Average page count.
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{m <- mean_pagecounts(df)}
 #' @keywords utilities
-mean_pagecounts <- function (df, pagecount.field = "pagecount") {
+mean_pagecounts <- function (df, pagecount.field = "pagecount", rounding = FALSE) {
 
   df$pgc <- df[[pagecount.field]]		
 
@@ -22,6 +23,14 @@ mean_pagecounts <- function (df, pagecount.field = "pagecount") {
 	  n = n())
 
   colnames(pagecounts) <- c("doc.dimension", "mean.pages", "median.pages", "n")
+
+  # Round to the closest integer
+  if (rounding) {
+    pagecounts$mean.pages <- round(pagecounts$mean.pages)
+    pagecounts$median.pages <- round(pagecounts$median.pages)    
+  }
+
+
 
   pagecounts
 

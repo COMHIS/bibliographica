@@ -4,18 +4,20 @@
 \alias{mean_pagecounts}
 \title{Mean Page Counts}
 \usage{
-mean_pagecounts(df, pagecount.field = "pagecount")
+mean_pagecounts(df, pagecount.field = "pagecount", rounding = FALSE)
 }
 \arguments{
 \item{df}{data frame, including the required fields.}
 
 \item{pagecount.field}{Field to be used in estimation.}
+
+\item{rounding}{Round to the closest integer}
 }
 \value{
 Average page count.
 }
 \description{
-Estimate page counts.
+Estimate mean and median page counts.
 }
 \examples{
 \dontrun{m <- mean_pagecounts(df)}

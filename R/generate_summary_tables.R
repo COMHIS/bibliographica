@@ -358,12 +358,16 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   o <- as.character(df.orig[["physical_extent"]])
   g <- as.character(df.preprocessed$gatherings)
   x <- as.character(df.preprocessed[["pagecount"]])
-  x2 <- rep("", nrow(df.preprocessed)); x2[is.na(df.preprocessed[["pagecount.orig"]])] <- "estimate"
-  inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
+
+  # Do not show the estimated ones,
+  # just the page counts that were originally available
+  #x2 <- rep("", nrow(df.preprocessed));
+  # x2[is.na(df.preprocessed[["pagecount.orig"]])] <- "estimate"
+  inds <- which(!is.na(x) & !(tolower(o) == tolower(x)) &
+                !is.na(df.preprocessed[["pagecount.orig"]]))
   tmp <- write_xtable(cbind(gatherings = g[inds],
       	                    original_extent = o[inds],  
-      	 		    final_pagecount = x[inds],
-      	 		    estimate = x2[inds]			    
+      	 		    final_pagecount = x[inds]
 			    ),
     paste(output.folder, "pagecount_conversions.csv", sep = ""),
     count = TRUE)
