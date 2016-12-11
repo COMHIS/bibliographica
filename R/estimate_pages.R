@@ -4,8 +4,9 @@ estimate_pages <- function (x) {
   if (all(is.na(x))) {
     # "NA"
     return(NA)
+  } else if (length(grep("^plates,plates*$", x))) {
+    return(NA)  
   } else if (!is.na(suppressWarnings(as.numeric(x)))) {
-
     # "3"
     return(as.numeric(x))
   } else if ((is.roman(x) && length(unlist(strsplit(x, ","), use.names = FALSE)) == 1 && length(grep("-", x)) == 0)) {
@@ -54,7 +55,6 @@ estimate_pages <- function (x) {
   # Remove plus now
   x <- gsub("\\+", "", x)
   x <- gsub("pages*$", "", x)  
-  #x <- gsub("\\+", ",", x)
 
   # "[52] plates between [58] blank sheets"
   x <- gsub("plates between ", "plates, ", x)
