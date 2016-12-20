@@ -30,6 +30,12 @@ enrich_pagecount <- function(df.preprocessed) {
 
   # --------------------------------------------------------------------------
 
+  # Set volcount = 1 for all documents that were classified as single vol
+  # This is necessary for later pagecount average calculations
+  df.preprocessed$volcount[df.preprocessed$singlevol] <- 1
+
+  # --------------------------------------------------------------------------
+
   message("Calculate average page counts based on available data")
   # df.preprocessed$gatherings <- df.preprocessed$gatherings.original
   

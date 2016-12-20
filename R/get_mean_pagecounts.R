@@ -22,14 +22,14 @@ get_mean_pagecounts <- function(df) {
   message("get_mean_pagecounts single volume")
   # For single-volume documents, use only the ones with >=32 pages
   # to estimate average page counts
-  dfs.single <- filter(dfs, singlevol & pagecount >= 32)
+  dfs.single <- dplyr::filter(dfs, singlevol & pagecount >= 32)
   mean.pagecounts.singlevol <- mean_pagecounts(dfs.single, rounding = TRUE) 
 
   message("get_mean_pagecounts multivolume")
-  mean.pagecounts.multivol <- mean_pagecounts(filter(dfs, multivol), rounding = TRUE)
+  mean.pagecounts.multivol <- mean_pagecounts(dplyr::filter(dfs, multivol), rounding = TRUE)
 
   message("get_mean_pagecounts issue")
-  mean.pagecounts.issue <- mean_pagecounts(filter(dfs, issue), rounding = TRUE) 
+  mean.pagecounts.issue <- mean_pagecounts(dplyr::filter(dfs, issue), rounding = TRUE) 
 
   message("get_mean_pagecounts join")
   mean.pagecounts <- full_join(mean.pagecounts.singlevol,

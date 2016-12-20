@@ -16,6 +16,7 @@ remove_dimension <- function (x, terms) {
   for (term in terms) {
 
     inds <- grep(term, x)
+
     if (length(inds) > 0) {
 
       # begin
@@ -34,7 +35,11 @@ remove_dimension <- function (x, terms) {
   }
 
   x <- condense_spaces(x)
-  x <- remove_trailing_periods(x)
+  inds <- which(!x == "v.") # Exclude ^v.$ as a special case
+  if (length(inds) > 0) { 
+    x[inds] <- remove_trailing_periods(x[inds])
+  }
+
   x[x == ""] <- NA
   
   x

@@ -20,6 +20,8 @@ harmonize_volume <- function (x, verbose = FALSE, vol.synonyms = NULL) {
 
   # FIXME these should be done via synonyme list ?
   if (verbose) {message("Volume terms")}
+
+  s <- gsub("\\(\\?\\) v\\.", "v.", s)
   s <- gsub("^vol\\.", "v. ", s)
   s <- gsub("\ *vol\\.{0,1} {0,1}$", " v. ", s)
   s <- gsub("\ *vol\\.", "v. ", s)
@@ -36,7 +38,7 @@ harmonize_volume <- function (x, verbose = FALSE, vol.synonyms = NULL) {
   }
 
   # "2v " -> "2v."
-  inds <- grep("^[0-9]+v ", s)
+  inds <- grep("^[0-9]+v[ |,]+", s)
   if (length(inds) > 0) {
     s[inds] <- sapply(s[inds], function (x) {vol_helper(x)})
   }
@@ -62,7 +64,10 @@ harmonize_volume <- function (x, verbose = FALSE, vol.synonyms = NULL) {
 
 vol_helper <- function (s) {
 
+     s <- gsub("v,", "v ,", s)
+
      spl <- unlist(strsplit(s, " "), use.names = FALSE)
+
      spl[[1]] <- gsub("v", "v.", spl[[1]])
 
      s <- spl

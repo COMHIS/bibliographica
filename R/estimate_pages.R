@@ -110,7 +110,7 @@ estimate_pages <- function (x) {
   x <- gsub("\\]", "", x)
 
   # Convert romans to arabics (entries separated by spaces possibly)
-  # also 3-iv -> 3-4 
+  # also 3-iv -> 3-4
   inds <- pagecount.attributes["roman", ] | pagecount.attributes["arabic", ]
   if (any(inds)) {
     x[inds] <- roman2arabic(x[inds])
@@ -135,11 +135,6 @@ estimate_pages <- function (x) {
   # FIXME: at the moment these all go to sheets already
   inds <- pagecount.attributes["plate",]
   pages$plate <- sum(na.omit(suppressWarnings(as.numeric(x[inds]))))
-  
-  # For now, always ignore plates. THis helps us to easily recognize
-  # documents where page count info is missing (except plates)
-  # pages$plate <- 0 # Ignored earlier, only in cases where no other page info
-  # such as "2v., plates".
 
   # Count pages according to the type
   for (type in c("arabic", "roman")) {

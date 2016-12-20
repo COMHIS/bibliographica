@@ -1,10 +1,28 @@
 clause	result	expected	field
+v,6-23,[1]p.	24
+141-174. [2] p.	36
+p. [2],483-505[i.e, 483-504]	24
+p. 477-452[i.e., 477-552]	76
+v.	NA
+2v,plates,tables	NA
+3(?) v., plates (some folded) : ill.	NA
+4v.,tables,plates	NA
+4v,tables,plates	NA
+4v.,table,plate	NA
+4v.,tables,plate	NA
+4v.,table,plates	NA
+4vol,table,plates	NA
+table,plates	NA
+tables,plates	NA
+tables,plate	NA
+table,plate	NA
 [2],[16]p. of plates	18
 1 leaf, 32 [30] leaves of plates	62
 6 bl.	12
 ___volymer   NA
 3 Teile 2	NA
 Varje nummer 4 s.	NA
+1 sheet ([2] p.) :bill. (woodcuts)	2
 H. 1-3 i en vol.	NA
 324[i.e.325]plates	650
 [60] leaves of plats	120       
@@ -15,8 +33,12 @@ H. 1-3 i en vol.	NA
 [16] , 376 s. =(s. 371-76 opag.)=.	392
 1 sheet ([1+] pages)	1
 1 sheet (2 pages)	2
+One sheet (2 pages)	2
+Two sheets	4
 1 sheet (2, [2] p.)	4
 1 sheet (3 pages)	3
+1 sheet (verso blank)	2
+One sheet (verso blank)	2
 3 sheets (3 pages)	3 
 (4),44 bl.	92
 S. 14-28 ; s. 28-48	36
@@ -35,7 +57,8 @@ S. 14-28 ; s. 28-48	36
 [10], 554, [5], 556-812, [32] p.	859		
 10pt.,plate	NA
 10s.,1 tab	12		
-[10],v-792,4p.,plates	804		
+[10],v-792,4p.,plates	804
+180p., 8leaves of plates (1folded)	196
 10v.,plate	NA
 110,[1],4-60p.	111		
 112 s. =(s. 111/12 blank).	112		
@@ -225,6 +248,8 @@ S. 14-28 ; s. 28-48	36
 [3],vi-xxiv,424p.	446		
 3 vol.;(258, 308, 269 s.)	835
 3v.,plate    NA
+7v.(xvi,4387,[1],260,[62]p.)	4466
+[2],28p.,XLVI plates	122
 [3],xx-579,[5]p.,plates	570
 [4],231,240-428p.,plate	434		
 40s.,2 lösa kartor	44
@@ -343,7 +368,6 @@ v,[3],124,[4],129,[3]p.	144
 v.3-4,plate	NA
 v.3 (558,[2]p.),plates	562	
 v.4 ([8],418,[30]p.),plate	458		
-v.	5		
 v.5-6,plate	NA
 v.8 (551,[1]p.),plates	554		
 v.8([6],338,[204]),plates	550		

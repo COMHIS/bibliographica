@@ -35,7 +35,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   s <- gsub("^na ", "", s)
   s <- gsub("\\.s$", " s", s)
   s <- gsub("\\. s", " s", s)    
-  s <- gsub("&", ",", s)  
+  s <- gsub("&", ",", s)
   s[grep("^[ |;|:|!|?]*$", s)] <- NA 
 
   # Remove dimension info
@@ -53,7 +53,8 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   rm(char2num)
 
   if (verbose) {message("Harmonize volume info")}
-  inds <- setdiff(1:length(s), setdiff(grep("v\\.$", s), grep("^v\\.$", s)))
+  #inds <- setdiff(1:length(s), setdiff(grep("v\\.$", s), grep("^v\\.$", s)))
+  inds <- setdiff(1:length(s), grep("^v\\.$", s))
   if (length(inds)>0) {
     s[inds] <- remove_trailing_periods(s[inds])
   }
@@ -69,15 +70,17 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   s <- harmonize_ie(s)
 
   s[s == ""] <- NA
-  if (verbose) {message("Read the mapping table for pages")}
-  f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
-  page.harmonize <- read_mapping(f, sep = "\t", mode = "table", fast = FALSE)
 
   if (verbose) {message("Read the mapping table for sheets")}  
   f <- system.file("extdata/harmonize_sheets.csv", package = "bibliographica")
   sheet.harmonize <- read_mapping(f, sep = ";", mode = "table", fast = TRUE)
   s <- harmonize_sheets(s, sheet.harmonize)
   rm(sheet.harmonize)
+
+  # Just read page harmonization here to be used later
+  if (verbose) {message("Read the mapping table for pages")}
+  f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
+  page.harmonize <- read_mapping(f, sep = "\t", mode = "table", fast = FALSE)
 
   # Back to original indices and new unique reduction 
   s <- s[match(sorig, suniq)]
@@ -117,8 +120,12 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   sorig <- s[match(sorig, suniq)]
   s <- suniq <- unique(sorig)
 
-  if (verbose) {message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))}
+  # English
+  f <- system.file("extdata/numbers_english.csv", package = "bibliographica")
+  char2num <- read_mapping(f, sep = ",", mode = "table", from = "character", to = "numeric")
+  s <- map(s, synonymes = char2num, from = "character", to = "numeric", mode = "match")
 
+  if (verbose) {message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))}
   ret <- parallel::mclapply(s, function (s) { a <- try(polish_physext_help(s, page.harmonize)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
 
   if (verbose) {message("Make data frame")}
@@ -145,6 +152,11 @@ polish_physext_help <- function (s, page.harmonize) {
 
   # Return NA if conversion fails
   if (length(s) == 1 && is.na(s)) { return(rep(NA, 4)) } 
+
+  #141-174. [2] -> "141-174, [2]"
+  if (grepl("[0-9]+\\.", s)) {
+    s <- gsub("\\.", ",", s)
+  }
 
   # Shortcut for easy cases: "24p."
   if (length(grep("^[0-9]+ {0,1}p\\.{0,1}$",s))>0) {
@@ -173,6 +185,10 @@ polish_physext_help <- function (s, page.harmonize) {
   s <- gsub("s\\.*$", "", s)
   s <- condense_spaces(s)
 
+  # Remove lonely plate/table info
+  s <- gsub("^plates*,plates*$", " ", s)
+  s <- condense_spaces(s)
+  
   # If number of volumes is the same than number of comma-separated units
   # and there are no semicolons, then consider the comma-separated units as
   # individual volumes and mark this by replacing commas by semicolons
@@ -222,7 +238,7 @@ polish_physext_help2 <- function (x, page.harmonize) {
   x <- as.character(map(x, page.harmonize, mode = "recursive"))
 
   if (length(grep("i\\.e", x)) > 0) {
-  
+
     x <- unlist(strsplit(x, ","), use.names = FALSE)
 
     x <- sapply(x, function (x) {handle_ie(x, harmonize = FALSE)})
