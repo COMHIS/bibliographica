@@ -43,6 +43,7 @@ test_that("volume count is correct", {
   expect_true(is.na(polish_physical_extent("73 pts,2 pages")$volcount)) 
   expect_true(is.na(polish_physical_extent("73 pts.,2 pages")$volcount))
   expect_equal(polish_physical_extent("1atlas")$volcount, 1)
+  expect_equal(polish_physical_extent("v.")$volcount, 1)  
   expect_true(is.na(polish_physical_extent("v, 5")$volcount)) # 5 + 5 pages, 1 volume
   expect_true(is.na(polish_physical_extent("v")$volcount))  
   expect_true(is.na(polish_physical_extent("v ;")$volcount))

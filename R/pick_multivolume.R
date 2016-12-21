@@ -20,7 +20,10 @@ pick_multivolume <- function (x) {
     x <- gsub("\\)", "", x)    
   }
 
-  if (length(grep("^[0-9]* {0,1}v\\.{0,1}$", x))>0) {
+
+  if (x == "v.") {
+    vols <- 1    
+  } else if (length(grep("^[0-9]* {0,1}v\\.{0,1}$", x))>0) {
     # 73 v. -> 73
     vols <- as.numeric(str_trim(gsub("v\\.{0,1}", "", x)))
   } else if (length(grep("^v\\.", x))>0) {
