@@ -1,7 +1,15 @@
-
+#' @title Validate Names
+#' @description Validation for names.
+#' @param df.preprocessed Preprocessed data.frame.
+#' @return Modified data.frame
+#' @export
+#' @author Ville Vaara and Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' @examples # \dontrun{validate_names(df.preprocessed)}
+#' @keywords utilities
 validate_names <- function(df.preprocessed) {
 
-  print("Validate author names. Set non-valid names to NA")
+  message("Validate author names. Set non-valid names to NA")
 
   # Some basic validation
   # "V. P" -> NA
