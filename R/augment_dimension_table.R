@@ -1,15 +1,14 @@
-#' @title Augment dimension table
-#' @description Estimate missing entries in dimension table where possible
-#' @param dim.tab dim.tab
+#' @title Augment Dimension Table
+#' @description Estimate missing entries in dimension table where possible.
+#' @param dim.tab Dimension table.
 #' @param dim.info Mapping between document dimensions.
-#' @param sheet.dim.tab sheet.dim.tab
+#' @param sheet.dim.tab Sheet dimension table.
 #' @param verbose verbose
-#' @return Augmented dim.tab
+#' @return Augmented dimension table.
 #' @seealso polish_dimensions
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @export
-#' @importFrom dplyr mutate
 #' @examples # augment_dimension_table(dim.tab)
 #' @keywords utilities
 augment_dimension_table <- function (dim.tab, dim.info = NULL, sheet.dim.tab = NULL, verbose = FALSE) {

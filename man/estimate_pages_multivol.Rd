@@ -2,20 +2,20 @@
 % Please edit documentation in R/estimate_pages_multivol.R
 \name{estimate_pages_multivol}
 \alias{estimate_pages_multivol}
-\title{Page estimation for multivols}
+\title{Estimation Pages for Multi-Volume Documents}
 \usage{
-estimate_pages_multivol(df, mean.pagecounts)
+estimate_pages_multivol(df, pagecount.estimates)
 }
 \arguments{
 \item{df}{data.frame of documents x variables}
 
-\item{mean.pagecounts}{Page count estimates to be used}
+\item{pagecount.estimates}{Page count estimates to be used}
 }
 \value{
 Page count estimates
 }
 \description{
-Estimate pages for multivols.
+Estimate pages for multi-volume documents.
 }
 \examples{
 \dontrun{p <- estimate_pages_multivol(df)}

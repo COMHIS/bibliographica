@@ -40,7 +40,7 @@ validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) 
 
   if ("publication_time" %in% update.fields) {
 
-    print("Fix publication years")
+    message("Fix publication years")
     # Remove apparent errors: no future publications or publications before historical times
     df$publication_year_from[which(df$publication_year_from > max.year)] <- NA
     df$publication_year_from[which(df$publication_year_from < min.year)] <- NA
@@ -86,7 +86,6 @@ validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) 
   # -----------------------------------------------------------------
 
   if ("author_name" %in% update.fields) {
-    source(system.file("extdata/validate_names.R", package = "bibliographica"))
     df <- validate_names(df)
   }
 

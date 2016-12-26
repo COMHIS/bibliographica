@@ -24,7 +24,8 @@ is.multivol <- function (df) {
   inds <- inds & !is.na(df$gatherings)
 
   # Exclude large documents 
-  rm.gatherings <- c("1to", "2small", "2to", "2long", "4small", "4to", "4long")
+  #rm.gatherings <- c("1to", "2small", "2to", "2long", "4small", "4to", "4long")
+  rm.gatherings <- c("1to") 
   inds <- inds & (!df$gatherings %in% rm.gatherings)
 
   # Only include docs with <=10 volumes since

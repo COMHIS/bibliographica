@@ -1,13 +1,14 @@
 #' @title Mean Page Counts for All Document Types
 #' @description Calculate mean page counts for different document types.
 #' @param df data frame, including the required fields.
+#' @param exclude.plates Exclude plate info from page counts.
 #' @return Average page count information.
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{m <- get_mean_pagecounts(df)}
 #' @keywords utilities
-get_mean_pagecounts <- function(df) {
+get_mean_pagecounts <- function(df, exclude.plates = TRUE) {
 
   # Clean up		    
   gc()		    
@@ -16,8 +17,13 @@ get_mean_pagecounts <- function(df) {
   singlevol <- multivol <- issue <- pagecount <- NULL
 
   # Make sure that all pagecount estimates are based on the original data only
+  # Calculate pagecounts without plates ! The plate info will be added afterwards
+  # since this is often (only) available for docs that are missing page information
   dfs <- df
-  dfs$pagecount <- dfs$pagecount.orig
+  dfs$pagecount <- dfs$pagecount.orig  
+  if (exclude.plates) {
+    dfs$pagecount <- dfs$pagecount - dfs$pagecount.plate
+  }
 
   message("get_mean_pagecounts single volume")
   # For single-volume documents, use only the ones with >=32 pages

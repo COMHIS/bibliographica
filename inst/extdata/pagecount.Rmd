@@ -84,9 +84,12 @@ documents where page count info is missing.
 
 The multi-volume documents average page counts are given per volume.
 
+The page count estimates are calculated without plates. Plate
+information is added separately for each document on top of the page
+count estimate.
 
 ```{r size-pagecountsmulti, echo=FALSE, message=FALSE, warning=FALSE}
-mean.pagecounts <- get_mean_pagecounts(df)
+mean.pagecounts <- get_mean_pagecounts(df, exclude.plates = TRUE)
 ```
 
 ```{r size-pagecountsmulti2, echo=FALSE, message=FALSE, warning=FALSE, fig.width=25, fig.height=5}
