@@ -25,7 +25,8 @@ remove_volume_info <- function (x) {
 
   # Cases 'v.1-3' etc
   s <- gsub("^v\\. ", "v\\.", s)
-  inds <- intersect(grep("^v.", s), grep("-", s))
+  inds <- intersect(grep("^v\\.", s), grep("-", s))
+
   s[inds] <- sapply(s[inds], function (si) {
     gsub(check_volumes(si)$text, "", si)
   })

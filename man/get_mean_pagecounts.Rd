@@ -4,10 +4,12 @@
 \alias{get_mean_pagecounts}
 \title{Mean Page Counts for All Document Types}
 \usage{
-get_mean_pagecounts(df)
+get_mean_pagecounts(df, exclude.plates = TRUE)
 }
 \arguments{
 \item{df}{data frame, including the required fields.}
+
+\item{exclude.plates}{Exclude plate info from page counts.}
 }
 \value{
 Average page count information.

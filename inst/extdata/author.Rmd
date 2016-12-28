@@ -149,5 +149,30 @@ print(p)
 ```
 
 
+```{r topauth, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=13, fig.height=6}
+df <- df.preprocessed
+top.authors <- names(rev(sort(table(df.preprocessed$author))))[1:10]
+df2 <- df %>% filter(author %in% top.authors) %>% group_by(publication_year, author) %>% summarize(paper = sum(paper, na.rm = TRUE), n = n()) 
+
+p <- ggplot(df2, aes(x = publication_year, y = paper, group = author, color = author))
+p <- p + geom_point()
+p <- p + geom_line()
+p <- p + ggtitle("Paper consumption per author")
+p <- p + xlab("Year")
+p <- p + scale_y_log10()
+p <- p + ylab("Paper consumption")
+print(p)
+
+p <- ggplot(df2, aes(x = publication_year, y = n, group = author, color = author))
+p <- p + geom_point()
+p <- p + geom_line()
+p <- p + ggtitle("Documents per author")
+p <- p + xlab("Year")
+p <- p + scale_y_log10()
+p <- p + ylab("Documents (n)")
+print(p)
+```
+
+
 
 

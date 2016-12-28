@@ -1,43 +1,45 @@
-##
-## CALCULATE AVERAGE DOC SIZES FROM THE ORIGINAL ENTRIES
-# global variables used:
-# df.preprocessed, update.fields
-# TODO All functions should go under R/ folder
-
+#' @title Enrich Data
+#' @description Enrich data. 
+#' @param data.validated Validated data.frame
+#' @param df.orig Original data.frame
+#' @return Augmented data.frame
+#' @export
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica")
+#' @examples \dontrun{df2 <- enrich_preprocessed_data(df)}
+#' @keywords utilities
 enrich_preprocessed_data <- function(data.validated, df.orig) {
+
+  pagecount <- width <- height <- NULL
+
+  # This could be improved - varies in time !
+  printrun <- 1000
 
   df.preprocessed <- data.validated$df.preprocessed
   update.fields   <- data.validated$update.fields
   conversions     <- data.validated$conversions
 
-  check <- "enrich"
-
   if (any(c("publication_place", "publication_geography") %in% update.fields)) {
-    source(system.file("extdata/enrich_geo.R", package = "bibliographica"))
     df.preprocessed <- enrich_geo(df.preprocessed)
   }
 
   # Always do. New field "author" needed for first edition recognition.
   # This is fast.
   if (any(c("author_name", "author_date") %in% update.fields)) {
-    source(system.file("extdata/enrich_author.R", package = "bibliographica"))
-    # this seems to take long even with only 100 entries in df.preprocessed? -vv 
+    # this seems to take long even with only
+    # 100 entries in df.preprocessed? -vv 
     df.preprocessed <- enrich_author(df.preprocessed)
   }
 
   # Always do. This is fast.
   # Must be done after enrich_author
-  #if ("publication_time" %in% update.fields) {
-  source(system.file("extdata/enrich_years.R", package = "bibliographica"))
   df.preprocessed <- enrich_years(df.preprocessed, df.orig)
-  #}
-
 
   if ("publisher" %in% update.fields) {
 
     message("Self-published docs where author is known but publisher not")
     # Note: also unknown authors are considered as self-publishers
-    print("Add a separate self-published field")
+    message("Add a separate self-published field")
     tmp <- self_published(df.preprocessed)
     df.preprocessed$self_published <- tmp$self_published
     df.preprocessed$publisher <- tmp$publisher
@@ -48,15 +50,14 @@ enrich_preprocessed_data <- function(data.validated, df.orig) {
 
   if (any(c("physical_extent", "physical_dimension") %in% update.fields)) {
 
-    source(system.file("extdata/enrich_dimensions.R", package = "bibliographica"))
+    # Enrich dimensions before pagecount (some dimensions reclassified)
     df.preprocessed <- enrich_dimensions(df.preprocessed)
 
-    source(system.file("extdata/enrich_pagecount.R", package = "bibliographica"))
+    # Enrich pagecount after dimensions
     df.preprocessed <- enrich_pagecount(df.preprocessed)
 
-    print("Add estimated paper consumption")
+    message("Add estimated paper consumption")
     # Estimated print run size for paper consumption estimates
-    printrun <- 1000 # This could be improved - varies in time !
     
     # Paper consumption in sheets
     # (divide document area by standard sheet area
@@ -66,18 +67,12 @@ enrich_preprocessed_data <- function(data.validated, df.orig) {
 
   }
 
-  if (any(c("title", "subject_topic", "publication_topic") %in% update.fields)) {
+  if (any(c("language", "title", "subject_topic", "publication_topic") %in% update.fields)) {
     # Nothing defined yet
     NULL
   }
 
-  if ("language" %in% update.fields) {
-    NULL
-  }
-
-  print("Enrich OK")
-
-  # setwd(old.wd)
+  message("Enrichment OK")
 
   enriched.data <- list(df.preprocessed = df.preprocessed,
                         update.fields = update.fields,

@@ -13,12 +13,15 @@ mean_pagecounts <- function (df, pagecount.field = "pagecount", rounding = FALSE
 
   df$pgc <- df[[pagecount.field]]		
 
+  # Do not accept zero pagecounts. Mark them as NA.
+  df$pgc[df$pgc == 0] <- NA
+
   items <- volnumber <- parts <- volcount <- gatherings <- pgc <- NULL
 
   pagecounts <- df %>% 
 	     group_by(gatherings) %>% 
 	     summarize(
-	  mean.pages.per.vol = mean(pgc/volcount, na.rm = T), 
+	    mean.pages.per.vol =   mean(pgc/volcount, na.rm = T), 
 	  median.pages.per.vol = median(pgc/volcount, na.rm = T), 
 	  n = n())
 

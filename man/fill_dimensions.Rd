@@ -2,7 +2,7 @@
 % Please edit documentation in R/fill_dimensions.R
 \name{fill_dimensions}
 \alias{fill_dimensions}
-\title{Fill missnig dimension info}
+\title{Fill Missing Dimensions}
 \usage{
 fill_dimensions(x, dimension.table = NULL, sheet.dimension.table = NULL)
 }
@@ -17,13 +17,13 @@ fill_dimensions(x, dimension.table = NULL, sheet.dimension.table = NULL)
 Augmented dimension vector
 }
 \description{
-Estimate missing entries in dimension vector where possible
+Estimate missing entries in dimension vector where possible.
 }
 \examples{
-# dimension.table <- dimension_table(); 
-          #  fill_dimensions(c(original = NA, gatherings = NA, 
-     #			  width = 30, height = 48), 
-     #			  dimension.table)
+\dontrun{
+  dimension.table <- dimension_table(); 
+  fill_dimensions(c(original = NA, gatherings = NA, width = 30, height = 48), dimension.table)
+}
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

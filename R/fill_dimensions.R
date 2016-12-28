@@ -1,5 +1,5 @@
-#' @title Fill missnig dimension info
-#' @description Estimate missing entries in dimension vector where possible
+#' @title Fill Missing Dimensions
+#' @description Estimate missing entries in dimension vector where possible.
 #' @param x dimension string 
 #' @param dimension.table Given mappings between document dimensions
 #' @param sheet.dimension.table Given mappings for sheet dimensions
@@ -8,10 +8,10 @@
 #' @references See citation("bibliographica")
 #' @export
 #' @seealso augment_dimension_table
-#' @examples # dimension.table <- dimension_table(); 
-#'           #  fill_dimensions(c(original = NA, gatherings = NA, 
-#'	     #			  width = 30, height = 48), 
-#'	     #			  dimension.table)
+#' @examples \dontrun{
+#'   dimension.table <- dimension_table(); 
+#'   fill_dimensions(c(original = NA, gatherings = NA, width = 30, height = 48), dimension.table)
+#' }
 #' @keywords utilities
 fill_dimensions <- function (x, dimension.table = NULL, sheet.dimension.table = NULL) {
 
@@ -32,9 +32,9 @@ fill_dimensions <- function (x, dimension.table = NULL, sheet.dimension.table = 
     if (!any("obl" == names(x))) {x[["obl"]] <- NA}
     obl <- x[["obl"]] 
 
-    if ((!any(g == colnames(dimension.table)) && (!is.na(g)))) {
-      #warning(paste("gatherings ", g, " not available in dimension.table"))
-    }
+    #if ((!any(g == colnames(dimension.table)) && (!is.na(g)))) {
+    #  #warning(paste("gatherings ", g, " not available in dimension.table"))
+    #}
 
     e <- estimate_document_dimensions(gatherings = g, height = h, width = w, obl = obl, dimension.table, sheet.dimension.table)
 

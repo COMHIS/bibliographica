@@ -84,9 +84,12 @@ documents where page count info is missing.
 
 The multi-volume documents average page counts are given per volume.
 
+The page count estimates are calculated without plates. Plate
+information is added separately for each document on top of the page
+count estimate.
 
 ```{r size-pagecountsmulti, echo=FALSE, message=FALSE, warning=FALSE}
-mean.pagecounts <- get_mean_pagecounts(df)
+mean.pagecounts <- get_mean_pagecounts(df, exclude.plates = TRUE)
 ```
 
 ```{r size-pagecountsmulti2, echo=FALSE, message=FALSE, warning=FALSE, fig.width=25, fig.height=5}
@@ -142,4 +145,317 @@ suppressWarnings(grid.arrange(pics[[1]], pics[[2]], pics[[3]], pics[[4]], nrow =
 #kable(mean.pagecounts$issue, caption = "Estimated page counts (issues)", digits = 2)
 ```
 
+
+
+### Document size distribution
+
+```{r pagecountstat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12, fig.height=5}
+df <- df.preprocessed
+
+  theme_set(theme_bw(15))
+
+  # Single-volume docs
+  dff <- filter(df, volcount == 1 & is.na(volnumber))
+
+  dff2 <- dff %>% group_by(gatherings, 
+		    	     pagecount) %>%
+			     tally()
+
+  dff3 <- dff %>% group_by(gatherings) %>%
+		    summarize(mean = mean(pagecount, na.rm = T), 
+		              median = median(pagecount, na.rm = T))
+
+  p <- ggplot(dff2, aes(y = gatherings, x = pagecount)) 
+  p <- p + geom_point(aes(size = n))
+  p <- p + geom_point(data = dff3, aes(y = gatherings, x = mean), col = "red", size = 3)
+  p <- p + geom_point(data = dff3, aes(y = gatherings, x = median), col = "blue", size = 3)
+  p <- p + scale_x_log10(breaks = c(1, 10, 100, 1000))
+  p <- p + xlab("Total page count (blue: median; red: mean)")
+  p <- p + ylab("Document size")
+  p <- p + ggtitle(paste("Pages: single-volume documents (n=", nrow(dff), ")", sep = ""))
+  p1 <- p 
+
+  # Multi-volume docs
+  theme_set(theme_bw(15))
+  dff <- filter(df, 
+ 	   (volcount > 1 | 
+	   #(items == 1 & !is.na(volnumber))) # include when items info is again available
+	   (!is.na(volnumber)))	   
+	   #pagecount > 10
+	   )
+  dff2 <- dff %>% group_by(gatherings, 
+		    	     pagecount) %>%
+		    	     tally()
+
+  dff3 <- dff %>% group_by(gatherings) %>%
+		    summarize(mean = mean(pagecount, na.rm = T), 
+		     median = median(pagecount, na.rm = T))
+
+  p <- ggplot(dff2, aes(y = gatherings, x = pagecount)) 
+  p <- p + geom_point(aes(size = n))
+  p <- p + geom_point(data = dff3, aes(y = gatherings, x = mean), col = "red", size = 3)
+  p <- p + geom_point(data = dff3, aes(y = gatherings, x = median), col = "blue", size = 3)
+  p <- p + scale_x_log10(breaks = c(1, 10, 100, 1000))
+  p <- p + xlab("Total page count (blue: median; red: mean)")
+  p <- p + ylab("Document size")
+  p <- p + ggtitle(paste("Pages: multi-volume documents (n=", nrow(dff), ")", sep = ""))
+  p2 <- p 
+
+library(gridExtra)
+grid.arrange(p1, p2, nrow = 1)
+```
+
+
+## Documents with missing pages over years 
+
+```{r missingpages, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=4}
+library(dplyr)
+df2 <- df %>% group_by(publication_decade, gatherings) %>% summarize(na = sum(is.na(pagecount.orig) | (!pagecount.orig == pagecount)))
+df2$na[df2$na == 0] <- NA
+library(ggplot2)
+theme_set(theme_bw(15))
+p <- ggplot(df2, aes(x = publication_decade, y = gatherings, size = na))
+p <- p + geom_point()
+p <- p + xlim(c(min(na.omit(df$publication_decade)), 1800))
+p <- p + ggtitle(paste("Documents with missing page counts (original; n=", sum(na.omit(df2$na)), ")", sep = ""))
+p <- p + xlab("Publication decade")
+p <- p + ylab("Document dimension (estimated)")
+print(p)
+
+library(dplyr)
+df2b <- df %>% group_by(publication_decade, gatherings) %>% summarize(na = sum(is.na(pagecount)))
+df2b$na[df2b$na == 0] <- NA
+library(ggplot2)
+theme_set(theme_bw(15))
+p <- ggplot(df2b, aes(x = publication_decade, y = gatherings, size = na))
+p <- p + geom_point()
+p <- p + xlim(c(min(na.omit(df$publication_decade)), 1800))
+p <- p + ggtitle(paste("Documents with missing page counts (after adding estimates; n=", sum(na.omit(df2b$na)), ")", sep = ""))
+p <- p + xlab("Publication decade")
+p <- p + ylab("Document dimension (estimated)")
+print(p)
+```
+
+
+## Estimated paper consumption
+
+Note: there are `r length(which(is.na(df$area) & (!is.na(df$gatherings.original) | !is.na(df$width.original) | !is.na(df$height.original))))` documents that have some dimension info but sheet area information could not be calculated for some reason. 
+
+```{r paperconsumption, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=5}
+library(dplyr)
+library(ggplot2)
+df <- df.preprocessed
+df2 <- df %>% group_by(publication_year) %>% summarize(paper = sum(paper, na.rm = TRUE), n = n()) 
+library(sorvi)
+p <- regression_plot(paper ~ publication_year, df2) 
+p <- p + ggtitle("Total annual paper consumption")
+p <- p + xlab("Year")
+p <- p + ylab("Paper consumption")
+print(p)
+
+p <- regression_plot(n ~ publication_year, df2) 
+p <- p + ggtitle("Total annual documents")
+p <- p + xlab("Year")
+p <- p + ylab("Documents (n)")
+print(p)
+```
+
+```{r paperconsumption2b, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=8, fig.height=5}
+df <- df.preprocessed
+df2 <- df %>% group_by(publication_year, gatherings) %>% summarize(paper = sum(paper, na.rm = TRUE), n = n()) 
+df2 <- filter(df2, gatherings %in% names(which(table(df2$gatherings) >= 50)))
+p <- ggplot(df2, aes(y = paper, x = publication_year, group = gatherings, color = gatherings))
+p <- p + geom_point()
+p <- p + geom_smooth(method = "loess", size = 1)
+p <- p + ggtitle("Annual paper consumption by gatherings")
+p <- p + xlab("Year")
+p <- p + ylab("Paper consumption")
+p <- p + scale_color_discrete(guide = guide_legend(title = "Doc. Size"))
+p <- p + scale_y_log10()
+print(p)
+
+p <- ggplot(df2, aes(y = n, x = publication_year, group = gatherings, color = gatherings))
+p <- p + geom_point()
+p <- p + geom_smooth(method = "loess", size = 1)
+p <- p + ggtitle("Annual title count by gatherings")
+p <- p + xlab("Year")
+p <- p + ylab("Documents (n)")
+p <- p + scale_y_log10()
+print(p)
+
+
+
+
+```{r pagecounts-gatherings-relab, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=5}
+df <- df.preprocessed
+df2 <- df %>% group_by(publication_year, gatherings) %>% summarize(paper = sum(paper, na.rm = TRUE), n = n()) 
+df2 <- filter(df2, gatherings %in% names(which(table(df2$gatherings) >= 50)))
+
+p <- ggplot(df2, aes(x = publication_year, fill = gatherings)) + geom_bar(position = "stack", stat = "bin")
+p <- p + ggtitle("Gatherings counts over time")
+print(p)
+
+p <- ggplot(df2, aes(x = publication_year, fill = gatherings)) + geom_bar(position = "fill")
+p <- p + ggtitle("Gatherings proportions over time")
+print(p)    
+
+p <- ggplot(df2, aes(y = n, x = publication_year, group = gatherings, color = gatherings))
+p <- p + geom_point()
+p <- p + geom_smooth(method = "loess", size = 1)
+p <- p + ggtitle("Annual title count by gatherings")
+p <- p + xlab("Year")
+p <- p + ylab("Documents (n)")
+print(p)
+```
+
+```{r paperconsumption2, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=13, fig.height=6}
+df <- df.preprocessed
+df2 <- df %>% group_by(publication_year) %>% summarize(paper = sum(paper, na.rm = TRUE), n = n()) 
+p <- ggplot(df2, aes(x = publication_year, y = paper/n))
+p <- p + geom_point()
+p <- p + geom_line()
+p <- p + ggtitle("Average paper consumption per document")
+p <- p + xlab("Year")
+p <- p + scale_y_log10()
+p <- p + ylab("Average paper consumption per document")
+print(p)
+```
+
+
+
+## Pamphlets vs. Books
+
+```{r doctypes, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=13, fig.height=6}
+library(ggplot2)
+library(dplyr)
+df <- df.preprocessed
+df$type <- rep(NA, nrow(df))
+df$type[df$pagecount > 32] <- "book"
+df$type[df$pagecount <= 32] <- "pamphlet"
+df$type <- factor(df$type)
+
+df2 <- df %>% group_by(publication_year, type) %>% summarize(paper = sum(paper, na.rm = TRUE), n = n()) 
+p <- ggplot(df2, aes(x = publication_year, y = paper, group = type, color = type))
+p <- p + geom_point()
+p <- p + geom_smooth(method = "loess")
+p <- p + ggtitle("Paper consumption per document type")
+p <- p + xlab("Year")
+p <- p + scale_y_log10()
+p <- p + ylab("Paper consumption")
+print(p)
+
+p <- ggplot(df2, aes(x = publication_year, y = n, group = type, color = type))
+p <- p + geom_point()
+p <- p + geom_smooth(method = "loess")
+p <- p + ggtitle("Documents per document type")
+p <- p + xlab("Year")
+p <- p + scale_y_log10()
+p <- p + ylab("Documents (n)")
+print(p)
+```
+
+
+```{r doctypes2, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=13, fig.height=6}
+df <- mutate(df, length = cut(pagecount, c(0, 32, 72, 148, 250, 450, 800, 2000, 5000, Inf)))
+
+df2 <- df %>% group_by(publication_decade, length) %>% summarize(paper = sum(paper, na.rm = TRUE), n = n()) 
+p <- ggplot(df2, aes(x = publication_decade, y = paper, group = length, color = length))
+p <- p + geom_point()
+p <- p + geom_smooth(method = "loess", size = 1)
+p <- p + ggtitle("Paper consumption per document type")
+p <- p + xlab("Decade")
+p <- p + ylab("Paper consumption")
+p <- p + scale_y_log10()
+print(p)
+
+p <- ggplot(df2, aes(x = publication_decade, y = n, group = length, color = length))
+p <- p + geom_point()
+p <- p + geom_smooth(method = "loess", size = 1)
+p <- p + ggtitle("Documents per document type")
+p <- p + xlab("Decade")
+p <- p + ylab("Documents (n)")
+p <- p + scale_y_log10()
+print(p)
+```
+
+
+
+## Nature of the documents over time
+
+Estimated paper consumption by document size
+
+```{r 20150611paris-paper6, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=13, fig.height=7}
+df2 <- df %>% group_by(publication_year, gatherings) %>% summarize(paper = sum(paper, na.rm = TRUE), n = n()) 
+df2 <- filter(df2, gatherings %in% names(which(table(df2$gatherings) >= 50)))
+p <- ggplot(df2, aes(y = paper, x = publication_year, group = gatherings, color = gatherings))
+p <- p + geom_point()
+p <- p + geom_smooth(method = "loess", size = 1)
+p <- p + ggtitle("Annual paper consumption by gatherings")
+p <- p + xlab("Year")
+p <- p + scale_y_log10()
+p <- p + ylab("Paper consumption")
+print(p)
+```
+
+
+Gatherings height: does it change over time? How increased printing activity is related to book size trends? Alternatively, we could use area (height x width), or median over time. Note that only original (not augmented) dimension info is being used here.
+
+```{r pagecounts-gatsize, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=5}
+df <- df.preprocessed
+for (g in c("1to", "2fo", "4to", "8vo")) {
+  df2 <- filter(df,
+       		  !is.na(gatherings.original) &
+		  !is.na(height.original) &
+		  gatherings.original == g) %>%
+       group_by(publication_year, height.original) %>%
+       tally()
+
+  p <- ggplot(df2, aes(x = publication_year, y = height.original)) + geom_point(aes(size = n)) 
+  p <- p + ggtitle(paste(g, "heights over time"))
+  print(p)
+}
+```
+
+
+Page counts: does it change over time? Also suggested we could calculate some kind of factor for each time period based on this ? In principle, we could calculate this separately for any given publication place as well but leẗ́s discuss this later. Would help to specify some specific places of interest.
+
+```{r pagecounts-gatsize2, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=5}
+df <- df.preprocessed
+for (g in c("1to", "2fo", "4to", "8vo")) {
+  df2 <- filter(df,
+       		  !is.na(gatherings.original) &
+		  !is.na(pagecount.orig) &
+		  gatherings.original == g)
+  df3 <- df2 %>%
+       group_by(publication_year, pagecount.orig) %>%
+       tally()
+
+  p <- ggplot(df3, aes(x = publication_year, y = pagecount.orig)) + geom_point(aes(size = n))
+  p <- p + geom_smooth(data = df2, aes(x = publication_year, y = pagecount.orig))
+  p <- p + ggtitle(paste(g, "pagecount over time"))
+  print(p)
+}
+```
+
+
+Same for documents that have a sufficient number of pages:
+
+```{r pagecounts-gatsize3, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=5}
+df <- df.preprocessed
+minpages <- 60
+for (g in c("1to", "2fo", "4to", "8vo")) {
+  df2 <- filter(df, pagecount >= minpages &
+       		  !is.na(gatherings.original) &
+		  !is.na(pagecount.orig) &
+		  gatherings.original == g)
+  df3 <- df2 %>%
+       group_by(publication_year, pagecount.orig) %>%
+       tally()
+
+  p <- ggplot(df3, aes(x = publication_year, y = pagecount.orig)) + geom_point(aes(size = n))
+  p <- p + geom_smooth(data = df2, aes(x = publication_year, y = pagecount.orig))
+  p <- p + ggtitle(paste(g, "pagecount over time (books with over", minpages, "pages)"))
+  print(p)
+}
+```
 

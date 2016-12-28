@@ -5,6 +5,7 @@
 #' @importFrom dplyr filter
 #' @importFrom dplyr full_join
 #' @importFrom dplyr group_by
+#' @importFrom dplyr mutate
 #' @importFrom dplyr n
 #' @importFrom dplyr rbind_all
 #' @importFrom dplyr rename

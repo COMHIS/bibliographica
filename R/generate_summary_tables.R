@@ -12,7 +12,7 @@
 generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "output.tables") {
 
   # Circumvent build warnings			
-  author <- author_name <- author_birth <- author_death <- author_pseudonyme <- author_gender <- name <- NULL
+  df <- author <- author_name <- author_birth <- author_death <- author_pseudonyme <- author_gender <- name <- NULL
   mean_pagecounts_multivol <- mean_pagecounts_singlevol <- mean_pagecounts_issue <- NULL
 
   # Ensure compatibility			
@@ -562,6 +562,10 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   message("Page counts")
   use.fields <- intersect(c("pagecount", "volnumber", "volcount"), names(df.preprocessed))
   tab <- cbind(original = df.orig$physical_extent, df.preprocessed[, use.fields])
+  # For clarity: remove ECCO augmented pagecounts from ESTC data
+  if ("pagecount.from.ecco" %in% names(df) & nrow(df.preprocessed) == nrow(df.orig)) {
+    tab <- tab[!df.preprocessed$pagecount.from.ecco,]
+  }
   tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_extent.csv")
 
   message("Physical dimension info")

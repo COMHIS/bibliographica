@@ -21,7 +21,14 @@ estimate_pages_issue <- function (df, mean.pagecounts) {
 
   # print("Pick the estimated page counts per vol separately for each doc size")
   pages.per.vol <- mean.pagecounts[match(g, mean.pagecounts$doc.dimension), ]$median.pages
+  
+  # Multiply pages by volcount to get the total pagecount estimate
   page.estimate <- v * pages.per.vol
+
+  # Add pagecount from plates (not included in the mean pagecounts)
+  # assume that the plate info has been provided for the complete document
+  # (not per volume)
+  page.estimate <- page.estimate + df$pagecount.plate
 
   # Round to the closest integer
   page.estimate <- round(page.estimate)
