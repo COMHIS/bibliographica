@@ -30,8 +30,6 @@ enrich_pagecount <- function(df) {
   message("Estimate total pages for the docs where it is missing")
   df$pagecount.orig <- df$pagecount
 
-  # ----------------------------------------------------------------------------
-
   # Recognize categories
   df$singlevol <- is.singlevol(df)
   df$multivol  <- is.multivol(df)
@@ -75,17 +73,18 @@ enrich_pagecount <- function(df) {
 	      df$pagecount == df$pagecount.plate) 
   df[inds1, "pagecount"] <- estimate_pages_issue(df[inds1,], mean.pagecounts$issue)
 
-  # Identify multi-vol docs
+
+  # Multi-vol docs
   # .. and then take only those without page count
   # ... also consider docs with <10 pages having missing page info as
   # these are typically ones with only some plate page information and
   # missing real page information
-  inds <- df$multivol &
-  	   (is.na(df$pagecount) | 
-	      df$pagecount == df$pagecount.plate) 
+  # .. and finally also enrich those where pagecount only consists of plates
+  inds <- df$multivol & (is.na(df$pagecount) | (df$pagecount == df$pagecount.plate))
   inds2 <- inds
-  df[inds, "pagecount"] <- estimate_pages_multivol(df[inds,],
-                                                                mean.pagecounts$multivol)
+  df[inds, "pagecount"] <- estimate_pages_multivol(df[inds,], mean.pagecounts$multivol)
+
+
   # Single-vol docs missing pagecount
   inds3 <- df$singlevol &
   	   (is.na(df$pagecount) | 
@@ -98,14 +97,6 @@ enrich_pagecount <- function(df) {
   estimated.pagecount <- cbind(id = df$original_row,
   		       	     issue = inds1, multivol = inds2, singlevol = inds3)
 
-  # -----------------------------------------------
-
-  # 1to pitäisi aina olla tasan 2 sivua.
-  # Eli yksi sheet, broardside tai 1to (kutsutaan millä tahansa nimellä),
-  # mutta siinä on aina yksi lehti (ja siten kaksi sivua).
-  # Näin ollen kaikki merkinnät joissa >2 sivua voisi siirtää 2fo kategoriaan.
-  df[which(df$gatherings == "1to" &
-                        df$pagecount > 2), "gatherings"] <- "2fo"
 
   return (df)
 }

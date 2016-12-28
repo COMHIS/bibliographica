@@ -19,6 +19,8 @@ get_mean_pagecounts <- function(df, exclude.plates = TRUE) {
   # Make sure that all pagecount estimates are based on the original data only
   # Calculate pagecounts without plates ! The plate info will be added afterwards
   # since this is often (only) available for docs that are missing page information
+  # For gatherings, let us the final gatherings info since some documents are
+  # reclassified (e.g. 1to -> 2fo) and this should be taken into account.
   dfs <- df
   dfs$pagecount <- dfs$pagecount.orig  
   if (exclude.plates) {

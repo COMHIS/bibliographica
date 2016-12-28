@@ -1,4 +1,4 @@
-#' @title Estimation Pages for Multi-Volume Documents
+#' @title Page Estimation for Multivolume Documents
 #' @description Estimate pages for multi-volume documents.
 #' @param df data.frame of documents x variables
 #' @param pagecount.estimates Page count estimates to be used

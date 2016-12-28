@@ -15,13 +15,62 @@ enrich_dimensions <- function(df) {
   message("Enriching dimensions..")
   gatherings <- obl <- width <- height <- NULL
 
-  # Estimate missing dimension info
-  dim.orig <- df[, c("gatherings.original", "width.original", "height.original", "obl.original")]
-  names(dim.orig) <- gsub("\\.original$", "", names(dim.orig))
+  # ------------------------------------------------------------
 
-  # Estimating missing dimension info straight from data.
+  # Initialize
+  df$gatherings <- df$gatherings.original
+  df$width <- df$width.original
+  df$height <- df$height.original
+  df$obl <- df$obl.original      
 
-  # Averages from original data
+  # ---------------------------------------------------------------
+
+  # Reclassify some 1to documents to 2fo etc.
+  df <- fix_gatherings(df, sheet.dim.tab)
+
+  # ---------------------------------------------------------------
+
+  # Estimating missing dimension info.. first pick dims as a separate table
+  dim.orig <- df[, c("gatherings", "width", "height", "obl")]
+
+  # Estimating missing dimension info based on averages from original data
+  # TODO the dim.info provides ready-made estimates. We could
+  # instead use dim.estimates that is calculated straight from the original data.
+  # dim.estimates <- get_dimension_estimates(dim.orig)
+  
+  # -------------------------------------------------------------
+
+  # Augment missing dimension info
+  dim.estimated <- augment_dimension_table(dim.orig, verbose = FALSE, dim.info = dim.info, sheet.dim.tab = sheet.dim.tab)
+
+  # -----------------------------------------------------------------------
+
+  # Replace the current dimension information with the updated estimates
+
+  # Remove earlier versions of these fields
+  if (any(names(dim.estimated) %in% names(df))) {
+    inds2 <- which(names(df) %in% names(dim.estimated))
+    if (length(inds2)>0) {
+      df <- df[, -inds2]
+    }
+  }
+  # Merge
+  df <- cbind(df, dim.estimated)  
+
+  # -----------------------------------------------------------------------
+
+  message("Dimensions enriched.")
+  
+  return (df)
+
+}
+
+
+
+
+get_dimension_estimates <- function (dim.orig) {
+
+  width <- height <- obl <- gatherings <- NULL
 
   # Mean dimensions for each gatherings
   dim.estimates <- dim.orig %>%
@@ -83,72 +132,102 @@ enrich_dimensions <- function(df) {
     }
   }
 
-  # Ready-made custom sheets
-  dim.estimated <- augment_dimension_table(dim.orig, verbose = FALSE, dim.info = dim.info, sheet.dim.tab = sheet.dim.tab)
+  dim.estimates
 
-  # -----------------------------------------------------------------------------
+}
+
+
+
+fix_gatherings <- function (df, sheet.dim.tab) {
+
+  width <- height <- obl <- gatherings <- NULL
+
+  # Change all 1to docs with >2 pages into 2fo category
+
+  # 1to pitäisi aina olla tasan 2 sivua.
+  # Eli yksi sheet, broadside tai 1to..,
+  # mutta siinä on aina yksi lehti (ja siten kaksi sivua).
+  # Näin ollen kaikki merkinnät joissa >2 sivua voisi siirtää 2fo kategoriaan.
+  df[which(df$gatherings == "1to" & df$pagecount.orig > 2), "gatherings"] <- "2fo"
+
+  # ----------------------------------------------------------------------------
 
   # Reclassify some 1to documents to 2fo according to dimension information
 
-  # Now 1to are sometimes 2fo in reality and this could be inferred from height.
-  # Therefore, reclassify all 1to documents that have 2fo height (or width) into 2fo gatherings
-  # save(dim.estimated, dim.info, sheet.dim.tab, file = "~/tmp/tmp.RData")
+  # 1to are sometimes 2fo in reality and this could be inferred from
+  # height. Therefore, reclassify all 1to documents that have 2fo
+  # height (or width) into 2fo gatherings
+  inds <- which(df$gatherings == "1to" & df$obl == 0)
 
-  inds <- which(dim.estimated$gatherings == "1to" & dim.estimated$obl == 0)
-  # Check document height similarity 1to and 2fo formats
-  dh <- cbind(
-    dist.1to = abs(dim.estimated[inds,"height"] - subset(sheet.dim.tab, gatherings == "1to")$height),
-    dist.2fo = abs(dim.estimated[inds,"height"] - subset(sheet.dim.tab, gatherings == "2fo")$height)
-  )
-  # Check document width similarity 1to and 2fo formats
-  dw <- cbind(
-    dist.1to = abs(dim.estimated[inds,"width"] - subset(sheet.dim.tab, gatherings == "1to")$width),
-    dist.2fo = abs(dim.estimated[inds,"width"] - subset(sheet.dim.tab, gatherings == "2fo")$width)
-  )
-  # The height of these documents (indices) is closer to 2fo than 1to
-  inds.2fo.height <- inds[c(which(apply(dh, 1, which.min) == 2), which(is.na(dh)))]
-  # The width of these documents (indices) is closer to 2fo than 1to  
-  inds.2fo.width <- inds[c(which(apply(dw, 1, which.min) == 2), which(is.na(dw)))]
-  # Change the gatherings for those docs where width and height info 
-  # consistently indicate 2fo format
-  inds.2fo <- intersect(inds.2fo.width, inds.2fo.height)
-  
-  dim.estimated[inds.2fo, "gatherings"] <- "2fo"
-  # Where height and width give inconsistent results, mark NA gatherings
-  dim.estimated[setdiff(inds, inds.2fo), "gatherings"] <- NA
+  if (length(inds)) {
 
-  # Same for obl documents (converted width and height)
-  inds <- which(dim.estimated$gatherings == "1to" & dim.estimated$obl == 1)
-  # Check document height similarity 1to and 2fo formats
-  dh <- cbind(
-    dist.1to = abs(dim.estimated[inds,"width"] - subset(sheet.dim.tab, gatherings == "1to")$height),
-    dist.2fo = abs(dim.estimated[inds,"width"] - subset(sheet.dim.tab, gatherings == "2fo")$height)
-  )
-  # Check document width similarity 1to and 2fo formats
-  dw <- cbind(
-    dist.1to = abs(dim.estimated[inds,"height"] - subset(sheet.dim.tab, gatherings == "1to")$width),
-    dist.2fo = abs(dim.estimated[inds,"height"] - subset(sheet.dim.tab, gatherings == "2fo")$width)
-  )
-  # The height of these documents (indices) is closer to 2fo than 1to
-  inds.2fo.height <- inds[c(which(apply(dh, 1, which.min) == 2), which(is.na(dh)))]
-  # The width of these documents (indices) is closer to 2fo than 1to  
-  inds.2fo.width <- inds[c(which(apply(dw, 1, which.min) == 2), which(is.na(dw)))]
-  # Change the gatherings for those docs where width and height info 
-  # consistently indicate 2fo format
-  inds.2fo <- intersect(inds.2fo.width, inds.2fo.height)
-  dim.estimated[inds.2fo, "gatherings"] <- "2fo"
-  # Where height and width give inconsistent results, mark NA gatherings
-  dim.estimated[setdiff(inds, inds.2fo), "gatherings"] <- NA
+    # Check document height similarity 1to and 2fo formats
+    dh <- cbind(
+      dist.1to = abs(df[inds,"height"] - subset(sheet.dim.tab, gatherings == "1to")$height),
+      dist.2fo = abs(df[inds,"height"] - subset(sheet.dim.tab, gatherings == "2fo")$height)
+    )
+    # Check document width similarity 1to and 2fo formats
+    dw <- cbind(
+      dist.1to = abs(df[inds,"width"] - subset(sheet.dim.tab, gatherings == "1to")$width),
+      dist.2fo = abs(df[inds,"width"] - subset(sheet.dim.tab, gatherings == "2fo")$width)
+    )
+    # The height of these documents (indices) is closer to 2fo than 1to
+    inds.2fo.height <- inds[c(which(apply(dh, 1, which.min) == 2), which(is.na(dh)))]
+    # The width of these documents (indices) is closer to 2fo than 1to  
+    inds.2fo.width <- inds[c(which(apply(dw, 1, which.min) == 2), which(is.na(dw)))]
 
-  # -----------------------------------
+    # Change the gatherings for those docs where width and height info 
+    # consistently indicate 2fo format
+    inds.2fo <- na.omit(intersect(inds.2fo.width, inds.2fo.height))
 
-  # Remove earlier versions of these fields
-  if (any(names(dim.estimated) %in% names(df))) {
-    df <- df[, -which(names(df) %in% names(dim.estimated))]
+    if (length(inds.2fo)>0) {
+      df[inds.2fo, "gatherings"] <- "2fo"
+    }
+ 
+    inds2 <- na.omit(setdiff(inds, inds.2fo))
+    if (length(inds2)>0) {
+      # Where height and width give inconsistent results, mark NA gatherings
+      df[inds2, "gatherings"] <- NA
+    }
+
   }
 
-  # Merge
-  df <- cbind(df, dim.estimated)  
 
-  return (df)
+  # Same for obl documents (converted width and height)
+  inds <- which(df$gatherings == "1to" & df$obl == 1)
+
+  if (length(inds)) {
+  # Check document height similarity 1to and 2fo formats
+  dh <- cbind(
+    dist.1to = abs(df[inds,"width"] - subset(sheet.dim.tab, gatherings == "1to")$height),
+    dist.2fo = abs(df[inds,"width"] - subset(sheet.dim.tab, gatherings == "2fo")$height)
+  )
+  # Check document width similarity 1to and 2fo formats
+  dw <- cbind(
+    dist.1to = abs(df[inds,"height"] - subset(sheet.dim.tab, gatherings == "1to")$width),
+    dist.2fo = abs(df[inds,"height"] - subset(sheet.dim.tab, gatherings == "2fo")$width)
+  )
+  # The height of these documents (indices) is closer to 2fo than 1to
+  inds.2fo.height <- inds[c(which(apply(dh, 1, which.min) == 2), which(is.na(dh)))]
+  # The width of these documents (indices) is closer to 2fo than 1to  
+  inds.2fo.width <- inds[c(which(apply(dw, 1, which.min) == 2), which(is.na(dw)))]
+
+  # Change the gatherings for those docs where width and height info 
+  # consistently indicate 2fo format
+  inds.2fo <- na.omit(intersect(inds.2fo.width, inds.2fo.height))
+
+    if (length(inds.2fo)>0) {
+      df[inds.2fo, "gatherings"] <- "2fo"
+    }
+
+    inds2 <- na.omit(setdiff(inds, inds.2fo))
+    if (length(inds2)>0) {
+      # Where height and width give inconsistent results, mark NA gatherings
+      df[inds2, "gatherings"] <- NA
+    }
+  }
+
+  # Return
+  df
+
 }

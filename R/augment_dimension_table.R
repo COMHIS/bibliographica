@@ -42,7 +42,7 @@ augment_dimension_table <- function (dim.tab, dim.info = NULL, sheet.dim.tab = N
     tmp <- rbind(tmp, fill_dimensions(dim.tab.uniq[i, ], dim.info, sheet.dim.tab))
   }
 
-  if (verbose) {message("Dimensions polished. Collecting the results.")}  
+  if (verbose) { message("Dimensions polished. Collecting the results.") }
   dim.tab.uniq <- as.data.frame(tmp)
   rm(tmp)
   rownames(dim.tab.uniq) <- NULL

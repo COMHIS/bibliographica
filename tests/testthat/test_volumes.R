@@ -10,7 +10,9 @@ test_that("parts count is correct", {
 test_that("volume count is correct", {
   
   expect_equal(polish_physical_extent("2 pts in 1 v. (viii, 332, 5, [1] p.)")$volcount, 1)
-  expect_equal(polish_physical_extent("v.7-9,plates")$volcount, 3)
+  expect_equal(polish_physical_extent("65,2v")$volcount, 67)
+  expect_equal(polish_physical_extent("[2],2862;2070p.,plates")$volcount, 2)  
+  expect_equal(polish_physical_extent("v.7-9,plates")$volcount, 3)  
   expect_true(is.na(polish_physical_extent("v")$volcount))
   expect_equal(polish_physical_extent("2 v")$volcount, 2)
   expect_equal(polish_physical_extent("2v")$volcount, 2)

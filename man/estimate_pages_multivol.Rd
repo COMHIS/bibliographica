@@ -2,7 +2,7 @@
 % Please edit documentation in R/estimate_pages_multivol.R
 \name{estimate_pages_multivol}
 \alias{estimate_pages_multivol}
-\title{Estimation Pages for Multi-Volume Documents}
+\title{Page Estimation for Multivolume Documents}
 \usage{
 estimate_pages_multivol(df, pagecount.estimates)
 }

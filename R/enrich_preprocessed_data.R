@@ -50,7 +50,10 @@ enrich_preprocessed_data <- function(data.validated, df.orig) {
 
   if (any(c("physical_extent", "physical_dimension") %in% update.fields)) {
 
+    # Enrich dimensions before pagecount (some dimensions reclassified)
     df.preprocessed <- enrich_dimensions(df.preprocessed)
+
+    # Enrich pagecount after dimensions
     df.preprocessed <- enrich_pagecount(df.preprocessed)
 
     message("Add estimated paper consumption")
