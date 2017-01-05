@@ -1,7 +1,7 @@
 ### Dimensions
 
   * Compare ready made sheets and calculated estimates; these have notable differences, why?
-  * Augment missing values using our ready made sheet
+  * Augment missing values using our estimates, not the ready made sheet 
   * Account for year and publication place if feasible as the sizes may vary
 
 
@@ -73,17 +73,20 @@ hyväksi muuhun kuin tilastollisiin juttuihin.
    statistics with the wikipediatrend package
 
 
-### Geographical info
+
+### Geography
+
+Test the [tmap](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html) R package
 
 Fennica geo enrich brings in geocoordinates to many new places. Could
 be incorporated in the main pipeline already to simplify things.
 
 Several GIS coordinates for obvious places missing at least for estc.
 
-The opencage R package
-https://cran.r-project.org/web/packages/opencage/vignettes/opencage.html
-https://github.com/ropenscilabs/opencage
-can be added to get more place-geocode mappings
+The [opencage R
+package](https://cran.r-project.org/web/packages/opencage/vignettes/opencage.html)
+and [https://github.com/ropenscilabs/opencage](see also this link) can be added
+to get more place-geocode mappings
 
 Consider adding country acronyme in the end of all place names.
 
@@ -95,10 +98,11 @@ that have common first part which may sometimes occur alone).
 
 Saako kaupunki-maa mäppäykset tietokannoista. Optioita:
 
-1) open geocode database
-   http://www.opengeocode.org/download.php#cities Cities of the World
-   näyttää tosi kattavalta, laajempi kuin se aikaisemmin lähettämäni
-   ja on puhtaasti open source. Lisäksi noita muita sovelluksia on mukavasti.
+1) [open geocode
+   database](http://www.opengeocode.org/download.php#cities) Cities of
+   the World näyttää tosi kattavalta, laajempi kuin se aikaisemmin
+   lähettämäni ja on puhtaasti open source. Lisäksi noita muita
+   sovelluksia on mukavasti.
 
 2) map towns to gis coordinates, then gis to country
 
@@ -133,6 +137,7 @@ Add example data sets to be used with our tools?
 
 Testaa networkD3-visuja, hyviä ja varmaan relevantteja:
 http://christophergandrud.github.io/networkD3/
+
 
 ### Subject classes
 

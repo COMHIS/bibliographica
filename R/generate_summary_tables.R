@@ -562,9 +562,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   message("Page counts")
   use.fields <- intersect(c("pagecount", "volnumber", "volcount"), names(df.preprocessed))
   tab <- cbind(original = df.orig$physical_extent, df.preprocessed[, use.fields])
-  # For clarity: remove ECCO augmented pagecounts from ESTC data
-  if ("pagecount.from.ecco" %in% names(df) & nrow(df.preprocessed) == nrow(df.orig)) {
-    tab <- tab[!df.preprocessed$pagecount.from.ecco,]
+  # For clarity: remove ECCO and Manually augmented pagecounts from ESTC data
+  if ("pagecount_from" %in% names(df) & nrow(df.preprocessed) == nrow(df.orig)) {
+    tab <- tab[df.preprocessed$pagecount_from %in% c("estc"),]
   }
   tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_extent.csv")
 

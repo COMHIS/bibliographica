@@ -48,7 +48,7 @@ check_synonymes <- function (synonymes, include.lowercase = TRUE, verbose = FALS
     if (verbose) { message("Including lowercase versions of the synonymes") }
     synonymes <- rbind(synonymes, cbind(name = as.character(synonymes$name), synonyme = tolower(as.character(synonymes$synonyme))))
   }
-  
+
   # Remove duplicated info
   synonymes <- unique(synonymes)
 
