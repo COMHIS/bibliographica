@@ -264,8 +264,8 @@ print(p)
 ```{r paperconsumption2b, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=5}
 df <- df.preprocessed
 df2 <- df %>% group_by(publication_year, gatherings) %>%
-              summarize(paper = sum(paper, na.rm = TRUE), n = n()) %>%
-	      filter(df2, gatherings %in% names(which(table(df2$gatherings) >= 50)))
+              summarize(paper = sum(paper, na.rm = TRUE), n = n())
+df2 <- df2 %>% filter(gatherings %in% names(which(table(df2$gatherings) >= 50)))
 p <- ggplot(df2, aes(y = paper, x = publication_year, group = gatherings, color = gatherings))
 p <- p + geom_point()
 p <- p + geom_smooth(method = "loess", size = 1)
@@ -284,7 +284,7 @@ p <- p + xlab("Year")
 p <- p + ylab("Documents (n)")
 p <- p + scale_y_log10()
 print(p)
-
+```
 
 
 
