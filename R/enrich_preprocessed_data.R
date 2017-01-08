@@ -19,6 +19,9 @@ enrich_preprocessed_data <- function(data.validated, df.orig) {
   update.fields   <- data.validated$update.fields
   conversions     <- data.validated$conversions
 
+  # Note the source of page counts. Original MARC data by default.
+  df.preprocessed$pagecount_from <- rep("original", nrow(df.preprocessed))
+
   if (any(c("publication_place", "publication_geography") %in% update.fields)) {
     df.preprocessed <- enrich_geo(df.preprocessed)
   }

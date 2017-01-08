@@ -1,13 +1,14 @@
 #' @title Enrich Page Count Field
 #' @description Augment missing pagecounts based on mean estimates from available data.
 #' @param df Preprocessed data.frame
+#' @param estimate Which estimate to use for pagecount ("median.pages" / "mean.pages")
 #' @return Augmented data.frame
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df2 <- enrich_pagecount(df)}
 #' @keywords utilities
-enrich_pagecount <- function(df) {
+enrich_pagecount <- function(df, estimate = "median.pages") {
 
   message("Add volume info where missing")
   gc()
@@ -32,7 +33,14 @@ enrich_pagecount <- function(df) {
 
   # Recognize categories
   df$singlevol <- is.singlevol(df)
+
   df$multivol  <- is.multivol(df)
+  # For multivolume pagecount estimation
+  # only include docs with <=10 volumes since
+  # docs with more volumes are likely not
+  # following average volume-wise page counts
+  df$multivol[df$volcount >= 10] <- FALSE
+
   df$issue     <- is.issue(df)
 
   # --------------------------------------------------------------------------
@@ -71,8 +79,8 @@ enrich_pagecount <- function(df) {
   inds1 <- df$issue &
   	   (is.na(df$pagecount) | 
 	      df$pagecount == df$pagecount.plate) 
-  df[inds1, "pagecount"] <- estimate_pages_issue(df[inds1,], mean.pagecounts$issue)
-
+  df[inds1, "pagecount"] <- estimate_pages_issue(df[inds1,], mean.pagecounts$issue[[estimate]])
+  df[inds1, "pagecount_from"] <- paste("estimate_issue", estimate, sep = "_")
 
   # Multi-vol docs
   # .. and then take only those without page count
@@ -82,8 +90,8 @@ enrich_pagecount <- function(df) {
   # .. and finally also enrich those where pagecount only consists of plates
   inds <- df$multivol & (is.na(df$pagecount) | (df$pagecount == df$pagecount.plate))
   inds2 <- inds
-  df[inds, "pagecount"] <- estimate_pages_multivol(df[inds,], mean.pagecounts$multivol)
-
+  df[inds, "pagecount"] <- estimate_pages_multivol(df[inds,], mean.pagecounts$multivol[[estimate]])
+  df[inds, "pagecount_from"] <- paste("estimate_multivolume", estimate, sep = "_")
 
   # Single-vol docs missing pagecount
   inds3 <- df$singlevol &
@@ -91,11 +99,14 @@ enrich_pagecount <- function(df) {
 	      df$pagecount == df$pagecount.plate) 
 
   df[inds3, "pagecount"] <- estimate_pages_singlevol(df[inds3,],
-                                                                  mean.pagecounts$singlevol)
+                                                     mean.pagecounts$singlevol[[estimate]])
+  df[inds3, "pagecount_from"] <- paste("estimate_singlevolume", estimate, sep = "_")
 
   # Store information on cases where pages were estimated
   estimated.pagecount <- cbind(id = df$original_row,
-  		       	     issue = inds1, multivol = inds2, singlevol = inds3)
+  		       	       issue = inds1,
+			       multivol = inds2,
+			       singlevol = inds3)
 
 
   return (df)

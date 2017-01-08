@@ -28,11 +28,6 @@ is.multivol <- function (df) {
   rm.gatherings <- c("1to") 
   inds <- inds & (!df$gatherings %in% rm.gatherings)
 
-  # Only include docs with <=10 volumes since
-  # docs with more volumes are likely not
-  # following average volume-wise page counts
-  inds <- inds & (df$volcount <= 10)
-
   # Mark NAs as FALSE
   inds[is.na(inds)] <- FALSE
 

@@ -12,7 +12,7 @@ estimate_pages_singlevol <- function (df, pagecount.estimates) {
 
   g <- as.character(df$gatherings)
   inds <- match(g, as.character(pagecount.estimates$doc.dimension))
-  page.estimate <- pagecount.estimates[inds, ]$median.pages
+  page.estimate <- pagecount.estimates[inds, ]
 
   # Add pagecount from plates (not included in the mean pagecounts)
   # assume that the plate info has been provided for the complete document

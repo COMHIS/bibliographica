@@ -8,8 +8,6 @@ estimate_pages_multivol(df, pagecount.estimates)
 }
 \arguments{
 \item{df}{data.frame of documents x variables}
-
-\item{pagecount.estimates}{Page count estimates to be used}
 }
 \value{
 Page count estimates

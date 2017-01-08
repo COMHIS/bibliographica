@@ -22,22 +22,24 @@ is.issue <- function (df) {
     inds2 <- rep(FALSE, nrow(df))
   }
 
-  # All documents that have publication frequency
+  # All documents that have (non-NA) publication frequency
+  inds3 <- rep(FALSE, nrow(df))  
   if ("publication_frequency" %in% names(df)) {    
     inds3 <- !is.na(df$publication_frequency)
-  } else {
-    inds3 <- rep(FALSE, nrow(df))
   }
-  # TODO: how to consider publication_interval which is sometimes available?
 
+  # TODO: how to consider publication_interval which is sometimes available?
+  
+  # The use of till - from did not work - 90% of these were multivolumes in ESTC
+  # and not issues
   # All multivols (>=2) that have publication period of >= 3 years
-  inds4 <- (df$publication_year_till - df$publication_year_from) >= 3  
-  if ("volcount" %in% names(df)) {
-    inds4 <- inds4 & (df$volcount >= 2) 
-  }
+  #inds4 <- (df$publication_year_till - df$publication_year_from) >= 3  
+  #if ("volcount" %in% names(df)) {
+  #  inds4 <- inds4 & (df$volcount >= 2) 
+  #}
 
   # Large gatherings and docs with many volumes are considered issues
-  inds <- inds2 | inds3 | inds4
+  inds <- inds2 | inds3
 
   inds[is.na(inds)] <- FALSE
 

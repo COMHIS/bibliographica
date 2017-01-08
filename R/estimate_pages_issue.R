@@ -20,7 +20,7 @@ estimate_pages_issue <- function (df, mean.pagecounts) {
   v[which(is.na(v) & !is.na(df$volnumber))] <- 1
 
   # print("Pick the estimated page counts per vol separately for each doc size")
-  pages.per.vol <- mean.pagecounts[match(g, mean.pagecounts$doc.dimension), ]$median.pages
+  pages.per.vol <- mean.pagecounts[match(g, mean.pagecounts$doc.dimension), ]
   
   # Multiply pages by volcount to get the total pagecount estimate
   page.estimate <- v * pages.per.vol

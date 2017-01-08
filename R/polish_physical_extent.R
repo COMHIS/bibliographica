@@ -36,6 +36,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   s <- gsub("\\.s$", " s", s)
   s <- gsub("\\. s", " s", s)    
   s <- gsub("&", ",", s)
+  s <- gsub("\\*", " ", s)
   s[grep("^[ |;|:|!|?]*$", s)] <- NA 
 
   # Remove dimension info

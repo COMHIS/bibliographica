@@ -4,10 +4,12 @@
 \alias{enrich_pagecount}
 \title{Enrich Page Count Field}
 \usage{
-enrich_pagecount(df)
+enrich_pagecount(df, estimate = "median.pages")
 }
 \arguments{
 \item{df}{Preprocessed data.frame}
+
+\item{estimate}{Which estimate to use for pagecount ("median.pages" / "mean.pages")}
 }
 \value{
 Augmented data.frame

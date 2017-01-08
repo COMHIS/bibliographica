@@ -1,7 +1,6 @@
 #' @title Page Estimation for Multivolume Documents
 #' @description Estimate pages for multi-volume documents.
 #' @param df data.frame of documents x variables
-#' @param pagecount.estimates Page count estimates to be used
 #' @return Page count estimates
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
@@ -21,7 +20,7 @@ estimate_pages_multivol <- function (df, pagecount.estimates) {
   v[inds] <- 1
  
   # print("Pick the estimated page counts per vol separately for each doc size")
-  pages.per.vol <- pagecount.estimates[match(g, pagecount.estimates$doc.dimension), ]$median.pages
+  pages.per.vol <- pagecount.estimates[match(g, pagecount.estimates$doc.dimension), ]
 
   # print("Add estimated total page counts for all docs")
   page.estimate <- v * pages.per.vol
