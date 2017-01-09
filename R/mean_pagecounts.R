@@ -33,7 +33,9 @@ mean_pagecounts <- function (df, pagecount.field = "pagecount", rounding = FALSE
     pagecounts$median.pages <- round(pagecounts$median.pages)    
   }
 
-
+  # Order gatherings factor levels
+  pagecounts$doc.dimension <- factor(pagecounts$doc.dimension)
+  pagecounts$doc.dimension <- order_gatherings(pagecounts$doc.dimension)
 
   pagecounts
 

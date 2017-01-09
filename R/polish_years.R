@@ -130,7 +130,10 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   start_year[is.infinite(start_year)] <- NA
   end_year[is.infinite(end_year)] <- NA  
 
-  df <- data.frame(from = start_year, till = end_year)
+  df <- data.frame(from = as.numeric(as.character(start_year)),
+                   till = as.numeric(as.character(end_year)))
+
+
   # Match the unique cases to the original indices
   # before returning the df
   df[match(xorig, xuniq), ]

@@ -32,7 +32,6 @@ df <- df.preprocessed
 
 
 
-
 ## Average page counts
 
 Mean and median page counts calculated based on the documents where
@@ -100,6 +99,7 @@ for (doct in unique(dfs$doctype)) {
   p <- p + ylim(0, max(lims))
   
   pics[[doct]] <- p
+
 }
 
 suppressWarnings(grid.arrange(pics[[1]], pics[[2]], pics[[3]], pics[[4]], nrow = 1))
@@ -289,27 +289,30 @@ print(p)
 
 
 ```{r pagecounts-gatherings-relab, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=5}
-df <- df.preprocessed
+# Top gatherings
+top <- names(which(table(na.omit(df.preprocessed$gatherings)) >= 50))
+df2 <- df.preprocessed %>%
+              group_by(publication_decade, gatherings) %>%
+              summarize(paper = sum(paper, na.rm = TRUE), n = n())
 
-df2 <- df %>% group_by(publication_decade, gatherings) %>%
-              summarize(paper = sum(paper, na.rm = TRUE), n = n()) %>%
-	      filter(df2, gatherings %in% names(which(table(df2$gatherings) >= 50))) %>%
-	      filter(!is.na(gatherings))
+df2 <- df2 %>% filter(gatherings %in% top) %>%
+	       filter(!is.na(gatherings) & !gatherings == "NA")
 
-p <- ggplot(df2, aes(x = publication_decade, fill = gatherings)) +
-                 geom_bar(position = "stack", stat = "bin") +
-		 ggtitle("Gatherings counts over time")
+p <- ggplot(df2, aes(x = publication_decade, y = paper, fill = gatherings)) +
+                 geom_bar(position = "stack", stat = "identity") +
+		 ggtitle("Gatherings paper consumption over time")
 print(p)
 
-p <- ggplot(df2, aes(x = publication_decade, fill = gatherings)) +
-       geom_bar(position = "fill") +
-       ggtitle("Gatherings proportions over time")
+p <- ggplot(df2, aes(x = publication_decade, y = n, fill = gatherings)) +
+       geom_bar(position = "fill", stat = "identity") +
+       ggtitle("Gatherings count proportions over time") +
+       ylab("Fraction (%)") + scale_y_continuous(labels = scales::percent)
 print(p)    
 ```
 
 ```{r paperconsumption2, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=13, fig.height=6}
-df <- df.preprocessed
-df2 <- df %>% group_by(publication_decade) %>%
+df2 <- df.preprocessed %>%
+              group_by(publication_decade) %>%
               summarize(paper = sum(paper, na.rm = TRUE), n = n()) 
 p <- ggplot(df2, aes(x = publication_decade, y = paper/n))
 p <- p + geom_point()
@@ -328,6 +331,7 @@ print(p)
 ```{r doctypes, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=13, fig.height=6}
 library(ggplot2)
 library(dplyr)
+
 df <- df.preprocessed
 df$type <- rep(NA, nrow(df))
 df$type[df$pagecount > 32] <- "book"
@@ -358,6 +362,7 @@ print(p)
 
 
 ```{r doctypes2, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=13, fig.height=6}
+df <- df.preprocessed
 df <- mutate(df, length = cut(pagecount, c(0, 32, 72, 148, 250, 450, 800, 2000, 5000, Inf)))
 
 df2 <- df %>% group_by(publication_decade, length) %>%
@@ -390,7 +395,9 @@ print(p)
 Estimated paper consumption by document size
 
 ```{r 20150611paris-paper6, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=13, fig.height=7}
-df2 <- df %>% group_by(publication_year, gatherings) %>% summarize(paper = sum(paper, na.rm = TRUE), n = n()) 
+df <- df.preprocessed
+df2 <- df %>% group_by(publication_year, gatherings) %>%
+              summarize(paper = sum(paper, na.rm = TRUE), n = n()) 
 df2 <- filter(df2, gatherings %in% names(which(table(df2$gatherings) >= 50)))
 p <- ggplot(df2, aes(y = paper, x = publication_year, group = gatherings, color = gatherings))
 p <- p + geom_point()

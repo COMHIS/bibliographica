@@ -70,6 +70,10 @@ validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) 
       df[inds, "author_death"] <- NA
     }
 
+    # Author life - make sure this is in numeric format
+    df$author_birth <- as.numeric(as.character(df$author_birth))
+    df$author_death <- as.numeric(as.character(df$author_death))  
+
     # Publication year must be after birth
     # FIXME: should we let these through to the final summaries
     # - this could help to spot problems ?

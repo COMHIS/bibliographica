@@ -54,6 +54,10 @@ enrich_author <- function(df) {
   inds <- which(!is.na(g))
   df$author_gender[inds] <- g[inds]
 
+  # Author life - make sure this is in numeric format
+  df$author_birth <- as.numeric(as.character(df$author_birth))
+  df$author_death <- as.numeric(as.character(df$author_death))  
+
   message("Author age on the publication year, when both info are available")
   inds <- which(df$publication_year_from < df$author_death & !is.na(df$author_birth))
   df$author_age <- rep(NA, nrow(df))
@@ -61,8 +65,6 @@ enrich_author <- function(df) {
   # Remove negative author ages
   # FIXME: taking these to the final summaries could help to spot errors
   # df$author_age[df$author_age < 0] <- NA
-
-
 
   return (df)
 
