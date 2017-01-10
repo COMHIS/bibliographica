@@ -9,6 +9,8 @@ estimate_pages_multivol(df, pagecount.estimates, estimate = "median.pages")
 \arguments{
 \item{df}{data.frame of documents x variables}
 
+\item{pagecount.estimates}{Page count estimates to be used}
+
 \item{estimate}{Which estimate to use for pagecount ("median.pages" / "mean.pages")}
 }
 \value{

@@ -1,6 +1,7 @@
 #' @title Page Estimation for Multivolume Documents
 #' @description Estimate pages for multi-volume documents.
 #' @param df data.frame of documents x variables
+#' @param pagecount.estimates Page count estimates to be used
 #' @param estimate Which estimate to use for pagecount ("median.pages" / "mean.pages")
 #' @return Page count estimates
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
