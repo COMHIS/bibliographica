@@ -7,6 +7,13 @@ output: markdown_document
 
 # Preprocessing summary
 
+The data spanning years `r min(timespan)`-`r max(timespan)` has been
+included and contains `r nrow(df.preprocessed)` documents (also other
+filter may apply depending on the data collection, see the source code
+for details.
+
+
+
 ## Specific fields
 
   * [Author info](author.md)

@@ -291,21 +291,21 @@ print(p)
 ```{r pagecounts-gatherings-relab, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=5}
 # Top gatherings
 top <- names(which(table(na.omit(df.preprocessed$gatherings)) >= 50))
+
 df2 <- df.preprocessed %>%
               group_by(publication_decade, gatherings) %>%
-              summarize(paper = sum(paper, na.rm = TRUE), n = n())
-
-df2 <- df2 %>% filter(gatherings %in% top) %>%
-	       filter(!is.na(gatherings) & !gatherings == "NA")
-
-p <- ggplot(df2, aes(x = publication_decade, y = paper, fill = gatherings)) +
+              summarize(paper = sum(paper, na.rm = TRUE), n = n()) %>%
+	      filter(!is.na(gatherings) & !gatherings == "NA")
+df3 <- df2 %>% filter(gatherings %in% top)
+	       
+p <- ggplot(df3, aes(x = publication_decade, y = paper, fill = gatherings)) +
                  geom_bar(position = "stack", stat = "identity") +
-		 ggtitle("Gatherings paper consumption over time")
+		 ggtitle("Top gatherings paper consumption over time")
 print(p)
 
 p <- ggplot(df2, aes(x = publication_decade, y = n, fill = gatherings)) +
        geom_bar(position = "fill", stat = "identity") +
-       ggtitle("Gatherings count proportions over time") +
+       ggtitle("All gatherings count proportions over time") +
        ylab("Fraction (%)") + scale_y_continuous(labels = scales::percent)
 print(p)    
 ```
