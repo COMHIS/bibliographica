@@ -1,11 +1,11 @@
-### Dimensions
-
-  * Compare ready made sheets and calculated estimates; these have notable differences, why?
-  * Augment missing values using our estimates, not the ready made sheet 
-  * Account for year and publication place if feasible as the sizes may vary
-
-
 ### Technical
+
+ * Travis & automated analysis updates on a public (non-github)
+   server, for instance Pouta.
+
+ * Add automated field conversion map from original to final names
+   (with multiplication) and also which fields are in the data but not
+   yet preprocessed
 
  * read_mapping -> Use the fast = TRUE more - at least for slower
    polishing function
@@ -15,6 +15,14 @@
 
  * Lisää README-fileihin tai summarymarkdowneihin viitteet nimi- ja
    gendertietokannosita ym ulkoisista datoista
+
+
+### Dimensions
+
+  * Compare ready made sheets and calculated estimates; these have
+    notable differences, why?
+  * Augment missing values using our estimates, not the ready made sheet 
+  * Account for year and publication place if feasible as the sizes may vary
 
 
 ### Publication time
@@ -36,11 +44,9 @@ test_polish_years still has some unresolved cases
 
 ### Author names
 
-kaikkiin aineistoihin VIAF auktorifile pitää selvittää. iso
-auktoritietokanta ja linkittää monesta paikkaa. Onko mahiksia yrittää
-yhdistää tätä liittyen sekä auktoreihin että julkaisijoihin?
-MARC-pohjainen systeemi. E noita käyttänyt, vois varmaan tässä kohtaa
-jeesata jos tarvis.
+VIAF. Iso auktoritietokanta ja linkittää monesta paikkaa. Onko
+mahiksia yrittää yhdistää tätä liittyen sekä auktoreihin että
+julkaisijoihin? MARC-pohjainen systeemi.
 
 Test and validate place / person name clusterings. Could greatly
 facilitate analysis with new names but validation and error estimates
@@ -60,6 +66,11 @@ hyväksi muuhun kuin tilastollisiin juttuihin.
    useful. Has format_reverse function for reversing “Last, First”
    names.
 
+Kattelen myös jos auktoreista löytyy esim. joku oclc auktorifile jossa
+olisi eri tyyppien nimien kirjoittamisen eri muodot listattuna. Pitäis
+olla.
+
+
 ### Author info
 
  * [gutenbergr R package](https://cran.rstudio.com/web/packages/gutenbergr/vignettes/intro.html) contains metadata for ~50,000 Gutenberg documents and ~ 16,000 authors (life years, aliases etc) 
@@ -71,7 +82,6 @@ hyväksi muuhun kuin tilastollisiin juttuihin.
  * You could match the wikipedia column in gutenberg_author to
    Wikipedia content with the WikipediR package or to pageview
    statistics with the wikipediatrend package
-
 
 
 ### Geography
@@ -122,7 +132,6 @@ Saako kaupunki-maa mäppäykset tietokannoista. Optioita:
   could be useful for initial city-county mappings and place name
   validation however.
 
-
 Muita Usein mainittuja mäppäysresursseja:
 - Open Street Map
 - Yahoo's GeoPlanet provides a dataset of all named places on earth,
@@ -133,11 +142,19 @@ Muita Usein mainittuja mäppäysresursseja:
 
 ### Utilities
 
-Add example data sets to be used with our tools?
+Open example data set to be used with our tools (ESTC subset)
 
 Testaa networkD3-visuja, hyviä ja varmaan relevantteja:
 http://christophergandrud.github.io/networkD3/
 
+Data Table: http://rstudio.github.io/DT/
+
+Poudan R-serverille interaktiivisia yhteenvetoja.
+- rGoogleViz
+- Shiny
+- muut R:n interaktiiviset paketit...
+
+Animaatiot
 
 ### Subject classes
 
@@ -147,3 +164,4 @@ http://christophergandrud.github.io/networkD3/
    package](https://cran.rstudio.com/web/packages/gutenbergr/vignettes/intro.html) which
    contains metadata for ~50,000 Gutenberg documents including Library
    of Congress subject heading classificatoins for the documents.
+
