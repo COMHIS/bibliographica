@@ -1,11 +1,10 @@
-#' @title Get geocoordinates
-#' @description Map geographic places to geocoordinates
+#' @title Get Geocoordinates
+#' @description Map geographic places to geocoordinates.
 #' @param x A vector of publication place names
 #' @param geonames geonames
 #' @param places.geonames places.geonames
 #' @return data.frame with latitude and longitude
 #' @export
-#' @importFrom sorvi quickdf
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{x2 <- get_geocoordinates("Berlin")}

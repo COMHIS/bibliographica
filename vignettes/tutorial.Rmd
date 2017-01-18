@@ -158,7 +158,7 @@ Removing [stopwords](http://en.wikipedia.org/wiki/Stop_words) is often necessary
 The following example removes the term "well" and individual letters from the input vector:
 
 ```{r stopw, message=FALSE, warning=FALSE, eval=TRUE}
-remove_stopwords(c("a", "well", "james", "30 year war"), terms = "well")
+remove_terms(c("a", "well", "james", "30 year war"), terms = "well")
 ```
 
 For a full list of stopword and related functions, see the [function documentation](https://github.com/rOpenGov/bibliographica/blob/master/man/). We also provide some [ready-made stopword lists](https://github.com/rOpenGov/bibliographica/tree/master/inst/extdata) that can be easily downloaded in R with the 'read.csv' function. 

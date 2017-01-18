@@ -1,5 +1,5 @@
-#' @title gatherings_table
-#' @description Document gatherings names mapping table
+#' @title Gatherings Table
+#' @description Document gatherings names mapping table.
 #' @param ... Arguments to be passed
 #' @return Document gatherings table
 #' @export

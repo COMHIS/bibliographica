@@ -6,14 +6,14 @@
 \usage{
 read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
   include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE,
-  verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE,
+  verbose = FALSE, remove.ambiguous = TRUE, lowercase.only = FALSE,
   from = "synonyme", to = "name", fast = FALSE, encoding = "UTF-8",
   trim = FALSE, empty.is.na = FALSE)
 }
 \arguments{
 \item{file}{Input file}
 
-\item{mode}{The input file type: "list" or "table"; see details.}
+\item{mode}{The input file type: "list", "vector" or "table"; see details.}
 
 \item{sep}{Separator mark.}
 
@@ -29,7 +29,7 @@ read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
 
 \item{remove.ambiguous}{Remove ambiguous terms.}
 
-\item{lowercase}{All synonymes considered in lowercase only}
+\item{lowercase.only}{All synonymes considered in lowercase only}
 
 \item{from}{field that will be replaced}
 

@@ -2,14 +2,16 @@
 % Please edit documentation in R/estimate_pages_issue.R
 \name{estimate_pages_issue}
 \alias{estimate_pages_issue}
-\title{Page estimation for issues}
+\title{Issue Page Estimation}
 \usage{
-estimate_pages_issue(df, mean.pagecounts.issue)
+estimate_pages_issue(df, mean.pagecounts, estimate = "median.pages")
 }
 \arguments{
 \item{df}{data.frame of documents x variables}
 
-\item{mean.pagecounts.issue}{Page count estimates to be used}
+\item{mean.pagecounts}{Page count estimates to be used}
+
+\item{estimate}{Which estimate to use for pagecount ("median.pages" / "mean.pages")}
 }
 \value{
 Page count estimates

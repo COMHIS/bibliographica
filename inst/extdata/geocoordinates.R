@@ -1,14 +1,15 @@
 # Download geonames data (city coordinates etc)
 #geonames <- get_geonames("cities1000", tempdir())
 #save(geonames, file = "geonames.RData")
-load("geonames.RData")
-
+#load("geonames.RData")
+load(system.file("extdata/geonames.RData", package = "bibliographica"))
+load(system.file("extdata/places.geonames.RData", package = "bibliographica"))
+  
 # Match publication places to geonames
 # First match all based on asciiname, then name, only then synonymes.
 # Otherwise too many mismatches with identical city names from different
 # continents
 places <- sort(as.character(unique(df$publication_place)))
-load("places.geonames.RData") # places.geonames
 if (!length(places.geonames) == length(places)) {
   places.geonames <- estc::match_geonames(places, geonames)
   save(places.geonames, file = "places.geonames.RData")

@@ -21,13 +21,14 @@ harmonize_ie <- function (x, separator = "i.e") {
   x <- gsub("p\\.o\\.", " i.e ", x) # Finnish: pitaisi olla
   x <- gsub("p\\.o ", " i.e ", x) # Finnish: pitaisi olla  
   x <- gsub("\\[po[\\.]*", " i.e ", x) # Finnish: pitaisi olla  
-
+  
   x <- gsub(" ie ", " i.e ", x)  
   x <- gsub("\\[ie ", "[i.e ", x)
   x <- gsub("\\[i\\. *e\\.* ", "[i.e ", x)
   x <- gsub("\\[i *e\\.* ", "[i.e ", x)
   x <- gsub("\\[i\\.e\\.* ", "[i.e ", x)      
-  x <- gsub("^ie ", "i.e ", x)    
+  x <- gsub("^ie ", "i.e ", x)
+  x <- gsub("i\\.e\\.*, ", "i.e ", x)      
 
   x <- gsub("\\,* +i\\.* *e+ *[\\.|\\,]*", h, x)
 

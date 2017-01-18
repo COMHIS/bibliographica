@@ -4,13 +4,14 @@
 #' @param field Field to show
 #' @param ntop Number of top entries to show
 #' @param highlight Entries from the 'field' to be highlighted
+#' @param max.char Max number of characters in strings. Longer strings will be cut and only max.char first characters are shown. No cutting by default
 #' @return ggplot object
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{p <- top_plot(x, field, 50)}
 #' @keywords utilities
-top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL) {
+top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL, max.char = Inf) {
 
   # Circumvent warnings in build
   color <- NULL
@@ -39,6 +40,13 @@ top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL) {
   ntop <- min(ntop, nrow(dfs))
   
   dfs <- dfs[1:ntop,] # Pick top-n items
+
+  # Limit length of names in the printout
+  if (is.infinite(max.char)) {
+    max.char <- max(nchar(as.character(dfs$names)))
+  }
+  dfs$names <- substr(as.character(dfs$names), 1, max.char)
+
   dfs$names <- droplevels(factor(dfs$names, levels = rev(dfs$names)))
 
   dfs$color <- rep("black", nrow(dfs))

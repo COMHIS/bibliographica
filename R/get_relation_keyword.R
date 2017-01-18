@@ -57,7 +57,7 @@ get_relation_keyword <- function(x, full_name, languages=c("english")) {
       if (length(x) != 0) {
         inds <- which(is.na(str_extract(x, pattern)))
         if (length(inds) == 0) {
-        
+          # intentionally left empty        
         } else {
           inds <- intersect(which(!is.na(str_extract(x, pattern))), which(ret==""))
           ret[inds] <- replacement

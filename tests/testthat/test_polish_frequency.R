@@ -1,6 +1,24 @@
 context("Publication frequency")
 
-test_that("polish_publication_frequency works correctly", {
+test_that("polish_publication_frequency for English works correctly", {
+
+  ### English
+  expect_equal(as.character(polish_publication_frequency("twice per year")$freq), "Two per Year")
+  expect_equal(polish_publication_frequency("twice per year")$annual, 2)
+  expect_equal(as.character(polish_publication_frequency("daily, except sundays")$freq), "Six per Week")
+  expect_equal(as.character(polish_publication_frequency("daily (except sundays)")$freq), "Six per Week")
+  expect_equal(as.character(polish_publication_frequency("daily (except weekends)")$freq), "Five per Week")    
+  expect_equal(as.character(polish_publication_frequency("daily, except weekends")$freq), "Five per Week")
+  expect_equal(as.character(polish_publication_frequency("daily")$freq), "Daily")
+  expect_equal(as.character(polish_publication_frequency("weekly")$freq), "Weekly")
+  expect_equal(as.character(polish_publication_frequency("Monthly")$freq), "Monthly")
+
+})
+
+
+test_that("polish_publication_frequency for Finnish works correctly", {
+
+  ### Finnish					
   expect_equal(as.character(polish_publication_frequency("Kaksi kertaa vuodessa.")$freq), "Two per Year")
   expect_equal(polish_publication_frequency("Kaksi kertaa vuodessa.")$annual, 2)
   expect_equal(polish_publication_frequency("yksi kertaa vuodessa.")$annual, 1)
@@ -38,6 +56,13 @@ test_that("polish_publication_frequency works correctly", {
   expect_equal(as.character(polish_publication_frequency("vaihtelee")$freq), "Irregular")
   expect_equal(as.character(polish_publication_frequency("ilmestynyt vain kerran")$freq), "Single")
 
+})
+
+
+test_that("polish_publication_frequency for Swedish works correctly", {
+
+  ### Swedish
+  
   expect_equal(as.character(polish_publication_frequency("1 nr/manad med sommaruppehall")$freq), "Monthly")
   expect_equal(as.character(polish_publication_frequency("1 nr/manaden med sommaruppehall")$freq), "Monthly")
   expect_equal(as.character(polish_publication_frequency("vart tredje ar")$freq), "Every three Years")

@@ -1,5 +1,5 @@
-#' @title Estimate missing dimensions
-#' @description Estimate missing dimension information 
+#' @title Estimate Missing Dimensions
+#' @description Estimate missing dimension information.
 #' @param gatherings Available gatherings information
 #' @param height Available height information
 #' @param width Available width information
@@ -96,9 +96,9 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
 
     # Only gatherings given
     ind <- which(as.character(sheet.dimension.table$gatherings) == gatherings)
-    if (length(ind) == 0) {
+    #if (length(ind) == 0) {
       # warning(paste("gatherings", gatherings, "not available in bibliographica::sheet_area conversion table"))
-    }
+    #}
       
     width <- sheet.dimension.table[ind, "width"]
     height <- sheet.dimension.table[ind, "height"]
@@ -110,14 +110,16 @@ estimate_document_dimensions <- function (gatherings = NA, height = NA, width = 
     hs <- as.numeric(as.character(dimension.table$height))
 
     hdif <- abs(hs - height)
-    inds <- which(hdif == min(hdif))
+
+    inds <- which(hdif == min(hdif, na.rm = TRUE))
 
     # corresponding widths
     ws <- dimension.table[inds, ]
     ginds <- c()
+
     for (wi in 1:nrow(ws)) {
       d <- abs(as.numeric(as.character(unlist(ws[wi,], use.names = FALSE))) - width)
-      ginds <- c(ginds, setdiff(which(d == min(na.omit(d))), 1:2))
+      ginds <- c(ginds, setdiff(which(d == min(d, na.rm = TRUE)), 1:2))
     }
     gs <- unique(colnames(dimension.table)[unique(ginds)])
 

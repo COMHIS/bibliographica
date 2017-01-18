@@ -4,7 +4,7 @@
 \alias{top_plot}
 \title{Plot Top Entries}
 \usage{
-top_plot(x, field = NULL, ntop = NULL, highlight = NULL)
+top_plot(x, field = NULL, ntop = NULL, highlight = NULL, max.char = Inf)
 }
 \arguments{
 \item{x}{Data frame, vector or factor}
@@ -14,6 +14,8 @@ top_plot(x, field = NULL, ntop = NULL, highlight = NULL)
 \item{ntop}{Number of top entries to show}
 
 \item{highlight}{Entries from the 'field' to be highlighted}
+
+\item{max.char}{Max number of characters in strings. Longer strings will be cut and only max.char first characters are shown. No cutting by default}
 }
 \value{
 ggplot object

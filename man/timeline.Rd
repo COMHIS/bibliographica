@@ -2,31 +2,29 @@
 % Please edit documentation in R/timeline.R
 \name{timeline}
 \alias{timeline}
-\title{Timeline Plot}
+\title{Retrieve Timeline}
 \usage{
 timeline(x, field = "titlecount", group = NULL, nmin = 0,
-  mode = "absolute")
+  mode = "absolute", time.window = 10)
 }
 \arguments{
 \item{x}{data frame}
 
-\item{field}{Numeric field to summarize in the timeline. The number of entries (title count) per decade is shown by default, But if this argument is used, the sum of entries per decade for this field is given.}
+\item{field}{Numeric field to summarize in the timeline. The number of entries (title count) per decade is used by default. If this argument is used, the sum of entries per decade for this field is given.}
 
-\item{group}{Optional. Name for a data field that indicates groups to compare. If given, the different groups are indicated by lines.}
+\item{group}{Optional. Name for a data field that indicates groups to compare.}
 
 \item{nmin}{Include only entries with at least nmin absolute frequency}
 
 \item{mode}{"absolute" or "relative"}
+
+\item{time.window}{Time window for the timeline in years. Default: 10 (publication decade).}
 }
 \value{
-List:
-\itemize{
-  \item{plot}{ggplot object}
-  \item{table}{summary table}
-}
+data.frame
 }
 \description{
-Timeline for selected variable (possibly across various groups).
+Timeline data for selected variable (possibly across various groups).
 }
 \examples{
 \dontrun{timeline(df, "gatherings")}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/is.multivol.R
 \name{is.multivol}
 \alias{is.multivol}
-\title{Identify multi volume docs}
+\title{Identify Multi-Volume Documents}
 \usage{
 is.multivol(df)
 }
@@ -13,11 +13,10 @@ is.multivol(df)
 Logical vector indicating the multi-volume docs
 }
 \description{
-Identify documents that can be considered multi-volume; based on other document info.
+Identify multi-volume documents based on the overall data.
 }
 \details{
-This function is used only to estimate pagecounts for documents with missing page count information.
-Therefore no page count is considered in assessing the issue status.
+Used to estimate pagecounts for documents with missing page count information. Therefore no page count is considered in assessing the issue status.
 }
 \examples{
 \dontrun{issue <- is.multivol(df)}

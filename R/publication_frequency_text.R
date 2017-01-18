@@ -14,7 +14,7 @@ publication_frequency_text <- function (x, peryear) {
   peryear.text[!is.na(peryear)] <- as.character(peryear[!is.na(peryear)])
 
   # TODO move to inst/extdata conversion table
-  f <- system.file("inst/extdata/frequency_conversions.csv", package = "bibliographica")
+  f <- system.file("extdata/frequency_conversions.csv", package = "bibliographica")
   freqs <- read_mapping(f, sep = ",", mode = "vector", include.lowercase = FALSE, from = "name", to = "annual")
   freqs <- sapply(freqs, function (s) {eval(parse(text=s))})
 
@@ -25,6 +25,8 @@ publication_frequency_text <- function (x, peryear) {
     peryear.text[inds] <- nams
   }
   peryear.text[which(peryear < 0.1)] <- "Less than every ten Years"
+
+  peryear.text <- condense_spaces(peryear.text)
 
   # Order the levels by frequency
   peryear.text <- factor(peryear.text, levels = unique(peryear.text[order(peryear)]))

@@ -2,15 +2,15 @@
 % Please edit documentation in R/polish_physical_extent.R
 \name{polish_physext_help}
 \alias{polish_physext_help}
-\title{Polish physical_extent help field}
+\title{Polish physical_extent Help Field}
 \usage{
 polish_physext_help(s, page.harmonize)
 }
 \arguments{
-\item{s}{Input char}
+\item{s}{input char}
 }
 \value{
-Internal
+vector
 }
 \description{
 Internal

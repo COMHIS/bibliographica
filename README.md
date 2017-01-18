@@ -2,6 +2,7 @@ Bibliographica package
 =====
 
 [![Build Status](https://api.travis-ci.org/rOpenGov/bibliographica.png)](https://travis-ci.org/rOpenGov/bibliographica)
+[![codecov.io](https://codecov.io/github/rOpenGov/bibliographica/coverage.svg?branch=master)](https://codecov.io/github/rOpenGov/bibliographica?branch=master)
 <!--[![Stories in Ready](https://badge.waffle.io/ropengov/bibliographica.png?label=Ready)](http://waffle.io/ropengov/bibliographica)-->
 <!--[![DOI](https://zenodo.org/badge/4203/rOpenGov/bibliographica.png)](https://github.com/rOpenGov/bibliographica)-->
 
@@ -10,7 +11,7 @@ R tools for bibliographic data analysis. Functions to extract and clean up infor
 
 For installation and usage, check the [tutorial page](vignettes/tutorial.md).
 
-Authors: [Leo Lahti](https://github.com/antagomir/), [Hege Roivainen](), [Niko Ilomaki](https://github.com/NVI/) and [Mikko Tolonen](). Part of [rOpenGov](http://ropengov.github.io/). 
+Authors: [Leo Lahti](https://github.com/antagomir/), [Ville Vaara](https://github.com/villevaara/), [Hege Roivainen](https://github.com/hegroiva/) and [Mikko Tolonen](). Part of [rOpenGov](http://ropengov.github.io/). 
 
 You are welcome to:
   

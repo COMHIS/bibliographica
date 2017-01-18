@@ -1,5 +1,5 @@
-#' @title Generate summary files
-#' @description Generates statistical summaries for the preprocessed data
+#' @title Generate Summary Pages
+#' @description Generates statistical summaries for preprocessed data.
 #' @param df data.frame to be summarized
 #' @param df.orig Original unpolished data.frame 
 #' @param author Author name (to printed on the generated documents)
@@ -23,6 +23,7 @@ generate_summaryfiles <- function (df, df.orig = NULL, author = "Author TBA", ou
     outputs[[id]] <- knit(input = system.file(paste("extdata/", id, ".Rmd", sep = ""),
   	       	package = "bibliographica"),
        output = paste(id, ".md", sep = "")) # envir = globalenv()
+       gc()
   }
 
   message("All markdown summaries generated.")

@@ -2,7 +2,7 @@
 % Please edit documentation in R/generate_summary_tables.R
 \name{generate_summary_tables}
 \alias{generate_summary_tables}
-\title{Generate Summary Tables}
+\title{Summary Tables}
 \usage{
 generate_summary_tables(df.preprocessed, df.orig,
   output.folder = "output.tables")

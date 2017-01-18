@@ -7,6 +7,13 @@ output: markdown_document
 
 # Preprocessing summary
 
+The data spanning years `r min(timespan)`-`r max(timespan)` has been
+included and contains `r nrow(df.preprocessed)` documents (also other
+filter may apply depending on the data collection, see the source code
+for details.
+
+
+
 ## Specific fields
 
   * [Author info](author.md)
@@ -46,6 +53,7 @@ names(tab) <- gsub("^n$", "available (n)", names(tab))
 names(tab) <- gsub("unique_entries", "unique (n)", names(tab))
 names(tab) <- gsub("field_name", "field name", names(tab))
 kable(tab[, c(1, 3, 2, 4, 5)], digits = 1, caption = "Data availability")
+rm(tab);gc()
 ```
 
 
@@ -53,18 +61,24 @@ kable(tab[, c(1, 3, 2, 4, 5)], digits = 1, caption = "Data availability")
 ## Histograms of all entries for numeric variables
 
 ```{r summary-histograms, echo=FALSE, message=FALSE, warning=FALSE, fig.width=5, fig.height=4, fig.show='hold', out.width="200px"}
-num <- c(); for (field in names(df)) {num[[field]] <- is.numeric(df[[field]])}
+num <- c();
+for (field in names(df)) {num[[field]] <- is.numeric(df[[field]])}
 numeric.fields <- setdiff(names(which(num)), c("row.index", "original_row", "unity"))
 for (field in numeric.fields) {
-  df$fieldtoplot <- df[[field]]
-  p <- ggplot(df, aes(x = fieldtoplot))
-  p <- p + geom_histogram()
-  #p <- p + scale_x_log10()
-  p <- p + ggtitle(paste(field, "histogram"))
-  p <- p + ylab("Documents")
-  #p <- p + xlab(paste(field, "(log10)"))
-  p <- p + xlab(field)  
-  print(p)
+  hist(log10(min(df[[field]], na.rm = TRUE)/2 + df[[field]]), 30,
+       main = paste(field, "histogram"),
+       ylab = "Documents",
+       xlab(paste(field, "(log10)"))
+       )
+  #df$fieldtoplot <- df[[field]]
+  #p <- ggplot(df, aes(x = fieldtoplot))
+  #p <- p + geom_histogram()
+  ##p <- p + scale_x_log10()
+  #p <- p + ggtitle(paste(field, "histogram"))
+  #p <- p + ylab("Documents")
+  ##p <- p + xlab(paste(field, "(log10)"))
+  #p <- p + xlab(field)  
+  #print(p)
 }
 ```
 
@@ -77,9 +91,7 @@ Non-trivial factors with at least 2 levels are shown.
 fac <- c(); for (field in names(df)) {fac[[field]] <- is.factor(df[[field]])}
 factor.fields <- names(which(fac))
 for (field in factor.fields) {
-  #df$fieldtoplot <- df[[field]]
   n <- min(length(unique(df[[field]])), ntop)
-  #p <- top_plot(df, "fieldtoplot", n)
   if (length(n) > 1) {
     p <- top_plot(df, field, n)  
     p <- p + ggtitle(paste("Top ", field))

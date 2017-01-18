@@ -1,7 +1,7 @@
 #' @title Read Mapping
 #' @description Read mapping table.
 #' @param file Input file
-#' @param mode The input file type: "list" or "table"; see details.
+#' @param mode The input file type: "list", "vector" or "table"; see details.
 #' @param sep Separator mark.
 #' @param self.match Include self matches
 #' @param include.lowercase Include lowercase
@@ -9,7 +9,7 @@
 #' @param sort Sort synonymes
 #' @param verbose verbose
 #' @param remove.ambiguous Remove ambiguous terms.
-#' @param lowercase All synonymes considered in lowercase only
+#' @param lowercase.only All synonymes considered in lowercase only
 #' @param from field that will be replaced
 #' @param to field that contains the final names
 #' @param fast Use the fast method fread (sensitive to problems in table format)
@@ -23,7 +23,7 @@
 #' @details If mode = "list", each row of the input file corresponds to a unique entry with potentially multiple name variants, separated by semicolon. The first element gives the selected version of the name, the subsequent elements list synonymes that will be mapped to the selected version. If mode = "table", the file has two columns where each row corresponds to a unique entry and has the selected name and a single alternative name.
 #' @examples \dontrun{syn <- read_mapping(file)}
 #' @keywords utilities
-read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE, verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE, from = "synonyme", to = "name", fast = FALSE, encoding="UTF-8", trim = FALSE, empty.is.na = FALSE) {
+read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE, verbose = FALSE, remove.ambiguous = TRUE, lowercase.only = FALSE, from = "synonyme", to = "name", fast = FALSE, encoding="UTF-8", trim = FALSE, empty.is.na = FALSE) {
   
   # TODO sort by desired field
   
@@ -46,6 +46,7 @@ read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, i
     aa <- aa[!duplicated(aa),]
     
   } else if (mode %in% c("table", "vector")) {
+  
     # aa <- read.csv(file, sep = sep, stringsAsFactors = FALSE, fileEncoding = "UTF-8")
     
     if (fast) {
@@ -62,10 +63,10 @@ read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, i
     
   }
   
-  if (lowercase) {
+  if (lowercase.only) {
     aa[[from]] <- tolower(aa[[from]])
   }
-  
+
   # Polish the synonyme table
   aa <- suppressWarnings(check_synonymes(aa, include.lowercase = include.lowercase, verbose = verbose, sort = sort, self = self.match, ignore.empty = ignore.empty, remove.ambiguous = remove.ambiguous))
 

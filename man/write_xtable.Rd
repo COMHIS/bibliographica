@@ -4,7 +4,8 @@
 \alias{write_xtable}
 \title{Write Summary Table}
 \usage{
-write_xtable(x, filename = NULL, count = FALSE, sort.by = "Count")
+write_xtable(x, filename = NULL, count = FALSE, sort.by = "Count",
+  na.rm = TRUE, add.percentages = FALSE)
 }
 \arguments{
 \item{x}{a vector or matrix}
@@ -14,6 +15,10 @@ write_xtable(x, filename = NULL, count = FALSE, sort.by = "Count")
 \item{count}{Add total count of cases in the beginning}
 
 \item{sort.by}{Column used for sorting. The Count is the default.}
+
+\item{na.rm}{Remove NA entries}
+
+\item{add.percentages}{Add percentage information to the table. This indicates the total fraction of the count, calculated from all input entries if na.rm is FALSE, and from non-NA entries if na.rm is TRUE.}
 }
 \value{
 Table indicating the count for each unique entry in the input  vector or matrix. The function writes the statistics in the file.

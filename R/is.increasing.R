@@ -9,7 +9,7 @@ is.increasing <- function (x) {
   # Remove dashes
   x <- na.omit(suppressWarnings(as.numeric(unlist(strsplit(x, "-"), use.names = FALSE))))
 
-  # Test if the numeric series is monotonically increasing
+  # Test if the numeric series is increasing
   incr <- FALSE
   if (!all(is.na(x))) {
     incr <- all(diff(x) >= 0)
