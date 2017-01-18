@@ -36,6 +36,7 @@ extract_personal_names  <- function(x, languages=c("english")) {
   full_name <- gsub("^([[:upper:]][[:lower:]]+), ((([[:upper:]][[:lower:]]+[.]?|[[:upper:]][.])( |$))+)", "\\2 \\1", x)
   message("... full_name caught")
   
+  
   # Try if the form is "Merckell, Johan Cristopherin leski"
   inds <- which(relation != "")
   # HR 2016-10-06: Now accepts abbreviated names like "Fred."
