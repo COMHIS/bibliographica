@@ -70,17 +70,17 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count", 
     }
     
     # Proceed
-    id <- apply(x, 1, function (x) {paste(x, collapse = "-")})
+    id <- apply(x, 1, function (x) { paste(x, collapse = "-") })
     ido <- rev(sort(table(id)))
     idn <- ido[match(id, names(ido))]
 
     tab <- as.data.frame(x)
-    tab$Count <- idn
+    tab[, "Count"] <- idn
     tab <- tab[!duplicated(tab),]
 
     if (is.null(filename)) {
-      tab <- tab[rev(order(tab$Count)),]
-      rownames(tab) = NULL
+      tab <- tab[rev(order(tab[, "Count"])),]
+      rownames(tab) <- NULL
       return(tab)
     }
 
@@ -91,8 +91,7 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count", 
       rownames(tab) <- NULL
     } else {
       tab <- NULL
-    }
-    
+    }    
   }
   
   # Arrange
@@ -113,7 +112,7 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count", 
 
   # Add fraction
   if (add.percentages) {
-    tab$Percentage <- round(100 * tab$Count/ntotal, 2)
+    tab <- cbind(tab, Percentage = round(100 * as.numeric(condense_spaces(tab[, "Count"]))/ntotal, 2))
   }
     
   if (count) {
@@ -125,6 +124,7 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count", 
     }
 
     n <- sum(as.numeric(tab[, "Count"]), na.rm = TRUE)
+
     ntxt <- n    
     if (is.matrix(tab)) {
       suppressWarnings(tab <- rbind(rep("", ncol(tab)), tab))

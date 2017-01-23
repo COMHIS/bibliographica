@@ -1,5 +1,5 @@
 context("Language")
-library(dplyr)
+library(dplyr, quiet = TRUE)
 test_that("Language recognition works correctly", {
   expect_equal(as.character(mark_languages("swe;eng")$language), "Swedish;English")
   expect_true(mark_languages("swe")$language.Swedish)

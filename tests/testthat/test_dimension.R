@@ -30,6 +30,7 @@ test_that("dimension polish works correctly", {
     if ((is.na(test_field)) || (test_field =="")) {test_field <- "gatherings"}
     if (is.na(synonymes$expected[i]) || (synonymes$expected[i] == "equal")) {
       expect_equal(as.character(polish_dimensions(test_clause)[[test_field]]), test_result)
+      # print(c(test_clause, test_result, test_field, as.character(polish_dimensions(test_clause)[[test_field]])))      
     }
     # Missing from csv:
     # expect_equal(as.character(polish_dimensions("NA", fill = FALSE, dimtab = NULL)$gatherings), "NA")
@@ -57,7 +58,7 @@ test_that("fennica dimensions", {
       expect_equal(as.character(polish_dimensions(test_clause)[[test_field]]), test_result)
     }
   }
-  # Take care later
+  # TODO Take care later
   #expect_equal(as.character(polish_dimensions("kotelo 48 x 56 cm.")$gatherings), 4)
   #expect_equal(as.character(polish_dimensions("obl.1to[-1/2to].")$gatherings), 4)
   #expect_equal(as.character(polish_dimensions("12to(=8to")$gatherings), 4)

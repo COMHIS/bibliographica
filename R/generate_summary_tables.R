@@ -6,14 +6,13 @@
 #' @return NULL
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @importFrom dplyr full_join
 #' @export
 #' @examples # generate_summary_tables(df)
 #' @keywords utilities
 generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "output.tables") {
 
   # Circumvent build warnings			
-  author <- author_name <- author_birth <- author_death <- author_pseudonyme <- author_gender <- name <- NULL
+  df <- author <- author_name <- author_birth <- author_death <- author_pseudonyme <- author_gender <- name <- NULL
   mean_pagecounts_multivol <- mean_pagecounts_singlevol <- mean_pagecounts_issue <- NULL
 
   # Ensure compatibility			
@@ -36,8 +35,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     "control_number", "system_control_number",
     "author_name", "author", "area", "width", "height", "gender"))) {
 
-    message(field)
-
+   message(field)
 
    message("Accepted entries in the preprocessed data")
     s <- write_xtable(df.preprocessed[[field]], paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
@@ -108,13 +106,13 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       tmp <- write_xtable(tab, paste(output.folder, field, "_conversion_nontrivial.csv", sep = ""), count = TRUE)
     }
   
-
   # -----------------------------------------------------
 
   message("Author")
   # Separate tables for real names and pseudonymes
   tab <- df.preprocessed %>% filter(!author_pseudonyme) %>%
       	 		     select(author, author_gender)
+			     
   tmp <- write_xtable(tab,
       paste(output.folder, paste("author_accepted.csv", sep = "_"), sep = ""),
       count = FALSE, sort.by = "author")
@@ -138,7 +136,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   message("publication_place accepted")
   tmp <- write_xtable(df.preprocessed[, c("publication_place", "country")],
       filename = paste(output.folder, "publication_place_accepted.csv", sep = ""),
-      count = TRUE, sort.by = "publication_place")
+      count = TRUE, sort.by = "publication_place", add.percentages = TRUE)
 
 
   message("Publication place conversions")
@@ -181,8 +179,9 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   
   # Only include those that we have in our data
   tab <- tab[as.character(tab$name) %in% as.character(df.preprocessed$publication_place),]  
-  write.table(tab, file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""),
-  		   	  		       sep = ";", quote = F, row.names = F)
+  write.table(tab,
+    file = paste(output.folder, "publication_place_ambiguous.csv", sep = ""),
+  		  sep = ";", quote = F, row.names = F)
 
 
   message("publication_place discarded")
@@ -198,9 +197,12 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   
   
   message("Publication place todo file")
-  f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-  synonymes <- suppressWarnings(read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table", trim = TRUE))
-  pl = polish_place(df.orig$publication_place, remove.unknown = FALSE);
+  f <- system.file("extdata/PublicationPlaceSynonymes.csv",
+         package = "bibliographica")
+  synonymes <- suppressWarnings(read_mapping(f, include.lowercase = T,
+  	         self.match = T, ignore.empty = FALSE,
+		 mode = "table", trim = TRUE))
+  pl <- polish_place(df.orig$publication_place, remove.unknown = FALSE);
   tmp <- write.table(sort(tolower(setdiff(tolower(pl), tolower(synonymes$name)))),
       file = paste(output.folder, "publication_place_todo.csv", sep = ""),
       	   quote = FALSE, row.names = FALSE, col.names = FALSE)
@@ -208,11 +210,13 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # ------------------------------------------------------
 
   message("Missing country")
-  f <- system.file("extdata/PublicationPlaceSynonymes.csv", package = "bibliographica")
-  syn <- read_mapping(f, include.lowercase = T, self.match = T, ignore.empty = FALSE, mode = "table")  
+  f <- system.file("extdata/PublicationPlaceSynonymes.csv",
+         package = "bibliographica")
+  syn <- read_mapping(f, include.lowercase = T, self.match = T,
+      	   ignore.empty = FALSE, mode = "table")  
   rms <- as.character(syn$synonyme[is.na(as.character(syn$name))])
   tab <- as.character(df.preprocessed$publication_place)[is.na(df.preprocessed$country)]
-  # First remove places that have already been explicitly set to unknown
+  # Remove places that have already been explicitly set to unknown
   tab <- setdiff(tab, rms)
   # Then print the rest
   tmp <- write_xtable(tab, filename = "output.tables/publication_place_missingcountry.csv")
@@ -240,16 +244,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   #----------------------------------------------------
 
-  #message("Discard summaries")
-  #for (nam in setdiff(names(originals), c("country", "publication_place"))) {
-  #  o <- as.character(df.orig[[originals[[nam]]]])
-  #  x <- as.character(df.preprocessed[[nam]])
-  #  inds <- which(is.na(x))
-  #  tmp <- write_xtable(o[inds],
-  #    paste(output.folder, paste(nam, "discarded.csv", sep = "_"), sep = ""),
-  #    count = TRUE)
-  #}
-  
   message("..author")
   o <- as.character(df.orig[["author_name"]])
   x <- as.character(df.preprocessed[["author"]])
@@ -346,6 +340,8 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       tmp <- write_xtable(original, paste(output.folder, field, "_discarded.csv", sep = ""), count = TRUE)
    }
 
+  #-----------------------------
+
   message("publisher conversions")
   nam <- "publisher"
     o <- as.character(df.orig[[nam]])
@@ -356,21 +352,28 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       paste(output.folder, paste(nam, "conversion_nontrivial.csv", sep = "_"),
       sep = ""), count = TRUE)
     
-  
-
-
   # --------------------------------------------
 
-  # Pagecount  
+  message("Pagecount  conversions")
   o <- as.character(df.orig[["physical_extent"]])
   g <- as.character(df.preprocessed$gatherings)
   x <- as.character(df.preprocessed[["pagecount"]])
-  inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
-  tmp <- write_xtable(cbind(#gatherings = g[inds],
+
+  # Do not show the estimated ones,
+  # just the page counts that were originally available
+  #x2 <- rep("", nrow(df.preprocessed));
+  # x2[is.na(df.preprocessed[["pagecount.orig"]])] <- "estimate"
+  inds <- which(!is.na(x) & !(tolower(o) == tolower(x)) &
+                !is.na(df.preprocessed[["pagecount.orig"]]))
+  tmp <- write_xtable(cbind(gatherings = g[inds],
       	                    original_extent = o[inds],  
-      	 		    final_pagecount = x[inds]),
-    paste(output.folder, "pagecount_conversion_nontrivial.csv", sep = ""), count = TRUE)
-  
+      	 		    final_pagecount = x[inds]
+			    ),
+    paste(output.folder, "pagecount_conversions.csv", sep = ""),
+    count = TRUE)
+
+  # ----------------------------------------------
+
   message("Discard summaries")
   inds <- which(is.na(df.preprocessed$pagecount.orig))
   tmp <- write_xtable(cbind(
@@ -447,35 +450,35 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # --------------------------------------------
 
   message("Conversion: publication interval")
-  if ("publication_interval" %in% names(df.preprocessed)) {
+  if ("publication_interval_from" %in% names(df.preprocessed)) {
   
-  # Publication interval
-  o <- tolower(gsub("\\.$", "", as.character(df.orig[["publication_interval"]])))
-  x <- df.preprocessed[, c("publication_interval_from", "publication_interval_till")]
-  tab <- cbind(original = o, x)
-  tab <- tab[!is.na(tab$publication_interval_from) | !is.na(tab$publication_interval_till),]
-  tmp <- write_xtable(tab,
+    # Publication interval
+    o <- tolower(gsub("\\.$", "", as.character(df.orig[["publication_interval"]])))
+    x <- df.preprocessed[, c("publication_interval_from", "publication_interval_till")]
+    tab <- cbind(original = o, x)
+    tab <- tab[!is.na(tab$publication_interval_from) | !is.na(tab$publication_interval_till),]
+    tmp <- write_xtable(tab,
       paste(output.folder, "publication_interval_conversion_nontrivial.csv",
       sep = ""), count = TRUE)
   
-  message("Discarded publication interval")
-  o <- df.orig[, c("publication_interval", "publication_time", "publication_frequency")]
-  o$publication_time <- gsub("^\\[", "", gsub("\\]$", "", gsub("\\.$", "", o$publication_time)))
-  x <- df.preprocessed[,c("publication_interval_from", "publication_interval_till")]
-  x2 <- df.preprocessed[, c("publication_frequency_annual", "publication_frequency_text")]
+    message("Discarded publication interval")
+    o <- df.orig[, c("publication_interval", "publication_time", "publication_frequency")]
+    o$publication_time <- gsub("^\\[", "", gsub("\\]$", "", gsub("\\.$", "", o$publication_time)))
+    x <- df.preprocessed[,c("publication_interval_from", "publication_interval_till")]
+    x2 <- df.preprocessed[, c("publication_frequency_annual", "publication_frequency_text")]
 
-  inds <- which(rowSums(is.na(x)) == 2 & rowSums(is.na(x2)) == 2 )
-  o <- o[inds,]
-  inds <- is.na(unlist(o[,1])) & grepl("^[0-9]+$", unlist(o[, 2])) & is.na(unlist(o[,3]))
-  tmp <- write_xtable(o[!inds,],
+    inds <- which(rowSums(is.na(x)) == 2 & rowSums(is.na(x2)) == 2 )
+    o <- o[inds,]
+    inds <- is.na(unlist(o[,1])) & grepl("^[0-9]+$", unlist(o[, 2])) & is.na(unlist(o[,3]))
+    tmp <- write_xtable(o[!inds,],
       paste(output.folder, "publication_interval_discarded.csv", sep = ""),
       count = TRUE)
 
-  message("Accepted publication interval")
-  o <- as.character(df.orig[["publication_interval"]])
-  x <- df.preprocessed[c("publication_interval_from", "publication_interval_till")]
-  inds <- which(rowSums(!is.na(x))>0)
-  tmp <- write_xtable(x[inds,],
+    message("Accepted publication interval")
+    o <- as.character(df.orig[["publication_interval"]])
+    x <- df.preprocessed[c("publication_interval_from", "publication_interval_till")]
+    inds <- which(rowSums(!is.na(x))>0)
+    tmp <- write_xtable(x[inds,],
       paste(output.folder, "publication_interval_accepted.csv", sep = ""),
       count = TRUE)
 
@@ -559,6 +562,10 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   message("Page counts")
   use.fields <- intersect(c("pagecount", "volnumber", "volcount"), names(df.preprocessed))
   tab <- cbind(original = df.orig$physical_extent, df.preprocessed[, use.fields])
+  # For clarity: remove ECCO and Manually augmented pagecounts from ESTC data
+  if ("pagecount_from" %in% names(df) & nrow(df.preprocessed) == nrow(df.orig)) {
+    tab <- tab[df.preprocessed$pagecount_from %in% c("estc"),]
+  }
   tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_extent.csv")
 
   message("Physical dimension info")
@@ -575,12 +582,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     count = TRUE)
 
   #-----------------------------------------------------------------------
-
-  # Mean page counts
-  # TODO make this more generic; otherwise move completely to ESTC
-  mean.pagecounts = NULL
-  source(system.file("extdata/mean_pagecounts.R", package = "bibliographica"))
-  write.table(mean.pagecounts, file = paste(output.folder, "mean_page_counts.csv", sep = ""), quote = F, row.names = F, sep = ",")
 
   message("Write places with missing geolocation to file")
   tab <- rev(sort(table(df.preprocessed$publication_place[is.na(df.preprocessed$latitude) | is.na(df.preprocessed$longitude)])))

@@ -13,7 +13,7 @@ read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
 \arguments{
 \item{file}{Input file}
 
-\item{mode}{The input file type: "list" or "table"; see details.}
+\item{mode}{The input file type: "list", "vector" or "table"; see details.}
 
 \item{sep}{Separator mark.}
 

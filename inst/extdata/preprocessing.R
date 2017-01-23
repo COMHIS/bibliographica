@@ -1,4 +1,5 @@
 
+
 preprocess_data <- function(preprocessing.data, df.orig, languages, mc.cores = 1) {
 
   # mc.cores required by polish_all()
@@ -12,9 +13,11 @@ preprocess_data <- function(preprocessing.data, df.orig, languages, mc.cores = 1
 
   message("Preprocess selected original fields")
   
-  res <- polish_all(df.orig, fields = update.fields, 
+  res <- polish_all(df.orig,
+      fields = update.fields, 
       mc.cores = mc.cores,
-      conversions = conversions, languages = languages)
+      conversions = conversions,
+      languages = languages)
 
   if (is.null(df.preprocessed) || !exists("df.preprocessed")) {
     # !exists carryover from previous version. Can be removed in future? -vv

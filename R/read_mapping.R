@@ -1,7 +1,7 @@
 #' @title Read Mapping
 #' @description Read mapping table.
 #' @param file Input file
-#' @param mode The input file type: "list" or "table"; see details.
+#' @param mode The input file type: "list", "vector" or "table"; see details.
 #' @param sep Separator mark.
 #' @param self.match Include self matches
 #' @param include.lowercase Include lowercase
@@ -46,6 +46,7 @@ read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, i
     aa <- aa[!duplicated(aa),]
     
   } else if (mode %in% c("table", "vector")) {
+  
     # aa <- read.csv(file, sep = sep, stringsAsFactors = FALSE, fileEncoding = "UTF-8")
     
     if (fast) {
@@ -65,7 +66,7 @@ read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, i
   if (lowercase.only) {
     aa[[from]] <- tolower(aa[[from]])
   }
-  
+
   # Polish the synonyme table
   aa <- suppressWarnings(check_synonymes(aa, include.lowercase = include.lowercase, verbose = verbose, sort = sort, self = self.match, ignore.empty = ignore.empty, remove.ambiguous = remove.ambiguous))
 

@@ -2,25 +2,25 @@
 % Please edit documentation in R/augment_dimension_table.R
 \name{augment_dimension_table}
 \alias{augment_dimension_table}
-\title{Augment dimension table}
+\title{Augment Dimension Table}
 \usage{
 augment_dimension_table(dim.tab, dim.info = NULL, sheet.dim.tab = NULL,
   verbose = FALSE)
 }
 \arguments{
-\item{dim.tab}{dim.tab}
+\item{dim.tab}{Dimension table.}
 
 \item{dim.info}{Mapping between document dimensions.}
 
-\item{sheet.dim.tab}{sheet.dim.tab}
+\item{sheet.dim.tab}{Sheet dimension table.}
 
 \item{verbose}{verbose}
 }
 \value{
-Augmented dim.tab
+Augmented dimension table.
 }
 \description{
-Estimate missing entries in dimension table where possible
+Estimate missing entries in dimension table where possible.
 }
 \examples{
 # augment_dimension_table(dim.tab)

@@ -36,7 +36,11 @@ roman2arabic <- function (x) {
   }
 
   helpf <- function(xi) {
-    if (length(grep("-", xi)) > 0) {
+
+    # Return numeric hits immediately (such as "4387")
+    if (grepl("^[0-9]+$", xi)) {
+      xr <- xi
+    } else if (length(grep("-", xi)) > 0) {
       x2 <- str_trim(unlist(strsplit(xi, "-"), use.names = FALSE))
       n <- suppressWarnings(as.numeric(as.roman(x2)))
       n[is.na(n)] <- x2[is.na(n)] # vii-160
