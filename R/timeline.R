@@ -20,9 +20,9 @@ timeline <- function (x, field = "titlecount", group = NULL, nmin = 0, mode = "a
 
   # Set the desired time window (default one decade)
   x$publication_time <- time.window * floor(x$publication_time / time.window)
-  if (time.field == "publication_decade" || (time.field == "publication_year" & time.window == 10)) {
+  if (time.field == "publication_decade" || (time.field == "publication_year" & time.window == 10 & "publication_decade" %in% names(x))) {
     x$publication_time <- x$publication_decade
-  } 
+  }
 
   if (!is.null(group)) {
     x <- x[, c("publication_time", group)]
@@ -40,7 +40,7 @@ timeline <- function (x, field = "titlecount", group = NULL, nmin = 0, mode = "a
   }
   
   x$field <- x[[field]]
-  
+
   df2 <- x %>% filter(!is.na(group)) %>%
                group_by(publication_time, group) %>%
      	       summarise(absolute = sum(field, na.rm = TRUE))
