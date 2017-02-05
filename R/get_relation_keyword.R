@@ -12,10 +12,12 @@
 #' @keywords utilities
 get_relation_keyword <- function(x, full_name, languages=c("english")) {
   
-  # Adjust to version 1.1.0 of stringr, which changed NA-behaviour
+  # Adjustment to version 1.1.0 of stringr, which changed NA-behaviour
   x[which(is.na(x))] <- ""
-  full_name[which(is.na(full_name))] <- ""
-
+  if (!is.null(full_name)) {
+    full_name[which(is.na(full_name))] <- ""
+  }
+  
   # TODO: make a table for languages & related files & purpose
   f <- c()
 
@@ -29,9 +31,6 @@ get_relation_keyword <- function(x, full_name, languages=c("english")) {
   # en_relation_keywords.csv does not exist in bibliographica
   # also en_lowercase_keywords.csv was missing
   # add to github if available
-  #if ("english" %in% languages) {
-  #  f[["english"]] <- system.file("extdata/en_relation_keywords.csv", package="bibliographica")
-  #}
   if ("latin" %in% languages) {
     f[["latin"]] <- system.file("extdata/la_relation_keywords.csv", package="bibliographica")
   }
@@ -46,7 +45,7 @@ get_relation_keyword <- function(x, full_name, languages=c("english")) {
   for (fil in f) {
   
     synonyms <- read.csv(file=fil, sep="\t", fileEncoding="UTF-8")
-    
+  
     for (i in 1:nrow(synonyms)) {
       if (is.null(full_name)) {
         pattern <- as.character(synonyms$synonyme[i])
