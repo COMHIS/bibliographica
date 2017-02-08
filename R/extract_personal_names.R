@@ -36,7 +36,7 @@ extract_personal_names  <- function(x, languages=c("english")) {
   full_name <- gsub("^([[:upper:]][[:lower:]]+), ((([[:upper:]][[:lower:]]+[.]?|[[:upper:]][.])( |$))+)", "\\2 \\1", x)
   message("... full_name caught")
   
-  full_name <- gsub("^([[:upper:]][[:lower:]]+), ((([[:upper:]][[:lower:]]+|[[:upper:]][.])( |$))+)", "\\2 \\1", x)
+  #full_name <- gsub("^([[:upper:]][[:lower:]]+), ((([[:upper:]][[:lower:]]+|[[:upper:]][.])( |$))+)", "\\2 \\1", x)
   
   # Try if the form is "Merckell, Johan Cristopherin leski"
   inds <- which(relation != "")
