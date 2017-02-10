@@ -11,6 +11,17 @@
 enrich_years <- function(df.preprocessed, df.orig) {
 
   # needs df.orig. Can we get rid of this? -vv
+  
+  # LL: this uses publication_interval field from df.orig; if that is
+  # processed separately and stored in its own field in
+  # df.preprocessed then this can be trivially handled. Note that
+  # publication_interval is confusingly mixing (at least) to different
+  # types of information: (1) actual years of the publication
+  # interval, and (2) the number of publications during the years
+  # given in the publication_time (df.orig). These should be
+  # identified and separated. Below, df.orig take advantage of the
+  # latter case to retrieve more information of the
+  # publication_frequencies than would be otherwise available.
 
   message("Enriching publication years..")
 
