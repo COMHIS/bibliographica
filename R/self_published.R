@@ -29,6 +29,16 @@ self_published <- function (df) {
   inds3 <- which(publisher %in% c("tuntematon", "unknown", "anonymous", "NA"))
   publisher[inds3] <- NA
 
+  # Enrich NA self-published cases from the known ones
+  nainds <- which(is.na(selfpub))  
+  nots <- nainds[df[nainds, "publisher"] %in% df[which(!df$selfpub), "publisher"]]
+  selfpub[nots] <- FALSE
+  yess <- nainds[df[nainds, "publisher"] %in% df[which(df$selfpub), "publisher"]]
+  selfpub[yess] <- TRUE
+
+  # Mark remaining self-published NAs to FALSE by default
+  # selfpub[is.na(selfpub)] <- FALSE
+
   data.frame(publisher = publisher,
              self_published = selfpub)
 
