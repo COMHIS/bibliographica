@@ -78,6 +78,11 @@ clean_publisher <- function(x, languages=c("english")) {
   q <- gsub("[(]", "", q)
   q <- gsub("[)]", "", q)
   
+  # remove apostrophes in the beginning and from around phrases
+  q <- gsub("(^| )['](.*)[']( |$)", "\\1\\2\\3", q)
+  q <- gsub("^[']", "", q)
+  q <- gsub("^[:]", "", q)
+  
   # add space when needed
   q <- gsub("([[:upper:]])&", "\\1 &", q)
   q <- gsub("&([[:upper:]])", "& \\1", q)
