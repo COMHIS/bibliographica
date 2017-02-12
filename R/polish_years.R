@@ -54,7 +54,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   inds <- grep(";", x)
   x[inds] <- unlist(sapply(x[inds], function (x) {x <- unlist(strsplit(x, ";")); paste(x[grep("[0-9]", x)], collapse = ", ")}), use.names = FALSE)
   x <- gsub("\\.", " ", x)
-  
+
   # 18th century (remove separately before removing other letters)
   x <- gsub("[0-9]{1,4}th", "", x)  
   
@@ -75,7 +75,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   # Map back to original indices and make unique again. To speedup further.
   xorig <- x[match(xorig, xuniq)]
   x <- xuniq <- unique(xorig)
-  
+
   x <- sapply(x, function (xi) {handle_ie(xi, harmonize = FALSE)}, USE.NAMES = FALSE)
   x <- condense_spaces(gsub("\\.", " ", x))
   x <- remove_time_info(x, verbose = F, months)
@@ -99,14 +99,14 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
     x[inds] <- sapply(x[inds], function (x) unlist(strsplit(x, " or "), use.names = FALSE)[[2]])
   }
   x[inds] <- str_trim(x[inds])
-  
+
   # Convert romans
   num <- suppressWarnings(as.numeric(as.roman(gsub(" ", "", x))))
   inds <- which(!is.na(num))
   if (length(inds) > 0) {
     x[inds] <- num[inds]
   }
-  
+
   # Map back to original indices and make unique again. To speedup further.
   x <- x[match(xorig, xuniq)]
   xorig <- x
@@ -114,7 +114,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- xuniq
 
   res <- suppressWarnings(lapply(x, function (xi) {a <- try(polish_year(xi, start_synonyms = start_synonyms, end_synonyms = end_synonyms, months, verbose)); if (class(a) == "try-error") {return(c(NA, NA))} else {return(a)}}))
-
+  
   res <- do.call("rbind", res)
   start_year <- res[,1]
   end_year   <- res[,2]
@@ -132,7 +132,6 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 
   df <- data.frame(from = as.numeric(as.character(start_year)),
                    till = as.numeric(as.character(end_year)))
-
 
   # Match the unique cases to the original indices
   # before returning the df
@@ -164,6 +163,9 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     start <- x # gsub("^([0-9]+)$", "\\1", x)
     end <- NA
     return (c(from=as.numeric(start), till=end))
+  } else if (is.na(x)) {
+    return(c(NA, NA))
+    
   } else if (length(grep("^[0-9]+[-|,]+[0-9]+[-|,]+[0-9]+[-|,][0-9]+", gsub(" ", "", x))) > 0) {
     # "1921-1922;1921-1922;1922"
     x <- condense_spaces(gsub(",", " ", gsub("-", " ", x)))
@@ -246,6 +248,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     x <- substr(x, 1, 4)
   }  
 
+  
   # Now Remove some special chars
   x <- gsub("\\(\\)", "", x)  
   x <- gsub("-+", "-", x)
@@ -288,7 +291,8 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     x <- x[x >= 100] # ignore years below 100
     x <- paste(min(x), max(x), sep = "-")
   }
-
+  
+    
   x <- gsub("\\[[0-9]{2,3}-*\\]", "", x)  
   x <- gsub("-\\]-", "-", x)
   x <- gsub("\\[[0-9]{2}-\\]", "NA", x)
@@ -305,6 +309,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   x <- gsub("[[:lower:]]", "", x)
   x <- condense_spaces(x)
   x <- gsub("^[\\:|\\=]", "", x)
+  
   if (length(x) == 1 && (x == "" || is.na(x))) {x <- "NA"}
   if (length(x) > 1) {
     x <- na.omit(x)
@@ -341,7 +346,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     # 1780 1800 > 1780-1800
     x <- gsub(" ", "-", x)
   }
-
+  
   #x <- unlist(strsplit("3: 1-26 ( 1904/1905 ) , 1: : 1-54 (1905/1906", ""))
   #x <- unlist(strsplit(x, ""))  
   #x <- as.numeric(x)
@@ -355,13 +360,15 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   # "( ) 25 1643"
   spl <- unlist(strsplit(x, " "), use.names = FALSE)
   spl <- unique(spl[grep("[0-9]{4}", spl)])
-  if (length(spl) == 1) {x <- spl}
+  
+    if (length(spl) == 1) {x <- spl}
   
   # 1690, 1690 -> 1690
   if (length(grep("[0-9]{4}, [0-9]{4}$", x))>0) {  
     x <- as.character(min(as.numeric(unique(unlist(strsplit(x, ","), use.names = FALSE)))))
   }
 
+  
   # "1885/1886--1889/1890-1885-1885-2"
   x <- gsub("'", " ", x)
   x <- gsub(",", " ", x)    
@@ -374,7 +381,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   x <- condense_spaces(x)
   x <- gsub(" ", "-", x)
   x <- gsub("-+", "-", x)
-
+  
   if (length(grep("^[0-9|/|-]+$", x))>0) {
     n <- unlist(strsplit(unlist(strsplit(x, "-"), use.names = F), "/"), use.names = F)
     n <- unlist(strsplit(unlist(strsplit(n, "\\("), use.names = F), "\\)"), use.names = F)
@@ -398,11 +405,12 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     end <- gsub(".*([0-9]{4})$", "\\1", x)
     return (c(from=as.numeric(start), till=as.numeric(end)))
   }
-
+  
   # Proceed to more complex cases
   start <- map(x, start_synonyms)
   start <- as.character(start)
 
+  
   if (length(grep("-", x))>0) {
     spl <- unlist(strsplit(as.character(start), "-+"), use.names = FALSE)
     spl <- as.numeric(spl)
@@ -422,7 +430,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     }
     x <- paste(x, collapse = "-")
   }
-
+  
   if (length(grep("^NA[-][0-9]{4}$", x)) > 0) {
     # NA-1910
     start <- NA
@@ -454,7 +462,10 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     start <- min(spl)
     end <- NA
     if (length(spl) > 1) {end <- max(spl)}
-  } 
+  } else if (x == "NA") {
+    end <- NA
+  }
+  
   
   start[start == ""] <- NA
   start[start == " "] <- NA  
@@ -471,7 +482,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   if (length(end_year) == 0) {end_year <- NA}  
   if (length(start_year) > 1) {start_year <- NA}
   if (length(end_year) > 1) {end_year <- NA}
-  
+
   c(start_year, end_year)
   
 }

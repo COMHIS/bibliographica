@@ -289,9 +289,22 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
       tmp_compare_versions[fix_indices] <- gsub(paste(initials, familyname, collapse=" "), full_name, tmp_compare_versions[fix_indices])
     }
     
-    # method="jw" ie. Jaro-Winkler. It takes into account also the length of strings.
-    # The thresholds of p & maxDist are produced by Stetson-Harrison method
-    res <- framePublishers$orig[amatch(compare_version, tmp_compare_versions, method="jw", p=0.05, maxDist=0.06)]
+    # HR 2017-02-12:
+    # Had to give up Jaro-Winkler, because long strings won't behave decently enough
+    # res <- framePublishers$orig[amatch(compare_version, tmp_compare_versions, method="jw", p=0.05, maxDist=0.06)]
+    
+    # Now the method is Damerau-Levenshtein
+    # Threshold is decided intuitively (=guessing)
+    maxDist <- round(0.1 * nchar(compare_version))
+
+    if (maxDist == 0) {
+      res <- NA
+    } else {
+      res <- framePublishers$orig[amatch(tolower(compare_version), 
+                                         tolower(tmp_compare_versions),
+                                         method="dl", 
+                                         maxDist=maxDist)]
+    }
     
     # 2016-10-04: Added yet another step for case insensitive exact matches
     if ((is.null(res)) || (is.na(res)) || (res=="")) {
