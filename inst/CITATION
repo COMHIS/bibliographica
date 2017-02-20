@@ -5,14 +5,13 @@ citEntry(entry="misc",
          author = personList(
 	   person(given ="Leo", family="Lahti", email = "leo.lahti@iki.fi"),
 	   person(given ="Hege", family="Roivainen"),	   	   
-	   person(given ="Niko", family="Ilomaki"),
 	   person(given ="Mikko", family="Tolonen")
          ),
 	 doi = "",
 	 journal = "",
-	 year = "2015-2016",
+	 year = "2015-2017",
          textVersion =
-         paste("(C) Leo Lahti, Hege Roivainen, Niko Ilomaki, Mikko Tolonen (rOpenGov 2015-2016). ",
+         paste("(C) Leo Lahti, Hege Roivainen, Ville Vaara, Mikko Tolonen (rOpenGov 2015-2017). ",
                "bibliographica R package",
 	       "URL: http://github.com/ropengov/bibliographica",
                sep=" ")
