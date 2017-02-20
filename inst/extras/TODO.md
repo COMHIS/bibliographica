@@ -1,5 +1,9 @@
 ### Technical
 
+ * Use tm pkg: removeNumbers; removePuncuations; removeWords;
+   replaceWords; stripWhiteSpace; tmTolower; and tau:remove_stopwords;
+   stopwords(language = ...)
+
  * Travis & automated analysis updates on a public (non-github)
    server, for instance Pouta.
 
