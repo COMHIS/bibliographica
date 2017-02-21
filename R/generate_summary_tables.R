@@ -335,7 +335,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("publisher conversions")
     o <- as.character(df.orig[[field]])
-    x <- as.character(df.preprocessed[ , c(field, "self_published")])
+    x <- as.character(df.preprocessed[[field]])
     inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
     tmp <- write_xtable(cbind(original = o[inds],
       	 		      polished = x[inds]),
