@@ -7,7 +7,7 @@ synonyme	name
  [Oo][.]?[-]?[Yy][.]?	
  OY	
 [-]OY	
-[Oo]sake[-]?[Yy][^ ]*	
+[-]?[Oo]sake[-]?[Yy][^ ]*	
 [-][Yy]htiö[^ ]*	
 [Yy]htiö$	
 [Kk]irjankust[^ ]*	
