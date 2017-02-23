@@ -173,8 +173,10 @@ s? [Bb]oktr[.]?	 Tryckeri
 [Oo]ffsettryckeriet	Tryckeri
 [Oo]ffsettryckeri	Tryckeri
 [Oo]ffsettr[.]?	Tryckeri
-[Tt]ryckeriet	Tryckeri
-[Tt]ryckeri-ab	Tryckeri
+ [Tt]ryckeriet  Tryckeri
+[Tt]ryckeriet tryckeri
+ [Tt]ryckeri-ab  Tryckeri
+[Tt]ryckeri-ab tryckeri
 s [Ff]örb[.]	 Förbund
 s [Ff]örbundet	 Förbund
 s [Ff]örbund	 Förbund
@@ -204,13 +206,20 @@ s [Bb]okforl$	 Förlag
 [Bb]okforl[.]	Förlag
 [Bb]okförl$	Förlag
 [Bb]okforl$	Förlag
-[Ff]örlaget	Förlag
-[Ff]orlaget	Förlag
-[Ff]orlag		Förlag
-[Ff]örl[.]	Förlag
-[Ff]orl[.]	Förlag
-[Ff]örl$	Förlag
-[Ff]orl$	Förlag
+ [Ff]örlaget	 Förlag
+ [Ff]orlaget	 Förlag
+ [Ff]orlag  Förlag
+ [Ff]örl[.]  Förlag
+ [Ff]orl[.]  Förlag
+ [Ff]örl$  Förlag
+ [Ff]orl$  Förlag
+[Ff]örlaget	förlag
+[Ff]orlaget	förlag
+[Ff]orlag förlag
+[Ff]örl[.] förlag
+[Ff]orl[.] förlag
+[Ff]örl$ förlag
+[Ff]orl$ förlag
 [Bb]okf[.]	Förlag
 [Bb]okf$	Förlag
 [Ff]örlagsavd[.]	Förlag
