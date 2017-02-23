@@ -166,8 +166,10 @@ Königl[.]	königlische
 Kungliga	kungliga
 s [Tr]r[.]	 Tryckeri
 s? tr$	 Tryckeri
-s? [Bb]oktr[.]?	 Tryckeri
-[Bb]oktr[.]? Tryckeri
+s? [Bb]oktr[.]	 Tryckeri
+[Bb]oktr[.] Tryckeri
+s? [Bb]oktr$	 Tryckeri
+[Bb]oktr$ Tryckeri
 [Bb]oktryckeriet	Tryckeri
 [Bb]oktryckeri	Tryckeri
 [Oo]ffsettryckeriet	Tryckeri
