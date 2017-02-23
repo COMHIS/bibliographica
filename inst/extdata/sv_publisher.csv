@@ -164,9 +164,10 @@ Reg[.]	regis
 Regis 	regis
 Königl[.]	königlische
 Kungliga	kungliga
-s [Tr]r[.]	Tryckeri
-s? tr$	Tryckeri
-(s )?[Bb]oktr[.]?	Tryckeri
+s [Tr]r[.]	 Tryckeri
+s? tr$	 Tryckeri
+s? [Bb]oktr[.]?	 Tryckeri
+[Bb]oktr[.]? Tryckeri
 [Bb]oktryckeriet	Tryckeri
 [Bb]oktryckeri	Tryckeri
 [Oo]ffsettryckeriet	Tryckeri
@@ -174,27 +175,27 @@ s? tr$	Tryckeri
 [Oo]ffsettr[.]?	Tryckeri
 [Tt]ryckeriet	Tryckeri
 [Tt]ryckeri-ab	Tryckeri
-s [Ff]örb[.]	Förbund
-s [Ff]örbundet	Förbund
-s [Ff]örbund	Förbund
+s [Ff]örb[.]	 Förbund
+s [Ff]örbundet	 Förbund
+s [Ff]örbund	 Förbund
 [Ff]örb[.]	Förbund
 [Ff]örbundet	Förbund
-s [Ff]örlaget	Förlag
-s [Ff]orlaget	Förlag
-s [Ff]örlag	Förlag
-s [Ff]orlag	Förlag
-s [Ff]örl[.]	Förlag
-s [Ff]orl[.]	Förlag
-s [Ff]örl$	Förlag
-s [Ff]orl$	Förlag
-s [Bb]okförlaget	Förlag
-s [Bb]okforlaget	Förlag
-s [Bb]okförlag	Förlag
-s [Bb]okforlag	Förlag
-s [Bb]okförl[.]	Förlag
-s [Bb]okforl[.]	Förlag
-s [Bb]okförl$	Förlag
-s [Bb]okforl$	Förlag
+s [Ff]örlaget	 Förlag
+s [Ff]orlaget	 Förlag
+s [Ff]örlag	 Förlag
+s [Ff]orlag	 Förlag
+s [Ff]örl[.]	 Förlag
+s [Ff]orl[.]	 Förlag
+s [Ff]örl$	 Förlag
+s [Ff]orl$	 Förlag
+s [Bb]okförlaget	 Förlag
+s [Bb]okforlaget	 Förlag
+s [Bb]okförlag	 Förlag
+s [Bb]okforlag	 Förlag
+s [Bb]okförl[.]	 Förlag
+s [Bb]okforl[.]	 Förlag
+s [Bb]okförl$	 Förlag
+s [Bb]okforl$	 Förlag
 [Bb]okförlaget	Förlag
 [Bb]okforlag	Förlag
 [Bb]okförlag	Förlag
