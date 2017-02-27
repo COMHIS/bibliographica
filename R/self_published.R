@@ -14,21 +14,32 @@ self_published <- function (df) {
   author <- as.character(df$author)
   author[author == "NA"] <- NA
 
-  inds <- which(tolower(publisher) %in% c("author", "<<author>>") & !is.na(author))
+  inds <- which(grepl("^<*author>*$", tolower(publisher)) & !is.na(author))
   if (length(inds)>0) {
     publisher[inds] <- author[inds]
   }
-
-  inds2 <- which(tolower(publisher) == "author" & is.na(author))  
-  inds3 <- which(publisher %in% c("tuntematon", "unknown", "anonymous"))
-  inds <- union(inds2, inds3)
-  if (length(inds)>0) {
-    publisher[inds] <- "Self-published (unknown author)"
+  inds2 <- which(grepl("^<*author>*$", tolower(publisher)) & is.na(author))
+  if (length(inds2)>0) {
+    publisher[inds2] <- NA # "Self-published (unknown author)"
   }
-  
   selfpub <- as.logical((publisher %in% "Self-published (unknown author)") |
   	                (author == publisher)
 			)
+
+  inds3 <- which(publisher %in% c("tuntematon", "unknown", "anonymous", "NA"))
+  publisher[inds3] <- NA
+
+  # Enrich NA self-published cases from the known ones
+  nainds <- which(is.na(selfpub))
+  if (length(nainds) > 0 & length(selfpub) > 0) {
+    nots <- nainds[df[nainds, "publisher"] %in% df[which(!selfpub), "publisher"]]
+    selfpub[nots] <- FALSE
+    yess <- nainds[df[nainds, "publisher"] %in% df[which(selfpub), "publisher"]]
+    selfpub[yess] <- TRUE
+  }
+  
+  # Mark remaining self-published NAs to FALSE by default
+  # selfpub[is.na(selfpub)] <- FALSE
 
   data.frame(publisher = publisher,
              self_published = selfpub)

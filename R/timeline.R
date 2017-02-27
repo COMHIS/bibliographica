@@ -6,21 +6,22 @@
 #' @param nmin Include only entries with at least nmin absolute frequency
 #' @param mode "absolute" or "relative"
 #' @param time.window Time window for the timeline in years. Default: 10 (publication decade).
+#' @param time.field Specify the field to be used for time. By default: "publication_year", or if time.window is 10, then "publication_decade" 
 #' @return data.frame
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{timeline(df, "gatherings")}
 #' @keywords utilities
-timeline <- function (x, field = "titlecount", group = NULL, nmin = 0, mode = "absolute", time.window = 10) {
+timeline <- function (x, field = "titlecount", group = NULL, nmin = 0, mode = "absolute", time.window = 10, time.field = "publication_year") {
 
   publication_decade <- publication_time <- NULL
+  x$publication_time <- x[[time.field]]
 
   # Set the desired time window (default one decade)
-  if (time.window == 10) {
+  x$publication_time <- time.window * floor(x$publication_time / time.window)
+  if (time.field == "publication_decade" || (time.field == "publication_year" & time.window == 10 & "publication_decade" %in% names(x))) {
     x$publication_time <- x$publication_decade
-  } else {
-    x$publication_time <- time.window * floor(x$publication_year / time.window)
   }
 
   if (!is.null(group)) {
@@ -39,7 +40,7 @@ timeline <- function (x, field = "titlecount", group = NULL, nmin = 0, mode = "a
   }
   
   x$field <- x[[field]]
-  
+
   df2 <- x %>% filter(!is.na(group)) %>%
                group_by(publication_time, group) %>%
      	       summarise(absolute = sum(field, na.rm = TRUE))

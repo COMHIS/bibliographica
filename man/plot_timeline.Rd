@@ -4,15 +4,15 @@
 \alias{plot_timeline}
 \title{Timeline Plot}
 \usage{
-plot_timeline(x, y = NULL, field = "titlecount", group = NULL, nmin = 0,
+plot_timeline(data, x, y = "n", group = NULL, nmin = 0,
   mode = "absolute", time.window = 10)
 }
 \arguments{
-\item{x}{First data.frame}
+\item{data}{data.frame for plotting}
 
-\item{y}{Second data.frame. Optional, for comparison.}
+\item{x}{time variable. Numeric field to summarize in the timeline. The number of entries (title count) per decade is shown by default.}
 
-\item{field}{Numeric field to summarize in the timeline. The number of entries (title count) per decade is shown by default, But if this argument is used, the sum of entries per decade for this field is given.}
+\item{y}{outcome variable}
 
 \item{group}{Optional. Name for a data field that indicates groups to compare. If given, the different groups are indicated by lines.}
 
@@ -32,11 +32,8 @@ List:
 \description{
 Plot timeline for selected variable (possibly across various groups).
 }
-\details{
-If two data.frames (x,y) are provided in the function arguments, a comparison plot will be generated.
-}
 \examples{
-\dontrun{timeline(df, "gatherings")}
+\dontrun{plot_timeline(df, "publication_year")}
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

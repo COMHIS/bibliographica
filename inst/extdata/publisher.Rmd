@@ -10,7 +10,9 @@ output: markdown_document
 
  * `r length(unique(df$publisher))` [unique publishers](output.tables/publisher_accepted.csv)
 
- * `r sum(!is.na(df$publisher))` documents have unambiguous publisher information (`r round(100*mean(!is.na(df$publisher)))`%). 
+ * `r sum(!is.na(df$publisher))` documents have unambiguous publisher information (`r round(100*mean(!is.na(df$publisher)), 1)`%). This includes documents identified as self-published; the author name is used as the publisher in those cases (if known).
+
+ * `r length(which(df$self_published))` documents are identified as self-published (`r round(100*(length(which(df$self_published))/nrow(df)), 1)`%). 
 
  * [Discarded publisher entries](output.tables/publisher_discarded.csv)
 
@@ -62,5 +64,30 @@ res <- compare_title_paper(df, "publisher")
 print(res$plot)  
 kable(subset(res$table, publisher %in% tops), digit = 2)
 ```
+
+
+### Corporates
+
+Summaries of the corporate field.
+
+ * `r length(unique(df$corporate))` [unique corporates](output.tables/corporate_accepted.csv)
+
+ * `r sum(!is.na(df$corporate))` documents have unambiguous corporate information (`r round(100*mean(!is.na(df$corporate)), 1)`%). 
+
+ * [Discarded corporate entries](output.tables/corporate_discarded.csv)
+
+ * [Conversions from original to final names](output.tables/corporate_conversion_nontrivial.csv) (only non-trivial conversions shown)
+
+
+The `r ntop` most common corporates are shown with the number of documents. 
+
+```{r summarycorporate2, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12, fig.height=9}
+p <- top_plot(df, "corporate", ntop)
+p <- p + ggtitle(paste("Top corporates"))
+p <- p + scale_y_log10()
+p <- p + ylab("Documents")
+print(p)
+```
+
 
 

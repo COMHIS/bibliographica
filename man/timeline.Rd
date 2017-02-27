@@ -5,7 +5,7 @@
 \title{Retrieve Timeline}
 \usage{
 timeline(x, field = "titlecount", group = NULL, nmin = 0,
-  mode = "absolute", time.window = 10)
+  mode = "absolute", time.window = 10, time.field = "publication_year")
 }
 \arguments{
 \item{x}{data frame}
@@ -19,6 +19,8 @@ timeline(x, field = "titlecount", group = NULL, nmin = 0,
 \item{mode}{"absolute" or "relative"}
 
 \item{time.window}{Time window for the timeline in years. Default: 10 (publication decade).}
+
+\item{time.field}{Specify the field to be used for time. By default: "publication_year", or if time.window is 10, then "publication_decade"}
 }
 \value{
 data.frame
