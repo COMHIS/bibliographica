@@ -22,11 +22,10 @@ Estimate pages for single volume documents.
 \examples{
 \dontrun{p <- estimate_pages_singlevol(df)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

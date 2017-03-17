@@ -20,11 +20,10 @@ Harmonize ie statements.
 \examples{
 \dontrun{x2 <- harmonize_ie("i.e.")}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

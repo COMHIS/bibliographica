@@ -20,11 +20,10 @@ Polish university names
 \examples{
 \dontrun{v <- polish_university(c("HY","Suomen yliopisto"))}
 }
-\author{
-Niko Ilomaki \email{niko.ilomaki@helsinki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Niko Ilomaki \email{niko.ilomaki@helsinki.fi}
+}
 \keyword{utilities}
-

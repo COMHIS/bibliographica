@@ -18,11 +18,10 @@ Polish corporate
 \examples{
 # x2 <- polish_corporate("unknown")
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

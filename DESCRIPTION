@@ -39,4 +39,4 @@ Suggests:
 Additional_repositories:
     http://packages.ropensci.org
 LazyLoad: yes
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

@@ -22,11 +22,10 @@ Load datafile in csv.gx format, or use previously saved Rds.
 \examples{
 \dontrun{df.orig <- load_initial_datafile(datafile, ignore.fields, reload.data = TRUE)}
 }
-\author{
-Leo Lahti, Ville Vaara
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti, Ville Vaara
+}
 \keyword{utilities}
-

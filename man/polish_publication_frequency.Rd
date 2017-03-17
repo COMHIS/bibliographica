@@ -15,11 +15,10 @@ Harmonize publication frequencies.
 \examples{
 \dontrun{df <- polish_publication_frequency("Kerran vuodessa")}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

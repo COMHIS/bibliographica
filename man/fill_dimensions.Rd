@@ -25,14 +25,13 @@ Estimate missing entries in dimension vector where possible.
   fill_dimensions(c(original = NA, gatherings = NA, width = 30, height = 48), dimension.table)
 }
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
 \seealso{
 augment_dimension_table
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

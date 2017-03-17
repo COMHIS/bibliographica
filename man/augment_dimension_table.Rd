@@ -25,14 +25,13 @@ Estimate missing entries in dimension table where possible.
 \examples{
 # augment_dimension_table(dim.tab)
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
 \seealso{
 polish_dimensions
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

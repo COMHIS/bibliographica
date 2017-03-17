@@ -36,11 +36,10 @@ Map the input vector to harmonized versions based on the synonyme table.
 \examples{
 \dontrun{x2 <- map(x, synonymes)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

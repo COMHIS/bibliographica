@@ -18,11 +18,10 @@ Remove print statements.
 \examples{
 x2 <- remove_print_statements("Printed in London")
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

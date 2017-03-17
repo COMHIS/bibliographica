@@ -18,11 +18,10 @@ Remove trailing periods.
 \examples{
 \dontrun{x2 <- remove_trailing_periods(x)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

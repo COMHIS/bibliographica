@@ -24,11 +24,10 @@ Relative timeline for selected variable between two data sets.
 \examples{
 \dontrun{timeline_relative(df, "gatherings")}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

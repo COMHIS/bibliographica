@@ -23,11 +23,10 @@ Remove specific single letters from the start and/or end of the input string(s).
 \examples{
 \dontrun{remove_letters(x)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

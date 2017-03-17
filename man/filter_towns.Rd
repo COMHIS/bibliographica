@@ -19,11 +19,10 @@ Filtered data frame
 \description{
 Gets publications printed in a single town from a single catalog or all of them
 }
-\author{
-Hege Roivainen \email{hege.roivainen@gmail.com}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Hege Roivainen \email{hege.roivainen@gmail.com}
+}
 \keyword{utilities}
-

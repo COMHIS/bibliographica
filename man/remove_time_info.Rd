@@ -25,11 +25,10 @@ Remove months, year terms and numerics
 \examples{
 \dontrun{x2 <- remove_time_info(x)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

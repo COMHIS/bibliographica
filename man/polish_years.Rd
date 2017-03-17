@@ -27,11 +27,10 @@ Pick and polish the year interval (start and end years) from a time field which 
 \examples{
 \dontrun{df <- polish_years(c("1746", "1745-1750"))}
 }
-\author{
-Leo Lahti and Niko Ilomaki \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti and Niko Ilomaki \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

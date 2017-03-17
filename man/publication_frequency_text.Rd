@@ -17,11 +17,10 @@ Convert annual publication frequencies to text format.
 \examples{
 \dontrun{df <- publication_frequency_text("Twice per year" 2)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

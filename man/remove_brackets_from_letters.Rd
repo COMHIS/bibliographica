@@ -20,11 +20,10 @@ Remove brackets surrounding letters.
 \examples{
 x2 <- remove_brackets_from_letters("[p]")
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

@@ -19,11 +19,10 @@ Data frame of core fields
 \description{
 Gets dissertations from a single catalog or all of them
 }
-\author{
-Hege Roivainen \email{hege.roivainen@gmail.com}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Hege Roivainen \email{hege.roivainen@gmail.com}
+}
 \keyword{utilities}
-

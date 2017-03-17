@@ -26,11 +26,10 @@ Identify the top entries in a vector or for a given field in a data frame.
 \examples{
 \dontrun{p <- top(df, field, 10)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

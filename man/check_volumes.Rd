@@ -18,11 +18,10 @@ Pick volume information from page number field
 \examples{
 \dontrun{check_volumes("v.4, 293")}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

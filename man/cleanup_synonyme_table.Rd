@@ -26,11 +26,10 @@ Adds, lowercase version of each name; removes duplicates;
 \examples{
 # tmp <- cleanup_synonyme_table(f, sep = ";", write = FALSE)
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

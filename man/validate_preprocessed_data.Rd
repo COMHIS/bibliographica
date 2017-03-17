@@ -20,11 +20,10 @@ Preprocessing validators and some adjustments.
 \examples{
 # \dontrun{validate_preprocessed_data(data.preprocessed)}
 }
-\author{
-Ville Vaara and Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Ville Vaara and Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-
