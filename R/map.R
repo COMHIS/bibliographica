@@ -10,13 +10,14 @@
 #' @param verbose verbose
 #' @param from field that will be replaced
 #' @param to field that contains the final names
+#' @param keep.names Keep the original names in the returned vector (may slow down analysis in large data sets)
 #' @return Vector of harmonized terms
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{x2 <- map(x, synonymes)}
 #' @keywords utilities
-map <- function (x, synonymes, remove.unknown = FALSE, mode = "exact.match", verbose = FALSE, from = "synonyme", to = "name") {
+map <- function (x, synonymes, remove.unknown = FALSE, mode = "exact.match", verbose = FALSE, from = "synonyme", to = "name", keep.names = FALSE) {
 
   # Map synonymes to selected names: NA if mapping not available
   xorig <- as.character(x)
@@ -85,8 +86,14 @@ map <- function (x, synonymes, remove.unknown = FALSE, mode = "exact.match", ver
   }
   
 
-  # Map back to original inds and return
-  xx[match(xorig, xuniq)]
+  # Map back to original inds 
+  xx <- xx[match(xorig, xuniq)]
+
+  if (keep.names) {
+    names(xx) <- xorig
+  }
+
+  xx
 
 }
 

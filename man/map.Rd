@@ -5,7 +5,7 @@
 \title{Map Terms}
 \usage{
 map(x, synonymes, remove.unknown = FALSE, mode = "exact.match",
-  verbose = FALSE, from = "synonyme", to = "name")
+  verbose = FALSE, from = "synonyme", to = "name", keep.names = FALSE)
 }
 \arguments{
 \item{x}{A character vector}
@@ -23,6 +23,8 @@ found; 'match' replaces the parts that match synonymes; 'recursive' replaces all
 \item{from}{field that will be replaced}
 
 \item{to}{field that contains the final names}
+
+\item{keep.names}{Keep the original names in the returned vector (may slow down analysis in large data sets)}
 }
 \value{
 Vector of harmonized terms
