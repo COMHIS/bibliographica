@@ -79,8 +79,8 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
   r <- q
   
   q <- clean_publisher_destructively(q, languages)
-  orig_destructed_mapping <- data.frame(orig=r, destructed=q, stringsAsFactors = FALSE)
-  message("...orig_destructed_mapping bound")
+  
+
   # Get the minimum & maximum years for each publisher name
   ranges <- data.frame(min=integer(length(unique(q))), max=integer(length(unique(q))), publisher=character(length(unique(q))), stringsAsFactors=FALSE)
   
@@ -154,7 +154,11 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
   # extract initials etc., in case publisher is a person (may contain lots of false persons)
   # TODO should not be Finland specific !
   unique_personal_names <- extract_personal_names(compPublisher, languages=c("finnish", "latin", "swedish"))
-  
+
+  orig_destructed_mapping <- data.frame(orig=r, destructed=q, stringsAsFactors = FALSE)
+  message("...orig_destructed_mapping bound")
+
+    
   # HR 2016-11-07:
   # Map back unique_personal_names to non-unique, so indices later would match
   personal_names <- unique_personal_names[match(harmonized_q, unique_personal_names$orig),]
@@ -200,11 +204,10 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
     guessed <- unique_personal_names$guessed[i]
     relation <- unique_personal_names$relation[i]
     
-    # HR 2016-11-09:
-    # "Alf. Bärlund" <- "Alfred Bärlund", so it will match "A. Bärlund"
+    # "Alf. Bärlund" -> "Alfred Bärlund", so it will match "A. Bärlund"
     if ((length(grep("[[:upper:]][[:lower:]]+[.] [[:upper:]][[:lower:]]+$", publisherName)) > 0 ) 
         && (full_name != "") && (!is.na(full_name))) {
-      publisherName <- full_name
+      #publisherName <- full_name
       compare_version <- full_name
     }
     
