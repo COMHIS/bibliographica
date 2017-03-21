@@ -53,6 +53,7 @@
 #' @importFrom tm stopwords
 #' @importFrom utils as.roman
 #' @importFrom utils read.csv
+#' @importFrom utils head
 #' @importFrom utils tail
 #' @importFrom utils write.csv
 #' @importFrom utils write.table
