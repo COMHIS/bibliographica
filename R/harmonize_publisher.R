@@ -45,11 +45,14 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
       
     } else if (language=="finnish") {
       f <- system.file("extdata/fi_publisher.csv", package = "bibliographica")  
+    } else if (language == "latin") {
+      f <- system.file("extdata/lat_publisher.csv", package="bibliographica")
+    } else {
+      print (paste0("Unknown language in languages: ", language))
     }
     synonyms <- read.csv(f, sep = "\t", fileEncoding = "UTF-8")
     q <- map(q, synonyms, mode="recursive")
   }
-  
   
   
   # remove brackets and parentheses (Destructive phase)
@@ -157,7 +160,7 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
 
   orig_destructed_mapping <- data.frame(orig=r, destructed=q, stringsAsFactors = FALSE)
   message("...orig_destructed_mapping bound")
-
+  
     
   # HR 2016-11-07:
   # Map back unique_personal_names to non-unique, so indices later would match
@@ -353,10 +356,12 @@ harmonize_publisher <- function(x, publication_year, languages=c("english")) {
       print(paste0("...harmonize_publisher: ", i, " publisher names done;   ", Sys.time()))
     }
   }
-
+  
+  
   message("harmonize_publisher: comparisons done")
   framePublishers$orig <- unlist(as.character(unname(sapply(framePublishers$mod, function(destr) 
-    as.character(tail(sort(orig_destructed_mapping$orig[which(orig_destructed_mapping$destructed==destr)]),1))))))
+    names(head(sort(table(orig_destructed_mapping$orig[orig_destructed_mapping$destructed==destr]), decreasing=TRUE),1))
+    ))))
   
   message("harmonize_publisher: matching done")
   return (data.frame(list(orig=framePublishers$orig, mod=framePublishers$mod, comp=framePublishers$comp)))
