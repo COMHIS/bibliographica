@@ -15,11 +15,10 @@ Data frame of core fields
 \description{
 Lists titles which are tagged as dissertations in another catalog, but not in the other one
 }
-\author{
-Hege Roivainen \email{hege.roivainen@gmail.com}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Hege Roivainen \email{hege.roivainen@gmail.com}
+}
 \keyword{utilities}
-

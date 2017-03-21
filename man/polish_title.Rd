@@ -22,11 +22,10 @@ Remove ending commas, periods, spaces and parentheses,
 \examples{
 \dontrun{x2 <- polish_title(x)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

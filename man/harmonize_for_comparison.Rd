@@ -20,11 +20,10 @@ Harmonize orthography
 \examples{
 # harmonize_for_comparison(x, languages = "finnish")
 }
-\author{
-Hege Roivainen \email{hege.roivainen@gmail.com}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Hege Roivainen \email{hege.roivainen@gmail.com}
+}
 \keyword{utilities}
-

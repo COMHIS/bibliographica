@@ -15,11 +15,10 @@ Harmonize publication frequencies for Finnish data.
 \examples{
 \dontrun{df <- polish_publication_frequency_finnish("Kerran vuodessa")}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

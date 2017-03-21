@@ -31,11 +31,10 @@ After removing the numerics, beginning, double and ending
 \examples{
 \dontrun{x2 <- remove_terms_all(x, terms)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

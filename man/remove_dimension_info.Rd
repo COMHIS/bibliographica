@@ -18,11 +18,10 @@ Remove dimension information from a single document.
 \examples{
 \dontrun{remove_dimension_info("4to 40cm")}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{internal}
-

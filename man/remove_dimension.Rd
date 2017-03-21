@@ -18,11 +18,10 @@ Remove dimension data.
 \examples{
 # remove_dimension("4to 40cm", sheet_sizes())
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{internal}
-

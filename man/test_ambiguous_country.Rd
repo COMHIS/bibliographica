@@ -19,11 +19,10 @@ Identify ambiguous country mappings in the region-counry mapping table.
 \examples{
 aa <- test_ambiguous_country()
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

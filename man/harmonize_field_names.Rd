@@ -21,11 +21,10 @@ For MARC field descriptions, see \url{https://www.loc.gov/marc/bibliographic/}.
 \examples{
 x2 <- harmonize_field_names("041a")
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

@@ -24,11 +24,10 @@ Fill in missing entries in the data based on supplied information table
 \examples{
 \dontrun{a <- add_missing_entries(...)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

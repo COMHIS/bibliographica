@@ -21,11 +21,10 @@ Beginning, double and ending spaces are also removed from the strings.
 \examples{
 x2 <- condense_spaces(" a  b cd ") # "a b cd"
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

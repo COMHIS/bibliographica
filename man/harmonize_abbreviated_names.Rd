@@ -20,11 +20,10 @@ Writes out abbreviated names.
 \examples{
 # harmonize_abbreviated_names(c("Phil.", "Joh."), languages=c("finnish"))
 }
-\author{
-Hege Roivainen \email{hege.roivainen@gmail.com}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Hege Roivainen \email{hege.roivainen@gmail.com}
+}
 \keyword{utilities}
-

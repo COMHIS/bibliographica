@@ -18,11 +18,10 @@ Data frame
 \description{
 Gets duplicates which are tagged as dissertations in another catalog, but in the other one aren't
 }
-\author{
-Hege Roivainen \email{hege.roivainen@gmail.com}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Hege Roivainen \email{hege.roivainen@gmail.com}
+}
 \keyword{utilities}
-

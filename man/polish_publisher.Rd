@@ -15,11 +15,10 @@ Data frame with orig, mod
 \description{
 Generic cleanup of the publisher field.
 }
-\author{
-Leo Lahti \email{hege.roivainen@gmail.com}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{hege.roivainen@gmail.com}
+}
 \keyword{utilities}
-

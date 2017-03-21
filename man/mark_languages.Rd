@@ -18,11 +18,10 @@ Construct binary matrix of languages for each entry
 \examples{
 \dontrun{df <- mark_languages(c("fin;lat","eng"))}
 }
-\author{
-Niko Ilomaki \email{niko.ilomaki@helsinki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Niko Ilomaki \email{niko.ilomaki@helsinki.fi}
+}
 \keyword{utilities}
-

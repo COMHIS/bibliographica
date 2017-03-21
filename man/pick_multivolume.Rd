@@ -18,11 +18,10 @@ Pick volume information for multi-volume documents.
 \examples{
 \dontrun{pick_multivolume("v.1-3, 293")}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

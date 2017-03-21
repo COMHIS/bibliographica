@@ -2,8 +2,8 @@
 % Please edit documentation in R/bibliographica-package.R
 \docType{package}
 \name{bibliographica-package}
-\alias{bibliographica}
 \alias{bibliographica-package}
+\alias{bibliographica}
 \title{bibliographica}
 \description{
 Brief summary of the bibliographica package
@@ -21,12 +21,11 @@ LazyLoad: \tab yes\cr
 \examples{
 library(bibliographica)
 }
-\author{
-Leo Lahti et al. \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 \url{https://github.com/ropengov/bibliographica}
 }
+\author{
+Leo Lahti et al. \email{leo.lahti@iki.fi}
+}
 \keyword{package}
-

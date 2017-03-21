@@ -18,11 +18,10 @@ Validation for names.
 \examples{
 # \dontrun{validate_names(df.preprocessed)}
 }
-\author{
-Ville Vaara and Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Ville Vaara and Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

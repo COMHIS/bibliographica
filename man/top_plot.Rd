@@ -26,11 +26,10 @@ Plot the top entries for a given field in a data frame.
 \examples{
 \dontrun{p <- top_plot(x, field, 50)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

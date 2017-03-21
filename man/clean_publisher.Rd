@@ -20,11 +20,10 @@ Preliminary cleanup for the publisher field.
 \examples{
 # clean_publisher(x, languages=c("finnish", "swedish", "latin"))
 }
-\author{
-Hege Roivainen \email{hege.roivainen@gmail.com}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Hege Roivainen \email{hege.roivainen@gmail.com}
+}
 \keyword{utilities}
-

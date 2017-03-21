@@ -18,11 +18,10 @@ Sort gatherings levels
 \examples{
 order_gatherings(factor(c("2fo", "1to", "8vo")))
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

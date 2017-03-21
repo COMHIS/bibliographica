@@ -29,11 +29,10 @@ implement are provided in
 \examples{
 tab <- polish_physical_extent("4p.")
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

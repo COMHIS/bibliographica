@@ -21,11 +21,10 @@ Polish dimension field of a single document
 \examples{
 # polish_dimension("4")
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{internal}
-

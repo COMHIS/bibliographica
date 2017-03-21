@@ -46,11 +46,10 @@ If mode = "list", each row of the input file corresponds to a unique entry with 
 \examples{
 \dontrun{syn <- read_synonymes(file)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

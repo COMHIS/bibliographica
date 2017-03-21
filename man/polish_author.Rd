@@ -22,11 +22,10 @@ Polish author.
 \examples{
 s2 <- polish_author("Smith, William")
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

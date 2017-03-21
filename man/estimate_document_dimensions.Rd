@@ -30,11 +30,10 @@ Estimate missing dimension information.
 \examples{
 # estimate_document_dimensions(gatherings = 2, height = 44)
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-
