@@ -29,11 +29,10 @@ Write xtable in a file
 \examples{
 \dontrun{tab <- write_xtable(x, "tmp.tab")}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

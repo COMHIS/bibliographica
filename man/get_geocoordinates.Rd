@@ -25,11 +25,10 @@ Experimental.
 \examples{
 \dontrun{x2 <- get_geocoordinates("Berlin")}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

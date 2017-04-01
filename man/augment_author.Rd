@@ -25,11 +25,10 @@ Augments author life years (author_birth and author_death) based on information 
 \examples{
 # augment_author_life(df)
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

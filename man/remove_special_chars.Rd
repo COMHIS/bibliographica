@@ -23,11 +23,10 @@ Remove special characters.
 \examples{
 x2 <- remove_special_chars("test;")
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

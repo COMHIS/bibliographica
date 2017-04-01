@@ -22,11 +22,10 @@ Estimate fraction of missing entries (NAs) and visualize data availability for t
 \examples{
 # field_availability(df)
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

@@ -21,11 +21,10 @@ A single document, but check which volume
 \examples{
 \dontrun{pick_volume("v.4")}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

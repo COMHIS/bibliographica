@@ -22,11 +22,10 @@ Pick keyword denoting that the person in question is a relative to the named per
 \examples{
 # get_relation_keyword(x, full_name, languages=c("finnish", "swedish", "latin"))
 }
-\author{
-Hege Roivainen \email{hege.roivainen@gmail.com}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Hege Roivainen \email{hege.roivainen@gmail.com}
+}
 \keyword{utilities}
-

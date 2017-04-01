@@ -21,11 +21,10 @@ Identifies unique title-author combinations and marks the earliest occurrence as
 \examples{
 \dontrun{fed <- is_first_edition(df)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

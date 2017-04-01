@@ -20,11 +20,10 @@ Augment missing pagecounts based on mean estimates from available data.
 \examples{
 \dontrun{df2 <- enrich_pagecount(df)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

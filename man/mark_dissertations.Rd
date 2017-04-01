@@ -18,11 +18,10 @@ Establish two binary variables: dissertation and synodal dissertation
 \examples{
 \dontrun{df <- mark_dissertations(c("Diss.","Diss. synod"))}
 }
-\author{
-Niko Ilomaki \email{niko.ilomaki@helsinki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Niko Ilomaki \email{niko.ilomaki@helsinki.fi}
+}
 \keyword{utilities}
-

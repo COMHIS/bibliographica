@@ -20,11 +20,10 @@ Map geographic places to country names.
 \examples{
 x2 <- get_country("Berlin")
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

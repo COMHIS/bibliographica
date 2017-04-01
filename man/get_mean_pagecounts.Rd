@@ -20,11 +20,10 @@ Calculate mean page counts for different document types.
 \examples{
 \dontrun{m <- get_mean_pagecounts(df)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

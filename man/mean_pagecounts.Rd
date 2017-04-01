@@ -22,11 +22,10 @@ Estimate mean and median page counts.
 \examples{
 \dontrun{m <- mean_pagecounts(df)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

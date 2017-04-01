@@ -22,11 +22,10 @@ Remove specified endings of strings.
 \examples{
 \dontrun{x2 <- remove_endings(x, endings)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

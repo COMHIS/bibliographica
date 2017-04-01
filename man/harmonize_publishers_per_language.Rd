@@ -20,11 +20,10 @@ Harmonize publishers per language.
 \examples{
 \dontrun{x <- harmonize_publishers_per_language(q, languages)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

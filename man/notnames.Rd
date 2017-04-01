@@ -18,11 +18,10 @@ List of strings that are not names (manually checked)
 \examples{
 \dontrun{x <- notnames()}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

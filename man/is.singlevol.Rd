@@ -22,11 +22,10 @@ Therefore no page count is considered in assessing the issue status.
 \examples{
 \dontrun{issue <- is.singlevol(df)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

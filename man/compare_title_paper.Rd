@@ -28,11 +28,10 @@ Compare title count and paper consumption for selected field.
 \examples{
 \dontrun{compare_title_paper(df, "author")}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

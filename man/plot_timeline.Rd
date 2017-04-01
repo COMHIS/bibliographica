@@ -35,11 +35,10 @@ Plot timeline for selected variable (possibly across various groups).
 \examples{
 \dontrun{plot_timeline(df, "publication_year")}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

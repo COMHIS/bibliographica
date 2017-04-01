@@ -27,11 +27,10 @@ Sheet size is calculated according to the table given as output
 \examples{
 sheet_area("2to")
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

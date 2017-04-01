@@ -20,11 +20,10 @@ Remove s.l etc. clauses
 \examples{
 x2 <- remove_sl(c("s.l.", "London"))
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

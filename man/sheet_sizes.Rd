@@ -18,11 +18,10 @@ Read sheet size table.
 \examples{
 sheetsizes <- sheet_sizes()
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

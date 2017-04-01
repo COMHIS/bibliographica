@@ -21,11 +21,10 @@ Each row of the input file corresponds to a unique author with potentially multi
 \examples{
 aa <- ambiguous_authors_table()
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

@@ -21,11 +21,10 @@ Used to estimate pagecounts for documents with missing page count information. T
 \examples{
 \dontrun{issue <- is.multivol(df)}
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation("bibliographica")
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-
