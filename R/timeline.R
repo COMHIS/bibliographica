@@ -16,10 +16,12 @@
 timeline <- function (x, field = "titlecount", group = NULL, nmin = 0, mode = "absolute", time.window = 10, time.field = "publication_year") {
 
   publication_decade <- publication_time <- NULL
+
   x$publication_time <- x[[time.field]]
 
   # Set the desired time window (default one decade)
   x$publication_time <- time.window * floor(x$publication_time / time.window)
+
   if (time.field == "publication_decade" || (time.field == "publication_year" & time.window == 10 & "publication_decade" %in% names(x))) {
     x$publication_time <- x$publication_decade
   }
@@ -38,7 +40,7 @@ timeline <- function (x, field = "titlecount", group = NULL, nmin = 0, mode = "a
   if (field == "titlecount" && !field %in% names(x)) {
     x[[field]] <- rep(1, nrow(x))
   }
-  
+
   x$field <- x[[field]]
 
   df2 <- x %>% filter(!is.na(group)) %>%

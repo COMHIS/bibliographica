@@ -28,7 +28,7 @@ plot_timeline <- function (data, x, y = "n", group = NULL, nmin = 0, mode = "abs
   if (y == "dataid") {
     stop("The dataid field is in internal use.")
   }
-  
+
   dfx <- timeline(data, field = y, group = group, nmin = nmin, mode = mode, time.window = time.window, time.field = x)
   dfx$dataid <- rep("X", rep(nrow(dfx)))
   df <- dfx
