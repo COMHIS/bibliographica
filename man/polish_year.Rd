@@ -5,7 +5,7 @@
 \title{Polish year}
 \usage{
 polish_year(x, start_synonyms = NULL, end_synonyms = NULL, months,
-  verbose = FALSE)
+  verbose = FALSE, min.year = -3000, max.year = 2100)
 }
 \arguments{
 \item{x}{year string}
@@ -17,6 +17,10 @@ polish_year(x, start_synonyms = NULL, end_synonyms = NULL, months,
 \item{months}{months}
 
 \item{verbose}{verbose}
+
+\item{min.year}{Minimum year accepted}
+
+\item{max.year}{Maximum year accepted}
 }
 \value{
 vector with the fields 'from' and 'till'

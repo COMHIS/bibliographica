@@ -5,7 +5,8 @@
 \title{Polish Years}
 \usage{
 polish_years(x, start_synonyms = NULL, end_synonyms = NULL,
-  verbose = TRUE, check = FALSE)
+  verbose = TRUE, check = FALSE, min.year = -3000,
+  max.year = as.numeric(format(Sys.time(), "\%Y")) + 50)
 }
 \arguments{
 \item{x}{year field (a vector)}
@@ -17,6 +18,10 @@ polish_years(x, start_synonyms = NULL, end_synonyms = NULL,
 \item{verbose}{verbose}
 
 \item{check}{If true, remove entries (replace by NA) where start > end}
+
+\item{min.year}{Minimum year accepted}
+
+\item{max.year}{Maximum year accepted}
 }
 \value{
 data.frame with the fields 'start' and 'end'
