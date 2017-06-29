@@ -17,7 +17,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 
   x <- gsub("\\.$", "", x)
   x <- gsub(", *\\[*[0-9]\\]*$", "", x)
-
+  
   if (is.null(start_synonyms)) {
     f <- system.file("extdata/fi_start_years.csv", package = "bibliographica")
     start_synonyms <- read_mapping(f, sep = "\t", mode = "table")
@@ -33,9 +33,12 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   months <- unique(c(months, tolower(months)))
   # Handle from longest to shortest to avoid problems
   months <- months[rev(order(nchar(months)))]
-  
-  x0 = x
-  xorig <- x <- tolower(as.character(x))
+
+  # These seem unnecessary assignments.
+  # x0 is never used and x is immediately reassigned. -vv
+  # x0 = x
+  # xorig <- x <- tolower(as.character(x))
+  xorig <- tolower(as.character(x))
   xuniq <- unique(xorig)
   x <- xuniq
   
@@ -115,7 +118,23 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   xuniq <- unique(xorig)
   x <- xuniq
 
-  res <- suppressWarnings(lapply(x, function (xi) {a <- try(polish_year(xi, start_synonyms = start_synonyms, end_synonyms = end_synonyms, months, verbose)); if (class(a) == "try-error") {return(c(NA, NA))} else {return(a)}}))
+  res <- suppressWarnings(
+    lapply(x,
+           function (xi) {
+             a <- try(polish_year(xi,
+                                  start_synonyms = start_synonyms,
+                                  end_synonyms = end_synonyms,
+                                  months,
+                                  verbose)
+                      )
+             if (class(a) == "try-error") {
+               return(c(NA, NA))
+             } else {
+               return(a)
+             }
+           }
+    )
+  )
   
   res <- do.call("rbind", res)
   start_year <- res[,1]
@@ -141,10 +160,9 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 
   # Match the unique cases to the original indices
   # before returning the df
-  df[match(xorig, xuniq), ]
+  return(df[match(xorig, xuniq), ])
   
 }
-
 
 
 #' @title Polish year
@@ -256,7 +274,6 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     x <- substr(x, 1, 4)
   }  
 
-
   # Now Remove some special chars
   x <- gsub("\\(\\)", "", x)  
   x <- gsub("-+", "-", x)
@@ -299,8 +316,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     x <- x[x >= 100] # ignore years below 100
     x <- paste(min(x), max(x), sep = "-")
   }
-  
-    
+
   x <- gsub("\\[[0-9]{2,3}-*\\]", "", x)  
   x <- gsub("-\\]-", "-", x)
   x <- gsub("\\[[0-9]{2}-\\]", "NA", x)
@@ -318,7 +334,9 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   x <- condense_spaces(x)
   x <- gsub("^[\\:|\\=]", "", x)
   
-  if (length(x) == 1 && (x == "" || is.na(x))) {x <- "NA"}
+  if (length(x) == 1 && (x == "" || is.na(x))) {
+    x <- "NA"
+  }
   if (length(x) > 1) {
     x <- na.omit(x)
   }
@@ -369,13 +387,15 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   spl <- unlist(strsplit(x, " "), use.names = FALSE)
   spl <- unique(spl[grep("[0-9]{4}", spl)])
   
-    if (length(spl) == 1) {x <- spl}
+  if (length(spl) == 1) {
+    x <- spl
+  }
   
   # 1690, 1690 -> 1690
   if (length(grep("[0-9]{4}, [0-9]{4}$", x))>0) {  
     x <- as.character(min(as.numeric(unique(unlist(strsplit(x, ","), use.names = FALSE)))))
   }
-  
+
   # "1885/1886--1889/1890-1885-1885-2"
   x <- gsub("'", " ", x)
   x <- gsub(",", " ", x)    
@@ -391,13 +411,21 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
 
   if (length(grep("^[0-9|/|-]+$", x))>0) {
     n <- unlist(strsplit(unlist(strsplit(x, "-"), use.names = F), "/"), use.names = F)
-    n <- unlist(strsplit(unlist(strsplit(n, "\\("), use.names = F), "\\)"), use.names = F)
     n <- na.omit(as.numeric(n))
     n <- n[n>=500] # do not accept years below this one in this special case
+
+    # there shouldn't be any of these as they've already been gsubbed to " " above
+    # n <- unlist(strsplit(unlist(strsplit(as.character(n), "\\("), use.names = F), "\\)"), use.names = F)
+    # n <- na.omit(as.numeric(n))
+
     start <- NA
-    if (length(n) > 0) {start <- min(n)}
+    if (length(n) > 0) {
+      start <- min(n)
+    }
     end <- NA
-    if (length(n)>1) {end <- max(n)}
+    if (length(n) > 1) {
+      end <- max(n)
+    }
     return (c(from=as.numeric(start), till=as.numeric(end)))  
   }
 
@@ -417,7 +445,6 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   start <- map(x, start_synonyms)
   start <- as.character(start)
 
-  
   if (length(grep("-", x))>0) {
     spl <- unlist(strsplit(as.character(start), "-+"), use.names = FALSE)
     spl <- as.numeric(spl)
@@ -427,8 +454,6 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
       spl <- spl[min(which(!is.na(c(NA, 3, NA)))):length(spl)]
     }
     x <- spl
-    
-
     start <- x[[1]]
     if (length(x) > 1) {
       end <- x[[2]]
@@ -451,7 +476,9 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   } else if (length(grep("\\[[0-9]*\\]", x)) > 0) {
     # MDCCLXVIII. [1768]  
     spl <- unlist(strsplit(x, " "), use.names = FALSE)
-    if (length(spl) > 1) {spl <- spl[[2]]} else {spl <- spl[[1]]}
+    if (length(spl) > 1) {
+      spl <- spl[[2]]} else {spl <- spl[[1]]
+    }
     start <- gsub("\\[", "", gsub("\\]", "", spl))
     end <- NA    
   } else if (length(grep("^[0-9]*\\.", x)) > 0) {
@@ -468,20 +495,34 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     #end <- NA
     start <- min(spl)
     end <- NA
-    if (length(spl) > 1) {end <- max(spl)}
+    if (length(spl) > 1) {
+      end <- max(spl)
+    }
+  } else if (is.na(x)) {
+    # somewhere along the way some NAs get in, possibly.
+    # That produced a stream of error messages. -vv
+    end <- NA
   } else if (x == "NA") {
     end <- NA
   }
-  
 
   start[start == ""] <- NA
   start[start == " "] <- NA  
+
   start <- christian2numeric(start) 
   start_year <- as.numeric(start)
+
+  # FIXME "cannot coerce type 'closure' to vector of type 'character'" error here.
+  # There are cases where end has not yet been assigned at this point. Therefore
+  # function below catches to a function base R called end() and hilarity ensues.
+  # I'll implement a quick fix for now. -vv
+  if (!(exists("end", mode = "character") || exists("end", mode = "numeric"))) {
+    end <- NA
+  }
   
   end <- map(end, end_synonyms)
   end <- as.character(end)
-  
+
   end <- christian2numeric(end)   
   end_year <- as.numeric(end)
   
@@ -490,10 +531,8 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   if (length(start_year) > 1) {start_year <- NA}
   if (length(end_year) > 1) {end_year <- NA}
 
-  c(start_year, end_year)
-  
+  return(c(start_year, end_year))
 }
-
 
 
 christian2numeric <- function (x) {
@@ -508,7 +547,6 @@ christian2numeric <- function (x) {
     x[inds] <- -as.numeric(str_trim(gsub("b.c", "", x[inds])))
   }
   
-  x
-  
+  return(x)
 }
 
