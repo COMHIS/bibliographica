@@ -4,6 +4,8 @@
 #' @param start_synonyms Synonyme table for start year
 #' @param end_synonyms Synonyme table for end year
 #' @param verbose verbose
+#' @param min.year Minimum year accepted
+#' @param max.year Maximum year accepted
 #' @param check If true, remove entries (replace by NA) where start > end
 #' @return data.frame with the fields 'start' and 'end'
 #' @export
@@ -11,7 +13,7 @@
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df <- polish_years(c("1746", "1745-1750"))}
 #' @keywords utilities
-polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TRUE, check = FALSE) {
+polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TRUE, check = FALSE, min.year = -3000, max.year = as.numeric(format(Sys.time(), "%Y")) + 50) {
 
   x <- gsub("\\.$", "", x)
   x <- gsub(", *\\[*[0-9]\\]*$", "", x)
@@ -130,6 +132,10 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   start_year[is.infinite(start_year)] <- NA
   end_year[is.infinite(end_year)] <- NA  
 
+  # Do not accept years below and above these values	    
+  start_year[start_year < min.year | start_year > max.year] <- NA
+  end_year[end_year < min.year | end_year > max.year] <- NA  
+
   df <- data.frame(from = as.numeric(as.character(start_year)),
                    till = as.numeric(as.character(end_year)))
 
@@ -148,12 +154,14 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 #' @param end_synonyms Synonyme table for end year
 #' @param months months
 #' @param verbose verbose
+#' @param min.year Minimum year accepted
+#' @param max.year Maximum year accepted
 #' @return vector with the fields 'from' and 'till'
 #' @author Leo Lahti and Niko Ilomaki \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df <- polish_year(c("1746"))}
 #' @keywords utilities
-polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, verbose = FALSE) {
+polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, verbose = FALSE, min.year = -3000, max.year = 2100) {
 
   # if (verbose) {message(x)}
 
@@ -248,7 +256,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     x <- substr(x, 1, 4)
   }  
 
-  
+
   # Now Remove some special chars
   x <- gsub("\\(\\)", "", x)  
   x <- gsub("-+", "-", x)
@@ -346,7 +354,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     # 1780 1800 > 1780-1800
     x <- gsub(" ", "-", x)
   }
-  
+
   #x <- unlist(strsplit("3: 1-26 ( 1904/1905 ) , 1: : 1-54 (1905/1906", ""))
   #x <- unlist(strsplit(x, ""))  
   #x <- as.numeric(x)
@@ -367,7 +375,6 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   if (length(grep("[0-9]{4}, [0-9]{4}$", x))>0) {  
     x <- as.character(min(as.numeric(unique(unlist(strsplit(x, ","), use.names = FALSE)))))
   }
-
   
   # "1885/1886--1889/1890-1885-1885-2"
   x <- gsub("'", " ", x)
@@ -381,12 +388,12 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
   x <- condense_spaces(x)
   x <- gsub(" ", "-", x)
   x <- gsub("-+", "-", x)
-  
+
   if (length(grep("^[0-9|/|-]+$", x))>0) {
     n <- unlist(strsplit(unlist(strsplit(x, "-"), use.names = F), "/"), use.names = F)
     n <- unlist(strsplit(unlist(strsplit(n, "\\("), use.names = F), "\\)"), use.names = F)
     n <- na.omit(as.numeric(n))
-    n <- n[n>=500] # do not accept years below this one
+    n <- n[n>=500] # do not accept years below this one in this special case
     start <- NA
     if (length(n) > 0) {start <- min(n)}
     end <- NA
@@ -430,7 +437,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     }
     x <- paste(x, collapse = "-")
   }
-  
+
   if (length(grep("^NA[-][0-9]{4}$", x)) > 0) {
     # NA-1910
     start <- NA
@@ -466,7 +473,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     end <- NA
   }
   
-  
+
   start[start == ""] <- NA
   start[start == " "] <- NA  
   start <- christian2numeric(start) 

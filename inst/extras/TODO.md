@@ -1,5 +1,7 @@
 ### Technical
 
+ * polish_years "6-1939", "19-19", "19765-19765", "20021" ja "19920831-19920831"
+
  * Use tm pkg: removeNumbers; removePuncuations; removeWords;
    replaceWords; stripWhiteSpace; tmTolower; and tau:remove_stopwords;
    stopwords(language = ...)

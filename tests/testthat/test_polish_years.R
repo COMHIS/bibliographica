@@ -1,7 +1,28 @@
 context("Polish years")
 
 test_that("Year polishing is correct", {
+
+  # Limits
+  #expect_true(!is.na(polish_years("19-19")$from))
+  #expect_true(!is.na(polish_years("19-19")$till))
+
+  expect_true(is.na(polish_years("19-19", min.year = 1000)$from))
+  expect_true(is.na(polish_years("19-19", min.year = 1000)$till))
+
+  expect_true(is.na(polish_years("19920831-19920831")$from))
+  expect_true(is.na(polish_years("19920831-19920831")$till))
+
+  expect_true(is.na(polish_years("19765-19765")$from))
+  expect_true(is.na(polish_years("19765-19765")$till))
   
+  expect_true(is.na(polish_years("20021")$from))
+  expect_true(is.na(polish_years("20021")$till))
+
+  expect_equal(polish_years("6-1939", min.year = 1000)$from, 1939)
+  expect_true(is.na(polish_years("6-1939", min.year = 1900)$till)  )
+
+  # -------------------------------------------------------
+
   expect_equal(polish_years("1741-1810.")$from, 1741)    
   expect_equal(polish_years("1741-1810.")$till, 1810)
   expect_equal(polish_years("1617 [] 1618")$from, 1617)
