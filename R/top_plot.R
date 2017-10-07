@@ -45,9 +45,13 @@ top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL, max.char =
   if (is.infinite(max.char)) {
     max.char <- max(nchar(as.character(dfs$names)))
   }
-  dfs$names <- substr(as.character(dfs$names), 1, max.char)
 
-  dfs$names <- droplevels(factor(dfs$names, levels = rev(dfs$names)))
+  levels1 <- length(unique(dfs$names))
+  dfs$names <- substr(as.character(dfs$names), 1, max.char)
+  levels2 <- length(unique(dfs$names))
+  if (!levels1 == levels2) {warning("Truncating the names is mixing up some of the variable names.")}
+
+  dfs$names <- droplevels(factor(dfs$names, levels = rev(unique(dfs$names))))
 
   dfs$color <- rep("black", nrow(dfs))
   if (!is.null(highlight)) {
