@@ -10,6 +10,7 @@
 #' @keywords utilities
 format_period <- function (x) {
 
+  xorig <- x
   x <- strsplit(as.character(x), "\\,")
 
   x1 <- sapply(x, function (xi) {xi[[1]]})
@@ -29,8 +30,13 @@ format_period <- function (x) {
   y <- gsub("NA-NA", NA, y)
   y <- gsub("- *", "-", y)  
 
-  if (is.factor(x)) {y <- as.factor(y)}
-  if (is.numeric(x)) {y <- as.numeric(y)}  
+  if (is.factor(xorig)) {
+    # Keep the same ordering for the levels as in the input
+    conv <- unique(cbind(as.character(xorig), y))  
+    levels <- conv[match(levels(xorig), conv[,1]),2]
+    y <- as.factor(y, levels = levels)
+  }
+  if (is.numeric(xorig)) {y <- as.numeric(y)}  
 
   y
   
