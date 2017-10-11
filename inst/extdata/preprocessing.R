@@ -8,9 +8,6 @@ preprocess_data <- function(preprocessing.data, df.orig, languages, mc.cores = 1
   update.fields <-   preprocessing.data$update.fields
   conversions <-     preprocessing.data$conversions
 
-  check <- "preprocess"
-  # debug variable? -vv
-
   message("Preprocess selected original fields")
   
   res <- polish_all(df.orig,
