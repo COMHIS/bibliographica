@@ -5,7 +5,7 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @export
-#' @examples round(1962, "decade")
+#' @examples decade(1962)
 #' @keywords utilities
 decade <- function (x) {
   x <- as.numeric(as.character(x))
@@ -19,7 +19,7 @@ decade <- function (x) {
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @export
-#' @examples round(1962, "century")
+#' @examples century(1962)
 #' @keywords utilities
 century <- function (x) {
   x <- as.numeric(as.character(x))

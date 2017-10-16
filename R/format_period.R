@@ -34,7 +34,7 @@ format_period <- function (x) {
     # Keep the same ordering for the levels as in the input
     conv <- unique(cbind(as.character(xorig), y))  
     levels <- conv[match(levels(xorig), conv[,1]),2]
-    y <- as.factor(y, levels = levels)
+    y <- factor(y, levels = levels)
   }
   if (is.numeric(xorig)) {y <- as.numeric(y)}  
 
