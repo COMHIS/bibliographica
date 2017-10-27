@@ -52,6 +52,8 @@ The Hague;haya
 Delft;delft 
 Valencia;valencia valencia 
 Copenhagen;kio\?benhavn 
+Copenhagen;hauniae
+Copenhagen;haunia
 Amsterdam;amsterdam
 Leipzig;leipsique
 Frankfurt;frankfurt leipzig 
@@ -1249,7 +1251,6 @@ Hartford Ct;hartfordiae hartford;
 Hartford Ct;hartford conn;
 Hartford Ct;hartford connecticut;
 Hartford Ct;hartfordiae;
-Haunia;hauniae;
 Havanna;havana;
 Havanna;la havana;
 Haverhill Ma;haverhill;
@@ -1460,7 +1461,6 @@ Kotka;kotkassa;
 Krakow;poland;
 Krakow;w krakowie;
 Kristiinankaupunki;kristiina;
-Kristiinankaupunki;kristinehamn;
 Kristiinankaupunki;kristinestad;
 Kruunupyy;kronoby;
 Kuopio;kuopio linnas;
