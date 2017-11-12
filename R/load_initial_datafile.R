@@ -9,8 +9,7 @@
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df.orig <- load_initial_datafile(datafile, ignore.fields, reload.data = TRUE)}
 #' @keywords utilities
-
-load_initial_datafile_dev <- function(datafile, ignore.fields, reload.data = FALSE) { 
+load_initial_datafile <- function(datafile, ignore.fields, reload.data = FALSE) { 
 
   if (reload.data) {
 
