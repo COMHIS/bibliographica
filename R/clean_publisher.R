@@ -18,13 +18,19 @@ clean_publisher <- function(x, languages=c("english")) {
   q <- x  
   
   # select the first item from the list
-  q <- gsub("^([^;]+);.*$", "\\1", q)
+	if (grep("[[]?[Ss][.]?[Nn][.]?[]]?", q) > 0) {
+		q <- gsub("^([^;]+);([^;]+)(;?.*)$", "\\2", q)
+	} else {
+		q <- gsub("^([^;]+);.*$", "\\1", q)
+  }
   
   # Remove possible remains of separator characters
   endings=c(" ", "\\.", ";", ":", ",", "'")
   q <- remove_endings(q, endings=endings, random_order=TRUE)
   
   # Select those things that aren't in brackets or parentheses
+  q <- gsub("^[(](.*)[)]$", "\\1", q)
+  q <- gsub("^[[](.*)[]]$", "\\1", q)
   q <- gsub("^([^(]+)[(].*[)]$", "\\1", q)
   q <- gsub("^([^[]+)[[].*[]]$", "\\1", q)
   q <- gsub("^[(].*[)]([^(]+)$", "\\1", q)
@@ -77,11 +83,6 @@ clean_publisher <- function(x, languages=c("english")) {
   q <- gsub("[]]", "", q)
   q <- gsub("[(]", "", q)
   q <- gsub("[)]", "", q)
-  
-  # remove apostrophes in the beginning and from around phrases
-  q <- gsub("(^| )['](.*)[']( |$)", "\\1\\2\\3", q)
-  q <- gsub("^[']", "", q)
-  q <- gsub("^[:]", "", q)
   
   # add space when needed
   q <- gsub("([[:upper:]])&", "\\1 &", q)
