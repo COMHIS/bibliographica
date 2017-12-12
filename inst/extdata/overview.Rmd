@@ -24,9 +24,6 @@ The data spanning years `r min(na.omit(df$publication_year))`-`r max(na.omit(df$
   * [Document and subject topics](topic.md)
   * [Languages](language.md)
 
-## Field conversions
-
-This documents the conversions from raw data to the final preprocessed version (accepted, discarded, conversions). Only some of the key tables are explicitly linked below. The complete list of all summary tables is [here](output.tables/).
 
 ## Annotated documents
 
@@ -53,6 +50,16 @@ kable(tab[, c(1, 3, 2, 4, 5)], digits = 1, caption = "Data availability")
 rm(tab);gc()
 ```
 
+
+## Field conversions
+
+This documents the conversions from raw data to the final preprocessed version (accepted, discarded, conversions). Only some of the key tables are explicitly linked below. The complete list of all summary tables is [here](output.tables/).
+
+Brief description of the fields:
+
+ * [Description of the original MARC fields](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/fieldnames.csv)
+
+ * [Description of the preprocessed fields](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/fieldnames_polished.csv)
 
 
 ## Histograms of all entries for numeric variables
