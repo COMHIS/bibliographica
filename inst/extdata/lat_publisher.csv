@@ -1,5 +1,4 @@
 synonyme	name
-[I|i]mprimebat	  
-[I|i]mpressit
-
-
+([^[[:upper:]]]+ )[Ii]mprimebat	  
+[Ii]mpressit	
+[Rr](eg)?[.]? [Aa]cad[.]? [Tt]yp(ogr)?[.]?	
