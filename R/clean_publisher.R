@@ -18,7 +18,8 @@ clean_publisher <- function(x, languages=c("english")) {
   q <- x  
   
   # select the first item from the list
-	if (grep("[[]?[Ss][.]?[Nn][.]?[]]?", q) > 0) {
+  # Just make sure that the first in the list is not [S.N.]
+	if (length(grep("[[]?[Ss][.]?[Nn][.]?[]]?", q)) > 0) {
 		q <- gsub("^([^;]+);([^;]+)(;?.*)$", "\\2", q)
 	} else {
 		q <- gsub("^([^;]+);.*$", "\\1", q)
