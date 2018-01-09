@@ -308,7 +308,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   ## PUBLISHER
   # The result is visible at
-  # https://github.com/rOpenGov/fennica/blob/master/inst/examples/publisher.md
+  # https://github.com/COMHIS/fennica/blob/master/inst/examples/publisher.md
   # and that page is generated from
   # inst/extdata/publisher.Rmd
 
@@ -347,7 +347,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   ## CORPORATE
   # The result is visible at
-  # https://github.com/rOpenGov/fennica/blob/master/inst/examples/publisher.md
+  # https://github.com/COMHIS/fennica/blob/master/inst/examples/publisher.md
   # and that page is generated from
   # inst/extdata/publisher.Rmd
 
