@@ -45,7 +45,7 @@ Authors with ambiguous living year information - can we spot here
 cases where these are clearly known identical or distinct authors?
 Should also add living year information from supporting sources later.
 
-`r length(readLines(paste0(this.folder, "/output.tables/authors_missing_lifeyears.csv")))-1` [authors with missing life years](output.tables/authors_missing_lifeyears.csv) (Life year info can be augmented [here](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/author_info.csv))
+`r length(unique(subset(df, is.na(author_birth) | is.na(author_death))$author))` [authors with missing life years](output.tables/authors_missing_lifeyears.csv) (Life year info can be augmented [here](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/author_info.csv))
 
 `r length(readLines(paste0(this.folder, "/output.tables/author_life_ambiguous.csv")))-1` [authors with ambiguous life years](output.tables/author_life_ambiguous.csv) Some of these might be synonymous and could be added to [author synonyme list](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/ambiguous-authors.csv) (the first term will be selected for the final data)
 
@@ -54,7 +54,7 @@ Should also add living year information from supporting sources later.
 
 Ordered by productivity (number of documents))
 
-```{r, summaryauthorslife, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+```{r, summaryauthorslife, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=5}
 a <- rev(rev(sort(table(df$author)))[1:ntop])
 dfa <- df[, c("author", "author_birth", "author_death")]
 dfa <- filter(dfa, !is.na(author) & (author %in% names(a)))
@@ -78,7 +78,7 @@ print(p)
 `r sum(!is.na(df$author_age))` documents (`r round(100*mean(!is.na(df$author_age)))`%) have author age at the publication year. These have been calculated for documents where the publication year and author life years (birth and death) are available, and the document has been printed during the author's life time.
 
 
-```{r author_age, fig.height=7, fig.width=22, echo=FALSE, message=FALSE, warning=FALSE}
+```{r author_age, fig.height=7, fig.width=25, echo=FALSE, message=FALSE, warning=FALSE}
 theme_set(theme_bw(20))
 dfs <- df %>% filter(!is.na(author_age)) %>%
      	 group_by(publication_decade) %>%
@@ -107,7 +107,7 @@ p2 <- ggplot(dfs, aes(x = publication_year, y = age, size = n)) +
 dfs <- df %>% filter(!is.na(author_age))
 p3 <- ggplot(dfs, aes(x = author_age)) +
        geom_histogram(binwidth = 10) +
-       xlab("Age (years)") + ylab("Title count")
+       xlab("Age (years)") + ylab("Title count") +
        #ylab("") +
        #scale_fill_grey() +
        #guides(fill = guide_legend("Author")) +
