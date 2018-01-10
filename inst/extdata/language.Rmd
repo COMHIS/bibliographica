@@ -12,7 +12,7 @@ output: markdown_document
  * `r sum(df$multilingual, na.rm = TRUE)` multilingual documents (`r round(100 * mean(df$multilingual, na.omit = TRUE), 2)`%)  
  * `r sum(is.na(df$language))` docs (`r round(100*mean(is.na(df$language)),2)`%) with empty or [unrecognized language](output.tables/language_discarded.csv)
 
-Language codes are from [MARC](http://www.loc.gov/marc/languages/language_code.html); new custom abbreviations can be added in [this table](https://github.com/rOpenGov/bibliographica/blob/master/inst/extdata/language_abbreviations.csv).
+Language codes are from [MARC](http://www.loc.gov/marc/languages/language_code.html); new custom abbreviations can be added in [this table](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/language_abbreviations.csv).
 
 Title count per language (including multi-language documents):
 
