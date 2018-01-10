@@ -11,15 +11,20 @@ output: markdown_document
  * `r sum(!is.na(df$author))` documents have unambiguous author information (`r round(100*mean(!is.na(df$author_name)))`%). 
  * `r length(unique(subset(df.preprocessed, author_pseudonyme)$author))` [unique pseudonymes](output.tables/pseudonyme_accepted.csv) are recognized based on [custom pseudonyme lists](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/names/pseudonymes/custom_pseudonymes.csv).
  * `r length(readLines(paste0(this.folder, "/output.tables/author_discarded.csv")))-2` [discarded author names](output.tables/author_discarded.csv) This list should not include any real authors (if it does, please send a note to the admin). The stopword lists are considered when discarding names.
-  * [Stopwords for names](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/stopwords_for_names.csv)
-  * [Stopwords for titles](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/stopwords_titles.csv)
+ * [Author name conversions](output.tables/author_conversion_nontrivial.csv) Non-trivial conversions from the original raw data to final names.
 
-[Author name conversions](output.tables/author_conversion_nontrivial.csv) Non-trivial conversions from the original to final names
+
+### Auxiliary files
+
+ * [Author synonyme table](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/ambiguous-authors.csv)
+ * [Stopwords for names](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/stopwords_for_names.csv)
+ * [Stopwords for titles](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/stopwords_titles.csv)
+ * [Custom pseudonyme lists](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/names/pseudonymes/custom_pseudonymes.csv)
 
 
 Top-`r ntop` uniquely identified authors and their productivity (title count).
 
-```{r summaryauthors, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=10, out.width='430px', fig.show='hold'}
+```{r summaryauthors, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=5, out.width='430px', fig.show='hold'}
 knitr::opts_chunk$set(fig.path = "figure_slides/", dev="CairoPNG")
 p <- NULL
 p <- top_plot(df, "author", ntop) +
@@ -49,7 +54,7 @@ Should also add living year information from supporting sources later.
 
 Ordered by productivity (number of documents))
 
-```{r, summaryauthorslife, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12, fig.height=8}
+```{r, summaryauthorslife, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
 a <- rev(rev(sort(table(df$author)))[1:ntop])
 dfa <- df[, c("author", "author_birth", "author_death")]
 dfa <- filter(dfa, !is.na(author) & (author %in% names(a)))
@@ -118,7 +123,7 @@ grid.arrange(p1, p2, p3, nrow = 1)
 
 Title count versus paper consumption (all authors):
 
-```{r authortitlespapers, fig.height=8, fig.width=16, echo=FALSE, warning=FALSE}
+```{r authortitlespapers, fig.height=8, fig.width=18, echo=FALSE, warning=FALSE}
 res1 <- compare_title_paper(df, "author", plot.mode = "text")
 res2 <- compare_title_paper(df, "author", plot.mode = "point")
 grid.arrange(res2$plot, res1$plot, nrow = 1)
@@ -126,7 +131,7 @@ grid.arrange(res2$plot, res1$plot, nrow = 1)
 ```
 
 
-```{r summaryTop10authorstimeline, fig.height=10, fig.width=20, echo=FALSE}
+```{r summaryTop10authorstimeline, fig.height=8, fig.width=16, echo=FALSE}
 theme_set(theme_bw(20))
 top.authors <- names(top(df, field = "author", n = 3))
 dfs <- df %>% filter(author %in% top.authors) %>%
