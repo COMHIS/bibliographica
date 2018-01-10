@@ -10,7 +10,7 @@ output: markdown_document
  * `r length(unique(df$author))` [unique authors](output.tables/author_accepted.csv) These final names capture all name variants from the custom [author synonyme table](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/ambiguous-authors.csv), and exclude known pseudonymes (see below). If multiple names for the same author are still observed on this list, they should be added on the [author synonyme table](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/ambiguous-authors.csv).
  * `r sum(!is.na(df$author))` documents have unambiguous author information (`r round(100*mean(!is.na(df$author_name)))`%). 
  * `r length(unique(subset(df.preprocessed, author_pseudonyme)$author))` [unique pseudonymes](output.tables/pseudonyme_accepted.csv) are recognized based on [custom pseudonyme lists](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/names/pseudonymes/custom_pseudonymes.csv).
- * [Discarded author names](output.tables/author_discarded.csv) This list should not include any real authors (if it does, please send a note). The following stopword lists are considered when discarding names:
+ * `r length(readLines(paste0(this.folder, "/output.tables/author_discarded.csv")))-2` [discarded author names](output.tables/author_discarded.csv) This list should not include any real authors (if it does, please send a note to the admin). The stopword lists are considered when discarding names.
   * [Stopwords for names](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/stopwords_for_names.csv)
   * [Stopwords for titles](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/stopwords_titles.csv)
 
@@ -40,9 +40,9 @@ Authors with ambiguous living year information - can we spot here
 cases where these are clearly known identical or distinct authors?
 Should also add living year information from supporting sources later.
 
-[Authors with missing life years](output.tables/authors_missing_lifeyears.csv) (Life year info can be augmented [here](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/author_info.csv))
+`r length(readLines(paste0(this.folder, "/output.tables/authors_missing_lifeyears.csv")))-1` [authors with missing life years](output.tables/authors_missing_lifeyears.csv) (Life year info can be augmented [here](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/author_info.csv))
 
-[Authors with ambiguous life years](output.tables/author_life_ambiguous.csv) Some of these might be synonymous and could be added to [author synonyme list](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/ambiguous-authors.csv) (the first term will be selected for the final data)
+`r length(readLines(paste0(this.folder, "/output.tables/author_life_ambiguous.csv")))-1` [authors with ambiguous life years](output.tables/author_life_ambiguous.csv) Some of these might be synonymous and could be added to [author synonyme list](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/ambiguous-authors.csv) (the first term will be selected for the final data)
 
 
 ### Life span of uniquely identified top authors
@@ -70,50 +70,45 @@ print(p)
 
 ### Author age
 
- * `r sum(!is.na(df$author_age))` documents have author age at the publication year (`r round(100*mean(!is.na(df$author_age)))`%). These have been calculated for documents where the publication year and author life years (birth and death) are available, and the document has been printed during the author's life time.
+`r sum(!is.na(df$author_age))` documents (`r round(100*mean(!is.na(df$author_age)))`%) have author age at the publication year. These have been calculated for documents where the publication year and author life years (birth and death) are available, and the document has been printed during the author's life time.
 
 
-```{r author_age, fig.height=10, fig.width=20, echo=FALSE}
-
+```{r author_age, fig.height=7, fig.width=22, echo=FALSE, message=FALSE, warning=FALSE}
 theme_set(theme_bw(20))
 dfs <- df %>% filter(!is.na(author_age)) %>%
      	 group_by(publication_decade) %>%
      	 summarize(age = mean(author_age)) %>%
      	 arrange(publication_decade)
-p <- ggplot(dfs, aes(x = publication_decade, y = age)) +
+p1 <- ggplot(dfs, aes(x = publication_decade, y = age)) +
        geom_bar(stat = "identity", position = "stack", color = "black") +
        xlab("Publication Decade") +
        ylab("Mean age (years)") +
        scale_fill_grey() +
        #guides(fill = guide_legend("Author")) +
        ggtitle("Average author age")
-print(p)
 
-theme_set(theme_bw(20))
 dfs <- df %>% filter(!is.na(author_age)) %>%
      	 group_by(publication_year) %>%
      	 summarize(age = mean(na.omit(author_age)), n = n()) %>%
      	 arrange(publication_year)
-p <- ggplot(dfs, aes(x = publication_year, y = age, size = n)) +
+p2 <- ggplot(dfs, aes(x = publication_year, y = age, size = n)) +
        geom_point() +
        geom_smooth() +       
        xlab("Publication year") +
        ylab("Mean age (years)") +
        scale_fill_grey() +
-       #guides(fill = guide_legend("Author")) +
        ggtitle("Author mean age")
-print(p)
 
-theme_set(theme_bw(20))
 dfs <- df %>% filter(!is.na(author_age))
-p <- ggplot(dfs, aes(x = author_age)) +
+p3 <- ggplot(dfs, aes(x = author_age)) +
        geom_histogram(binwidth = 10) +
        xlab("Age (years)") + ylab("Title count")
        #ylab("") +
        #scale_fill_grey() +
        #guides(fill = guide_legend("Author")) +
        ggtitle("Author age on the publication year")
-print(p)
+
+grid.arrange(p1, p2, p3, nrow = 1)
 ```
 
 
