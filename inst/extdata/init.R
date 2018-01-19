@@ -7,12 +7,6 @@ library(sorvi)
 # Create the output directory if not yet exists
 # dir.create(output.folder)
 
-# if (!exists("mc.cores")) {
-
-#   mc.cores <- 1
-
-# }
-
 # global variables in estc main.R when init.R called:
 # output.folder <- "output.tables/"
 # fs <- "estc.csv.gz"
@@ -27,7 +21,6 @@ library(sorvi)
 # df.orig
 # df.preprocessed
 # conversions
-# m
 
 # Reading is slow, so save it as R object once ready
 
