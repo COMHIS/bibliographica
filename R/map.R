@@ -36,7 +36,7 @@ map <- function (x, synonymes, remove.unknown = FALSE, mode = "exact.match", ver
     # Only check those cases that overlap
     #inds <- which(xuniq %in% synonymes$synonyme)
     # Hack due some odd R bug that renders the previous line unfunctional
-    inds = which(xuniq %in% intersect(synonymes$synonyme, xuniq))
+    inds <- which(xuniq %in% intersect(synonymes$synonyme, xuniq))
 
     if (remove.unknown && length(inds) == 0) {
       xx <- rep(NA, length(xx))
@@ -74,8 +74,10 @@ map <- function (x, synonymes, remove.unknown = FALSE, mode = "exact.match", ver
       if (!is.null(from) && (length(from) > 0 ) && (!is.na(from))) {
         inds <- grep(from, xx)
         if (length(inds) > 0) {
+
 	  to <- synonymes[i, "name"]
           xx[inds] <- gsub(from, to, xx[inds])
+	  
 	  #print(synonymes[i,])
 	  #print(unique(xx[inds]))
 	  #print("---")

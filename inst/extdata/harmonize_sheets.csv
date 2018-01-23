@@ -1,4 +1,8 @@
 synonyme;name
+some col\.;
+col.;
+front\.;
+fol\.;
 \([0-9]folded\);
 \(*some col\.*\)*;
 \(*woodcuts*\)*; 
@@ -24,6 +28,7 @@ leaves\.;leaves
 bl\.;leaves 
 one folded;
 some folded;
+some fold;
 many folded;
 most folded;
 or double leaved;
@@ -54,11 +59,6 @@ leaves of plates;plates
 leaves of plate;plate
 leaves \([0-9] folded\);leaves
 1 leaf;1 sheet
-some col\.;
-col.;
-front\.;
-some fold;
-fol\.;
 folded;
 foldedplate;plate
 foldplate;plate

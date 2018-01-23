@@ -37,6 +37,9 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   s <- gsub("\\. s", " s", s)    
   s <- gsub("&", ",", s)
   s <- gsub("\\*", " ", s)
+  s <- gsub("\\{", "[", s)
+  s <- gsub("\\}", "]", s)
+
   s[grep("^[ |;|:|!|?]*$", s)] <- NA 
 
   # Remove dimension info
@@ -115,7 +118,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
     s <- gsub("[0-9]* *scores*", " ", s)
   }
   s <- condense_spaces(s)
-  
+
   if (verbose) {message("Polish unique pages separately for each volume")}  
 
   # Back to original indices and new unique reduction 
@@ -132,6 +135,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
 
   nainds <- which(is.na(ret))
   for (i in nainds) {
+    message(paste("Before polish_physext_help:", i, s[[i]]))
     # NA vector of same length than the other entries
     ret[[i]] <- rep(NA, length(ret[[1]])) 
   }
@@ -164,7 +168,7 @@ polish_physext_help <- function (s, page.harmonize) {
     s <- ""
   } 
 
-  #141-174. [2] -> "141-174, [2]"
+  # 141-174. [2] -> "141-174, [2]"
   if (grepl("[0-9]+\\.", s)) {
     s <- gsub("\\.", ",", s)
   }
@@ -216,7 +220,7 @@ polish_physext_help <- function (s, page.harmonize) {
   } else {
     page.info <- polish_physext_help2(s, page.harmonize)
   }
-  
+
   s <- page.info[["pagecount"]]
   page.info <- page.info[-7]
   s[s == ""] <- NA
@@ -317,13 +321,14 @@ polish_physext_help2 <- function (x, page.harmonize) {
   x <- condense_spaces(x)
   x <- gsub(" ,", ",", x)
   x <- gsub("^,", "", x)    
-
-  if (length(grep("\\[[[0-9]+\\] sheets*", x))>0) {
-    n <- unlist(strsplit(x, "\\] sheets*"), use.names = FALSE)
-    spl <- unlist(strsplit(n[[length(n)]], "\\["), use.names = F)
-    n <- spl[[length(spl)]]    
-    x <- gsub(paste("\\[", n, "\\] sheet", sep = ""), paste(", \\[", n, "\\] sheet", sep = ""), x)
-  }
+  
+  # Apparently not needed any more - all tests go through
+  #if (length(grep("\\[[[0-9]+\\] sheets*", x))>0) {
+  #  n <- unlist(strsplit(x, "\\] sheets*"), use.names = FALSE)
+  #  spl <- unlist(strsplit(n[[length(n)]], "\\["), use.names = F)
+  #  n <- spl[[length(spl)]]    
+  #  x <- gsub(paste("\\[", n, "\\] sheet", sep = ""), paste(", \\[", n, "\\] sheet", sep = ""), x)
+  #}
 
   x <- condense_spaces(x)
 
