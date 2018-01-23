@@ -10,9 +10,10 @@
 #' @keywords utilities
 validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) {
 
-  df <- data.preprocessed$df.preprocessed
-  update.fields   <- data.preprocessed$update.fields
-  conversions     <- data.preprocessed$conversions # isnt used in this function -vv
+  df <- data.preprocessed
+  # TODO: to be added?
+  update.fields   <- NULL # data.preprocessed$update.fields
+  conversions     <- NULL # data.preprocessed$conversions # isnt used in this function -vv
 
   # Consider all fields if update.fields is not specifically defined
   if (is.null(update.fields)) {
