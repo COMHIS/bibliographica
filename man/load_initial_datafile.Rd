@@ -17,7 +17,7 @@ load_initial_datafile(datafile, ignore.fields, reload.data = FALSE)
 data.frame with raw data fields
 }
 \description{
-Load datafile in csv.gx format, or use previously saved Rds.
+Load datafile in csv.gz format, or use previously saved Rds.
 }
 \examples{
 \dontrun{df.orig <- load_initial_datafile(datafile, ignore.fields, reload.data = TRUE)}
