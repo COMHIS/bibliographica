@@ -86,7 +86,7 @@ mark_languages <- function(x) {
   xu <- intersect(xu, abrv$name)
 
   len <- sapply(strsplit(x, ";"), length)
-  dff <- as.data.frame(language_count = len)  
+  dff <- data.frame(language_count = len)  
   
   multilingual <- len > 1
   dff$multilingual <- multilingual
