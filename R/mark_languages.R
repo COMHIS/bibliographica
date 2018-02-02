@@ -116,8 +116,23 @@ mark_languages <- function(x) {
   # For "language.Multiple languages" use another field name
   # names(dff) <- gsub("language.Multiple languages", "multilingual", names(dff))
 
-  dff$language <- as.factor(x)
-  
+  dff$languages <- x
+  inds <- which(dff$languages == "")
+  if (length(inds) > 0) {
+    dff$languages[inds] <- "Undetermined"
+  }
+
+  if (length(grep(";", dff$languages)) > 0) {
+    dff$language_primary <- sapply(strsplit(dff$languages, ";"),
+                                               function (x) {x[[1]]})
+  } else {
+    dff$language_primary <- dff$languages
+  }
+
+  # Convert to factors
+  dff$languages <- as.factor(dff$languages)
+  dff$language_primary <- as.factor(dff$language_primary)  
+
   dff[match(xorig, xuniq),]
 
 }
