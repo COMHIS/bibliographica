@@ -204,6 +204,8 @@ polish_place_help <- function (x, s, verbose = FALSE) {
     }
   }
 
-  x
+  
+
+  return(x)
    
 }

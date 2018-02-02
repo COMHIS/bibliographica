@@ -1,7 +1,20 @@
 name;synonyme
+ ;ʹ
+ ;`
+ ;´
+ ;\\*+
+ ;\\#+
+ ;\\^+
+ ;\\++
+ ;\\!+  
+ ;°
+a;à
+a;a︠
+a;`a
 a;å
 a;ă
 a;ã
+a;ä
 a;ā
 a;â
 a;à
@@ -12,7 +25,9 @@ a;á
 a;a̋
 a;å̊
 a;å
+b;ḃ
 b;b́
+b;b̐
 c;ć
 c;ç
 c;č
@@ -20,10 +35,14 @@ c;č
 d;d⁻
 d;ð
 d;þ
+e;ẽ
+e;ë
+e;`e
 e;ě
 e;ē
 e;ẽ
 e;è
+e;e̥
 e;ě
 e;ẹ
 e;é
@@ -49,14 +68,20 @@ k;ḳ
 l;lʾ
 l;lʹ
 l;l'
+l;ḷ
+l;ł
 m;mʺ
+n;ñ
 n;ṅ
 n;⁻n
 n;ń
 n;n̄
 n;ṉ
 n;n⁰
+o;ò
+o;ö
 o;oʹ
+o;ʺo
 o;ô
 o;ó
 o;õ
@@ -68,6 +93,10 @@ o;ô
 o;o̧
 o;ō
 o;ô
+p;p̃
+p;p̄
+p;p̆
+q;qʾ
 r;ř
 r;ŕ
 s;ṡ
@@ -76,19 +105,25 @@ s;š
 s;š
 s;s̃
 s;sʹ
+s;ś
+t;ṭʾ
 t;ṭ
+t;ṭ
 u;ǔ
 u;ǔ
 u;ú
 u;ù
 u;ú
+u;ũ
 u;û
 u;ü
 u;ü
 u;û
 v;v'
+w;ŵ
 y;ŷ
 y;ÿ
+y;ÿ
 ö;ǒ
 ss;ß
 ae;æ
@@ -96,3 +131,6 @@ ae;œ
 ue;ü
 z;ž
 z;ž
+ ;¿
+ ;@
+

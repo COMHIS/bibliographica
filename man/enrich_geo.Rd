@@ -4,10 +4,10 @@
 \alias{enrich_geo}
 \title{Enrich Geodata}
 \usage{
-enrich_geo(df)
+enrich_geo(x)
 }
 \arguments{
-\item{df}{Preprocessed data.frame}
+\item{x}{Publication place character vector}
 }
 \value{
 Augmented data.frame

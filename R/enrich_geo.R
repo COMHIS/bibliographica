@@ -1,13 +1,15 @@
 #' @title Enrich Geodata
 #' @description Enrich geodata.
-#' @param df Preprocessed data.frame
+#' @param x Publication place character vector
 #' @return Augmented data.frame
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df2 <- enrich_geo(df)}
 #' @keywords utilities
-enrich_geo <- function(df) {
+enrich_geo <- function(x) {
+
+  df <- data.frame(publication_place = x)
 
   message("Enriching geo fields..")
   geonames <- places.geonames <- NULL
@@ -16,7 +18,7 @@ enrich_geo <- function(df) {
   load(system.file("extdata/geonames.RData", package = "bibliographica"))
   load(system.file("extdata/places.geonames.RData", package = "bibliographica"))
   geoc <- bibliographica::get_geocoordinates(df$publication_place,
-          geonames, places.geonames)
+            geonames, places.geonames)
   geoc$publication_place <- df$publication_place
 
   # Remove earlier versions of these fields
