@@ -40,6 +40,7 @@ print(p)
 ```{r summaryplace3, echo=FALSE, results='asis'}
 tab <- top(df, "country", output = "data.frame", round = 1)
 colnames(tab) <- c("Country", "Documents (n)", "Fraction (%)")
+library(knitr)
 kable(head(tab))
 ```
 
