@@ -35,14 +35,15 @@ polish_place <- function (x, synonymes = NULL, remove.unknown = FALSE, verbose =
 
   # Prepare
   if (verbose) { message("Convert to lowercase character and make unique list") }
-  x0 = x
+  x0 <- x
   xorig <- tolower(as.character(x))
   x <- xuniq <- unique(xorig)
 
   if (verbose) { message("Replace special characters") }
-  x <- as.character(map(x, spechars, mode = "recursive"))
+  x <- as.character(map(x, spechars, mode = "recursive", verbose = verbose))
 
-  # Lo[n]don -> London
+  if (verbose) { message("Remove brackets") }
+  # Lo[n]don -> London  
   x <- remove_brackets_from_letters(x)
 
   # Some trivial trimming to speed up

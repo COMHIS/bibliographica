@@ -4,12 +4,15 @@
 \alias{update_preprocessed_data_file}
 \title{Update Preprocessed Data File}
 \usage{
-update_preprocessed_data_file(file, df.preprocessed)
+update_preprocessed_data_file(file, df.preprocessed, mode = "update")
 }
 \arguments{
 \item{file}{File name}
 
 \item{df.preprocessed}{Preprocessed data.frame}
+
+\item{mode}{"update" or "overwrite"; the former updates the given fields;
+the latter overwrites the file completely}
 }
 \value{
 File name

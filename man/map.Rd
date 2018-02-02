@@ -14,9 +14,10 @@ map(x, synonymes, remove.unknown = FALSE, mode = "exact.match",
 
 \item{remove.unknown}{Logical. Remove terms that do not have synonymes.}
 
-\item{mode}{'exact.match' replaces the terms based on the synonyme list if an exact match is
-found; 'match' replaces the parts that match synonymes; 'recursive' replaces all
-(sub)strings recursively in the same order as in the synonyme table}
+\item{mode}{'exact.match' replaces the terms based on the synonyme list
+if an exact match is found; 'match' replaces the parts that match
+synonymes; 'recursive' replaces all (sub)strings recursively in
+the same order as in the synonyme table}
 
 \item{verbose}{verbose}
 
@@ -24,7 +25,8 @@ found; 'match' replaces the parts that match synonymes; 'recursive' replaces all
 
 \item{to}{field that contains the final names}
 
-\item{keep.names}{Keep the original names in the returned vector (may slow down analysis in large data sets)}
+\item{keep.names}{Keep the original names in the returned vector
+(may slow down analysis in large data sets)}
 }
 \value{
 Vector of harmonized terms
@@ -33,7 +35,8 @@ Vector of harmonized terms
 Map between two sets of terms; used to harmonize data.
 }
 \details{
-Map the input vector to harmonized versions based on the synonyme table.
+Map the input vector to harmonized versions based on the synonyme
+         table.
 }
 \examples{
 \dontrun{x2 <- map(x, synonymes)}
