@@ -34,22 +34,22 @@ print(p)
 Title count
 
 ```{r summaryTop10pubtimeline, fig.height=10, fig.width=20, echo=FALSE}
+# For some reason the ggplot never completes if top n > 2 ???
 theme_set(theme_bw(20))
-tops <- names(top(df, field = "publisher", n = 5))
 field <- "publisher"
-dfs <- df
-dfs$field <- dfs[[field]]
+tops <- names(top(df, field, n = 2))
+dfs <- df %>% select(field, publication_decade) 
+dfs$field <- as.character(dfs[[field]]); dfs[[field]] <- NULL
 dfs <- dfs %>% filter(field %in% tops) %>%
-     	 group_by(field, publication_decade) %>%
-     	 tally() %>%
-     	 arrange(publication_decade)
+               filter(!is.na(field) & !is.na(publication_decade)) %>%
+	       count(field, publication_decade)
+dfs$field <- as.factor(dfs$field)
 p <- ggplot(dfs, aes(x = publication_decade, y = n, fill = field)) +
-       geom_bar(stat = "identity", position = "stack", color = "black") +
-       xlab("Publication Decade") +
-       ylab("Title Count") +
+       geom_bar(stat = "identity", position = "stack", color = "black") +       
+       labs(x = "Publication Decade", y = "Title Count",
+            title = "Title count timeline for the top publishers") +
        scale_fill_grey() +
-       guides(fill = guide_legend("field")) +
-       ggtitle("Title count timeline for the top publishers")
+       guides(fill = guide_legend("Publisher")) 
 print(p)
 ```
 
