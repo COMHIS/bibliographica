@@ -56,7 +56,7 @@
 .onAttach <- function(lib, pkg)
 {
 
-  packageStartupMessage("bibliographica - tools for bibliographic analysis\nCopyright (C) 2014-2017 Leo Lahti, Ville Vaara, Hege Roivainen and Mikko Tolonen\n\nhttp://github.com/ropengov/bibliographica\n\nHe who refuses to do arithmetic is doomed to talk nonsense.")
+  packageStartupMessage("bibliographica - tools for bibliographic analysis\nCopyright (C) 2014-2018 Computational History Group (COMHIS) - University of Helsinki, Finland \n\nhttp://github.com/COMHIS/bibliographica\n\nHe who refuses to do arithmetic is doomed to talk nonsense.")
 
 }
 
