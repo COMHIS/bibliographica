@@ -33,7 +33,7 @@ print(p)
 
 Title count
 
-```{r summaryTop10pubtimeline, fig.height=10, fig.width=20, echo=FALSE}
+```{r top_pub_timeline, fig.height=10, fig.width=20, echo=FALSE}
 # For some reason the ggplot never completes if top n > 2 ???
 theme_set(theme_bw(20))
 field <- "publisher"
@@ -50,7 +50,7 @@ p <- ggplot(dfs, aes(x = publication_decade, y = n, fill = field)) +
             title = "Title count timeline for the top publishers") +
        scale_fill_grey() +
        guides(fill = guide_legend("Publisher")) 
-print(p)
+# print(p)
 ```
 
 
