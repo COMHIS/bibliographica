@@ -48,5 +48,5 @@ kable(head(tab))
 ### Geocoordinates
 
  * `r round(100*mean(!is.na(df$latitude) & !is.na(df$longitude)), 1)`% of the documents were matched to geographic coordinates (based on [Geonames](http://download.geonames.org/export/dump/)).
- * `r length(unique(df$publication_place[(is.na(df$latitude))]))` unique places (`r round(100 * length(unique(df$publication_place[(is.na(df$latitude))]))/length(unique(df$publication_place)), 1)`% of all unique places and `r round(100 * mean(is.na(df.preprocessed$latitude) | is.na(df.preprocessed$longitude)), 2)`% of all documents) are missing geocoordinates. See [list of places missing geocoordinate information](output.tables/absentgeocoordinates.csv).
+ * `r length(unique(df$publication_place[(is.na(df$latitude))]))` unique places (`r round(100 * length(unique(df$publication_place[(is.na(df$latitude))]))/length(unique(df$publication_place)), 1)`% of all unique places and `r round(100 * mean(is.na(df$latitude) | is.na(df$longitude)), 2)`% of all documents) are missing geocoordinates. See [list of places missing geocoordinate information](output.tables/absentgeocoordinates.csv).
  

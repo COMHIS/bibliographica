@@ -13,26 +13,9 @@ preprocess_data <- function(preprocessing.data, df.orig, languages, mc.cores = 1
       conversions = conversions,
       languages = languages)
 
-  if (is.null(df.preprocessed) || !exists("df.preprocessed")) {
-    # !exists carryover from previous version. Can be removed in future? -vv
-
     conversions <- res$conversions
     preprocessing.times <- res$preprocessing.times
     df.preprocessed <- res$df.preprocessed  
-
-  } else {
-    # Replace old versions with the updated ones (if any)
-    conversions[update.fields] <- res$conversions[update.fields]
-
-    if (!exists("preprocessing.times")) {
-      preprocessing.times <- res$preprocessing.times
-    }
-    preprocessing.times[update.fields] <- res$preprocessing.times[update.fields]
-
-    upf <- unlist(conversions[update.fields])
-    df.preprocessed[, upf] <- res$df.preprocessed[, upf]
-
-  }
 
   saveRDS(df.preprocessed, "df0.Rds", compress = TRUE)
   saveRDS(conversions, "conversions.Rds", compress = TRUE)

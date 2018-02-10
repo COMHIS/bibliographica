@@ -19,14 +19,14 @@ generate_summary_tables_geo <- function (df.preprocessed, df.orig, output.folder
   # -------------------------------------------------------------------
 
   message("Publication country accepted")
-  field <- "country"
+  field <- "publication_country"
   s <- write_xtable(df.preprocessed[[field]],
 		     paste(output.folder, field, "_accepted.csv", sep = ""),
 		     count = TRUE,
 		     add.percentages = TRUE)
 
   message("publication_place accepted")
-  tmp <- write_xtable(df.preprocessed[, c("publication_place", "country")],
+  tmp <- write_xtable(df.preprocessed[, c("publication_place", "publication_country")],
       filename = paste(output.folder, "publication_place_accepted.csv", sep = ""),
       count = TRUE, sort.by = "publication_place", add.percentages = TRUE)
 
@@ -111,7 +111,7 @@ generate_summary_tables_geo <- function (df.preprocessed, df.orig, output.folder
   syn <- read_mapping(f, include.lowercase = T, self.match = T,
       	   ignore.empty = FALSE, mode = "table")  
   rms <- as.character(syn$synonyme[is.na(as.character(syn$name))])
-  tab <- as.character(df.preprocessed$publication_place)[is.na(df.preprocessed$country)]
+  tab <- as.character(df.preprocessed$publication_place)[is.na(df.preprocessed$publication_country)]
   # Remove places that have already been explicitly set to unknown
   tab <- setdiff(tab, rms)
   # Then print the rest
@@ -123,12 +123,12 @@ generate_summary_tables_geo <- function (df.preprocessed, df.orig, output.folder
   tab <- read.csv(system.file("extdata/reg2country.csv", package = "bibliographica"), sep = ";")
   
   # Cases with explicit mention of ambiguity
-  inds2 <- c(grep("Ambiguous", tab$country),
+  inds2 <- c(grep("Ambiguous", tab$publication_country),
        	   grep("Ambiguous", tab$region),
 	   grep("Ambiguous", tab$comment))
   amb2 <- tab[inds2,"region"]
   # Cases with multiple names listed
-  inds3 <- grep("\\|", tab$country)
+  inds3 <- grep("\\|", tab$publication_country)
   amb3 <- tab[inds3,"region"]
   # Combine regions with ambiguous country
   amb <- unique(c(as.character(amb2), as.character(amb3)))

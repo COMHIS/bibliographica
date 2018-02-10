@@ -30,7 +30,7 @@ get_country <- function (x, map = NULL) {
     map <- read_mapping(f, mode = "table", sep = ";", sort = TRUE, self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, remove.ambiguous = TRUE, lowercase.only = FALSE, from = "region", to = "country") 
   }
   
-  # Map each region in x to a country
+  message("Map each region in x to a country")
   # use lowercase
   # country <- map$country[match(tolower(x), tolower(map$region))]
   spl <- split(tolower(map$country), tolower(map$region)) 

@@ -26,6 +26,7 @@ enrich_geo <- function(x) {
 
   message("Add publication country")
   df$country <- get_country(df$place)
+  message(".. publication country added")  
 
   # We could standardize country names but problem is that e.g. England, Scotland
   # etc are not mapped (as UK). But is potentially useful later.
