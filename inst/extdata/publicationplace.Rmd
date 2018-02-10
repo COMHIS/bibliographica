@@ -23,7 +23,7 @@ p <- p + scale_y_log10()
 p <- p + ylab("Title count")
 print(p)
 
-p <- top_plot(df, "country", ntop)
+p <- top_plot(df, "publication_country", ntop)
 p <- p + ggtitle(paste("Top publication countries"))
 p <- p + scale_y_log10()
 p <- p + ylab("Title count")
@@ -33,12 +33,12 @@ print(p)
 
 ### Publication countries	
 
- * `r length(unique(df$country))` [unique publication countries](output.tables/country_accepted.csv); available for `r sum(!is.na(df$country))` documents (`r round(100*mean(!is.na(df$country)))`%).
- * `r length(na.omit(unique(subset(df, is.na(country))$publication_place)))` [places with unknown publication country](output.tables/publication_place_missingcountry.csv) (`r round(100 * length(na.omit(unique(subset(df, is.na(country))$publication_place))) / length(na.omit(unique(df$publication_place))), 1)`% of the unique places; can be added to [country mappings](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/reg2country.csv))
+ * `r length(unique(df$publication_country))` [unique publication countries](output.tables/publication_country_accepted.csv); available for `r sum(!is.na(df$publication_country))` documents (`r round(100*mean(!is.na(df$publication_country)))`%).
+ * `r length(na.omit(unique(subset(df, is.na(publication_country))$publication_place)))` [places with unknown publication country](output.tables/publication_place_missingcountry.csv) (`r round(100 * length(na.omit(unique(subset(df, is.na(publication_country))$publication_place))) / length(na.omit(unique(df$publication_place))), 1)`% of the unique places; can be added to [country mappings](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/reg2country.csv))
  * `r length(readLines(paste0(this.folder, "/output.tables/publication_country_ambiguous.csv"))) - 1` [potentially ambiguous region-country mappings](output.tables/publication_country_ambiguous.csv) (these may occur in the data in various synonymes and the country is not always clear when multiple countries have a similar place name; the default country is listed first). NOTE: possible improvements should not be done in this output summary but instead in the [country mapping file](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/reg2country.csv).
 
 ```{r summaryplace3, echo=FALSE, results='asis'}
-tab <- top(df, "country", output = "data.frame", round = 1)
+tab <- top(df, "publication_country", output = "data.frame", round = 1)
 colnames(tab) <- c("Country", "Documents (n)", "Fraction (%)")
 library(knitr)
 kable(head(tab))

@@ -9,29 +9,23 @@
 #' @keywords utilities
 enrich_geo <- function(x) {
 
-  df <- data.frame(publication_place = x)
+  # NOTE: please keep the input and output formats of this function
+  # constant or talk to LL first.
 
   message("Enriching geo fields..")
+  df <- data.frame(place = x)
   geonames <- places.geonames <- NULL
 
   message("Geocoordinates")
+  # Use some manually fetched data
   load(system.file("extdata/geonames.RData", package = "bibliographica"))
   load(system.file("extdata/places.geonames.RData", package = "bibliographica"))
-  geoc <- bibliographica::get_geocoordinates(df$publication_place,
+  geoc <- bibliographica::get_geocoordinates(df$place,
             geonames, places.geonames)
-  geoc$publication_place <- df$publication_place
-
-  # Remove earlier versions of these fields
-  if (any(names(geoc) %in% names(df))) {
-    df <- df[, -which(names(df) %in% names(geoc))]
-  }
-  # Merge 
-  df <- cbind(df, geoc)  
-
-  # -----------------------------------------------------------------
+  geoc$place <- df$place
 
   message("Add publication country")
-  df$country <- get_country(df$publication_place)
+  df$country <- get_country(df$place)
 
   # We could standardize country names but problem is that e.g. England, Scotland
   # etc are not mapped (as UK). But is potentially useful later.
