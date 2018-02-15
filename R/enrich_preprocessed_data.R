@@ -22,8 +22,16 @@ enrich_preprocessed_data <- function(data.validated, df.orig) {
   # Note the source of page counts. Original MARC data by default.
   df.preprocessed$pagecount_from <- rep("original", nrow(df.preprocessed))
 
-  if (any(c("publication_place", "publication_geography") %in% update.fields)) {
-    df.preprocessed <- enrich_geo(df.preprocessed)
+  if ("publication_place" %in% update.fields) {
+    tmp <- enrich_geo(df.preprocessed[["publication_place"]])
+    df.preprocessed$publication_place <- tmp$place
+    df.preprocessed$publication_country <- tmp$country
+  }
+
+  if ("publication_geography" %in% update.fields) {
+    tmp <- enrich_geo(df.preprocessed[["publication_geography"]])
+    df.preprocessed$publication_geography_place <- tmp$place
+    df.preprocessed$publication_geography_country <- tmp$country    
   }
 
   # Always do. New field "author" needed for first edition recognition.

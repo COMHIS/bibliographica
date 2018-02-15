@@ -1,4 +1,4 @@
-#' @title Enrich Page Count Field
+#' @title Enrich Page Count
 #' @description Augment missing pagecounts based on mean estimates from available data.
 #' @param df Preprocessed data.frame
 #' @param estimate Which estimate to use for pagecount ("median.pages" / "mean.pages")

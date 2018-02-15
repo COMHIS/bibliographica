@@ -15,12 +15,12 @@ field_availability <- function (df) {
 
   field <- available <- NULL
 
-  ava <- data.frame(list(
-      field_name = colnames(df),
-      available = 100*colMeans(!is.na(df)),
-      missing = 100*(1-colMeans(!is.na(df))),
-      n = colSums(!is.na(df)),      
-      unique_entries = apply(df, 2, function (x) {length(unique(x))})))
+  ava <- data.frame(field_name = colnames(df))
+  ava$n <- colSums(!is.na(df))  
+  ava$available <- 100*ava$n/nrow(df)
+  ava$missing <- 100 - ava$available
+  ava$unique_entries <- apply(df, 2, function (x) {length(unique(x))})
+
   df2 <- ava[, c("available", "field_name")]
   df2$field <- factor(df2$field, levels = df2$field[order(df2$available)])
 

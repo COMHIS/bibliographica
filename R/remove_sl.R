@@ -10,13 +10,21 @@
 #' @keywords utilities
 remove_sl <- function (x, terms = NULL) {
 
+  # Will requires serious rethinking with these stupid hacks.
+
   # Get printing terms from a table
   if (is.null(terms)) {
     f <- system.file("extdata/sl.csv", package = "bibliographica") 
     terms <- as.character(read.csv(f)[,1])
   }
 
-  x <- remove_terms(x, terms, include.lowercase = TRUE)
+  x <- remove_terms(x, terms, include.lowercase = FALSE)
+
+  x <- gsub("\\[s.n.\\?\\]", NA, x)
+  x <- gsub("\\[s.n.\\]", NA, x)
+  x <- gsub("\\[s. n.\\]", NA, x)    
+  x <- gsub("s. a", NA, x)
+  x <- gsub("s i", NA, x)    
 
   x
 

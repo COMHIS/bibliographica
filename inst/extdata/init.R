@@ -7,18 +7,11 @@ library(sorvi)
 # Create the output directory if not yet exists
 # dir.create(output.folder)
 
-# if (!exists("mc.cores")) {
-
-#   mc.cores <- 1
-
-# }
-
 # global variables in estc main.R when init.R called:
 # output.folder <- "output.tables/"
 # fs <- "estc.csv.gz"
 # catalog <- "estc"
 # languages <- c("english", "latin")
-# mc.cores <- 4
 # update.fields <- NULL
 # ignore.fields <- c("title_uniform", "title_uniform2") # ESTC
 # reload.data <- FALSE
@@ -27,7 +20,6 @@ library(sorvi)
 # df.orig
 # df.preprocessed
 # conversions
-# m
 
 # Reading is slow, so save it as R object once ready
 
@@ -35,7 +27,7 @@ library(sorvi)
 
 load_initial_datafile <- function(datafile, ignore.fields, reload.data = FALSE) { 
 
-  if (reload.data) {
+  if (reload.data | !"df.raw.Rds" %in% dir("data/unified/polished/")) {
 
     message("Reading reloaded data. This may take a while ...")
     # Read the raw data
@@ -45,13 +37,13 @@ load_initial_datafile <- function(datafile, ignore.fields, reload.data = FALSE) 
 
     # Save the raw data
     message("Saving data as Rds...")
-    saveRDS(df.orig, file = "df.raw.Rds", compress = "xz")
+    saveRDS(df.orig, file = "data/unified/polished/df.raw.Rds", compress = "xz")
     message("Data saved!")
 
   } else {
 
     message("Reading data previously saved as Rds.")
-    df.orig <- readRDS("df.raw.Rds")
+    df.orig <- readRDS("data/unified/polished/df.raw.Rds")
 
   }
 
@@ -60,19 +52,19 @@ load_initial_datafile <- function(datafile, ignore.fields, reload.data = FALSE) 
 }
 
 
-get_preprocessing_data <- function(df.orig, update.fields, ignore.fields) {
+get_preprocessing_data <- function(df.orig, update.fields, ignore.fields, rewrite = FALSE) {
 
   message("Getting data for preprocessing.")
 
-  if ("df0.Rds" %in% dir()) {
+  if ("df0.Rds" %in% dir() & !rewrite) {
     message("Previously preprocessed data found in file df0.Rds.")
   }
 
   if (exists("update.fields") && !is.null(update.fields) && ("df0.Rds" %in% dir())) {
 
     message("Updating selected fields in previously saved data.")
-    df.preprocessed <- readRDS("df.Rds")    
-    conversions <- readRDS("conversions.Rds")
+    df.preprocessed <- readRDS("data/unified/polished/df.Rds")    
+    conversions <- NULL # readRDS("conversions.Rds") TO REMOVE
     
   } else {
 
@@ -100,6 +92,8 @@ get_preprocessing_data <- function(df.orig, update.fields, ignore.fields) {
   return(preprocessing.data)
 
 }
+
+
 
 # df.orig <- load_initial_datafile(fs, ignore.fields, reload.data = FALSE)
 
