@@ -7,9 +7,16 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @export
-#' @examples map_gatherings(c("8vo", "16mo"), from = "Standard", to = "Name") 
+#' @examples map_gatherings(c("8vo", "16mo"), from = "short", to = "long") 
 #' @keywords utilities
 map_gatherings <- function (x, from = "Standard", to = "Name") {
+
+  from <- gsub("short", "Standard", from)
+  from <- gsub("long", "Name", from)
+
+  to <- gsub("short", "Standard", to)
+  to <- gsub("long", "Name", to)
+  
 
   xorig <- x
   tab <- gatherings_table()

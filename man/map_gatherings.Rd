@@ -20,7 +20,7 @@ Mapped gatherings.
 Convert gatherings names between different formats.
 }
 \examples{
-map_gatherings(c("8vo", "16mo"), from = "Standard", to = "Name") 
+map_gatherings(c("8vo", "16mo"), from = "short", to = "long") 
 }
 \references{
 See citation("bibliographica")
