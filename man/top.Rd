@@ -4,7 +4,8 @@
 \alias{top}
 \title{Identify Top Entries}
 \usage{
-top(x, field = NULL, n = NULL, output = "vector", round = NULL)
+top(x, field = NULL, n = NULL, output = "vector", round = NULL,
+  na.rm = FALSE)
 }
 \arguments{
 \item{x}{data.frame, matrix, or vector}
@@ -16,6 +17,8 @@ top(x, field = NULL, n = NULL, output = "vector", round = NULL)
 \item{output}{Output format: vector or data.frame}
 
 \item{round}{Optional rounding}
+
+\item{na.rm}{Logical. Remove NA before calculating the statistics.}
 }
 \value{
 Vector of top counts, named by the corresponding entries
