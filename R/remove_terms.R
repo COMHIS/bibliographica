@@ -32,7 +32,7 @@ remove_terms <- function (x, terms, where = "all", include.lowercase = FALSE, po
     terms <- terms[rev(order(sapply(terms, nchar, USE.NAMES = FALSE)))]
     
   }
-
+  
   tmp <- matrix(sapply(terms, function (term) grepl(term, x), USE.NAMES = FALSE),
                   ncol = length(terms))
 
@@ -75,7 +75,6 @@ remove_terms_help <- function (x, term, where) {
       rms <- paste(" ", term, "$", sep = "")
       x <- gsub(rms, " ", x)
     }
-
 
     if ("full" %in% where) {
     

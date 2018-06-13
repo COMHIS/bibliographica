@@ -2,7 +2,7 @@
 % Please edit documentation in R/enrich_pagecount.R
 \name{enrich_pagecount}
 \alias{enrich_pagecount}
-\title{Enrich Page Count Field}
+\title{Enrich Page Count}
 \usage{
 enrich_pagecount(df, estimate = "median.pages")
 }

@@ -43,6 +43,7 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, mc.
   # preprocessed data fields
   preprocessing.times <- c()
 
+  message("Processing fields..")
   # Preprocess the field only if it has to be updated
   for (field in fields) {
 

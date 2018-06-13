@@ -20,6 +20,7 @@ generate_summaryfiles <- function (df, df.orig = NULL, author = "Author TBA", ou
 
   # Generate the markdown summaries
   for (id in summaries) {
+    this.folder <- getwd()
     outputs[[id]] <- knit(input = system.file(paste("extdata/", id, ".Rmd", sep = ""),
   	       	package = "bibliographica"),
        output = paste(id, ".md", sep = "")) # envir = globalenv()

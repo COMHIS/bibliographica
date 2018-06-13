@@ -11,6 +11,8 @@
 #' @keywords utilities
 read_bibliographic_metadata <- function (file, ignore.fields = NULL, verbose = FALSE) {
 
+  if (length(file) == 0) {stop("File is empty - halting !")}
+
   # If there are multiple files, read in a list and combine
   # in the end
   if (length(file) > 1) {

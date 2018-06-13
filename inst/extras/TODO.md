@@ -1,5 +1,13 @@
 ### Technical
 
+ * languages: in CERL at least we have "Scottish Gaelic" and "Scottish
+   Gaelix" - have to add harmonization for languages. Are these the
+   same or not. They come from the official catalog! Check first!
+   Mention in documentation that only unique and accepted languages
+   are listed and discareded are not shown in the final listing. See
+   the mark_languages function. Now the counting of languages does not
+   work properly since Untermined ones are ignored.
+
  * polish_years "6-1939", "19-19", "19765-19765", "20021" ja "19920831-19920831"
 
  * Use tm pkg: removeNumbers; removePuncuations; removeWords;

@@ -37,6 +37,9 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   s <- gsub("\\. s", " s", s)    
   s <- gsub("&", ",", s)
   s <- gsub("\\*", " ", s)
+  s <- gsub("\\{", "[", s)
+  s <- gsub("\\}", "]", s)
+
   s[grep("^[ |;|:|!|?]*$", s)] <- NA 
 
   # Remove dimension info
@@ -115,7 +118,7 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
     s <- gsub("[0-9]* *scores*", " ", s)
   }
   s <- condense_spaces(s)
-  
+
   if (verbose) {message("Polish unique pages separately for each volume")}  
 
   # Back to original indices and new unique reduction 
@@ -128,11 +131,17 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   s <- map(s, synonymes = char2num, from = "character", to = "numeric", mode = "match")
 
   if (verbose) {message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))}
-  ret <- parallel::mclapply(s, function (s) { a <- try(polish_physext_help(s, page.harmonize)); if (class(a) == "try-error") {return(NA)} else {return(a)}}, mc.cores = mc.cores)
+  ret <- lapply(s, function (s) { a <- try(polish_physext_help(s, page.harmonize)); if (class(a) == "try-error") {message(paste("Error in polish_physext_help:", s)); return(NA)} else {return(a)}})
+
+  nainds <- which(is.na(ret))
+  for (i in nainds) {
+    message(paste("Before polish_physext_help:", i, s[[i]]))
+    # NA vector of same length than the other entries
+    ret[[i]] <- rep(NA, length(ret[[1]])) 
+  }
 
   if (verbose) {message("Make data frame")}
   ret <- as.data.frame(t(sapply(ret, identity)))
-  # names(ret) <- c("pagecount", "volnumber", "volcount", "parts", names(ret)[5:length(ret)])
 
   if (verbose) {message("Set zero page counts to NA")}
   ret$pagecount <- as.numeric(ret$pagecount)  
@@ -159,7 +168,7 @@ polish_physext_help <- function (s, page.harmonize) {
     s <- ""
   } 
 
-  #141-174. [2] -> "141-174, [2]"
+  # 141-174. [2] -> "141-174, [2]"
   if (grepl("[0-9]+\\.", s)) {
     s <- gsub("\\.", ",", s)
   }
@@ -203,7 +212,6 @@ polish_physext_help <- function (s, page.harmonize) {
   # Estimate pages for each document separately via a for loop
   # Vectorization would be faster but we prefer simplicity and modularity here
 
-  # Pagecount per semicolon separated unit
   if (length(grep(";", s)) > 0) {
     spl <- unlist(strsplit(s, ";"), use.names = FALSE)
     page.info <- sapply(spl, function (x) {polish_physext_help2(x, page.harmonize)})
@@ -310,13 +318,17 @@ polish_physext_help2 <- function (x, page.harmonize) {
   x <- gsub("^[c|n]\\.", "", x)
   x <- gsub("p \\[", "p, [", x)
   x <- gsub(": b", ",", x)  
-
-  if (length(grep("\\[[[0-9]+\\] sheets*", x))>0) {
-    n <- unlist(strsplit(x, "\\] sheets*"), use.names = FALSE)
-    spl <- unlist(strsplit(n[[length(n)]], "\\["), use.names = F)
-    n <- spl[[length(spl)]]    
-    x <- gsub(paste("\\[", n, "\\] sheet", sep = ""), paste(", \\[", n, "\\] sheet", sep = ""), x)
-  }
+  x <- condense_spaces(x)
+  x <- gsub(" ,", ",", x)
+  x <- gsub("^,", "", x)    
+  
+  # Apparently not needed any more - all tests go through
+  #if (length(grep("\\[[[0-9]+\\] sheets*", x))>0) {
+  #  n <- unlist(strsplit(x, "\\] sheets*"), use.names = FALSE)
+  #  spl <- unlist(strsplit(n[[length(n)]], "\\["), use.names = F)
+  #  n <- spl[[length(spl)]]    
+  #  x <- gsub(paste("\\[", n, "\\] sheet", sep = ""), paste(", \\[", n, "\\] sheet", sep = ""), x)
+  #}
 
   x <- condense_spaces(x)
 

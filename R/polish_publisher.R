@@ -18,8 +18,12 @@ polish_publisher <- function (x) {
   x <- gsub("\\.*$", "", x)
 
   # s.n -> ""
-  x <- gsub("^\\[*s\\.*n\\.*\\]*$", " ", x)
+  #x <- gsub("^\\[*s\\.*n\\.*\\]*$", " ", x)
+  f <- system.file("extdata/sl.csv", package = "bibliographica") 
+  terms <- as.character(read.csv(f)[,1])
+  x <- remove_sl(x, terms)
 
   x <- condense_spaces(x)
+  
   x
 }

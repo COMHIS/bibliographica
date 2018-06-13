@@ -68,42 +68,71 @@ mark_languages <- function(x) {
 
       lll <- na.omit(as.character(unname(lll)))
       if (length(lll) == 0) {lll <- NA}
-
+      
+      # Just unique languages
+      # "Undetermined;English;Latin;Undetermined"
+      # -> "Undetermined;English;Latin"
+      lll <- unique(lll)
       x[[i]] <- paste(lll, collapse = ";")
 
   }
   
   # List all unique languages in the data
-  x[x %in% c("NA", "Undetermined", "und")] = NA
+  x[x %in% c("NA", "Undetermined", "und")] <- NA
   xu <- na.omit(unique(unname(unlist(strsplit(unique(x), ";")))))
 
   # Only accept the official / custom abbreviations
   # (more can be added on custom list if needed)
   xu <- intersect(xu, abrv$name)
 
+  len <- sapply(strsplit(x, ";"), length)
+  dff <- data.frame(language_count = len)  
+  
+  multilingual <- len > 1
+  dff$multilingual <- multilingual
+
+  # Now check just the unique and accepted ones, and collapse
+  # TODO: add ID for those that are not recognized
+  # NOTE: the language count and multilingual fields should be fine however
+  # as they are defined above already
+  x <- sapply(strsplit(x, ";"), function (xi) {paste(unique(intersect(xi, xu)), collapse = ";")})
+
   # Provide logical vectors for the language hits for
   # each accepted language
-  subroutine <- function(abbrv, x){
-     grepl(paste("^", abbrv, "$", sep = ""), x, ignore.case = T) |
-     grepl(paste("^", abbrv, sep = ""), x, ignore.case = T) |
-     grepl(paste(";", abbrv, sep = ""), x, ignore.case = T) |
-     grepl(paste(";", abbrv, "$", sep = ""), x, ignore.case = T) 
-  }
-  li <- list()
-  for (u in setdiff(xu, "Multiple languages")) {
-    li[[u]] <- subroutine(u, x)
-  }
-  u <- "Multiple languages"
-  li[[u]] <- subroutine(u, x) | grepl(";", x)
-
-  dff <- as_data_frame(li)
-  names(dff) <- paste("language.", names(dff), sep = "")
-
+  #subroutine <- function(abbrv, x){
+  #   grepl(paste("^", abbrv, "$", sep = ""), x, ignore.case = T) |
+  #   grepl(paste("^", abbrv, sep = ""), x, ignore.case = T) |
+  #   grepl(paste(";", abbrv, sep = ""), x, ignore.case = T) |
+  #   grepl(paste(";", abbrv, "$", sep = ""), x, ignore.case = T) 
+  #}
+  #li <- list()
+  #for (u in setdiff(xu, "Multiple languages")) {
+  #  li[[u]] <- subroutine(u, x)
+  #}
+  #u <- "Multiple languages"
+  #li[[u]] <- subroutine(u, x) | grepl(";", x)
+  #dff <- as_data_frame(li)
+  #names(dff) <- paste("language.", names(dff), sep = "")
   # For "language.Multiple languages" use another field name
-  names(dff) <- gsub("language.Multiple languages", "multilingual", names(dff))
+  # names(dff) <- gsub("language.Multiple languages", "multilingual", names(dff))
 
-  dff$language <- as.factor(x)
-  
+  dff$languages <- x
+  inds <- which(dff$languages == "")
+  if (length(inds) > 0) {
+    dff$languages[inds] <- "Undetermined"
+  }
+
+  if (length(grep(";", dff$languages)) > 0) {
+    dff$language_primary <- sapply(strsplit(dff$languages, ";"),
+                                               function (x) {x[[1]]})
+  } else {
+    dff$language_primary <- dff$languages
+  }
+
+  # Convert to factors
+  dff$languages <- as.factor(dff$languages)
+  dff$language_primary <- as.factor(dff$language_primary)  
+
   dff[match(xorig, xuniq),]
 
 }
