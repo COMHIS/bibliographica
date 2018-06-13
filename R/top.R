@@ -16,6 +16,11 @@ top <- function (x, field = NULL, n = NULL, output = "vector", round = NULL, na.
 
   if (is.vector(x)) {
     if (na.rm) {
+      inds <- which(x == "NA")
+      if (length(inds) > 0) {
+        x[inds] <- NA
+	warning(paste("Interpreting NA string as missing value NA. Removing", length(inds), "entries"))
+      }
       x <- x[!is.na(x)]
     }
     s <- rev(sort(table(x)))
@@ -28,6 +33,11 @@ top <- function (x, field = NULL, n = NULL, output = "vector", round = NULL, na.
 
     x <- x[, field]
     if (na.rm) {
+      inds <- which(x == "NA")
+      if (length(inds) > 0) {
+        x[inds] <- NA
+	warning(paste("Interpreting NA string as missing value NA. Removing", length(inds), "entries"))
+      }
       x <- x[!is.na(x)]
     }
     N <- length(x)
