@@ -6,13 +6,14 @@
 #' @param output Output format: vector or data.frame
 #' @param round Optional rounding
 #' @param na.rm Logical. Remove NA before calculating the statistics.
+#' @param include.rank Include ranking if the output is data.frame. Logical.
 #' @return Vector of top counts, named by the corresponding entries
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{p <- top(df, field, 10)}
 #' @keywords utilities
-top <- function (x, field = NULL, n = NULL, output = "vector", round = NULL, na.rm = FALSE) {
+top <- function (x, field = NULL, n = NULL, output = "vector", round = NULL, na.rm = FALSE, include.rank = FALSE) {
 
   if (is.vector(x)) {
     if (na.rm) {
@@ -54,7 +55,9 @@ top <- function (x, field = NULL, n = NULL, output = "vector", round = NULL, na.
     if (!is.null(round)) {
       s[,3] = round(s[,3], round)
     }
- 
+    if (include.rank) {
+      s <- cbind(Rank = 1:nrow(s), s)
+    } 
   }
 
   s
