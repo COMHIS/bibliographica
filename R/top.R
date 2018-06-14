@@ -15,6 +15,10 @@
 #' @keywords utilities
 top <- function (x, field = NULL, n = NULL, output = "vector", round = NULL, na.rm = FALSE, include.rank = FALSE) {
 
+  if (is.factor(x)) {
+    x <- as.character(x)
+  }
+
   if (is.vector(x)) {
     if (na.rm) {
       inds <- which(x == "NA")

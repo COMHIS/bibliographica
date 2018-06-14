@@ -5,7 +5,7 @@
 \title{Identify Top Entries}
 \usage{
 top(x, field = NULL, n = NULL, output = "vector", round = NULL,
-  na.rm = FALSE)
+  na.rm = FALSE, include.rank = FALSE)
 }
 \arguments{
 \item{x}{data.frame, matrix, or vector}
@@ -19,6 +19,8 @@ top(x, field = NULL, n = NULL, output = "vector", round = NULL,
 \item{round}{Optional rounding}
 
 \item{na.rm}{Logical. Remove NA before calculating the statistics.}
+
+\item{include.rank}{Include ranking if the output is data.frame. Logical.}
 }
 \value{
 Vector of top counts, named by the corresponding entries
