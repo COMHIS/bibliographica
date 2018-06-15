@@ -36,7 +36,7 @@ map_gatherings <- function (x, from = "Standard", to = "Name") {
     
   }
 
-  if (any(y == "Na")) {
+  if (any(na.omit(y) == "Na")) {
     y[y == "Na"] <- NA
     y <- droplevels(y)
   }

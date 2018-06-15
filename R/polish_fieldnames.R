@@ -19,10 +19,6 @@ map_fieldnames <- function (x, from = "Data", to = "Name") {
   tab <- fieldname_table()
   x <- as.character(x)
   y <- map(x, from = "Data", to = "Name", synonymes = tab)
-  if (any(y == "Na")) {
-    y[y == "Na"] <- NA
-    y <- droplevels(y)
-  }
   
   y
 
