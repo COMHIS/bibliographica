@@ -41,6 +41,7 @@
 #' @importFrom stringr str_trim
 #' @importFrom stringr str_count
 #' @importFrom stringr str_replace
+#' @importFrom stringr str_to_title
 #' @importFrom stringdist amatch
 #' @importFrom tibble as_data_frame
 #' @importFrom tibble data_frame
