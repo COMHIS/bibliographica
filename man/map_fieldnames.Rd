@@ -8,6 +8,10 @@ map_fieldnames(x, from = "Data", to = "Name")
 }
 \arguments{
 \item{x}{Character vector}
+
+\item{from}{Field to map from.}
+
+\item{to}{Field to map to.}
 }
 \value{
 Mapped terms

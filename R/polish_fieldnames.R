@@ -1,6 +1,8 @@
 #' @title Polish Field Names
 #' @description Convert the field names in the data in print-friendly form.
 #' @param x Character vector
+#' @param from Field to map from.
+#' @param to Field to map to.
 #' @return Mapped terms
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")

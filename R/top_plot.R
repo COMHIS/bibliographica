@@ -17,7 +17,7 @@
 top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL, max.char = Inf, show.rest = FALSE, show.percentage = FALSE) {
 
   # Circumvent warnings in build
-  color <- NULL
+  color <- percentage <- NULL
 
   if (is.data.frame(x)) {
     x <- x[[field]]
@@ -89,8 +89,7 @@ top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL, max.char =
 
   if (show.percentage) {
     p <- p + geom_text(aes(x = names, y = 30,
-                           label = paste(percentage, "%", sep = "")),
-			   size = 10)
+                           label = paste(percentage, "%", sep = "")))
   }
   
   p
