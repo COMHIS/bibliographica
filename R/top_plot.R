@@ -1,17 +1,20 @@
 #' @title Plot Top Entries
-#' @description Plot the top entries for a given field in a data frame.
+#' @description Visualizes the top entries for a given field in a data frame.
+#'   Count and percentage statistics is also shown as needed.
 #' @param x Data frame, vector or factor
 #' @param field Field to show
 #' @param ntop Number of top entries to show
 #' @param highlight Entries from the 'field' to be highlighted
 #' @param max.char Max number of characters in strings. Longer strings will be cut and only max.char first characters are shown. No cutting by default
+#' @param show.rest Show the count of leave-out samples (not in top-N) as an additional bar.
+#' @param show.percentage Show the proportion of each category with respect to the total sample count.
 #' @return ggplot object
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{p <- top_plot(x, field, 50)}
 #' @keywords utilities
-top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL, max.char = Inf) {
+top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL, max.char = Inf, show.rest = FALSE, show.percentage = FALSE) {
 
   # Circumvent warnings in build
   color <- NULL
@@ -40,6 +43,12 @@ top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL, max.char =
   ntop <- min(ntop, nrow(dfs))
   
   dfs <- dfs[1:ntop,] # Pick top-n items
+  topp <- sum(dfs$count)/sum(tab)
+
+  if (show.rest & ntop < length(tab)) {
+    dfs2 <- data.frame(list(names = "Other", count = sum(tab) - sum(dfs$count)))
+    dfs <- bind_rows(dfs, dfs2)
+  }
 
   # Limit length of names in the printout
   if (is.infinite(max.char)) {
@@ -49,9 +58,17 @@ top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL, max.char =
   levels1 <- length(unique(dfs$names))
   dfs$names <- substr(as.character(dfs$names), 1, max.char)
   levels2 <- length(unique(dfs$names))
-  if (!levels1 == levels2) {warning("Truncating the names is mixing up some of the variable names.")}
+  if (!levels1 == levels2) {
+    warning("Truncating the names is mixing up some of the variable names.")
+  }
 
-  dfs$names <- droplevels(factor(dfs$names, levels = rev(unique(dfs$names))))
+  # Arrange levels; leave the leaveout category as the last one
+  levs <- rev(unique(dfs$names))
+  if ("Other" %in% levs) {
+    levs <- c("Other", setdiff(levs, "Other"))
+  }
+  dfs$names <- droplevels(factor(dfs$names, levels = levs))
+  dfs$percentage <- round(100 * dfs$count/sum(dfs$count), 1)
 
   dfs$color <- rep("black", nrow(dfs))
   if (!is.null(highlight)) {
@@ -62,10 +79,20 @@ top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL, max.char =
     p <- ggplot(dfs, aes(x = names, y = count))
   }
 
-  theme_set(theme_bw(15))
-  p <- p + geom_bar(stat = "identity")
+  p <- p + geom_bar(stat = "identity", color = "black", fill = "white")
   p <- p + coord_flip()
-  p <- p + ylab(field) + xlab("")
+  p <- p + xlab("") + ylab(paste(field, "(N)"))
+
+  s <- paste("Total N=", sum(tab), " / Top-", ntop, ": ", round(100 * topp, 1), "%", sep = "")
+
+  p <- p + labs(title = s)
+
+  if (show.percentage) {
+    p <- p + geom_text(aes(x = names, y = 30,
+                           label = paste(percentage, "%", sep = "")),
+			   size = 10)
+  }
+  
   p
 
 } 

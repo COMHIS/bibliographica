@@ -4,7 +4,8 @@
 \alias{top_plot}
 \title{Plot Top Entries}
 \usage{
-top_plot(x, field = NULL, ntop = NULL, highlight = NULL, max.char = Inf)
+top_plot(x, field = NULL, ntop = NULL, highlight = NULL, max.char = Inf,
+  show.rest = FALSE, show.percentage = FALSE)
 }
 \arguments{
 \item{x}{Data frame, vector or factor}
@@ -16,12 +17,17 @@ top_plot(x, field = NULL, ntop = NULL, highlight = NULL, max.char = Inf)
 \item{highlight}{Entries from the 'field' to be highlighted}
 
 \item{max.char}{Max number of characters in strings. Longer strings will be cut and only max.char first characters are shown. No cutting by default}
+
+\item{show.rest}{Show the count of leave-out samples (not in top-N) as an additional bar.}
+
+\item{show.percentage}{Show the proportion of each category with respect to the total sample count.}
 }
 \value{
 ggplot object
 }
 \description{
-Plot the top entries for a given field in a data frame.
+Visualizes the top entries for a given field in a data frame.
+  Count and percentage statistics is also shown as needed.
 }
 \examples{
 \dontrun{p <- top_plot(x, field, 50)}
