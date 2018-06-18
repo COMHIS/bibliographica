@@ -17,19 +17,30 @@ map_gatherings <- function (x, from = "Standard", to = "Name") {
   to <- gsub("short", "Standard", to)
   to <- gsub("long", "Name", to)
   
-
   xorig <- x
   tab <- gatherings_table()
   x <- as.character(x)
   y <- map(x, from = "Standard", to = "Name", synonymes = tab)
   # If original input is factor, make sure that output
   # levels are in the same order
-  if (is.factor(xorig) && length(unique(x)) == length(unique(y))) {
+
+  # Capitalize
+  y <- str_to_title(y)
+  
+  #if (is.factor(xorig) && length(unique(x)) == length(unique(y))) {
+  if (is.factor(xorig)) {  
     xorig <- droplevels(xorig)
     xlevels <- as.character(levels(xorig))
-    ylevels <- map(xlevels, from = "Standard", to = "Name", synonymes = tab)
-    y <- factor(y, levels = ylevels)
+    ylevels <- map(xlevels, from = "Standard", to = "Name", synonymes = tab)    
+    y <- factor(y, levels = str_to_title(unique(ylevels)))
+    
   }
+
+  if (any(na.omit(y) == "Na")) {
+    y[y == "Na"] <- NA
+    y <- droplevels(y)
+  }
+  
   y
 
 }
