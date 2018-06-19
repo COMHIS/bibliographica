@@ -1,13 +1,12 @@
 Package: bibliographica
 Type: Package
 Title: Bibliographic Data Analysis
-Version: 0.2.43
+Version: 0.2.44
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Roivainen", "Hege" , role = "aut"),
     person("Ville", "Vaara" , role = "aut"),
-    person("Tolonen", "Mikko", role = "aut"),
-    person("Ilomaki", "Niko", role = "ctb"))    
+    person("Tolonen", "Mikko", role = "aut"))
 Maintainer: Leo Lahti <leo.lahti@iki.fi>
 Description: Tools for bibliograhic data analysis.
 License: GPL-3 + file LICENSE
