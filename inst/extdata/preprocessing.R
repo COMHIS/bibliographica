@@ -17,7 +17,7 @@ preprocess_data <- function(preprocessing.data, df.orig, languages, mc.cores = 1
     preprocessing.times <- res$preprocessing.times
     df.preprocessed <- res$df.preprocessed  
 
-  saveRDS(df.preprocessed, "df0.Rds", compress = TRUE)
+  saveRDS(df.preprocessed, "data/unified/polished/df0.Rds", compress = TRUE)
   saveRDS(conversions, "conversions.Rds", compress = TRUE)
 
   output_preprocessing_times_pdf(preprocessing.times)
