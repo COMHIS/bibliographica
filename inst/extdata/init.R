@@ -60,7 +60,7 @@ get_preprocessing_data <- function(df.orig, update.fields, ignore.fields, rewrit
     message("Previously preprocessed data found in file df0.Rds.")
   }
 
-  if (exists("update.fields") && !is.null(update.fields) && ("df0.Rds" %in% dir())) {
+  if (exists("update.fields") && !is.null(update.fields) && ("data/unified/polished/df0.Rds" %in% dir())) {
 
     message("Updating selected fields in previously saved data.")
     df.preprocessed <- readRDS("data/unified/polished/df.Rds")    
@@ -73,7 +73,8 @@ get_preprocessing_data <- function(df.orig, update.fields, ignore.fields, rewrit
     update.fields <- names(df.orig) # Update all fields
     message("Updating all fields: ")
     message(paste(update.fields, collapse = "; "))
-    m <- setdiff(update.fields, c("system_control_number", "control_number", "original_row", "language", "title", "publisher", "subject_topic", "publication_topic", "author_name", "author_date", "publication_time", "physical_extent", "physical_dimension", "publication_place", "publication_geography", "title_uniform", "title_uniform2"))
+    m <- update.fields
+    #m <- setdiff(update.fields, c("system_control_number", "control_number", "original_row", "language", "title", "publisher", "subject_topic", "publication_topic", "author_name", "author_date", "publication_time", "physical_extent", "physical_dimension", "publication_place", "publication_geography", "title_uniform", "title_uniform2"))    
     if (length(m) > 0) {
       warning(paste("Updates not defined for the following input fields:", paste(m , sep = ";")))
     }
