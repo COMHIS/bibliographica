@@ -68,16 +68,20 @@ enrich_preprocessed_data <- function(data.validated, df.orig) {
     df.preprocessed <- enrich_pagecount(df.preprocessed)
 
     message("Add estimated paper consumption")
-    # Estimated print run size for paper consumption estimates
-    
+    # Estimated print run size for paper consumption estimates    
     # Paper consumption in sheets
     # (divide document area by standard sheet area
     sheet.area <- subset(sheet_sizes(), format == "sheet")$area
     df.preprocessed <- mutate(df.preprocessed,
             paper = printrun * (pagecount/2) * (width * height)/sheet.area)
 
+    message("Add estimated print area")
+    df.preprocessed <- mutate(df.preprocessed,
+            print_area = (pagecount/2) * (width * height)/sheet.area)
+
   }
 
+  # TODO: languages; language_primary
   if (any(c("language", "title", "subject_topic", "publication_topic") %in% update.fields)) {
     # Nothing defined yet
     NULL

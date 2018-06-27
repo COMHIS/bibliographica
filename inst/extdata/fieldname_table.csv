@@ -5,3 +5,6 @@ publication_decade;Decade
 gatherings;Format
 n;N
 pct;Fraction (%)
+publication_year;Year
+pagecount;Pages
+title;Title
