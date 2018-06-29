@@ -19,6 +19,7 @@ bs;bs;bs;broadside;darkgray
 16long;16long;16°;sextodecimo;lightbrown
 18to;18mo;18°;octodecimo;brown
 20to;20mo;20°;vigesimo;darkbrown
+21to;21mo;21°;21mo;darkbrown
 24to;24mo;24°;vigesimo-quarto;darkyellow
 24long;24long;24°;vigesimo-quarto;darkyellow
 32to;32mo;32°;trigesimo-segundo;pink
@@ -28,3 +29,5 @@ bs;bs;bs;broadside;darkgray
 80to;80mo;80°;octogentesimo;green
 84to;84mo;84°;octoginta-quarto;magenta
 other;other;other;other;yellow
+NA;NA;NA;NA;white
+

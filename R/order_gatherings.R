@@ -9,15 +9,29 @@
 #' @keywords utilities
 order_gatherings <- function (x) {
 
-  glevels <- c("1to", "bs", "2long", "2fo", "2small", "4long", "4to", "4small", "6long", "6to", "8long", "8vo", "8small", "12long", "12mo", "16long", "16mo", "18mo", "20to", "24long", "24mo", "32mo", "40mo", "48mo", "64mo", "80mo", "84mo", "NA")
-  # Discard: 21to, 40to
+  # Denote the ordering directly in the table		 
+  glevels <- gatherings_table()$Standard
+
+  # Recognize format
+  if (any(!x %in% glevels)) {
+     lower <- all(tolower(x) == x)
+     x <- tolower(x)
+     # glevels <- map_gatherings(glevels, from = "short", to = "long")
+     glevels <- tolower(unique(gatherings_table()$Name))
+
+     if (!lower) {
+       x <- str_to_title(x)
+       glevels <- str_to_title(glevels)       
+     }
+
+  }
 
   x <- as.character(x)
   x[is.na(x)] <- "NA"
-
   fails <- unlist(setdiff(unique(x), glevels), use.names = FALSE)
   x[x %in% fails] <- "NA"
-  # x[x == "NA"] = NA
+  inds <- which(glevels %in% x)
+  glevels <- glevels[inds]
 
   # Order the levels
   xo <- factor(x, levels = glevels)
