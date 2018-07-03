@@ -15,8 +15,10 @@ polish_gatherings <- function (x) {
       	       gatherings_table()$Alternate,
      	       gatherings_table()$Symbol))
 
+  glevels <- unique(c(glevels, tolower(glevels)))
+  
   # Remove unrecognized formats
-  inds <- which(!x %in% glevels)
+  inds <- which(!tolower(x) %in% glevels)
   if (length(inds) > 0) {
     warning(paste("Removing the following unrecognized gatherings:", paste(sort(unique(x[inds])), collapse = ", ")))
     x[inds] <- NA

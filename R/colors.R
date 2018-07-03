@@ -13,7 +13,7 @@ default_colors <- function (x) {
     #http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
     #https://www.r-graph-gallery.com/42-colors-names/
     col <- c(
-      English = "lightblue",
+      English = "deepskyblue3",
       Latin = "brown",
       Finnish = "darkblue",
       Swedish = "darkgreen",
