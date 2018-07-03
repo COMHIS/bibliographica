@@ -1,4 +1,4 @@
-preprocess_data <- function(preprocessing.data, df.orig, languages, mc.cores = 1) {
+preprocess_data <- function(preprocessing.data, df.orig, languages) {
 
   # mc.cores required by polish_all()
   df.preprocessed <- preprocessing.data$df.preprocessed
@@ -9,7 +9,6 @@ preprocess_data <- function(preprocessing.data, df.orig, languages, mc.cores = 1
   
   res <- polish_all(df.orig,
       fields = update.fields, 
-      mc.cores = mc.cores,
       conversions = conversions,
       languages = languages)
 

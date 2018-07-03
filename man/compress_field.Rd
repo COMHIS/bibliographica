@@ -4,12 +4,12 @@
 \alias{compress_field}
 \title{Compress Field into Fewer Categories}
 \usage{
-compress_field(x, n, rest = "Other")
+compress_field(x, keep, rest = "Other")
 }
 \arguments{
 \item{x}{Vector or factor.}
 
-\item{n}{Number of top entries to include}
+\item{keep}{Number of top entries to include; or a character vector}
 
 \item{rest}{Name to be used for the remaining entries}
 }
@@ -18,9 +18,6 @@ Compressed version of the input.
 }
 \description{
 Merge the less common terms into a single group
-}
-\examples{
-p <- compress_field(c("A", "A", "A", "B","B","C", "D"), n = 2, rest = "Other")
 }
 \references{
 See citation("bibliographica")

@@ -12,9 +12,13 @@ order_gatherings <- function (x) {
   # Denote the ordering directly in the table		 
   glevels <- gatherings_table()$Standard
 
+  # Remove unrecognized formats
+  x <- polish_gatherings(x)
+
   # Recognize format
   if (any(!x %in% glevels)) {
-     lower <- all(tolower(x) == x)
+     lower <- FALSE # by default
+     lower <- all(na.omit(tolower(x) == x))
      x <- tolower(x)
      # glevels <- map_gatherings(glevels, from = "short", to = "long")
      glevels <- tolower(unique(gatherings_table()$Name))
