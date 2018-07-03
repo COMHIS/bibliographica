@@ -19,6 +19,12 @@ Compressed version of the input.
 \description{
 Merge the less common terms into a single group
 }
+\examples{
+  p <- compress_field(c("A", "A", "A", "B","B","C", "D"),
+         keep = 2, rest = "Other")
+  p <- compress_field(c("A", "A", "A", "B","B","C", "D"),
+         keep = c("A", "B"), rest = "Other")
+}
 \references{
 See citation("bibliographica")
 }

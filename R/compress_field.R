@@ -11,7 +11,7 @@
 #'   p <- compress_field(c("A", "A", "A", "B","B","C", "D"),
 #'          keep = 2, rest = "Other")
 #'   p <- compress_field(c("A", "A", "A", "B","B","C", "D"),
-#'          keep = c("A", "B), rest = "Other")
+#'          keep = c("A", "B"), rest = "Other")
 #' @keywords utilities
 compress_field <- function (x, keep, rest = "Other") {
 
