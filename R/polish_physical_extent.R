@@ -2,18 +2,18 @@
 #' @description Pick page counts, volume counts and volume numbers.
 #' @param x Page number field. Vector or factor of strings.
 #' @param verbose Print progress info
-#' @param mc.cores Number of cores for parallelization
 #' @return Raw and estimated pages per document part
 #' @details Document parts are separated by semicolons
 #' @export
-#' @details A summary of page counting rules that this function aims to (approximately)
-#' implement are provided in 
+#' @details A summary of page counting rules that this function aims to (approximately) implement are provided in 
 #' \url{https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html}
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples tab <- polish_physical_extent("4p.")
 #' @keywords utilities
-polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
+polish_physical_extent <- function (x, verbose = FALSE) {
+
+  mc.cores <- 1
 
   # Summary of abbreviations
   # http://ac.bslw.com/community/wiki/index.php5/RDA_4.5
@@ -21,7 +21,9 @@ polish_physical_extent <- function (x, verbose = FALSE, mc.cores = 1) {
   suniq <- unique(sorig)
 
   if (verbose) {
-    message(paste("Polishing physical extent field:", length(suniq), "unique cases"))
+    message(paste("Polishing physical extent field:",
+            length(suniq),
+	    "unique cases"))
   }
 
   #------------------------------------------------------
@@ -322,14 +324,6 @@ polish_physext_help2 <- function (x, page.harmonize) {
   x <- gsub(" ,", ",", x)
   x <- gsub("^,", "", x)    
   
-  # Apparently not needed any more - all tests go through
-  #if (length(grep("\\[[[0-9]+\\] sheets*", x))>0) {
-  #  n <- unlist(strsplit(x, "\\] sheets*"), use.names = FALSE)
-  #  spl <- unlist(strsplit(n[[length(n)]], "\\["), use.names = F)
-  #  n <- spl[[length(spl)]]    
-  #  x <- gsub(paste("\\[", n, "\\] sheet", sep = ""), paste(", \\[", n, "\\] sheet", sep = ""), x)
-  #}
-
   x <- condense_spaces(x)
 
   page.info <- suppressWarnings(estimate_pages(x))
@@ -344,3 +338,4 @@ polish_physext_help2 <- function (x, page.harmonize) {
   page.info
   
 }
+

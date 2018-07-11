@@ -9,12 +9,12 @@ citEntry(entry="misc",
          ),
 	 doi = "",
 	 journal = "",
-	 year = "2015-2017",
+	 year = "2015-2018",
          textVersion =
-         paste("(C) Leo Lahti, Hege Roivainen, Ville Vaara, Mikko Tolonen (rOpenGov 2015-2017). ",
+         paste("(C) Leo Lahti, Hege Roivainen, Mikko Tolonen (COMHIS 2015-2018). ",
                "bibliographica R package",
-	       "URL: http://github.com/ropengov/bibliographica",
+	       "URL: http://github.com/COMHIS/bibliographica",
                sep=" ")
          )
 
-citFooter("\nMany thanks for all contributors! See: http://ropengov.github.io")
+citFooter("\nMany thanks for all contributors! See: http://comhis.github.io")

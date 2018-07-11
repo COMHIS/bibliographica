@@ -31,6 +31,7 @@ validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) 
   # with estimated pagecount over 5000
   # Also remove negative and zero pagecounts; should not be possible
   if ("physical_extent" %in% update.fields) {
+
     # Apply gap on the highest pagecounts
     df$pagecount[df$pagecount > max.pagecount] <- max.pagecount
     df$pagecount[df$pagecount <= 0] <- NA
