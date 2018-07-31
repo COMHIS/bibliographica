@@ -138,6 +138,9 @@ polish_dimension <- function (x, synonyms) {
   # NA
   # gatherings[gatherings == "NA"] = NA
 
+  # If gatherings length > 1 then collapse
+  gatherings <- paste(gatherings, collapse = ";")
+
   # Return
   list(original = sorig, gatherings = gatherings,
        width = width, height = height, obl = obl)

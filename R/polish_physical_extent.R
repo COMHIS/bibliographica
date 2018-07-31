@@ -41,7 +41,6 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   s <- gsub("\\*", " ", s)
   s <- gsub("\\{", "[", s)
   s <- gsub("\\}", "]", s)
-
   s[grep("^[ |;|:|!|?]*$", s)] <- NA 
 
   # Remove dimension info
@@ -59,7 +58,6 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   rm(char2num)
 
   if (verbose) {message("Harmonize volume info")}
-  #inds <- setdiff(1:length(s), setdiff(grep("v\\.$", s), grep("^v\\.$", s)))
   inds <- setdiff(1:length(s), grep("^v\\.$", s))
   if (length(inds)>0) {
     s[inds] <- remove_trailing_periods(s[inds])
@@ -80,7 +78,6 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   if (verbose) {message("Read the mapping table for sheets")}  
   f <- system.file("extdata/harmonize_sheets.csv", package = "bibliographica")
   sheet.harmonize <- read_mapping(f, sep = ";", mode = "table", fast = TRUE)
-
   s <- harmonize_sheets(s, sheet.harmonize)
   rm(sheet.harmonize)
 
