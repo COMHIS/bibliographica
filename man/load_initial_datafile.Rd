@@ -4,12 +4,11 @@
 \alias{load_initial_datafile}
 \title{Load Intial Datafile}
 \usage{
-load_initial_datafile(datafile, ignore.fields, reload.data = FALSE)
+load_initial_datafile(datafile, reload.data = FALSE,
+  output.file = "parsed.Rds")
 }
 \arguments{
 \item{datafile}{Datafile in csv.gz format}
-
-\item{ignore.fields}{Fields to ignore}
 
 \item{reload.data}{Boolean, edfault FALSE. Use datafile or previously saved Rds?}
 }

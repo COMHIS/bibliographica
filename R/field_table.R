@@ -10,7 +10,7 @@
 field_table <- function (...) {
 
   f <- system.file("extdata/fieldnames.csv", package = "bibliographica")
-  dd <- read.csv(f, header = TRUE, sep = ";")
+  dd <- read.csv(f, header = TRUE, sep = "|")
   dd <- apply(dd, 2, as.character)
   dd[dd == ""] <- NA
   dd <- as.data.frame(dd, stringsAsFactors = FALSE)

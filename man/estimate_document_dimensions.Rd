@@ -4,8 +4,9 @@
 \alias{estimate_document_dimensions}
 \title{Estimate Missing Dimensions}
 \usage{
-estimate_document_dimensions(gatherings = NA, height = NA, width = NA,
-  obl = NULL, dimension.table = NULL, sheet.dimension.table = NULL)
+estimate_document_dimensions(gatherings = NA, height = NA,
+  width = NA, obl = NULL, dimension.table = NULL,
+  sheet.dimension.table = NULL)
 }
 \arguments{
 \item{gatherings}{Available gatherings information}
