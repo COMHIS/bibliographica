@@ -1,6 +1,7 @@
 Data;Name
 publication_place;City
 languages;Language
+language;Language
 publication_decade;Decade
 gatherings;Format
 n;N
@@ -8,3 +9,5 @@ pct;Fraction (%)
 publication_year;Year
 pagecount;Pages
 title;Title
+subject_topic;Genre
+publisher;Publisher

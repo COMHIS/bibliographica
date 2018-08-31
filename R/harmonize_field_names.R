@@ -12,7 +12,7 @@ harmonize_field_names <- function (x = NULL) {
 
   # Get printing terms from a table
   f <- system.file("extdata/fieldnames.csv", package = "bibliographica")
-  map <- read.csv(f, sep = "\t")
+  map <- read.csv(f, sep = "|")
 
   if (!is.null(x)) {
     ret <- map[match(x, map$field), "name"]

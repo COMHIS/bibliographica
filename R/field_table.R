@@ -1,15 +1,15 @@
-#' @title Field Name Table
-#' @description Field names mapping table.
+#' @title Field Table
+#' @description Field codes mapping table.
 #' @param ... Arguments to be passed
-#' @return Field names table
+#' @return Field codes table
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @examples fieldname_table()
+#' @examples field_table()
 #' @keywords utilities
-fieldname_table <- function (...) {
+field_table <- function (...) {
 
-  f <- system.file("extdata/fieldname_table.csv", package = "bibliographica")
+  f <- system.file("extdata/fieldnames.csv", package = "bibliographica")
   dd <- read.csv(f, header = TRUE, sep = ";")
   dd <- apply(dd, 2, as.character)
   dd[dd == ""] <- NA

@@ -4,28 +4,11 @@ library(dplyr)
 library(bibliographica)
 library(sorvi)
 
-# Create the output directory if not yet exists
-# dir.create(output.folder)
-
-# global variables in estc main.R when init.R called:
-# output.folder <- "output.tables/"
-# fs <- "estc.csv.gz"
-# catalog <- "estc"
-# languages <- c("english", "latin")
-# update.fields <- NULL
-# ignore.fields <- c("title_uniform", "title_uniform2") # ESTC
-# reload.data <- FALSE
-
-# at end of init.R, also:
-# df.orig
-# df.preprocessed
-# conversions
-
 # Reading is slow, so save it as R object once ready
-
 # If update fields is provided, then look for previously preprocessed file
 
-load_initial_datafile <- function(datafile, ignore.fields, reload.data = FALSE) { 
+TODO can we remove this file - similar funtion in R/
+#load_initial_datafile <- function(datafile, ignore.fields, reload.data = FALSE) { 
 
   if (reload.data | !"df.raw.Rds" %in% dir("data/unified/polished/")) {
 
@@ -94,12 +77,3 @@ get_preprocessing_data <- function(df.orig, update.fields, ignore.fields, rewrit
 }
 
 
-
-
-# df.orig <- load_initial_datafile(fs, ignore.fields, reload.data = FALSE)
-
-# print("Frist 10 row of df.orig :")
-# print(df.orig[1:10, ])
-
-# preprocessing.data <- get_preprocessing_data(df.orig, update.fields, ignore.fields)
-# # print(preprocessing.data)

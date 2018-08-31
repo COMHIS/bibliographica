@@ -1,13 +1,14 @@
 ---
 title: "Document dimension preprocessing summary"
-author: "`r author`"
+author: "Helsinki Computational History Group (COMHIS)"
 date: "`r Sys.Date()`"
 output: markdown_document
 ---
 
 ```{r init, echo=FALSE}
+ntop <- 20
 #opts_chunk$set(comment=NA, fig.width=6, fig.height=6)
-opts_chunk$set(fig.path = "figure/dimension-")
+opts_chunk$set(fig.path = paste0(output.folder, "figure/"))
 ```
 
 ## Document size comparisons

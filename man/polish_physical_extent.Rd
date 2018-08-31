@@ -4,14 +4,12 @@
 \alias{polish_physical_extent}
 \title{Polish physical_extent Field}
 \usage{
-polish_physical_extent(x, verbose = FALSE, mc.cores = 1)
+polish_physical_extent(x, verbose = FALSE)
 }
 \arguments{
 \item{x}{Page number field. Vector or factor of strings.}
 
 \item{verbose}{Print progress info}
-
-\item{mc.cores}{Number of cores for parallelization}
 }
 \value{
 Raw and estimated pages per document part
@@ -22,8 +20,7 @@ Pick page counts, volume counts and volume numbers.
 \details{
 Document parts are separated by semicolons
 
-A summary of page counting rules that this function aims to (approximately)
-implement are provided in 
+A summary of page counting rules that this function aims to (approximately) implement are provided in 
 \url{https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html}
 }
 \examples{

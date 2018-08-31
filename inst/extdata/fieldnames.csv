@@ -1,59 +1,60 @@
-name	field
-control_number	001
-language	008lang
-system_control_number	035a
-language	041a
-language2	041h
-author_name	100a
-author_date	100d
-110a	110a
-title_uniform	240a
-title_uniform2	240n
-title	245a
-title_remainder	245b
-245c	245c
-edition_statement	250a
-publication_place	260a
-publisher	260b
-publication_time	260c
-260e	260e
-260f	260f
-physical_extent	300a
-physical_details	300b
-physical_dimension	300c
-physical_accomppanied	300e
-publication_frequency	310a
-publication_interval	362a
-440a	440a
-440v	440v
-note_general	500a
-note_dissertation	502a
-note_granter	502c
-note_year	502d
-note_source	510a
-note_510c	510c
-subject_topic	650a
-650x	650x
-650y	650y
-650z	650z
-publication_topic	650y.651y
-publication_geography	650z.651a.651z
-subject_geography	651a
-700a	700a
-700d	700d
-corporate	710a
-uncontrolled	720a
-uncontrolled_title	740a
-772c	772c
-772d	772d
-772t	772t
-successor	785t
-holder	852a
-852j	852j
-852z	852z
-866x	866x
-900a	900a
-900d	900d
-900u	900u
-976a	976a
-976b	976b
+concept|name|field
+Control number|control_number|001
+Language|language|008lang
+Language|language|041a
+Language|language2|041h
+System control number|system_control_number|035a
+Author date|author_date|100d
+Author|author_name|100a
+110a|110a|110a
+Title|title_uniform|240a
+Title|title_uniform2|240n
+Title|title|245a
+Title remainder|title_remainder|245b
+245c|245c|245c
+Edition|edition_statement|250a
+Publication place|publication_place|260a
+Publisher|publisher|260b
+Publication year|publication_time|260c
+260e|260e|260e
+260f|260f|260f
+Page count|physical_extent|300a
+Physical details|physical_details|300b
+Gatherings|physical_dimension|300c
+Physical accomppanied|physical_accomppanied|300e
+Publication frequency|publication_frequency|310a
+Publication interval|publication_interval|362a
+440a|440a|440a
+440v|440v|440v
+Note general|note_general|500a
+Dissertation|note_dissertation|502a
+Granter|note_granter|502c
+Year note|note_year|502d
+Source note|note_source|510a
+510c note|note_510c|510c
+Subject|subject_topic|650a
+650x|650x|650x
+650y|650y|650y
+650z|650z|650z
+Publication topic|publication_topic|650y.651y
+Publication geography|publication_geography|650z.651a.651z
+Subject geography|subject_geography|651a
+700a|700a|700a
+700d|700d|700d
+Corporate|corporate|710a
+Uncontrolled|uncontrolled|720a
+Uncontrolled title|uncontrolled_title|740a
+772c|772c|772c
+772d|772d|772d
+772t|772t|772t
+Successor|successor|785t
+Holder|holder|852a
+852j|852j|852j
+852z|852z|852z
+866x|866x|866x
+900a|900a|900a
+900d|900d|900d
+900u|900u|900u
+976a|976a|976a
+976b|976b|976b
+
