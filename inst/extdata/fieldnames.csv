@@ -2,59 +2,58 @@ concept|name|field
 Control number|control_number|001
 Language|language|008lang
 Language|language|041a
-Language|language2|041h
+Original language|language2|041h
 System control number|system_control_number|035a
 Author date|author_date|100d
 Author|author_name|100a
-110a|110a|110a
-Title|title_uniform|240a
-Title|title_uniform2|240n
-Title|title|245a
-Title remainder|title_remainder|245b
-245c|245c|245c
+Corporate (as author)|110a|110a
+Uniform title|title_uniform|240a
+Uniform title (section)|title_uniform2|240n
+Main title|title|245a
+Subtitle|title_remainder|245b
+Title (statement of responsibility)|245c|245c
 Edition|edition_statement|250a
 Publication place|publication_place|260a
 Publisher|publisher|260b
 Publication year|publication_time|260c
-260e|260e|260e
-260f|260f|260f
+Place of manufacture|260e|260e
+Manufacturer|260f|260f
 Page count|physical_extent|300a
 Physical details|physical_details|300b
 Gatherings|physical_dimension|300c
-Physical accomppanied|physical_accomppanied|300e
+Accompanying material|physical_accomppanied|300e
 Publication frequency|publication_frequency|310a
 Publication interval|publication_interval|362a
-440a|440a|440a
-440v|440v|440v
-Note general|note_general|500a
+Series|440a|440a
+Series (volume)|440v|440v
+General note|note_general|500a
 Dissertation|note_dissertation|502a
-Granter|note_granter|502c
-Year note|note_year|502d
+Dissertation granter|note_granter|502c
+Dissertation year|note_year|502d
 Source note|note_source|510a
-510c note|note_510c|510c
-Subject|subject_topic|650a
-650x|650x|650x
-650y|650y|650y
-650z|650z|650z
+Source location|note_510c|510c
+Topical term|subject_topic|650a
+Topical term (subdivision)|650x|650x
+Topical term (chronological subdivision)|650y|650y
+Topical term (geographical subdivision)|650z|650z
 Publication topic|publication_topic|650y.651y
 Publication geography|publication_geography|650z.651a.651z
 Subject geography|subject_geography|651a
-700a|700a|700a
-700d|700d|700d
-Corporate|corporate|710a
-Uncontrolled|uncontrolled|720a
-Uncontrolled title|uncontrolled_title|740a
-772c|772c|772c
-772d|772d|772d
-772t|772t|772t
-Successor|successor|785t
-Holder|holder|852a
-852j|852j|852j
-852z|852z|852z
-866x|866x|866x
-900a|900a|900a
-900d|900d|900d
-900u|900u|900u
-976a|976a|976a
-976b|976b|976b
-
+Related person|700a|700a
+Related person (years)|700d|700d
+Related corporate|corporate|710a
+Related name (uncontrolled)|uncontrolled|720a
+Related title (uncontrolled)|uncontrolled_title|740a
+Parent entry (author)|772c|772c
+Parent entry (publication information)|772d|772d
+Parent entry (title)|772t|772t
+Succeeding entry|successor|785t
+Holding location|holder|852a
+Shelving control number|852j|852j
+Public note (holding organization)|852z|852z
+Basic bibliographic unit|866x|866x
+Cross-reference (author)|900a|900a
+Cross-reference (author date)|900d|900d
+Cross-reference (author affiliation)|900u|900u
+Local use|976a|976a
+Local use|976b|976b
