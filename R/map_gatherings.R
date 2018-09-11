@@ -26,7 +26,7 @@ map_gatherings <- function (x, from = "Standard", to = "Name") {
 
   # Capitalize
   y <- str_to_title(y)
-  
+
   #if (is.factor(xorig) && length(unique(x)) == length(unique(y))) {
   if (is.factor(xorig)) {  
     xorig <- droplevels(xorig)
