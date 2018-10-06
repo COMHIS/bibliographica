@@ -5,7 +5,8 @@
 \title{Map Terms}
 \usage{
 map(x, synonymes, remove.unknown = FALSE, mode = "exact.match",
-  verbose = FALSE, from = "synonyme", to = "name", keep.names = FALSE)
+  verbose = FALSE, from = "synonyme", to = "name",
+  keep.names = FALSE)
 }
 \arguments{
 \item{x}{A character vector}

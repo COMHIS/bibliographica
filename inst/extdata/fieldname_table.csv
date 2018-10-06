@@ -1,10 +1,16 @@
 Data;Name
-publication_place;City
+author;Author
+gatherings;Gatherings
 languages;Language
-publication_decade;Decade
-gatherings;Format
+language;Language
+language_primary;Language
 n;N
 pct;Fraction (%)
-publication_year;Year
-pagecount;Pages
+pagecount;Page count
+publication_decade;Publication decade
+publication_place;Publication place
+publication_year;Publication year
+publisher;Publisher
+subject_topic;Subject
 title;Title
+topical term;Topic

@@ -4,7 +4,8 @@
 \alias{test_ambiguous_place}
 \title{Identify Ambiguous Place Mappings}
 \usage{
-test_ambiguous_place(f = system.file("extdata/PublicationPlaceSynonymes.csv",
+
+  test_ambiguous_place(f = system.file("extdata/PublicationPlaceSynonymes.csv",
   package = "bibliographica"))
 }
 \arguments{

@@ -5,7 +5,8 @@
 \title{Retrieve Timeline}
 \usage{
 timeline(x, field = "titlecount", group = NULL, nmin = 0,
-  mode = "absolute", time.window = 10, time.field = "publication_year")
+  mode = "absolute", time.window = 10,
+  time.field = "publication_year")
 }
 \arguments{
 \item{x}{data frame}

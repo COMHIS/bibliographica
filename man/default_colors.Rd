@@ -4,10 +4,12 @@
 \alias{default_colors}
 \title{Default Colors}
 \usage{
-default_colors(x)
+default_colors(x, v = NULL)
 }
 \arguments{
 \item{x}{Name of the variable type ("language"; "gatherings")}
+
+\item{v}{Optional. Vector of elements to color.}
 }
 \value{
 Named character vector of default colors

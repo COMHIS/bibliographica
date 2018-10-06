@@ -1,0 +1,17 @@
+---
+title: "Preprocessing summary"
+author: "`r author`"
+date: "`r Sys.Date()`"
+output: markdown_document
+---
+
+## Generic
+
+Field name: `r field`
+
+ * `r length(unique(df[, field]))` unique entries
+ * `r sum(is.na(df[, field]))` missing entries (`r mean(is.na(df[, field]))`)
+
+
+
+

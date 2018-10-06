@@ -88,8 +88,6 @@ validate_preprocessed_data <- function(data.preprocessed, max.pagecount = 5000) 
 
   }
 
-  # -----------------------------------------------------------------
-
   if ("author_name" %in% update.fields) {
     df <- validate_names(df)
   }

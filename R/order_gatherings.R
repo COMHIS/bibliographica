@@ -9,26 +9,18 @@
 #' @keywords utilities
 order_gatherings <- function (x) {
 
-  # Denote the ordering directly in the table		 
-  glevels <- gatherings_table()$Standard
-
   # Remove unrecognized formats
   x <- polish_gatherings(x)
 
-  # Recognize format
-  if (any(!x %in% glevels)) {
-     lower <- FALSE # by default
-     lower <- all(na.omit(tolower(x) == x))
-     x <- tolower(x)
-     # glevels <- map_gatherings(glevels, from = "short", to = "long")
-     glevels <- tolower(unique(gatherings_table()$Name))
+  # Recognize gatherings format (2fo or folio)
+  format <- gatherings_format(x)
+  
+  # Denote the ordering directly in the table		 
+  glevels <- tolower(unique(gatherings_table()[[format]]))
 
-     if (!lower) {
-       x <- str_to_title(x)
-       glevels <- str_to_title(glevels)       
-     }
-
-  }
+  # Capitalize
+  x <- str_to_title(x)
+  glevels <- str_to_title(glevels)       
 
   x <- as.character(x)
   x[is.na(x)] <- "NA"
@@ -38,7 +30,5 @@ order_gatherings <- function (x) {
   glevels <- glevels[inds]
 
   # Order the levels
-  xo <- factor(x, levels = glevels)
-
-  xo
+  factor(x, levels = glevels)
 }

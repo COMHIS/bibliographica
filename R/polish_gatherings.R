@@ -24,6 +24,6 @@ polish_gatherings <- function (x) {
     x[inds] <- NA
   }
 
-  x
+  tolower(x)
 
 }

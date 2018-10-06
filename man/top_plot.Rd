@@ -4,8 +4,8 @@
 \alias{top_plot}
 \title{Plot Top Entries}
 \usage{
-top_plot(x, field = NULL, ntop = NULL, highlight = NULL, max.char = Inf,
-  show.rest = FALSE, show.percentage = FALSE)
+top_plot(x, field = NULL, ntop = NULL, highlight = NULL,
+  max.char = Inf, show.rest = FALSE, show.percentage = FALSE)
 }
 \arguments{
 \item{x}{Data frame, vector or factor}

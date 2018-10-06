@@ -4,12 +4,10 @@
 \alias{read_bibliographic_metadata}
 \title{Read Bibliographic Metadata}
 \usage{
-read_bibliographic_metadata(file, ignore.fields = NULL, verbose = FALSE)
+read_bibliographic_metadata(file, verbose = FALSE)
 }
 \arguments{
 \item{file}{Parsed raw data file/s}
-
-\item{ignore.fields}{Fields to ignore}
 
 \item{verbose}{verbose}
 }

@@ -1,7 +1,7 @@
 Package: bibliographica
 Type: Package
 Title: Bibliographic Data Analysis
-Version: 0.2.45
+Version: 0.2.46
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Roivainen", "Hege" , role = "aut"),
@@ -38,4 +38,4 @@ Suggests:
 Additional_repositories:
     http://packages.ropensci.org
 LazyLoad: yes
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

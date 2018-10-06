@@ -8,6 +8,7 @@
 #' @examples fieldname_table()
 #' @keywords utilities
 fieldname_table <- function (...) {
+
   f <- system.file("extdata/fieldname_table.csv", package = "bibliographica")
   dd <- read.csv(f, header = TRUE, sep = ";")
   dd <- apply(dd, 2, as.character)

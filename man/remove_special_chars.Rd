@@ -4,8 +4,8 @@
 \alias{remove_special_chars}
 \title{Remove Special Chars}
 \usage{
-remove_special_chars(x, chars = c(",", ";", ":", "\\\\(", "\\\\)", "\\\\?",
-  "--", "\\\\&"), niter = 5)
+remove_special_chars(x, chars = c(",", ";", ":", "\\\\(", "\\\\)",
+  "\\\\?", "--", "\\\\&"), niter = 5)
 }
 \arguments{
 \item{x}{Character vector}
