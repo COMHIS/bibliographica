@@ -85,13 +85,14 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   tab <- t(sapply(s, function (x) {a <- try(polish_dimension(x, synonyms)); if (class(a) == "try-error") {a <- rep(NA, 5)}; return(a)
     }))
   rownames(tab) <- NULL
+
   tab <- data.frame(tab)
 
   if (verbose) {
     message("Convert to desired format")    
   }
   tab$original <- as.character(tab$original)
-  tab$gatherings <- order_gatherings(tab$gatherings)
+  tab$gatherings <- order_gatherings(unlist(tab$gatherings))
   tab$width <- suppressWarnings(as.numeric(as.character(tab$width)))
   tab$height <- suppressWarnings(as.numeric(as.character(tab$height)))
   tab$gatherings <- order_gatherings(tab$gatherings)

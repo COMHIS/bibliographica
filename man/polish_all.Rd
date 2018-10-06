@@ -5,7 +5,7 @@
 \title{Generic Preprocessing for Bibliographic Metadata}
 \usage{
 polish_all(df.orig, fields = NULL, verbose = TRUE, file = NULL,
-  mc.cores = 1, conversions = list(), languages = NULL)
+  conversions = list(), languages = NULL)
 }
 \arguments{
 \item{df.orig}{Original data.frame}
@@ -15,8 +15,6 @@ polish_all(df.orig, fields = NULL, verbose = TRUE, file = NULL,
 \item{verbose}{verbose}
 
 \item{file}{Temporary results saved into a file}
-
-\item{mc.cores}{Number of cores for parallelization}
 
 \item{conversions}{Field conversion list}
 
