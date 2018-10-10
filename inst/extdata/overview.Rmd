@@ -59,7 +59,7 @@ Brief description of the fields:
 
  * [Description of the original MARC fields](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/fieldnames.csv)
 
- * [Description of the preprocessed fields](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/fieldnames_polished.csv)
+ * [Description of the preprocessed fields](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/fieldname_table.csv)
 
 
 ## Histograms of all entries for numeric variables
@@ -69,20 +69,15 @@ num <- c();
 for (field in names(df)) {num[[field]] <- is.numeric(df[[field]])}
 numeric.fields <- setdiff(names(which(num)), c("row.index", "original_row", "unity"))
 for (field in numeric.fields) {
-  hist(log10(min(df[[field]], na.rm = TRUE)/2 + df[[field]]), 30,
+  x <- log10(min(df[[field]], na.rm = TRUE)/2 + df[[field]])
+  x <- x[!is.na(x) & !is.nan(x)]
+  if (length(x) > 0) {
+    hist(x, 30,
        main = paste(field, "histogram"),
        ylab = "Documents",
-       xlab(paste(field, "(log10)"))
+       xlab = paste(field, "(log10)")
        )
-  #df$fieldtoplot <- df[[field]]
-  #p <- ggplot(df, aes(x = fieldtoplot))
-  #p <- p + geom_histogram()
-  ##p <- p + scale_x_log10()
-  #p <- p + ggtitle(paste(field, "histogram"))
-  #p <- p + ylab("Documents")
-  ##p <- p + xlab(paste(field, "(log10)"))
-  #p <- p + xlab(field)  
-  #print(p)
+  }
 }
 ```
 

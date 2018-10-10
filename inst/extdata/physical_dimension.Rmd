@@ -9,15 +9,16 @@ output: markdown_document
 ntop <- 20
 #opts_chunk$set(comment=NA, fig.width=6, fig.height=6)
 opts_chunk$set(fig.path = paste0(output.folder, "figure/"))
+theme_set(theme_bw(20))
 ```
 
 ## Document size comparisons
 
-  * Some dimension info is provided in the original raw data for altogether `r sum(!is.na(df$physical_dimension))` documents (`r round(100*sum(!is.na(df$physical_dimension)),1)`%) but could not be interpreted for `r sum(!is.na(df$physical_dimension) & (df$gatherings == "NA"))` documents (ie. dimension info was successfully estimated for `r round(100 - 100 * sum(!is.na(df$physical_dimension) & (df$gatherings == "NA"))/sum(!is.na(df$physical_dimension)), 1)` % of the documents where this field was not empty).
+  * Some dimension info is provided in the original raw data for altogether `r sum(!is.na(df.orig$physical_dimension))` documents (`r round(100*mean(!is.na(df.orig$physical_dimension)),1)`%) but could not be interpreted for `r sum(!is.na(df.orig$physical_dimension) & (is.na(df$gatherings)))` documents (ie. dimension info was successfully estimated for `r round(100 - 100 * sum(!is.na(df.orig$physical_dimension) & (is.na(df$gatherings)))/sum(!is.na(df.orig$physical_dimension)), 1)` % of the documents where this field was not empty).
 
   * Document size (area) info was obtained in the final preprocessed data for altogether `r sum(!is.na(df$area))` documents (`r round(100*mean(!is.na(df$area)))`%). For the remaining documents, critical dimension information was not available or could not be interpreted: [List of entries where document surface could not be estimated](physical_dimension_incomplete.csv)
 
-  * Document gatherings info is originally available for `r sum(!df$gatherings.original == "NA")` documents (`r round(100*mean(!df$gatherings.original == "NA"))`%), and further estimated up to `r sum(!df$gatherings == "NA")` documents (`r round(100*mean(!df$gatherings == "NA"))`%) in the final preprocessed data.
+  * Document gatherings info is originally available for `r sum(!is.na(df$gatherings.original))` documents (`r round(100*mean(!is.na(df$gatherings.original)))`%), and further estimated up to `r sum(!is.na(df$gatherings))` documents (`r round(100*mean(!is.na(df$gatherings)))`%) in the final preprocessed data.
 
   * Document height info is originally available for `r sum(!is.na(df$height.original))` documents (`r round(100*mean(!is.na(df$height.original)))`%), and further estimated up to `r sum(!is.na(df$height))` documents (`r round(100*mean(!is.na(df$height)))`%) in the final preprocessed data.
 
@@ -41,13 +42,11 @@ The estimated dimensions are based on the following auxiliary information sheets
   * [Document dimension estimates](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/documentdimensions.csv) (used when information is partially missing)
 
 
-  
 <!--[Discarded dimension info](dimensions_discarded.csv)-->
 
 Left: final gatherings vs. final document dimension (width x height). Right: original gatherings versus original heights where both are available. The point size indicates the number of documents for each case. The red dots indicate the estimated height that is used when only gathering information is available. 
 
-
-```{r summary, echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=7, fig.show="hold", out.width="280px"}
+```{r summary, echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=7, fig.show="hold", out.width="420px"}
 df <- df.preprocessed
 dfs <- df %>% filter(!is.na(area) & !is.na(gatherings))
 dfs <- dfs[, c("gatherings", "area")]
@@ -78,40 +77,17 @@ p <- p + geom_point(data = unique(df3), aes(y = gatherings, x = gathering.height
 p <- p + ylab("Gatherings (original)") + xlab("Height (original)") 
 p <- p + ggtitle("Gatherings vs. height")
 print(p)
-
-dfs <- df %>% filter(!is.na(paper) & !is.na(gatherings))
-dfs <- dfs[, c("gatherings", "paper")]
-dfm <- melt(table(dfs)) # TODO switch to gather here
-names(dfm) <- c("gatherings", "paper", "documents")
-dfm$gatherings <- factor(dfm$gatherings, levels = levels(df$gatherings))
-p <- ggplot(dfm, aes(x = gatherings, y = paper)) 
-p <- p + scale_y_continuous(trans = "log2")
-p <- p + geom_point(aes(size = documents))
-p <- p + scale_size(trans="log10")
-p <- p + ggtitle("Gatherings vs. paper")
-p <- p + xlab("Size (gatherings)")
-p <- p + ylab("Paper (sheets)")
-p <- p + coord_flip()
-print(p)
 ```
 
 
 Left: Document dimension histogram (surface area);
-Middle: Paper consumption histogram;
 Right: title count per gatherings.
 
-```{r sizes, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=5, fig.show="hold",out.width="280px"}
+```{r sizes, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=5, fig.show="hold",out.width="420px"}
 p <- ggplot(df, aes(x = area))
 p <- p + geom_histogram() 
 p <- p + xlab("Document surface area (log10)")
 p <- p + ggtitle("Document dimension (surface area)")
-p <- p + scale_x_log10()
-print(p)
-
-p <- ggplot(df, aes(x = paper))
-p <- p + geom_histogram() 
-p <- p + xlab("Paper (log10 sheets)")
-p <- p + ggtitle("Paper consumption histogram")
 p <- p + scale_x_log10()
 print(p)
 
@@ -126,45 +102,29 @@ p <- p + coord_flip()
 print(p)
 ```
 
+
+
+<!--
+
 ### Gatherings timelines
 
 ```{r ndef, echo=FALSE, message=FALSE, warning=FALSE}
-nmin = 15
+nmin <- 15
 ```
 
-
-Popularity of different document sizes over time. Left: absolute title counts. Right: relative title counts. Gatherings with less than `r nmin` documents at every decade are excluded:
-
+Popularity of different document sizes over time. Left: absolute title
+counts. Right: relative title counts. Gatherings with less than `r
+nmin` documents at every decade are excluded:
 
 ```{r compbyformat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7, fig.show="hold", out.width="430px"}
-dfs <- df %>% filter(!gatherings == "NA")
+dfs <- df %>% filter(!is.na(gatherings))
+
 res <- timeline(dfs, group = "gatherings", nmin = nmin, mode = "absolute") 
 print(res$plot)
 
 res <- timeline(dfs, group = "gatherings", nmin = nmin, mode = "percentage") 
 print(res$plot)
 ```
-
-
-### Title count versus paper consumption
-
-
-
-```{r title_vs_paper, echo=FALSE, message=FALSE, warning=FALSE, fig.width=15, fig.height=10}
-d <- df.preprocessed %>%
-       group_by(publication_year) %>%
-       summarise(n = n(),
-       		 p = sum(paper, na.rm = TRUE))
-p <- ggplot(d, aes(y = n, x = p)) +
-       # geom_point(aes(color = publication_year), size = 3) +
-       geom_text(aes(label = publication_year), size = 3) + 
-       ylab("Title count") + xlab("Paper consumption") +
-       scale_x_log10() + scale_y_log10() + 
-       ggtitle("Paper vs. Title count by year")
-print(p)
-```
-
-<!--
 
 
 ## Average document dimensions 

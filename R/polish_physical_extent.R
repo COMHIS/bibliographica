@@ -13,8 +13,6 @@
 #' @keywords utilities
 polish_physical_extent <- function (x, verbose = FALSE) {
 
-  mc.cores <- 1
-
   # Summary of abbreviations
   # http://ac.bslw.com/community/wiki/index.php5/RDA_4.5
   sorig <- tolower(as.character(x))

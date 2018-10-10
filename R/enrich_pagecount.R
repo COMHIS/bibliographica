@@ -8,7 +8,14 @@
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df2 <- enrich_pagecount(df)}
 #' @keywords utilities
-enrich_pagecount <- function(df, estimate = "median.pages")  {
+enrich_pagecount <- function(df.preprocessed, df.gatherings, estimate = "median.pages")  {
+
+  df <- left_join(df.preprocessed, df.gatherings, by = "control_number")
+  if (mean(df$system_control_number.x == df$system_control_number.y, na.rm = T) == 1) {
+    df$system_control_number <- df$system_control_number.x
+    df$system_control_number.x <- NULL
+    df$system_control_number.y <- NULL        
+  }
 
   message("Add volume info where missing")
   gc()
