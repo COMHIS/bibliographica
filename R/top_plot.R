@@ -8,13 +8,14 @@
 #' @param max.char Max number of characters in strings. Longer strings will be cut and only max.char first characters are shown. No cutting by default
 #' @param show.rest Show the count of leave-out samples (not in top-N) as an additional bar.
 #' @param show.percentage Show the proportion of each category with respect to the total sample count.
+#' @param log10 Show the counts on log10 scale (default FALSE)
 #' @return ggplot object
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{p <- top_plot(x, field, 50)}
 #' @keywords utilities
-top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL, max.char = Inf, show.rest = FALSE, show.percentage = FALSE) {
+top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL, max.char = Inf, show.rest = FALSE, show.percentage = FALSE, log10 = FALSE) {
 
   # Circumvent warnings in build
   color <- percentage <- NULL
@@ -91,7 +92,12 @@ top_plot <- function (x, field = NULL, ntop = NULL, highlight = NULL, max.char =
     p <- p + geom_text(aes(x = names, y = 30,
                            label = paste(percentage, "%", sep = "")))
   }
-  
+
+
+  if (log10) {
+    p <- p + scale_y_log10() + labs(y = paste(field, "(N)"))
+  }
+
   p
 
 } 

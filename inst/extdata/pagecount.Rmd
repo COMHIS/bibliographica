@@ -8,7 +8,11 @@ output: markdown_document
 ```{r init, echo=FALSE}
 #opts_chunk$set(comment=NA, fig.width=6, fig.height=6)
 opts_chunk$set(fig.path = "figure/pagecount-")
-df <- df.preprocessed
+if (exists("df.gatherings")) {
+  df0 <- df <- left_join(df.preprocessed, df.gatherings, by = "id")
+} else {
+  df0 <- df <- df.preprocessed
+}
 ```
 
 
@@ -52,7 +56,7 @@ information is added separately for each document on top of the page
 count estimate.
 
 ```{r size-pagecountsmulti, echo=FALSE, message=FALSE, warning=FALSE}
-mean.pagecounts <- get_mean_pagecounts(df, exclude.plates = TRUE)
+mean.pagecounts <- get_mean_pagecounts(df0, exclude.plates = TRUE)
 ```
 
 ```{r size-pagecountsmulti2, echo=FALSE, message=FALSE, warning=FALSE, fig.width=25, fig.height=5}
@@ -114,7 +118,7 @@ suppressWarnings(grid.arrange(pics[[1]], pics[[2]], pics[[3]], pics[[4]], nrow =
 ### Document size distribution
 
 ```{r pagecountstat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12, fig.height=5}
-df <- df.preprocessed
+df <- df0
 
   theme_set(theme_bw(15))
 
@@ -173,27 +177,27 @@ Left: Gatherings vs. overall pagecounts (original + estimated). Right: Only the 
 
 ```{r size-estimated, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="430px"}
 theme_set(theme_bw(20))
+df <- df0
 dfs <- select(df, pagecount, gatherings) 
 dfs$pagecount <- as.numeric(gsub(" pages", "", dfs$pagecount))
 dfs <- dfs %>% filter(!is.na(pagecount) & !is.na(gatherings))
 dfg <- group_by(dfs, pagecount, gatherings) %>% tally()
-names(dfg) <- c("pages", "gatherings", "documents")
+names(dfg) <- c("pagecount", "gatherings", "documents")
 dfg$gatherings <- factor(dfg$gatherings, levels = levels(df$gatherings))
-ylims <- range(dfg$pages)
-p <- ggplot(dfg, aes(x = gatherings, y = pages)) 
-#p <- p + scale_y_continuous(trans = "log10")
-n <- 1 + nchar(max(na.omit(table(dfg$pages))))
+ylims <- range(dfg$pagecount)
+p <- ggplot(dfg, aes(x = gatherings, y = pagecount)) 
+n <- 1 + nchar(max(na.omit(table(dfg$pagecount))))
 ylim <- ylim(ylims)
 p <- p + scale_y_log10(breaks=10^(0:n))
 p <- p + geom_point(aes(size = documents))
 p <- p + scale_size(trans="log10")
-p <- p + ggtitle(paste("Estimated and original pages\n(n=", sum(dfg$documents), ")", sep = ""))
+p <- p + ggtitle(paste("Estimated and original pagecount\n(n=", sum(dfg$documents), ")", sep = ""))
 p <- p + xlab("Size (gatherings)")
-p <- p + ylab("Pages (original and estimated)")
+p <- p + ylab("Pagecount (original and estimated)")
 p <- p + coord_flip()
 print(p)
 
-dfs <- subset(df.preprocessed, is.na(pagecount.orig) & !is.na(pagecount))
+dfs <- subset(df, is.na(pagecount.orig) & !is.na(pagecount))
 p <- ggplot(dfs,
        aes(x = gatherings, y = pagecount)) +
        geom_count() +
@@ -203,8 +207,54 @@ p <- ggplot(dfs,
        xlab("Gatherings") +
        ylab("Estimated page count")
 print(p)
+
+
+dfs <- df %>% filter(!is.na(paper) & !is.na(gatherings))
+dfs <- dfs[, c("gatherings", "paper")]
+dfm <- melt(table(dfs)) # TODO switch to gather here
+names(dfm) <- c("gatherings", "paper", "documents")
+dfm$gatherings <- factor(dfm$gatherings, levels = levels(df$gatherings))
+p <- ggplot(dfm, aes(x = gatherings, y = paper)) 
+p <- p + scale_y_continuous(trans = "log2")
+p <- p + geom_point(aes(size = documents))
+p <- p + scale_size(trans="log10")
+p <- p + ggtitle("Gatherings vs. paper")
+p <- p + xlab("Size (gatherings)")
+p <- p + ylab("Paper (sheets)")
+p <- p + coord_flip()
+print(p)
 ```
 
+
+Paper consumption histogram;
+
+
+```{r sizes, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=5, fig.show="hold",out.width="280px"}
+p <- ggplot(df, aes(x = paper))
+p <- p + geom_histogram() 
+p <- p + xlab("Paper (log10 sheets)")
+p <- p + ggtitle("Paper consumption histogram")
+p <- p + scale_x_log10()
+print(p)
+```
+
+<!--
+
+### Title count versus paper consumption
+
+```{r title_vs_paper, echo=FALSE, message=FALSE, warning=FALSE, fig.width=15, fig.height=10}
+d <- df.preprocessed %>%
+       group_by(publication_year) %>%
+       summarise(n = n(),
+       		 p = sum(paper, na.rm = TRUE))
+p <- ggplot(d, aes(y = n, x = p)) +
+       # geom_point(aes(color = publication_year), size = 3) +
+       geom_text(aes(label = publication_year), size = 3) + 
+       ylab("Title count") + xlab("Paper consumption") +
+       scale_x_log10() + scale_y_log10() + 
+       ggtitle("Paper vs. Title count by year")
+print(p)
+```
 
 
 ## Documents with missing pages over years 
@@ -323,8 +373,6 @@ p <- p + scale_y_log10()
 p <- p + ylab("Paper (sheets)")
 print(p)
 ```
-
-
 
 ## Pamphlets vs. Books
 
@@ -468,8 +516,10 @@ for (g in c("1to", "2fo", "4to", "8vo")) {
 
   p <- ggplot(df3, aes(x = publication_year, y = pagecount.orig)) + geom_point(aes(size = n))
   p <- p + geom_smooth(data = df2, aes(x = publication_year, y = pagecount.orig))
-  p <- p + ggtitle(paste(g, "pagecount over time (books with over", minpages, "pages)"))
+  p <- p + ggtitle(paste(g, "pagecount over time (books with over", minpages, "pagecount)"))
   print(p)
 }
 ```
+
+-->
 

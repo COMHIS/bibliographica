@@ -16,10 +16,10 @@ output: markdown_document
 
 Language codes are from [MARC](http://www.loc.gov/marc/languages/language_code.html); new custom abbreviations can be added in [this table](https://github.com/COMHIS/bibliographica/blob/master/inst/extdata/language_abbreviations.csv).
 
-Title count per language (including multi-language documents):
+Title count per language (including multi-language documents; note the log10 scale):
 
-```{r summarylang, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=10}
-top_plot(df$languages, ntop = ntop)
+```{r summarylang, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=5}
+top_plot(df, "languages", ntop = ntop, log10 = TRUE) 
 ```
 
 
