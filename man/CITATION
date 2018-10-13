@@ -1,0 +1,20 @@
+citHeader("Kindly cite this R package as follows:")
+
+citEntry(entry="misc",
+         title = "bibliographica: tools for bibliographic analysis",
+         author = personList(
+	   person(given ="Leo", family="Lahti", email = "leo.lahti@iki.fi"),
+	   person(given ="Hege", family="Roivainen"),	   	   
+	   person(given ="Mikko", family="Tolonen")
+         ),
+	 doi = "",
+	 journal = "",
+	 year = "2015-2018",
+         textVersion =
+         paste("(C) Leo Lahti, Hege Roivainen, Mikko Tolonen (COMHIS 2015-2018). ",
+               "bibliographica R package",
+	       "URL: http://github.com/COMHIS/bibliographica",
+               sep=" ")
+         )
+
+citFooter("\nMany thanks for all contributors! See: http://comhis.github.io")
