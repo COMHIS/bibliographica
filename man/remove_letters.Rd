@@ -4,8 +4,8 @@
 \alias{remove_letters}
 \title{Remove Letters.}
 \usage{
-remove_letters(x, ignore.start = c("S", "s", "N", "n", "E", "e", "W",
-  "w"), ignore.end = c())
+remove_letters(x, ignore.start = c("S", "s", "N", "n", "E", "e", "W", "w"),
+  ignore.end = c())
 }
 \arguments{
 \item{x}{A vector}

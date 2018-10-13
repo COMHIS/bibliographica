@@ -4,8 +4,7 @@
 \alias{fill_dimensions}
 \title{Fill Missing Dimensions}
 \usage{
-fill_dimensions(x, dimension.table = NULL,
-  sheet.dimension.table = NULL)
+fill_dimensions(x, dimension.table = NULL, sheet.dimension.table = NULL)
 }
 \arguments{
 \item{x}{dimension string}

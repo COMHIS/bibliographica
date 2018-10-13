@@ -9,9 +9,9 @@ map_gatherings(x, from = "Standard", to = "Name")
 \arguments{
 \item{x}{Gatherings vector}
 
-\item{from}{Input terms to map (see names(gatherings_table()) for options)}
+\item{from}{Input terms to map (see \code{names(gatherings_table())} for options)}
 
-\item{to}{Output terms to map (see names(gatherings_table()) for options)}
+\item{to}{Output terms to map (see \code{names(gatherings_table())} for options)}
 }
 \value{
 Mapped gatherings.
