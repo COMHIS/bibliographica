@@ -4,8 +4,8 @@
 \alias{test_ambiguous_country}
 \title{Identify Ambiguous Country Mappings}
 \usage{
-test_ambiguous_country(f = system.file("extdata/reg2country.csv", package =
-  "bibliographica"))
+test_ambiguous_country(f = system.file("extdata/reg2country.csv", package
+  = "bibliographica"))
 }
 \arguments{
 \item{f}{Input file}

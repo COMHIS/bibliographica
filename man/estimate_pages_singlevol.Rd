@@ -4,7 +4,8 @@
 \alias{estimate_pages_singlevol}
 \title{Page Estimation (Single Volume)}
 \usage{
-estimate_pages_singlevol(df, pagecount.estimates, estimate = "median.pages")
+estimate_pages_singlevol(df, pagecount.estimates,
+  estimate = "median.pages")
 }
 \arguments{
 \item{df}{data.frame of documents x variables}

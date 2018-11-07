@@ -4,8 +4,9 @@
 \alias{top_plot}
 \title{Plot Top Entries}
 \usage{
-top_plot(x, field = NULL, ntop = NULL, highlight = NULL, max.char = Inf,
-  show.rest = FALSE, show.percentage = FALSE)
+top_plot(x, field = NULL, ntop = NULL, highlight = NULL,
+  max.char = Inf, show.rest = FALSE, show.percentage = FALSE,
+  log10 = FALSE)
 }
 \arguments{
 \item{x}{Data frame, vector or factor}
@@ -21,6 +22,8 @@ top_plot(x, field = NULL, ntop = NULL, highlight = NULL, max.char = Inf,
 \item{show.rest}{Show the count of leave-out samples (not in top-N) as an additional bar.}
 
 \item{show.percentage}{Show the proportion of each category with respect to the total sample count.}
+
+\item{log10}{Show the counts on log10 scale (default FALSE)}
 }
 \value{
 ggplot object

@@ -10,6 +10,8 @@
 #' @keywords utilities
 load_initial_datafile <- function(datafile, reload.data = FALSE, output.file = "parsed.Rds") { 
 
+  ignore.fields <- NULL
+
   if (reload.data) {
 
     message("Reading reloaded data. This may take a while ...")
