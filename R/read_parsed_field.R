@@ -14,7 +14,7 @@ read_parsed_fields <- function(f, field = 300, subfield = "c", n = NULL) {
   # Read the data
   x <- read.table(f, sep = "\t", header = TRUE)
 
-  if (!is.null(x)) {
+  if (!is.null(n)) {
     x <- x[1:n, ]  
   }
 
@@ -28,13 +28,9 @@ read_parsed_fields <- function(f, field = 300, subfield = "c", n = NULL) {
 
   # Join
   df <- full_join(id, field, by = "Record_seq")
-
-  if (any(duplicated(df$Value.x))) {
-    warning("Duplicated values in read_parsed_fields. Returning NULL.")
-    return(NULL)
-  }
-
   names(df) <- c("Record_seq", "system_control_number", "value")  
+  df$value <- as.character(df$value)
+  df$system_control_number <- as.character(df$system_control_number)  
 
   df
   
