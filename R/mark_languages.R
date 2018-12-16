@@ -9,6 +9,8 @@
 #' @keywords utilities
 mark_languages <- function(x) {
 
+  x0 <- x
+
   # Harmonize
   x <- tolower(as.character(x))	       
   x[x == "NA"] <- ""
@@ -28,11 +30,7 @@ mark_languages <- function(x) {
   # TODO: XML version available, read directly in R:
   # see http://www.loc.gov/marc/languages/
   f <- system.file("extdata/language_abbreviations.csv", package = "bibliographica")
-  abrv <- read_mapping(f,
-	include.lowercase = TRUE, 
-       	self.match = TRUE, # some catalogs may use abbreviations, others not
-	ignore.empty = FALSE,
-       	mode = "table", sep = "\t")
+  abrv <- read.csv(f, sep = "\t", header = TRUE, encoding = "UTF-8")
 
   # Further harmonization
   x <- gsub("\\(", " ", x)
@@ -40,24 +38,27 @@ mark_languages <- function(x) {
   x <- gsub("\\,", " ", x)
   x <- gsub(" +", " ", x)
   x <- condense_spaces(x)
-  abrv$name <- gsub("\\(", " ", abrv$name)
-  abrv$name <- gsub("\\)", " ", abrv$name)
-  abrv$name <- gsub("\\,", " ", abrv$name)
-  abrv$name <- gsub(" +", " ", abrv$name)    
+  # Final name
+  #abrv$name <- gsub("\\(", " ", abrv$name)
+  #abrv$name <- gsub("\\)", " ", abrv$name)
+  #abrv$name <- gsub("\\,", " ", abrv$name)
+  #abrv$name <- gsub(" +", " ", abrv$name)    
   abrv$synonyme <- gsub("\\(", " ", abrv$synonyme)
   abrv$synonyme <- gsub("\\)", " ", abrv$synonyme)
   abrv$synonyme <- gsub("\\,", " ", abrv$synonyme)
   abrv$synonyme <- gsub(" +", " ", abrv$synonyme)  
+  abrv <- unique(abrv)
 
   # Unrecognized languages?
   unrec <- as.vector(na.omit(setdiff(
   	     unique(unlist(strsplit(as.character(unique(x)), ";"))),
 	     abrv$synonyme
 	     )))
-  
+
   if (length(unrec) > 0) {
     warning(paste("Unidentified languages: ", paste(unrec, collapse = ";")))
   }
+
 
   # TODO Vectorize to speed up ?
   for (i in 1:length(x)) {
@@ -97,25 +98,6 @@ mark_languages <- function(x) {
   # as they are defined above already
   x <- sapply(strsplit(x, ";"), function (xi) {paste(unique(intersect(xi, xu)), collapse = ";")})
 
-  # Provide logical vectors for the language hits for
-  # each accepted language
-  #subroutine <- function(abbrv, x){
-  #   grepl(paste("^", abbrv, "$", sep = ""), x, ignore.case = T) |
-  #   grepl(paste("^", abbrv, sep = ""), x, ignore.case = T) |
-  #   grepl(paste(";", abbrv, sep = ""), x, ignore.case = T) |
-  #   grepl(paste(";", abbrv, "$", sep = ""), x, ignore.case = T) 
-  #}
-  #li <- list()
-  #for (u in setdiff(xu, "Multiple languages")) {
-  #  li[[u]] <- subroutine(u, x)
-  #}
-  #u <- "Multiple languages"
-  #li[[u]] <- subroutine(u, x) | grepl(";", x)
-  #dff <- as_data_frame(li)
-  #names(dff) <- paste("language.", names(dff), sep = "")
-  # For "language.Multiple languages" use another field name
-  # names(dff) <- gsub("language.Multiple languages", "multilingual", names(dff))
-
   dff$languages <- x
   inds <- which(dff$languages == "")
   if (length(inds) > 0) {
@@ -130,9 +112,9 @@ mark_languages <- function(x) {
   }
 
   # Convert to factors
-  dff$languages <- as.factor(dff$languages)
-  dff$language_primary <- as.factor(dff$language_primary)  
-
+  dff$languages <- as.factor(str_trim(dff$languages))
+  dff$language_primary <- as.factor(str_trim(dff$language_primary))
+  
   dff[match(xorig, xuniq),]
 
 }

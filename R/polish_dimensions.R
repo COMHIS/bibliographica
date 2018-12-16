@@ -32,16 +32,10 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   } 
 
   if (verbose) { message("Initial harmonization..") }
+  s <- tolower(s)
 
   sorig <- s
   s <- suniq <- unique(s)
-  match.inds <- match(sorig, suniq)
-
-  s <- tolower(s)
-  
-  s <- s[match(sorig, suniq)]  
-  sorig <- s
-  s <- suniq <- unique(sorig)
   
   # 75,9 -> 75.9  
   s <- gsub(",", ".", s) 

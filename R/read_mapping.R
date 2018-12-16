@@ -26,7 +26,7 @@
 read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE, verbose = FALSE, remove.ambiguous = TRUE, lowercase.only = FALSE, from = "synonyme", to = "name", fast = FALSE, encoding="UTF-8", trim = FALSE, empty.is.na = FALSE) {
   
   # TODO sort by desired field
-  
+
   if (mode == "list") {
     
     rf <- suppressWarnings(readLines(file, encoding=encoding))
@@ -48,12 +48,13 @@ read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, i
   } else if (mode %in% c("table", "vector")) {
   
     # aa <- read.csv(file, sep = sep, stringsAsFactors = FALSE, fileEncoding = "UTF-8")
-    
+
     if (fast) {
       aa <- suppressWarnings(fread(file, sep = sep, header = TRUE, encoding=encoding))
       aa <- as.data.frame(aa)
+
     } else {
-      aa <- read.csv(file, sep = sep, header = TRUE, encoding = encoding)    
+      aa <- read.csv(file, sep = sep, header = TRUE, encoding = encoding)
     }
 
     # Temporarily name columns as name and synonyme
