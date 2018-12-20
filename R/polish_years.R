@@ -97,6 +97,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- gsub("^& ", "", x)
   x <- condense_spaces(gsub("\\[\\]", " ", x))
   x <- gsub(" -", "-", gsub("- ", "-", x))
+  x <- gsub("-+", "-", x)  
   x <- harmonize_christian(x)
 
   inds <- grep(" or ", x)

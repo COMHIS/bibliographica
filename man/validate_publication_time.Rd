@@ -4,15 +4,14 @@
 \alias{validate_publication_time}
 \title{Validate Publication Time}
 \usage{
-validate_publication_time(data.preprocessed, min.year = NULL,
-  max.year = NULL)
+validate_publication_time(x, min.year = NULL, max.year = NULL)
 }
 \arguments{
-\item{data.preprocessed}{Preprocessed data.}
-
 \item{min.year}{Minimum accepted year; all accepted by default}
 
 \item{max.year}{Maximum accepted year; current year by default}
+
+\item{data.preprocessed}{Preprocessed data.}
 }
 \value{
 Modified data.

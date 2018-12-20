@@ -9,9 +9,8 @@
 #' @references See citation("bibliographica")
 #' @examples # \dontrun{validate_publication_time(data.preprocessed)}
 #' @keywords utilities
-validate_publication_time <- function(data.preprocessed, min.year = NULL, max.year = NULL) {
+validate_publication_time <- function(x, min.year = NULL, max.year = NULL) {
 
-  df <- data.preprocessed$df.preprocessed
   min.year <- (-2000)
   if (is.null(min.year)) {
     min.year <- -Inf
@@ -21,6 +20,7 @@ validate_publication_time <- function(data.preprocessed, min.year = NULL, max.ye
   }
 
   message("Fix publication years")
+  df <- x  
   # Remove apparent errors: no future publications or publications before historical times
   df$publication_year_from[which(df$publication_year_from > max.year)] <- NA
   df$publication_year_from[which(df$publication_year_from < min.year)] <- NA
