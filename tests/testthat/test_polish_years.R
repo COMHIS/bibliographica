@@ -396,10 +396,18 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("Printed for Thomas Guy,1̂689. ")$from, 1689)
   expect_equal(polish_years("M.d.xxviij [sexto calendas Julias]")$from, 1528) #check if this is xxviii or xxvii
   expect_equal(polish_years("sold [by Michael Perry],[̂1698]")$from, 1698)
-  # expect_equal(polish_years("")$from, )         
-  
+  expect_equal(polish_years("&lt;1786&gt;")$from, 1786)
+  expect_equal(polish_years("&lt;1786&gt;-")$from, 1786)  
+  expect_equal(polish_years("in the yeare of our Lorde God. 1.5.4.6]")$from, 1546)
+  expect_equal(polish_years("Anno Domini. 1.5.5.4. 24. Iulij]")$from, 1554)
+  expect_equal(polish_years("Anno Domini 169[0].")$from, 1690)
+
+  # expect_equal(polish_years("")$from, )                   
+
   # expect_equal(polish_years("[1963-1864]")$from, )  
   # expect_equal(polish_years("[1963-1864]")$till, )
+  #expect_equal(polish_years("Anno. M.D.LIIII. mense Septembri]")$from, )    
+  #expect_equal(polish_years("1800. (Price 4 cents or 2s. 4d. per doz)")$from, 1800)
   # [1904/1905], [1-26] ;1905/06, 1-54. 
   #expect_equal(polish_years("100 B.C-44B.C")$from, -100)
   #expect_equal(polish_years("100B.C-44 B.C")$till, -44)

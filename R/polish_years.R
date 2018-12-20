@@ -16,17 +16,25 @@
 polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TRUE, check = FALSE, min.year = -3000, max.year = as.numeric(format(Sys.time(), "%Y")) + 50) {
 
   x <- gsub("\\.$", "", x)
+  x <- gsub("\\[o\\.s\\.\\]", "", x)
+  x <- gsub("\\[sic\\.\\]", "", x)    
+  x <- gsub("^&lt;", "", x)
+  x <- gsub("&gt;$", "", x)
+  x <- gsub("&gt;-$", "", x)      
   x <- gsub(", *\\[*[0-9]\\]*$", "", x)
   x <- gsub("\\[̂", "[", x)
   x <- gsub("\\?\\]", "]", x)
   x <- gsub("\\[[0-9]{3}-\\]", "", x)
   x <- gsub("\\[[0-9]{2}--\\?*\\]", "", x)    
 
+  inds <- intersect(grep("^--", x), grep("--$", x))
+  x[inds] <- gsub("--$", "", gsub("^--", "", x[inds]))
+
   if (is.null(start_synonyms)) {
     f <- system.file("extdata/fi_start_years.csv", package = "bibliographica")
     start_synonyms <- read_mapping(f, sep = "\t", mode = "table")
   }
-  
+
   if (is.null(end_synonyms)) {
     f <- system.file("extdata/fi_end_years.csv", package = "bibliographica")
     end_synonyms <- read_mapping(f, sep = "\t", mode = "table")
@@ -45,20 +53,23 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   xorig <- tolower(as.character(x))
   xuniq <- unique(xorig)
   x <- xuniq
-  
+
   if (verbose) {
     message(paste("Polishing years:", length(xuniq), "unique cases"))
   }
-
 
   # "[1.12.1584 jalkeen]" -> 1584 jalkeen
   inds <- grep("[0-9]{1,2}\\.[0-9]{1,2}\\.[0-9]{4}", x)
   x[inds] <- gsub("[0-9]{1,2}\\.[0-9]{1,2}\\.", "", x[inds])
   x <- gsub(",", ".", x)
 
-  # 23.1967 -> 1967
-  x <- gsub(" [0-9]{1,2}\\.", "", x)   
-  x <- gsub("\\.[0-9]$", "", x)
+  # 23.1967 -> 1967 excluding 1.5.6.7
+  if (length(grep("[0-9]\\.[0-9]\\.[0-9]\\.[0-9]", x)) == 0) {
+    x <- gsub(" [0-9]{1,2}\\.", "", x)
+    x <- gsub("\\.[0-9]$", "", x)
+  } else {
+    x <- gsub("\\.", "", x)
+  }
 
   # "Printed in the Yeare,;1648."
   inds <- grep(";", x)
@@ -67,20 +78,21 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 
   # 18th century (remove separately before removing other letters)
   x <- gsub("[0-9]{1,4}th", "", x)  
-  
+
   # Remove the remaining letters
-  if (length(grep("-+[[:lower:]]*[0-9]{4}-+", x))>0) {
-    x <- gsub("[[:lower:]]", "", x)
-  }
-  
+  #if (length(grep("-+[[:lower:]]*[0-9]{4}-+", x))>0) {
+  #  x <- gsub("[[:lower:]]", "", x)
+  #}
+
   # Map back to original indices and make unique again. To speedup further.
   xorig <- x[match(xorig, xuniq)]
+
   x <- xuniq <- unique(xorig)
   x <- harmonize_ie(x)
 
   x <- gsub("-a", "- a", x) # -approximately
   x <- remove_print_statements(x)
-  
+
   # Map back to original indices and make unique again. To speedup further.
   xorig <- x[match(xorig, xuniq)]
   x <- xuniq <- unique(xorig)
@@ -95,21 +107,30 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 
   # 1642 [1643] -> 1643
   if (length(grep("^[0-9]* \\[[0-9]*\\]$", x)) > 0) {
-    spl <- unlist(strsplit(x, " "))
-
-    if (length(spl) > 1) {
-      x <- spl[[2]]
-    } else {
-      x <- spl[[1]]
+    inds <- grep("^[0-9]* \\[[0-9]*\\]$", x)
+    for (i in inds) {
+      spl <- unlist(strsplit(x[[i]], " "))
+      if (length(spl) > 1) {
+        x[[i]] <- spl[[2]]
+      } else {
+        x[[i]] <- spl[[1]]
+      }
     }
   }
   # 1642[1643] -> 1643
   if (length(grep("^[0-9]{4}\\[[0-9]{4}\\]$", x)) > 0) {
-    x <- substr(x, 6, 9)
+    inds <- grep("^[0-9]{4}\\[[0-9]{4}\\]$", x)
+    for (i in inds) {
+      x[[i]] <- substr(x[[i]], 6, 9)
+    }
   }
   # 1642[3] -> 1643
-  if (length(grep("^[0-9]{4}\\[[0-9]{1}\\]$", x)) > 0) {
-    x <- paste0(substr(x, 1, 3), substr(x, 6, 6))
+  inds <- grep("^[0-9]{4}\\[[0-9]{1}\\]$", x)
+  if (length(inds) > 0) {
+    for (i in inds) {
+      x[[i]] <- paste0(substr(x[[i]], 1, 3), substr(x[[i]], 6, 6))
+    }  
+
   }
 
   # Remove some other info
@@ -124,9 +145,10 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- gsub("1̂", "1", x)
   x <- gsub("\\[[a-z| ]*\\]", "", x)
   x <- gsub("^\\[", "", x)
-  x <- gsub("\\]$", "", x)  
+  x <- gsub("\\]$", "", x)
   x <- harmonize_christian(x)
 
+  #inds <- setdiff(grep(" or ", x), grep("^[0-9]{4}", x))
   inds <- grep(" or ", x)
   if (length(inds)>0) {
     x[inds] <- sapply(x[inds], function (x) unlist(strsplit(x, " or "), use.names = FALSE)[[2]])
@@ -141,13 +163,23 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- gsub("m\\,d", "md", x)
   x <- gsub("m\\,d\\,", "md", x)
   x <- gsub("md x", "mdx", x)
-  x <- gsub("ij$", "ii", x)    
+  x <- gsub("md l", "mdl", x)  
+  x <- gsub("ij$", "ii", x)
 
   num <- suppressWarnings(as.numeric(as.roman(gsub(" ", "", x))))
   inds <- which(!is.na(num))
   if (length(inds) > 0) {
     x[inds] <- num[inds]
   }
+
+  #spl <- strsplit(x, " ")
+  #for (i in 1:length(spl)) {
+  #  num <- suppressWarnings(na.omit(as.numeric(as.roman(spl[[i]]))))
+  #  if (length(num) > 0 & any(!is.na(num))) {
+  #    x[[i]] <- paste(num, collapse = " ")
+  #  }
+  #}
+
 
   # Map back to original indices and make unique again. To speedup further.
   x <- x[match(xorig, xuniq)]
