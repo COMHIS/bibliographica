@@ -36,6 +36,6 @@ Pick and polish the year interval (start and end years) from a time field which 
 See citation("bibliographica")
 }
 \author{
-Leo Lahti and Niko Ilomaki \email{leo.lahti@iki.fi}
+Leo Lahti \email{leo.lahti@iki.fi}
 }
 \keyword{utilities}

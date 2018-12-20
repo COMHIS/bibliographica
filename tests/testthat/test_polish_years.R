@@ -191,7 +191,7 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("21 of August, 1644]")$from, 1644)  
   expect_equal(polish_years("18 March, 1645 [i.e. 1646]")$from, 1646)
   expect_equal(polish_years("[25 February, 1650]")$from, 1650)  
-  expect_equal(polish_years("1695/6. [1696]")$from, 1696)     
+  expect_equal(polish_years("1695/6. [1696]")$from, 1695)     
   expect_equal(polish_years("the 27. of Iuly, 1585]")$from, 1585)    
   expect_equal(polish_years("January 26. 1646. [i.e. 1647]")$from, 1647)    
   expect_equal(polish_years("1736[1735]-38.")$from, 1735)
@@ -386,7 +386,19 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("God' 1 (1914/1915), n:o 1-god' 3 (1916/1917), n:o 3. ")$till, 1917)    
 
   # TODO
-  # expect_equal(polish_years("[1963-1864]")$from, )
+  expect_equal(polish_years("MDCCXCV.")$from, 1795)
+  expect_equal(polish_years("M.DCCXCV.")$from, 1795)
+  expect_equal(polish_years("M.D.CCXCV.")$from, 1795)
+  expect_equal(polish_years("M D CCXCV.")$from, 1795)
+  expect_equal(polish_years("M,D,CCXCV")$from, 1795)
+  expect_equal(polish_years("Printed Anno M. DC. XL.")$from, 1640)
+  expect_equal(polish_years("Printed by S. Green and sold by Samuel Phillips,1̂689.")$from, 1689)
+  expect_equal(polish_years("Printed for Thomas Guy,1̂689. ")$from, 1689)
+  expect_equal(polish_years("M.d.xxviij [sexto calendas Julias]")$from, 1528) #check if this is xxviii or xxvii
+  expect_equal(polish_years("sold [by Michael Perry],[̂1698]")$from, 1698)
+  # expect_equal(polish_years("")$from, )         
+  
+  # expect_equal(polish_years("[1963-1864]")$from, )  
   # expect_equal(polish_years("[1963-1864]")$till, )
   # [1904/1905], [1-26] ;1905/06, 1-54. 
   #expect_equal(polish_years("100 B.C-44B.C")$from, -100)

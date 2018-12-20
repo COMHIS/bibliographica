@@ -9,7 +9,7 @@
 #' @param check If true, remove entries (replace by NA) where start > end
 #' @return data.frame with the fields 'start' and 'end'
 #' @export
-#' @author Leo Lahti and Niko Ilomaki \email{leo.lahti@@iki.fi}
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df <- polish_years(c("1746", "1745-1750"))}
 #' @keywords utilities
@@ -17,7 +17,11 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 
   x <- gsub("\\.$", "", x)
   x <- gsub(", *\\[*[0-9]\\]*$", "", x)
-  
+  x <- gsub("\\[̂", "[", x)
+  x <- gsub("\\?\\]", "]", x)
+  x <- gsub("\\[[0-9]{3}-\\]", "", x)
+  x <- gsub("\\[[0-9]{2}--\\?*\\]", "", x)    
+
   if (is.null(start_synonyms)) {
     f <- system.file("extdata/fi_start_years.csv", package = "bibliographica")
     start_synonyms <- read_mapping(f, sep = "\t", mode = "table")
@@ -46,6 +50,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
     message(paste("Polishing years:", length(xuniq), "unique cases"))
   }
 
+
   # "[1.12.1584 jalkeen]" -> 1584 jalkeen
   inds <- grep("[0-9]{1,2}\\.[0-9]{1,2}\\.[0-9]{4}", x)
   x[inds] <- gsub("[0-9]{1,2}\\.[0-9]{1,2}\\.", "", x[inds])
@@ -70,8 +75,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   
   # Map back to original indices and make unique again. To speedup further.
   xorig <- x[match(xorig, xuniq)]
-  x = xuniq <- unique(xorig)
-  
+  x <- xuniq <- unique(xorig)
   x <- harmonize_ie(x)
 
   x <- gsub("-a", "- a", x) # -approximately
@@ -88,7 +92,26 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   # Map back to original indices and make unique again. To speedup further.
   xorig <- x[match(xorig, xuniq)]
   x <- xuniq <- unique(xorig)
-  
+
+  # 1642 [1643] -> 1643
+  if (length(grep("^[0-9]* \\[[0-9]*\\]$", x)) > 0) {
+    spl <- unlist(strsplit(x, " "))
+
+    if (length(spl) > 1) {
+      x <- spl[[2]]
+    } else {
+      x <- spl[[1]]
+    }
+  }
+  # 1642[1643] -> 1643
+  if (length(grep("^[0-9]{4}\\[[0-9]{4}\\]$", x)) > 0) {
+    x <- substr(x, 6, 9)
+  }
+  # 1642[3] -> 1643
+  if (length(grep("^[0-9]{4}\\[[0-9]{1}\\]$", x)) > 0) {
+    x <- paste0(substr(x, 1, 3), substr(x, 6, 6))
+  }
+
   # Remove some other info
   x <- gsub("price [0-9] d", "", x)
   x <- gsub("-[0-9]{2,3}\\?{1,2}$", "", x)
@@ -97,7 +120,11 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- gsub("^& ", "", x)
   x <- condense_spaces(gsub("\\[\\]", " ", x))
   x <- gsub(" -", "-", gsub("- ", "-", x))
-  x <- gsub("-+", "-", x)  
+  x <- gsub("-+", "-", x)
+  x <- gsub("1̂", "1", x)
+  x <- gsub("\\[[a-z| ]*\\]", "", x)
+  x <- gsub("^\\[", "", x)
+  x <- gsub("\\]$", "", x)  
   x <- harmonize_christian(x)
 
   inds <- grep(" or ", x)
@@ -107,6 +134,15 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x[inds] <- str_trim(x[inds])
 
   # Convert romans
+  x <- gsub("m\\.d", "md", x)
+  x <- gsub("m\\.d\\.", "md", x)
+  x <- gsub("m d", "md", x)
+  x <- gsub("m d ", "md", x)  
+  x <- gsub("m\\,d", "md", x)
+  x <- gsub("m\\,d\\,", "md", x)
+  x <- gsub("md x", "mdx", x)
+  x <- gsub("ij$", "ii", x)    
+
   num <- suppressWarnings(as.numeric(as.roman(gsub(" ", "", x))))
   inds <- which(!is.na(num))
   if (length(inds) > 0) {
@@ -118,6 +154,10 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   xorig <- x
   xuniq <- unique(xorig)
   x <- xuniq
+
+  if (length(grep("[0-9]{4}\\[[0-9]", x))>1) {
+    x <- substr(x, 1, 4)
+  }
 
   res <- suppressWarnings(
     lapply(x,
@@ -140,7 +180,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   res <- do.call("rbind", res)
   start_year <- res[,1]
   end_year   <- res[,2]
-  
+
   if (check) {
     inds <- which(start_year > end_year)
     if (length(inds) > 0) {
@@ -232,6 +272,7 @@ polish_year <- function(x, start_synonyms = NULL, end_synonyms = NULL, months, v
     spl <- unlist(strsplit(x, "-"), use.names = FALSE)
     start <- spl[[1]]
     end <- spl[[2]]
+
     return (c(from=as.numeric(start), till=as.numeric(end)))
   } else if (length(grep("^[0-9]{1,4}B\\.C-[0-9]{1,4}B\\.C$", x)) > 0) {
     # 30bc-26bc

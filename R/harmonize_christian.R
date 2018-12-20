@@ -13,7 +13,11 @@ harmonize_christian <- function (x) {
   x <- gsub("anno domini", " ", x)    
   x <- gsub("a\\.d\\.", " ", x)
   x <- gsub("ad", " ", x)  
-  x <- gsub("A\\.D", " ", x) # redundant 
+  x <- gsub("A\\.D", " ", x) # redundant
+  x <- gsub("anno d⁻ni", " ", x)
+  x <- gsub("anno dñi", " ", x) 
+
+
 
   x <- gsub("bc", "B.C", x)
   x <- gsub("b\\.c\\.", "B.C", x)  
