@@ -81,12 +81,6 @@ enrich_preprocessed_data <- function(data.validated, df.orig) {
 
   }
 
-  # TODO: languages; language_primary
-  if (any(c("language", "title", "subject_topic", "publication_topic") %in% update.fields)) {
-    # Nothing defined yet
-    NULL
-  }
-
   message("Enrichment OK")
 
   enriched.data <- list(df.preprocessed = df.preprocessed,

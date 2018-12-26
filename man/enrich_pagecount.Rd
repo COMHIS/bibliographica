@@ -4,8 +4,7 @@
 \alias{enrich_pagecount}
 \title{Enrich Page Count}
 \usage{
-enrich_pagecount(df.preprocessed, df.gatherings,
-  estimate = "median.pages")
+enrich_pagecount(df.preprocessed, estimate = "median.pages")
 }
 \arguments{
 \item{estimate}{Which estimate to use for pagecount ("median.pages" / "mean.pages")}

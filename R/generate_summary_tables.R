@@ -54,11 +54,20 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       original <- as.character(df.orig[[field]][inds])
       polished <- as.character(df.preprocessed[[field]][inds])
       tab <- cbind(original = original, polished = polished)
+
       # Exclude trivial cases (original == polished exluding cases)
-      #tab <- tab[!tab[, "original"] == tab[, "polished"], ]
       tab <- tab[!tolower(tab[, "original"]) == tolower(tab[, "polished"]), ]
+      tab <- as.data.frame(tab)
+      require(dplyr)
+      x <- tab %>% group_by(original, polished) %>%
+                   tally() %>%
+		   arrange(desc(n))
       
-      tmp <- write_xtable(tab, paste(output.folder, field, "_conversion_nontrivial.csv", sep = ""), count = TRUE)
+      tmp <- write.table(x, file = paste(output.folder, field, "_conversion_nontrivial.csv", sep = ""),
+                            quote = FALSE,
+			    row.names = FALSE
+      	     		    	 )
+
     }
   }
 
@@ -68,43 +77,57 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   o <- gsub("\\]", "", gsub("\\[", "", gsub("\\.+$", "", as.character(df.orig$author_name))))
   x <- as.character(df.orig$author_date)
   inds <- which(!is.na(x) & !(tolower(o) == tolower(x)))
-  tmp <- write_xtable(cbind(
-    original_name = o[inds],
-    original_date = x[inds],
-    final_author_id = as.character(df.preprocessed[inds, "author"]),
-    final_author_birth = as.character(df.preprocessed[inds, "author_birth"]),
-    final_author_death = as.character(df.preprocessed[inds, "author_death"])
-			  ),
-      paste(output.folder, paste("author_conversion_nontrivial.csv", sep = "_"),
-      sep = ""), count = TRUE)
+
+  x1 <- as.character(df.preprocessed[inds, "author"])
+  x2 <- as.character(df.preprocessed[inds, "author_birth"])
+  x3 <- as.character(df.preprocessed[inds, "author_death"])
+
+  li <- list(
+         original_name = o[inds],
+         original_date = x[inds],
+       final_author_id = x1,
+    final_author_birth = x2,
+    final_author_death = x3
+			  )
+
+  df <- as.data.frame(li)
+
+  x <- df %>%
+         group_by(original_name, original_date, final_author_id, final_author_birth, final_author_death) %>%
+         tally() %>%
+	 arrange(desc(n))
+
+  write.table(x, 
+      file = paste(output.folder, paste("author_conversion_nontrivial.csv", sep = "_"), sep = ""),
+      quote = FALSE,
+      row.names = FALSE
+  )
 
   # -----------------------------------------------------
 
    message("subject_topic")
-   field = "subject_topic"
-   entries = unlist(strsplit(as.character(df.preprocessed[[field]]), ";"), use.names = FALSE)
-    s <- write_xtable(entries, paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
+   field <- "subject_topic"
+   entries <- unlist(strsplit(as.character(df.preprocessed[[field]]), ";"), use.names = FALSE)
+   s <- write_xtable(entries, paste(output.folder, field, "_accepted.csv", sep = ""), count = TRUE)
 
-    message("Discarded entries")
-    if ((field %in% names(df.preprocessed)) && (field %in% names(df.orig))) {
-      inds <- which(is.na(df.preprocessed[[field]]))
-      original <- as.vector(na.omit(as.character(df.orig[[field]][inds])))
-      tmp <- write_xtable(original, paste(output.folder, field, "_discarded.csv", sep = ""), count = TRUE)
-    }
+   message("Discarded entries")
+   if ((field %in% names(df.preprocessed)) && (field %in% names(df.orig))) {
+     inds <- which(is.na(df.preprocessed[[field]]))
+     original <- as.vector(na.omit(as.character(df.orig[[field]][inds])))
+     tmp <- write_xtable(original, paste(output.folder, field, "_discarded.csv", sep = ""), count = TRUE)
+   }
 
-    message("Nontrivial conversions")
-    if (field %in% names(df.preprocessed) && (field %in% names(df.orig)) && !field %in% c("dimension", "title")) {
-      message(field)
-      inds <- which(!is.na(df.preprocessed[[field]]))
-      original <- as.character(df.orig[[field]][inds])
-      polished <- as.character(df.preprocessed[[field]][inds])
-      tab <- cbind(original = original, polished = polished)
-      # Exclude trivial cases (original == polished exluding cases)
-      #tab <- tab[!tab[, "original"] == tab[, "polished"], ]
-      tab <- tab[!tolower(tab[, "original"]) == tolower(tab[, "polished"]), ]
-      
-      tmp <- write_xtable(tab, paste(output.folder, field, "_conversion_nontrivial.csv", sep = ""), count = TRUE)
-    }
+   message("Nontrivial conversions")
+   if (field %in% names(df.preprocessed) && (field %in% names(df.orig)) && !field %in% c("dimension", "title")) {
+     message(field)
+     inds <- which(!is.na(df.preprocessed[[field]]))
+     original <- as.character(df.orig[[field]][inds])
+     polished <- as.character(df.preprocessed[[field]][inds])
+     tab <- cbind(original = original, polished = polished)
+     # Exclude trivial cases (original == polished exluding cases)
+     tab <- tab[!tolower(tab[, "original"]) == tolower(tab[, "polished"]), ] 
+     tmp <- write_xtable(tab, paste(output.folder, field, "_conversion_nontrivial.csv", sep = ""), count = TRUE)
+   }
   
   # -----------------------------------------------------
 
@@ -194,11 +217,15 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # inst/extdata/publisher.Rmd
 
    message("Accepted publishers")
-   field <- "publisher"
-
-   s <- write_xtable(df.preprocessed[, c(field, "self_published")],
-     	  paste(output.folder, field, "_accepted.csv", sep = ""),
-	  count = TRUE)
+   x <- df.preprocessed[, c("publisher", "self_published")] %>%
+          group_by(publisher, self_published) %>%
+	  tally() %>%
+	  arrange(desc(n))
+   
+   s <- write.table(x,
+     	  file = paste(output.folder, field, "_accepted.csv", sep = ""),
+	  quote = FALSE, row.names = FALSE
+	  )
 
    message("Discarded publishers")
    if ((field %in% names(df.preprocessed)) && (field %in% names(df.orig))) {
@@ -276,24 +303,35 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # x2[is.na(df.preprocessed[["pagecount.orig"]])] <- "estimate"
   inds <- which(!is.na(x) & !(tolower(o) == tolower(x)) &
                 !is.na(df.preprocessed[["pagecount.orig"]]))
-  tmp <- write_xtable(cbind(gatherings = g[inds],
+		
+  tmp <- cbind(gatherings = g[inds],
       	                    original_extent = o[inds],  
       	 		    final_pagecount = x[inds]
-			    ),
-    paste(output.folder, "pagecount_conversions.csv", sep = ""),
-    count = TRUE)
+			    )
+  xx <- as.data.frame(tmp) %>% group_by(gatherings, original_extent, final_pagecount) %>%
+                              tally() %>%
+			      arrange(desc(n))
+
+  write.table(xx, 
+    file = paste(output.folder, "pagecount_conversions.csv", sep = ""),
+       quote = FALSE,
+       row.names = FALSE)
 
   # ----------------------------------------------
 
   message("Discard summaries")
   inds <- which(is.na(df.preprocessed$pagecount.orig))
-  tmp <- write_xtable(cbind(
+
+  tmp <- cbind(
       	   gatherings = g[inds],	   
 	   physical_extent = o[inds],
 	   estimated_pagecount = x[inds]
-	   ),
-      paste(output.folder, "pagecount_discarded.csv", sep = ""),
-      count = TRUE)
+	   )
+  x <- as.data.frame(tmp) %>% group_by(gatherings, physical_extent, estimated_pagecount) %>%
+                              tally() %>%
+			      arrange(desc(n))
+
+  write.table(x, file=paste(output.folder, "pagecount_discarded.csv", sep = ""), quote = FALSE, row.names = FALSE)
 
   # --------------------------------------------
 
@@ -303,9 +341,11 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   x <- df.preprocessed[, c("publication_year", "publication_year_from", "publication_year_till")]
   tab <- cbind(original = o, x)
   tab <- tab[!is.na(tab$publication_year),]
-  tmp <- write_xtable(tab,
-      paste(output.folder, "publication_year_conversion.csv",
-      sep = ""), count = TRUE)
+  xx <- as.data.frame(tab) %>% group_by(original, publication_year) %>% tally() %>% arrange(desc(n))
+  
+  tmp <- write.table(xx,
+      file = paste(output.folder, "publication_year_conversion.csv",
+      sep = ""), quote = FALSE, row.names = FALSE)
   
   message("Discarded publication year")
   o <- as.character(df.orig[["publication_time"]])
@@ -328,10 +368,14 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
      inds <- is.na(dfp$publication_frequency_text) &
      	     is.na(dfp$publication_frequency_annual)
      dfp <- dfp[!inds,]
-
-    tmp <- write_xtable(dfp,
-      paste(output.folder, "publication_frequency_accepted.csv", sep = ""),
-      count = TRUE, sort.by = "publication_frequency_annual")
+     xx <- dfp %>% group_by(publication_frequency_text, publication_frequency_annual) %>%
+                   tally() %>%
+		   arrange(desc(publication_frequency_annual))
+     
+    tmp <- write.table(xx,
+      file = paste(output.folder, "publication_frequency_accepted.csv", sep = ""),
+      quote = FALSE, row.names = FALSE
+      )
   
     message("Conversion: publication frequency")
     o <- cbind(original_frequency = condense_spaces(tolower(gsub("\\.$", "", as.character(df.orig[["publication_frequency"]])))),
@@ -342,10 +386,15 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     x <- df.preprocessed[, c("publication_frequency_text", "publication_frequency_annual")]
     tab <- cbind(x, o)
     tab$publication_frequency_annual <- round(tab$publication_frequency_annual, 2)
-    tab <- tab[which(!rowMeans(is.na(tab[, 1:3])) == 1),] # Remove NA cases  
-    tmp <- write_xtable(tab,
-      paste(output.folder, "publication_frequency_conversion.csv",
-      sep = ""), count = TRUE, sort.by = "publication_frequency_annual")
+
+    tab <- tab[which(!rowMeans(is.na(tab[, 1:3])) == 1),] # Remove NA cases
+    xx <- tab %>% group_by(publication_frequency_text, publication_frequency_annual) %>%
+                  tally() %>%
+		  arrange(desc(n))
+
+    tmp <- write.table(xx,
+      file = paste(output.folder, "publication_frequency_conversion.csv",
+      sep = ""), quote = FALSE, row.names = FALSE)
   
     message("Discarded publication frequency")
     o <- as.character(df.orig[["publication_frequency"]])
@@ -368,30 +417,34 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
     x <- df.preprocessed[, c("publication_interval_from", "publication_interval_till")]
     tab <- cbind(original = o, x)
     tab <- tab[!is.na(tab$publication_interval_from) | !is.na(tab$publication_interval_till),]
-    tmp <- write_xtable(tab,
+    xx <- tab %>% group_by(original) %>% tally() %>% arrange(desc(n))
+    tmp <- write.table(xx,
       paste(output.folder, "publication_interval_conversion_nontrivial.csv",
-      sep = ""), count = TRUE)
+      sep = ""), quote = FALSE, row.names = FALSE)
   
     message("Discarded publication interval")
     o <- df.orig[, c("publication_interval", "publication_time", "publication_frequency")]
     o$publication_time <- gsub("^\\[", "", gsub("\\]$", "", gsub("\\.$", "", o$publication_time)))
     x <- df.preprocessed[,c("publication_interval_from", "publication_interval_till")]
     x2 <- df.preprocessed[, c("publication_frequency_annual", "publication_frequency_text")]
-
     inds <- which(rowSums(is.na(x)) == 2 & rowSums(is.na(x2)) == 2 )
     o <- o[inds,]
     inds <- is.na(unlist(o[,1])) & grepl("^[0-9]+$", unlist(o[, 2])) & is.na(unlist(o[,3]))
-    tmp <- write_xtable(o[!inds,],
-      paste(output.folder, "publication_interval_discarded.csv", sep = ""),
-      count = TRUE)
+    xx <- o[!inds,] %>% group_by(publication_interval) %>% tally() %>% arrange(desc(n))
+    tmp <- write.table(xx,
+      file = paste(output.folder, "publication_interval_discarded.csv", sep = ""),
+      quote = FALSE, row.names = FALSE
+      )
 
     message("Accepted publication interval")
     o <- as.character(df.orig[["publication_interval"]])
     x <- df.preprocessed[c("publication_interval_from", "publication_interval_till")]
     inds <- which(rowSums(!is.na(x))>0)
-    tmp <- write_xtable(x[inds,],
-      paste(output.folder, "publication_interval_accepted.csv", sep = ""),
-      count = TRUE)
+    xx <- x[inds,] %>% group_by(publication_interval_from, publication_interval_till) %>% tally() %>% arrange(desc(n))
+    tmp <- write.table(xx,
+      file = paste(output.folder, "publication_interval_accepted.csv", sep = ""),
+      quote = FALSE, row.names = FALSE      
+      )
 
   }
 
@@ -399,7 +452,7 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
 
   message("Authors with missing life years")
   tab <- df.preprocessed %>% filter(!is.na(author_name) & (is.na(author_birth) | is.na(author_death))) %>% select(author_name, author_birth, author_death)
-  tmp <- write_xtable(tab, paste(output.folder, "authors_missing_lifeyears.csv", sep = ""))
+  tmp <- write.table(tab, file = paste(output.folder, "authors_missing_lifeyears.csv", sep = ""), quote = F, row.names = F)
  
   message("Ambiguous authors with many birth years")
   births <- split(df.preprocessed$author_birth, df.preprocessed$author_name)
@@ -477,20 +530,23 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   if ("pagecount_from" %in% names(df) & nrow(df.preprocessed) == nrow(df.orig)) {
     tab <- tab[df.preprocessed$pagecount_from %in% c("estc"),]
   }
-  tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_extent.csv")
+  tmp <- write.table(tab, file = "output.tables/conversions_physical_extent.csv", quote = F, row.names = F)
 
   message("Physical dimension info")
   tab <- cbind(original = df.orig$physical_dimension,
                df.preprocessed[, c("gatherings.original", "width.original", "height.original", "obl.original", "gatherings", "width", "height", "obl", "area")])
-  tmp <- write_xtable(tab, filename = "output.tables/conversions_physical_dimension.csv")
+  tmp <- write.table(tab, file = "output.tables/conversions_physical_dimension.csv", quote = F, row.names = F)
 
-  # Accepted / Discarded dimension info
+  message("Accepted / Discarded dimension info")
   inds <- which(is.na(df.preprocessed[["area"]]))
-  tmp <- write_xtable(
-    cbind(original = as.character(df.orig$physical_dimension)[inds],
-          df.preprocessed[inds, c("gatherings", "width", "height", "obl")]),
-    paste(output.folder, paste("physical_dimension_incomplete.csv", sep = "_"), sep = ""),
-    count = TRUE)
+  xx <-
+    data.frame(original = as.character(df.orig$physical_dimension)[inds],
+          df.preprocessed[inds, c("gatherings", "width", "height", "obl")])
+  xx <- xx %>% group_by(original, gatherings, width, height, obl) %>% tally() %>% arrange(desc(n))
+
+  tmp <- write.table(xx,
+    file = paste(output.folder, paste("physical_dimension_incomplete.csv", sep = "_"), sep = ""),
+    quote = F, row.names = F)
 
   #-----------------------------------------------------------------------
 
