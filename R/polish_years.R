@@ -17,6 +17,13 @@
 #' @keywords utilities
 polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TRUE, check = FALSE, min.year = -3000, max.year = as.numeric(format(Sys.time(), "%Y")) + 50) {
 
+  # Delete suspiciously long strings
+  inds <- which(nchar(x) > 200 & grepl("\t", x))
+  if (length(inds) > 0) {
+    x[inds] <- NA
+    warning(paste("Removed ", length(inds), "publication year entries that are suspiciously long (over 200 characters) and include tabs"))
+  }
+
   x <- gsub("\\.$", "", x)
   x <- gsub("\\[o\\.s\\.\\]", "", x)
   x <- gsub("\\[sic\\.\\]", "", x)    
