@@ -2,6 +2,7 @@
 
 export(add_missing_entries)
 export(ambiguous_authors_table)
+export(approximate_years)
 export(augment_author)
 export(augment_dimension_table)
 export(author_unique)
