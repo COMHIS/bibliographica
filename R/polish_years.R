@@ -1,3 +1,5 @@
+
+
 #' @title Polish Years
 #' @description Pick and polish the year interval (start and end years) from a time field which is of the form 1800 or 1823-1845 etc.
 #' @param x year field (a vector) 
@@ -62,6 +64,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   inds <- grep("[0-9]{1,2}\\.[0-9]{1,2}\\.[0-9]{4}", x)
   x[inds] <- gsub("[0-9]{1,2}\\.[0-9]{1,2}\\.", "", x[inds])
   x <- gsub(",", ".", x)
+  
 
   # 23.1967 -> 1967 excluding 1.5.6.7
   if (length(grep("[0-9]\\.[0-9]\\.[0-9]\\.[0-9]", x)) == 0) {
@@ -75,6 +78,8 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   inds <- grep(";", x)
   x[inds] <- unlist(sapply(x[inds], function (x) {x <- unlist(strsplit(x, ";")); paste(x[grep("[0-9]", x)], collapse = ", ")}), use.names = FALSE)
   x <- gsub("\\.", " ", x)
+  x <- gsub(" or later", " ", x)  
+  x <- gsub("0[0-9]*;m[a-z]*terio [a-z]*\\.* pauli", " ", x)
 
   # 18th century (remove separately before removing other letters)
   x <- gsub("[0-9]{1,4}th", "", x)  

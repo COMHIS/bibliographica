@@ -1,5 +1,16 @@
 context("Polish years")
 
+test_that("Approximate year is correct", {
+
+  expect_equal(approximate_years("[179-?]")$from, 1790)
+  expect_equal(approximate_years("17--?]")$from, 1700)
+  expect_equal(approximate_years("[17--?]")$from, 1700)
+  expect_equal(approximate_years("[1690 or later]")$from, 1690)  
+  expect_equal(approximate_years("18--]")$from, 1800)
+  expect_equal(approximate_years("183-]")$from, 1830)  
+
+})
+
 test_that("Year polishing is correct", {
 
   # Limits
