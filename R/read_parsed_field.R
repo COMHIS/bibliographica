@@ -11,6 +11,8 @@
 #' @keywords utilities
 read_parsed_fields <- function(f, field = 300, subfield = "c", n = NULL) { 
 
+  nam <- paste0(field, subfield)
+
   # Read the data
   x <- read.table(f, sep = "\t", header = TRUE)
 
@@ -28,8 +30,9 @@ read_parsed_fields <- function(f, field = 300, subfield = "c", n = NULL) {
 
   # Join
   df <- full_join(id, field, by = "Record_seq")
-  names(df) <- c("Record_seq", "system_control_number", "value")  
-  df$value <- as.character(df$value)
+
+  names(df) <- c("Record_seq", "system_control_number", nam)  
+  df[[nam]] <- as.character(df[[nam]])
   df$system_control_number <- as.character(df$system_control_number)  
 
   df
