@@ -27,6 +27,11 @@ remove_time_info <- function (x, verbose = FALSE, months = NULL) {
   # July 8
   for (month in months) {
 
+    # "march-1777"
+    s <- paste0(month, "-")
+    if (verbose) { message(paste("Removing", s)) }
+    x <- gsub(s, " ", x)    
+
     # "17 or 18 February"
     s <- paste("[0-9]{1,2} or [0-9]{1,2} ", month, sep = "")
     if (verbose) {message(paste("Removing", s))}    

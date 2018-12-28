@@ -10,15 +10,11 @@
 #' @keywords utilities
 load_initial_datafile <- function(datafile, reload.data = FALSE, output.file = "parsed.Rds") { 
 
-  ignore.fields <- NULL
-
   if (reload.data) {
 
     message("Reading reloaded data. This may take a while ...")
     # Read the raw data
-    df.orig <- read_bibliographic_metadata(datafile,
-      ignore.fields = ignore.fields,
-      verbose = TRUE)
+    df.orig <- read_bibliographic_metadata(datafile, verbose = TRUE)
 
     # Save the raw data
     message("Saving data as Rds...")

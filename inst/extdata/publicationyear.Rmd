@@ -57,7 +57,7 @@ information is readily available in MARC.
 
 There are `r nrow(unique(df[, c("title", "author")]))` unique
 documents with an identical title and author and
-`r length(which(write_xtable(df[, c("title", "author")])$Count > 1))`
+`r nrow(df %>% group_by(title, author) %>% tally() %>% filter(n > 1))`
 of those have multiple occurrences, sometimes with different publication
 years.  The earliest occurrence is suggested as the first edition.
 

@@ -8,17 +8,18 @@
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df2 <- enrich_pagecount(df)}
 #' @keywords utilities
-enrich_pagecount <- function(df.preprocessed, df.gatherings, estimate = "median.pages")  {
+enrich_pagecount <- function(df.preprocessed, estimate = "median.pages")  {
 
-  df <- left_join(df.preprocessed, df.gatherings, by = "control_number")
-  if (mean(df$system_control_number.x == df$system_control_number.y, na.rm = T) == 1) {
-    df$system_control_number <- df$system_control_number.x
-    df$system_control_number.x <- NULL
-    df$system_control_number.y <- NULL        
-  }
+  #df <- left_join(df.preprocessed, df.gatherings, by = "control_number")
+  df <- df.preprocessed
+  
+  #if (mean(df$system_control_number.x == df$system_control_number.y, na.rm = T) == 1) {
+  #  df$system_control_number <- df$system_control_number.x
+  #  df$system_control_number.x <- NULL
+  #  df$system_control_number.y <- NULL        
+  #}
 
   message("Add volume info where missing")
-  gc()
 
   # If volcount field does not exist, then assume volcount 1 for
   # all documents. This is for compatibility reasons.
