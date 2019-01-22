@@ -12,7 +12,7 @@
 read_parsed_fields <- function(f, field = 300, subfield = "c", n = NULL) { 
 
   # Read the data
-  x <- read.table(f, sep = "\t", header = TRUE)
+  x <- read.csv(f, sep = "\t")
 
   if (!is.null(n)) {
     x <- x[1:n, ]  

@@ -31,8 +31,6 @@ approximate_years <- function(x) {
     x <- gsub("-", "0", x)
   }
 
-
-
   data.frame(from = as.numeric(x), approximation = approx)
 
 }
