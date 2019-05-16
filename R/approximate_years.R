@@ -89,8 +89,13 @@ approximate_years <- function(x, polished_year) {
     x <- gsub("-", "0", x)
   }
 
+<<<<<<< HEAD
   ret <- matrix(decades, 2)
   ret <- data.frame(decades=as.integer(ret[1,]), centuries=as.integer(ret[2,]))
   ret
   
+=======
+  data.frame(from = as.numeric(x), approximation = approx)
+
+>>>>>>> 87242a6a21f237c9ff759015ccf640f2a9b50f4f
 }
