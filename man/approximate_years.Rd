@@ -4,22 +4,10 @@
 \alias{approximate_years}
 \title{Approximate Years}
 \usage{
-approximate_years(x)
+approximate_years(x, polished_year)
 }
 \arguments{
 \item{x}{year field (a vector)}
-
-\item{start_synonyms}{Synonyme table for start year}
-
-\item{end_synonyms}{Synonyme table for end year}
-
-\item{verbose}{verbose}
-
-\item{min.year}{Minimum year accepted}
-
-\item{max.year}{Maximum year accepted}
-
-\item{check}{If true, remove entries (replace by NA) where start > end}
 }
 \value{
 data.frame with the fields 'start' and 'end'
@@ -34,6 +22,6 @@ Approximate year for entries that are approximations.
 See citation("bibliographica")
 }
 \author{
-Leo Lahti \email{leo.lahti@iki.fi}
+Leo Lahti and Hege Roivainen email{leo.lahti@iki.fi}
 }
 \keyword{utilities}

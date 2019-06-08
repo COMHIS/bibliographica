@@ -1,12 +1,6 @@
 #' @title Approximate Years
 #' @description Approximate year for entries that are approximations.
 #' @param x year field (a vector) 
-#' @param start_synonyms Synonyme table for start year
-#' @param end_synonyms Synonyme table for end year
-#' @param verbose verbose
-#' @param min.year Minimum year accepted
-#' @param max.year Maximum year accepted
-#' @param check If true, remove entries (replace by NA) where start > end
 #' @return data.frame with the fields 'start' and 'end'
 #' @export
 #' @author Leo Lahti and Hege Roivainen email{leo.lahti@@iki.fi}
@@ -89,13 +83,10 @@ approximate_years <- function(x, polished_year) {
     x <- gsub("-", "0", x)
   }
 
-<<<<<<< HEAD
-  ret <- matrix(decades, 2)
-  ret <- data.frame(decades=as.integer(ret[1,]), centuries=as.integer(ret[2,]))
-  ret
+  #ret <- matrix(decades, 2)
+  #ret <- data.frame(decades=as.integer(ret[1,]), centuries=as.integer(ret[2,]))
+  #ret
   
-=======
   data.frame(from = as.numeric(x), approximation = approx)
 
->>>>>>> 87242a6a21f237c9ff759015ccf640f2a9b50f4f
 }
