@@ -69,9 +69,12 @@ tab <- table(df$author_gender)
 dfd <- df %>% group_by(publication_decade) %>% summarize(n.male = sum(author_gender == "male", na.rm = T), n.female = sum(author_gender == "female", na.rm = T), n.total = n()) %>% mutate(p.male = 100*n.male/n.total, p.female = 100*n.female/n.total) %>% filter(n.total > 25 & publication_decade > 1470) 
 dfy <- df %>% group_by(publication_year) %>% summarize(n.male = sum(author_gender == "male", na.rm = T), n.female = sum(author_gender == "female", na.rm = T), n.total = n()) %>% mutate(p.male = 100*n.male/n.total, p.female = 100*n.female/n.total) %>% filter(n.total > 25)
 library(microbiome)
+theme_set(theme_bw(25))
 p <- NULL # Avoid confusion if the plot gives error
-p <- microbiome::plot_regression(p.female ~ publication_decade, dfd, main = "Female authors proportion")
-p <- p + ylab("Female authors (%)")
+p <- microbiome::plot_regression(p.female ~ publication_decade, dfd)
+p <- p + 
+       labs(x = "Publication decade", y = "Female authors (%)") +
+       guides(fill = "none", size = "none", color = "none", alpha = "none")
 print(p)
 ```
 

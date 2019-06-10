@@ -279,10 +279,14 @@ print(p)
 
 theme_set(theme_bw(25))
 library(dplyr)
-df2 <- df %>% group_by(publication_decade, gatherings) %>% summarize(na = sum(is.na(pagecount.orig) | (!pagecount.orig == pagecount)))
-df2$na[df2$na == 0] <- NA
-df2 <- df2[-grep("long", df2$gatherings),]
-df2 <- df2[-grep("NA", df2$gatherings),]
+topg <- names(top(df$gatherings, n = 4))
+df2 <- df %>% filter(gatherings %in% topg) %>%
+              group_by(publication_decade, gatherings) %>%
+              summarize(na = sum(is.na(pagecount.orig) |
+	                         (!pagecount.orig == pagecount)))
+# df2$na[df2$na == 0] <- NA
+# df2 <- df2[-grep("long", df2$gatherings),]
+# df2 <- df2[-grep("NA", df2$gatherings),]
 df2$gatherings <- droplevels(df2$gatherings)
 df2$gatherings <- map_gatherings(df2$gatherings)
 library(ggplot2)
@@ -295,7 +299,9 @@ p <- p + xlab("Publication decade")
 # p <- p + ylab("Document dimension (estimated)")
 p <- p + ylab("")
 p <- p + guides(size = guide_legend(title = "N"))
+pdf("~/tmp/missingpages.pdf", width=7, height=7)
 print(p)
+dev.off()
 
 library(dplyr)
 df2b <- df %>% group_by(publication_decade, gatherings) %>% summarize(na = sum(is.na(pagecount)))
