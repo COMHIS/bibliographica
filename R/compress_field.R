@@ -10,6 +10,7 @@
 #'          that this will be merged.
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
+#' @aliases collapse
 #' @examples
 #'   p <- compress_field(c("A", "A", "A", "B","B","C", "D"),
 #'          topn = 2, rest = "Other")
