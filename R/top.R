@@ -55,6 +55,7 @@ top <- function (x, field = NULL, n = NULL, output = "vector", round = NULL, na.
 
   if (output == "data.frame") {
     s <- data_frame(name = names(s), n = unname(s), fraction = 100*unname(s)/N)
+    if (is.null(field)) {field <- "Field"}
     names(s) <- c(field, "Entries (N)", "Fraction (%)")
     if (!is.null(round)) {
       s[,3] = round(s[,3], round)
