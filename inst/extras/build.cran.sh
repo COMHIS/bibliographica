@@ -4,6 +4,6 @@
 # Roxygen tips:
 # http://r-pkgs.had.co.nz/man.html
 
-~/bin/R-3.6.0/bin/R CMD build ../../ --no-build-vignettes #--no-tests #--no-examples 
-~/bin/R-3.6.0/bin/R CMD check bibliographica_0.2.48.tar.gz --no-build-vignettes --no-tests #--no-examples 
-~/bin/R-3.6.0/bin/R CMD INSTALL bibliographica_0.2.48.tar.gz
+/usr/bin/R CMD build ../../ --no-build-vignettes #--no-tests #--no-examples 
+/usr/bin/R CMD check bibliographica_0.2.49.tar.gz --no-build-vignettes --no-tests #--no-examples 
+/usr/bin/R CMD INSTALL bibliographica_0.2.49.tar.gz

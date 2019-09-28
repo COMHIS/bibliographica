@@ -2,6 +2,7 @@
 % Please edit documentation in R/compress_field.R
 \name{compress_field}
 \alias{compress_field}
+\alias{collapse}
 \title{Compress Field into Fewer Categories}
 \usage{
 compress_field(x, topn = NULL, min.freq = NULL, rest = "Other")
