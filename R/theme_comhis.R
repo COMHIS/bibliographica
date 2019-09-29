@@ -1,16 +1,18 @@
-#' @title Theme function for COMHIS group
-#' @description default theme for consistent plot style within the 
-#' COMHIS group. 
-#' @param type Type of the data to be plotted ("continuous"; "discrete")
+#' @title Theme (ggplot) for Helsinki Computational History group
+#' @description Default ggplot theme of Helsinki Computational History group
+#' @param type Plot type ("continuous"; "discrete").
 #' @param base_size Base size for fonts.
 #' @param family Font family.
-#' @author Abhishekh Gupta, Ville Vaara, Leo Lahti. 
+#' @author Abhishekh Gupta, Ville Vaara, Leo Lahti.
+#' @export
 #' @examples
+#'   
 #'   #library(ggplot2)
 #'   #data(iris)
 #'   #p <- ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
 #'   #  geom_point()
 #'   #p + theme_comhis("continuous")
+#'
 theme_comhis <- function(type="invalid", base_size=20, family="Helvetica") {
 
   packages <- c('ggplot2', 'ggthemes')
