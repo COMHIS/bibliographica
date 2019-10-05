@@ -3,6 +3,7 @@
 #' @param f Datafile in csv
 #' @param field Field to read
 #' @param subfield Subfield to read
+#' @param n n
 #' @return data.frame with raw data fields
 #' @export
 #' @author Leo Lahti

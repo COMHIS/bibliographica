@@ -1,6 +1,7 @@
 #' @title Approximate Years
 #' @description Approximate year for entries that are approximations.
-#' @param x year field (a vector) 
+#' @param x year field (a vector)
+#' @param polished_year Poished year information
 #' @return data.frame with the fields 'start' and 'end'
 #' @export
 #' @author Leo Lahti and Hege Roivainen email{leo.lahti@@iki.fi}
