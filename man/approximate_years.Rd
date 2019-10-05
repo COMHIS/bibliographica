@@ -8,6 +8,8 @@ approximate_years(x, polished_year)
 }
 \arguments{
 \item{x}{year field (a vector)}
+
+\item{polished_year}{Poished year information}
 }
 \value{
 data.frame with the fields 'start' and 'end'

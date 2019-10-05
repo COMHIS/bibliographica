@@ -1,17 +1,16 @@
 #' @title Enrich Page Count
 #' @description Augment missing pagecounts based on mean estimates from available data.
-#' @param df Preprocessed data.frame
+#' @param x Preprocessed data.frame
 #' @param estimate Which estimate to use for pagecount ("median.pages" / "mean.pages")
 #' @return Augmented data.frame
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @examples \dontrun{df2 <- enrich_pagecount(df)}
+#' @examples \dontrun{df2 <- enrich_pagecount(x)}
 #' @keywords utilities
-enrich_pagecount <- function(df.preprocessed, estimate = "median.pages")  {
+enrich_pagecount <- function(x, estimate = "median.pages")  {
 
-  #df <- left_join(df.preprocessed, df.gatherings, by = "control_number")
-  df <- df.preprocessed
+  df <- x
   
   #if (mean(df$system_control_number.x == df$system_control_number.y, na.rm = T) == 1) {
   #  df$system_control_number <- df$system_control_number.x

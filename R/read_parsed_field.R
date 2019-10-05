@@ -12,6 +12,8 @@
 #' @keywords utilities
 read_parsed_fields <- function(f, field = 300, subfield = "c", n = NULL) { 
 
+  Field_code <- Subfield_code <- Record_seq <- Value <- NULL
+
   nam <- paste0(field, subfield)
 
   # Read the data

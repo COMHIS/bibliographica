@@ -12,6 +12,8 @@ read_parsed_fields(f, field = 300, subfield = "c", n = NULL)
 \item{field}{Field to read}
 
 \item{subfield}{Subfield to read}
+
+\item{n}{n}
 }
 \value{
 data.frame with raw data fields
