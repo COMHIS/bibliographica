@@ -20,10 +20,10 @@ theme_comhis <- function(type="invalid", base_size=20, family="Helvetica") {
 
   if(type %in% c("D","discrete","Discrete","d")) {
 
-    list(theme_light(base_size=base_size, base_family=family) +
+      list(theme_light(base_size=base_size, base_family=family) +
            theme(axis.ticks.length=unit(0, "cm")),
-         scale_fill_gdocs(),
-         scale_color_gdocs()
+           scale_fill_gdocs(),
+           scale_color_gdocs()
 	 )
 
   } else if(type %in% c("C","continuous","Continuous","c")) {
