@@ -4,12 +4,12 @@
 \alias{enrich_pagecount}
 \title{Enrich Page Count}
 \usage{
-enrich_pagecount(df.preprocessed, estimate = "median.pages")
+enrich_pagecount(x, estimate = "median.pages")
 }
 \arguments{
-\item{estimate}{Which estimate to use for pagecount ("median.pages" / "mean.pages")}
+\item{x}{Preprocessed data.frame}
 
-\item{df}{Preprocessed data.frame}
+\item{estimate}{Which estimate to use for pagecount ("median.pages" / "mean.pages")}
 }
 \value{
 Augmented data.frame
@@ -18,7 +18,7 @@ Augmented data.frame
 Augment missing pagecounts based on mean estimates from available data.
 }
 \examples{
-\dontrun{df2 <- enrich_pagecount(df)}
+\dontrun{df2 <- enrich_pagecount(x)}
 }
 \references{
 See citation("bibliographica")
