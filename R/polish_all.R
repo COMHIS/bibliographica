@@ -18,7 +18,7 @@ polish_all <- function (df.orig, fields = NULL, verbose = TRUE, file = NULL, con
     message("List raw data fields to be preprocessed")
     fields <- names(df.orig) # Update all
   }
-
+  
   # Prioritize polishing of certain fields
   # (may be needed for the later ones)
   for (priority.field in c("publication_place", "publication_year")) {
