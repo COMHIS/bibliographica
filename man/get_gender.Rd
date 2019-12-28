@@ -20,7 +20,7 @@ Pick gender based on first names.
 \examples{
   \dontrun{
     gendermap <- read_mapping(system.file("extdata/gendermap.csv",
-      package = "bibliographica"), sep = "\\t", from = "name", to = "gender")
+      package = "bibliographica"), sep = "\t", from = "name", to = "gender")
     get_gender(c("armi", "julius"), gendermap)
 }
 }

@@ -4,8 +4,11 @@
 \alias{load_initial_datafile}
 \title{Load Intial Datafile}
 \usage{
-load_initial_datafile(datafile, reload.data = FALSE,
-  output.file = "parsed.Rds")
+load_initial_datafile(
+  datafile,
+  reload.data = FALSE,
+  output.file = "parsed.Rds"
+)
 }
 \arguments{
 \item{datafile}{Datafile in csv.gz format}

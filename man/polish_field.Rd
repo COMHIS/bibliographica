@@ -4,8 +4,7 @@
 \alias{polish_field}
 \title{Polish Field}
 \usage{
-polish_field(df, df.preprocessed, field, verbose = TRUE,
-  languages = NULL)
+polish_field(df, df.preprocessed, field, verbose = TRUE, languages = NULL)
 }
 \arguments{
 \item{df}{data.frame that includes the given field}

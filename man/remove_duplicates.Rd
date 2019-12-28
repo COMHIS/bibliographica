@@ -4,8 +4,10 @@
 \alias{remove_duplicates}
 \title{Removes duplicates}
 \usage{
-remove_duplicates(df.preprocessed, field_names = c("short_title",
-  "publication_place", "publication_year"))
+remove_duplicates(
+  df.preprocessed,
+  field_names = c("short_title", "publication_place", "publication_year")
+)
 }
 \arguments{
 \item{df.preprocessed}{Data frame of combined catalogs}

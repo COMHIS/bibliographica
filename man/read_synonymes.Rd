@@ -4,10 +4,20 @@
 \alias{read_synonymes}
 \title{Read Synonyme Table}
 \usage{
-read_synonymes(file, mode = "table", sep = ";", self.match = FALSE,
-  include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE,
-  verbose = FALSE, remove.ambiguous = TRUE, lowercase = FALSE,
-  from = "synonyme", to = "name")
+read_synonymes(
+  file,
+  mode = "table",
+  sep = ";",
+  self.match = FALSE,
+  include.lowercase = FALSE,
+  ignore.empty = FALSE,
+  sort = FALSE,
+  verbose = FALSE,
+  remove.ambiguous = TRUE,
+  lowercase = FALSE,
+  from = "synonyme",
+  to = "name"
+)
 }
 \arguments{
 \item{file}{Input file}
