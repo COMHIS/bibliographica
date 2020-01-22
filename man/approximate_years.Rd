@@ -4,12 +4,12 @@
 \alias{approximate_years}
 \title{Approximate Years}
 \usage{
-approximate_years(x, polished_year)
+approximate_years(x, polished_year = NULL)
 }
 \arguments{
 \item{x}{year field (a vector)}
 
-\item{polished_year}{Poished year information}
+\item{polished_year}{Polished year information}
 }
 \value{
 data.frame with the fields 'start' and 'end'

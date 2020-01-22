@@ -35,7 +35,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   width <- NULL
   height <- NULL
 
-
   # Ensure compatibility			
   df.orig <- df.orig[match(df.preprocessed$original_row, df.orig$original_row),]
 

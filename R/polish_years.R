@@ -1,5 +1,3 @@
-
-
 #' @title Polish Years
 #' @description Pick and polish the year interval (start and end years) from a time field which is of the form 1800 or 1823-1845 etc.
 #' @param x year field (a vector) 
@@ -25,12 +23,13 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   }
 
   x <- gsub("\\.$", "", x)
+  x <- gsub("\\[blank\\]", "?", x)
   #x <- gsub("\\[o\\.s\\.\\]", "", x)
   x <- gsub("\\[sic\\.\\]", "", x)    
   x <- gsub("^&lt;", "", x)
   x <- gsub("&gt;$", "", x)
   x <- gsub("&gt;-$", "", x)
-#print(x)  
+  #print(x)  
   x <- gsub(", *\\[*[0-9]\\]*$", "", x)
   #print(x)
   x <- gsub("\\[̂", "[", x)
@@ -44,31 +43,18 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- gsub("[\\^]", "", x)
   x <- gsub("[\\|]", "", x)
   x <- gsub("[u]", "", x)
-  #x <- gsub("\\[[0-9]{2}--\\?*\\]", "", x)    
- 
+
   inds <- intersect(grep("^--", x), grep("--$", x))
   x[inds] <- gsub("--$", "", gsub("^--", "", x[inds]))
-
-  #if (is.null(start_synonyms)) {
-  # f <- system.file("extdata/fi_start_years.csv", package = "bibliographica")
-  #  start_synonyms <- read_mapping(f, sep = "\t", mode = "table")
-  #}
-
-  #if (is.null(end_synonyms)) {
-  #  f <- system.file("extdata/fi_end_years.csv", package = "bibliographica")
-  # end_synonyms <- read_mapping(f, sep = "\t", mode = "table")
-  #}
   
   f <- system.file("extdata/months.csv", package = "bibliographica")
   months <- as.character(read.csv(f, header = TRUE)[,1])
   months <- unique(c(months, tolower(months)))
+  
   # Handle from longest to shortest to avoid problems
   months <- months[rev(order(nchar(months)))]
 
   # These seem unnecessary assignments.
-  # x0 is never used and x is immediately reassigned. -vv
-  # x0 = x
-  # xorig <- x <- tolower(as.character(x))
   xorig <- tolower(as.character(x))
   xuniq <- unique(xorig)
   x <- xuniq

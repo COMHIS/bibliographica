@@ -4,8 +4,15 @@
 \alias{plot_timeline}
 \title{Timeline Plot}
 \usage{
-plot_timeline(data, x, y = "n", group = NULL, nmin = 0,
-  mode = "absolute", time.window = 10)
+plot_timeline(
+  data,
+  x,
+  y = "n",
+  group = NULL,
+  nmin = 0,
+  mode = "absolute",
+  time.window = 10
+)
 }
 \arguments{
 \item{data}{data.frame for plotting}

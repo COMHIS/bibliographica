@@ -4,8 +4,10 @@
 \alias{get_dissertation_mismatch}
 \title{Get dissertation mismatches}
 \usage{
-get_dissertation_mismatch(df.preprocessed, field_names = c("short_title",
-  "publication_place", "publication_year"))
+get_dissertation_mismatch(
+  df.preprocessed,
+  field_names = c("short_title", "publication_place", "publication_year")
+)
 }
 \arguments{
 \item{df.preprocessed}{Data frame of combined catalogs}

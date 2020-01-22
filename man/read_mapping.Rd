@@ -4,11 +4,24 @@
 \alias{read_mapping}
 \title{Read Mapping}
 \usage{
-read_mapping(file, mode = "table", sep = ";", self.match = FALSE,
-  include.lowercase = FALSE, ignore.empty = FALSE, sort = FALSE,
-  verbose = FALSE, remove.ambiguous = TRUE, lowercase.only = FALSE,
-  from = "synonyme", to = "name", fast = FALSE, encoding = "UTF-8",
-  trim = FALSE, empty.is.na = FALSE)
+read_mapping(
+  file,
+  mode = "table",
+  sep = ";",
+  self.match = FALSE,
+  include.lowercase = FALSE,
+  ignore.empty = FALSE,
+  sort = FALSE,
+  verbose = FALSE,
+  remove.ambiguous = TRUE,
+  lowercase.only = FALSE,
+  from = "synonyme",
+  to = "name",
+  fast = FALSE,
+  encoding = "UTF-8",
+  trim = FALSE,
+  empty.is.na = FALSE
+)
 }
 \arguments{
 \item{file}{Input file}

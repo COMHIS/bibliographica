@@ -4,8 +4,11 @@
 \alias{generate_summary_tables}
 \title{Summary Tables}
 \usage{
-generate_summary_tables(df.preprocessed, df.orig,
-  output.folder = "output.tables")
+generate_summary_tables(
+  df.preprocessed,
+  df.orig,
+  output.folder = "output.tables"
+)
 }
 \arguments{
 \item{df.preprocessed}{Preprocessed data.frame to be summarized}
