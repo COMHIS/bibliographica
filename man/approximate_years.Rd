@@ -4,7 +4,7 @@
 \alias{approximate_years}
 \title{Approximate Years}
 \usage{
-approximate_years(x, polished_year = NULL)
+approximate_years(x)
 }
 \arguments{
 \item{x}{year field (a vector)}

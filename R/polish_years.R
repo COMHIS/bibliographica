@@ -43,10 +43,15 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- gsub("[\\^]", "", x)
   x <- gsub("[\\|]", "", x)
   x <- gsub("[u]", "", x)
-
+  
   inds <- intersect(grep("^--", x), grep("--$", x))
   x[inds] <- gsub("--$", "", gsub("^--", "", x[inds]))
-  
+
+  inds <- grep("^l[0-9]^3\\.*$", x)
+  if (length(inds) > 0) {
+    gsub("^l", "1", x)
+  }
+
   f <- system.file("extdata/months.csv", package = "bibliographica")
   months <- as.character(read.csv(f, header = TRUE)[,1])
   months <- unique(c(months, tolower(months)))
