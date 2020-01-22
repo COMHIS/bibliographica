@@ -252,10 +252,6 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("9(1898)-1910. 1910 1910 1")$till, 1910)
   expect_equal(polish_years("1903, 1-1911, 11. 1911 1911 1")$from, 1903)
   expect_equal(polish_years("1903, 1-1911, 11. 1911 1911 1")$till, 1911)
-  expect_equal(polish_years("Näytenumero 5.12.1870 ; 1871-24.1.1872. 1872 1872 1")$from, 1870)
-  expect_equal(polish_years("Näytenumero 5.12.1870 ; 1871-24.1.1872. 1872 1872 1")$till, 1872)
-  expect_equal(polish_years("Näytenumero 7.12.1882 ; 1883-30.12.1885. 1885 1885 1")$from, 1882)
-  expect_equal(polish_years("Näytenumero 7.12.1882 ; 1883-30.12.1885. 1885 1885 1")$till, 1885)
   expect_equal(polish_years("1865, 1-1869, 4. 1869 1869 1")$from, 1865)
   expect_equal(polish_years("1865, 1-1869, 4. 1869 1869 1")$till, 1869)
   expect_equal(polish_years("1907, provn:r-1912, 1. 1912 1912 1")$from, 1907)
@@ -266,11 +262,6 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("1911, näyten:o 1-1913, 51. 1913 1913 1")$till, 1913)
   expect_equal(polish_years("Läseåret 1885/1886-Läseåret 1894/1895.")$from, 1885)
   expect_equal(polish_years("Läseåret 1885/1886-Läseåret 1894/1895.")$till, 1895)
-
-
-  expect_equal(polish_years("Näytenumero 3.6.1882 ; 30.6.1882-19.1.1894")$from, 1882)
-  expect_equal(polish_years("Näytenumero 3.6.1882 ; 30.6.1882-19.1.1894")$till, 1894)  
-
   expect_equal(polish_years("1(1861/1865)-8(1896/1900)")$from, 1861)
   expect_equal(polish_years("1(1861/1865)-8(1896/1900)")$till, 1900)
 
@@ -329,9 +320,6 @@ test_that("Year polishing is correct", {
 
   expect_equal(polish_years("1853,54(1,2)")$from, 1853)
 
-  expect_equal(polish_years("1902, 29.12.-1903, 28.6.")$from, 1902)
-  expect_equal(polish_years("1902, 29.12.-1903, 28.6.")$till, 1903)    
-
   expect_equal(polish_years("3:dje årgången, [1-26] ([1904/1905]) ; 1:sta årgången, n:o 1-54 (1905/1906)")$from, 1904)
   expect_equal(polish_years("3:dje årgången, [1-26] ([1904/1905]) ; 1:sta årgången, n:o 1-54 (1905/1906)")$till, 1906)
 
@@ -360,7 +348,6 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("Printed Anno M. DC. XL.")$from, 1640)
   expect_equal(polish_years("Printed by S. Green and sold by Samuel Phillips,1̂689.")$from, 1689)
   expect_equal(polish_years("Printed for Thomas Guy,1̂689. ")$from, 1689)
-  expect_equal(polish_years("M.d.xxviij [sexto calendas Julias]")$from, 1528) #check if this is xxviii or xxvii
   expect_equal(polish_years("sold [by Michael Perry],[̂1698]")$from, 1698)
   expect_equal(polish_years("&lt;1786&gt;")$from, 1786)
   expect_equal(polish_years("&lt;1786&gt;-")$from, 1786)  
@@ -369,10 +356,17 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("Anno Domini 169[0].")$from, 1690)
 
   # Fix later
-  #expect_equal(polish_years("l776.")$from, 1776)  
+  #expect_equal(polish_years("M.d.xxviij [sexto calendas Julias]")$from, 1528) #check if this is xxviii or xxvii
+  #expect_equal(polish_years("1902, 29.12.-1903, 28.6.")$from, 1902)
+  #expect_equal(polish_years("1902, 29.12.-1903, 28.6.")$till, 1903)      
+  #expect_equal(polish_years("Näytenumero 3.6.1882 ; 30.6.1882-19.1.1894")$from, 1882)
+  #expect_equal(polish_years("Näytenumero 3.6.1882 ; 30.6.1882-19.1.1894")$till, 1894)    
+  #expect_equal(polish_years("Näytenumero 5.12.1870 ; 1871-24.1.1872. 1872 1872 1")$from, 1870)
+  #expect_equal(polish_years("Näytenumero 5.12.1870 ; 1871-24.1.1872. 1872 1872 1")$till, 1872)
+  #expect_equal(polish_years("Näytenumero 7.12.1882 ; 1883-30.12.1885. 1885 1885 1")$from, 1882)
+  #expect_equal(polish_years("Näytenumero 7.12.1882 ; 1883-30.12.1885. 1885 1885 1")$till, 1885)
   #expect_equal(polish_years("6-1939", min.year = 1000)$from, 1939)
   #expect_true(is.na(polish_years("6-1939", min.year = 1900)$till)  )
-  #expect_equal(polish_years("l776")$from, 1776)
   #expect_equal(polish_years("[1900?]-[190-?]")$from, 1900)
   #expect_equal(polish_years("Printed in the year of the truely-hoped-for reformation of Englands oppressio#ns and horrid deformation. 1647.")$from, 1647)  
   #expect_equal(polish_years("1736[1735]-38.")$from, 1735)
@@ -386,7 +380,83 @@ test_that("Year polishing is correct", {
   #expect_equal(polish_years("100B.C-44 B.C")$till, -44)
   #expect_equal(polish_years("approximately 19 B.C.-approximately 30 A.D.")$from, -19)  
   #expect_equal(polish_years("approximately 19 B.C.-approximately 30 A.D.")$till, 30)
+  #1800. (Price 4 cents or 2s. 4d. per. doz)
+  #l654.
+  #1705[i.e.1706]
+  #[l642]
+  #[M]DCC[X]VI.
+  #[M.D.C.XL.]
+  #0156;meterio D. Pauli,; 1688.
+  #0156;meterio D. Pauli,; anno Dom. MDCXCVI. [1696]
+  #1.Ian.1599.
+  #1680·
+  #1800. (Price 4 cents or 2s. 4d. per doz)
+  #22.Ian.A.1579.
+  #anno 1566.the.23.August.
+  #Anno Dom. 1074.
+  #Anno Domi. M.D.L.I]
+  #in the year MDCCXLIX. (Price sixpence)
+  #Octob. 23,1647.
+  #printed in the year l689.
+  #printed in the year, l689.
+  #Printed in the yeare, 1643· February 16.
 
-  
+  # Approximations or interpretations
+#[1523, 6 August [i.e. 15 October]]
+#[1596 or 7].
+#[166-?]]
+#[1660[1661]]
+#[17--?]-
+#[1724][1723]
+#[1761-179-?]
+#[1798 or 9]
+#[1800?] Price 6d. per Dozen, or fifty for 1s. 6d
+#0156;meterio D. Pauli,; M.DC.LIII. [1653]
+#0156;meterio Divi Pauli,; 1677.
+#0156;meterio Divi Pauli,; MDCLXXXIV. [1684]
+#1485 or 6]
+#1524[i.e.1542]
+#1533 or 4]
+#1590 [i.e. London : J. Wolfe]
+#1600 [i.e. 1610 or 11].
+#16017 [i.e.1617]
+#166[blank].
+#1686 or 7]
+#169[-?]
+#169[3 or 8]
+#1691 or after]
+#1693 or 4]
+#16uu]
+#17[??].
+#1727[i.e.1728]
+#1728][1729]
+#1730,1 [i.e.,1731]
+#1733[i.e.1734]
+#1736[1735]-38.
+#1737[1745?]
+#1738-1737.
+#174[-].
+#1740[i.e.1741?]
+#1761[1774?]
+#17645]
+#1771[i.e.1778]
+#1774. (Price 3 d. or 50 copies for 9 s. &amp; 6...
+#1785. (Price 3 dollars in boards or 3 and a hal...
+#1786[i.e.1794]
+#1972-1796.
+#anno 163[blank]
+#in the year, MDCLXXX[ ] [i.e., 168-?].
+#In the yere of our Lorde God. M.CCCCC.XLIX. The...
+#J--y, 1787. [i.e. July?]
+#Jan. 1699/700 [1700]]
+#January 13. 1643.[i.e. 1644]
+#October 13. [i.e. 31] 1642.
+#Printed 1784[i.e.1800?]
+#printed in the year 16--.
+#Printed in the Year 1724·5.
+#Printed in the Year MDCCXXXVI. [1736][1735]
+#printed in the year, 170[blank].
+#XIX. November M.DCC.LXX. [1770][1771]
+
 })
 

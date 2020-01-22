@@ -43,13 +43,18 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   x <- gsub("[\\^]", "", x)
   x <- gsub("[\\|]", "", x)
   x <- gsub("[u]", "", x)
-  
+
+  inds <- grep("\\[*[M,C,D,X,L,\\.]*\\]*", x)
+  if (length(inds) > 0) {
+    x <- gsub("\\.", "", x)
+  }
+
   inds <- intersect(grep("^--", x), grep("--$", x))
   x[inds] <- gsub("--$", "", gsub("^--", "", x[inds]))
 
-  inds <- grep("^l[0-9]^3\\.*$", x)
+  inds <- grep("^\\[*l[0-9]{3}\\.*\\]*$", x)
   if (length(inds) > 0) {
-    gsub("^l", "1", x)
+    x <- gsub("l", "1", x)
   }
 
   f <- system.file("extdata/months.csv", package = "bibliographica")
@@ -91,11 +96,6 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 
   # 18th century (remove separately before removing other letters)
   x <- gsub("[0-9]{1,4}th", "", x)  
-
-  # Remove the remaining letters
-  #if (length(grep("-+[[:lower:]]*[0-9]{4}-+", x))>0) {
-  #  x <- gsub("[[:lower:]]", "", x)
-  #}
    
   # Map back to original indices and make unique again. To speedup further.
   xorig <- x[match(xorig, xuniq)]
@@ -148,22 +148,21 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 
   # 1966 [=1971]  -> 1971
   x <- gsub("[0-9]{4}  ?[[][=]([0-9]{4})[]]", "\\1", x)
-  
-  
-  
+    
   # Remove some other info
   x <- gsub("price [0-9] d", "", x)
   x <- gsub("-[0-9]{2,3}\\?{1,2}$", "", x)
   x <- gsub("\\?", "", x)
   x <- gsub("\\!", " ", x)  
   x <- gsub("^& ", "", x)
+
   x <- condense_spaces(gsub("\\[\\]", " ", x))
   x <- gsub(" -", "-", gsub("- ", "-", x))
   x <- gsub("-+", "-", x)
   x <- gsub("1̂", "1", x)
-  x <- gsub("\\[[a-z| ]*\\]", "", x)
-  #x <- gsub("^\\[", "", x)
-  #x <- gsub("\\]$", "", x)
+
+  # x <- gsub("\\[[a-z| ]*\\]", "", x)
+
   x <- gsub("[[]", "", x)
   x <- gsub("[]]", "", x)
   x <- harmonize_christian(x)
