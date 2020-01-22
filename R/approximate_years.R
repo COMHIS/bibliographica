@@ -35,16 +35,19 @@ approximate_years <- function(x, polished_year) {
     }
     
 	x_part_mods <- list(decade, century)
+	
   })
   
-  
+print(x_part_mods)  
   # If decade & century are NA try again with an already polished value
   # First row is for decades
   q <- sapply(x_part_mods, is.na)  
   inds <- which(q[1,])
   
-  x_part_polished <- strsplit(polished_year[inds], "-")
+  x_part_polished <- strsplit(as.character(polished_year[inds]), "-")
+  
   x_part_polished_mods <- lapply(x_part_polished, FUN = function(part) {
+  
     if (length(grep("^[0-9]{4}$", part) > 0)) {
       decade <- paste0(substr(part,1,3), "0")
       century <- paste0(substr(part,1,2), "00")
@@ -53,6 +56,7 @@ approximate_years <- function(x, polished_year) {
       century <- NA
     }
     list(decade, century)
+    
   })
   
   x_part_mods[inds] <- x_part_polished_mods
@@ -84,10 +88,6 @@ approximate_years <- function(x, polished_year) {
     x <- gsub("-", "0", x)
   }
 
-  #ret <- matrix(decades, 2)
-  #ret <- data.frame(decades=as.integer(ret[1,]), centuries=as.integer(ret[2,]))
-  #ret
-  
   data.frame(from = as.numeric(x), approximation = approx)
 
 }
