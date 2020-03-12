@@ -60,7 +60,8 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("MDCCLXVIII. [1768]")$from, 1768)
   expect_equal(polish_years("MDCCLXVIII. 1768")$from, 1768)
 
-  expect_true(is.na(polish_years("active 1781.")$till))
+  #expect_true(is.na(polish_years("active 1781.")$till))
+  expect_equal(polish_years("active 1781.")$till, 1781)  
 
   expect_equal(polish_years("1741?-1821.")$from, 1741)
   expect_equal(polish_years("1741?-1821.")$till, 1821)
@@ -79,7 +80,9 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("1700/1.")$from, 1700)
   expect_true(is.na(polish_years("1700/1.")$till))
   expect_equal(polish_years("MDCXLI. [1641, i.e. 1642]")$from, 1642)
-  expect_true(is.na(polish_years("MDCXLI. [1641, i.e. 1642]")$till))
+  #expect_true(is.na(polish_years("MDCXLI. [1641, i.e. 1642]")$till))
+  expect_equal(polish_years("MDCXLI. [1641, i.e. 1642]")$till, 1642)
+  
   expect_equal(polish_years("1670/71.]")$from, 1670)
   expect_equal(polish_years("re-printed in the year, 1689]")$from, 1689)
   expect_equal(polish_years("M.DC.XXVII [1627, i.e. 1628]")$from, 1628)

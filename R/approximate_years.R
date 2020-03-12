@@ -14,7 +14,6 @@ approximate_years <- function(x, polished_year = NULL) {
   x <- gsub("\\[", "", x)
   x <- gsub("\\]", "", x)
   x <- gsub(" or later", "", x)
-  
 
   x_parts <- strsplit(x, "-")
 
@@ -57,10 +56,10 @@ approximate_years <- function(x, polished_year = NULL) {
         decade <- NA
         century <- NA
       }
-    list(decade, century)
-  })
-  
-  x_part_mods[inds] <- x_part_polished_mods
+      list(decade, century)
+    })
+ 
+    x_part_mods[inds] <- x_part_polished_mods
 
   }
 
@@ -81,13 +80,16 @@ approximate_years <- function(x, polished_year = NULL) {
     })
     decades <- ret_decade
   })
+  
   approx <- rep("year", length(x))
   inds <- grep("^[0-9]{3}[?]-*$", x)
   approx[inds] <- "decade"
-  inds <- grep("^[0-9]{2}[?]{2}-*$", x)
+
+  inds <- grep("^[0-9]{2}-*[?]{0,1}$", x)
   approx[inds] <- "century"   
-  
-  if (length(grep("^[0-9]*[?]-*$", x) > 0)) {
+
+  if (length(grep("^[0-9]*[-]*[?]*$", x) > 0)) {
+    x <- gsub("\\?", "", x)
     x <- gsub("-", "0", x)
   }
 
