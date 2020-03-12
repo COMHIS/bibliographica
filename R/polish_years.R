@@ -166,13 +166,13 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
     if (length(x) > 1) {
       end <- polish_year(x[[2]])[["from"]]
     }
-    
-    if (end < start) {
+
+    if (!is.na(end) & end < start) {
       end <- ""
     }
-
-    x <- paste(start, end, "-")
+    x <- paste(start, end, "-")          
   }
+
 
   # "[1900?]-190-?"
   if (length(grep("\\]-[?]*", x)) > 0) {
