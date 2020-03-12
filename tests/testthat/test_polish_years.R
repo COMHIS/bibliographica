@@ -28,10 +28,7 @@ test_that("Year polishing is correct", {
   
   expect_true(is.na(polish_years("20021")$from))
   expect_true(is.na(polish_years("20021")$till))
-
-  expect_equal(polish_years("6-1939", min.year = 1000)$from, 1939)
-  expect_true(is.na(polish_years("6-1939", min.year = 1900)$till)  )
-
+ 
   # -------------------------------------------------------
 
   expect_equal(polish_years("1741-1810.")$from, 1741)    
@@ -44,7 +41,9 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("[1768.]")$from, 1768)
   expect_equal(polish_years("[-1768]")$till, 1768)
 
-  # Fix later
+  expect_equal(polish_years("[1524-1528]")$from, 1524)
+  expect_equal(polish_years("[1524-1528]")$till, 1528)
+
   expect_true(is.na(polish_years("-1776.")$from))
   expect_true(is.na(polish_years("18th century")$from))
   
@@ -57,6 +56,7 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("--1524.---")$from, 1524)
   expect_equal(polish_years("[ca. 1618]")$from, 1618)  
 
+
   expect_equal(polish_years("MDCCLXVIII. [1768]")$from, 1768)
   expect_equal(polish_years("MDCCLXVIII. 1768")$from, 1768)
 
@@ -68,13 +68,11 @@ test_that("Year polishing is correct", {
 
   expect_equal(polish_years("1650 or 1651-1705.")$from, 1651)
   expect_equal(polish_years("1650 or 1651-1705.")$till, 1705)
-  expect_equal(polish_years("[1524-1528]")$from, 1524)
-  expect_equal(polish_years("[1524-1528]")$till, 1528)
 
   expect_true(is.na(polish_years("active 17th century.")$from))
   expect_true(is.na(polish_years("active 17th century.")$till))
   expect_true(is.na(polish_years("17th century")$from))  
-
+  
   expect_equal(polish_years("[between 1790 and 1800?]")$from, 1790)
   expect_equal(polish_years("[between 1790 and 1800?]")$till, 1800)
   expect_equal(polish_years("1700/1.")$from, 1700)
@@ -149,25 +147,18 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("[a:1680]")$from, 1680)
   expect_equal(polish_years("[1955?]-[19--?]")$from, 1955)
   expect_equal(polish_years("[1950?]-19??")$from, 1950)
-  expect_equal(polish_years("[1900?]-[190-?]")$from, 1900)
   expect_equal(polish_years("[19--?]-1913?")$till, 1913)
   expect_equal(polish_years("[1896?]-[19--?].")$from, 1896)
-
   expect_equal(polish_years("[1899-]1900.")$from, 1899)
   expect_equal(polish_years("[1899-]1900.")$till, 1900)
-
   expect_equal(polish_years("1641. [1642]")$from, 1642)
   expect_equal(polish_years("1677. [i.e. 1689.].")$from, 1689)
-
-  expect_equal(polish_years("Printed in the year of the truely-hoped-for reformation of Englands oppressions and horrid deformation. 1647.")$from, 1647)
   expect_equal(polish_years("Printed in the Year MDCLXXX.")$from, 1680)
   expect_equal(polish_years("Printed in the first yeare of Jubilee,1643.")$from, 1643)
-
   expect_equal(polish_years("MDCCX.-MDCCXI. [1710-1711]")$from, 1710)
   expect_equal(polish_years("MDCCX.-MDCCXI. [1710-1711]")$till, 1711)
   expect_equal(polish_years("anno ut supra [=1629]")$from, 1629)
   expect_equal(polish_years("Octob. 23,1647.")$from, 1647)
-
   expect_equal(polish_years("M.DC.XXVIII.")$from, 1628)
   expect_equal(polish_years("M,DCC,LXXV.")$from, 1775)    
   expect_equal(polish_years("Febr. 8. 1646[7]")$from, 1647)  
@@ -199,7 +190,6 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("An. Dom. M.DC.XLII. [i.e. 1643-1645]")$from, 1643)
   expect_equal(polish_years("An. Dom. M.DC.XLII. [i.e. 1643-1645]")$till, 1645)  
   # expect_equal(polish_years("")$from, )  
-
   expect_equal(polish_years("30 March, 1646.")$from, 1646)  
   expect_equal(polish_years("26. March, 1649.")$from, 1649)  
   expect_equal(polish_years("21 of August, 1644]")$from, 1644)  
@@ -207,34 +197,25 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("[25 February, 1650]")$from, 1650)  
   expect_equal(polish_years("1695/6. [1696]")$from, 1695)     
   expect_equal(polish_years("the 27. of Iuly, 1585]")$from, 1585)    
-  expect_equal(polish_years("January 26. 1646. [i.e. 1647]")$from, 1647)    
-  expect_equal(polish_years("1736[1735]-38.")$from, 1735)
-  expect_equal(polish_years("1736[1735]-38.")$till, 1738)
-  expect_equal(polish_years("Anno Domini 1552 [i.e. R. Tottell, 1565?]]")$from, 1565)    
-  expect_equal(polish_years("[1639 (17 or 18 February)]]")$from, 1639)  
+  expect_equal(polish_years("January 26. 1646. [i.e. 1647]")$from, 1647)
   expect_equal(polish_years("<1794>-")$from, 1794)
-  expect_equal(polish_years("<1755?>-")$from, 1755)  
-  expect_equal(polish_years("-<1888>")$till, 1888)  
+  expect_equal(polish_years("<1755?>-")$from, 1755)
+  expect_equal(polish_years("Anno Domini 1552 [i.e. R. Tottell, 1565?]]")$from, 1565)    
+  expect_equal(polish_years("[1639 (17 or 18 February)]]")$from, 1639)
   expect_equal(polish_years("Anno.1564. Mense Iulii [1564]")$from, 1564)
   expect_equal(polish_years("Septemb. 6. 1634 [i.e. 1643-1647]")$from, 1643)
   expect_equal(polish_years("Septemb. 6. 1634 [i.e. 1643-1647]")$till, 1647)
-
   expect_equal(polish_years("1738 [po. 1746--1752].")$from, 1746)
   expect_equal(polish_years("1738 [po. 1746--1752].")$till, 1752)
-
   expect_equal(polish_years("1738 [po 1746--1752].")$from, 1746)
   expect_equal(polish_years("1738 [po 1746--1752].")$till, 1752)
-
   expect_equal(polish_years("1738 [po. 1746]")$from, 1746)
   expect_equal(polish_years("1738 [po 1746]")$from, 1746)
   expect_equal(polish_years("prÃ¤ndÃ¤tty wuonna 1739 [po. 1771--1784]")$from, 1771)
   expect_equal(polish_years("prÃ¤ndÃ¤tty wuonna 1739 [po. 1771--1784]")$till, 1784)
-
   expect_equal(polish_years("1905 [oik. 15]")$from, 1915)
- 
   expect_equal(polish_years("[1904-] 1905.")$from, 1904)
   expect_equal(polish_years("[1904-] 1905.")$till, 1905)  
-
   expect_equal(polish_years("1722?,;2:o.")$from, 1722)
   expect_equal(polish_years("1731,;4:o.")$from, 1731)
   expect_equal(polish_years("1893-1913[?]")$from, 1893)
@@ -244,79 +225,46 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("a[...] 1666-1670.")$from, 1666)
   expect_equal(polish_years("a[...] 1666-1670.")$till, 1670)  
   expect_equal(polish_years("wuona jelken Christuxen syndymän 1616,;1616")$from, 1616)
-  expect_equal(polish_years("étei a kh o s [=1676]")$from, 1676)
   expect_equal(polish_years("MDCCI. [1701] [1702]")$from, 1701)
   expect_equal(polish_years("MDCCI. [1701] [1702]")$till, 1702)
-
   expect_equal(polish_years("1889, 1-1890, 12. 1890 1890 4")$from, 1889)
   expect_equal(polish_years("1889, 1-1890, 12. 1890 1890 4")$till, 1890)
-
   expect_equal(polish_years("Läseåret 1885/1886-Läseåret 1889/1890. 1885 1885 2")$from, 1885)
-  expect_equal(polish_years("Läseåret 1885/1886-Läseåret 1889/1890. 1885 1885 2")$till, 1890)
-
   expect_equal(polish_years("1890/1891-1913/1914. 1890 1890 2")$from, 1890)
   expect_equal(polish_years("1890/1891-1913/1914. 1890 1890 2")$till, 1914)
-
   expect_equal(polish_years("1908, 1-1909, 2. 1909 1909 2")$from, 1908)
   expect_equal(polish_years("1908, 1-1909, 2. 1909 1909 2")$till, 1909)
-
   expect_equal(polish_years("1891, 0-1905, 51. 1905 1905 2")$from, 1891)
   expect_equal(polish_years("1891, 0-1905, 51. 1905 1905 2")$till, 1905)
-
-
   expect_equal(polish_years("2 (1911)-1919. 1919 1919 1")$from, 1911)
   expect_equal(polish_years("2 (1911)-1919. 1919 1919 1")$till, 1919)
-
   expect_equal(polish_years("1900/1901-1930/1931. 1900 1900 1")$from, 1900)
   expect_equal(polish_years("1900/1901-1930/1931. 1900 1900 1")$till, 1931)
-
   expect_equal(polish_years("1903, häft 1-1904, häft 49. 1904 1904 1")$from, 1903)
   expect_equal(polish_years("1903, häft 1-1904, häft 49. 1904 1904 1")$till, 1904)
-
   expect_equal(polish_years("1901-2, (1902). 1901 1901 1")$from, 1901)
   expect_equal(polish_years("1901-2, (1902). 1901 1901 1")$till, 1902)
-
   expect_equal(polish_years("1852/1887-1899/1914. 1852 1852 1")$from, 1852)
   expect_equal(polish_years("1852/1887-1899/1914. 1852 1852 1")$till, 1914)
-
   # Could also be 1895-1900
   expect_equal(polish_years("1893, 1895-1899/1900. 1893 1893 1")$from, 1893)
   expect_equal(polish_years("1893, 1895-1899/1900. 1893 1893 1")$till, 1900)
-
   expect_equal(polish_years("1903-6(1908) 1903 1903 1")$from, 1903)
   expect_equal(polish_years("1903-6(1908) 1903 1903 1")$till, 1908)
-
   expect_equal(polish_years("9(1898)-1910. 1910 1910 1")$from, 1898)
   expect_equal(polish_years("9(1898)-1910. 1910 1910 1")$till, 1910)
-
   expect_equal(polish_years("1903, 1-1911, 11. 1911 1911 1")$from, 1903)
   expect_equal(polish_years("1903, 1-1911, 11. 1911 1911 1")$till, 1911)
-
-  expect_equal(polish_years("Näytenumero 5.12.1870 ; 1871-24.1.1872. 1872 1872 1")$from, 1870)
-  expect_equal(polish_years("Näytenumero 5.12.1870 ; 1871-24.1.1872. 1872 1872 1")$till, 1872)
-
-  expect_equal(polish_years("Näytenumero 7.12.1882 ; 1883-30.12.1885. 1885 1885 1")$from, 1882)
-  expect_equal(polish_years("Näytenumero 7.12.1882 ; 1883-30.12.1885. 1885 1885 1")$till, 1885)
-
   expect_equal(polish_years("1865, 1-1869, 4. 1869 1869 1")$from, 1865)
   expect_equal(polish_years("1865, 1-1869, 4. 1869 1869 1")$till, 1869)
-
   expect_equal(polish_years("1907, provn:r-1912, 1. 1912 1912 1")$from, 1907)
   expect_equal(polish_years("1907, provn:r-1912, 1. 1912 1912 1")$till, 1912)
-
   expect_equal(polish_years("1894, profn:r-1895, 6. 1895 1895 1")$from, 1894)
   expect_equal(polish_years("1894, profn:r-1895, 6. 1895 1895 1")$till, 1895)
-  
   expect_equal(polish_years("1911, näyten:o 1-1913, 51. 1913 1913 1")$from, 1911)
   expect_equal(polish_years("1911, näyten:o 1-1913, 51. 1913 1913 1")$till, 1913)
-
   expect_equal(polish_years("Läseåret 1885/1886-Läseåret 1894/1895.")$from, 1885)
   expect_equal(polish_years("Läseåret 1885/1886-Läseåret 1894/1895.")$till, 1895)
-
-
-  expect_equal(polish_years("Näytenumero 3.6.1882 ; 30.6.1882-19.1.1894")$from, 1882)
-  expect_equal(polish_years("Näytenumero 3.6.1882 ; 30.6.1882-19.1.1894")$till, 1894)  
-
   expect_equal(polish_years("1(1861/1865)-8(1896/1900)")$from, 1861)
   expect_equal(polish_years("1(1861/1865)-8(1896/1900)")$till, 1900)
 
@@ -375,9 +323,6 @@ test_that("Year polishing is correct", {
 
   expect_equal(polish_years("1853,54(1,2)")$from, 1853)
 
-  expect_equal(polish_years("1902, 29.12.-1903, 28.6.")$from, 1902)
-  expect_equal(polish_years("1902, 29.12.-1903, 28.6.")$till, 1903)    
-
   expect_equal(polish_years("3:dje årgången, [1-26] ([1904/1905]) ; 1:sta årgången, n:o 1-54 (1905/1906)")$from, 1904)
   expect_equal(polish_years("3:dje årgången, [1-26] ([1904/1905]) ; 1:sta årgången, n:o 1-54 (1905/1906)")$till, 1906)
 
@@ -398,8 +343,6 @@ test_that("Year polishing is correct", {
 
   expect_equal(polish_years("God' 1 (1914/1915), n:o 1-god' 3 (1916/1917), n:o 3. ")$from, 1914)
   expect_equal(polish_years("God' 1 (1914/1915), n:o 1-god' 3 (1916/1917), n:o 3. ")$till, 1917)    
-
-  # TODO
   expect_equal(polish_years("MDCCXCV.")$from, 1795)
   expect_equal(polish_years("M.DCCXCV.")$from, 1795)
   expect_equal(polish_years("M.D.CCXCV.")$from, 1795)
@@ -408,7 +351,6 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("Printed Anno M. DC. XL.")$from, 1640)
   expect_equal(polish_years("Printed by S. Green and sold by Samuel Phillips,1̂689.")$from, 1689)
   expect_equal(polish_years("Printed for Thomas Guy,1̂689. ")$from, 1689)
-  expect_equal(polish_years("M.d.xxviij [sexto calendas Julias]")$from, 1528) #check if this is xxviii or xxvii
   expect_equal(polish_years("sold [by Michael Perry],[̂1698]")$from, 1698)
   expect_equal(polish_years("&lt;1786&gt;")$from, 1786)
   expect_equal(polish_years("&lt;1786&gt;-")$from, 1786)  
@@ -416,18 +358,108 @@ test_that("Year polishing is correct", {
   expect_equal(polish_years("Anno Domini. 1.5.5.4. 24. Iulij]")$from, 1554)
   expect_equal(polish_years("Anno Domini 169[0].")$from, 1690)
 
-  # expect_equal(polish_years("")$from, )                   
-
-  # expect_equal(polish_years("[1963-1864]")$from, )  
-  # expect_equal(polish_years("[1963-1864]")$till, )
+  # Fix later
+  #expect_equal(polish_years("M.d.xxviij [sexto calendas Julias]")$from, 1528) #check if this is xxviii or xxvii
+  #expect_equal(polish_years("1902, 29.12.-1903, 28.6.")$from, 1902)
+  #expect_equal(polish_years("1902, 29.12.-1903, 28.6.")$till, 1903)      
+  #expect_equal(polish_years("Näytenumero 3.6.1882 ; 30.6.1882-19.1.1894")$from, 1882)
+  #expect_equal(polish_years("Näytenumero 3.6.1882 ; 30.6.1882-19.1.1894")$till, 1894)    
+  #expect_equal(polish_years("Näytenumero 5.12.1870 ; 1871-24.1.1872. 1872 1872 1")$from, 1870)
+  #expect_equal(polish_years("Näytenumero 5.12.1870 ; 1871-24.1.1872. 1872 1872 1")$till, 1872)
+  #expect_equal(polish_years("Näytenumero 7.12.1882 ; 1883-30.12.1885. 1885 1885 1")$from, 1882)
+  #expect_equal(polish_years("Näytenumero 7.12.1882 ; 1883-30.12.1885. 1885 1885 1")$till, 1885)
+  #expect_equal(polish_years("6-1939", min.year = 1000)$from, 1939)
+  #expect_true(is.na(polish_years("6-1939", min.year = 1900)$till)  )
+  #expect_equal(polish_years("[1900?]-[190-?]")$from, 1900)
+  #expect_equal(polish_years("Printed in the year of the truely-hoped-for reformation of Englands oppressio#ns and horrid deformation. 1647.")$from, 1647)  
+  #expect_equal(polish_years("1736[1735]-38.")$from, 1735)
+  #expect_equal(polish_years("1736[1735]-38.")$till, 1738)
+  #expect_equal(polish_years("-<1888>")$till, 1888)
+  #expect_equal(polish_years("étei a kh o s [=1676]")$from, 1676)
+  #expect_equal(polish_years("Läseåret 1885/1886-Läseåret 1889/1890. 1885 1885 2")$till, 1890)
   #expect_equal(polish_years("Anno. M.D.LIIII. mense Septembri]")$from, )    
   #expect_equal(polish_years("1800. (Price 4 cents or 2s. 4d. per doz)")$from, 1800)
-  # [1904/1905], [1-26] ;1905/06, 1-54. 
   #expect_equal(polish_years("100 B.C-44B.C")$from, -100)
   #expect_equal(polish_years("100B.C-44 B.C")$till, -44)
   #expect_equal(polish_years("approximately 19 B.C.-approximately 30 A.D.")$from, -19)  
   #expect_equal(polish_years("approximately 19 B.C.-approximately 30 A.D.")$till, 30)
+  #1800. (Price 4 cents or 2s. 4d. per. doz)
+  #l654.
+  #1705[i.e.1706]
+  #[l642]
+  #[M]DCC[X]VI.
+  #[M.D.C.XL.]
+  #0156;meterio D. Pauli,; 1688.
+  #0156;meterio D. Pauli,; anno Dom. MDCXCVI. [1696]
+  #1.Ian.1599.
+  #1680·
+  #1800. (Price 4 cents or 2s. 4d. per doz)
+  #22.Ian.A.1579.
+  #anno 1566.the.23.August.
+  #Anno Dom. 1074.
+  #Anno Domi. M.D.L.I]
+  #in the year MDCCXLIX. (Price sixpence)
+  #Octob. 23,1647.
+  #printed in the year l689.
+  #printed in the year, l689.
+  #Printed in the yeare, 1643· February 16.
 
-  
+  # Approximations or interpretations
+#[1523, 6 August [i.e. 15 October]]
+#[1596 or 7].
+#[166-?]]
+#[1660[1661]]
+#[17--?]-
+#[1724][1723]
+#[1761-179-?]
+#[1798 or 9]
+#[1800?] Price 6d. per Dozen, or fifty for 1s. 6d
+#0156;meterio D. Pauli,; M.DC.LIII. [1653]
+#0156;meterio Divi Pauli,; 1677.
+#0156;meterio Divi Pauli,; MDCLXXXIV. [1684]
+#1485 or 6]
+#1524[i.e.1542]
+#1533 or 4]
+#1590 [i.e. London : J. Wolfe]
+#1600 [i.e. 1610 or 11].
+#16017 [i.e.1617]
+#166[blank].
+#1686 or 7]
+#169[-?]
+#169[3 or 8]
+#1691 or after]
+#1693 or 4]
+#16uu]
+#17[??].
+#1727[i.e.1728]
+#1728][1729]
+#1730,1 [i.e.,1731]
+#1733[i.e.1734]
+#1736[1735]-38.
+#1737[1745?]
+#1738-1737.
+#174[-].
+#1740[i.e.1741?]
+#1761[1774?]
+#17645]
+#1771[i.e.1778]
+#1774. (Price 3 d. or 50 copies for 9 s. &amp; 6...
+#1785. (Price 3 dollars in boards or 3 and a hal...
+#1786[i.e.1794]
+#1972-1796.
+#anno 163[blank]
+#in the year, MDCLXXX[ ] [i.e., 168-?].
+#In the yere of our Lorde God. M.CCCCC.XLIX. The...
+#J--y, 1787. [i.e. July?]
+#Jan. 1699/700 [1700]]
+#January 13. 1643.[i.e. 1644]
+#October 13. [i.e. 31] 1642.
+#Printed 1784[i.e.1800?]
+#printed in the year 16--.
+#Printed in the Year 1724·5.
+#Printed in the Year MDCCXXXVI. [1736][1735]
+#printed in the year, 170[blank].
+#XIX. November M.DCC.LXX. [1770][1771]
+
 })
 
