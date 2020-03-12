@@ -161,7 +161,12 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
     x <- strsplit(x, "\\]-\\[")[[1]]
 
     start <- polish_year(x[[1]])[["from"]]
-    end <- polish_year(x[[2]])[["from"]]
+
+    end <- NA
+    if (length(x) > 1) {
+      end <- polish_year(x[[2]])[["from"]]
+    }
+    
     if (end < start) {
       end <- ""
     }
