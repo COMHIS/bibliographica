@@ -43,7 +43,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 
   inds <- grep("\\[*[M,C,D,X,L,\\.]*\\]*", x)
   if (length(inds) > 0) {
-    x <- gsub("\\.", "", x)
+    x[inds] <- sapply(x[inds], function (x) {gsub("\\.", "", x)})
   }
 
   inds <- intersect(grep("^--", x), grep("--$", x))
@@ -51,7 +51,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
 
   inds <- grep("^\\[*l[0-9]{3}\\.*\\]*$", x)
   if (length(inds) > 0) {
-    x <- gsub("l", "1", x)
+    x[inds] <- sapply(x[inds], function (x) {gsub("l", "1", x)})
   }
 
   f <- system.file("extdata/months.csv", package = "bibliographica")
@@ -118,8 +118,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   if (length(grep("^[0-9]* \\[[0-9]*\\]$", x)) > 0) {
     inds <- grep("^[0-9]* \\[[0-9]*\\]$", x)
     for (i in inds) {
-      spl <- unlist(strsplit(x[[i]], " "))
-      
+      spl <- unlist(strsplit(x[[i]], " "))      
       if (length(spl) > 1) {
         x[[i]] <- spl[[2]]
       } else {
@@ -127,6 +126,8 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
       }
     }
   }
+
+
 
   # 1642[1643] -> 1643
   if (length(grep("^[0-9]{4}\\[[0-9]{4}\\]$", x)) > 0) {
@@ -153,11 +154,9 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
     for (i in inds) {
       x[[i]] <- paste0(substr(x[[i]], 1, 3), substr(x[[i]], 6, 6))
     }  
-
   }
 
-  # "[1900?]-[190-?]"
-  if (length(grep("\\]-\\[", x)) > 0) {
+  clean2 <- function (x) {
     x <- strsplit(x, "\\]-\\[")[[1]]
 
     start <- polish_year(x[[1]])[["from"]]
@@ -171,12 +170,17 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
       end <- ""
     }
     x <- paste(start, end, "-")          
+  } 
+
+
+  # "[1900?]-[190-?]"
+  inds <- grep("\\]-\\[", x)
+  if (length(inds) > 0) {
+    x[inds] <- sapply(x[inds], function (xx) {clean2(xx)})
   }
 
-
   # "[1900?]-190-?"
-  if (length(grep("\\]-[?]*", x)) > 0) {
-
+  clean1 <- function (x) {
     x <- strsplit(x, "\\]-")[[1]]
 
     start <- polish_year(x[[1]])
@@ -186,14 +190,17 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
       end <- polish_year(x[[2]])
     }
     
-    x <- paste(start, end, "-")
-    
+    x <- paste(start, end, "-")    
+  }
+
+  inds <- grep("\\]-[?]*", x)
+  if (length(inds) > 0) {
+    x[inds] <- sapply(x[inds], function (xx) {clean1(xx)})
   }
 
   # 1966 [=1971]  -> 1971
   x <- gsub("[0-9]{4}  ?[[][=]([0-9]{4})[]]", "\\1", x)
   
-
   # Remove some other info
   x <- gsub("price [0-9] d", "", x)
   x <- gsub("-[0-9]{2,3}\\?{1,2}$", "", x)
@@ -236,8 +243,7 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   }
 
   # Map back to original indices and make unique again. To speedup further.
-  x <- x[match(xorig, xuniq)]
-  xorig <- x
+  xorig <- x[match(xorig, xuniq)]
   xuniq <- unique(xorig)
   x <- xuniq
 
