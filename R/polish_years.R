@@ -157,19 +157,23 @@ polish_years <- function(x, start_synonyms=NULL, end_synonyms=NULL, verbose = TR
   }
 
   clean2 <- function (x) {
+  
     x <- strsplit(x, "\\]-\\[")[[1]]
 
     start <- polish_year(x[[1]])[["from"]]
 
     end <- NA
     if (length(x) > 1) {
-      end <- polish_year(x[[2]])[["from"]]
+      end <- polish_year(x[[2]])
+      if (length(end) > 0) {end <- end[[1]]}
     }
 
     if (!is.na(end) & end < start) {
       end <- ""
     }
+    
     x <- paste(start, end, "-")          
+
   } 
 
 
