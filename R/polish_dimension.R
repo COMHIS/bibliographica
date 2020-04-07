@@ -114,8 +114,10 @@ polish_dimension <- function (x, synonyms) {
       x <- unlist(strsplit(x, "cm"), use.names = FALSE)
       x <- str_trim(unlist(strsplit(x, " "), use.names = FALSE))
       i <- which(x == "x")
-      height <- as.numeric(str_trim(x[i+1]))
-      width <- as.numeric(str_trim(x[i-1]))
+      if (is.numeric(str_trim(x[i+1])) && is.numeric(str_trim(x[i-1]))) {
+        height <- as.numeric(str_trim(x[i+1]))
+        width <- as.numeric(str_trim(x[i-1]))
+      }
   } else if (length(grep("cm", x)) > 0 && length(grep("x", x)) == 0) {
       # Pick CM format (single value) separately when it is unambiguous
       # Then pick the dimensions
