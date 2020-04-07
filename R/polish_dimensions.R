@@ -36,24 +36,27 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
 
   sorig <- s
   s <- suniq <- unique(s)
-  
+
   # 75,9 -> 75.9  
-  s <- gsub(",", ".", s) 
+  s <- gsub(",", ".", s)
+  s <- gsub("lon.", "long ", s)   
+  s <- gsub(" /", "/", s)
 
   # Harmonize the terms
   s <- map(s, synonyms, mode = "recursive")
-  
+
   # Remove brackets
   s <- gsub("\\(", " ", gsub("\\)", " ", s)) 
   s <- gsub("\\[", " ", gsub("\\]", " ", s))
   # Add spaces
   s <- gsub("cm\\. {0,1}", " cm ", s)  
   s <- gsub("x", " x ", s)
-  s <- gsub("obl\\.{0,1}", "obl ", s)
+  s <- gsub("oblong", "obl ", s)
+  s <- gsub("obl\\.{0,1}", "obl ", s)  
   # Remove extra spaces
   s <- gsub(" /", "/", s)
   s <- condense_spaces(s)
-  
+
   # "16mo in 8's."
   inds <- grep("[0-9]+.o in [0-9]+.o", s)  
   s[inds] <- gsub(" in [0-9]+.o", "", s[inds])

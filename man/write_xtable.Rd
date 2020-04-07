@@ -4,8 +4,14 @@
 \alias{write_xtable}
 \title{Write Summary Table}
 \usage{
-write_xtable(x, filename = NULL, count = FALSE, sort.by = "Count",
-  na.rm = TRUE, add.percentages = FALSE)
+write_xtable(
+  x,
+  filename = NULL,
+  count = FALSE,
+  sort.by = "Count",
+  na.rm = TRUE,
+  add.percentages = FALSE
+)
 }
 \arguments{
 \item{x}{a vector or matrix}

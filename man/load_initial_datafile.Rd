@@ -4,13 +4,18 @@
 \alias{load_initial_datafile}
 \title{Load Intial Datafile}
 \usage{
-load_initial_datafile(datafile, reload.data = FALSE,
-  output.file = "parsed.Rds")
+load_initial_datafile(
+  datafile,
+  reload.data = FALSE,
+  output.file = "parsed.Rds"
+)
 }
 \arguments{
 \item{datafile}{Datafile in csv.gz format}
 
 \item{reload.data}{Boolean, edfault FALSE. Use datafile or previously saved Rds?}
+
+\item{output.file}{Output file for storing the resulting object.}
 }
 \value{
 data.frame with raw data fields
@@ -19,7 +24,7 @@ data.frame with raw data fields
 Load datafile in csv.gz format, or use previously saved Rds.
 }
 \examples{
-\dontrun{df.orig <- load_initial_datafile(datafile, ignore.fields, reload.data = TRUE)}
+\dontrun{df.orig <- load_initial_datafile(datafile, reload.data = TRUE)}
 }
 \references{
 See citation("bibliographica")

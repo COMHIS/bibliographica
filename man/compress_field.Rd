@@ -2,14 +2,17 @@
 % Please edit documentation in R/compress_field.R
 \name{compress_field}
 \alias{compress_field}
+\alias{collapse}
 \title{Compress Field into Fewer Categories}
 \usage{
-compress_field(x, keep, rest = "Other")
+compress_field(x, topn = NULL, min.freq = NULL, rest = "Other")
 }
 \arguments{
 \item{x}{Vector or factor.}
 
-\item{keep}{Number of top entries to include; or a character vector}
+\item{topn}{Number of top entries to include; or a character vector}
+
+\item{min.freq}{Minimum frequency for the included groups.}
 
 \item{rest}{Name to be used for the remaining entries}
 }
@@ -19,11 +22,15 @@ Compressed version of the input.
 \description{
 Merge the less common terms into a single group
 }
+\details{
+With the min.freq argument, groups that have less items
+         that this will be merged.
+}
 \examples{
   p <- compress_field(c("A", "A", "A", "B","B","C", "D"),
-         keep = 2, rest = "Other")
+         topn = 2, rest = "Other")
   p <- compress_field(c("A", "A", "A", "B","B","C", "D"),
-         keep = c("A", "B"), rest = "Other")
+         topn = c("A", "B"), rest = "Other")
 }
 \references{
 See citation("bibliographica")

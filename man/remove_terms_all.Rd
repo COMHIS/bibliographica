@@ -4,8 +4,13 @@
 \alias{remove_terms_all}
 \title{Remove Terms Completely}
 \usage{
-remove_terms_all(x, terms, include.lowercase = FALSE, polish = TRUE,
-  recursive = FALSE)
+remove_terms_all(
+  x,
+  terms,
+  include.lowercase = FALSE,
+  polish = TRUE,
+  recursive = FALSE
+)
 }
 \arguments{
 \item{x}{A vector}

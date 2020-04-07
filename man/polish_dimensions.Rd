@@ -4,8 +4,14 @@
 \alias{polish_dimensions}
 \title{Polish Dimensions}
 \usage{
-polish_dimensions(x, fill = TRUE, dimtab = NULL, verbose = FALSE,
-  synonyms = NULL, sheet.dimension.table = NULL)
+polish_dimensions(
+  x,
+  fill = TRUE,
+  dimtab = NULL,
+  verbose = FALSE,
+  synonyms = NULL,
+  sheet.dimension.table = NULL
+)
 }
 \arguments{
 \item{x}{A vector of dimension notes}

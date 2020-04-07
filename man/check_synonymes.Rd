@@ -4,9 +4,15 @@
 \alias{check_synonymes}
 \title{Check Synonymes}
 \usage{
-check_synonymes(synonymes, include.lowercase = TRUE, verbose = FALSE,
-  sort = FALSE, self = FALSE, ignore.empty = FALSE,
-  remove.ambiguous = TRUE)
+check_synonymes(
+  synonymes,
+  include.lowercase = TRUE,
+  verbose = FALSE,
+  sort = FALSE,
+  self = FALSE,
+  ignore.empty = FALSE,
+  remove.ambiguous = TRUE
+)
 }
 \arguments{
 \item{synonymes}{synonymes data.frame with the self-explanatory fields 'name' and 'synonyme'.}

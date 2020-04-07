@@ -3,6 +3,7 @@
 #' @param f Datafile in csv
 #' @param field Field to read
 #' @param subfield Subfield to read
+#' @param n n
 #' @return data.frame with raw data fields
 #' @export
 #' @author Leo Lahti
@@ -10,6 +11,8 @@
 #' @examples \dontrun{df <- read_parsed_fields(f)}
 #' @keywords utilities
 read_parsed_fields <- function(f, field = 300, subfield = "c", n = NULL) { 
+
+  Field_code <- Subfield_code <- Record_seq <- Value <- NULL
 
   nam <- paste0(field, subfield)
 

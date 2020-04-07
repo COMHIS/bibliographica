@@ -4,8 +4,13 @@
 \alias{polish_place}
 \title{Polish Place}
 \usage{
-polish_place(x, synonymes = NULL, remove.unknown = FALSE,
-  verbose = FALSE, harmonize = TRUE)
+polish_place(
+  x,
+  synonymes = NULL,
+  remove.unknown = FALSE,
+  verbose = FALSE,
+  harmonize = TRUE
+)
 }
 \arguments{
 \item{x}{A vector of place names}

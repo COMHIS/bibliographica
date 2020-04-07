@@ -4,9 +4,15 @@
 \alias{polish_years}
 \title{Polish Years}
 \usage{
-polish_years(x, start_synonyms = NULL, end_synonyms = NULL,
-  verbose = TRUE, check = FALSE, min.year = -3000,
-  max.year = as.numeric(format(Sys.time(), "\%Y")) + 50)
+polish_years(
+  x,
+  start_synonyms = NULL,
+  end_synonyms = NULL,
+  verbose = TRUE,
+  check = FALSE,
+  min.year = -3000,
+  max.year = as.numeric(format(Sys.time(), "\%Y")) + 50
+)
 }
 \arguments{
 \item{x}{year field (a vector)}

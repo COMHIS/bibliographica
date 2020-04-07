@@ -4,8 +4,15 @@
 \alias{polish_year}
 \title{Polish year}
 \usage{
-polish_year(x, start_synonyms = NULL, end_synonyms = NULL, months,
-  verbose = FALSE, min.year = -3000, max.year = 2100)
+polish_year(
+  x,
+  start_synonyms = NULL,
+  end_synonyms = NULL,
+  months,
+  verbose = FALSE,
+  min.year = -3000,
+  max.year = 2100
+)
 }
 \arguments{
 \item{x}{year string}

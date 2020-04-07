@@ -10,10 +10,11 @@
 dimension_table <- function (...) {
 
   f <- system.file("extdata/documentdimensions.csv", package = "bibliographica")
-  dd <- read.csv(f, header = TRUE, sep = "\t")[-1,]
+  dd <- read.csv(f, header = TRUE, sep = ",")# [-1,]
   colnames(dd) <- gsub("^X", "", colnames(dd))
   colnames(dd)[[1]] <- "height"
   colnames(dd) <- gsub("NA.", "NA", colnames(dd))
+  dd <- dd[-1,]
 
   dd <- apply(dd, 2, as.character)
   

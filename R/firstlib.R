@@ -1,7 +1,9 @@
 #' @import babynames
 #' @import genderdata
 #' @importFrom data.table fread
+#' @importFrom dplyr arrange
 #' @importFrom dplyr count
+#' @importFrom dplyr desc
 #' @importFrom dplyr filter
 #' @importFrom dplyr full_join
 #' @importFrom dplyr left_join
@@ -13,6 +15,7 @@
 #' @importFrom dplyr select
 #' @importFrom dplyr summarise
 #' @importFrom dplyr summarize
+#' @importFrom dplyr tally
 #' @importFrom dplyr tbl_df
 #' @importFrom dplyr %>%
 #' @importFrom ggplot2 aes
@@ -59,7 +62,7 @@
 .onAttach <- function(lib, pkg)
 {
 
-  packageStartupMessage("bibliographica - tools for bibliographic analysis\nCopyright (C) 2014-2018 Computational History Group (COMHIS) - University of Helsinki, Finland \n\nhttp://github.com/COMHIS/bibliographica\n\nHe who refuses to do arithmetic is doomed to talk nonsense.")
+  packageStartupMessage("bibliographica - tools for bibliographic analysis\nCopyright (C) 2014-2020 Helsinki Computational History Group (COMHIS), Finland \n\nhttp://github.com/COMHIS/bibliographica\n\nHe who refuses to do arithmetic is doomed to talk nonsense.")
 
 }
 

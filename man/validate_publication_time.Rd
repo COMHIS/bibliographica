@@ -7,11 +7,11 @@
 validate_publication_time(x, min.year = NULL, max.year = NULL)
 }
 \arguments{
+\item{x}{Input data.frame}
+
 \item{min.year}{Minimum accepted year; all accepted by default}
 
 \item{max.year}{Maximum accepted year; current year by default}
-
-\item{data.preprocessed}{Preprocessed data.}
 }
 \value{
 Modified data.
@@ -20,7 +20,7 @@ Modified data.
 Preprocessing validator.
 }
 \examples{
-# \dontrun{validate_publication_time(data.preprocessed)}
+# \dontrun{validate_publication_time(x)}
 }
 \references{
 See citation("bibliographica")

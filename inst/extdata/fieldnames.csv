@@ -3,6 +3,7 @@ Control number|control_number|001
 Language|language|008lang
 Language|language|041a
 Original language|language2|041h
+Intermediate translations|intermediate_translations|041k
 System control number|system_control_number|035a
 Author date|author_date|100d
 Author|author_name|100a
@@ -32,6 +33,7 @@ Dissertation granter|note_granter|502c
 Dissertation year|note_year|502d
 Source note|note_source|510a
 Source location|note_510c|510c
+Language note|languate_note_546a|546a
 Topical term|subject_topic|650a
 Topical term (subdivision)|650x|650x
 Topical term (chronological subdivision)|650y|650y

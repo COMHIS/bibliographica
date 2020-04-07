@@ -1,13 +1,13 @@
 #' @title Validate Publication Time
 #' @description Preprocessing validator.
-#' @param data.preprocessed Preprocessed data.
+#' @param x Input data.frame
 #' @param min.year Minimum accepted year; all accepted by default
 #' @param max.year Maximum accepted year; current year by default
 #' @return Modified data.
 #' @export
 #' @author Ville Vaara and Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @examples # \dontrun{validate_publication_time(data.preprocessed)}
+#' @examples # \dontrun{validate_publication_time(x)}
 #' @keywords utilities
 validate_publication_time <- function(x, min.year = NULL, max.year = NULL) {
 

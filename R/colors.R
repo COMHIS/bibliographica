@@ -38,7 +38,20 @@ default_colors <- function (x, v=NULL) {
       # for the entries
       if (!is.null(v)) {
         x <- as.character(tolower(v))
-        #x <- map_gatherings(as.character(x), from = "Name", to = "Name")
+        col <- col[tolower(x)]
+      }
+
+    } else if (x == "gatherings_short") {
+
+      col <- map(unique(gatherings_table()$Short),
+                   from = "Short",
+		   to = "Color",
+		   gatherings_table(), keep.names = TRUE)
+
+      # If vector of getherings is provided then directly provide colors
+      # for the entries
+      if (!is.null(v)) {
+        x <- as.character(tolower(v))
         col <- col[tolower(x)]
       }
 

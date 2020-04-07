@@ -14,6 +14,26 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
   # Circumvent build warnings			
   df <- author <- author_name <- author_birth <- author_death <- author_pseudonyme <- author_gender <- name <- NULL
   mean_pagecounts_multivol <- mean_pagecounts_singlevol <- mean_pagecounts_issue <- NULL
+  obl <- NULL
+  tally <- NULL
+  desc <- NULL
+  original_name <- NULL
+  original_date <- NULL
+  final_author_id <- NULL
+  final_author_birth <- NULL
+  final_author_death <- NULL
+  publisher <- NULL
+  gatherings <- NULL
+  original_extent <- NULL
+  final_pagecount <- NULL
+  physical_extent <- NULL
+  estimated_pagecount <- NULL
+  publication_year <- NULL
+  publication_interval <- NULL
+  publication_interval_from <- NULL
+  publication_interval_till <- NULL
+  width <- NULL
+  height <- NULL
 
   # Ensure compatibility			
   df.orig <- df.orig[match(df.preprocessed$original_row, df.orig$original_row),]
@@ -58,7 +78,6 @@ generate_summary_tables <- function (df.preprocessed, df.orig, output.folder = "
       # Exclude trivial cases (original == polished exluding cases)
       tab <- tab[!tolower(tab[, "original"]) == tolower(tab[, "polished"]), ]
       tab <- as.data.frame(tab)
-      require(dplyr)
       x <- tab %>% group_by(original, polished) %>%
                    tally() %>%
 		   arrange(desc(n))

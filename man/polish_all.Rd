@@ -4,8 +4,14 @@
 \alias{polish_all}
 \title{Generic Preprocessing for Bibliographic Metadata}
 \usage{
-polish_all(df.orig, fields = NULL, verbose = TRUE, file = NULL,
-  conversions = list(), languages = NULL)
+polish_all(
+  df.orig,
+  fields = NULL,
+  verbose = TRUE,
+  file = NULL,
+  conversions = list(),
+  languages = NULL
+)
 }
 \arguments{
 \item{df.orig}{Original data.frame}

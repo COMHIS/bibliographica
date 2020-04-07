@@ -270,18 +270,48 @@ print(p)
 ## Documents with missing pages over years 
 
 ```{r missingpages, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=4}
+theme_set(theme_bw(15))
 library(dplyr)
 df2 <- df %>% group_by(publication_decade, gatherings) %>% summarize(na = sum(is.na(pagecount.orig) | (!pagecount.orig == pagecount)))
 df2$na[df2$na == 0] <- NA
+df2 <- df2[-grep("long", df2$gatherings),]
+df2$gatherings <- droplevels(df2$gatherings)
+df2$gatherings <- map_gatherings(df2$gatherings)
 library(ggplot2)
-theme_set(theme_bw(15))
 p <- ggplot(df2, aes(x = publication_decade, y = gatherings, size = na))
 p <- p + geom_point()
 p <- p + xlim(c(min(na.omit(df$publication_decade)), 1800))
 p <- p + ggtitle(paste("Documents with missing page counts (original; n=", sum(na.omit(df2$na)), ")", sep = ""))
 p <- p + xlab("Publication decade")
 p <- p + ylab("Document dimension (estimated)")
+p <- p + guides(size = guide_legend(title = "N"))
 print(p)
+
+theme_set(theme_bw(25))
+library(dplyr)
+topg <- names(top(df$gatherings, n = 4))
+df2 <- df %>% filter(gatherings %in% topg) %>%
+              group_by(publication_decade, gatherings) %>%
+              summarize(na = sum(is.na(pagecount.orig) |
+	                         (!pagecount.orig == pagecount)))
+# df2$na[df2$na == 0] <- NA
+# df2 <- df2[-grep("long", df2$gatherings),]
+# df2 <- df2[-grep("NA", df2$gatherings),]
+df2$gatherings <- droplevels(df2$gatherings)
+df2$gatherings <- map_gatherings(df2$gatherings)
+library(ggplot2)
+p <- ggplot(df2, aes(x = publication_decade, y = gatherings, size = na))
+p <- p + geom_point()
+p <- p + xlim(c(min(na.omit(df$publication_decade)), 1800))
+#p <- p + ggtitle(paste("Missing page count (original; n=", sum(na.omit(df2$na)), ")", sep = ""))
+# p <- p + ggtitle("Missing page count")
+p <- p + xlab("Publication decade")
+# p <- p + ylab("Document dimension (estimated)")
+p <- p + ylab("")
+p <- p + guides(size = guide_legend(title = "N"))
+pdf("~/tmp/missingpages.pdf", width=7, height=7)
+print(p)
+dev.off()
 
 library(dplyr)
 df2b <- df %>% group_by(publication_decade, gatherings) %>% summarize(na = sum(is.na(pagecount)))

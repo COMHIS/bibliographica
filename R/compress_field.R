@@ -10,15 +10,14 @@
 #'          that this will be merged.
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
+#' @aliases collapse
 #' @examples
 #'   p <- compress_field(c("A", "A", "A", "B","B","C", "D"),
 #'          topn = 2, rest = "Other")
 #'   p <- compress_field(c("A", "A", "A", "B","B","C", "D"),
 #'          topn = c("A", "B"), rest = "Other")
-#'   p <- compress_field(c("A", "A", "A", "B","B","C", "D"),
-#'          min.freq = 2, rest = "Other")
 #' @keywords utilities
-compress_field <- function (x, topn, min.freq = NULL, rest = "Other") {
+compress_field <- function (x, topn = NULL, min.freq = NULL, rest = "Other") {
 
   # keep was replace with topn
 

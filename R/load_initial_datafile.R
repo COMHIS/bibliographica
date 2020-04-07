@@ -2,11 +2,12 @@
 #' @description Load datafile in csv.gz format, or use previously saved Rds.
 #' @param datafile Datafile in csv.gz format
 #' @param reload.data Boolean, edfault FALSE. Use datafile or previously saved Rds?
+#' @param output.file Output file for storing the resulting object.
 #' @return data.frame with raw data fields
 #' @export
 #' @author Leo Lahti, Ville Vaara
 #' @references See citation("bibliographica")
-#' @examples \dontrun{df.orig <- load_initial_datafile(datafile, ignore.fields, reload.data = TRUE)}
+#' @examples \dontrun{df.orig <- load_initial_datafile(datafile, reload.data = TRUE)}
 #' @keywords utilities
 load_initial_datafile <- function(datafile, reload.data = FALSE, output.file = "parsed.Rds") { 
 
