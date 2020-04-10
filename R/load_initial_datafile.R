@@ -9,13 +9,13 @@
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df.orig <- load_initial_datafile(datafile, reload.data = TRUE)}
 #' @keywords utilities
-load_initial_datafile <- function(datafile, reload.data = FALSE, output.file = "parsed.Rds") { 
+load_initial_datafile <- function(datafile, reload.data = FALSE, output.file = "parsed.Rds", sep = "|") { 
 
   if (reload.data) {
 
     message("Reading reloaded data. This may take a while ...")
     # Read the raw data
-    df.orig <- read_bibliographic_metadata(datafile, verbose = TRUE)
+    df.orig <- read_bibliographic_metadata(datafile, verbose = TRUE, sep = sep)
 
     # Save the raw data
     message("Saving data as Rds...")

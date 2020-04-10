@@ -27,6 +27,14 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   #------------------------------------------------------
 
   s <- suniq
+  if (verbose) {message("Signature statements")}
+  inds <- grep("sup", s)
+  if (length(inds)>0) {
+    pc <- polish_signature_statement_pagecount(s[inds])
+    s[inds] <- unname(pc)
+  }
+
+
 
   if (verbose) {message("Remove commonly used volume formats")}
   f <- system.file("extdata/remove_dimension.csv", package = "bibliographica")
@@ -146,6 +154,83 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 
   if (verbose) { message("Project to original list") }
   ret[match(sorig, suniq), ]
+
+}
+
+#' @title Polish signature statements
+#' @description Internal
+#' @param s input char
+#' @return vector
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica") and explanations of signature statements in \url{https://collation.folger.edu/2016/05/signature-statements/} and \url{https://manual.stcv.be/p/Inputting_Collation_Data_in_Brocade}.
+#' @keywords internal
+polish_signature_statement_pagecount <- function (s) {
+
+  inds <- which(grepl("sup", s))
+  ss <- rep(NA, length(s))
+
+  if (length(inds)>0) {
+    pages <- sapply(s[inds], function (xx) {sum(polish_signature_statements(xx))})
+    ss[inds] <- pages
+
+  }
+
+  names(ss) <- s
+
+  ss
+
+}
+
+#' @title Polish signature statements
+#' @description Internal
+#' @param s input char
+#' @return vector
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @references See citation("bibliographica") and explanations of signature statements in \url{https://collation.folger.edu/2016/05/signature-statements/} and \url{https://manual.stcv.be/p/Inputting_Collation_Data_in_Brocade}.
+#' @keywords internal
+polish_signature_statements <- function (x) {
+
+    x <- str_trim(x)
+    
+    x <- str_trim(gsub("\\([a-z|0-9|,| |\\?]*\\)", "", x))
+
+    x <- unlist(str_split(x, " "))
+
+    # Pages for all items
+    pages <- unlist(sapply(x, function (xx) {polish_signature_statement(xx)}))
+
+    pages
+
+}
+
+
+polish_signature_statement <- function (s) {
+
+    hit <- any(grepl("[a-z]*?sup?[0-9]*?[a-z]*?", s))
+    pages <- NA
+
+    if (hit) {
+      item <- str_extract(s, "^[a-z|0-9|-]*")     
+      pages <- str_extract(s, "[0-9]+")
+      pages <- as.numeric(pages)
+      names(pages) <- item
+
+      if (str_detect(item, "-")) {
+        items <- unlist(str_split(item, "-"))
+
+	ind1 <- match(items[[1]], letters)
+	ind2 <- match(items[[2]], letters)
+	if (!is.na(ind1) & !is.na(ind2)) {
+          items <- letters[ind1:ind2]
+          pages <- rep(pages, length(items))
+          names(pages) <- items
+	} else {
+	  pages <- NA
+	}
+      }
+    }
+    
+    pages
 
 }
 

@@ -4,7 +4,7 @@
 \alias{read_bibliographic_metadata}
 \title{Read Bibliographic Metadata}
 \usage{
-read_bibliographic_metadata(file, verbose = FALSE)
+read_bibliographic_metadata(file, verbose = FALSE, sep = "|")
 }
 \arguments{
 \item{file}{Parsed raw data file/s}

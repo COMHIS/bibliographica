@@ -7,7 +7,8 @@
 load_initial_datafile(
   datafile,
   reload.data = FALSE,
-  output.file = "parsed.Rds"
+  output.file = "parsed.Rds",
+  sep = "|"
 )
 }
 \arguments{

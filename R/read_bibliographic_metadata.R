@@ -8,7 +8,7 @@
 #' @references See citation("bibliographica")
 #' @examples \dontrun{df.raw <- read_bibliographic_metadata(file)}
 #' @keywords utilities
-read_bibliographic_metadata <- function (file, verbose = FALSE) {
+read_bibliographic_metadata <- function (file, verbose = FALSE, sep = "|") {
 
   if (length(file) == 0) {stop("File is empty - halting !")}
 
@@ -22,7 +22,7 @@ read_bibliographic_metadata <- function (file, verbose = FALSE) {
       dfs[[f]] <- read_bibliographic_metadata(f)
     }
     if (verbose) {message("Combining the batches..")}    
-    df.all <- rbind_all(dfs)
+    df.all <- bind_rows(dfs)
     if (verbose) {message("OK")}    
 
     # Replace individual identifier columns
@@ -33,7 +33,7 @@ read_bibliographic_metadata <- function (file, verbose = FALSE) {
   } else {
   
     # Read data
-    tab <- read.csv(file, sep = "|", strip.white = TRUE,
+    tab <- read.csv(file, sep = sep, strip.white = TRUE,
     	   		  stringsAsFactors = FALSE, encoding = "UTF-8")
 
     # Removes additional whitespace and some special characters from

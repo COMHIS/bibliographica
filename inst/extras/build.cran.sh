@@ -5,5 +5,5 @@
 # http://r-pkgs.had.co.nz/man.html
 
 /usr/bin/R CMD build ../../ --no-build-vignettes #--no-tests #--no-examples 
-/usr/bin/R CMD check bibliographica_0.2.53.tar.gz --no-build-vignettes --no-tests #--no-examples 
-/usr/bin/R CMD INSTALL bibliographica_0.2.53y.tar.gz
+/usr/bin/R CMD check bibliographica_0.2.55.tar.gz --no-build-vignettes --no-tests #--no-examples 
+/usr/bin/R CMD INSTALL bibliographica_0.2.55.tar.gz
