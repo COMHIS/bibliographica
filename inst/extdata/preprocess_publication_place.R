@@ -25,5 +25,5 @@ tmp <- generate_summary_tables_geo(df, df.orig, output.folder)
 # bibliographica::inst/extdata/publicationplace.Rmd
 # Sometimes we like to restricted the evaluated time period
 # (see analysis.init.R) but for now, let's just do all
-sf <- generate_summaryfiles(df, df.orig, author = author, output.folder = output.folder, ntop = ntop, summaries = "publicationplace")
+#sf <- generate_summaryfiles(df, df.orig, author = author, output.folder = output.folder, ntop = ntop, summaries = "publicationplace")
 

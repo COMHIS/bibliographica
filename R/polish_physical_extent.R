@@ -17,7 +17,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   # http://ac.bslw.com/community/wiki/index.php5/RDA_4.5
   sorig <- tolower(as.character(x))
   suniq <- unique(sorig)
-
+	print(suniq[1:10])
   if (verbose) {
     message(paste("Polishing physical extent field:",
             length(suniq),

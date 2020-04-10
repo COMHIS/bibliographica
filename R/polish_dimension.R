@@ -74,7 +74,7 @@ polish_dimension <- function (x, synonyms) {
         a <- unlist(strsplit(gatherings, ""), use.names = FALSE)
 	ind <- min(which(is.na(as.numeric(a))))-1
 	if (is.na(ind)) {ind <- length(a)}
-	gatherings <- paste(paste(a[1:ind], collapse = ""), "long", sep = "")
+	gatherings <- paste(paste(a[1:ind], collapse = ""), "small", sep = "")
       }
     }
   }
@@ -114,8 +114,10 @@ polish_dimension <- function (x, synonyms) {
       x <- unlist(strsplit(x, "cm"), use.names = FALSE)
       x <- str_trim(unlist(strsplit(x, " "), use.names = FALSE))
       i <- which(x == "x")
-      height <- as.numeric(str_trim(x[i+1]))
-      width <- as.numeric(str_trim(x[i-1]))
+      if (is.numeric(str_trim(x[i+1])) && is.numeric(str_trim(x[i-1]))) {
+        height <- as.numeric(str_trim(x[i+1]))
+        width <- as.numeric(str_trim(x[i-1]))
+      }
   } else if (length(grep("cm", x)) > 0 && length(grep("x", x)) == 0) {
       # Pick CM format (single value) separately when it is unambiguous
       # Then pick the dimensions
@@ -127,16 +129,16 @@ polish_dimension <- function (x, synonyms) {
 
   # Obl: height < width
   if (!is.na(width) && !is.na(height)) {
-    dims <- sort(c(width, height))
+    dims <- c(height, width)
     if (obl) {
+      # NOTE: sort width and height and reverse their order if and only if
+      # obl is stated; otherwise assume that the dimensions are given as height x width
+      dims <- sort(dims)
       dims <- rev(dims)
     }
     width <- dims[[1]]
     height <- dims[[2]]
   }
-
-  # NA
-  # gatherings[gatherings == "NA"] = NA
 
   # If gatherings length > 1 then collapse
   gatherings <- paste(gatherings, collapse = ";")

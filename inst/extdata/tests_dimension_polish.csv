@@ -1,6 +1,6 @@
-clause	result	expected	field
-23 x 31.3 cm. plate 25 x 33.6 cm.	23		width
-23 x 31.3 cm. plate 25 x 33.6 cm.	31.3		height
+clause	result	expected	field	fill
+23 x 31.3 cm. plate 25 x 33.6 cm.	23		height
+23 x 31.3 cm. plate 25 x 33.6 cm.	31.3		width
 2°(3?)	2fo		
 2fo(3?).	2fo		
 16:0	16mo		
@@ -57,4 +57,53 @@ Broadside. 35 x 24 cm.	1to
 20 cm. (4to & 8vo)	NA		
 1 /2⁰.	2fo		
 8⁸.	8vo		
-(12 mo)	12mo		
+(12 mo)	12mo
+lon. 24⁰	24long
+lon 24⁰	24long
+lon. 24⁰.	24long
+8	8vo			TRUE
+20.	20to			TRUE  
+1915.	NA			TRUE
+16to[7.5x5.5 cm].	16mo			  
+4to+	4long			
+8to+	8long			
+8to +	8long			  
+[1to].	1to			
+2.o.	2fo			
+[12to.	12mo			
+[4to.	4to			
+[4to].	4to			
+2to[1/2to].	2fo			
+[16to].	16mo			
+[[8to].	8vo			
+[obl.1to].	1to			
+[1/2to].	2fo			
+[8to +	8long			
+[16to.	16mo			
+[obl.2to.	2fo			
+[8to].	8vo			
+p. [28] tyhjä ;;4to	4to			
+4.o.	4to			
+8to(18 cm)	8vo			
+8to(18 cm)	18		height	
+8to(25 cm) +	8long			
+4to(23 cm)	4to			
+8to(p.urempi)	8vo			
+8to(pienempi)	8vo			 
+12top.	12mo			
+kuv. ;;8to+	8long			
+kuv. ;;4to	4to			
+4to(21 x 26 cm)	4to			
+4to(21 x 26 cm)	26		width	
+4to(21 x 26 cm)	21		height	
+16to[7.5x5.5 cm].	5.5		width	
+16to[7.5x5.5 cm].	7.5		height	    
+4togrand papier.	4long			      
+4to(oblong)	4to
+sm.4⁰.	4small
+21 cm (sm. 4⁰;	4small
+o.	NA			TRUE
+[?to.	NA			TRUE
+?to	NA			TRUE
+Koko vaihtelee.	NA			TRUE
+

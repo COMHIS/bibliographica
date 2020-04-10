@@ -93,12 +93,15 @@ write_xtable <- function (x, filename = NULL, count = FALSE, sort.by = "Count", 
     if (length(tab) > 0) {
       tab <- as.matrix(tab, nrow = nrow(x))
       if (ncol(tab) == 1) { tab <- t(tab) }
-      if (count) {
+      # HR: Fixing a bug: "Count" had been tried to add twice as a column name
+      if (count & !"Count" %in% colnames(tab)) {
         colnames(tab) <- c(colnames(tab), "Count")
       }
       rownames(tab) <- NULL
     } else {
       tab <- NULL
+      
+      
     }    
   }
 

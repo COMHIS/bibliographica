@@ -8,11 +8,11 @@ output: markdown_document
 ```{r init, echo=FALSE}
 #opts_chunk$set(comment=NA, fig.width=6, fig.height=6)
 opts_chunk$set(fig.path = "figure/pagecount-")
-if (exists("df.gatherings")) {
-  df0 <- df <- left_join(df.preprocessed, df.gatherings, by = "id")
-} else {
-  df0 <- df <- df.preprocessed
-}
+#if (exists("df.gatherings")) {
+#  df0 <- df <- left_join(df.preprocessed, df.gatherings, by = "id")
+#} else {
+#  df0 <- df <- df.preprocessed
+#}
 ```
 
 
@@ -56,10 +56,12 @@ information is added separately for each document on top of the page
 count estimate.
 
 ```{r size-pagecountsmulti, echo=FALSE, message=FALSE, warning=FALSE}
-mean.pagecounts <- get_mean_pagecounts(df0, exclude.plates = TRUE)
+#mean.pagecounts <- get_mean_pagecounts(df0, exclude.plates = TRUE)
+mean.pagecounts <- get_mean_pagecounts(df.combined, exclude.plates = TRUE)
 ```
 
 ```{r size-pagecountsmulti2, echo=FALSE, message=FALSE, warning=FALSE, fig.width=25, fig.height=5}
+#mean.pagecounts <- get_mean_pagecounts(df.combined, exclude.plates = TRUE)
 theme_set(theme_bw(20))
 dfs <- NULL
 for (doctype in names(mean.pagecounts)) {
@@ -70,6 +72,7 @@ for (doctype in names(mean.pagecounts)) {
 dfs$doctype <- gsub("multivol", "multi-volume", dfs$doctype)
 dfs$doctype <- gsub("singlevol", "single volume", dfs$doctype)
 dfs$doctype <- factor(dfs$doctype, levels = c("single volume", "multi-volume", "issue"))
+message(paste0(colnames(dfs), sep=" "))
 colnames(dfs) <- gsub("\\.pages", "", colnames(dfs))
 
 dfm <- melt(dfs, id = c("doctype", "doc.dimension", "n"))
@@ -112,19 +115,17 @@ suppressWarnings(grid.arrange(pics[[1]], pics[[2]], pics[[3]], pics[[4]], nrow =
 #kable(mean.pagecounts$multivol, caption = "Estimated page counts (multi-volume)", digits = 2)
 #kable(mean.pagecounts$issue, caption = "Estimated page counts (issues)", digits = 2)
 ```
-
-
-
 ### Document size distribution
 
 ```{r pagecountstat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12, fig.height=5}
-df <- df0
+#message(df)
 
+#df <- df0
   theme_set(theme_bw(15))
-
+	
   # Single-volume docs
-  dff <- filter(df, volcount == 1 & is.na(volnumber))
-
+  #dff <- filter(df, volcount == 1 & is.na(volnumber))
+	dff <- filter(df.combined, volcount == 1 & is.na(volnumber))
   dff2 <- dff %>% group_by(gatherings, 
 		    	     pagecount) %>%
 			     tally()
@@ -144,13 +145,21 @@ df <- df0
   p1 <- p 
 
   # Multi-volume docs
+
   theme_set(theme_bw(15))
-  dff <- filter(df, 
+  #dff <- filter(df, 
+ #	   (volcount > 1 | 
+#	   #(items == 1 & !is.na(volnumber))) # include when items info is again available
+#	   (!is.na(volnumber)))	   
+#	   #pagecount > 10
+#	   )
+	dff <- filter(df.combined, 
  	   (volcount > 1 | 
 	   #(items == 1 & !is.na(volnumber))) # include when items info is again available
 	   (!is.na(volnumber)))	   
 	   #pagecount > 10
 	   )
+  
   dff2 <- dff %>% group_by(gatherings, 
 		    	     pagecount) %>%
 		    	     tally()
@@ -177,7 +186,7 @@ Left: Gatherings vs. overall pagecounts (original + estimated). Right: Only the 
 
 ```{r size-estimated, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="430px"}
 theme_set(theme_bw(20))
-df <- df0
+df <- df.combined
 dfs <- select(df, pagecount, gatherings) 
 dfs$pagecount <- as.numeric(gsub(" pages", "", dfs$pagecount))
 dfs <- dfs %>% filter(!is.na(pagecount) & !is.na(gatherings))
@@ -230,6 +239,7 @@ Paper consumption histogram;
 
 
 ```{r sizes, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=5, fig.show="hold",out.width="280px"}
+
 p <- ggplot(df, aes(x = paper))
 p <- p + geom_histogram() 
 p <- p + xlab("Paper (log10 sheets)")
@@ -243,7 +253,7 @@ print(p)
 ### Title count versus paper consumption
 
 ```{r title_vs_paper, echo=FALSE, message=FALSE, warning=FALSE, fig.width=15, fig.height=10}
-d <- df.preprocessed %>%
+d <- df.combined %>%
        group_by(publication_year) %>%
        summarise(n = n(),
        		 p = sum(paper, na.rm = TRUE))
@@ -325,7 +335,7 @@ Note: there are `r length(which(is.na(df$area) & (!is.na(df$gatherings.original)
 ```{r paperconsumption, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=5}
 library(dplyr)
 library(ggplot2)
-df <- df.preprocessed
+df <- df.combined
 df2 <- df %>% group_by(publication_year) %>% summarize(paper = sum(paper, na.rm = TRUE), n = n()) 
 library(sorvi)
 p <- regression_plot(paper ~ publication_year, df2) 
@@ -342,7 +352,7 @@ print(p)
 ```
 
 ```{r paperconsumption2b, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=5}
-df <- df.preprocessed
+df <- df.combined
 df2 <- df %>% group_by(publication_year, gatherings) %>%
               summarize(paper = sum(paper, na.rm = TRUE), n = n())
 df2 <- df2 %>% filter(gatherings %in% names(which(table(df2$gatherings) >= 50)))
@@ -369,10 +379,12 @@ print(p)
 
 
 ```{r pagecounts-gatherings-relab, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=5}
+
+
 # Top gatherings
 top <- names(which(table(na.omit(df.preprocessed$gatherings)) >= 50))
 
-df2 <- df.preprocessed %>%
+df2 <- df.combined %>%
               group_by(publication_decade, gatherings) %>%
               summarize(paper = sum(paper, na.rm = TRUE), n = n()) %>%
 	      filter(!is.na(gatherings) & !gatherings == "NA")
@@ -391,7 +403,7 @@ print(p)
 ```
 
 ```{r paperconsumption2, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=13, fig.height=6}
-df2 <- df.preprocessed %>%
+df2 <- df.combined %>%
               group_by(publication_decade) %>%
               summarize(paper = sum(paper, na.rm = TRUE), n = n()) 
 p <- ggplot(df2, aes(x = publication_decade, y = paper/n))
@@ -404,13 +416,14 @@ p <- p + ylab("Paper (sheets)")
 print(p)
 ```
 
+
 ## Pamphlets vs. Books
 
 ```{r doctypes, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=13, fig.height=6}
 library(ggplot2)
 library(dplyr)
 
-df <- df.preprocessed
+df <- df.combined
 df$type <- rep(NA, nrow(df))
 df$type[df$pagecount > 32] <- "book"
 df$type[df$pagecount <= 32] <- "pamphlet"
@@ -440,7 +453,7 @@ print(p)
 
 
 ```{r doctypes2, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=13, fig.height=6}
-df <- df.preprocessed
+df <- df.combined
 df <- mutate(df, length = cut(pagecount, c(0, 32, 72, 148, 250, 450, 800, 2000, 5000, Inf)))
 
 df2 <- df %>% group_by(publication_decade, length) %>%
@@ -473,7 +486,7 @@ print(p)
 Estimated paper consumption by document size
 
 ```{r 20150611paris-paper6, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=13, fig.height=7}
-df <- df.preprocessed
+df <- df.combined
 df2 <- df %>% group_by(publication_year, gatherings) %>%
               summarize(paper = sum(paper, na.rm = TRUE), n = n()) 
 df2 <- filter(df2, gatherings %in% names(which(table(df2$gatherings) >= 50)))
@@ -491,7 +504,7 @@ print(p)
 Gatherings height: does it change over time? How increased printing activity is related to book size trends? Alternatively, we could use area (height x width), or median over time. Note that only original (not augmented) dimension info is being used here.
 
 ```{r pagecounts-gatsize, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=5}
-df <- df.preprocessed
+df <- df.combined
 for (g in c("1to", "2fo", "4to", "8vo")) {
   df2 <- filter(df,
        		  !is.na(gatherings.original) &
@@ -511,7 +524,7 @@ for (g in c("1to", "2fo", "4to", "8vo")) {
 Page counts: does it change over time? Also suggested we could calculate some kind of factor for each time period based on this ? In principle, we could calculate this separately for any given publication place as well but leẗ́s discuss this later. Would help to specify some specific places of interest.
 
 ```{r pagecounts-gatsize2, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=5}
-df <- df.preprocessed
+df <- df.combined
 for (g in c("1to", "2fo", "4to", "8vo")) {
   df2 <- filter(df,
        		  !is.na(gatherings.original) &
@@ -533,7 +546,7 @@ for (g in c("1to", "2fo", "4to", "8vo")) {
 Same for documents that have a sufficient number of pages:
 
 ```{r pagecounts-gatsize3, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE, fig.width=10, fig.height=5}
-df <- df.preprocessed
+df <- df.combined
 minpages <- 60
 for (g in c("1to", "2fo", "4to", "8vo")) {
   df2 <- filter(df, pagecount >= minpages &
@@ -550,6 +563,7 @@ for (g in c("1to", "2fo", "4to", "8vo")) {
   print(p)
 }
 ```
+
 
 -->
 

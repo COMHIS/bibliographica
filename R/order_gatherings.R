@@ -20,7 +20,11 @@ order_gatherings <- function (x) {
 
   # Capitalize
   x <- str_to_title(x)
-  glevels <- str_to_title(glevels)       
+  glevels <- str_to_title(glevels)
+  
+  # Exception
+  x <- gsub("Bs", "bs", x)
+  glevels <- gsub("Bs", "bs", glevels)  
 
   x <- as.character(x)
   x[is.na(x)] <- "NA"

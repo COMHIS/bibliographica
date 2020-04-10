@@ -54,7 +54,8 @@ read_mapping <- function (file, mode = "table", sep = ";", self.match = FALSE, i
       aa <- as.data.frame(aa)
 
     } else {
-      aa <- read.csv(file, sep = sep, header = TRUE, encoding = encoding)
+		# hegroiva 20191108: added the quote="" in order to read values containing quotes
+      aa <- read.csv(file, sep = sep, header = TRUE, encoding = encoding, quote="")
     }
 
     # Temporarily name columns as name and synonyme
