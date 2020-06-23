@@ -10,7 +10,10 @@ build_signature_table()
 signature table
 }
 \description{
-This builds a list of possible gathering signatures in their sequential ordering. It is necessary to represent this table explicitly when unfolding sequences of gatherings, because the meaning of sequences is far from obvious.
+This builds a list of possible gathering signatures in their
+sequential ordering. It is necessary to represent this table explicitly when
+unfolding sequences of gatherings, because the meaning of sequences is far
+from obvious.
 }
 \author{
 Maciej Janicki \email{maciej.janicki@helsinki.fi}

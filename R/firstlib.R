@@ -1,6 +1,7 @@
 #' @import babynames
 #' @import genderdata
 #' @importFrom data.table fread
+#' @importFrom data.table rbindlist
 #' @importFrom dplyr arrange
 #' @importFrom dplyr count
 #' @importFrom dplyr desc
@@ -43,6 +44,9 @@
 #' @importFrom reshape2 melt
 #' @importFrom stats median
 #' @importFrom stats na.omit
+#' @importFrom stringi stri_replace_all_fixed
+#' @importFrom stringi stri_match_all_regex
+#' @importFrom stringi stri_trans_toupper
 #' @importFrom stringr str_split
 #' @importFrom stringr str_detect
 #' @importFrom stringr str_trim

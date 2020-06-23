@@ -19,7 +19,8 @@ Evaluates a collation formula to the number of leaves.
 eval_collation_formula("π1 A`SUP`8`LO` B`SUP`6`LO`")
 }
 \references{
-See citation("bibliographica") and explanations in \url{https://manual.stcv.be/p/Collation_Formula}.
+See citation("bibliographica") and explanations in
+            \url{https://manual.stcv.be/p/Collation_Formula}.
 }
 \author{
 Maciej Janicki \email{maciej.janicki@helsinki.fi}
