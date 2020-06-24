@@ -13,12 +13,15 @@ unfold_set(start, end, n1, n2, sig_table)
 
 \item{n1}{the number of leaves per gathering}
 
-\item{n2}{the second number of leaves in case of alternating numbers (of NA if not present)}
+\item{n2}{the second number of leaves in case of alternating numbers (or NA
+if not present)}
 
-\item{sig_table}{the table of admissible gathering signatures and their sequential ordering (see \code{\link{build_signature_table}})}
+\item{sig_table}{the table of admissible gathering signatures and their
+sequential ordering (see \code{\link{build_signature_table}})}
 }
 \value{
-a data frame giving the signature and number of leaves of each gathering
+a data frame giving the signature and number of leaves of each
+        gathering
 }
 \description{
 internal

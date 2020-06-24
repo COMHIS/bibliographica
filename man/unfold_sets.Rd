@@ -7,13 +7,16 @@
 unfold_sets(x)
 }
 \arguments{
-\item{x}{the list of dataframes containing recognized gathering sets (output of \code{\link{parse_collation_formula}})}
+\item{x}{the list of dataframes containing recognized gathering sets (output
+of \code{\link{parse_collation_formula}})}
 }
 \value{
-a data frame giving the signatures and numbers of leaves of each gathering in each formula
+a data frame giving the signatures and numbers of leaves of each
+        gathering in each formula
 }
 \description{
-This is a wrapper around \code{\link{unfold_set}} operating on data frames resulting from parsing multiple formulas.
+This is a wrapper around \code{\link{unfold_set}} operating on
+             data frames resulting from parsing multiple formulas.
 }
 \author{
 Maciej Janicki \email{maciej.janicki@helsinki.fi}
