@@ -46,7 +46,6 @@ build_pattern <- function() {
 #' @return vector containing numbers of leaves
 #' @author Maciej Janicki \email{maciej.janicki@@helsinki.fi}
 #' @keywords internal
-#' @examples parse_collation_formula("π1 A`SUP`8`LO` B`SUP`6`LO`")
 parse_collation_formula <- function(x) {
   pattern <- build_pattern()
   # )( and ):( are symbols, which interfere with the other use of brackets
@@ -83,7 +82,6 @@ parse_collation_formula <- function(x) {
 #'         gathering
 #' @author Maciej Janicki \email{maciej.janicki@@helsinki.fi}
 #' @keywords internal
-#' @examples unfold_set("A", "D", 4, 2, sig_table)
 unfold_set <- function(start, end, n1, n2, sig_table) {
   if (is.na(end)) { sig <- start }
   else if (start %in% sig_table && end %in% sig_table) {
