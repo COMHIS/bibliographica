@@ -1,12 +1,12 @@
-library(data.table)
-library(stringi)
-
 # This module implements counting leaves in collation formulas.
 # The implementation follows the description at:
 #   https://manual.stcv.be/p/Collation_Formula
 
 #' @title Build the signature table
-#' @description This builds a list of possible gathering signatures in their sequential ordering. It is necessary to represent this table explicitly when unfolding sequences of gatherings, because the meaning of sequences is far from obvious.
+#' @description This builds a list of possible gathering signatures in their
+#' sequential ordering. It is necessary to represent this table explicitly when
+#' unfolding sequences of gatherings, because the meaning of sequences is far
+#' from obvious.
 #' @return signature table
 #' @author Maciej Janicki \email{maciej.janicki@@helsinki.fi}
 #' @keywords internal
@@ -75,9 +75,12 @@ parse_collation_formula <- function(x) {
 #' @param start the signature of first gathering in the set
 #' @param end the signature of the last gathering (or NA if non-sequence)
 #' @param n1 the number of leaves per gathering
-#' @param n2 the second number of leaves in case of alternating numbers (of NA if not present)
-#' @param sig_table the table of admissible gathering signatures and their sequential ordering (see \code{\link{build_signature_table}}) 
-#' @return a data frame giving the signature and number of leaves of each gathering 
+#' @param n2 the second number of leaves in case of alternating numbers (or NA
+#'        if not present)
+#' @param sig_table the table of admissible gathering signatures and their
+#'        sequential ordering (see \code{\link{build_signature_table}})
+#' @return a data frame giving the signature and number of leaves of each
+#'         gathering
 #' @author Maciej Janicki \email{maciej.janicki@@helsinki.fi}
 #' @keywords internal
 #' @examples unfold_set("A", "D", 4, 2, sig_table)
@@ -98,9 +101,12 @@ unfold_set <- function(start, end, n1, n2, sig_table) {
 }
 
 #' @title Unfold gathering sets
-#' @description This is a wrapper around \code{\link{unfold_set}} operating on data frames resulting from parsing multiple formulas.
-#' @param x the list of dataframes containing recognized gathering sets (output of \code{\link{parse_collation_formula}})
-#' @return a data frame giving the signatures and numbers of leaves of each gathering in each formula
+#' @description This is a wrapper around \code{\link{unfold_set}} operating on
+#'              data frames resulting from parsing multiple formulas.
+#' @param x the list of dataframes containing recognized gathering sets (output
+#'        of \code{\link{parse_collation_formula}})
+#' @return a data frame giving the signatures and numbers of leaves of each
+#'         gathering in each formula
 #' @author Maciej Janicki \email{maciej.janicki@@helsinki.fi}
 #' @keywords internal
 unfold_sets <- function(x) {
@@ -116,7 +122,9 @@ unfold_sets <- function(x) {
 #' @param x input char
 #' @return vector containing numbers of leaves
 #' @author Maciej Janicki \email{maciej.janicki@@helsinki.fi}
-#' @references See citation("bibliographica") and explanations in \url{https://manual.stcv.be/p/Collation_Formula}.
+#' @references See citation("bibliographica") and explanations in
+#'             \url{https://manual.stcv.be/p/Collation_Formula}.
+#' @export
 #' @keywords utilities
 #' @examples eval_collation_formula("π1 A`SUP`8`LO` B`SUP`6`LO`")
 eval_collation_formula <- function(x) {

@@ -27,6 +27,7 @@ Imports:
     magrittr,
     reshape2,
     stringdist,
+    stringi,
     stringr,
     tibble,
     tidyr,
