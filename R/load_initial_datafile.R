@@ -3,6 +3,7 @@
 #' @param datafile Datafile in csv.gz format
 #' @param reload.data Boolean, edfault FALSE. Use datafile or previously saved Rds?
 #' @param output.file Output file for storing the resulting object.
+#' @param sep separator
 #' @return data.frame with raw data fields
 #' @export
 #' @author Leo Lahti, Ville Vaara

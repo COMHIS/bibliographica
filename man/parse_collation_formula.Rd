@@ -15,9 +15,6 @@ vector containing numbers of leaves
 \description{
 internal
 }
-\examples{
-parse_collation_formula("π1 A`SUP`8`LO` B`SUP`6`LO`")
-}
 \author{
 Maciej Janicki \email{maciej.janicki@helsinki.fi}
 }

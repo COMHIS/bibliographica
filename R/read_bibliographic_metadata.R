@@ -2,6 +2,7 @@
 #' @description Read metadata parsed from XML.
 #' @param file Parsed raw data file/s
 #' @param verbose verbose
+#' @param sep separator
 #' @return data.frame with raw data fields
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}

@@ -26,9 +26,6 @@ a data frame giving the signature and number of leaves of each
 \description{
 internal
 }
-\examples{
-unfold_set("A", "D", 4, 2, sig_table)
-}
 \author{
 Maciej Janicki \email{maciej.janicki@helsinki.fi}
 }
