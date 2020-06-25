@@ -10,6 +10,8 @@ read_bibliographic_metadata(file, verbose = FALSE, sep = "|")
 \item{file}{Parsed raw data file/s}
 
 \item{verbose}{verbose}
+
+\item{sep}{separator}
 }
 \value{
 data.frame with raw data fields

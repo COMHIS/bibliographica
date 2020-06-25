@@ -17,6 +17,8 @@ load_initial_datafile(
 \item{reload.data}{Boolean, edfault FALSE. Use datafile or previously saved Rds?}
 
 \item{output.file}{Output file for storing the resulting object.}
+
+\item{sep}{separator}
 }
 \value{
 data.frame with raw data fields

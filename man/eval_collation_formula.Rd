@@ -16,7 +16,7 @@ vector containing numbers of leaves
 Evaluates a collation formula to the number of leaves.
 }
 \examples{
-eval_collation_formula("π1 A`SUP`8`LO` B`SUP`6`LO`")
+eval_collation_formula("n1 A`SUP`8`LO` B`SUP`6`LO`")
 }
 \references{
 See citation("bibliographica") and explanations in

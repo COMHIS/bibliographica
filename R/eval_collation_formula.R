@@ -13,8 +13,7 @@
 build_signature_table <- function() {
   alphabet <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M',
                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Y', 'Z')
-  symbols <- c('*', '§', 'π', 'χ', '†', '‡', '#', ':', '%', '+', '<...>', '€',
-               '$', '♭', '✠', '<***>')
+  symbols <- system.file("extdata/collation.csv", package = "bibliographica")
   prefixes <- c('', 2:50)
   sym_prefixes <- c('', 2:100)
   sig_table <- c(
@@ -124,7 +123,7 @@ unfold_sets <- function(x) {
 #'             \url{https://manual.stcv.be/p/Collation_Formula}.
 #' @export
 #' @keywords utilities
-#' @examples eval_collation_formula("π1 A`SUP`8`LO` B`SUP`6`LO`")
+#' @examples eval_collation_formula("n1 A`SUP`8`LO` B`SUP`6`LO`")
 eval_collation_formula <- function(x) {
   y <- unlist(lapply(unfold_sets(parse_collation_formula(x)),
                      function(z) sum(z$nleaves)))
