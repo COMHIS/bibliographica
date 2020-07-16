@@ -9,11 +9,13 @@
 #' @keywords utilities
 polish_gatherings <- function (x) {
 
+  gtab <- gatherings_table()
+
   # Denote the polishing directly in the table		 
-  glevels <- unique(c(gatherings_table()$Standard,
-               gatherings_table()$Name,
-      	       gatherings_table()$Alternate,
-     	       gatherings_table()$Symbol))
+  glevels <- unique(c(gtab$Standard,
+               gtab$Name,
+      	       gtab$Alternate,
+     	       gtab$Symbol))
 
   glevels <- unique(c(glevels, tolower(glevels)))
   
