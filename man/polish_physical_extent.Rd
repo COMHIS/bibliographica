@@ -24,7 +24,7 @@ A summary of page counting rules that this function aims to (approximately) impl
 \url{https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html}
 }
 \examples{
-tab <- polish_physical_extent("4p.")
+tab <- polish_physical_extent("4p.", verbose = TRUE)
 }
 \references{
 See citation("bibliographica")

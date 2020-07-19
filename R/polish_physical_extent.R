@@ -9,7 +9,7 @@
 #' \url{https://www.libraries.psu.edu/psul/cataloging/training/bpcr/300.html}
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @examples tab <- polish_physical_extent("4p.")
+#' @examples tab <- polish_physical_extent("4p.", verbose = TRUE)
 #' @keywords utilities
 polish_physical_extent <- function (x, verbose = FALSE) {
 
@@ -17,7 +17,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   # http://ac.bslw.com/community/wiki/index.php5/RDA_4.5
   sorig <- tolower(as.character(x))
   suniq <- unique(sorig)
-	print(suniq[1:10])
+
   if (verbose) {
     message(paste("Polishing physical extent field:",
             length(suniq),
@@ -37,8 +37,14 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 
 
   if (verbose) {message("Remove commonly used volume formats")}
-  f <- system.file("extdata/remove_dimension.csv", package = "bibliographica")
-  terms <- as.character(read.csv(f)[,1])
+  f <- read_sysfile("extdata/remove_dimension.csv", "bibliographica")  
+
+  if (verbose) {
+    message(paste("Reading", f, "in bibliographica::polish_physical_extent"))
+  }
+
+  li <- read.csv(f)[,1]
+  terms <- as.character(li)
   s <- remove_dimension(s, terms)
   s <- gsub("^na ", "", s)
   s <- gsub("\\.s$", " s", s)
@@ -49,16 +55,28 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   s <- gsub("\\}", "]", s)
   s[grep("^[ |;|:|!|?]*$", s)] <- NA 
 
-  # Remove dimension info
+  if (verbose) {
+    message("Remove dimension info")
+  }
   s <- gsub("^[0-9]+.o ", "", s) 
 
-  # In Finnish texts s. is used instead of p.		
-  f <- system.file("extdata/translation_fi_en_pages.csv", package = "bibliographica")
+  if (verbose) {
+    message("In Finnish texts s. is used instead of p.")
+  }
+
+  f <- read_sysfile("extdata/translation_fi_en_pages.csv", "bibliographica")
+  if (verbose) {
+    message(paste("Reading", f))
+  }
   page.synonyms <- read_mapping(f, sep = ";", mode = "table", fast = TRUE)
   s <- map(s, page.synonyms, mode="match")
   rm(page.synonyms)
 
-  f <- system.file("extdata/numbers_finnish.csv", package = "bibliographica")
+  if (verbose) {
+    message("numbers_finnish")
+  }
+  
+  f <- read_sysfile("extdata/numbers_finnish.csv", "bibliographica")
   char2num <- read_mapping(f, sep = ",", mode = "table", from = "character", to = "numeric")
   s <- map(s, synonymes = char2num, from = "character", to = "numeric", mode = "match")
   rm(char2num)
@@ -82,14 +100,15 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   s[s == ""] <- NA
 
   if (verbose) {message("Read the mapping table for sheets")}  
-  f <- system.file("extdata/harmonize_sheets.csv", package = "bibliographica")
+  f <- read_sysfile("extdata/harmonize_sheets.csv", "bibliographica")  
+
   sheet.harmonize <- read_mapping(f, sep = ";", mode = "table", fast = TRUE)
   s <- harmonize_sheets(s, sheet.harmonize)
   rm(sheet.harmonize)
 
   # Just read page harmonization here to be used later
   if (verbose) {message("Read the mapping table for pages")}
-  f <- system.file("extdata/harmonize_pages.csv", package = "bibliographica")
+  f <- read_sysfile("extdata/harmonize_pages.csv", "bibliographica")    
   page.harmonize <- read_mapping(f, sep = "\t", mode = "table", fast = FALSE)
 
   # Back to original indices and new unique reduction 
@@ -99,12 +118,12 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   s <- suniq
 
   if (verbose) {message("Read the mapping table for romans")}  
-  f <- system.file("extdata/harmonize_romans.csv", package = "bibliographica")
+  f <- read_sysfile("extdata/harmonize_romans.csv", "bibliographica")    
   romans.harm <- read_mapping(f, sep = "\t", mode = "table", fast = TRUE)
   s <- map(s, romans.harm, mode = "recursive")
 
   if (verbose) {message("Page harmonization part 2")}  
-  f <- system.file("extdata/harmonize_pages2.csv", package = "bibliographica")
+  f <- read_sysfile("extdata/harmonize_pages2.csv", "bibliographica")      
   harm2 <- read_mapping(f, sep = "|", mode = "table", fast = TRUE)
   s <- map(s, harm2, mode = "recursive")
   rm(harm2)
@@ -131,12 +150,16 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   s <- suniq <- unique(sorig)
 
   # English
-  f <- system.file("extdata/numbers_english.csv", package = "bibliographica")
+  f <- read_sysfile("extdata/numbers_english.csv", "bibliographica")        
   char2num <- read_mapping(f, sep = ",", mode = "table", from = "character", to = "numeric")
   s <- map(s, synonymes = char2num, from = "character", to = "numeric", mode = "match")
 
   if (verbose) {message(paste("Polishing physical extent field 3:", length(suniq), "unique cases"))}
-  ret <- lapply(s, function (s) { a <- try(polish_physext_help(s, page.harmonize)); if (class(a) == "try-error") {message(paste("Error in polish_physext_help:", s)); return(NA)} else {return(a)}})
+  ret <- lapply(s, function (s) {
+    a <- try(polish_physext_help(s, page.harmonize));
+    if (class(a) == "try-error") {
+      message(paste("Error in polish_physext_help:", s)); return(NA)} else {return(a)}
+    })
 
   nainds <- which(is.na(ret))
   for (i in nainds) {
@@ -152,8 +175,11 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   ret$pagecount <- as.numeric(ret$pagecount)  
   ret$pagecount[ret$pagecount == 0] <- NA
 
-  if (verbose) { message("Project to original list") }
-  ret[match(sorig, suniq), ]
+  if (verbose) { message("Project to original list: indices") }
+  inds <- match(sorig, suniq)
+  
+  if (verbose) { message("Project to original list: mapping") }  
+  ret[inds, ]
 
 }
 

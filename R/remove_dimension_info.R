@@ -14,7 +14,7 @@ remove_dimension_info <- function (x, harmonize = TRUE) {
     s <- harmonize_dimension(s)
   }
   
-  f <- system.file("extdata/remove_dimension_info.csv", package = "bibliographica")
+  f <- read_sysfile("extdata/remove_dimension_info.csv", "bibliographica")    
   terms <- as.character(read.csv(f)[,1])
 
   for (term in terms) {
