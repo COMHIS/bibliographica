@@ -16,13 +16,13 @@ get_preprocessing_data <- function(df.orig, update.fields, ignore.fields, rewrit
     message("Previously preprocessed data found in file df0.Rds.")
   }
 
-  if (exists("update.fields") && !is.null(update.fields) && ("data/unified/polished/df0.Rds" %in% dir())) {
-
-    message("Updating selected fields in previously saved data.")
-    df.preprocessed <- readRDS("data/unified/polished/df.Rds")    
-    conversions <- NULL # readRDS("conversions.Rds") TO REMOVE
-    
-  } else {
+  #if (exists("update.fields") && !is.null(update.fields) && ("data/unified/polished/df0.Rds" %in% dir())) {
+  #
+  #  message("Updating selected fields in previously saved data.")
+  #  df.preprocessed <- readRDS("data/unified/polished/df.Rds")    
+  #  conversions <- NULL # readRDS("conversions.Rds") TO REMOVE
+  #  
+  #} else {
 
     df.preprocessed <- NULL # as data is to be completely preprocessed
     conversions <- list()
@@ -33,7 +33,8 @@ get_preprocessing_data <- function(df.orig, update.fields, ignore.fields, rewrit
     if (length(m) > 0) {
       warning(paste("Updates not defined for the following input fields:", paste(m , sep = ";")))
     }
-  }
+    
+  #}
 
   # Finally remove the specified fields
   if (exists("ignore.fields")) {

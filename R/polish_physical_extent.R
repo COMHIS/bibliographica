@@ -34,8 +34,6 @@ polish_physical_extent <- function (x, verbose = FALSE) {
     s[inds] <- unname(pc)
   }
 
-
-
   if (verbose) {message("Remove commonly used volume formats")}
   f <- read_sysfile("extdata/remove_dimension.csv", "bibliographica")  
 
