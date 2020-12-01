@@ -11,7 +11,7 @@
 #' @references See citation("bibliographica")
 #' @examples tab <- polish_physical_extent("4p.", verbose = TRUE)
 #' @keywords utilities
-polish_physical_extent <- function (x, verbose = FALSE) {
+polish_physical_extent <- function (x, verbose = FALSE, rm.dim.file = NULL) {
 
   # Summary of abbreviations
   # http://ac.bslw.com/community/wiki/index.php5/RDA_4.5
@@ -24,8 +24,6 @@ polish_physical_extent <- function (x, verbose = FALSE) {
 	    "unique cases"))
   }
 
-  #------------------------------------------------------
-
   s <- suniq
   if (verbose) {message("Signature statements")}
   inds <- grep("sup", s)
@@ -35,7 +33,10 @@ polish_physical_extent <- function (x, verbose = FALSE) {
   }
 
   if (verbose) {message("Remove commonly used volume formats")}
-  f <- read_sysfile("extdata/remove_dimension.csv", "bibliographica")  
+  f <- rm.dim.file
+  if (is.null(rm.dim.file)) { 
+    f <- read_sysfile("extdata/remove_dimension.csv", "bibliographica")
+  } 
 
   if (verbose) {
     message(paste("Reading", f, "in bibliographica::polish_physical_extent"))
@@ -62,7 +63,7 @@ polish_physical_extent <- function (x, verbose = FALSE) {
     message("In Finnish texts s. is used instead of p.")
   }
 
-  f <- read_sysfile("extdata/translation_fi_en_pages.csv", "bibliographica")
+  f <- read_sysfile("extdata/translation_fi_en_pages.csv", "fennica")
   if (verbose) {
     message(paste("Reading", f))
   }
