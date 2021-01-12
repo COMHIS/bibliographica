@@ -99,11 +99,11 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
   tab$height <- suppressWarnings(as.numeric(as.character(tab$height)))
   tab$gatherings <- order_gatherings(tab$gatherings)
   tab$obl <- unlist(tab$obl, use.names = FALSE)
-  tab.original <- tab 
+  tab.original <- tab  
 
   tab.final <- tab.original
   colnames(tab.final) <- paste0(colnames(tab.original), ".original")
-  
+
   if (fill) {
     if (verbose) {
       message("Estimating missing entries")
@@ -112,6 +112,7 @@ polish_dimensions <- function (x, fill = TRUE, dimtab = NULL, verbose = FALSE, s
     tab.estimated <- augment_dimension_table(tab.original, dim.info = dimtab, sheet.dim.tab = sheet.dimension.table, verbose = verbose)
 
     tab.final <- cbind(tab.final, tab.estimated)
+
   }
 
   tab.final$original.original <- NULL  
