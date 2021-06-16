@@ -13,8 +13,6 @@
 #'     get_gender(c("armi", "julius"), gendermap)
 #' }
 #' @keywords utilities
-#' @importFrom gender gender
-#' @import genderdata
 get_gender <- function (x, gendermap) {
 
   # polish up

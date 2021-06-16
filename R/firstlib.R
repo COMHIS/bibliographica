@@ -1,5 +1,4 @@
 #' @import babynames
-#' @import genderdata
 #' @importFrom data.table fread
 #' @importFrom data.table rbindlist
 #' @importFrom dplyr arrange

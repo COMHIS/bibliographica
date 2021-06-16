@@ -4,7 +4,7 @@
 \alias{polish_physical_extent}
 \title{Polish physical_extent Field}
 \usage{
-polish_physical_extent(x, verbose = FALSE)
+polish_physical_extent(x, verbose = FALSE, rm.dim.file = NULL)
 }
 \arguments{
 \item{x}{Page number field. Vector or factor of strings.}

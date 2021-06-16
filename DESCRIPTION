@@ -21,7 +21,6 @@ Imports:
     data.table,
     dplyr,
     ggplot2,
-    gender,
     knitr,
     magrittr,
     reshape2,
