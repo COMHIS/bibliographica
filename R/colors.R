@@ -10,7 +10,19 @@
 #' @keywords utilities
 default_colors <- function (x, v=NULL) {
 
-  if (x == "language") {
+  if (x == "catalog") {
+
+    col <- c(
+      FNB = "darkblue",
+      SNB = "darkyellow",
+      ESTC = "darkred",
+      HPB = "darkgreen",
+      STCN = "orange",
+      STCV = "pink",      
+      Other = "gray")
+
+
+  } else if (x == "language") {
     #http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
     #https://www.r-graph-gallery.com/42-colors-names/
     col <- c(
