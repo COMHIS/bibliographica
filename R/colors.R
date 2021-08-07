@@ -14,11 +14,11 @@ default_colors <- function (x, v=NULL) {
 
     col <- c(
       FNB = "darkblue",
-      SNB = "darkyellow",
+      SNB = "gold",
       ESTC = "darkred",
       HPB = "darkgreen",
       STCN = "orange",
-      STCV = "pink",      
+      STCV = "tomato",      
       Other = "gray")
 
 
