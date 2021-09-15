@@ -30,6 +30,7 @@ default_colors <- function (x, v=NULL) {
       Latin = "brown",
       Finnish = "darkblue",
       Swedish = "darkgreen",
+      Scot = "lightblue",      
       German = "black",
       Dutch = "orange",
       #"Greek Ancient to 1453 " = "darkolivegreen4",
