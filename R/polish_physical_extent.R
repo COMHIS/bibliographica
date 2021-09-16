@@ -63,13 +63,14 @@ polish_physical_extent <- function (x, verbose = FALSE, rm.dim.file = NULL) {
     message("In Finnish texts s. is used instead of p.")
   }
 
-  f <- read_sysfile("extdata/translation_fi_en_pages.csv", "fennica")
-  if (verbose) {
-    message(paste("Reading", f))
-  }
-  page.synonyms <- read_mapping(f, sep = ";", mode = "table", fast = TRUE)
-  s <- map(s, page.synonyms, mode="match")
-  rm(page.synonyms)
+  # Broken
+  #f <- read_sysfile("extdata/translation_fi_en_pages.csv", "fennica")
+  #if (verbose) {
+  #  message(paste("Reading", f))
+  #}
+  #page.synonyms <- read_mapping(f, sep = ";", mode = "table", fast = TRUE)
+  #s <- map(s, page.synonyms, mode="match")
+  #rm(page.synonyms)
 
   if (verbose) {
     message("numbers_finnish")
