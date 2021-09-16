@@ -35,6 +35,7 @@ default_colors <- function (x, v=NULL) {
       Dutch = "orange",
       #"Greek Ancient to 1453 " = "darkolivegreen4",
       "Greek Ancient to 1453 " = "bisque3",        
+      "Greek, Ancient (to 1453)" = "bisque3",        
       French = "blue", 
       Undetermined = "lightgray",
       "Multiple languages" = "darkgray", 
