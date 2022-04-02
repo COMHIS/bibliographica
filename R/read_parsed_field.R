@@ -24,8 +24,9 @@ read_parsed_fields <- function(f, field = 300, subfield = "c", n = NULL) {
   }
 
   # ID field (035a: system control number)
-  id <- x %>% filter(Field_code == 35 & Subfield_code == "a") %>%
-              select(Record_seq, Value)
+  #id <- x %>% filter(Field_code == 35 & Subfield_code == "a") %>%
+  #            select(Record_seq, Value)
+  id <- x %>% select(Record_seq, estc_id)
 
   # Data field
   field <- x %>% filter(Field_code == field & Subfield_code == subfield) %>%
@@ -34,9 +35,9 @@ read_parsed_fields <- function(f, field = 300, subfield = "c", n = NULL) {
   # Join
   df <- full_join(id, field, by = "Record_seq")
 
-  names(df) <- c("Record_seq", "system_control_number", nam)  
+  names(df) <- c("Record_seq", "estc_id", nam)  
   df[[nam]] <- as.character(df[[nam]])
-  df$system_control_number <- as.character(df$system_control_number)  
+  df$estc_id <- as.character(df$estc_id) # Was: system_control_number  
 
   df
   
